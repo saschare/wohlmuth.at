@@ -1,0 +1,42 @@
+<form action="<?php echo $this->url(array('paction' => 'listprojects')); ?>" method="post" style="display:inline;">	
+	<div class="toolbar" id="toolbar-track-<?php echo $this->trackid; ?>">
+		<button id="stop-time-<?php echo $this->trackid; ?>" class="type-clock"><?php echo $this->translate('Stop'); ?>: 00:00</button>
+		<button id="start-time-<?php echo $this->trackid; ?>" class="type-clock" style="margin-right:15px;"><?php echo $this->translate('Start time capturing'); ?></button>
+		<button id="edit-track-<?php echo $this->trackid; ?>" class="type-edit"><?php echo $this->translate('Edit track'); ?></button>
+		<button id="finish-track-<?php echo $this->trackid; ?>" class="type-lock" style="margin-right:15px;"><?php echo $this->translate('Finish track'); ?></button>
+		<button id="close-track-<?php echo $this->trackid; ?>" class="type-close"><?php echo $this->translate('Close tab'); ?></button>
+	</div>
+</form>
+		
+<div class="sized-content">	
+	<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
+		<thead>
+			<tr>
+				<th scope="col"><?php echo $this->translate('ID'); ?></th>
+				<th scope="col"><?php echo $this->translate('Start'); ?></th>
+				<th scope="col"><?php echo $this->translate('End'); ?></th>
+				<th scope="col"><?php echo $this->translate('Interval'); ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $counter = 0; foreach ($this->projects as $project) : $counter++; ?>
+				<tr id="project-<?php echo $project->projectid; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
+					<td><?php echo $project->identifier; ?></td>
+					<td><?php echo $project->customer; ?></td>
+					<td><?php echo $project->startdate; ?></td>
+					<td><?php echo $project->enddate; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	$('#toolbar-track-<?php echo $this->trackid; ?> button.type-clock').button({icons: {primary: 'ui-icon-clock'}});
+	$('#toolbar-track-<?php echo $this->trackid; ?> button.type-edit').button({icons: {primary: 'ui-icon-pencil'}});
+	$('#toolbar-track-<?php echo $this->trackid; ?> button.type-close').button({icons: {primary: 'ui-icon-circle-close'}});
+	$('#toolbar-track-<?php echo $this->trackid; ?> button.type-lock').button({icons: {primary: 'ui-icon-locked'}});
+	$('#stop-time-<?php echo $this->trackid; ?>').button('disable');
+});
+</script>

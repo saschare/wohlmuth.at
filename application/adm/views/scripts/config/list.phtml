@@ -1,0 +1,16 @@
+<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
+	<thead>
+		<tr>
+			<th scope="col"><?php echo $this->translate('ID'); ?></th>
+			<th scope="col"><?php echo $this->translate('Identifier'); ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($this->configs as $config) : ?>
+			<tr id="configs-<?php echo $config->configsetid; ?>">
+				<td><?php echo $config->configsetid; ?></td>
+				<td><?php echo $config->identifier; ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>

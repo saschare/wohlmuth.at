@@ -1,0 +1,26 @@
+<form action="<?php echo $this->url(array('paction' => 'listcustomers')); ?>" method="post" style="display:inline;">	
+	<div class="toolbar">
+		<button id="add-new-customer" class="type-new"><?php echo $this->translate('Add new customer'); ?></button>
+		<input type="text" name="filter-customer" value="<?php echo $this->filterterm; ?>" class="button-input ui-button ui-corner-all" />
+		<button id="filter-customer" class="filter-button"><?php echo $this->translate('Filter'); ?></button>
+	</div>
+</form>
+		
+<div class="sized-content">	
+	<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
+		<thead>
+			<tr>
+				<th scope="col"><?php echo $this->translate('ID'); ?></th>
+				<th scope="col"><?php echo $this->translate('Identifier'); ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $counter = 0; foreach ($this->customers as $customer) : $counter++; ?>
+				<tr id="customer-<?php echo $customer->customerid; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
+					<td><?php echo $customer->customerid; ?></td>
+					<td><?php echo $customer->identifier; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>

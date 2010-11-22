@@ -1,0 +1,106 @@
+<div id="tracking-tabs" class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-track"><?php echo $this->translate('Current tracks'); ?></a>
+		</li>
+		<li>
+			<a href="#tab-project"><?php echo $this->translate('Projects'); ?></a>
+		</li>
+		<li>
+			<a href="#tab-customer"><?php echo $this->translate('Customers'); ?></a>
+		</li>
+		<li>
+			<a href="#tab-trackingtype"><?php echo $this->translate('Tracking types'); ?></a>
+		</li>
+		<li>
+			<a href="#tab-report"><?php echo $this->translate('Reports'); ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-track">
+		<div class="tab-content">
+			<?php echo $this->partial('tracklist.phtml', array('tracks' => $this->tracks)); ?>
+		</div>
+	</div>
+	
+	<div id="tab-project">
+		<div class="tab-content">
+			<?php echo $this->partial('projectlist.phtml', array('projects' => $this->projects)); ?>
+		</div>
+	</div>
+	
+	<div id="tab-customer">
+		<div class="tab-content">
+			<?php echo $this->partial('customerlist.phtml', array('customers' => $this->customers)); ?>
+		</div>
+	</div>
+	
+	<div id="tab-trackingtype">
+		<div class="tab-content">
+			<?php echo $this->partial('trackingtypelist.phtml', array('trackingtypes' => $this->trackingtypes)); ?>
+		</div>
+	</div>
+	
+	<div id="tab-report">
+		<div class="tab-content">
+			reports
+		</div>
+	</div>
+	
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+
+	$('#add-new-track').live('click', function() {
+		$('#tab-track .tab-content').load('<?php echo $this->url(array('paction' => 'newtrack')); ?>');
+		return false;
+	});	
+	
+	$('#add-new-customer').live('click', function() {
+		$('#tab-customer .tab-content').load('<?php echo $this->url(array('paction' => 'newcustomer')); ?>');
+		return false;
+	});	
+	
+	$('#add-new-trackingtype').live('click', function() {
+		$('#tab-trackingtype .tab-content').load('<?php echo $this->url(array('paction' => 'newtrackingtype')); ?>');
+	});	
+	
+	$('#add-new-project').live('click', function() {
+		$('#tab-project .tab-content').load('<?php echo $this->url(array('paction' => 'newproject')); ?>');
+		return false;
+	});
+	
+	$(document).bind('listload', function(event, area, data) {
+		if (data != null) {
+			$(area).html(data)
+		}
+		$(document).trigger('refreshButtons');
+     	$(document).trigger('contextmenu');
+     	$(document).trigger('formload');
+	});
+	
+	$('#tracklist tbody tr').live('click', function() {
+		var id = 'tab-running-' + $(this).attr('id');
+		if ($('#' + id).length == 0) {
+			var title = $(this).find('td.track-title').html();
+			$('#tracking-tabs').tabs({
+				tabTemplate: '<li><a href="#{href}">#{label}</a> <span class="ui-icon ui-icon-close">Remove Tab</span></li>'
+			}).tabs('add', '#' + id, title + "", 0).tabs('select', 0);
+			$('#' + id).html('<div class="tab-content"></div>');
+			$('.tab-content').relativeSize(window, null, '-200');
+			$('#' + id + ' .tab-content').load('<?php echo $this->url(array('paction' => 'showtrack')); ?>', 
+				{id: $(this).attr('id')}
+			);
+		} else {
+			$('#tracking-tabs').tabs('select', '#' + id);
+		}
+	});
+	
+	$('#tracking-tabs span.ui-icon-close').live('click', function() {
+		var index = $('li',$('#tracking-tabs')).index($(this).parent());
+		$('#tracking-tabs').tabs('remove', index);
+	});
+
+});
+<?php $this->inlineScript()->captureEnd(); ?>

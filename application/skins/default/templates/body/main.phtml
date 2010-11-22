@@ -1,0 +1,63 @@
+<!-- begin: #col1 - first float column -->
+<div id="col1" role="main">
+	<div id="col1_content" class="clearfix">
+		<script type="application/x-aitsu" src="HTML:Main1"></script>
+		<script type="application/x-aitsu" src="Template:Col1Content">
+			defaultTemplate = none
+
+			template.none.name = none
+			template.none.file = templates/body/subcolumns/none.phtml
+
+			template.100.name = Subcolumn 100%
+			template.100.file = templates/body/subcolumns/100.phtml
+
+			template.25_75.name = Subcolumns 25% | 75%
+			template.25_75.file = templates/body/subcolumns/25_75.phtml
+
+			template.33_33_33.name = Subcolumns 33% | 33% | 33%
+			template.33_33_33.file = templates/body/subcolumns/33_33_33.phtml
+
+			template.33_66.name = Subcolumns 33% | 66%
+			template.33_66.file = templates/body/subcolumns/33_66.phtml
+
+			template.50_50.name = Subcolumns 50% | 50%
+			template.50_50.file = templates/body/subcolumns/50_50.phtml
+
+			template.66_33.name = Subcolumns 66% | 33%
+			template.66_33.file = templates/body/subcolumns/66_33.phtml
+
+			template.75_25.name = Subcolumns 75% | 25%
+			template.75_25.file = templates/body/subcolumns/75_25.phtml
+		</script>
+	</div>
+</div>
+<!-- end: #col1 -->
+
+<!-- begin: #col3 static column -->
+<div id="col3" role="complementary">
+	<div id="col3_content" class="clearfix">
+		<script type="application/x-aitsu" src="Navigation:Sidebar">
+			idcat = 31
+			template = sidebar
+		</script>
+
+		<script type="application/x-aitsu" src="Template:Col3Content">
+			defaultTemplate = 100
+
+			template.none.name = none
+			template.none.file = templates/body/subcolumns/none.phtml
+
+			template.50_50.name = Subcolumns 50% | 50%
+			template.50_50.file = templates/body/subcolumns/50_50.phtml
+
+			template.100.name = Subcolumn 100%
+			template.100.file = templates/body/subcolumns/100.phtml
+
+			template.contact.name = Contact form
+			template.contact.file = templates/body/form/contact.phtml
+		</script>
+	</div>
+	<div id="ie_clearing">&nbsp;</div>
+	<!-- End: IE Column Clearing -->
+</div>
+<!-- end: #col3 -->

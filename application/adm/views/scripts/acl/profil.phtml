@@ -1,0 +1,36 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-profile"><?php echo $this->translate('User profile'); ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-profile" class="tab">
+		<div class="tab-content">
+			<div class="toolbar ui-corner-bottom">
+				<button id="save" class="confirm" title="<?php echo $this->translate('save'); ?>"><?php echo $this->translate('save'); ?></button>
+			</div>
+			<div class="sized-content">
+				<?php echo $this->partial('acl/profilform.phtml', array('form' => $this->form)); ?>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+	
+	$('button#save').button({icons: {primary: 'ui-icon-circle-check'}, text:false});
+	$('button#save').click(function() {
+		$(this).parents('.tab-content').find('form button[type=submit]').trigger('click');
+	});
+
+	$(document).bind('listload', function(event, area, data) {
+		if (data != null) {
+			$(area).html(data)
+		}
+     	$(document).trigger('formload');
+	});
+	
+});
+<?php $this->inlineScript()->captureEnd(); ?>

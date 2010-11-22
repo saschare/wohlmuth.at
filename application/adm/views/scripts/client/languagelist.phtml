@@ -1,0 +1,26 @@
+<div class="toolbar ui-corner-bottom">
+	<button id="add-new-language" class="type-new confirm" title="<?php echo $this->translate('Add new language'); ?>"><?php echo $this->translate('Add new language'); ?></button>
+</div>
+		
+<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
+	<thead>
+		<tr>
+			<th scope="col"><?php echo $this->translate('ID'); ?></th>
+			<th scope="col"><?php echo $this->translate('Name'); ?></th>
+			<th scope="col"><?php echo $this->translate('Client'); ?></th>
+			<th scope="col"><?php echo $this->translate('Locale'); ?></th>
+			<th scope="col"><?php echo $this->translate('Encoding'); ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php $counter = 0; foreach ($this->languages as $lang) : $counter++; ?>
+			<tr id="language-<?php echo $lang->idlang; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
+				<td><?php echo $lang->idlang; ?></td>
+				<td><?php echo $lang->name; ?></td>
+				<td><?php echo $lang->client; ?></td>
+				<td><?php echo $lang->locale; ?></td>
+				<td><?php echo $lang->encoding; ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>

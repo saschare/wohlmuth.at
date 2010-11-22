@@ -1,0 +1,33 @@
+<div id="category-accordion">
+	<div class="accordion">
+		<h3><a href="#"><?php echo $this->translate('Synchronisation language'); ?></a></h3>
+		<div>
+			<?php if (count($this->langs) > 1) : ?>
+			<form id="sync-lang-form">
+				<div style="margin-bottom:5px;">
+					<input type="radio" name="sync-lang" value="" checked="checked" id="sync-lang-0">
+					<label for="sync-lang-0"><?php echo $this->translate('No synchronization'); ?></label>
+				</div>
+				<?php foreach ($this->langs as $lang) : ?>
+					<?php if ($lang->idlang != Aitsu_Registry :: get()->session->currentLanguage) : ?>
+						<div style="margin-bottom:5px;">
+							<input type="radio" name="sync-lang" value="<?php echo $lang->idlang; ?>" id="sync-lang-<?php echo $lang->idlang; ?>">
+							<label for="sync-lang-<?php echo $lang->idlang; ?>"><?php echo $lang->name; ?> [<?php echo $lang->idlang; ?>]</label>
+						</div>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</form>
+			<?php else : ?>
+				<?php echo $this->translate('There is only one language availabe. Therefore there is no language availabe to synchronize from.'); ?>
+			<?php endif; ?>
+		</div>		
+	</div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+
+	$('#category-accordion').relativeSize(window, null, '-106');
+	
+});
+<?php $this->inlineScript()->captureEnd(); ?>

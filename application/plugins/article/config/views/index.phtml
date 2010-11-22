@@ -1,0 +1,36 @@
+<div class="toolbar ui-corner-bottom">
+	<button id="save-<?php echo $this->pluginId; ?>" class="confirm" title="<?php echo $this->translate('save'); ?>"><?php echo $this->translate('save'); ?></button>
+</div>
+
+<div class="sized-content">
+	<?php echo $this->form; ?>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	
+	$('button#save-<?php echo $this->pluginId; ?>').button({icons: {primary: 'ui-icon-circle-check'}, text:false});
+	$('button#save-<?php echo $this->pluginId; ?>').click(function() {
+		$(this).parents('.tab-content').find('form button[type=submit]').trigger('click');
+	});
+
+    $('#content-<?php echo $this->pluginId; ?> button.save').button({icons: {primary: 'ui-icon-circle-check'}});
+
+    $('#content-<?php echo $this->pluginId; ?> button#submit').bind('click', function() {
+        var form = $(this).closest('form');
+        $.post("<?php echo $this->url(array('plugin' => 'config', 'paction' => 'index'), 'aplugin'); ?>", form.serialize(), function(data) {
+            if (data.status == 'validationfailure') {
+                $("#content-<?php echo $this->pluginId; ?>").html(data.message);
+            } else if (data.status == 'success') {
+                $('#status').html(data.message);
+                $("#content-<?php echo $this->pluginId; ?>").html(data.html);
+                $(document).trigger('edit-article', ['idart-<?php echo $this->id; ?>']);
+            } else {
+                $('#status').html(data.message);
+            }
+        });
+        return false;
+    });
+
+});
+</script>

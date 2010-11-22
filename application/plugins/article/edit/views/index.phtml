@@ -1,0 +1,107 @@
+<div class="toolbar ui-corner-bottom">
+	<button id="refresh-edit-iframe" class="type-refresh" title="<?php echo $this->translate('Refresh'); ?>"><?php echo $this->translate('Refresh'); ?></button>
+	<button id="edit-fullview" title="<?php echo $this->translate('Full view'); ?>"><?php echo $this->translate('Full view'); ?></button>
+	<button id="toggle-sub-templates" title="<?php echo $this->translate('Show/Hide subtemplates'); ?>"><?php echo $this->translate('Show/Hide subtemplates'); ?></button>
+</div>
+
+<iframe src="/adm/edit/<?php echo $this->idartlang; ?>" width="100%" frameborder="0" style="border:none;" id="iframe-<?php echo $this->pluginId; ?>" class="edit-iframe"></iframe>
+<script type="text/javascript">
+$(function() {
+	
+	$('#content-<?php echo $this->pluginId; ?> iframe').relativeSize(window, null, '-208');
+	
+	$('#refresh-edit-iframe').button({icons: {primary: 'ui-icon-refresh'}, text: false});
+	$('#refresh-edit-iframe').click(function() {
+		$(document).trigger('refresh-edit-iframe')
+	});
+	
+	$('#edit-fullview').button({icons: {primary: 'ui-icon-arrow-4-diag'}, text: false});
+	$('#edit-fullview').click(function() {
+		var iframe = $('#iframe-<?php echo $this->pluginId; ?>');
+		iframe.data('height', iframe.height());
+		iframe.relativeSize(window, null, '-51');
+		iframe.css({
+			'position': 'fixed',
+			'top': '0',
+			'left': '0',
+			'z-index': '11'
+		});
+		$('body').append('<button id="edit-normalview" class="remove-in-normalview" title="<?php echo $this->translate('Return to normal view'); ?>">&nbsp;</button>');
+		$('#edit-normalview')
+			.css({
+				'position': 'fixed',
+				'top': '10px',
+				'left': ($(window).width() - 60) + 'px',
+				'z-index': '1000'
+			})
+			.button({
+				icons: {primary: 'ui-icon-circle-close'}, 
+				text: false
+			})
+			.click(function() {
+				iframe.css({
+					'position': 'static',
+					'z-index': '1',
+					'height': iframe.data('height')
+				});
+				$('button.remove-in-normalview').remove();
+			});
+		$('body').append('<button id="small-refresh-edit-iframe" class="remove-in-normalview" title="<?php echo $this->translate('Refresh'); ?>">&nbsp;</button>');
+		$('#small-refresh-edit-iframe')
+			.css({
+				'position': 'fixed',
+				'top': '50px',
+				'left': ($(window).width() - 60) + 'px',
+				'z-index': '1000'
+			})
+			.button({
+				icons: {primary: 'ui-icon-refresh'}, 
+				text: false
+			})
+			.click(function() {
+				$(document).trigger('refresh-edit-iframe');
+			});
+		$('body').append('<button id="small-toogle-sub-templates" class="remove-in-normalview" title="<?php echo $this->translate('Show/Hide sub-templates'); ?>">&nbsp;</button>');
+		$('#small-toogle-sub-templates')
+			.css({
+				'position': 'fixed',
+				'top': '90px',
+				'left': ($(window).width() - 60) + 'px',
+				'z-index': '1000'
+			})
+			.button({
+				icons: {primary: 'ui-icon-script'}, 
+				text: false
+			})
+			.click(function() {
+				$(document).trigger('toogle-sub-templates');
+			});
+	});
+	
+	$('#toggle-sub-templates').button({icons: {primary: 'ui-icon-script'}, text: false});
+	$('#toggle-sub-templates').click(function() {
+		$(document).trigger('toogle-sub-templates');
+	});
+
+	$(document).bind('article-properties-changed', function() {
+		$(document).trigger('refresh-edit-iframe');
+	});
+	
+	$(document).bind('refresh-edit-iframe', function() {
+		$('edit-iframe').attr({src: $(this).attr("src")});
+		jQuery.each($(".edit-iframe"), function() {$(this).attr({
+				src: $(this).attr("src")
+			});
+		});		
+	});
+	
+	$('#iframe-<?php echo $this->pluginId; ?>').load(function() {
+		$(document).trigger('edit-page-content', [$(this)]);
+	});
+	
+	$(document).bind('edit-page-content-rebind', function() {
+		$(document).trigger('edit-page-content', [$('#iframe-<?php echo $this->pluginId; ?>')]);
+	});
+	
+});
+</script>

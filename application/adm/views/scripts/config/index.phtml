@@ -1,0 +1,43 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-configs"><?php echo $this->translate('Configuration sets'); ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-configs">
+		<div class="tab-content">
+			<?php echo $this->partial('config/overview.phtml', array('configs' => $this->configs)); ?>
+		</div>
+	</div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+	
+	$(document).bind('ajaxComplete', function() {
+		$(document).trigger('tab-loaded');
+	});
+	
+	$(document).bind('tab-loaded', function() {
+		$('button#add-new-config').button({icons: {primary: 'ui-icon-circle-plus'}, text:false});
+		$(document).trigger('refreshButtons');
+		$('#add-new-config').live('click', function() {
+			$('#tab-configs div.tab-content').load('<?php echo $this->url(array('action' => 'new')); ?>');
+			return false;
+		});	
+	});
+	
+	$(document).trigger('tab-loaded');
+	
+	$(document).bind('listload', function(event, area, data) {
+		if (data != null) {
+			$(area).html(data)
+		}
+     	$(document).trigger('refreshButtons');
+     	$(document).trigger('contextmenu');
+     	$(document).trigger('formload');
+	});
+		
+});	
+<?php $this->inlineScript()->captureEnd(); ?>

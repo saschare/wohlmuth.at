@@ -1,0 +1,2 @@
+Logs
+Shows the current error and debug log.

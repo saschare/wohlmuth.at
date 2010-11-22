@@ -1,0 +1,26 @@
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+RewriteBase /
+
+RewriteRule ^adm/.*\.(jpg|jpeg|gif|css|swf|png|js|xml|pdf|ico|htc|eot|svg|ttf|woff).*$ - [L]
+RewriteRule ^adm/edit/(.*)$ index.php?edit=1&id=$1 [QSA,L]
+RewriteRule ^adm/(.*)$ adm/index.php?$1 [QSA,L]
+
+RewriteRule ^image/(.*) index.php?imageurl=$1 [QSA,L]
+RewriteRule ^file/download/(.*) index.php?fileurl=$1 [QSA,L]
+RewriteRule ^file/(.*) index.php?&fileurl=$1&inline=1 [QSA,L]
+RewriteRule ^.*/(.*)\.minime.css index.php?minify=$1&type=css [QSA,L]
+RewriteRule ^.*/(.*)\.minime.js index.php?minify=$1&type=js [QSA,L]
+RewriteRule ^skin/(.*) index.php?skinsource=$1 [QSA,L]
+
+RewriteRule ^.*\.(php|jpg|jpeg|gif|css|swf|doc|txt|xls|png|js|xml|pdf|ico).*$ - [L]
+
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+</IfModule>
+
+# if problems occure - i.e. with file uploads - uncomment the next line
+#php_value suhosin.session.cryptua  0

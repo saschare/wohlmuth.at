@@ -1,0 +1,69 @@
+<div class="toolbar ui-corner-bottom">
+	<button id="top-cancel" class="deny" title="<?php echo $this->translate('cancel'); ?>"><?php echo $this->translate('cancel'); ?></button>
+	<button id="top-save" class="confirm" title="<?php echo $this->translate('save'); ?>"><?php echo $this->translate('save'); ?></button>
+</div>
+
+<div class="sized-content">
+	<?php echo $this->form; ?>
+</div>
+
+<?php $id = uniqid(); ?>
+
+<script type="text/javascript">
+$(function() {
+	
+	$('#top-cancel').button({icons: {primary: 'ui-icon-circle-close'}, text:false});
+	$('#top-cancel').click(function() {
+		$(this).parents('.tab-content').find('button#cancel').trigger('click');
+	});
+
+	$('#top-save').button({icons: {primary: 'ui-icon-circle-check'}, text:false});
+	$('#top-save').click(function() {
+		$(this).parents('.tab-content').find('form button[type=submit]').trigger('click');
+	});
+
+	$('form#resource div.catTree')<?php if ($this->targetId != null) : ?>.bind("loaded.jstree", function (event, data) {
+        $('form#resource div.catTree').openNode([<?php echo $this->openCats; ?>], 0, '<?php echo $id; ?>-cat-', '<?php echo $id; ?>-<?php echo $this->targetId; ?>');
+    })<?php endif; ?>.jstree({
+		"core" : {
+			"animation" : 200
+		},
+		"themes" : {
+            "theme" : "aitsu",
+            "dots" : false,
+            "icons" : true
+        },
+        "json_data" : {
+            "ajax" : {
+                "url" : "<?php echo $this->url(array('controller' => 'data', 'action' => 'treecontent', 'idprefix' => $id . '-'), 'default'); ?>",
+                "data" : function (n) {
+                    return { id : n.attr ? n.attr("id") : 0 };
+                },
+                "progressive_render" : true
+            }
+        },
+        "plugins" : [ "themes", "json_data", "ui" ]
+    });
+    
+    $('form#resource div.catTree li:not(.article) > a').die('click');
+    $('form#resource div.catTree li:not(.article) > a').live('click', function() {
+    	var regex = /-(\d*)$/;
+    	regex.exec($(this).parent('li').attr('id'));
+    	var id = RegExp.$1;
+    	$(this).parents('form').find('input:radio[name="resourcetype"][value="cat"]').attr('checked', true);
+    	$(this).parents('form').find('input[name="identifier"]').val(id);
+    	return false;
+    });
+	
+    $('form#resource div.catTree li.article > a').die('click');
+    $('form#resource div.catTree li.article > a').live('click', function() {
+    	var regex = /-(\d*)$/;
+    	regex.exec($(this).parent('li').attr('id'));
+    	var id = RegExp.$1;
+    	$(this).parents('form').find('input:radio[name="resourcetype"][value="art"]').attr('checked', true);
+    	$(this).parents('form').find('input[name="identifier"]').val(id);
+    	return false;
+    });
+	
+});
+</script>

@@ -1,0 +1,26 @@
+<?php if ($this->showForm) : ?>
+	<form action="front_content.php?idart=<?php echo Aitsu_Registry :: get()->env->idart; ?>&<?php echo $this->keyword; ?>=1" method="post">
+		
+		<input type="hidden" name="level" value="1" />
+		
+		<div class="type-text">
+			<label for="name">Name</label>
+			<input type="text" name="name" id="name" size="20" />
+		</div>
+		<div class="type-text">
+			<label for="email">Email</label>
+			<input type="text" name="email" id="email" size="20" />
+		</div>
+		<div class="type-text">
+			<label for="comment-comment">Kommentar</label>
+			<textarea name="comment" id="comment" cols="30" rows="7"></textarea>
+		</div>
+			
+		<input type="submit" value="submit" id="submit" name="submit" />
+		
+	</form>
+<?php else : ?>
+	<a href="front_content.php?idart=<?php echo Aitsu_Registry :: get()->env->idart; ?>&<?php echo $this->keyword; ?>=1">
+		<!-- comment/contact -->
+	</a>
+<?php endif; ?>

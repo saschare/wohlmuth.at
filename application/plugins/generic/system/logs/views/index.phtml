@@ -1,0 +1,53 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-logs"><?php echo $this->translate('logs'); ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-logs">
+		<div class="tab-content">
+		
+			<div class="toolbar ui-corner-bottom">
+				<button id="referesh-logs" class="type-refresh" title="<?php echo $this->translate('Referesh'); ?>"><?php echo $this->translate('Referesh'); ?></button>
+				<button id="delete-logs" class="type-delete deny" title="<?php echo $this->translate('Delete current log'); ?>"><?php echo $this->translate('Delete current log'); ?></button>
+			</div>	
+
+			<div id="console-window" class="sized-content">
+				<div id="console-window-content"></div>
+			</div>
+
+		</div>
+	</div>
+	
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+	
+	$('#console-window').scrollTop($('#console-window-content').height());
+	
+	$('#delete-logs').bind('click', function() {
+		$.post("<?php echo $this->url(array('area' => 'system', 'plugin' => 'logs', 'paction' => 'delete'), 'plugin'); ?>", 
+   			function(data){
+   				$('#console-window-content').html('');
+   		}, 'html');
+	});
+	
+	$('#referesh-logs').bind('click', function() {
+		$(document).trigger('refreshConsole');
+	});
+	
+	$(document).bind('refreshConsole', function() {
+		$.post("<?php echo $this->url(array('area' => 'system', 'plugin' => 'logs', 'paction' => 'refresh'), 'plugin'); ?>", 
+   			function(data){
+   				$('#console-window-content').html(data);
+   				$('#console-window').scrollTop($('#console-window-content').height());
+   		}, 'html');
+	});
+	
+	$(document).trigger('refreshConsole');
+	
+	setInterval("$(document).trigger('refreshConsole')", 15000);
+});
+<?php $this->inlineScript()->captureEnd(); ?>

@@ -1,0 +1,70 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-category" id="skin-file"><?php echo $this->translate('Edit skin files'); ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-category">
+		<div class="tab-content">
+		
+			<div class="toolbar ui-corner-bottom">
+				<button id="skin-file-save" class="type-save confirm" title="<?php echo $this->translate('save'); ?>"><?php echo $this->translate('save'); ?></button>
+				<button id="skin-file-reindent" class="type-reindent" title="<?php echo $this->translate('reindent'); ?>"><?php echo $this->translate('reindent'); ?></button>
+			</div>		
+		
+			<div class="sized-content">
+				<form>
+					<div style="border:1px solid black; padding:5px;">
+						<textarea id="skin-edit-area"></textarea>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+		
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+
+	var editor = CodeMirror.fromTextArea("skin-edit-area", {
+	  parserfile: ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js", "parsehtmlmixed.js"],
+	  path: "/adm/js/codeMirror/js/",
+	  stylesheet: ["/adm/js/codeMirror/css/xmlcolors.css", "/adm/js/codeMirror/css/jscolors.css", "/adm/js/codeMirror/css/csscolors.css"],
+	  lineNumbers: true,
+	  textWrapping: false,
+	  height: ($(window).height() - 230) + 'px'
+	});
+	$(document).data('editor', editor);
+
+	$('li.file').live('click', function() {
+		$.post("<?php echo $this->url(array('area' => 'layout', 'plugin' => 'skin', 'paction' => 'load'), 'plugin'); ?>", { id: $(this).attr('id') },
+   			function(data){
+     			$(document).data('editor').setCode(data.content);
+     			$(document).data('editor').setParser(data.parser);
+     			$(document).data('id', data.id);
+     			$('#skin-file').html(data.title);
+     			if (data.isWritable == 0) {
+     				$('#skin-file-save').button("disable");
+     			} else {
+     				$('#skin-file-save').button("enable");
+     			}
+   		});
+	});
+	
+	$('#skin-file-reindent').live('click', function() {
+		$(document).data('editor').reindent();
+	});
+	
+	$('#skin-file-save').live('click', function() {
+		if ($(this).button( "option", "disabled")) {
+			return false;
+		}
+		$.post("<?php echo $this->url(array('area' => 'layout', 'plugin' => 'skin', 'paction' => 'save'), 'plugin'); ?>", { id: $(document).data('id'), content: $(document).data('editor').getCode() },
+   			function(data){
+     			$('#status').html(data.status);
+   		});		
+	});
+});
+<?php $this->inlineScript()->captureEnd(); ?>

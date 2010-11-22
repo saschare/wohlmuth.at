@@ -1,0 +1,9 @@
+<ul class="vlist">
+	<?php foreach ($this->nav->children as $nav) : ?>
+		<?php if ($nav->isvisible) : ?>	
+			<li<?php if($nav->iscurrent) : ?> class="active"<?php endif; ?>>
+				<a<?php if($nav->iscurrent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $nav->idcat; ?>}"><?php echo $nav->name; ?></a>
+			</li>
+		<?php endif; ?>
+	<?php endforeach; ?>
+</ul>

@@ -1,0 +1,47 @@
+<?php if (isset(Aitsu_Registry :: get()->session->sessionPeriod)) : ?>
+	/* Session refresh */
+	
+	<?php $sessionPeriod = Aitsu_Registry :: get()->session->sessionPeriod > 300 ? Aitsu_Registry :: get()->session->sessionPeriod : 300; ?>
+	
+	$(document).keypress(function() {
+		$(document).data('lastAction', new Date());
+	});
+	$(document).mousemove(function() {
+		$(document).data('lastAction', new Date());
+	});
+	$(document).trigger('keypress');
+	$(document).bind('refreshSession', function() {
+		if ($(document).data('lastAction').getTime() > (new Date()).getTime() - <?php echo $sessionPeriod * 1000; ?>) {
+			$.post("<?php echo $this->url(array('controller' => 'acl', 'action' => 'refreshsession'), 'default'); ?>", 
+				function(data){
+					setTimeout("$(document).trigger('refreshSession')", 300000);
+					if (data == null) {
+						$('#session-status').css('color', 'red');
+						$('#session-status').html('<?php echo $this->translate('Attention: temporarily lost connection. The session is not refreshed. Store unsaved changes into clipboard.'); ?>');
+					} else {
+						$('#session-status').css('color', '#CCC');
+						$('#session-status').html('<?php echo $this->translate('Session refreshed @ '); ?> ' + data.time);
+					}
+			}, 'json');
+		}
+	});
+	$(document).trigger('refreshSession');
+	$(document).bind('sessionCountDown', function() {
+		var delta = ((new Date()).getTime() - $(document).data('lastAction').getTime()) / 1000;
+		delta = <?php echo $sessionPeriod; ?> - delta;
+		if (delta <= 0) {
+			window.location = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
+		} else if (delta <= 400) {
+			$('#session-status').css('color', 'red');
+			$('#session-status').html('<?php echo $this->translate('Attention: the session will be closed in '); ?> ' + delta.toFixed(0) + ' <?php echo $this->translate('seconds'); ?>');
+			$(document).data('countDown', 1);
+		} else if ($(document).data('countDown') == 1) {
+			$('#session-status').html('');
+			$('#session-status').css('color', '#CCC');
+			$(document).data('countDown', 0);
+		}
+		setTimeout("$(document).trigger('sessionCountDown')", 1000);
+	});
+	$(document).trigger('sessionCountDown');
+	/* End: Session refresh */
+<?php endif; ?>

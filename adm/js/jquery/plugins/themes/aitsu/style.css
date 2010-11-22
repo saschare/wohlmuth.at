@@ -1,0 +1,213 @@
+/* BACKGROUND */
+.tree-aitsu .ltr, .tree-aitsu .rtl {
+    background:url("bg.jpg") left top repeat;
+    min-width:940px;
+    /*width:98%;*/
+    margin-left:0;
+    margin-right:0;
+    display:table;
+}
+.tree-aitsu .ltr > li.leaf, .tree-aitsu .rtl > li.leaf {
+    background-image:none;
+     
+}
+/* LOCKED */
+.tree-aitsu .locked li a {
+    color:gray;
+     
+}
+/* DOTS */
+.tree-aitsu ul {
+    background-position:6px 1px;
+    background-repeat:repeat-y;
+    background-image:url(data:image/gif;
+    base64,R0lGODlhAgACAIAAAB4dGf///yH5BAEAAAEALAAAAAACAAIAAAICRF4AOw==);
+    _background-image:url("dot_for_ie.gif");
+    *background-image:url("dot_for_ie.gif");
+     
+}
+.tree-aitsu li {
+    background-position:-64px -16px;
+    background-repeat:no-repeat;
+    background-image:url("icons.png");
+     
+}
+/* NO DOTS */
+.tree-aitsu .no_dots, .tree-aitsu .no_dots ul {
+    background:transparent;
+     
+}
+.tree-aitsu .no_dots li.leaf {
+    background-image:none;
+    background-color:transparent;
+     
+}
+/* OPEN or CLOSED */
+.tree-aitsu li.open {
+    background:url("icons.png") -32px -48px no-repeat;
+     
+}
+.tree-aitsu li.closed, #jstree-dragged.tree-aitsu li li.open {
+    background:url("icons.png") -48px -32px no-repeat;
+     
+}
+#jstree-marker {
+    background-image:url("icons.png");
+     
+}
+/* DEFAULT, HOVER, CLICKED, LOADING STATES */
+.tree-aitsu li a {
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+     
+}
+.tree-aitsu li a:hover, .tree-aitsu li a.hover {
+    background: #F9FBDD;
+    border:1px solid #EFEFEF;
+    padding:0px 3px 0px 3px;
+}
+.tree-aitsu li a.clicked, .tree-aitsu li a.clicked:hover {
+    background: #ECF1B2;
+    border:1px solid #EFEFEF;
+    padding:0 3px 0 3px;
+}
+/* ICONS */
+.tree-aitsu ins {
+    background-image:url("icons.png");
+    background-position:0 0;
+    background-repeat:no-repeat;
+     
+}
+.tree-aitsu ul li a.loading ins {
+    background-image:url("throbber.gif") !important;
+    background-position:0 0 !important;
+     
+}
+/* UL is added to make selector stronger */
+.tree-aitsu li a ins.forbidden {
+    background-position:-16px -16px;
+     
+}
+.tree-aitsu .locked li a ins {
+    background-position:0 -48px;
+     
+}
+.tree-aitsu li span ins {
+    background-position:-16px 0;
+     
+}
+#jstree-dragged.tree-aitsu ins {
+    background:url("icons.png") -16px -32px no-repeat;
+     
+}
+#jstree-dragged.tree-aitsu ins.forbidden {
+    background:url("icons.png") -16px -16px no-repeat;
+     
+}
+/* CONTEXT MENU */
+.tree-aitsu-context a ins {
+    background-image:url("icons.png");
+    background-repeat:no-repeat;
+    background-position:-64px -64px;
+     
+}
+.tree-aitsu-context a ins.create {
+    background-position:0 -16px;
+     
+}
+.tree-aitsu-context a ins.rename {
+    background-position:-16px 0px;
+     
+}
+.tree-aitsu-context a ins.remove {
+    background-position:0 -32px;
+     
+}
+/* CUSTOM */
+* {
+    font-size:11px;
+    font-family:Verdana,Arial,Helvetica,Sans-Serif;
+}
+li,a,span,ins {
+    vertical-align:top;
+}
+span {
+    background:none;
+    border:none;
+}
+.aitsu_cat_col1,.aitsu_cat_col2,.aitsu_cat_col3,.aitsu_cat_col4 {
+    width:250px;
+    /*width:100%;*/
+    display:inline-block;
+    overflow:hidden;
+    margin:0 5px 0 0;
+}
+/*
+.aitsu_cat_col2{position:relative;left:40%;margin-top:-20px;}
+.aitsu_cat_col3{position:relative;left:80%;margin-top:-20px;}
+.aitsu_cat_col4{position:relative;left:88%;margin-top:-20px;}
+*/
+
+li .aitsu_cat_col1 {
+    width:310px;
+}
+li li .aitsu_cat_col1 {
+    width:290px;
+}
+li li li .aitsu_cat_col1 {
+    width:270px;
+}
+li li li li .aitsu_cat_col1 {
+    width:250px;
+}
+li li li li li .aitsu_cat_col1 {
+    width:230px;
+}
+li li li li li li .aitsu_cat_col1 {
+    width:210px;
+}
+li li li li li li li .aitsu_cat_col1 {
+    width:190px;
+}
+li li li li li li li li .aitsu_cat_col1 {
+    width:170px;
+}
+li li li li li li li li li .aitsu_cat_col1 {
+    width:150px;
+}
+li li li li li li li li li li .aitsu_cat_col1 {
+    width:130px;
+}
+li li li li li li li li li li li .aitsu_cat_col1 {
+    width:110px;
+}
+li li li li li li li li li li li li .aitsu_cat_col1 {
+    width:90px;
+}
+li li li li li li li li li li li li li .aitsu_cat_col1 {
+    width:70px;
+}
+.aitsu_cat_col3 {
+    width:180px;
+    margin:0;
+}
+.aitsu_cat_col4 {
+    width:140px;
+    margin:0;
+}
+
+
+.tree-aitsu li a ins.locked-cat {
+    background-position:-32px -16px;
+}
+.tree-aitsu li a ins.offline-cat {
+    background-position:0 -48px;
+}
+.tree-aitsu li a ins.locked-offline-cat {
+    background-position:-32px -32px;
+}
+.tree-aitsu li a ins.unsynced-cat {
+    background-position:-16px -48px;
+}
+

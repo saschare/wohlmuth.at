@@ -1,0 +1,280 @@
+<?php
+
+
+/**
+ * Aitsu database abstraction.
+ * 
+ * @author Andreas Kummer, w3concepts AG
+ * @copyright Copyright &copy; 2010, w3concepts AG
+ * 
+ * {@id $Id: Db.php 18800 2010-09-16 21:03:42Z akm $}
+ */
+
+class Aitsu_Db {
+
+	protected $db;
+	protected $prefix;
+	protected $rowCount;
+	protected $_publishMap = null;
+
+	/**
+	 * Constructor.
+	 */
+	protected function __construct() {
+
+		$this->_initializeDbConnection();
+
+		$this->db = Aitsu_Registry :: get()->db;
+		$this->prefix = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$this->prefix = $this->prefix == null ? '' : $this->prefix;
+	}
+
+	protected function _initializeDbConnection() {
+
+		$db = Zend_Db :: factory(Aitsu_Registry :: get()->config->database);
+		Aitsu_Registry :: get()->db = $db;
+	}
+
+	/**
+	 * Singleton.
+	 */
+	public static function getInstance() {
+
+		static $instance;
+
+		if (!isset ($instance)) {
+			$instance = new self();
+		}
+
+		return $instance;
+	}
+
+	/**
+	 * Redirects the query to the zend API.
+	 * @param String Method to be used.
+	 * @param String Query to be used.
+	 * @param Array Values to be used within the query.
+	 * @param Boolean Whether or not to suppress the table prefix replacement.
+	 * @return Mixed Returns whatever zend API is returning.
+	 */
+	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery) {
+
+		if (strlen(trim($query)) == 0) {
+			return false;
+		}
+
+		$returnValue = null;
+
+		$fQuery = $suppressTablePrefix ? $query : $this->prefix($query);
+
+		$profileId = substr($fQuery, 0, 50);
+		Aitsu_Profiler :: profile($profileId, null, 'db.query');
+
+		if ($showQuery) {
+			echo '<pre>';
+			echo $fQuery;
+			echo '</pre>';
+		}
+
+		try {
+			if ($vars != null) {
+				$returnValue = $this->db-> $method ($fQuery, $vars);
+			} else {
+				$returnValue = $this->db-> $method ($fQuery);
+			}
+		} catch (Exception $e) {
+			Aitsu_Event :: raise('exception.sql', array (
+				'exception' => $e,
+				'query' => $fQuery,
+				'params' => $vars
+			));
+			throw $e;
+		}
+
+		Aitsu_Profiler :: profile($profileId, (object) array (
+			'query' => $fQuery
+		), 'db.query');
+
+		return $returnValue;
+	}
+
+	/**
+	 * Returns a indexed associative array with with the data returned by
+	 * the specified query.
+	 * @param String Query.
+	 * @param Array Indexed array containing the values binded in the query.
+	 * @param Boolean Whether or not the table prefix replacement has to be suppressed.
+	 * @return Array Indexed associative array containing the result of the query.
+	 */
+	public static function fetchAll($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
+
+		return self :: getInstance()->_query('fetchAll', $query, $vars, $suppressTablePrefix, $showQuery);
+	}
+
+	/**
+	 * Returns exactly one single field value. If the query return more than one row or more
+	 * than one field, the method throws an exception.
+	 * @param String Query.
+	 * @param Array Indexed array containing the values binded in the query.
+	 * @param Boolean Whether or not the table prefix replacement has to be suppressed.
+	 * @return String Field value returned by the query.
+	 */
+	public static function fetchOne($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
+
+		return self :: getInstance()->_query('fetchOne', $query, $vars, $suppressTablePrefix, $showQuery);
+	}
+
+	/**
+	 * Returns an associative array returning exactly one single record. If the query
+	 * returns more than one row, the method throws an exception.
+	 * @param String Query.
+	 * @param Array Indexed array containing the values binded in the query.
+	 * @param Boolean Whether or not the table prefix replacement has to be suppressed.
+	 * @return Array Associative array containing a single record.
+	 */
+	public static function fetchRow($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
+
+		return self :: getInstance()->_query('fetchRow', $query, $vars, $suppressTablePrefix, $showQuery);
+	}
+
+	public static function fetchCol($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
+
+		return self :: getInstance()->_query('fetchCol', $query, $vars, $suppressTablePrefix, $showQuery);
+	}
+
+	/**
+	 * Runs the specified query on the database and returns a reference to the database
+	 * object to allow to fetch further data.
+	 * @param String Query.
+	 * @param Array Indexed array containing the values binded in the query.
+	 * @param Boolean Whether or not the table prefix replacement has to be suppressed.
+	 * @return Object Reference to the singleton.
+	 */
+	public static function query($query, $vars = null, $suppressTablePrefix = false, $suppressExceptions = false, $showQuery = false) {
+
+		self :: getInstance()->rowCount = self :: getInstance()->_query('query', $query, $vars, $suppressTablePrefix, $showQuery);
+		return self :: getInstance();
+	}
+
+	/**
+	 * Returns a reference to the database adapter.
+	 * @return Object Database adapter.
+	 */
+	public static function getDb() {
+
+		return self :: getInstance()->db;
+	}
+
+	/**
+	 * Replaces the underscore of the table names with the appropriate table prefix.
+	 * @param String Query.
+	 * @return String Query.
+	 */
+	public function prefix($query) {
+
+		if (!Aitsu_Application_Status :: isPreview()) {
+			$query = self :: getInstance()->_productionQuery($query);
+		}
+
+		$prefix = self :: getInstance()->prefix;
+
+		return preg_replace('/([^a-zA-Z0-9\\.]|^)_/', "$1{$prefix}", $query);
+	}
+
+	protected function _productionQuery($query) {
+		
+		if (in_array(substr($query, 0, 6), array('insert', 'update', 'delete', 'create'))) {
+			/*
+			 * No rewriting is done, if it is a crud statement.
+			 */
+			return $query;
+		}
+		
+		if (is_null($this->_publishMap)) {
+			$this->_publishMap = new Zend_Config_Ini('application/configs/publishmap.ini');
+		}
+		
+		foreach ($this->_publishMap as $type => $tables) {
+			foreach ($tables->toArray() as $table) {
+				$query = str_replace($table['source'], $table['view'], $query);
+			}
+		}
+
+		return $query;
+	}
+
+	/**
+	 * Returns the last inserted auto-increment value.
+	 * @return Integer Last inserted auto-increment value.
+	 */
+	public function getLastInsertId() {
+
+		return $this->_query('fetchOne', 'select last_insert_id()', null, true, false);
+	}
+
+	/**
+	 * Replaces all occurences of carriage return or line feed to their ascii
+	 * equivalents (\r, \n respectively).
+	 * @param String Text to be escaped.
+	 * @return String Escaped text.
+	 */
+	public static function escapeString($text) {
+
+		$text = addslashes($text);
+		$text = preg_replace('/\\n/', '\n', $text);
+		$text = preg_replace('/\\r/', '\r', $text);
+
+		return $text;
+	}
+
+	/**
+	 * Returns the number of affected rows of the last insert, update or
+	 * delete statement fired with the query method.
+	 * @return Integer Number of affected rows.
+	 */
+	public function rowCount() {
+
+		return $this->rowCount();
+	}
+
+	public static function startTransaction() {
+
+		self :: query('set autocommit = 0');
+	}
+
+	public static function commit() {
+
+		self :: query('commit');
+	}
+
+	public static function rollback() {
+
+		self :: query('rollback');
+	}
+
+	public static function put($table, $primarykey, array $data) {
+
+		$fields = array ();
+		$values = array ();
+		$updates = array ();
+
+		$columns = self :: fetchAll('show columns from ' . $table);
+
+		foreach ($columns as $col) {
+			if (isset ($data[$col['Field']])) {
+				$fields[] = $col['Field'];
+				$values[':' . $col['Field']] = $data[$col['Field']];
+				$updates[] = $col['Field'] . ' = ' . ':' . $col['Field'];
+			}
+		}
+
+		if ($primarykey != null && isset ($data[$primarykey])) {
+			$values[':' . $primarykey] = $data[$primarykey];
+			self :: query('update ' . $table . ' set ' . implode(', ', $updates) . ' where ' . $primarykey . ' = :' . $primarykey, $values);
+			return $data[$primarykey];
+		}
+
+		return self :: query('insert into ' . $table . ' (`' . implode('`, `', $fields) . '`) values (:' . implode(', :', $fields) . ') ', $values)->getLastInsertId();
+	}
+
+}

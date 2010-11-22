@@ -1,0 +1,45 @@
+<table border="0" cellpadding="0" cellspacing="0" class="full">
+	<thead>
+		<tr>
+			<th scope="col"><?php echo $this->translate('Indicator'); ?></th>
+			<th scope="col" style="text-align:right;"><?php echo $this->translate('ms'); ?></th>
+			<th scope="col" style="text-align:right;"><?php echo $this->translate('n'); ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><?php echo $this->translate('Overall average'); ?>:</td>
+			<td style="text-align:right;"><?php echo number_format($this->overall['avg'], 2); ?></td>
+			<td style="text-align:right;"><?php echo $this->overall['n']; ?></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->translate('Standard deviation'); ?>:</td>
+			<td style="text-align:right;"><?php echo number_format($this->overall['sigma'], 2); ?></td>
+			<td style="text-align:right;"><?php echo $this->overall['n']; ?></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->translate('Min. execution time'); ?>:</td>
+			<td style="text-align:right;"><?php echo number_format($this->overall['fastest'], 2); ?></td>
+			<td style="text-align:right;">1</td>
+		</tr>
+		<tr>
+			<td><?php echo $this->translate('Max. execution time'); ?>:</td>
+			<td style="text-align:right;"><?php echo number_format($this->overall['slowest'], 2); ?></td>
+			<td style="text-align:right;">1</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="/adm/edit/<?php echo $this->slowest['idartlang']; ?>?profile=1" target="_blank" title="Profile: <?php echo $this->slowest['pagetitle']; ?>">
+					<?php echo $this->translate('Avg. of slowest page'); ?>
+				</a>:
+			</td>
+			<td style="text-align:right;"><?php echo number_format($this->slowest['avg'], 2); ?></td>
+			<td style="text-align:right;"><?php echo $this->slowest['n']; ?></td>
+		</tr>
+		<tr>
+			<td><?php echo $this->translate('Std. dev. of slowest page'); ?>:</td>
+			<td style="text-align:right;"><?php echo number_format($this->slowest['sigma'], 2); ?></td>
+			<td style="text-align:right;"><?php echo $this->slowest['n']; ?></td>
+		</tr>
+	</tbody>
+</table>

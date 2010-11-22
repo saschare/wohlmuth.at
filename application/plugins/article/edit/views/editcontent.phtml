@@ -1,0 +1,55 @@
+<?php
+if (count($this->editInfo) == 0 && count($this->configInfo) == 0) {
+	echo $this->translate('The current module has no content nor configuration to be made.');
+	return;
+}
+?>
+<form id="aitsu-content-edit-form" class="yform" style="max-width:100%;">
+	<input type="hidden" name="idartlang" value="<?php echo $this->idartlang; ?>" />
+	<input type="hidden" name="container" value="<?php echo $this->container; ?>" />
+	<input type="hidden" name="type" value="<?php echo $this->type; ?>" />
+	<textarea name="params" style="display:none;"><?php echo $this->params; ?></textarea>
+	<div id="tabs">
+		<ul>
+		<?php foreach ($this->editInfo as $index => $panel) : ?>
+			<li><a href="#tabs-<?php echo $index; ?>"><?php if (preg_match('/.*?\\:(.*)/', $panel->index, $match)) { echo $match[1]; } else {echo $panel->index;} ?></a></li>
+		<?php endforeach; ?>
+		<?php if (count($this->configInfo) > 0) : ?>
+			<li><a href="#tabs-config"><?php echo $this->translate('Module configuration'); ?></a></li>
+		<?php endif; ?>
+		</ul>
+		<?php foreach ($this->editInfo as $index => $panel) : ?>
+		<div id="tabs-<?php echo $index; ?>">
+			<div class="toolbar empty"></div>
+			<p>
+			<?php if ($panel->type == Aitsu_Content :: WIKICODE) : ?>
+				<textarea name="content[<?php echo $index; ?>]" class="markItUp-wiki"><?php echo htmlentities($panel->content, ENT_COMPAT, 'UTF-8'); ?></textarea>
+			<?php elseif ($panel->type == Aitsu_Content :: HTML) : ?>
+				<textarea id="<?php echo uniqid('jqck'); ?>" name="content[<?php echo $index; ?>]"  class="jquery_ckeditor"><?php echo htmlentities($panel->content, ENT_COMPAT, 'UTF-8'); ?></textarea>
+			<?php else : ?>
+				<textarea name="content[<?php echo $index; ?>]" class="plaintext-editor" id="<?php echo uniqid('editor-'); ?>"><?php echo htmlentities($panel->content, ENT_COMPAT, 'UTF-8'); ?></textarea>
+			<?php endif; ?>
+			</p>
+			<input type="hidden" name="index[<?php echo $index; ?>]" value="<?php echo $panel->index; ?>" />
+		</div>
+		<?php endforeach; ?>
+		<?php if (count($this->configInfo) > 0) : ?>
+		<div id="tabs-config" style="overflow:auto;">
+			<div class="toolbar empty"></div>
+			<?php 
+			foreach ($this->configInfo as $config) {
+				$fieldsets[$config->fieldset][$config->name] = $config;
+			}
+			?>
+			<?php foreach ($fieldsets as $fieldset_legend => $fieldset) : ?>
+			<fieldset>
+				<legend><?php echo $fieldset_legend; ?></legend>
+				<?php foreach ($fieldset as $input) : ?>
+				<?php echo $this->partial('moduleConfigs/' . $input->getTemplate(), array('config' => $input)); ?>
+				<?php endforeach; ?>
+			</fieldset>
+			<?php endforeach; ?>
+		</div>
+		<?php endif; ?>
+	</div>
+</form>

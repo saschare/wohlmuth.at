@@ -1,0 +1,2 @@
+Skin files
+Allows the user to edit the skin files with the extensions .css, .js and .phtml.

@@ -1,0 +1,1610 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: aitsu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-05 14:43+0100\n"
+"PO-Revision-Date: 2010-11-05 14:43+0100\n"
+"Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: /home/kummer/workspace/org.aitsu.dev/\n"
+"X-Poedit-KeywordsList: translate;translateBe\n"
+"X-Poedit-SearchPath-0: application\n"
+"X-Poedit-SearchPath-1: library/Aitsu\n"
+"X-Poedit-SearchPath-2: library/Local\n"
+
+#: application/adm/controllers/MappingController.php:66
+#: application/adm/controllers/MappingController.php:206
+msgid "First"
+msgstr "Erste"
+
+#: application/adm/controllers/MappingController.php:68
+#: application/adm/controllers/MappingController.php:208
+msgid "before"
+msgstr "vor"
+
+#: application/adm/controllers/MappingController.php:70
+#: application/adm/controllers/MappingController.php:210
+msgid "Last"
+msgstr "Letzte"
+
+#: application/adm/controllers/ClipboardController.php:24
+#, php-format
+msgid "Article with ID %s copied to clipboard."
+msgstr "Der Artikel mit der ID %s wurde in die Zwischenablage kopiert."
+
+#: application/adm/controllers/DataController.php:244
+msgid "Article"
+msgstr "Artikel"
+
+#: application/adm/controllers/DataController.php:285
+msgid "Article deleted"
+msgstr "Artikel gelöscht."
+
+#: application/adm/controllers/DataController.php:309
+msgid "An error occured while trying to set the specified article as index. "
+msgstr "Während dem Vorgang ist ein Fehler aufgetreten."
+
+#: application/adm/controllers/DataController.php:328
+msgid "An error occured while trying to duplicate the specified article. "
+msgstr "Während der Duplizierung ist ein Fehler aufgetreten."
+
+#: application/adm/controllers/DataController.php:350
+msgid "An error occured while trying to synchronize the specified article. "
+msgstr "Während der Synchronisation ist ein Fehler aufgetreten."
+
+#: application/adm/controllers/DataController.php:391
+msgid "Categories moved."
+msgstr "Die Kategorien wurden verschoben."
+
+#: application/adm/controllers/ScriptController.php:26
+msgid "Access denied."
+msgstr "Zugriff verweigert"
+
+#: application/adm/translations/index.php:9
+msgid "save"
+msgstr "Speichern"
+
+#: application/adm/translations/index.php:10
+msgid "cancel"
+msgstr "Abbrechen"
+
+#: application/adm/translations/index.php:11
+msgid "Personal info"
+msgstr "Persönliche Informationen"
+
+#: application/adm/translations/index.php:12
+msgid "Credentials"
+msgstr "Zugangsdaten"
+
+#: application/adm/translations/index.php:13
+msgid "Access period"
+msgstr "Zugriffsperiode"
+
+#: application/adm/translations/index.php:14
+msgid "Resource selector"
+msgstr "Ressourcenselektion"
+
+#: application/adm/translations/index.php:15
+msgid "Password"
+msgstr "Passwort"
+
+#: application/adm/translations/index.php:16
+msgid "Beginning with"
+msgstr "Beginnend mit"
+
+#: application/adm/translations/index.php:17
+msgid "Resource type"
+msgstr "Ressourcentyp"
+
+#: application/adm/translations/index.php:18
+msgid "Other (to be specified)"
+msgstr "Anderer (zu spezifizieren)"
+
+#: application/adm/translations/index.php:19
+msgid "Specify type (in case of other)"
+msgstr "Typ (falls anderer Typ gewählt worden ist)"
+
+#: application/adm/translations/index.php:20
+msgid "Conditions"
+msgstr "Bedingungen"
+
+#: application/adm/translations/index.php:21
+msgid "Environment"
+msgstr "Umgebung"
+
+#: application/adm/translations/index.php:22
+msgid "Preferences"
+msgstr "Präferenzen"
+
+#: application/adm/translations/index.php:23
+msgid "Preferred language"
+msgstr "Bevorzugte Sprache"
+
+#: application/adm/translations/index.php:24
+msgid "locale"
+msgstr "Locale"
+
+#: application/adm/translations/index.php:25
+msgid "Session period"
+msgstr "Sessiondauer"
+
+#: application/adm/translations/index.php:26
+msgid "Identification"
+msgstr "Identifikation"
+
+#: application/adm/translations/index.php:27
+msgid "Page"
+msgstr "Seite"
+
+#: application/adm/translations/index.php:28
+msgid "Teaser title"
+msgstr "Teasertitel"
+
+#: application/adm/translations/index.php:29
+msgid "Summary / Teaser"
+msgstr "Zusammenfassung / Teaser"
+
+#: application/adm/translations/index.php:30
+msgid "Publication period"
+msgstr "Publikationsperiode"
+
+#: application/adm/translations/index.php:31
+msgid "From"
+msgstr "Von"
+
+#: application/adm/translations/index.php:32
+msgid "Until"
+msgstr "Bis"
+
+#: application/adm/translations/index.php:33
+msgid "Article / Dataset"
+msgstr "Artikel / Datenset"
+
+#: application/adm/scripts/Backup/Dropcopydb.php:15
+msgid "Drop the copy from the database"
+msgstr "Kopie der Datenbank löschen"
+
+#: application/adm/scripts/Backup/Dropcopydb.php:21
+#: application/adm/scripts/Backup/Copydb.php:23
+msgid "No backup table prefix specified."
+msgstr "Kein Backup-Präfix bezeichnet."
+
+#: application/adm/scripts/Backup/Dropcopydb.php:30
+msgid "There are no tables to be dropped."
+msgstr "Es existieren keine zu löschenden Tabellen."
+
+#: application/adm/scripts/Backup/Dropcopydb.php:41
+msgid "Tables dropped."
+msgstr "Die Tabellen wurden gelöscht."
+
+#: application/adm/scripts/Backup/Copydb.php:17
+msgid "Copy database within database"
+msgstr "Datenbank in Datenbank kopieren"
+
+#: application/adm/scripts/Backup/Copydb.php:32
+msgid "Show tables privilege is missing or database access denied."
+msgstr "Show tables-Privileg fehlt oder der Zugriff auf die Datenbank ist nicht möglich."
+
+#: application/adm/scripts/Backup/Copydb.php:36
+msgid "There seem to be no tables to be backuped"
+msgstr "Es existieren keine Tabellen, von welchen ein Backup vorgenommen werden könnte"
+
+#: application/adm/scripts/Backup/Copydb.php:50
+#, php-format
+msgid "Copying table %s."
+msgstr "Kopiere table %s."
+
+#: application/adm/scripts/Backup/Copydb.php:61
+#, php-format
+msgid "Table %s copied."
+msgstr "Die Tabelle %s wurde kopiert."
+
+#: application/adm/scripts/Installation/Setup.php:19
+msgid "Setup database"
+msgstr "Setup Datenbank"
+
+#: application/adm/scripts/Installation/Setup.php:26
+#, php-format
+msgid "Directory with path %s is not writable. Please allow the server to write to this directory and underneath."
+msgstr "Das Verzeichnis mit dem Pfad %s ist nicht beschreibbar. Setzen Sie die Rechte so, dass der Server in das bezeichnete Verzeichnis und sich darin befindliche Dateien und Verzeichnisse schreiben kann."
+
+#: application/adm/scripts/Installation/Setup.php:32
+#, php-format
+msgid "File or directory with path %s is not writable. Please allow the server to write to %s and underneath."
+msgstr "Die Datei oder das Verzeichnis mit dem Pfad %s ist nicht beschreibbar. Vergeben Sie die Rechte so, dass der Server in das Verzeichnis %s und in darin befindliche Dateien und Verzeichnisse schreiben kann."
+
+#: application/adm/scripts/Installation/Setup.php:42
+msgid "The file dump.sql is missing."
+msgstr "Die Datei dump.sql fehlt."
+
+#: application/adm/scripts/Installation/Setup.php:78
+#, php-format
+msgid "Executing from line %s to %s."
+msgstr "Ausführung der Zeilen %s bis %s."
+
+#: application/adm/scripts/Installation/Setup.php:103
+#, php-format
+msgid "Line %s to %s executed."
+msgstr "Zeilen %s bis %s ausgeführt."
+
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:17
+msgid "Delete unlinked media from the file system"
+msgstr "Gelöschte Medien entfernen"
+
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:36
+#, php-format
+msgid "Removing %s (ID %s)"
+msgstr "Entferne %s (ID %s)"
+
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:57
+#, php-format
+msgid "File %s removed."
+msgstr "Die Datei %s wurde entfernt."
+
+#: application/plugins/generic/layout/skin/Class.php:112
+msgid "File saved"
+msgstr "Datei gespeichert"
+
+#: application/plugins/generic/layout/skin/Class.php:114
+msgid "File is not writable. Save cannot be done."
+msgstr "Die Datei ist nicht beschreibbar. Die Speicherung wurde nicht vorgenommen."
+
+#: application/plugins/dashboard/contentAnalyzer/Class.php:24
+msgid "Analyzer"
+msgstr "Analyzer"
+
+#: application/plugins/dashboard/aitsuRss/Class.php:24
+msgid "aitsu RSS"
+msgstr "aitsu RSS"
+
+#: application/plugins/dashboard/performanceAnalyzer/Class.php:24
+msgid "Site performance"
+msgstr "Site performance"
+
+#: application/plugins/article/config/Class.php:23
+msgid "Config"
+msgstr "Konfiguration"
+
+#: application/plugins/article/config/Class.php:72
+msgid "Article configuration saved."
+msgstr "Die Artikelkonfiguration wurde gespeichert."
+
+#: application/plugins/article/media/Class.php:41
+msgid "Media"
+msgstr "Medien"
+
+#: application/plugins/article/media/Class.php:132
+#: application/plugins/article/meta/Class.php:78
+msgid "Meta data saved."
+msgstr "Metadaten wurden gespeichert."
+
+#: application/plugins/article/dates/Class.php:24
+msgid "Dates"
+msgstr "Termine"
+
+#: application/plugins/article/tags/Class.php:24
+msgid "Tags"
+msgstr "Tags"
+
+#: application/plugins/article/tags/Class.php:48
+#, php-format
+msgid "Tag %s added."
+msgstr "Tag %s hinzugefügt."
+
+#: application/plugins/article/tags/Class.php:68
+msgid "Tag removed."
+msgstr "Tag entfernt."
+
+#: application/plugins/article/editalt/Class.php:24
+msgid "Box model"
+msgstr "Boxmodel"
+
+#: application/plugins/article/dc/Class.php:24
+msgid "Dublin core (DC)"
+msgstr "Dublin core (DC)"
+
+#: application/plugins/article/dc/Class.php:64
+msgid "DC.meta data saved."
+msgstr "DC-Metadaten wurden gespeichert."
+
+#: application/plugins/article/edit/Class.php:24
+msgid "Edit"
+msgstr "Edit"
+
+#: application/plugins/article/properties/Class.php:24
+msgid "Properties"
+msgstr "Eigenschaften"
+
+#: application/plugins/article/properties/Class.php:64
+#: application/plugins/article/redirector/Class.php:99
+msgid "Properties saved."
+msgstr "Eigenschaften wurden gespeichert."
+
+#: application/plugins/article/meta/Class.php:24
+msgid "Meta"
+msgstr "Meta"
+
+#: application/plugins/article/redirector/Class.php:24
+msgid "Redirect"
+msgstr "Weiterleitung"
+
+#: application/plugins/article/articleimage/Class.php:28
+msgid "Article image"
+msgstr "Artikelbild"
+
+#: application/plugins/article/crosslinking/Class.php:24
+msgid "Crosslinking"
+msgstr "Crosslinking"
+
+#: application/plugins/article/crosslinking/Class.php:74
+msgid "Link added."
+msgstr "Link hinzugefügt."
+
+#: application/plugins/article/crosslinking/Class.php:95
+msgid "Link removed."
+msgstr "Link entfernt."
+
+#: application/plugins/category/standard/Class.php:24
+msgid "Overview"
+msgstr "Übersicht"
+
+#: application/skins/playskool/module/HeaderIllustration/Class.php:30
+#: application/skins/migros.fp.2010/module/HeaderImage/Class.php:32
+msgid "Inherit from above"
+msgstr "Von oberhalb erben"
+
+#: application/skins/playskool/module/HeaderIllustration/Class.php:31
+#: application/skins/migros.fp.2010/module/HeaderImage/Class.php:33
+msgid "Use article media"
+msgstr "Artikelmedien verwenden"
+
+#: application/skins/playskool/module/HeaderIllustration/Class.php:33
+#: application/skins/migros.fp.2010/module/HeaderImage/Class.php:35
+msgid "Header"
+msgstr "Header"
+
+#: application/skins/playskool/module/HeaderIllustration/Class.php:34
+#: application/skins/migros.fp.2010/module/HeaderImage/Class.php:36
+msgid "Choose image"
+msgstr "Bild auswählen"
+
+#: library/Aitsu/Ee/Shortcode.php:60
+#, php-format
+msgid "// The ShortCode '%s' does not exist. //"
+msgstr "// Der ShortCode '%s' existiert nicht. //"
+
+#: library/Aitsu/Ee/Module/Text/Class.php:17
+msgid "Editable area rendered as a plain text area."
+msgstr "Editierbereich in der Form einer reinen Textarea."
+
+#: library/Aitsu/Ee/Module/Content/Class.php:19
+msgid "Allows to input content in the edit area and outputs that content in the frontend."
+msgstr "Erlaubt die Eingabe von Inhalten im Editierbereich und gibt diese im Frontend aus."
+
+#: library/Aitsu/Ee/Module/HitTrigger/Class.php:17
+msgid "Returns am img tag triggering the hit counter and counts the hits on subsequent request."
+msgstr "Gibt ein img-Tag zurück, welches den Impressionszähler triggered und dadurch die Seitenimpressionen zählt."
+
+#: library/Aitsu/Ee/Module/CanonicalTag/Class.php:17
+msgid "Returns the canonical tag of the current page."
+msgstr "Gibt den Canonical-Tag der aktuellen Seite zurück."
+
+#: library/Aitsu/Ee/Module/DownloadList/Class.php:19
+msgid "Returns a list of files specified in a configuration."
+msgstr "Gibt eine Dateiliste aus, die in der Konfiguration bezeichnet worden ist."
+
+#: library/Aitsu/Ee/Module/Rss/Class.php:17
+msgid "Read the specified RSS source and outputs its content using the specified template."
+msgstr "Liest den spezifizierten RSS aus der Quelle und fügt den Inhalt in die Ausgabe ein unter Verwendung des spezifizierten Templates."
+
+#: library/Aitsu/Ee/Module/LastUpdate/Class.php:19
+msgid "Returns the timestamp of the last modification of the current article."
+msgstr "Gibt das Datum und den Zeitpunkt der letzten Aktualisierung des aktuellen Artikels zurück."
+
+#: library/Aitsu/Ee/Module/LastUpdate/Class.php:56
+#, php-format
+msgid "Last update on %s"
+msgstr "Last update on %s"
+
+#: library/Aitsu/Ee/Module/Template/Class.php:17
+msgid "Outputs the content of the default template or the specified template, if configured accordingly."
+msgstr "Gibt den Inhalt des Default-Templates oder des bezeichneten Templates an die Standardausgabe."
+
+#: library/Aitsu/Ee/Module/PagetitleAsHeadline/Class.php:19
+msgid "Returns either the specified string or - if empty - the page title of the current page."
+msgstr "Gibt die bezeichnete Zeichenfolge zurück oder - falls diese leer sein sollte - den Seitentitel der aktuellen Seite."
+
+#: library/Aitsu/Ee/Module/HtmlTag/Class.php:19
+msgid "Returns the specified HTML tag with the given content."
+msgstr "Gibt das spezifiierte HTML-Tag mit dem bezeichneten Inhalt zurück."
+
+#: library/Aitsu/Ee/Module/ContactForm/Class.php:19
+msgid "Configurable contact form"
+msgstr "Konfigurierbares Kontaktformular."
+
+#: library/Aitsu/Ee/Module/HTML/Class.php:19
+msgid "Editable area rendered with the built-in CK editor."
+msgstr "Editierbereich (WYSIWYG) als CK-Editor."
+
+#: library/Aitsu/Ee/Module/MetaTags/Class.php:17
+msgid "Returns the meta tags of the current article."
+msgstr "Gibt die Meta-Tags des aktuellen Artikels zurück."
+
+#: library/Aitsu/Ee/Module/WormHole/Class.php:21
+msgid "Outputs the output of the specified module of the specified page, while still allowing to edit its content in the edit mode."
+msgstr "Gibt die Rückgabe des bezeichneten Modules aus dem spezifizierten Artikel zurück, während eine Editierung möglich bleibt."
+
+#: library/Aitsu/Ee/Module/WormHole/Class.php:45
+msgid "Foreign content placeholder text"
+msgstr "Platzhalter für Fremdinhalt"
+
+#: library/Aitsu/Ee/Module/Gallery/Class.php:19
+msgid "Returns the specified images (configuration) as a gallery specified in the particular template."
+msgstr "Gibt die in der Konfiguration bezeichneten Bilder als Galerie aus (gemäss Einstellungen im Template)."
+
+#: library/Aitsu/Ee/Module/Gallery/Class.php:57
+msgid "Choose images to be shown"
+msgstr "Anzuzeigende Bilder auswählen"
+
+#: library/Aitsu/Ee/Module/HTMLi/Class.php:19
+msgid "Editable area with inherition function. It inherits its content from the start article of the same level or the closed higher level containing content."
+msgstr "Editierbereich mit Vererbungsfunktion. Der Inhalt wird ausgegeben, sofern ein solcher vorhanden ist. Solllte das nicht der Fall sein, wird der Inhalt des nächst höher gelegenen Startartikels verwendet, der einen Inhalt aufweist."
+
+#: library/Aitsu/Ee/Module/Image/Class.php:17
+msgid "Standard image module. It returns the specified image(s) rendered with the specified template."
+msgstr "Standardbildmodul. Das Modul gibt das bezeichnete Bild (oder die Bilder) zurück und fügt sie so in die Ausgabe, wie das im Template spezifiziert worden ist."
+
+#: library/Aitsu/Ee/Module/Comments/Class.php:17
+msgid "Allows to add comments to the current article (frontend)."
+msgstr "Erlaubt die Eingabe von Kommentaren zum aktuellen Artikel (im Frontend)."
+
+#: library/Aitsu/Ee/Module/BreadCrumb/Class.php:21
+msgid "Returns a bread crumb navigation."
+msgstr "Gibt eine Breadcrumb-Navigation aus."
+
+#: library/Aitsu/Ee/Module/ResourceBundle/Class.php:19
+msgid "Bundles the specified ressources (CSS or JS) to a single file and outputs a single reference containing the content of the specified resources."
+msgstr "Bündelt die bezeichneten Resourcen (CSS oder JS) in eine einzelne Datei und gbit eine einzige Referenz zurück, welche diese Resourcen referenziert."
+
+#: library/Aitsu/Ee/Module/BaseHref/Class.php:19
+msgid "Returns the specified path as a base href tag."
+msgstr "Gibt den spezifizierten Pfad als Base-Href zurück."
+
+#: library/Aitsu/Ee/Module/HoneyTrap/Class.php:17
+msgid "Honeytrap to trap spam bots in a black list."
+msgstr "Honigfalle zur Aufnahme von Spam-Bots in die Schwarze Liste."
+
+#: library/Aitsu/Ee/Module/DefinitionList/Class.php:19
+msgid "Outputs a definition list out of a list of line separated data."
+msgstr "Gibt eine Definitionsliste zurück aus einer Zeilendelimitierten Eingabe."
+
+#: library/Aitsu/Ee/Module/PageTitle/Class.php:19
+msgid "Returns the page title of the current article."
+msgstr "Gibt den aktuellen Seitentitel zurück."
+
+#: library/Aitsu/Ee/Module/GeSHi/Class.php:17
+msgid "Generic Syntax Highlighter."
+msgstr "Generic Syntax Highlighter (Generischer Syntax-Auszeichner)."
+
+#: library/Aitsu/Persistence/Article.php:237
+msgid "An error occured while deleting the specified article."
+msgstr "Während dem Löschvorgang ist ein Fehler aufgetreten."
+
+#: library/Aitsu/Persistence/Article.php:314
+msgid "Copy of"
+msgstr "Kopie von"
+
+#: library/Aitsu/Adm/Script/Response.php:45
+#, php-format
+msgid "Exception occured with message: %s"
+msgstr "Ausnahme aufgetreten mit der Nachricht: %s"
+
+#: library/Aitsu/Adm/Script/Abstract.php:36
+msgid "Script end reached"
+msgstr "Das Ende des Skriptes wurde erreicht"
+
+#: library/Aitsu/Adm/Script/Abstract.php:46
+msgid "Uncaught exception"
+msgstr "Unbehandelte Ausnahme"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:19
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:26
+msgid "Articles"
+msgstr "Artikel"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:36
+msgid "Categories"
+msgstr "Kategorien"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:46
+msgid "Plugins"
+msgstr "Plugins"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:57
+msgid "Management"
+msgstr "Management"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:67
+msgid "User profile"
+msgstr "Benutzerprofil"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:77
+msgid "User, Roles and Privileges"
+msgstr "Benutzer, Rollen und Rechte"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:87
+msgid "Clients"
+msgstr "Mandanten"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:97
+msgid "Mappings"
+msgstr "Mappings"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:107
+msgid "Configurations"
+msgstr "Konfigurationen"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:117
+msgid "Translations"
+msgstr "Übersetzungen"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:127
+msgid "Import"
+msgstr "Import"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:138
+msgid "Export"
+msgstr "Export"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:151
+msgid "Scripts"
+msgstr "Skripte"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:163
+msgid "Logout"
+msgstr "Logout"
+
+#: application/adm/layouts/scripts/layout.phtml:231
+msgid "No"
+msgstr "Nein"
+
+#: application/adm/layouts/scripts/layout.phtml:234
+msgid "Yes"
+msgstr "Ja"
+
+#: application/adm/views/scripts/config/overview.phtml:2
+msgid "Add new configuration set"
+msgstr "Neue Konfiguration aufnehmen"
+
+#: application/adm/views/scripts/config/list.phtml:4
+msgid "ID"
+msgstr "ID"
+
+#: application/adm/views/scripts/config/list.phtml:5
+msgid "Identifier"
+msgstr "Bezeichner"
+
+#: application/adm/views/scripts/config/index.phtml:4
+msgid "Configuration sets"
+msgstr "Konfigurationen"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:3
+msgid "Synchronisation language"
+msgstr "Synchronisationssprache"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:9
+msgid "No synchronization"
+msgstr "Keine Synchronisation"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:21
+msgid "There is only one language availabe. Therefore there is no language availabe to synchronize from."
+msgstr "Aktuell ist nur eine Sprache verfügbar. Eine Synchronisation ist deshalb nicht möglich."
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:25
+msgid "Article tree"
+msgstr "Artikelbaum"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:30
+#: application/adm/views/scripts/data/index.phtml:4
+msgid "Last opened articles"
+msgstr "Zuletzt geöffnete Artikel"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:33
+msgid "Favorits"
+msgstr "Favoriten"
+
+#: application/adm/views/scripts/data/index.phtml:14
+msgid "Title"
+msgstr "Titel"
+
+#: application/adm/views/scripts/data/index.phtml:15
+msgid "Page title"
+msgstr "Seitentitel"
+
+#: application/adm/views/scripts/data/index.phtml:16
+msgid "Category"
+msgstr "Kategorie"
+
+#: application/adm/views/scripts/mapping/list.phtml:2
+msgid "New"
+msgstr "Neu"
+
+#: application/adm/views/scripts/mapping/list.phtml:6
+msgid "The mappings table is currently empty."
+msgstr "Die Mapping-Tabelle ist zurzeit leer."
+
+#: application/adm/views/scripts/mapping/list.phtml:12
+#: application/adm/views/scripts/client/clientlist.phtml:9
+msgid "Name"
+msgstr "Name"
+
+#: application/adm/views/scripts/mapping/index.phtml:12
+msgid "The file /application/configs/mapping.ini does not exist. Please create the file and set the file privileges accordingly to enable the system to write into the file."
+msgstr "Die Datei /application/configs/mapping.ini existiert nicht. Bitte erstellen Sie die Datei und setzen Sie die Dateirechte so, dass das System in die Datei schreiben kann."
+
+#: application/adm/views/scripts/mapping/index.phtml:14
+msgid "The system does not have enough privileges to write into the file /application/configs/mapping.ini. If you wish to manage its data from within the backend, you need to set the privileges accordingly."
+msgstr "Das System hat nicht ausreichend Rechte, um in die die Datei /application/configs/mapping.ini zu schreiben. Wenn Sie die Daten mit Hilfe des Systems pflegen möchten, dann müssen Sie die Dateirechte entsprechend setzen."
+
+#: application/adm/views/scripts/plugin/index.phtml:1
+msgid "Access denied"
+msgstr "Zugriff verweigert"
+
+#: application/adm/views/scripts/plugin/index.phtml:2
+msgid "You do not have enough privileges to access the specified resource."
+msgstr "Sie verfügen nicht über ausreichend Rechte zur Ausführung der vorgesehenen Aktion."
+
+#: application/adm/views/scripts/contextmenu/editdelete.phtml:6
+#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:12
+msgid "Delete"
+msgstr "Löschen"
+
+#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:3
+msgid "Index article"
+msgstr "Index-Artikel"
+
+#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:9
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:15
+msgid "Cut"
+msgstr "Ausschneiden"
+
+#: application/adm/views/scripts/translate/index.phtml:13
+msgid "Key"
+msgstr "Schlüssel"
+
+#: application/adm/views/scripts/translate/index.phtml:14
+msgid "Value"
+msgstr "Wert"
+
+#: application/adm/views/scripts/client/clientlist.phtml:2
+msgid "Add new client"
+msgstr "Neuen Mandanten aufnehmen"
+
+#: application/adm/views/scripts/client/clientlist.phtml:10
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: application/adm/views/scripts/client/languagelist.phtml:2
+msgid "Add new language"
+msgstr "Neue Sprache aufnehmen"
+
+#: application/adm/views/scripts/client/languagelist.phtml:10
+msgid "Client"
+msgstr "Mandant"
+
+#: application/adm/views/scripts/client/languagelist.phtml:11
+msgid "Locale"
+msgstr "Locale"
+
+#: application/adm/views/scripts/client/languagelist.phtml:12
+msgid "Encoding"
+msgstr "Encodierung"
+
+#: application/adm/views/scripts/client/index.phtml:7
+msgid "Languages"
+msgstr "Sprachen"
+
+#: application/adm/views/scripts/layout/subnav.phtml:4
+msgid "Menu"
+msgstr "Menu"
+
+#: application/adm/views/scripts/layout/js/sessionManagement.phtml:20
+msgid "Attention: temporarily lost connection. The session is not refreshed. Store unsaved changes into clipboard."
+msgstr "Achtung: Die Verbindung ist unterbrochen. Die Session wird nicht aktualisiert. Speichern Sie nicht gespeicherte Inhalte in die Zwischenablage."
+
+#: application/adm/views/scripts/layout/js/sessionManagement.phtml:23
+msgid "Session refreshed @ "
+msgstr "Session aktualisiert um"
+
+#: application/adm/views/scripts/layout/js/sessionManagement.phtml:36
+msgid "Attention: the session will be closed in "
+msgstr "Achtung: Die Session wird geschlossen in"
+
+#: application/adm/views/scripts/layout/js/sessionManagement.phtml:36
+msgid "seconds"
+msgstr "Sekunden"
+
+#: application/adm/views/scripts/translation/translationlist.phtml:3
+msgid "Refresh list"
+msgstr "Liste auffrischen"
+
+#: application/adm/views/scripts/translation/translationlist.phtml:5
+msgid "Filter"
+msgstr "Filtern"
+
+#: application/adm/views/scripts/plugins/index.phtml:15
+msgid "Currently the system has no plugins installed."
+msgstr "Zurzeit sind keine Plugins installiert."
+
+#: application/adm/views/scripts/script/index.phtml:10
+#: application/adm/views/scripts/script/executionwindow.phtml:20
+msgid "Please choose the script to be executed from the list on the left hand side."
+msgstr "Bitte wählen Sie ein Script aus der Liste aus, die Sie auf der linken Seite finden können."
+
+#: application/adm/views/scripts/script/executionwindow.phtml:13
+msgid "Execute script"
+msgstr "Skript ausführen"
+
+#: application/adm/views/scripts/script/executionwindow.phtml:47
+msgid "Script terminated."
+msgstr "Das Skript wurde beendet."
+
+#: application/adm/views/scripts/script/executionwindow.phtml:55
+msgid "Script starts..."
+msgstr "Skript startet..."
+
+#: application/adm/views/scripts/dialog/setcategoryonline.phtml:1
+msgid "Set online / offline"
+msgstr "On- und offline stellen"
+
+#: application/adm/views/scripts/dialog/setcategoryonline.phtml:4
+#: application/adm/views/scripts/dialog/setcategorylocked.phtml:4
+msgid "Include the sub-categories?"
+msgstr "Unterkategorien einschliessen?"
+
+#: application/adm/views/scripts/dialog/confirmdelete.phtml:1
+msgid "Delete item"
+msgstr "Eintrag löschen"
+
+#: application/adm/views/scripts/dialog/confirmdelete.phtml:4
+msgid "The selected item will be removed permanenty. Are you sure?"
+msgstr "Der selektierte Eintrag wird dauerhaft entfernt werden. Sind Sie sicher?"
+
+#: application/adm/views/scripts/dialog/editcategory.phtml:1
+msgid "Edit category"
+msgstr "Kategorie bearbeiten"
+
+#: application/adm/views/scripts/dialog/setcategorylocked.phtml:1
+msgid "Lock / Release"
+msgstr "Schützen / Schutz aufheben"
+
+#: application/adm/views/scripts/category/index.phtml:14
+msgid "Visiblity"
+msgstr "Sichtbarkeit"
+
+#: application/adm/views/scripts/category/index.phtml:15
+#: application/adm/views/scripts/category/index.phtml:280
+msgid "Lock"
+msgstr "Schützen"
+
+#: application/adm/views/scripts/category/index.phtml:17
+msgid "Sync"
+msgstr "Sync"
+
+#: application/adm/views/scripts/category/index.phtml:89
+msgid "Category added"
+msgstr "Kategorie hinzugefügt"
+
+#: application/adm/views/scripts/category/index.phtml:123
+msgid "OK"
+msgstr "OK"
+
+#: application/adm/views/scripts/category/index.phtml:147
+#: application/adm/views/scripts/category/index.phtml:180
+#: application/adm/views/scripts/category/index.phtml:219
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: application/adm/views/scripts/category/index.phtml:223
+msgid "Save"
+msgstr "Speichern"
+
+#: application/adm/views/scripts/category/index.phtml:226
+msgid "Category saved"
+msgstr "Kategorie gespeichert"
+
+#: application/adm/views/scripts/category/index.phtml:247
+msgid "Category synchronized"
+msgstr "Kategorie synchronisiert"
+
+#: application/adm/views/scripts/category/index.phtml:275
+msgid "Offline"
+msgstr "Offline"
+
+#: application/adm/views/scripts/category/index.phtml:277
+msgid "Online"
+msgstr "Online"
+
+#: application/adm/views/scripts/category/index.phtml:282
+msgid "Release"
+msgstr "Schutz aufheben"
+
+#: application/adm/views/scripts/category/index.phtml:293
+msgid "Category set online/offline"
+msgstr "On- und offline stellen"
+
+#: application/adm/views/scripts/category/index.phtml:303
+msgid "Category locked / released"
+msgstr "Kategorie geschützt / Schutz aufgehoben"
+
+#: application/adm/views/scripts/category/index.phtml:313
+msgid "Category removed"
+msgstr "Kategorie entfernt"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:2
+msgid "Add new privilege"
+msgstr "Neues Recht aufnehmen"
+
+#: application/adm/views/scripts/acl/userlist.phtml:3
+msgid "Add new user"
+msgstr "Neuen Benutzer hinzufügen"
+
+#: application/adm/views/scripts/acl/userlist.phtml:15
+msgid "Login"
+msgstr "Login"
+
+#: application/adm/views/scripts/acl/userlist.phtml:16
+msgid "Access from"
+msgstr "Zugriff von"
+
+#: application/adm/views/scripts/acl/userlist.phtml:17
+msgid "Access until"
+msgstr "Zugriff bis"
+
+#: application/adm/views/scripts/acl/roleelist.phtml:2
+#: application/adm/views/scripts/acl/rolelist.phtml:2
+msgid "Add new role"
+msgstr "Neue Rolle aufnehmen"
+
+#: application/adm/views/scripts/acl/index.phtml:4
+msgid "Users"
+msgstr "Benutzer"
+
+#: application/adm/views/scripts/acl/index.phtml:7
+msgid "Roles"
+msgstr "Rollen"
+
+#: application/adm/views/scripts/acl/index.phtml:10
+msgid "Privileges"
+msgstr "Rechte"
+
+#: application/adm/views/scripts/acl/index.phtml:13
+msgid "Resources"
+msgstr "Ressourcen"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:2
+msgid "Add new resource"
+msgstr "Neue Ressource aufnehmen"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:11
+msgid "Type"
+msgstr "Typ"
+
+#: application/adm/scripts/Backup/index.phtml:1
+msgid "Backup"
+msgstr "Backup"
+
+#: application/adm/scripts/Installation/index.phtml:1
+msgid "Installation"
+msgstr "Installation"
+
+#: application/adm/scripts/Maintenance/index.phtml:1
+msgid "Maintenance"
+msgstr "Unterhalt"
+
+#: application/plugins/generic/data/tags/views/taglist.phtml:5
+msgid "Tag"
+msgstr "Tag"
+
+#: application/plugins/generic/data/tags/views/index.phtml:12
+msgid "Delete selected tags"
+msgstr "Selektierte Tags löschen"
+
+#: application/plugins/generic/data/tags/views/index.phtml:37
+msgid "You are about to delete the selected tags. Are you sure?"
+msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
+
+#: application/plugins/generic/data/tags/views/index.phtml:39
+msgid "Delete tags"
+msgstr "Tags löschen"
+
+#: application/plugins/generic/data/tags/views/index.phtml:42
+msgid "Yes, delete the tags"
+msgstr "Ja, Tags löschen"
+
+#: application/plugins/generic/layout/skin/views/index.phtml:4
+msgid "Edit skin files"
+msgstr "Skin-Dateien editieren"
+
+#: application/plugins/generic/layout/skin/views/index.phtml:13
+msgid "reindent"
+msgstr "Neu formatieren"
+
+#: application/plugins/generic/layout/skin/views/links.phtml:5
+msgid "File selection"
+msgstr "Dateiauswahl"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:15
+msgid "Class"
+msgstr "Class"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:17
+msgid "Source"
+msgstr "Quelle"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:20
+msgid "Description"
+msgstr "Beschreibung"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:23
+msgid "Author"
+msgstr "Autor"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:25
+msgid "Status"
+msgstr "Status"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:26
+msgid "Version"
+msgstr "Version"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:28
+msgid "URL"
+msgstr "URL"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:32
+msgid "Dependencies"
+msgstr "Abhängigkeiten"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:35
+msgid "No dependencies or fullfilled."
+msgstr "Keine Abhängigkeiten oder erfüllt."
+
+#: application/plugins/generic/system/modules/views/detail.phtml:38
+msgid "Unfullfilled dependencies. Click here to install the missing parts."
+msgstr "Unerfüllte Abhängigkeiten. Klicken Sie hier um die Installation der fehlenden Teile vorzunehmen."
+
+#: application/plugins/generic/system/modules/views/index.phtml:4
+msgid "Modules"
+msgstr "Module"
+
+#: application/plugins/generic/system/logs/views/index.phtml:4
+msgid "logs"
+msgstr "Logs"
+
+#: application/plugins/generic/system/logs/views/index.phtml:12
+msgid "Delete current log"
+msgstr "Aktuelles Log löschen"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:3
+msgid "Stop"
+msgstr "Stop"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:4
+msgid "Start time capturing"
+msgstr "Zeiterfassung starten"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:5
+msgid "Edit track"
+msgstr "Track aktualisieren"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:6
+msgid "Finish track"
+msgstr "Track beenden"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:7
+msgid "Close tab"
+msgstr "Tab schliessen"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
+msgid "Start"
+msgstr "Start"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
+msgid "End"
+msgstr "Ende"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:18
+msgid "Interval"
+msgstr "Intervall"
+
+#: application/plugins/generic/utilities/tracking/views/customerlist.phtml:3
+msgid "Add new customer"
+msgstr "Neuen Kunden aufnehmen"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:4
+msgid "Current tracks"
+msgstr "Aktuelle Tracks"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:7
+msgid "Projects"
+msgstr "Projekte"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:10
+msgid "Customers"
+msgstr "Kunden"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:13
+msgid "Tracking types"
+msgstr "Track-Typen"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:16
+msgid "Reports"
+msgstr "Auswertungen"
+
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:3
+msgid "Add new project"
+msgstr "Neues Projekt aufnehmen"
+
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:15
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:17
+msgid "Customer"
+msgstr "Kunde"
+
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:3
+msgid "Add new track"
+msgstr "Neuen Track aufnehmen"
+
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:16
+msgid "Project"
+msgstr "Projekt"
+
+#: application/plugins/generic/utilities/tracking/views/trackingtypelist.phtml:2
+msgid "Add new type"
+msgstr "Neuen Typen aufnehmen"
+
+#: application/plugins/generic/utilities/uuid/views/index.phtml:4
+msgid "UUID"
+msgstr "UUID"
+
+#: application/plugins/generic/visitordata/comments/views/index.phtml:4
+msgid "Comments"
+msgstr "Kommentare"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:4
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:4
+msgid "Indicator"
+msgstr "Indikator"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:5
+msgid "#"
+msgstr "#"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:18
+msgid "Categories without index"
+msgstr "Kategorien ohne Index"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:36
+msgid "Duplicate URLs"
+msgstr "URL-Duplikate"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:5
+msgid "ms"
+msgstr "ms"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:6
+msgid "n"
+msgstr "n"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:11
+msgid "Overall average"
+msgstr "Site-Durchschnitt"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:16
+msgid "Standard deviation"
+msgstr "Standardabweichung"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:21
+msgid "Min. execution time"
+msgstr "Min. Ausführungsdauer"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:26
+msgid "Max. execution time"
+msgstr "Max. Ausführungsdauer"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:33
+msgid "Avg. of slowest page"
+msgstr "Durchsch. langsamste Seite"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:40
+msgid "Std. dev. of slowest page"
+msgstr "Stdabw. langsamste Seite"
+
+#: application/plugins/article/media/views/delete.phtml:5
+#: application/plugins/article/media/views/index.phtml:31
+#: application/plugins/article/media/views/filelist.phtml:5
+msgid "File name"
+msgstr "Dateiname"
+
+#: application/plugins/article/media/views/delete.phtml:6
+#: application/plugins/article/media/views/index.phtml:32
+#: application/plugins/article/media/views/filelist.phtml:6
+msgid "Media name"
+msgstr "Medienname"
+
+#: application/plugins/article/media/views/delete.phtml:7
+#: application/plugins/article/media/views/index.phtml:33
+#: application/plugins/article/media/views/filelist.phtml:7
+msgid "Size"
+msgstr "Grösse"
+
+#: application/plugins/article/media/views/delete.phtml:8
+#: application/plugins/article/media/views/index.phtml:34
+#: application/plugins/article/media/views/filelist.phtml:8
+msgid "Uploaded"
+msgstr "Hochgeladen"
+
+#: application/plugins/article/media/views/index.phtml:3
+#: application/plugins/article/media/views/index.phtml:4
+msgid "Upload"
+msgstr "Upload"
+
+#: application/plugins/article/media/views/index.phtml:6
+#: application/plugins/article/media/views/index.phtml:7
+msgid "Select all"
+msgstr "Alle selektieren"
+
+#: application/plugins/article/media/views/index.phtml:9
+#: application/plugins/article/media/views/index.phtml:10
+msgid "Deselect all"
+msgstr "Alle deselektieren"
+
+#: application/plugins/article/media/views/index.phtml:12
+#: application/plugins/article/media/views/index.phtml:13
+msgid "Toggle selection"
+msgstr "Selektion umkehren"
+
+#: application/plugins/article/media/views/index.phtml:15
+#: application/plugins/article/media/views/index.phtml:16
+msgid "Delete selected files"
+msgstr "Selektierte Dateien löschen"
+
+#: application/plugins/article/media/views/index.phtml:78
+msgid "File upload"
+msgstr "Dateiupload"
+
+#: application/plugins/article/media/views/index.phtml:85
+msgid "Edit file"
+msgstr "Datei editieren"
+
+#: application/plugins/article/media/views/index.phtml:164
+msgid "You are about to delete the selected files. Are you sure?"
+msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
+
+#: application/plugins/article/media/views/index.phtml:166
+msgid "Delete files"
+msgstr "Dateien löschen"
+
+#: application/plugins/article/media/views/index.phtml:169
+msgid "Yes, delete the files"
+msgstr "Ja, Dateien löschen"
+
+#: application/plugins/article/dates/views/index.phtml:5
+msgid "Add new serial"
+msgstr "Neue Serie aufnehmen"
+
+#: application/plugins/article/dates/views/index.phtml:6
+msgid "Delete selected serials"
+msgstr "Selektierte Serie löschen"
+
+#: application/plugins/article/dates/views/index.phtml:12
+msgid "Add new date"
+msgstr "Neuen Termin aufnehmen"
+
+#: application/plugins/article/dates/views/index.phtml:13
+msgid "Delete selected dates"
+msgstr "Selektierte Termine löschen"
+
+#: application/plugins/article/tags/views/index.phtml:2
+msgid "Remove selected tags"
+msgstr "Selektierte Tags löschen"
+
+#: application/plugins/article/tags/views/index.phtml:35
+msgid "NULL (default)"
+msgstr "NULL (default)"
+
+#: application/plugins/article/tags/views/index.phtml:53
+msgid "You are about to remove the selected tags. Are you sure?"
+msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
+
+#: application/plugins/article/tags/views/index.phtml:55
+msgid "Remove tags"
+msgstr "Tags entfernen"
+
+#: application/plugins/article/tags/views/index.phtml:58
+msgid "Yes, remove the tags"
+msgstr "Ja, Tags löschen"
+
+#: application/plugins/article/edit/views/editcontent.phtml:3
+msgid "The current module has no content nor configuration to be made."
+msgstr "Das gewählte Modul weist keinen Inhalt und keine Konfiguration auf."
+
+#: application/plugins/article/edit/views/editcontent.phtml:18
+msgid "Module configuration"
+msgstr "Modulkonfiguration"
+
+#: application/plugins/article/edit/views/index.phtml:2
+#: application/plugins/article/edit/views/index.phtml:49
+msgid "Refresh"
+msgstr "Refresh"
+
+#: application/plugins/article/edit/views/index.phtml:3
+msgid "Full view"
+msgstr "Vollansicht"
+
+#: application/plugins/article/edit/views/index.phtml:4
+msgid "Show/Hide subtemplates"
+msgstr "Subtemplates anzeigen/ausblenden"
+
+#: application/plugins/article/edit/views/index.phtml:29
+msgid "Return to normal view"
+msgstr "Zurück zur Normalansicht"
+
+#: application/plugins/article/edit/views/index.phtml:64
+msgid "Show/Hide sub-templates"
+msgstr "Subtemplates anzeigen/ausblenden"
+
+#: application/plugins/article/articleimage/views/index.phtml:5
+msgid "Primary article image"
+msgstr "Primäres Artikelbild"
+
+#: application/plugins/article/crosslinking/views/index.phtml:2
+msgid "Delete selected links"
+msgstr "Selektierte Links entfernen"
+
+#: application/plugins/article/crosslinking/views/index.phtml:68
+msgid "You are about to remove the selected links. Are you sure?"
+msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
+
+#: application/plugins/article/crosslinking/views/index.phtml:70
+msgid "Remove links"
+msgstr "Links entfernen"
+
+#: application/plugins/article/crosslinking/views/index.phtml:73
+msgid "Yes, remove the links"
+msgstr "Ja, Links löschen"
+
+#: application/plugins/category/standard/views/index.phtml:2
+msgid "Add new article"
+msgstr "Neuen Artikel erstellen"
+
+#: application/plugins/category/standard/views/index.phtml:3
+msgid "Paste from clipboard"
+msgstr "Einfügen (aus Zwischenablage)"
+
+#: application/plugins/category/standard/views/index.phtml:4
+msgid "Add category to favorites"
+msgstr "Zu den Favoriten hinzufügen"
+
+#: application/plugins/category/standard/views/index.phtml:5
+msgid "Remove from favorites"
+msgstr "Aus Favoriten entfernen"
+
+#: application/plugins/category/standard/views/index.phtml:16
+msgid "URL name"
+msgstr "URL-Name"
+
+#: application/plugins/category/standard/views/index.phtml:29
+#: application/plugins/category/standard/views/index.phtml:44
+msgid "Publication in progress"
+msgstr "Publikation in Bearbeitung"
+
+#: application/skins/playskool/templates/frontpromo.phtml:3
+msgid "More than play"
+msgstr "More than play"
+
+#: application/skins/playskool/templates/frontpromo.phtml:4
+msgid "Toy finder"
+msgstr "Toy finder"
+
+#: application/skins/migros.fp.2010/module/Aktuell/index.phtml:2
+msgid "Aktuell"
+msgstr "Aktuell"
+
+#: application/skins/migros.fp.2010/module/Aktuell/index.phtml:20
+msgid "More..."
+msgstr "Mehr..."
+
+#: application/skins/migros.fp.2010/module/BreadCrumb/index.phtml:1
+msgid "You are here"
+msgstr "Sie sind hier"
+
+#: application/skins/migros.fp.2010/module/MostImpressed/index.phtml:1
+msgid "Meistgelesene Artikel"
+msgstr "Meistgelesene Artikel"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:5
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:28
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:39
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:50
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:61
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:84
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:95
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:106
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:117
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:128
+msgid "The given pattern is not allowed or the field is mandatory. Please change it accordingly."
+msgstr "Das Muster ist nicht zulässig oder das Feld ist ein Pflichtfeld. Bitte ergänzen Sie die Angabe entsprechend."
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:12
+msgid "Firstname"
+msgstr "Vorname"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:19
+msgid "Lastname"
+msgstr "Nachname"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:32
+msgid "Company"
+msgstr "Firma"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:43
+msgid "Division"
+msgstr "Abteilung"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:54
+msgid "Street"
+msgstr "Strasse"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:68
+msgid "Zip"
+msgstr "Postleitzahl"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:75
+msgid "City"
+msgstr "Ort"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:88
+msgid "Country"
+msgstr "Land"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:99
+msgid "Phone"
+msgstr "Telefon"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:110
+msgid "Fax"
+msgstr "Fax"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:121
+msgid "Email"
+msgstr "Email"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:132
+msgid "Message"
+msgstr "Nachricht"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:137
+msgid "send"
+msgstr "senden"
+
+#~ msgid "HTML path"
+#~ msgstr "HTML-Pfad"
+#~ msgid "Copyright"
+#~ msgstr "Copyright"
+#~ msgid "Last edited articles"
+#~ msgstr "Zuletzt aktualisierte Artikel"
+#~ msgid "Ad Hoc Properties"
+#~ msgstr "Ad Hoc-Eigenschaften"
+#~ msgid "Meta information"
+#~ msgstr "Meta-Informationen"
+#~ msgid "Group tags"
+#~ msgstr "Gruppentags"
+#~ msgid "Thumb"
+#~ msgstr "Vorschaubild"
+#~ msgid "Full"
+#~ msgstr "Ganz"
+#~ msgid "Group A"
+#~ msgstr "Gruppe A"
+#~ msgid "Group B"
+#~ msgstr "Gruppe B"
+#~ msgid "Group C"
+#~ msgstr "Gruppe C"
+#~ msgid "Language Tags"
+#~ msgstr "Sprachtags"
+#~ msgid "English"
+#~ msgstr "Englisch"
+#~ msgid "Deutsch"
+#~ msgstr "Deutsch"
+#~ msgid "Set filter"
+#~ msgstr "Filter setzen"
+#~ msgid "Set Filter"
+#~ msgstr "Filter setzen"
+#~ msgid "Sort by date"
+#~ msgstr "Nach Datum sortieren"
+#~ msgid "Sort by media name"
+#~ msgstr "Nach Mediennamen sortieren"
+#~ msgid "Sort by file name"
+#~ msgstr "Nach Name sortieren"
+#~ msgid "Sort by filename"
+#~ msgstr "Nach Dateiname sortieren"
+#~ msgid "Edit Media"
+#~ msgstr "Medien aktualisieren"
+#~ msgid "Subline"
+#~ msgstr "Unterschrift"
+#~ msgid "Visibility period"
+#~ msgstr "Sichtbarkeitsperiode"
+#~ msgid "Decoration"
+#~ msgstr "Auszeichnung"
+#~ msgid "Document"
+#~ msgstr "Dokument"
+#~ msgid "Keywords"
+#~ msgstr "Schlüsselwörter (keywords)"
+#~ msgid "Indexing"
+#~ msgstr "Indexierung"
+#~ msgid "Robots"
+#~ msgstr "Robots"
+#~ msgid "Expires"
+#~ msgstr "Expires"
+#~ msgid "Revisit-after"
+#~ msgstr "Revisit-after"
+#~ msgid "Please select the file to be edited on the left hand side."
+#~ msgstr "Bitte wählen Sie auf der linken Seite eine Datei zum Editieren aus."
+#~ msgid "Diagnose"
+#~ msgstr "Diagnose"
+#~ msgid "Help"
+#~ msgstr "Hilfe"
+#~ msgid "Image dimensions"
+#~ msgstr "Bilddimensionen"
+#~ msgid "fixed width/height ratio"
+#~ msgstr "festes Breite-Höhen-Verhältnis"
+#~ msgid "User"
+#~ msgstr "Benutzer"
+#~ msgid "New category tree"
+#~ msgstr "Neuer Kategoriebaum"
+#~ msgid "Role"
+#~ msgstr "Rolle"
+#~ msgid "Role identifier"
+#~ msgstr "Rollenbezeichner"
+#~ msgid "Translation key"
+#~ msgstr "Übersetzungsschlüssel"
+#~ msgid ""
+#~ "The current article is redirecting and therefore cannot be previewed."
+#~ msgstr ""
+#~ "Der aktuelle Artikel weist eine Weiterleitung auf und kann deshalb nicht "
+#~ "in der Vorschau angezeigt werden."
+#~ msgid "The redirection target is: "
+#~ msgstr "Das Weiterleitungsziel lautet:"
+#~ msgid "None"
+#~ msgstr "Kein"
+#~ msgid "Category name"
+#~ msgstr "Kategoriename"
+#~ msgid "Template"
+#~ msgstr "Template"
+#~ msgid "Actions"
+#~ msgstr "Aktionen"
+#~ msgid "edit category"
+#~ msgstr "Kategorie bearbeiten"
+#~ msgid "add new category"
+#~ msgstr "neue Kategorie hinzuf&uuml;gen"
+#~ msgid "set category online"
+#~ msgstr "Kategorie online stellen"
+#~ msgid "lock category"
+#~ msgstr "Kategorie sch&uuml;tzen"
+#~ msgid "unlock category"
+#~ msgstr "Schutz aufheben"
+#~ msgid "delete category"
+#~ msgstr "Kategorie l&ouml;schen"
+#~ msgid "Are you sure to delete the selected category?"
+#~ msgstr ""
+#~ "Sind Sie sicher, dass Sie die gew&auml;hlte Kategorie l&ouml;schen m&ouml;"
+#~ "chten?"
+#~ msgid "Confirm delete"
+#~ msgstr "L&ouml;schung best&auml;tigen"
+#~ msgid "Delete the selected category"
+#~ msgstr "Kategorie löschen"
+#~ msgid "Should child nodes be set to online, too?"
+#~ msgstr "Sollen auch die Unterkategorien online gestellt werden?"
+#~ msgid "Set online children?"
+#~ msgstr "Unterkategorien online stellen?"
+#~ msgid "Should child nodes be set to public, too?"
+#~ msgstr ""
+#~ "Sollen auch der Schutz allf&auml;lliger Unterkategorien aufgehoben werden?"
+#~ msgid "Set public children?"
+#~ msgstr "Schutz f&uuml;r Unterkategorien aufheben?"
+#~ msgid "Sync from..."
+#~ msgstr "Sync aus..."
+#~ msgid "Add new category"
+#~ msgstr "Neue Kategorie hinzufügen"
+#~ msgid "Online/Offline"
+#~ msgstr "Online/Offline"
+#~ msgid "Lock/Release"
+#~ msgstr "Schützen / Schutz aufheben"
+#~ msgid "Add new child"
+#~ msgstr "Neues Kindelement aufnehmen"
+#~ msgid "Alt"
+#~ msgstr "Alt"
+#~ msgid "Attributes"
+#~ msgstr "Attribute"
+#~ msgid "Width"
+#~ msgstr "Breite"
+#~ msgid "Height"
+#~ msgstr "Höhe"
+#~ msgid "Scaling"
+#~ msgstr "Skalierung"
+#~ msgid "Use dimensions as max values"
+#~ msgstr "Dimensionen sind Maximalwerte"
+#~ msgid "Scale to fit"
+#~ msgstr "Auf festgelegte Grösse skalieren"
+#~ msgid "Choose scaling"
+#~ msgstr "Skalierung wählen"
+#~ msgid "Display"
+#~ msgstr "Anzeige"
+#~ msgid "Inline (standard)"
+#~ msgstr "Inline"
+#~ msgid "Left (floated)"
+#~ msgstr "Links (umflossen)"
+#~ msgid "Right (floated)"
+#~ msgstr "Rechts (umflossen)"
+#~ msgid "Normal (standard)"
+#~ msgstr "Normal (Standard)"
+#~ msgid "Fancybox"
+#~ msgstr "Fancybox"
+#~ msgid "Full width"
+#~ msgstr "Volle Breite"
+#~ msgid "Large display"
+#~ msgstr "Grossanzeige"
+#~ msgid "Full height"
+#~ msgstr "Volle Höhe"
+#~ msgid "label"
+#~ msgstr "Label"
+#~ msgid "Additional properties"
+#~ msgstr "Zusätzliche Eigenschaften"
+#~ msgid "Additional attributes"
+#~ msgstr "Zusätzliche Attribute"
+#~ msgid "Style"
+#~ msgstr "Style"
+#~ msgid "Gallery configuration"
+#~ msgstr "Galeriekonfiguration"
+#~ msgid "Transition period (s)"
+#~ msgstr "Übergangszeit (s)"
+#~ msgid "Carousel text"
+#~ msgstr "Karussel-Text"
+#~ msgid "Load text"
+#~ msgstr "Lade-Text"
+#~ msgid "The index does not match the specified pattern."
+#~ msgstr "Der index entspricht nicht dem spezifizierten Muster."
+#~ msgid "Tailor"
+#~ msgstr "Tailor"
+#~ msgid "Contentbridge"
+#~ msgstr "Contentbridge"
+#~ msgid "FlexPort"
+#~ msgstr "FlexPort"
+#~ msgid "Type in article name, page title or part of summary"
+#~ msgstr ""
+#~ "Geben Sie den Artikelnamen, Seitentitel oder einen Teil der "
+#~ "Zusammenfassung an."
+#~ msgid "No results"
+#~ msgstr "Keine Resultate."
+#~ msgid "searching..."
+#~ msgstr "Suche..."
+#~ msgid "Yes, child nodes, too!"
+#~ msgstr "Ja, Unterkat. auch!"
+#~ msgid "Not implemented yet. This will be a feature of the next version."
+#~ msgstr ""
+#~ "Nicht implementiert. Die integration erfolgt in der n&auml;chsten Version."
+

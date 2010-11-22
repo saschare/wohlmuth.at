@@ -1,0 +1,29 @@
+<?php $user = Aitsu_Adm_User :: getInstance(); ?>
+<?php foreach ($this->plugins as $area => $plugins) : ?>
+	<div class="plugins-overview-area" style="float:left; width:250px; margin-right:20px; margin-bottom:20px; padding:10px; border:1px dashed #CCC;">
+		<h4>
+			<a href="<?php echo $this->url(array('area' => $area), 'plugins'); ?>">
+				<?php echo $this->plugins[$area]->name; ?>
+			</a>
+		</h4>
+		<p>
+		<?php $counter = 0; foreach ($plugins->plugins as $plugin) : $counter++; ?>
+			<a href="<?php echo $this->url(array('area' => $area, 'plugin' => $plugin->plugin), 'plugin'); ?>">
+				<?php echo $plugin->name; ?>
+			</a>
+			<?php if ($counter < count($plugins->plugins)) : ?>
+				| 
+			<?php endif; ?>
+		<?php endforeach; ?>
+		</p>
+	</div>
+<?php endforeach; ?>
+<div class="clearfix"></div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+
+	$("div.plugins-overview-area").equalHeights();
+	
+});
+<?php $this->inlineScript()->captureEnd(); ?>

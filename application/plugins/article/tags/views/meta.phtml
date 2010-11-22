@@ -1,0 +1,13 @@
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+
+	$('div#tag-list table tbody tr').live('click', function() {
+		$(this).toggleClass('selected');
+	});
+	
+	$('button#del-tag').live('click', function() {
+  		$(this).trigger('del-tag-clicked');	
+  	});	
+
+});
+<?php $this->inlineScript()->captureEnd(); ?>

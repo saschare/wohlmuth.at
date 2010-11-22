@@ -1,0 +1,15 @@
+<?php if (count($this->content) > 0) : ?>
+	<ul class="jqueryFileTree" style="display: none;">
+	<?php foreach ($this->content as $item) : ?>
+		<?php if ($item->type == 'cat') : ?>
+			<li class="directory collapsed"><a href="#" rel="/<?php echo $item->id; ?>/<?php echo $this->lang; ?>/<?php echo $this->client; ?>/"><?php echo $item->name; ?></a></li>
+		<?php elseif ($item->type == 'client') : ?>
+			<li class="directory collapsed"><a href="#" rel="/0/0/<?php echo $item->id; ?>/"><?php echo $item->name; ?></a></li>
+		<?php elseif ($item->type == 'lang') : ?>
+			<li class="directory collapsed"><a href="#" rel="/0/<?php echo $item->id; ?>/<?php echo $this->client; ?>/"><?php echo $item->name; ?></a></li>
+		<?php else : ?>
+			<li class="file ext_txt"><a href="#" rel="/<?php echo $item->id; ?>/<?php echo $this->lang; ?>/<?php echo $this->client; ?>"><?php echo $item->name; ?></a></li>
+		<?php endif; ?>
+	<?php endforeach; ?>	
+	</ul>
+<?php endif; ?>

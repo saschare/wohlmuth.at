@@ -1,0 +1,28 @@
+<div class="tabs">
+	<ul>
+	<?php foreach ($this->plugins as $plugin) : ?>
+		<li>
+			<a href="#tab-aplugin-<?php echo $plugin->id; ?>">
+				<?php echo $plugin->tabname; ?>
+			</a>
+		</li>	
+	<?php endforeach; ?>
+	</ul>
+	
+	<?php foreach ($this->plugins as $plugin) : ?>
+	<div id="tab-aplugin-<?php echo $plugin->id; ?>" class="tab">
+		<div class="tab-content" id="content-<?php echo $plugin->id; ?>"></div>
+	</div>
+	<?php endforeach; ?>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	
+<?php foreach ($this->plugins as $plugin) : ?>
+	$("#content-<?php echo $plugin->id; ?>").load("<?php echo $this->url(array('plugin' => $plugin->name, 'paction' => 'index', 'idart' => $this->idart), 'aplugin'); ?>");
+<?php endforeach; ?>
+	
+	$('#lastopened-articles').load("<?php echo $this->url(array('controller' => 'data', 'action' => 'lastopened'), 'default'); ?>");
+});
+</script>

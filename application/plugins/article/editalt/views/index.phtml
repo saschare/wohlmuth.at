@@ -1,0 +1,65 @@
+<div class="toolbar ui-corner-bottom">
+	<button id="save-<?php echo $this->pluginId; ?>" class="confirm" title="<?php echo $this->translate('save'); ?>"><?php echo $this->translate('save'); ?></button>
+</div>
+
+<div class="sized-content">
+	<div class="subcolumns">
+		<div class="c62l">
+			<div class="subcl">
+				<div class="rounded-corners internal-sized-content" style="border:1px solid #CCC; padding:10px;">
+					<div id="edit-box-edit-area"></div>
+					<div style="text-align:right;">
+						<button id="box-edit-save"><?php echo $this->translate('save'); ?></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="c38r">
+			<div class="subcr">
+				<div class="internal-sized-content rounded-corners" style="border:1px solid #CCC; padding:10px;">
+					<?php echo $this->content; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	
+	$('button#save-<?php echo $this->pluginId; ?>').button({icons: {primary: 'ui-icon-circle-check'}, text:false});
+	$('button#save-<?php echo $this->pluginId; ?>').click(function() {
+		$(this).parents('.tab-content').find('form button[type=submit]').trigger('click');
+	});
+
+	$('#box-edit-save').button({icons: {primary: 'ui-icon-circle-check'}}).css('visibility', 'hidden');
+	$('#box-edit-save').data('idartlang', <?php echo $this->idartlang; ?>);
+	$('#box-edit-save').data('idart', <?php echo $this->idart; ?>);
+
+	if ($(document).data('plugin-<?php echo $this->pluginId; ?>') !== true) {
+		$(document).data('plugin-<?php echo $this->pluginId; ?>', true);
+				
+		$(document).bind('page-content-changed', function() {
+			$("#content-<?php echo $this->pluginId; ?>").load("<?php echo $this->url(array('plugin' => 'editalt', 'paction' => 'index', 'idart' => null), 'aplugin'); ?>", {idart: $('#box-edit-save').data('idart')});
+		});
+		
+		$('#content-<?php echo $this->pluginId; ?> div.shortcode').live('hover', function() {
+			$(this).toggleClass('hover');
+		});
+		
+		$('#content-<?php echo $this->pluginId; ?> div.shortcode').live('click', function() {
+			$('.shortcode').removeClass('focused');
+			$(this).addClass('focused');
+			$(document).trigger('doBoxModelEdit', [$(this), $('#box-edit-save').data('idartlang')]);
+			return false;
+		});
+			
+		$('#box-edit-save').live('click', function() {
+			var type = $('div.shortcode.focused').first().children('input[name=method]').val();
+			var container = $('div.shortcode.focused').first().children('input[name=index]').val();
+			$(document).trigger('edit-save', [type, container, $('#box-edit-save').data('idartlang')]);		
+		});
+	}
+});
+</script>

@@ -1,0 +1,291 @@
+@charset "UTF-8";
+
+/* set width of sidebar */
+#col1 {
+    width:300px;
+    }
+#col3{
+    margin:0 0 0 300px;
+    }
+
+#col1_content {
+    padding:0 1em;
+    }
+
+/* test yaml navigation to be replaced by jquery ui button sets */
+#nav div#mainnavigation{
+    margin-left:0;
+    /*padding-top:8px;*/
+    color:#888;
+    }
+#mainnavigation a{color:#888;text-decoration:none;padding:0 10px;}
+.vlist{border:none !important;background:#efefef;}
+.vlist a{text-decoration:none;}
+.vlist li a:focus, .vlist li a:hover, .vlist li a:active,
+.vlist li ul li a:focus, .vlist li ul li a:hover, .vlist li ul li a:active {
+background-color:#ec7537;
+color:#FFFFFF;
+}
+.vlist a, .vlist strong, .vlist span {
+border-bottom:1px solid #fff;
+}
+
+body{background:none #fff;padding:0;}
+.page{padding:0;}
+#header{display:none;background:none;}
+#nav, #footer{background:none;width:100%;padding:10px 0 0;height:35px;border:none;z-index:10;}
+#nav{position:fixed;top:0;border-bottom:1px solid #ccc;}
+#nav, #nav div.subcolumns {overflow:visible;}
+#footer{position:fixed;bottom:0;border-top:1px solid #ccc;height:20px;padding:10px 0 0;background:#7F7F7F;color:#fff;text-align:right;}
+#footer div{padding:0 1em;}
+#main{margin:0;padding:60px 0 40px 0;}
+
+
+div.page>div>div.subcolumns>div>div.subcl,
+div.page>div>div.subcolumns>div>div.subcr,
+div.page>div>div.subcolumns>div>div.subc{padding:0 1em;}
+.r{text-align:right;}
+
+.toolbar {
+    text-align:left;
+    margin-bottom:0.75em;
+    background:#7F7F7F;
+    padding:0.7em;
+    border:1px solid #7F7F7F;
+    border-top:none;
+    height:29px;
+}
+
+.toolbar.empty {
+    background:none;
+    border:none;
+    height:0px;
+}
+
+#nav .c25l, #footer .c25l {width:300px;}
+#nav .c75r, #footer .c75r {float:none;margin-left:300px;width:auto;}
+
+ul.ui-selectmenu-menu-dropdown {
+    z-index:20;
+    }
+
+input[type=radio], input[type=checkbox]{
+    vertical-align:top;
+    }
+
+.button-input {
+    border:none;
+    text-align:left;
+    height:18px;
+    border:1px solid lightGrey;
+    }
+
+#console-window {
+    overflow:auto;
+    font-family:monospace;
+    }
+
+#console-window div {
+    border-bottom:1px dashed lightGrey;
+    padding-bottom:5px;
+    padding-top:5px;
+    }
+
+#console-window span.status {
+    float:right;
+    font-weight:bold;
+    }
+
+#console-window span.failure {
+    color:red;
+    }
+
+#console-window span.success {
+    color:green;
+    }
+
+div#console-window-content {
+    border:0;
+    }
+
+div#console-window-status {
+    font-weight:bold;
+    border:0;
+    }
+
+table,thead th{border:none;}
+thead th{background:#F9F9F9; text-align:left;}
+tbody tr:hover th[scope="row"],
+tbody tr:hover tbody th.sub{background:#000;color:#FFF;}
+tbody tr:hover td{background:#999;color:#FFF;}
+tbody tr.odd td{border:none;}
+tbody tr.even{background:#F9F9F9;}
+tbody tr.selected td{ background:#999; color:#FFF; }
+
+form.yform.dialog textarea {
+    height: 200px;
+    }
+
+form.yform textarea.short {
+    height: 200px;
+    }
+
+h3, h4 {
+    font-family: Verdana,Arial,sans-serif;
+    }
+
+pre {
+    font-family:monospace;
+    color: black;
+    }
+
+.CodeMirror-line-numbers {
+        padding:0;
+        margin:0;
+        width: 2.5em;
+        text-align:right;
+        padding-right:3px;
+        padding-top:6px;
+        font-family: monospace;
+        font-size: 13px;
+        background-color:#CCC;
+        margin-right:4px;
+      }
+
+a.article:hover, a.article:active, a.article:focus {text-decoration:none !important; }
+a.article {background:url("../images/map.png") -1px -92px no-repeat; display:block; width:18px; height:18px; margin-right:2px; float:left; }
+.article.online, .article.start, .article.published { background-position: -1px -74px  }
+.article.offline, .article.unpublished { background-position: -37px -74px }
+.article.inprogress { background-position: -19px -74px }
+
+.clickable tbody tr { cursor:pointer; }
+
+#col1, #col3 { visibility:hidden; }
+.tab-content { overflow:auto; padding-right:5px; }
+.sized-content { overflow:auto; padding-right:5px; }
+.sized-content-empty-toolbar { overflow:auto; padding-right:5px; }
+
+thead { margin-bottom:10px; }
+
+.yform {
+    background:none;
+    border:none;
+    padding:0;
+    max-width:550px;
+    }
+
+.rounded-corners {
+  -moz-border-radius: 5px; /* Firefox */
+  -webkit-border-radius: 5px; /* Safari, Chrome */
+  border-radius: 5px; /* CSS3 */
+}
+
+.ui-autocomplete li {
+    list-style-type:none;
+}
+
+#status {
+    margin-bottom:5px;
+}
+
+fieldset, textarea, input[type=text], input[type=password] {
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari, Chrome */
+    border-radius: 5px; /* CSS3 */
+  }
+
+ul.dashboard {
+    margin:0;
+    padding:0;
+    }
+ul.dashboard > li {
+    list-style-type:none;
+    width:300px;
+    float:left;
+    margin-right:20px;
+    margin-bottom:25px;
+    padding:0.2em;
+    }
+ul.dashboard > li > h3 {
+    font-weight:normal;
+    font-family:Verdana, Arial, sans-serif !important;
+    font-size:14px;
+    margin:0;
+    margin-bottom:5px;
+    padding-top:6px;
+    padding-left:10px;
+    padding-right:10px;
+    height:23px;
+    }
+ul.dashboard > li > h3 > span {
+    float:right;
+    cursor:pointer;
+    display:none;
+}
+ul.dashboard > li > div {
+    padding:10px;
+    height:257px;
+    overflow:auto;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    }
+
+.status-ok {background:url("../images/map.png") -1px -74px no-repeat; width:18px; height:18px; float:right; }
+.status-fail {background:url("../images/map.png") -37px -74px no-repeat; width:18px; height:18px; float:right; }
+.status-warning {background:url("../images/map.png") -19px -74px no-repeat; width:18px; height:18px; float:right; }
+
+.jstree-aitsu .jstree-clicked {
+	background:url("jqueryui/aitsu2/images/ui-bg_glass_65_333333_1x400.png") repeat-x scroll 50% 50% #333333 !important;
+	border:1px solid #999999  !important;
+	color:#FFFFFF !important;
+	padding:0 10px 0 0 !important;
+}
+.aee .ui-widget-header {
+	background: none;
+	border: none;
+	border-bottom:1px solid #ccc;
+}
+.aee .ui-tabs .ui-tabs-nav {
+	margin:0 0.9em 0 0.54em;
+	padding:0.2em 0.2em 0;
+}
+.aee .ui-tabs .ui-tabs-nav li {
+	margin:0 0.3em 1px 0;
+}
+.aee .ui-tabs .ui-tabs-nav li a {
+	padding:0.25em 0.75em;
+}
+.aee .ui-button-text-icon-primary .ui-button-text, .aee .ui-button-text-icons .ui-button-text {
+	padding:0.3em 1em 0.3em 2.1em;
+}
+.aee .ui-button-icon-only .ui-button-text, .aee .ui-button-icons-only .ui-button-text {
+	padding:0.3em;
+}
+.aee .ui-tabs .ui-tabs-panel {
+	padding:0 0.7em 0.7em;
+}
+.toolbar input.button-input {
+	height:24px;
+}
+#logo{
+	height: 30px;
+	margin-right: 1em;
+	background: url("../images/wbm_aitsu_ec7537_146x30.png") no-repeat scroll right top transparent;
+}
+
+ .aee .confirm.ui-state-default .ui-icon {
+ background-image:url("jqueryui/aitsu2/images/ui-icons_60cf0c_256x240.png");
+}
+.aee .deny.ui-state-default .ui-icon {
+ background-image:url("jqueryui/aitsu2/images/ui-icons_cd0a0a_256x240.png");
+}
+
+#columns-to-be-shown ul li a.colhidden {
+    text-decoration:line-through;
+    color:#CCC;
+}
+
+li.invisible-input > a > div  {
+    display:none;
+}

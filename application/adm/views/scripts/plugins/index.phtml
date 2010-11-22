@@ -1,0 +1,24 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<?php if ($this->area == 'none') : ?>
+				<a href="#tab-plugin"><?php echo $this->translate('Plugins'); ?></a>
+			<?php else : ?>
+				<a href="#tab-plugin"><?php echo $this->translate($this->plugins[$this->area]->name); ?></a>
+			<?php endif; ?>
+		</li>
+	</ul>
+	
+	<div id="tab-plugin">
+		<div class="tab-content">
+			<div class="toolbar empty"></div>
+			<?php if (count($this->plugins) == 0) : ?>
+				<?php echo $this->translate('Currently the system has no plugins installed.'); ?>
+			<?php elseif ($this->area == 'none') : ?>
+				<?php echo $this->partial('plugins/overview.phtml', array('area' => $this->area, 'plugins' => $this->plugins)); ?>
+			<?php else : ?>	
+				<?php echo $this->partial('plugins/overviewarea.phtml', array('area' => $this->area, 'plugins' => $this->plugins)); ?>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>

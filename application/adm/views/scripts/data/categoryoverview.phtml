@@ -1,0 +1,27 @@
+<div id="category-overview" class="tabs">
+	<ul>
+	<?php foreach ($this->plugins as $plugin) : ?>
+		<li>
+			<a href="#tab-cplugin-<?php echo $plugin->id; ?>">
+				<?php echo $plugin->tabname; ?>
+			</a>
+		</li>	
+	<?php endforeach; ?>
+	</ul>
+	
+	<?php foreach ($this->plugins as $plugin) : ?>
+	<div id="tab-cplugin-<?php echo $plugin->id; ?>" class="tab">
+		<div class="tab-content" id="content-<?php echo $plugin->id; ?>"></div>
+	</div>
+	<?php endforeach; ?>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	
+<?php foreach ($this->plugins as $plugin) : ?>
+	$("#content-<?php echo $plugin->id; ?>").load("<?php echo $this->url(array('plugin' => $plugin->name, 'paction' => 'index', 'idcat' => $this->idcat), 'cplugin'); ?>", {'sync': $('form#sync-lang-form input:radio[name=sync-lang]:checked').val()});
+<?php endforeach; ?>
+	
+});
+</script>

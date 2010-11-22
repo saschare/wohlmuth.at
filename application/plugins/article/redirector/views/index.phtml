@@ -1,0 +1,79 @@
+<div class="toolbar ui-corner-bottom">
+	<button id="save-<?php echo $this->pluginId; ?>" class="confirm" title="<?php echo $this->translate('save'); ?>"><?php echo $this->translate('save'); ?></button>
+</div>
+
+<div class="sized-content">
+	<?php echo $this->form; ?>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	
+	$('button#save-<?php echo $this->pluginId; ?>').button({icons: {primary: 'ui-icon-circle-check'}, text:false});
+	$('button#save-<?php echo $this->pluginId; ?>').click(function() {
+		$(this).parents('.tab-content').find('form button[type=submit]').trigger('click');
+	});
+
+	$('#content-<?php echo $this->pluginId; ?> button.save').button({icons: {primary: 'ui-icon-circle-check'}});
+	
+	$('#content-<?php echo $this->pluginId; ?> button#submit').bind('click', function() {
+		var form = $(this).closest('form');
+		$.post("<?php echo $this->url(array('plugin' => 'redirector', 'paction' => 'index'), 'aplugin'); ?>", form.serialize(), function(data) {
+			if (data.status == 'validationfailure') {
+				$("#content-<?php echo $this->pluginId; ?>").html(data.message);
+			} else if (data.status == 'success') {
+				$('#status').html(data.message);
+				$('li#idart-' + data.data.idart + ' a').html('<ins class="jstree-icon">&nbsp;</ins>' + data.data.title);
+				$("#content-<?php echo $this->pluginId; ?>").html(data.html);
+			} else {
+				$('#status').html(data.message);
+			}
+			
+			$(document).trigger('article-properties-changed');
+		});
+		return false;
+	});
+	
+	$('#target-tree').replaceWith('<div id="target-tree"></div>');
+
+	$('#target-tree').bind("loaded.jstree", function (event, data) {
+        $('#target-tree').openNode([<?php echo $this->openCats; ?>], 0, '<?php echo $this->pluginId; ?>-cat-', '<?php echo $this->pluginId; ?>-<?php echo $this->targetId; ?>');
+    }).jstree({
+		"core" : {
+			"animation" : 200
+		},
+		"themes" : {
+            "theme" : "aitsu",
+            "dots" : false,
+            "icons" : true
+        },
+        "json_data" : {
+            "ajax" : {
+                "url" : "<?php echo $this->url(array('controller' => 'data', 'action' => 'treecontent', 'idprefix' => $this->pluginId . '-'), 'default'); ?>",
+                "data" : function (n) {
+                    return { id : n.attr ? n.attr("id") : 0 };
+                },
+                "progressive_render" : true
+            }
+        },
+        "plugins" : [ "themes", "json_data", "ui" ]
+    });
+    
+    $('#target-tree li').die('click');
+    $('#target-tree li:not(.article)').live('click', function() {
+    	var regex = /-(\d*)$/;
+    	regex.exec($(this).attr('id'));
+    	var id = RegExp.$1;
+    	$('#targeturl').val('idcat ' + id);
+    	return false;
+    });
+    $('#target-tree li.article').live('click', function() {
+    	var regex = /-(\d*)$/;
+    	regex.exec($(this).attr('id'));
+    	var id = RegExp.$1;
+    	$('#targeturl').val('idart ' + id);
+    	return false;
+    });
+	
+});
+</script>

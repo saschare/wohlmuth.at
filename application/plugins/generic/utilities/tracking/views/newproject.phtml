@@ -1,0 +1,23 @@
+<?php echo $this->form; ?>
+
+<script type="text/javascript">
+$(function() {
+	$('#tab-project button.cancel').button({icons: {primary: 'ui-icon-circle-close'}});
+	$('#tab-project button.save').button({icons: {primary: 'ui-icon-circle-check'}});
+	
+	$( "#customer-autocomplete" ).autocomplete({
+		source: "<?php echo $this->url(array('paction' => 'customerjson')); ?>",
+		minLength: 2,
+		select: function( event, ui ) {
+			$('#customerid').val(ui.item.id);
+		}
+	});
+	
+	$('form .date').datepicker({
+		numberOfMonths: 3,
+		showButtonPanel: true,
+		dateFormat: 'yy-mm-dd'
+	});
+	
+});
+</script>

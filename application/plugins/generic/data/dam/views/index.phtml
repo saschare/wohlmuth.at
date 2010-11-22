@@ -1,0 +1,72 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-assets" id="assets"><?php echo $this->translate('Assets'); ?></a>
+		</li>
+		<li>
+			<a href="#tab-inbox" id="inbox"><?php echo $this->translate('InBox'); ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-assets">
+		<div class="tab-content">
+			<div class="toolbar ui-corner-bottom"></div>
+			hier kommt das digitial asset management hin.			
+		</div>
+	</div>
+	
+	<div id="tab-inbox">
+		<div class="tab-content">
+			<?php echo $this->partial('inbox/index.phtml', array('files' => $this->files)); ?>			
+		</div>
+	</div>
+		
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+
+	$(document).bind('initUploadQueue', function() {
+		$("#inbox-upload").empty();
+		$("#inbox-upload").pluploadQueue({
+			runtimes : 'html5,browserplus,flash',
+			url : '<?php echo $this->url(array('paction' => 'upload')); ?>',
+			max_file_size : '10mb',
+			chunk_size : '1mb',
+			unique_names : false,
+			flash_swf_url : '/adm/js/plupload/plupload.flash.swf'
+		}).pluploadQueue().bind('FileUploaded', function(up, file, res) {
+	          if(up.total.queued == 0) {
+	          	$(document).trigger('initUploadQueue');
+	          }
+	          $('#inbox-content').load('<?php echo $this->url(array('paction' => 'refreshinbox')); ?>');
+	    });		
+
+		$('.plupload_scroll .plupload_filelist').relativeSize(window, null, '-372');
+		$('.plupload > input').parent().css('top', ($(window).height() - 265) + 'px');
+	}); 
+	$(document).trigger('initUploadQueue');
+	
+	$('div#inbox-content table tbody tr').live('click', function() {
+	});
+
+	$( "#dialog-delete-makenew" ).dialog({
+		resizable: false,
+		width: 350,
+		modal: true,
+		autoOpen: false,
+		title: '<?php echo $this->translate('Add new asset?'); ?>',
+		buttons: {
+			'<?php echo $this->translate('Add new asset'); ?>': function() {
+				$( this ).dialog( "close" );
+			},
+			<?php echo $this->translate('Delete'); ?>: function() {
+				$( this ).dialog( "close" );
+			},
+			<?php echo $this->translate('Cancel'); ?>: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+});
+<?php $this->inlineScript()->captureEnd(); ?>

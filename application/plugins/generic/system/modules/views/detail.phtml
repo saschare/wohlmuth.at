@@ -1,0 +1,59 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-module"><?php echo $this->module->name; ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-module">
+		<div class="tab-content">
+			<div class="toolbar ui-corner-bottom">
+				<?php if ($this->module->isReady) : ?>
+					<button id="ready" class="confirm" title="<?php echo $this->translate('Ready to be used.'); ?>"><?php echo $this->translate('Ready to be used.'); ?></button>
+				<?php else : ?>
+					<button id="ready" class="deny" title="<?php echo $this->translate('Unfullfilled dependencies. Click here to install the missing parts.'); ?>"><?php echo $this->translate('Unfullfilled dependencies. Click here to install the missing parts.'); ?></button>
+				<?php endif; ?>
+			</div>
+			
+			<div class="sized-content">
+				<dl>
+					<dt><?php echo $this->translate('Name'); ?></dt>
+						<dd><?php echo $this->module->name; ?></dd>
+					<dt><?php echo $this->translate('ID'); ?></dt>
+						<dd><?php echo $this->module->id; ?></dd>
+					<dt><?php echo $this->translate('Class'); ?></dt>
+						<dd><?php echo $this->module->className; ?></dd>
+					<dt><?php echo $this->translate('Source'); ?></dt>
+						<dd><?php echo $this->module->source; ?></dd>
+					<?php if (!empty($this->module->description)) : ?>
+						<dt><?php echo $this->translate('Description'); ?></dt>
+							<dd><?php echo $this->module->description; ?></dd>
+					<?php endif; ?>
+					<dt><?php echo $this->translate('Author'); ?></dt>
+						<dd><?php echo $this->translate($this->module->author->name); ?> (&copy; <?php echo date('Y'); ?> - <?php echo $this->module->author->copyright; ?>)</dd>
+					<dt><?php echo $this->translate('Status'); ?></dt>
+						<dd><?php echo $this->translate('Version'); ?> <?php echo $this->module->version; ?>, <?php echo $this->module->status; ?></dd>
+					<?php if (!empty($this->module->url)) : ?>
+						<dt><?php echo $this->translate('URL'); ?></dt>
+							<dd><a href="<?php echo $this->url; ?>"><?php echo $this->url; ?></a></dd>
+					<?php endif; ?>
+				</dl>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+	
+	<?php if ($this->module->isReady) : ?>
+		$('#ready').button({icons: {primary: 'ui-icon-gear'}, text:false, disabled:true});
+	<?php else : ?>
+		$('#ready').button({icons: {primary: 'ui-icon-gear'}, text:false});
+		$('#ready').click(function() {
+			location.href = '<?php echo $this->url(array('paction' => 'install')); ?>';
+		});
+	<?php endif; ?>
+
+});
+<?php $this->inlineScript()->captureEnd(); ?>

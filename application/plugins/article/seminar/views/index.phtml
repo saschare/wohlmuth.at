@@ -1,0 +1,50 @@
+<div class="toolbar ui-corner-bottom"></div>
+
+<div id="content-<?php echo $this->pluginId; ?>" class="sized-content">
+	<table id="table-<?php echo $this->pluginId; ?>"></table>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	
+	$("#table-<?php echo $this->pluginId; ?>").jqGrid({
+	   	url:'server.php?q=2',
+		datatype: "json",
+	   	colNames:[
+	   		'<?php echo $this->translate('City'); ?>',
+	   		'<?php echo $this->translate('Start date'); ?>', 
+	   		'<?php echo $this->translate('End date'); ?>', 
+	   		'<?php echo $this->translate('Price'); ?>',
+	   		'<?php echo $this->translate('Currency'); ?>',
+	   		'<?php echo $this->translate('VAT'); ?>',
+	   		'<?php echo $this->translate('Discount price'); ?>',
+	   		'<?php echo $this->translate('Status'); ?>'
+	   		],
+	   	colModel:[
+	   		{name:'city', index:'city', editable:true},
+	   		{name:'startdate', index:'startdate', editable:true},
+	   		{name:'enddate', index:'enddate', editable:true},
+	   		{name:'price', index:'price', align:"right", editable:true},
+	   		{name:'currency', index:'currency', align:"right", editable:true},		
+	   		{name:'vat', index:'vat', align:"right", editable:true},		
+	   		{name:'discountprice', index:'discountprice', editable:true},	
+	   		{name:'status',index:'status', editable:true}		
+	   	],
+	   	width: $("#table-<?php echo $this->pluginId; ?>").parent().width() - 30,
+	   	height: '100%',
+	   	sortname: 'id',
+	    viewrecords: true,
+	    sortorder: "desc",
+		onSelectRow: function(id){
+			if(id && id!==lastsel){
+				jQuery('table-<?php echo $this->pluginId; ?>').jqGrid('restoreRow',lastsel);
+				jQuery('table-<?php echo $this->pluginId; ?>').jqGrid('editRow',id,true);
+				lastsel=id;
+			}
+		},
+		editurl: "server.php",
+		caption: "<?php echo $this->translate('Seminars'); ?>"
+	});
+	
+});
+</script>

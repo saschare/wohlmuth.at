@@ -1,0 +1,32 @@
+<form action="<?php echo $this->url(array('paction' => 'listprojects')); ?>" method="post" style="display:inline;">	
+	<div class="toolbar">
+		<button id="add-new-project" class="type-new"><?php echo $this->translate('Add new project'); ?></button>
+		<input type="text" name="filter-project" value="<?php echo $this->filterterm; ?>" class="button-input ui-button ui-corner-all" />
+		<button id="filter-project" class="filter-button"><?php echo $this->translate('Filter'); ?></button>
+	</div>
+</form>
+		
+<div class="sized-content">	
+	<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
+		<thead>
+			<tr>
+				<th scope="col"><?php echo $this->translate('ID'); ?></th>
+				<th scope="col"><?php echo $this->translate('Identifier'); ?></th>
+				<th scope="col"><?php echo $this->translate('Customer'); ?></th>
+				<th scope="col"><?php echo $this->translate('Start'); ?></th>
+				<th scope="col"><?php echo $this->translate('End'); ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $counter = 0; foreach ($this->projects as $project) : $counter++; ?>
+				<tr id="project-<?php echo $project->projectid; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
+					<td><?php echo $project->projectid; ?></td>
+					<td><?php echo $project->identifier; ?></td>
+					<td><?php echo $project->customer; ?></td>
+					<td><?php echo $project->startdate; ?></td>
+					<td><?php echo $project->enddate; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>

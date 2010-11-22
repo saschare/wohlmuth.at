@@ -1,0 +1,5 @@
+ul.vlist li.active a.active,
+.hlist ul li.active a.active{
+	background-color: transparent;
+	color:#FFFFFF;
+}

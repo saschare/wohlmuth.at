@@ -1,0 +1,19 @@
+<ul class="vlist">
+	<li>
+		<a href="/adm/index/management/">&uarr;</a>
+	</li>
+	<?php foreach ($this->scripts as $category => $script) : ?>
+		<li>
+			<a href="/adm/script/<?php echo urlencode($category); ?>"><?php echo $this->translate($category); ?></a>
+			<?php if ($this->category == strtolower($category)) : ?>
+				<ul>
+					<?php foreach ($script as $name => $item) : ?>
+						<li>
+							<a href="/adm/script/<?php echo urlencode($category); ?>/show/<?php echo $item->class; ?>"><?php echo $this->translate($name); ?></a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			<?php endif; ?>
+		</li>
+	<?php endforeach; ?>
+</ul>

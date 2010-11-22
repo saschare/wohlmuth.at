@@ -1,0 +1,14 @@
+<?php foreach ($this->config->keyValuePairs as $key => $value) : ?>
+<?php if (!isset($currentValue)) $currentValue = $this->config->currentValue() == null ? $value : $this->config->currentValue(); ?>
+<?php $id = uniqid('radio-'); ?>
+<div class="type-check">
+	<input type="hidden" name="configType[<?php echo $this->config->name; ?>]" value="<?php echo $this->config->type; ?>" />
+	
+	<?php if ($currentValue == $value) : ?>
+	<input name="config[<?php echo $this->config->name; ?>]" type="radio" value="<?php echo $value; ?>" id="<?php echo $id; ?>" checked="checked" />
+	<?php else : ?>
+	<input name="config[<?php echo $this->config->name; ?>]" type="radio" value="<?php echo $value; ?>" id="<?php echo $id; ?>" />
+	<?php endif; ?>
+	<label for="<?php echo $id; ?>"><?php echo $key; ?></label>
+</div>
+<?php endforeach; ?>

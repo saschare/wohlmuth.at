@@ -1,0 +1,74 @@
+/* $Id: toolbar.css 18343 2010-08-25 19:00:13Z akm $ */
+div#toolbar {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    z-index: 9999;
+}
+div#toolbar {
+    margin: 0 0.5em;
+    left: 0px;
+}
+.leftside {
+    float: left;
+}
+.rightside {
+    float: right;
+}
+#toolbar ul {
+    margin:0;
+    padding:0;
+}
+#toolbar ul li {
+    display: inline;
+}
+#toolbar ul li {
+    display: inline;
+}
+#toolbar button {
+    border:none;
+}
+#toolbar button.aitsu_toolbar_logo {
+    display: inline-block;
+    width:78px;
+    height: 32px;
+    margin:2px 20px 0;
+    background: url(/admin/images/toolbar/wbm_aitsu_ec7537_78x16.png) 0 8px no-repeat;
+}
+#toolbar button.category, #toolbar button.article, #toolbar button.translate, #toolbar button.contentbridge, #toolbar button.diagnose, #toolbar button.help {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    margin: 2px 15px 0 0;
+}
+#toolbar button.category:hover, #toolbar button.article:hover, #toolbar button.translate:hover, #toolbar button.contentbridge:hover, #toolbar button.diagnose:hover, #toolbar button.help:hover, #toolbar button.active {
+    background-position: 0 -34px;
+    margin: 2px 15px 0 0;
+}
+#toolbar li.active button.active {
+    background-position: 0 -34px;
+}
+#toolbar button.category.disabled, #toolbar button.article.disabled, #toolbar button.translate.disabled, #toolbar button.contentbridge.disabled, #toolbar button.diagnose.disabled, #toolbar button.help.disabled {
+    background-position: 0 -68px;
+}
+#toolbar button.aitsu_toolbar_logo:hover {
+    background-position: 0 8px;
+}
+#toolbar button.category {
+    background: url(/admin/images/toolbar/category.png) no-repeat;
+}
+#toolbar button.article {
+    background: url(/admin/images/toolbar/article.png) no-repeat;
+}
+#toolbar button.translate {
+    background: url(/admin/images/toolbar/translate.png) no-repeat;
+}
+#toolbar button.contentbridge {
+    background: url(/admin/images/toolbar/contentbridge.png) no-repeat;
+}
+#toolbar button.diagnose {
+    background: url(/admin/images/toolbar/diagnose.png) no-repeat;
+}
+#toolbar button.help {
+    background: url(/admin/images/toolbar/help.png) no-repeat;
+}

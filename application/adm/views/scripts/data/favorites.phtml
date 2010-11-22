@@ -1,0 +1,16 @@
+<table border="0" cellpadding="0" cellspacing="0" class="full">
+	<tbody>
+		<?php $counter = 0; foreach ($this->favorites as $fav) : $fav = (object) $fav; $counter++; ?>
+			<tr id="idcat-<?php echo $fav->idcat; ?>" class="<?php echo ($counter % 2 == 0 ? 'odd' : 'even'); ?>" style="cursor:pointer;">
+				<td>
+					<div style="font-weight:bold;">
+						<?php echo $fav->name; ?>
+					</div>
+					<div style="font-size:80%;">
+						<?php echo $fav->idcat; ?> [<?php echo $fav->idcatlang; ?>]
+					</div>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>

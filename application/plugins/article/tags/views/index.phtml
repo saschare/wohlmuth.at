@@ -1,0 +1,77 @@
+<div class="toolbar ui-corner-bottom">
+	<button id="del-tag" class="type-delete deny"><?php echo $this->translate('Remove selected tags'); ?></button>
+	<input type="text" id="tag-token" name="tagtoken" value="" class="button-input ui-corner-all">
+	<input type="text" id="tag-value" name="tagvalue" value="" class="button-input ui-corner-all">
+	<button id="add-tag" class="type-new confirm">&nbsp;</button>
+</div>
+
+<div id="tag-list" class="sized-content">
+	<?php echo $this->partial('taglist.phtml', array('tags' => $this->tags)); ?>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	
+	$(document).unbind('del-tag-clicked');
+	$('button#del-tag').unbind();
+	$('button#add-tag').unbind();
+	$('input#tag-value').unbind();
+	
+	$('button#del-tag').button({icons: {primary: 'ui-icon-trash'}, text:false});
+	$('button#add-tag').button({icons: {primary: 'ui-icon-circle-plus'}, text: false});
+	
+	$('button#add-tag').click(function() {
+		var token = $('input#tag-token').val();
+		var value = $('input#tag-value').data('autovalue') ? null : $('input#tag-value').val();
+		$.post("<?php echo $this->url(array('paction' => 'add')); ?>", { token: token, value: value }, function(data) {
+			$('#tag-list').html(data.list);
+		});
+		$('input#tag-value').val('').trigger('blur');
+		$('input#tag-token').val('');
+	});
+	
+	$('input#tag-value').bind('blur', function() {
+		if ($(this).val() == '') {
+			$(this).val('<?php echo $this->translate('NULL (default)'); ?>');
+			$(this).data('autovalue', true);
+		}
+	});
+	$('input#tag-value').trigger('blur');
+	$('input#tag-value').bind('focus', function() {
+		if ($(this).data('autovalue')) {
+			$(this).val('');
+			$(this).data('autovalue', false);
+		}
+	});
+	
+	$(document).bind('del-tag-clicked', function() {
+		var selectedTags = new Array();
+  		$('div#tag-list table tbody tr.selected').each(function() {
+  			selectedTags.push($(this).attr("id"));
+  		});
+  		$('<div></div>')
+  			.html('<?php echo $this->translate('You are about to remove the selected tags. Are you sure?'); ?>')
+  			.dialog({
+				title: '<?php echo $this->translate('Remove tags'); ?>',
+				modal: true,
+				buttons: {
+					'<?php echo $this->translate('Yes, remove the tags'); ?>': function() {
+						$.post("<?php echo $this->url(array('paction' => 'delete')); ?>", { tagids: selectedTags.join(",") }, function(data) {
+							$('#tag-list').html(data.list);
+						});
+  						$(this).dialog('close');
+					},
+					'<?php echo $this->translate('No'); ?>': function() {
+						$(this).dialog('close');
+					}
+				}
+			});  		
+	});
+	
+	$('#tag-token').autocomplete({
+		source: "<?php echo $this->url(array('paction' => 'tag')); ?>",
+		minLength: 2
+	});
+
+});
+</script>

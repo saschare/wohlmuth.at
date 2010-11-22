@@ -1,0 +1,46 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-mapping"><?php echo $this->translate('Mappings'); ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-mapping">
+		<div class="tab-content ajax-target">
+			<?php if (isset($this->error)) : ?>
+				<?php if ($this->error == 1) : ?>
+					<?php echo $this->translate('The file /application/configs/mapping.ini does not exist. Please create the file and set the file privileges accordingly to enable the system to write into the file.'); ?>
+				<?php elseif ($this->error == 2) : ?>
+					<?php echo $this->translate('The system does not have enough privileges to write into the file /application/configs/mapping.ini. If you wish to manage its data from within the backend, you need to set the privileges accordingly.'); ?>
+				<?php endif; ?>
+			<?php else : ?>
+				<?php echo $this->partial('mapping/list.phtml', array('mappings' => $this->mappings)); ?>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+	
+	$(document).bind('bindclicks', function() {
+		$('#add-new-mapping').live('click', function() {
+			$('#tab-mapping div.tab-content').load('<?php echo $this->url(); ?>/new', function() {
+				$(document).trigger('formload');		
+			});
+			return false;
+		});		
+	});
+	$(document).trigger('bindclicks');
+	
+	$(document).bind('listload', function(event, area, data) {
+		if (data != null) {
+			$(area).html(data)
+		}
+     	$(document).trigger('refreshButtons');
+     	$(document).trigger('contextmenu');
+     	$(document).trigger('formload');
+	});	
+		
+});	
+<?php $this->inlineScript()->captureEnd(); ?>

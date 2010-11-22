@@ -1,0 +1,32 @@
+<form action="/adm/acl/filteruser" method="post" style="display:inline;">	
+	<div class="toolbar ui-corner-bottom">
+		<button id="add-new-user" class="type-new confirm"><?php echo $this->translate('Add new user'); ?></button>
+		<input type="text" name="filter-user" value="<?php echo $this->filterterm; ?>" class="button-input ui-button ui-corner-all" />
+		<button id="filter-user" class="filter-button"><?php echo $this->translate('Filter'); ?></button>
+	</div>
+</form>
+
+<div class="sized-content">
+	<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
+		<thead>
+			<tr>
+				<th scope="col" style="width:70px;"><?php echo $this->translate('ID'); ?></th>
+				<th scope="col"><?php echo $this->translate('Name'); ?></th>
+				<th scope="col"><?php echo $this->translate('Login'); ?></th>
+				<th scope="col"><?php echo $this->translate('Access from'); ?></th>
+				<th scope="col"><?php echo $this->translate('Access until'); ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $counter = 0; foreach ($this->users as $user) : $counter++; ?>
+				<tr id="user-<?php echo $user->userid; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
+					<td><?php echo $user->userid; ?></td>
+					<td><?php echo $user->lastname; ?>, <?php echo $user->firstname; ?></td>
+					<td><?php echo $user->login; ?></td>
+					<td><?php echo $user->acfrom; ?></td>
+					<td><?php echo $user->acuntil; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>

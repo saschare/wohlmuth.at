@@ -1,0 +1,27 @@
+<div id="subnav-accordion">
+	<div class="accordion">
+		<h3><a href="#"><?php echo $this->translate('Menu'); ?></a></h3>
+		<div>
+			<ul class="vlist">
+				<?php foreach ($this->modules as $category => $modules) : ?>
+					<li>
+						<a href="<?php echo $this->url(array('area' => 'system', 'plugin' => 'modules', 'paction' => 'index', 'category' => $category), 'plugin'); ?>">
+							<?php echo $this->translate($category); ?>
+						</a>
+						<?php if (false && $category == $this->category) : ?>
+							<ul>
+								<?php foreach ($modules as $module) : ?>
+									<li>
+										<a href="<?php echo $this->url(array('area' => 'system', 'plugin' => 'modules', 'paction' => 'detail', 'category' => $category, 'module' => $module->id), 'plugin'); ?>">
+											<?php echo $module->name; ?>
+										</a>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	</div>
+</div>		

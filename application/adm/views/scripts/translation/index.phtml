@@ -1,0 +1,44 @@
+<div class="tabs">
+	<ul>
+		<li>
+			<a href="#tab-translate"><?php echo $this->translate('Translations'); ?></a>
+		</li>
+	</ul>
+	
+	<div id="tab-translate">
+		<div class="tab-content ajax-target">
+			<?php echo $this->partial('translation/translationlist.phtml', array('translations' => $this->translations)); ?>
+		</div>
+	</div>
+		
+</div>
+
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+	
+	$(document).bind('refreshButtons', function() {
+		$('.filter-button').button({icons: {primary: 'ui-icon-search'}, text:false});		
+	});
+	$(document).trigger('refreshButtons');
+	
+	$(document).bind('listload', function(event, area, data) {
+		if (data != null) {
+			$(area).html(data)
+		}
+     	$(area).find('.filter-button').button({icons: {primary: 'ui-icon-search'}, text:false});
+     	$(document).trigger('contextmenu');
+     	$(document).trigger('formload');
+	});	
+
+	$(document).bind('bindclicks', function() {
+		$('#refresh-translation').live('click', function() {
+			$('#tab-translate div.tab-content').load('<?php echo $this->url(); ?>/refresh', function() {
+				$(document).trigger('formload');		
+			});
+			return false;
+		});		
+	});
+	$(document).trigger('bindclicks');
+		
+});
+<?php $this->inlineScript()->captureEnd(); ?>

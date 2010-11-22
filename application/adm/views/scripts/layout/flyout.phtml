@@ -1,0 +1,32 @@
+<?php $user = Aitsu_Adm_User :: getInstance(); ?>
+<ul id="topnavigation">
+	<?php $counter = 0; $amount = count(Zend_Registry :: get('nav')); foreach (Zend_Registry :: get('nav') as $pos) : $counter++; ?>
+		<?php if (!isset($pos->ac) || $user->isAllowed($pos->ac)) : ?>
+			<li>
+				<a href="<?php echo $pos->getHref(); ?>"><?php echo $pos->label; ?></a>
+				<?php if (count($pos->pages) > 0) : ?>
+					<ul>
+					<?php foreach ($pos->pages as $subPage) : ?>
+						<?php if (!isset($subPage->ac) || $user->isAllowed($subPage->ac)) : ?>
+							<li>
+								<a href="<?php echo $subPage->getHref(); ?>"><?php echo $subPage->label; ?></a>
+								<?php if (count($subPage->pages) > 0) : ?>
+									<ul>
+									<?php foreach ($subPage->pages as $subSubPage) : ?>
+										<?php if (!isset($subSubPage->ac) || $user->isAllowed($subSubPage->ac)) : ?>
+											<li>
+												<a href="<?php echo $subSubPage->getHref(); ?>"><?php echo $subSubPage->label; ?></a>
+											</li>
+										<?php endif; // Access control level 3 ?>
+									<?php endforeach; ?>
+									</ul>
+								<?php endif; ?>
+							</li>
+						<?php endif; // Access control level 2 ?>
+					<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</li>
+		<?php endif; // Access control level 1 ?>
+	<?php endforeach; ?>
+</ul>

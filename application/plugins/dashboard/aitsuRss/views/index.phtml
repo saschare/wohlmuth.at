@@ -1,0 +1,9 @@
+<ul class="news">
+<?php foreach ($this->channel as $item) : ?>
+	<li>
+		<a href="<?php echo $item->link; ?>" target="_blank">
+			<?php echo $item->title; ?>
+		</a>
+	</li>
+<?php endforeach; ?>
+</ul>

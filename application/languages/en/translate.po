@@ -1,0 +1,176 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: aitsu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-23 13:58+0100\n"
+"PO-Revision-Date: 2010-02-23 14:01+0100\n"
+"Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: /home/kummer/workspace/aitsuce.org/\n"
+"X-Poedit-SearchPath-0: application\n"
+
+#: application/layouts/scripts/partials/toolbar.phtml:15
+msgid "Category"
+msgstr "Category"
+
+#: application/layouts/scripts/partials/toolbar.phtml:16
+msgid "Article"
+msgstr "Article"
+
+#: application/layouts/scripts/partials/toolbar.phtml:17
+msgid "Media"
+msgstr "Media"
+
+#: application/layouts/scripts/partials/toolbar.phtml:18
+msgid "Contentbridge"
+msgstr "Contentbridge"
+
+#: application/layouts/scripts/partials/toolbar.phtml:23
+msgid "Help"
+msgstr "Help"
+
+#: application/views/scripts/article/previewredirectnotice.phtml:18
+msgid "The current article is redirecting and therefore cannot be previewed."
+msgstr "The current article is redirecting and therefore cannot be previewed."
+
+#: application/views/scripts/article/previewredirectnotice.phtml:19
+msgid "The redirection target is: "
+msgstr "The redirection target is: "
+
+#: application/views/scripts/article/index.phtml:15
+msgid "Edit"
+msgstr "Edit"
+
+#: application/views/scripts/article/index.phtml:16
+msgid "Article properties"
+msgstr "Article properties"
+
+#: application/views/scripts/article/index.phtml:17
+msgid "FlexPort"
+msgstr "FlexPort"
+
+#: application/views/scripts/article/index.phtml:18
+msgid "CrossLinking"
+msgstr "CrossLinking"
+
+#: application/views/scripts/category/index.phtml:17
+msgid "New category tree"
+msgstr "New category tree"
+
+#: application/views/scripts/category/index.phtml:32
+msgid "Categories"
+msgstr "Categories"
+
+#: application/views/scripts/category/index.phtml:35
+msgid "Category name"
+msgstr "Category name"
+
+#: application/views/scripts/category/index.phtml:35
+#: application/views/scripts/category/partials/editform.phtml:18
+msgid "URL name"
+msgstr "URL name"
+
+#: application/views/scripts/category/index.phtml:35
+#: application/views/scripts/category/partials/editform.phtml:22
+msgid "Template"
+msgstr "Template"
+
+#: application/views/scripts/category/index.phtml:35
+msgid "Actions"
+msgstr "Actions"
+
+#: application/views/scripts/category/partials/treenode.phtml:38
+msgid "edit category"
+msgstr "edit category"
+
+#: application/views/scripts/category/partials/treenode.phtml:39
+msgid "add new category"
+msgstr "add new category"
+
+#: application/views/scripts/category/partials/treenode.phtml:41
+msgid "set category offline"
+msgstr "set category offline"
+
+#: application/views/scripts/category/partials/treenode.phtml:43
+msgid "set category online"
+msgstr "set category online"
+
+#: application/views/scripts/category/partials/treenode.phtml:46
+msgid "lock category"
+msgstr "lock category"
+
+#: application/views/scripts/category/partials/treenode.phtml:48
+msgid "unlock category"
+msgstr "unlock category"
+
+#: application/views/scripts/category/partials/treenode.phtml:50
+msgid "delete category"
+msgstr "delete category"
+
+#: application/views/scripts/category/partials/javascript.phtml:76
+msgid "Are you sure to delete the selected category?"
+msgstr "Are you sure to delete the selected category?"
+
+#: application/views/scripts/category/partials/javascript.phtml:78
+msgid "Confirm delete"
+msgstr "Confirm delete"
+
+#: application/views/scripts/category/partials/javascript.phtml:85
+msgid "Delete the selected category"
+msgstr "Delete the selected category"
+
+#: application/views/scripts/category/partials/javascript.phtml:106
+#: application/views/scripts/category/partials/javascript.phtml:243
+#: application/views/scripts/category/partials/javascript.phtml:356
+#: application/views/scripts/category/partials/javascript.phtml:383
+msgid "Cancel"
+msgstr "Cancel"
+
+#: application/views/scripts/category/partials/javascript.phtml:188
+msgid "Should child nodes be set to online, too?"
+msgstr "Should child nodes be set to online, too?"
+
+#: application/views/scripts/category/partials/javascript.phtml:190
+msgid "Set online children?"
+msgstr "Set online children?"
+
+#: application/views/scripts/category/partials/javascript.phtml:197
+#: application/views/scripts/category/partials/javascript.phtml:310
+msgid "Yes"
+msgstr "Yes"
+
+#: application/views/scripts/category/partials/javascript.phtml:220
+#: application/views/scripts/category/partials/javascript.phtml:333
+msgid "No"
+msgstr "No"
+
+#: application/views/scripts/category/partials/javascript.phtml:301
+msgid "Should child nodes be set to public, too?"
+msgstr "Should child nodes be set to public, too?"
+
+#: application/views/scripts/category/partials/javascript.phtml:303
+msgid "Set public children?"
+msgstr "Set public children?"
+
+#: application/views/scripts/category/partials/javascript.phtml:372
+msgid "Save"
+msgstr "Save"
+
+#: application/views/scripts/category/partials/editform.phtml:14
+msgid "Name"
+msgstr "Name"
+
+#: application/views/scripts/category/partials/editform.phtml:30
+msgid "Configuration"
+msgstr "Configuration"
+
+#~ msgid "Not implemented yet. This will be a feature of the next version."
+#~ msgstr "Not implemented yet. This will be a feature of the next version."
+

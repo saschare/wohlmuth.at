@@ -1,0 +1,7 @@
+<ul>
+	<?php foreach ($this->nav->children as $nav) : ?>
+		<li>
+			<a href="{ref:idcat-<?php echo $nav->idcat; ?>}"><?php echo $nav->name; ?></a>
+		</li>
+	<?php endforeach; ?>
+</ul>

@@ -1,0 +1,9 @@
+<ul>
+<?php foreach ($this->nav->children as $navMain) : ?>
+	<li<?php if ($navMain->isparent || $navMain->iscurrent) : ?> class="active"<?php endif; ?>>
+		<a href="{ref:idcat-<?php echo $navMain->idcat; ?>}"<?php if ($navMain->isparent || $navMain->iscurrent) : ?> class="active"<?php endif; ?>>
+			<?php echo $navMain->name; ?>
+		</a>
+	</li>
+<?php endforeach; ?>
+</ul>

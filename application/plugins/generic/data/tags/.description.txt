@@ -1,0 +1,2 @@
+Tags
+Allows the user to delete unused tags.

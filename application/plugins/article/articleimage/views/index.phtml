@@ -1,0 +1,89 @@
+<div class="toolbar ui-corner-bottom"></div>
+
+<form id="articleImage_form" action="<?php echo $this->url(array('paction' => 'save')); ?>" class="yform" style="width:55%;min-width:650px;">
+
+	<fieldset>
+		<input type="hidden" name="idartlang" value="<?php echo $this->idartlang; ?>" />
+		<legend><?php echo $this->translate('Primary article image'); ?></legend>
+		<div id="articleimage-image-wrapper">
+			<?php echo $this->partial('imageSelectRadio.phtml', array('files' => $this->files)); ?>
+		</div>
+	</fieldset>
+    
+</form>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	selectImage();
+});
+
+$(document).bind('ace-mediacontentchanged', function() {
+	$('#articleimage-image-wrapper').load('<?php echo $this->url(array('paction' => 'list')); ?>', {idartlang: <?php echo $this->idartlang ?>},
+		function() {
+			selectImage();
+		}
+	);
+});
+
+function selectImage() {
+	radioButtons = $("input[name='articleimage']");
+	$(".articleimage-image_<?php echo $this->image; ?>").attr("checked", "checked");
+	$(radioButtons).hide();
+	
+	images = $("#articleimage-image-wrapper img");
+	$(images).fadeTo("fast", 0.4);
+
+	selectedImage = $("#articleimage-image_<?php echo $this->image; ?>");
+	zoomIn(selectedImage);
+	
+	$(images).hover(function () {
+		zoomIn(this);
+	}, function () {
+		$(images).each(function() {		  
+			if ($(this).attr("ID") != $(selectedImage).attr("ID")) {
+				zoomOut(this);
+			}
+		});
+	});
+
+	$(images).click(function () {
+		
+		imgID = $(this).attr("id");
+
+		if ($("." + imgID + "").attr('checked') == true) {
+			zoomOut(this);
+			$("." + imgID + "").attr("checked", false);
+		} else {
+			$("." + imgID + "").attr("checked", "checked");
+			selectedImage = $(this);
+			$(images).each(function() {
+				if ($(this).attr("ID") != $(selectedImage).attr("ID")) {
+					zoomOut(this);
+				}
+			});
+		}
+		
+		$.post('<?php echo $this->url(array('paction' => 'save')); ?>', $("#articleImage_form").serialize());
+	});
+
+	function zoomIn (element) {
+		$(element).animate({
+		    opacity: 1,
+		    width: 55,
+		    height: 55,
+		    top: 0,
+		    left: 0
+		  }, 150);
+	}
+
+	function zoomOut (element) {
+		$(element).animate({
+		    opacity: 0.4,
+		    width: 35,
+		    height: 35,
+		    top: 10,
+		    left: 10
+		}, 50);
+	}
+}
+</script>

@@ -1,0 +1,196 @@
+<?php $uid = uniqid(); ?>
+
+<div class="toolbar ui-corner-bottom">
+	<button id="media-upload-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Upload'); ?>">
+	   	<?php echo $this->translate('Upload'); ?>
+	</button>
+	<button id="media-select-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Select all'); ?>">
+		<?php echo $this->translate('Select all'); ?>
+	</button>
+	<button id="media-deselect-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Deselect all'); ?>">
+		<?php echo $this->translate('Deselect all'); ?>
+	</button>
+	<button id="media-toggleselection-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Toggle selection'); ?>">
+		<?php echo $this->translate('Toggle selection'); ?>
+	</button>
+	<button id="media-delete-<?php echo $this->pluginId . $uid; ?>" class="deny" title="<?php echo $this->translate('Delete selected files'); ?>">
+		<?php echo $this->translate('Delete selected files'); ?>
+	</button>
+</div>
+
+<div id="media-uploadmodal-<?php echo $this->pluginId . $uid; ?>">
+  <div id="media-uploadstart-<?php echo $this->pluginId . $uid; ?>"></div>
+  <div id="media-uploadqueue-<?php echo $this->pluginId . $uid; ?>" style="width:390px;height:450px;border:1px solid #E5E5E5;padding: 0;overflow:auto;margin-bottom: 10px;">&nbsp;</div>
+</div>
+
+<div id="media-editmodal-<?php echo $this->pluginId . $uid; ?>"></div>
+
+<div id="media-filelist-<?php echo $this->pluginId . $uid; ?>" class="sized-content">
+	<table border="0" cellpadding="0" cellspacing="0" class="full">
+		<thead>
+			<tr>
+				<th scope="col" style="width:40px;">&nbsp;</th>
+				<th scope="col"><?php echo $this->translate('File name'); ?></th>
+				<th scope="col"><?php echo $this->translate('Media name'); ?></th>
+				<th scope="col" style="text-align:right;"><?php echo $this->translate('Size'); ?></th>
+				<th scope="col" style="text-align:right;"><?php echo $this->translate('Uploaded'); ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $images = array('jpg', 'jpeg', 'png', 'gif'); foreach ($this->files as $file) : ?>
+				<tr id="mediaid-<?php echo $file->mediaid; ?>" style="cursor:pointer;">
+					<td>
+						<?php if (in_array($file->extension, $images)) : ?>
+							<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 1, 'id' => $file->mediaid), 'default'); ?>" width="32" height="32" alt="<?php echo $file->filename; ?>" />
+						<?php else : ?>
+							<img src="/adm/images/0.gif" width="32" height="32" alt="<?php echo $file->filename; ?>" />
+						<?php endif; ?>
+					</td>
+					<td><?php echo $file->filename; ?></td>
+					<td><?php echo $file->name; ?></td>
+					<?php if ($file->size > 1024 * 1024) : ?>
+						<td style="text-align:right;"><?php echo number_format($file->size / 1024 / 1024, 2); ?> MB</td>
+					<?php else : ?>
+						<td style="text-align:right;"><?php echo number_format($file->size / 1024, 2); ?> KB</td>
+					<?php endif; ?>
+					<td style="text-align:right;"><?php echo $file->uploaded; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	
+	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-disk'}, text:false});
+	$("#media-select-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-plus'}, text:false});
+	$("#media-deselect-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-minus'}, text:false});
+	$("#media-toggleselection-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-transferthick-e-w'}, text:false});
+	$("#media-delete-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-trash'}, text:false});
+  
+	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").click(function() {
+		$("#media-uploadmodal-<?php echo $this->pluginId . $uid; ?>").dialog("open"); 
+  	});
+
+  	$("#media-uploadmodal-<?php echo $this->pluginId . $uid; ?>").dialog({
+    	width: 415,
+    	modal: true,
+    	autoOpen: false,
+    	title: '<?php echo $this->translate('File upload'); ?>'
+  	});
+  
+  	$("#media-editmodal-<?php echo $this->pluginId . $uid; ?>").dialog({
+    	width: 550,
+    	modal: true,
+    	autoOpen: false,
+    	title: '<?php echo $this->translate('Edit file'); ?>',
+    	buttons: {
+			'<?php echo $this->translate('Save'); ?>': function() {
+				var dialog = $(this);
+				$.post("<?php echo $this->url(array('plugin' => 'media', 'paction' => 'save'), 'aplugin'); ?>", $("#media-meta-data").serialize(), function(data) {
+					if (data.status == 'success' || data.status == 'exception') {	
+						$('#status').html(data.message);				
+						dialog.dialog('close');
+						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'filelist')); ?>', 
+      						{'idartlang': '<?php echo $this->idartlang; ?>'},
+      						function() {$(this).trigger('fileListLoaded')});
+					} else {
+						dialog.html(data.html);
+					}
+				});
+			},
+			'<?php echo $this->translate('Cancel'); ?>': function() {
+				$(this).dialog('close');
+			}
+		}
+  	});
+  	
+	$('#media-uploadstart-<?php echo $this->pluginId . $uid; ?>').uploadify({
+    	'uploader': '/adm/js/uploadify/v2_1_0/uploadify.swf',
+    	'script': '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>',
+    	'cancelImg': '/adm/js/uploadify/v2_1_0/cancel.png',
+    	'multi': true,
+    	'auto': true,
+    	'wmode': 'transparent',
+    	'hideButton': false,
+    	'queueID': 'media-uploadqueue-<?php echo $this->pluginId . $uid; ?>',
+    	'width': 100,
+    	'scriptData': {
+      		'PHPSESSID': '<?php echo session_id();?>', 
+      		'idartlang': '<?php echo $this->idartlang; ?>'
+      	},
+    	onComplete: function(event, queueID, fileObj, response, data) {
+      		$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'filelist')); ?>', 
+      			{'idartlang': '<?php echo $this->idartlang; ?>'},
+      			function() {$(this).trigger('fileListLoaded')});
+    	},
+    	onAllComplete: function(event, data) {
+      		$(document).trigger('ace-mediacontentchanged');
+      		$("#media-uploadmodal-<?php echo $this->pluginId . $uid; ?>").dialog("close");
+    	}
+  	});  	
+  	
+  	$('#media-filelist-<?php echo $this->pluginId . $uid; ?> tbody tr').live('click', function() {
+  		if ($(this).hasClass('selected')) {
+  			$(this).removeClass('selected');
+  		} else {
+  			$(this).addClass('selected');
+  		}
+  	});
+  
+  	$("#media-toggleselection-<?php echo $this->pluginId . $uid; ?>").live('click', function() {
+  		$('#media-filelist-<?php echo $this->pluginId . $uid; ?> table tbody tr').each(function() {
+  			if ($(this).hasClass('selected')) {
+  				$(this).removeClass('selected');
+  			} else {
+  				$(this).addClass('selected');
+  			}
+  		});
+  	});
+  
+  	$('#media-deselect-<?php echo $this->pluginId . $uid; ?>').live('click', function() {
+  		$('#media-filelist-<?php echo $this->pluginId . $uid; ?> table tbody tr').removeClass('selected');
+  	});
+  
+  	$("#media-select-<?php echo $this->pluginId . $uid; ?>").live('click', function() {
+  		$('#media-filelist-<?php echo $this->pluginId . $uid; ?> table tbody tr').addClass('selected');
+  	});
+  
+  	$("#media-delete-<?php echo $this->pluginId . $uid; ?>").live('click', function() {
+  		var selectedFiles = new Array();
+  		$("#media-filelist-<?php echo $this->pluginId . $uid; ?> table tbody tr.selected").each(function() {
+  			selectedFiles.push($(this).attr("id"));
+  		});
+  		$('<div></div>')
+  			.html('<?php echo $this->translate('You are about to delete the selected files. Are you sure?'); ?>')
+  			.dialog({
+				title: '<?php echo $this->translate('Delete files'); ?>',
+				modal: true,
+				buttons: {
+					'<?php echo $this->translate('Yes, delete the files'); ?>': function() {
+						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete')); ?>', {
+  							'idartlang': '<?php echo $this->idartlang; ?>',
+  							'delete': selectedFiles.join(",")
+  						}, function() {
+  							$(this).trigger('fileListLoaded');
+  							$(this).trigger('ace-mediacontentchanged');
+  						});
+  						$(this).dialog('close');
+					},
+					'<?php echo $this->translate('No'); ?>': function() {
+						$(this).dialog('close');
+					}
+				}
+			});  		
+  	});
+ 	
+  	$('#media-filelist-<?php echo $this->pluginId . $uid; ?> tbody tr').live('dblclick', function() {
+  		$('#media-meta-data').remove();
+  		$('#media-editmodal-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'edit')); ?>', {idartlang: <?php echo $this->idartlang; ?>, mediaid: $(this).attr('id')}, function() {
+ 				$(this).dialog('open');
+		});
+  	});
+
+});
+</script>

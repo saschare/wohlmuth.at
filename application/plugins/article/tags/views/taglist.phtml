@@ -1,0 +1,16 @@
+<table border="0" cellpadding="0" cellspacing="0" class="full clickable">
+	<thead>
+		<tr>
+			<th scope="col"><?php echo $this->translate('Tag'); ?></th>
+			<th scope="col"><?php echo $this->translate('Value'); ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php $counter = -1; foreach ($this->tags as $tag) : $tag = (object) $tag; $counter++; ?>
+			<tr id="tagid-<?php echo $tag->tagid; ?>" class="<?php echo ($counter % 2 == 0 ? 'odd' : 'even'); ?>">
+				<td style="width:49%;"><?php echo $tag->tag; ?></td>
+				<td style="width:49%;"><?php echo $tag->value; ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>

@@ -1,0 +1,15 @@
+<?php foreach ($this->config->keyValuePairs as $key => $value) : ?>
+<?php $currentValue = $this->config->currentValue() == null ? array() : (array) $this->config->currentValue(); ?>
+<?php $id = uniqid('checkbox-'); ?>
+<div class="type-check">
+	<input type="hidden" name="configType[<?php echo $this->config->name; ?>]" value="<?php echo $this->config->type; ?>" />
+	
+	<input name="config[<?php echo $this->config->name; ?>][<?php echo $key; ?>]" type="hidden" value="" />
+	<?php if (in_array($value, $currentValue)) : ?>
+	<input name="config[<?php echo $this->config->name; ?>][<?php echo $key; ?>]" type="checkbox" value="<?php echo $value; ?>" id="<?php echo $id; ?>" checked="checked" />
+	<?php else : ?>
+	<input name="config[<?php echo $this->config->name; ?>][<?php echo $key; ?>]" type="checkbox" value="<?php echo $value; ?>" id="<?php echo $id; ?>" />
+	<?php endif; ?>
+	<label for="<?php echo $id; ?>"><?php echo $key; ?></label>
+</div>
+<?php endforeach; ?>

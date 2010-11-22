@@ -1,0 +1,22 @@
+<div class="toolbar">
+	<button id="add-new-trackingtype" class="type-new"><?php echo $this->translate('Add new type'); ?></button>
+</div>
+		
+<div class="sized-content">	
+	<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
+		<thead>
+			<tr>
+				<th scope="col"><?php echo $this->translate('ID'); ?></th>
+				<th scope="col"><?php echo $this->translate('Identifier'); ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $counter = 0; foreach ($this->trackingtypes as $type) : $counter++; ?>
+				<tr id="trackingtype-<?php echo $type->typeid; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
+					<td><?php echo $type->typeid; ?></td>
+					<td><?php echo $type->identifier; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>
