@@ -2,8 +2,6 @@
 
 
 /**
- * aitsu backend bootstrap
- * @version $Id: Bootstrap.php 18797 2010-09-16 20:59:45Z akm $
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
@@ -44,9 +42,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	protected function _initAutoloaders() {
 
 		$autoloader = Zend_Loader_Autoloader :: getInstance();
-		$autoloader->registerNamespace('Aitsu_');
-		$autoloader->registerNamespace('Comm_');
-		$autoloader->registerNamespace('Local_');
+		$libPath = realpath(APPLICATION_PATH . '/../library');
+		$libs = scandir($libPath);
+		foreach ($libs as $lib) {
+			if (!in_array($lib, array (
+					'.',
+					'..',
+					'Zend'
+				)) && is_dir($libPath . '/' . $lib)) {
+				$autoloader->registerNamespace($lib . '_');
+			}
+		}
 	}
 
 	protected function _initSetLogging() {
@@ -182,9 +188,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			'area' => 'none'
 		)));
 	}
-	
+
 	protected function _initAppStatus() {
-		
+
 		Aitsu_Application_Status :: isEdit(true);
 		Aitsu_Application_Status :: isPreview(true);
 		Aitsu_Application_Status :: setEnv('backend');

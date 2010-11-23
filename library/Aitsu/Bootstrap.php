@@ -2,12 +2,8 @@
 
 
 /**
- * aitsu Bootstrap.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Bootstrap.php 18345 2010-08-25 19:43:14Z akm $}
  */
 
 set_include_path(realpath(dirname(__FILE__) . '/..') . PATH_SEPARATOR . get_include_path());
@@ -87,9 +83,17 @@ class Aitsu_Bootstrap {
 	protected function _RegisterAutoloader() {
 
 		$autoloader = Zend_Loader_Autoloader :: getInstance();
-		$autoloader->registerNamespace('Aitsu_');
-		$autoloader->registerNamespace('Comm_');
-		$autoloader->registerNamespace('Local_');
+		$libPath = realpath(APPLICATION_PATH . '/../library');
+		$libs = scandir($libPath);
+		foreach ($libs as $lib) {
+			if (!in_array($lib, array (
+					'.',
+					'..',
+					'Zend'
+				)) && is_dir($libPath . '/' . $lib)) {
+				$autoloader->registerNamespace($lib . '_');
+			}
+		}
 	}
 
 	protected function _SetErrorHandler() {
@@ -254,10 +258,10 @@ class Aitsu_Bootstrap {
 			exit ();
 		}
 
-		Aitsu_Registry :: isEdit(isset($_GET['edit']));
-		Aitsu_Registry :: isFront(!isset($_GET['edit']));
-		Aitsu_Application_Status :: isEdit(isset($_GET['edit']));
-		Aitsu_Application_Status :: isPreview(isset($_GET['preview']));
+		Aitsu_Registry :: isEdit(isset ($_GET['edit']));
+		Aitsu_Registry :: isFront(!isset ($_GET['edit']));
+		Aitsu_Application_Status :: isEdit(isset ($_GET['edit']));
+		Aitsu_Application_Status :: isPreview(isset ($_GET['preview']));
 	}
 
 	protected function _SetBackendLang() {
