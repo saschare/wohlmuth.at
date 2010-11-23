@@ -97,7 +97,7 @@ class Aitsu_Translate {
 
 		foreach ($files as $file) {
 			$content = file_get_contents($file);
-			if (preg_match_all("@Aitsu_Translate\\s*\\:{2}\\s*_\\((['\"])(.*?)(?:\\1\\))@", $content, $matches) > 0) {
+			if (preg_match_all("@Aitsu_Translate\\s*\\:{2}\\s*_\\(\\s*(['\\\"])(.*?)(?:\\1\\s*\\))@", $content, $matches) > 0) {
 				foreach ($matches[2] as $key) {
 					$key = trim($key);
 					if (Aitsu_Db :: fetchOne('' .
