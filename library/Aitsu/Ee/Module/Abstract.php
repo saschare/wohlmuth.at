@@ -79,9 +79,11 @@ abstract class Aitsu_Ee_Module_Abstract {
 		$search = array (
 			'Aitsu/Ee/Module/',
 			'Local/Module/',
-			'Skin/Module/'
+			'Skin/Module/',
+			'Module/'
 		);
 		$replace = array (
+			'',
 			'',
 			'',
 			''
