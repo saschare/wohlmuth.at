@@ -11,17 +11,15 @@
 class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abstract {
 
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
-		
+
 		$clients = Aitsu_Persistence_Clients :: getAll();
-		if (empty ($clients)) {
-			/*
-			 * No clients available. Probably a new system.
-			 */
-			Aitsu_Persistence_Clients :: factory()->setValues(array (
-				'name' => 'Client'
-			))->save();
-			$clients = Aitsu_Persistence_Clients :: getAll();
-			Aitsu_Registry :: get()->session->currentClient = $clients[0]->idclient;
+
+		foreach ($clients as $key => $client) {
+			if (Aitsu_Adm_User :: getInstance() == null || !Aitsu_Adm_User :: getInstance()->isAllowed(array (
+					'client' => $client->idclient
+				))) {
+				unset ($clients[$key]);
+			}
 		}
 
 		Zend_Registry :: set('clients', $clients);
@@ -35,33 +33,47 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 		}
 
 		$langs = Aitsu_Persistence_Language :: getByClient(Aitsu_Registry :: get()->session->currentClient);
-		if (empty ($langs)) {
-			/*
-			 * No languages available for the given client.
-			 */
-			try {
-				Aitsu_Persistence_Language :: factory()->setValues(array (
-					'idclient' => Aitsu_Registry :: get()->session->currentClient,
-					'name' => 'Language ' . Aitsu_Registry :: get()->session->currentClient,
-					'active' => 1
-				))->save();
-				$langs = Aitsu_Persistence_Language :: getByClient(Aitsu_Registry :: get()->session->currentClient);
-				Aitsu_Registry :: get()->session->currentLanguage = $langs[0]->idlang;
-			} catch (Exception $e) {
-				echo $e->getMessage();
-				exit;
+		
+		$validLangs = array();
+		foreach ($langs as $key => $lang) {
+			if (Aitsu_Adm_User :: getInstance() == null || !Aitsu_Adm_User :: getInstance()->isAllowed(array (
+					'language' => $lang->idlang
+				))) {
+				unset ($langs[$key]);
+			} else {
+				$validLangs[] = $lang->idlang;
 			}
 		}
+		
 		Zend_Registry :: set('langs', $langs);
 
 		if (!isset (Aitsu_Registry :: get()->session->currentLanguage)) {
+			/*
+			 * First access, no session established yet. Language is
+			 * set to first language of the current client the user has
+			 * access to.
+			 */
 			Aitsu_Registry :: get()->session->currentLanguage = $langs[0]->idlang;
 		}
 
 		if ($request->getParam('setCurrentLanguage') != null) {
+			/*
+			 * Language has been chosen in the backend.
+			 */
 			Aitsu_Registry :: get()->session->currentLanguage = $request->getParam('setCurrentLanguage');
 		}
-
+		
+		if (!in_array(Aitsu_Registry :: get()->session->currentLanguage, $validLangs)) {
+			/*
+			 * The user is either not privileged to use the specified language or the 
+			 * language does not correspond to the current client. In either case the
+			 * language has to be reset to the first language the user has access to.
+			 */
+			Aitsu_Registry :: get()->session->currentLanguage = $langs[0]->idlang;
+		}
+		
+trigger_error(var_export($langs, true));
+trigger_error('lang: ' . Aitsu_Registry :: get()->session->currentLanguage);
 		Aitsu_Registry :: get()->env->idlang = Aitsu_Registry :: get()->session->currentLanguage;
 	}
 }
