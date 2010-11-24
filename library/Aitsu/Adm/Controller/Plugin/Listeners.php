@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Listeners.php 19472 2010-10-21 13:45:56Z akm $}
  */
 
 class Aitsu_Adm_Controller_Plugin_Listeners extends Zend_Controller_Plugin_Abstract {

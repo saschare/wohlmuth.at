@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Accesscontrol.php 18769 2010-09-14 19:02:01Z akm $}
  */
 
 class Aitsu_Adm_Controller_Plugin_Accesscontrol extends Zend_Controller_Plugin_Abstract {

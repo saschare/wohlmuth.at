@@ -108,30 +108,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Aitsu_Registry :: get()->session = new Zend_Session_Namespace('aitsu');
 	}
 
-	protected function _initLocale() {
-
-		$session = Aitsu_Registry :: get()->session;
-
-		if ($session->belang == null) {
-			$session->belang = 'de_DE';
-		}
-
-		$availableLangs = array (
-			'en',
-			'de'
-		);
-
-		$lang = substr($session->belang, 0, 2);
-
-		$lang = in_array($lang, $availableLangs) ? $lang : 'en';
-
-		$adapter = new Zend_Translate('gettext', APPLICATION_PATH . '/languages/' . $lang . '/translate.mo', $lang);
-		Aitsu_Registry :: get()->Zend_Translate = $adapter;
-		Zend_Registry :: set('Zend_Translate', $adapter);
-
-		Aitsu_Registry :: get()->env->locale = new Zend_Locale($lang);
-	}
-
 	protected function _initRegisterPlugins() {
 
 		if (isset (Aitsu_Registry :: get()->config->setup->password) && substr($_SERVER['REQUEST_URI'], -1 * strlen('/setup/' . Aitsu_Registry :: get()->config->setup->password)) == '/setup/' . Aitsu_Registry :: get()->config->setup->password) {
@@ -145,10 +121,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			return;
 		}
 
-		Zend_Controller_Front :: getInstance()->registerPlugin(new Aitsu_Adm_Controller_Plugin_Accesscontrol());
-		Zend_Controller_Front :: getInstance()->registerPlugin(new Aitsu_Adm_Controller_Plugin_Clientlang());
-		Zend_Controller_Front :: getInstance()->registerPlugin(new Aitsu_Adm_Controller_Plugin_Navigation());
-		Zend_Controller_Front :: getInstance()->registerPlugin(new Aitsu_Adm_Controller_Plugin_Listeners());
+		$frontController = Zend_Controller_Front :: getInstance();
+		
+		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Accesscontrol());
+		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_BackendLocale());
+		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Clientlang());
+		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Navigation());
+		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Listeners());
 	}
 
 	protected function _initRouter() {

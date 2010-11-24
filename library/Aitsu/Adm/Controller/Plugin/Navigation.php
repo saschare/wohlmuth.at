@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Navigation.php 18810 2010-09-17 09:18:10Z akm $}
  */
 
 class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstract {
