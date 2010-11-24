@@ -13,9 +13,6 @@ class Aitsu_Adm_Controller_Plugin_BackendLocale extends Zend_Controller_Plugin_A
 		$lang = 'en';
 		if (Aitsu_Adm_User :: getInstance() != null) {
 			$lang = substr(Aitsu_Adm_User :: getInstance()->locale, 0, 2);
-			trigger_error('Locale: ' . Aitsu_Adm_User :: getInstance()->locale);
-		} else {
-			trigger_error('Aitsu_Adm_User is null!');
 		}
 
 		$lang = in_array($lang, array (
