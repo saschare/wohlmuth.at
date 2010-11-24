@@ -72,8 +72,6 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 			Aitsu_Registry :: get()->session->currentLanguage = $langs[0]->idlang;
 		}
 		
-trigger_error(var_export($langs, true));
-trigger_error('lang: ' . Aitsu_Registry :: get()->session->currentLanguage);
 		Aitsu_Registry :: get()->env->idlang = Aitsu_Registry :: get()->session->currentLanguage;
 	}
 }
