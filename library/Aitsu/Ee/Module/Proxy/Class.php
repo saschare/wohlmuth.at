@@ -39,7 +39,7 @@ class Aitsu_Ee_Module_Proxy_Class extends Aitsu_Ee_Module_Abstract {
 		$domain = $params->domain;
 		$base = $params->base;
 		$url = urlencode(isset ($_REQUEST['purl']) ? $_REQUEST['purl'] : $params->start);
-		$expression = isset($params->xpath) ? $params->xpath : "//body"; 
+		$expression = isset ($params->xpath) ? $params->xpath : "//body";
 
 		$instance = new self();
 
@@ -53,19 +53,23 @@ class Aitsu_Ee_Module_Proxy_Class extends Aitsu_Ee_Module_Abstract {
 			'timeout' => 10
 		));
 
+		if (isset ($params->user) && isset ($params->password)) {
+			$client->setAuth($params->user, $params->password);
+		}
+
 		if (!empty ($_POST)) {
 			$client->setParameterPost($_POST);
 			$output = $client->request('POST')->getBody();
 		} else {
 			$output = $client->request()->getBody();
 		}
-		
+
 		/*
 		 * Isolate the tag using the specified xpath expression. If no expression
 		 * is given, the body tag is taken.
 		 */
 		$output = Aitsu_Html_Filter_Dom :: factory($output)->byXPath($expression);
-		
+
 		/*
 		 * Rewrite URLs starting with $domain followed by $base or $base only as 
 		 * well as relative URLs.
@@ -82,14 +86,14 @@ class Aitsu_Ee_Module_Proxy_Class extends Aitsu_Ee_Module_Abstract {
 
 		return $output;
 	}
-	
+
 	protected function _rewriteContent($content, $domain, $base) {
-		
+
 		$content = preg_replace('@((?:http://|https://)?' . $domain . $base . '(.*?))"@', ":self:$2\"", $content);
 		$content = preg_replace('@' . $base . '(.*?)"@', ":self:$1\"", $content);
-		
+
 		$content = str_replace(':self:', '{ref:idart-' . Aitsu_Registry :: get()->env->idart . '}?purl=', $content);
-		
+
 		return $content;
 	}
 }
