@@ -25,7 +25,7 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 		Zend_Registry :: set('clients', $clients);
 
 		if (!isset (Aitsu_Registry :: get()->session->currentClient)) {
-			Aitsu_Registry :: get()->session->currentClient = $clients[0]->idclient;
+			Aitsu_Registry :: get()->session->currentClient = isset($clients[0]) ? $clients[0]->idclient : 0;
 		}
 
 		if ($request->getParam('setCurrentClient') != null) {
@@ -53,7 +53,7 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 			 * set to first language of the current client the user has
 			 * access to.
 			 */
-			Aitsu_Registry :: get()->session->currentLanguage = $langs[0]->idlang;
+			Aitsu_Registry :: get()->session->currentLanguage = isset($langs[0]) ? $langs[0]->idlang : 0;
 		}
 
 		if ($request->getParam('setCurrentLanguage') != null) {
@@ -69,7 +69,7 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 			 * language does not correspond to the current client. In either case the
 			 * language has to be reset to the first language the user has access to.
 			 */
-			Aitsu_Registry :: get()->session->currentLanguage = $langs[0]->idlang;
+			Aitsu_Registry :: get()->session->currentLanguage = isset($langs[0]) ? $langs[0]->idlang : 0;
 		}
 		
 		Aitsu_Registry :: get()->env->idlang = Aitsu_Registry :: get()->session->currentLanguage;
