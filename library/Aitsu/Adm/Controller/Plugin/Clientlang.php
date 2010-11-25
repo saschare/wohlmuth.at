@@ -24,7 +24,7 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 
 		Zend_Registry :: set('clients', $clients);
 
-		if (!isset (Aitsu_Registry :: get()->session->currentClient)) {
+		if (empty (Aitsu_Registry :: get()->session->currentClient)) {
 			Aitsu_Registry :: get()->session->currentClient = isset($clients[0]) ? $clients[0]->idclient : 0;
 		}
 
@@ -44,10 +44,10 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 				$validLangs[] = $lang->idlang;
 			}
 		}
-		
+	
 		Zend_Registry :: set('langs', $langs);
 
-		if (!isset (Aitsu_Registry :: get()->session->currentLanguage)) {
+		if (empty (Aitsu_Registry :: get()->session->currentLanguage)) {
 			/*
 			 * First access, no session established yet. Language is
 			 * set to first language of the current client the user has
