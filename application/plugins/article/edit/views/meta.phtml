@@ -123,19 +123,11 @@ $(function() {
 							}
 						});
 					$('#tabs').css('height', (height - 130) + 'px');
-	  				CKEDITOR.config.toolbar_normal=[
-					  ['Source','Templates'],
-					  ['Cut','Copy','Paste','PasteText'],
-					  ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-					  ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-					  ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-					  '/',
-					  ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-					  ['Link','Unlink','Anchor'],
-					  ['Image','Flash','Table','HorizontalRule','SpecialChar'],
-					  ['Styles','Format'],
-					  ['Maximize', 'ShowBlocks','-','About']
-					 ];
+					<?php if (isset(Aitsu_Registry :: get()->config->edit->ckeditor->type)) : ?>
+						<?php echo $this->partial('data/ckeditor/' . Aitsu_Registry :: get()->config->edit->ckeditor->type . '.phtml'); ?>
+					<?php else : ?>
+						<?php echo $this->partial('data/ckeditor/normal.phtml'); ?>
+					<?php endif; ?>
 					$('.jquery_ckeditor').ckeditor({
 					  skin : 'office2003',
 					  toolbar : 'normal',
