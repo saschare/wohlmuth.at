@@ -37,7 +37,7 @@ class Aitsu_Persistence_View_Articles {
 
 		$idlang = $idlang == null ? Aitsu_Registry :: get()->session->currentLanguage : $idlang;
 
-		if ($syncLang != null) {
+		if ($syncLang != null) {			
 			return Aitsu_Db :: fetchAll('' .
 			'select ' .
 			'	artlang.idart as idart, ' .
