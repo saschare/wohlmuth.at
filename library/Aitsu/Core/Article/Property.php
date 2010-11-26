@@ -181,8 +181,6 @@ class Aitsu_Core_Article_Property {
 				}
 			}
 			
-			Aitsu_Persistence_Article :: touch($this->idartlang);
-			
 			Aitsu_Db :: commit();
 			
 			Aitsu_Event :: raise('article.property.save.end', (object) array (

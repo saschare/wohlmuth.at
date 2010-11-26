@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19916 2010-11-17 12:40:58Z akm $}
  */
 
 class EditArticleController extends Aitsu_Adm_Plugin_Controller {
@@ -153,6 +151,8 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 			Aitsu_Event :: raise('backend.article.edit.save.end', array (
 				'idartlang' => $idartlang
 			));
+			
+			Aitsu_Persistence_Article :: touch($idartlang);
 
 			Aitsu_Db :: commit();
 		} catch (Exception $e) {
