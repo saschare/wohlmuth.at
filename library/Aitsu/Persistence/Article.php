@@ -451,6 +451,12 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				':newIdartlang' => $newIdartlang,
 				':oldIdartlang' => $details['idartlang']
 			));
+			
+			Aitsu_Event :: raise('backend.article.sync.end', (object) array (
+				'idartlangold' => $details['idartlang'],
+				'idartlangnew' => $newIdartlang,
+				'idartlang' => $newIdartlang
+			));
 
 			Aitsu_Db :: commit();
 		} catch (Exception $e) {
