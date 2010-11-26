@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-11-24 17:39+0100\n"
-"PO-Revision-Date: 2010-11-24 17:39+0100\n"
+"PO-Revision-Date: 2010-11-26 17:23+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -982,7 +982,7 @@ msgstr "Installation"
 
 #: application/adm/scripts/Maintenance/index.phtml:1
 msgid "Maintenance"
-msgstr "Unterhalt"
+msgstr "Wartung"
 
 #: application/plugins/generic/data/tags/views/taglist.phtml:5
 msgid "Tag"
