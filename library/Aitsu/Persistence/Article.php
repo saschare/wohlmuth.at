@@ -202,6 +202,12 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			}
 
 			Aitsu_Db :: commit();
+
+			Aitsu_Event :: raise('persistence.article.save.end', (object) array (
+				'idartlang' => $this->_idartlang,
+				'action' => 'save'
+			));
+
 		} catch (Exception $e) {
 			Aitsu_Db :: rollback();
 			throw $e;
@@ -215,6 +221,15 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		Aitsu_Db :: startTransaction();
 
 		try {
+			$this->_idartlang = Aitsu_Db :: query('' .
+			'select idartlang from _art_lang ' .
+			'where ' .
+			'	idart = :idart ' .
+			'	and idlang = :idlang ', array (
+				':idart' => $this->_id,
+				':idlang' => $this->_idlang
+			));
+
 			Aitsu_Db :: query('' .
 			'delete from _art_lang ' .
 			'where ' .
@@ -237,6 +252,11 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 					':id' => $this->_id
 				));
 			}
+
+			Aitsu_Event :: raise('persistence.article.remove.end', (object) array (
+				'idartlang' => $this->_idartlang,
+				'action' => 'delete'
+			));
 
 			Aitsu_Db :: commit();
 		} catch (Exception $e) {
@@ -366,9 +386,10 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				':oldIdartlang' => $details['idartlang']
 			));
 
-			Aitsu_Event :: raise('backend.article.duplicate.end', (object) array (
+			Aitsu_Event :: raise('persistence.article.duplicate.end', (object) array (
 				'idartlangold' => $details['idartlang'],
-				'idartlangnew' => $newIdartlang
+				'idartlangnew' => $newIdartlang,
+				'action' => 'save'
 			));
 
 			Aitsu_Db :: commit();
@@ -451,11 +472,12 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				':newIdartlang' => $newIdartlang,
 				':oldIdartlang' => $details['idartlang']
 			));
-			
-			Aitsu_Event :: raise('backend.article.sync.end', (object) array (
+
+			Aitsu_Event :: raise('persistence.article.sync.end', (object) array (
 				'idartlangold' => $details['idartlang'],
 				'idartlangnew' => $newIdartlang,
-				'idartlang' => $newIdartlang
+				'idartlang' => $newIdartlang,
+				'action' => 'save'
 			));
 
 			Aitsu_Db :: commit();

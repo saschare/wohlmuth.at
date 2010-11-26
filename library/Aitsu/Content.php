@@ -2,23 +2,9 @@
 
 
 /**
- * aitsu Content.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Content.php 16732 2010-05-31 13:28:44Z akm $}
  */
-
-/*
-CREATE TABLE `con_article_content` (
-`idartlang` INT UNSIGNED NOT NULL ,
-`index` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-`value` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-`modified` DATETIME NOT NULL ,
-PRIMARY KEY (  `idartlang` ,  `index` )
-) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
-*/
 
 class Aitsu_Content {
 
@@ -70,8 +56,8 @@ class Aitsu_Content {
 			'idart' => $i->idart,
 			'idlang' => $i->idlang
 		));
-		
-		if (isset(Aitsu_Registry :: get()->env->substituteEmptyAreas) && Aitsu_Registry :: get()->env->substituteEmptyAreas == true) {
+
+		if (isset (Aitsu_Registry :: get()->env->substituteEmptyAreas) && Aitsu_Registry :: get()->env->substituteEmptyAreas == true) {
 			$subst = true;
 		} else {
 			$subst = false;
@@ -90,6 +76,11 @@ class Aitsu_Content {
 
 	public static function set($index, $idartlang, $content) {
 
+		Aitsu_Event :: raise('article.content.set.start', array (
+			'idartlang' => $idartlang,
+			'action' => 'save'
+		));
+
 		Aitsu_Db :: query('' .
 		'replace into _article_content ' .
 		'(idartlang, `index`, `value`, modified) ' .
@@ -99,7 +90,12 @@ class Aitsu_Content {
 			$index,
 			$content
 		));
-		
+
+		Aitsu_Event :: raise('article.content.set.end', array (
+			'idartlang' => $idartlang,
+			'action' => 'save'
+		));
+
 		Aitsu_Persistence_Article :: touch($idartlang);
 	}
 

@@ -184,6 +184,12 @@ class Aitsu_Core_Article_Property {
 			Aitsu_Persistence_Article :: touch($this->idartlang);
 			
 			Aitsu_Db :: commit();
+			
+			Aitsu_Event :: raise('article.property.save.end', (object) array (
+				'idartlang' => $this->idartlang,
+				'action' => 'save'
+			));
+			
 		} catch (Exception $e) {
 			Aitsu_Db :: rollback();
 			throw $e;

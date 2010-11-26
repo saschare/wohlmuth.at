@@ -293,7 +293,7 @@ class DataController extends Zend_Controller_Action {
 			Aitsu_Persistence_Article :: factory($idart)->remove();
 			$this->_helper->json(array (
 				'status' => 'success',
-				'message' => Zend_Registry :: get('Zend_Translate')->translate('Article deleted') . ' [ID ' . $idart . ']'
+				'message' => Zend_Translate :: translate('Article deleted') . ' [ID ' . $idart . ']'
 			));
 		} catch (Exception $e) {
 			$this->_helper->json(array (

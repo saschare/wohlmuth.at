@@ -4,36 +4,22 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Mysql.php 19473 2010-10-21 14:02:09Z akm $}
  */
 
 class Aitsu_Index_Mysql implements Aitsu_Event_Listener_Interface {
 	
 	public static function notify(Aitsu_Event_Abstract $event) {
 		
-		static $executed = false;
-		
-		if ($executed) {
-			/*
-			 * postDispatch is fired twice. Only in the second case we
-			 * see updated data. We therefore do not return at this point.
-			 */
-			// return;
+		if ($event->action == 'save') {
+			self :: _populateIndexTable($event->idartlang);
 		}
 		
-		if ($event->request->getParam('plugin') == 'edit' && $event->request->getParam('paction') == 'save') {
-			self :: _populateIndexTable($event->request);
+		if ($event->acton == 'delete') {
+			self :: _removeIndexEntry();
 		}
-		
-		if ($event->request->getParam('controller') == 'data' && $event->request->getParam('action') == 'delete') {
-			self :: _removeIndexEntry($event->request);
-		}
-		
-		$executed = true;
 	}
 
-	protected static function _populateIndexTable($request) {
+	protected static function _populateIndexTable($idartlang) {
 
 		$content = '';
 
@@ -41,7 +27,7 @@ class Aitsu_Index_Mysql implements Aitsu_Event_Listener_Interface {
 		'select content.value from _article_content as content ' .
 		'where idartlang = :idartlang ' .
 		'order by content.index asc', array (
-			':idartlang' => $request->getParam('idartlang')
+			':idartlang' => $idartlang
 		));
 
 		if ($contents) {
@@ -57,14 +43,12 @@ class Aitsu_Index_Mysql implements Aitsu_Event_Listener_Interface {
 		'insert into _content_index ' .
 		'(idartlang, content) values (:idartlang, :content) ' .
 		'on duplicate key update content = :content', array (
-			':idartlang' => $request->getParam('idartlang'),
+			':idartlang' => $idartlang,
 			':content' => $content
 		));
 	}
 
-	protected static function _removeIndexEntry($request) {
-
-		trigger_error('löschung wird vorgenommen');
+	protected static function _removeIndexEntry() {
 
 		Aitsu_Db :: query('' .
 		'delete mindex ' .
