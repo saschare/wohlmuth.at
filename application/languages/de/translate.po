@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-24 17:39+0100\n"
-"PO-Revision-Date: 2010-11-26 17:23+0100\n"
+"POT-Creation-Date: 2010-11-26 17:28+0100\n"
+"PO-Revision-Date: 2010-11-26 17:29+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,27 +37,27 @@ msgstr "Letzte"
 msgid "Article with ID %s copied to clipboard."
 msgstr "Der Artikel mit der ID %s wurde in die Zwischenablage kopiert."
 
-#: application/adm/controllers/DataController.php:244
+#: application/adm/controllers/DataController.php:242
 msgid "Article"
 msgstr "Artikel"
 
-#: application/adm/controllers/DataController.php:296
+#: application/adm/controllers/DataController.php:294
 msgid "Article deleted"
 msgstr "Artikel gelöscht."
 
-#: application/adm/controllers/DataController.php:320
+#: application/adm/controllers/DataController.php:318
 msgid "An error occured while trying to set the specified article as index. "
 msgstr "Während dem Vorgang ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:339
+#: application/adm/controllers/DataController.php:337
 msgid "An error occured while trying to duplicate the specified article. "
 msgstr "Während der Duplizierung ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:361
+#: application/adm/controllers/DataController.php:359
 msgid "An error occured while trying to synchronize the specified article. "
 msgstr "Während der Synchronisation ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:402
+#: application/adm/controllers/DataController.php:400
 msgid "Categories moved."
 msgstr "Die Kategorien wurden verschoben."
 
@@ -244,16 +244,24 @@ msgstr "Setup Datenbank"
 msgid "The file dump.sql is missing."
 msgstr "Die Datei dump.sql fehlt."
 
-#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:17
+#: application/adm/scripts/Maintenance/Removecaturls.php:15
+msgid "Remove category URLs"
+msgstr "Katgorie-URLs entfernen"
+
+#: application/adm/scripts/Maintenance/Removecaturls.php:25
+msgid "URLs removed."
+msgstr "URLs entfernt."
+
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:15
 msgid "Delete unlinked media from the file system"
 msgstr "Gelöschte Medien entfernen"
 
-#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:36
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:34
 #, php-format
 msgid "Removing %s (ID %s)"
 msgstr "Entferne %s (ID %s)"
 
-#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:57
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:55
 #, php-format
 msgid "File %s removed."
 msgstr "Die Datei %s wurde entfernt."
@@ -445,7 +453,7 @@ msgstr "DC-Metadaten wurden gespeichert."
 msgid "Arbitrary data"
 msgstr "Arbiträrdaten"
 
-#: application/plugins/article/edit/Class.php:24
+#: application/plugins/article/edit/Class.php:22
 msgid "Edit"
 msgstr "Edit"
 
@@ -454,7 +462,6 @@ msgid "Properties"
 msgstr "Eigenschaften"
 
 #: application/plugins/article/properties/Class.php:67
-#: application/plugins/article/redirector/Class.php:99
 msgid "Properties saved."
 msgstr "Eigenschaften wurden gespeichert."
 
@@ -564,11 +571,11 @@ msgstr "Gibt eine Breadcrumb-Navigation aus."
 msgid "Outputs a definition list out of a list of line separated data."
 msgstr "Gibt eine Definitionsliste zurück aus einer Zeilendelimitierten Eingabe."
 
-#: library/Aitsu/Persistence/Article.php:244
+#: library/Aitsu/Persistence/Article.php:262
 msgid "An error occured while deleting the specified article."
 msgstr "Während dem Löschvorgang ist ein Fehler aufgetreten."
 
-#: library/Aitsu/Persistence/Article.php:321
+#: library/Aitsu/Persistence/Article.php:339
 msgid "Copy of"
 msgstr "Kopie von"
 
@@ -585,55 +592,55 @@ msgstr "Das Ende des Skriptes wurde erreicht"
 msgid "Uncaught exception"
 msgstr "Unbehandelte Ausnahme"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:19
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:17
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:26
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:24
 msgid "Articles"
 msgstr "Artikel"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:36
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:34
 msgid "Categories"
 msgstr "Kategorien"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:46
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:44
 msgid "Plugins"
 msgstr "Plugins"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:57
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:55
 msgid "Management"
 msgstr "Management"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:67
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:65
 msgid "User profile"
 msgstr "Benutzerprofil"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:77
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:75
 msgid "User, Roles and Privileges"
 msgstr "Benutzer, Rollen und Rechte"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:87
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:85
 msgid "Clients"
 msgstr "Mandanten"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:97
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:95
 msgid "Mappings"
 msgstr "Mappings"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:107
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:105
 msgid "Configurations"
 msgstr "Konfigurationen"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:117
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:115
 msgid "Translations"
 msgstr "Übersetzungen"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:151
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:149
 msgid "Scripts"
 msgstr "Skripte"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:163
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:161
 msgid "Logout"
 msgstr "Logout"
 
@@ -650,6 +657,8 @@ msgid "Add new configuration set"
 msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/list.phtml:4
+#: application/adm/views/scripts/data/index.phtml:13
+#: application/adm/views/scripts/mapping/list.phtml:11
 msgid "ID"
 msgstr "ID"
 
@@ -669,28 +678,28 @@ msgstr "Synchronisationssprache"
 msgid "No synchronization"
 msgstr "Keine Synchronisation"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:21
+#: application/adm/views/scripts/data/datasetSelector.phtml:20
 msgid "There is only one language availabe. Therefore there is no language availabe to synchronize from."
 msgstr "Aktuell ist nur eine Sprache verfügbar. Eine Synchronisation ist deshalb nicht möglich."
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:25
+#: application/adm/views/scripts/data/datasetSelector.phtml:28
 msgid "Article tree"
 msgstr "Artikelbaum"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:30
+#: application/adm/views/scripts/data/datasetSelector.phtml:33
 #: application/adm/views/scripts/data/index.phtml:4
 msgid "Last opened articles"
 msgstr "Zuletzt geöffnete Artikel"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:33
+#: application/adm/views/scripts/data/datasetSelector.phtml:36
 msgid "Favorits"
 msgstr "Favoriten"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:124
+#: application/adm/views/scripts/data/datasetSelector.phtml:127
 msgid "Publish current version"
 msgstr "Aktuelle Version publizieren"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:137
+#: application/adm/views/scripts/data/datasetSelector.phtml:140
 msgid "Current version is online"
 msgstr "Aktuelle Version ist online."
 
@@ -748,10 +757,12 @@ msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/adm/views/scripts/translate/index.phtml:13
+#: application/adm/views/scripts/translation/translationlist.phtml:14
 msgid "Key"
 msgstr "Schlüssel"
 
 #: application/adm/views/scripts/translate/index.phtml:14
+#: application/adm/views/scripts/translation/translationlist.phtml:15
 msgid "Value"
 msgstr "Wert"
 
@@ -1138,12 +1149,10 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1255,19 +1264,16 @@ msgstr "Stdabw. langsamste Seite"
 
 #: application/plugins/article/media/views/delete.phtml:5
 #: application/plugins/article/media/views/index.phtml:33
-#: application/plugins/article/media/views/filelist.phtml:5
 msgid "File name"
 msgstr "Dateiname"
 
 #: application/plugins/article/media/views/delete.phtml:6
 #: application/plugins/article/media/views/index.phtml:34
-#: application/plugins/article/media/views/filelist.phtml:6
 msgid "Media name"
 msgstr "Medienname"
 
 #: application/plugins/article/media/views/delete.phtml:8
 #: application/plugins/article/media/views/index.phtml:36
-#: application/plugins/article/media/views/filelist.phtml:8
 msgid "Uploaded"
 msgstr "Hochgeladen"
 

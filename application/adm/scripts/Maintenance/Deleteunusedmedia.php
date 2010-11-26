@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Deleteunusedmedia.php 19299 2010-10-13 12:16:00Z akm $}
  */
 
 class Adm_Script_Deleteunusedmedia extends Aitsu_Adm_Script_Abstract {
