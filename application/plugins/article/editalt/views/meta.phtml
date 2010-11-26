@@ -33,7 +33,7 @@ $(function() {
 	  		var container = ui.children('input[name=index]').val();
 	  		var params = '';
 	  		if (ui.find('code.params').length > 0) {
-	  			params = $(this).find('code.params').first().html();
+	  			params = ui.find('code.params').first().html();
 	  		}
 
 			$.post("<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'editcontent'), 'aplugin'); ?>", { type: type, container: container, idartlang: idartlang, params: params },
