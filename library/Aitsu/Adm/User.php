@@ -30,6 +30,7 @@ class Aitsu_Adm_User {
 		$user = Aitsu_Persistence_View_User :: auth($login, $password);
 		if ($user !== false) {
 			self :: $_instance = new self($user->id);
+			return true;
 		}
 
 		return false;

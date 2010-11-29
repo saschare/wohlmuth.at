@@ -243,10 +243,16 @@ class Aitsu_Bootstrap {
 	}
 
 	protected function _AuthenticateUser() {
+		
+		if (isset($_REQUEST['logout'])) {
+			Aitsu_Registry :: get()->session->user = null;
+		}
 
 		if (isset ($_POST['username']) && isset ($_POST['password'])) {
 			if (Aitsu_Adm_User :: login($_POST['username'], $_POST['password'])) {
+				trigger_error('user logged in...');
 				Aitsu_Registry :: get()->session->user = Aitsu_Adm_User :: getInstance();
+				trigger_error(var_export(Aitsu_Registry :: get()->session->user, true));
 			}
 		}
 		elseif (isset (Aitsu_Registry :: get()->session->user)) {
