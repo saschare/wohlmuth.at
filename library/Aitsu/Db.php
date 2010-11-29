@@ -2,15 +2,13 @@
 
 
 /**
- * Aitsu database abstraction.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Db.php 18800 2010-09-16 21:03:42Z akm $}
  */
 
 class Aitsu_Db {
+	
+	static public $debugNext = false;
 
 	protected $db;
 	protected $prefix;
@@ -75,7 +73,12 @@ class Aitsu_Db {
 			echo $fQuery;
 			echo '</pre>';
 		}
-
+		
+		if (self :: $debugNext) {
+			trigger_error($fQuery);
+			self :: $debugNext = false;
+		}
+		
 		try {
 			if ($vars != null) {
 				$returnValue = $this->db-> $method ($fQuery, $vars);
@@ -171,6 +174,10 @@ class Aitsu_Db {
 	 * @return String Query.
 	 */
 	public function prefix($query) {
+
+		if (self :: $debugNext) {
+			trigger_error(var_export(Aitsu_Application_Status :: isPreview(), true));
+		}
 
 		if (!Aitsu_Application_Status :: isPreview()) {
 			$query = self :: getInstance()->_productionQuery($query);
@@ -277,4 +284,8 @@ class Aitsu_Db {
 		return self :: query('insert into ' . $table . ' (`' . implode('`, `', $fields) . '`) values (:' . implode(', :', $fields) . ') ', $values)->getLastInsertId();
 	}
 
+	public static function debugNext() {
+		
+		self :: $debugNext = true;
+	}
 }

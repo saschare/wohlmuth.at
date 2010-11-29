@@ -176,48 +176,53 @@ class Aitsu_Bootstrap_EvalRequest {
 		$reg = Aitsu_Registry :: get();
 
 		if ($idart != null) {
-			$results = Aitsu_Db :: fetchAll("" .
-			"select " .
-			"	artlang.idartlang as idartlang, " .
-			"	catart.idcat as idcat " .
-			"from _art_lang as artlang " .
-			"left join _cat_art as catart on (artlang.idart = catart.idart) " .
-			"where " .
-			"	artlang.idart = ? " .
-			"	and artlang.idlang = ? " .
-			"	and artlang.online = 1 " .
-			"", array (
-				$idart,
-				$reg->env->idlang
+			$results = Aitsu_Db :: fetchAll('' .
+			'select ' .
+			'	artlang.idartlang as idartlang, ' .
+			'	catart.idcat as idcat, ' .
+			'	catlang.public ' .
+			'from _art_lang as artlang ' .
+			'left join _cat_art as catart on artlang.idart = catart.idart ' .
+			'left join _cat_lang as catlang on catart.idcat = catlang.idcat and catlang.idlang = artlang.idlang ' .
+			'where ' .
+			'	artlang.idart = :idart ' .
+			'	and artlang.idlang = :idlang ' .
+			'	and artlang.online = 1 ' .
+			'', array (
+				':idart' => $idart,
+				':idlang' => $reg->env->idlang
 			));
 
 			if ($results) {
 				$reg->env->idartlang = $results[0]['idartlang'];
 				$reg->env->idcat = $results[0]['idcat'];
+				$reg->env->ispublic = $results[0]['public'];
 			} else {
 				$reg->env->idartlang = null;
 			}
 			return;
 		}
 
-		$results = Aitsu_Db :: fetchAll("" .
-		"select " .
-		"	catlang.startidartlang as idartlang, " .
-		"	artlang.idart as idart " .
-		"from _cat_lang as catlang " .
-		"left join _art_lang as artlang on catlang.startidartlang = artlang.idartlang " .
-		"where " .
-		"	catlang.idcat = ? " .
-		"	and catlang.idlang = ? " .
-		"	and artlang.online = 1 " .
-		"", array (
-			$idcat,
-			$reg->env->idlang
+		$results = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	catlang.startidartlang as idartlang, ' .
+		'	artlang.idart as idart, ' .
+		'	catlang.public ' .
+		'from _cat_lang as catlang ' .
+		'left join _art_lang as artlang on catlang.startidartlang = artlang.idartlang ' .
+		'where ' .
+		'	catlang.idcat = :idcat ' .
+		'	and catlang.idlang = :idlang ' .
+		'	and artlang.online = 1 ' .
+		'', array (
+			':idcat' => $idcat,
+			':idlang' => $reg->env->idlang
 		));
 
 		if ($results) {
 			$reg->env->idartlang = $results[0]['idartlang'];
 			$reg->env->idart = $results[0]['idart'];
+			$reg->env->ispublic = $results[0]['public'];
 		} else {
 			$reg->env->idartlang = null;
 		}
@@ -311,13 +316,26 @@ class Aitsu_Bootstrap_EvalRequest {
 
 	protected function _checkUserPermissions() {
 
-		return;
-
-		/*if (Aitsu_Core_User :: hasAccess(Aitsu_Registry :: get()->env->idartlang)) {
+		if (Aitsu_Registry :: get()->env->ispublic == 1) {
+			/*
+			 * No permission check necessary. Return.
+			 */
 			return;
-		}*/
-		
-		// TODO: check user access.
+		}
+
+		$user = Aitsu_Adm_User :: getInstance();
+
+		if ($user != null && $user->isAllowed(array (
+				'language' => Aitsu_Registry :: get()->env->idlang,
+				'area' => 'frontend',
+				'action' => 'view',
+				'resource' => array (
+					'type' => 'cat',
+					'id' => Aitsu_Registry :: get()->env->idcat
+				)
+			))) {
+			return;
+		}
 
 		/*
 		 * The user seems not to be allowed to access the page. We therefore

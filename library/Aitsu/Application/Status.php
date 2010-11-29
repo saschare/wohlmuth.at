@@ -37,7 +37,7 @@ class Aitsu_Application_Status {
 			throw new Exception('Preview mode may only be set within the bootstrap.');
 		}
 
-		if (!is_null($set)) {
+		if (!is_null($set)) {			
 			$instance->_preview = (boolean) $set;
 		}
 		

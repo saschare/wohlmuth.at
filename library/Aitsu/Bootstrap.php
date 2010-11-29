@@ -244,9 +244,15 @@ class Aitsu_Bootstrap {
 
 	protected function _AuthenticateUser() {
 
-		if (isset (Aitsu_Registry :: get()->session->user)) {
+		if (isset ($_POST['username']) && isset ($_POST['password'])) {
+			if (Aitsu_Adm_User :: login($_POST['username'], $_POST['password'])) {
+				Aitsu_Registry :: get()->session->user = Aitsu_Adm_User :: getInstance();
+			}
+		}
+		elseif (isset (Aitsu_Registry :: get()->session->user)) {
 			Aitsu_Adm_User :: rehydrate(Aitsu_Registry :: get()->session->user);
 		}
+
 		$user = Aitsu_Adm_User :: getInstance();
 
 		if ((isset ($_GET['edit']) || isset ($_GET['preview'])) && ($user == null || !$user->isAllowed(array (
@@ -262,6 +268,7 @@ class Aitsu_Bootstrap {
 		Aitsu_Registry :: isFront(!isset ($_GET['edit']));
 		Aitsu_Application_Status :: isEdit(isset ($_GET['edit']));
 		Aitsu_Application_Status :: isPreview(isset ($_GET['preview']));
+		Aitsu_Application_Status :: setEnv('frontend');
 	}
 
 	protected function _SetBackendLang() {
@@ -282,15 +289,6 @@ class Aitsu_Bootstrap {
 		Aitsu_Registry :: get()->Zend_Translate = $adapter;
 	}
 
-	protected function _AuthenticateFrontendUser() {
-
-		if (!isset ($_POST['username']) || !isset ($_POST['password'])) {
-			return;
-		}
-
-		// Aitsu_Core_User :: getInstance()->login($_POST['username'], $_POST['password']);
-	}
-
 	protected function _ExecuteConfiguredInits() {
 
 		Aitsu_Event :: raise('frontend.init', null);
@@ -308,11 +306,14 @@ class Aitsu_Bootstrap {
 		'	catart.idcat, ' .
 		'	artlang.idlang, ' .
 		'	artlang.idartlang, ' .
-		'	lang.idclient ' .
+		'	lang.idclient, ' .
+		'	catlang.public ' .
 		'from _art_lang as artlang ' .
 		'left join _cat_art as catart on artlang.idart = catart.idart ' .
 		'left join _lang as lang on artlang.idlang = lang.idlang ' .
-		'where artlang.idartlang = :idartlang', array (
+		'left join _cat_lang as catlang on catlang.idcat = catart.idcat and catlang.idlang = artlang.idlang ' .
+		'where ' .
+		'	artlang.idartlang = :idartlang', array (
 			':idartlang' => $_GET['id']
 		));
 
@@ -365,15 +366,13 @@ class Aitsu_Bootstrap {
 			 */
 			return;
 		}
-
-		//if (Aitsu_Core_Backend_User :: getInstance()->getUserId()) {
-		/*
-		 * No caching has to be made because the visitor is logged in.
-		 */
-		//return;
-		//}
-
-		// TODO: disable caching if user is logged in.
+		
+		if (Aitsu_Adm_User :: getInstance() != null) {
+			/*
+			 * Cache is disabled.
+			 */
+			return;
+		}
 
 		Aitsu_Ee_Cache_Page :: getInstance()->saveFs($this->pageContent);
 	}

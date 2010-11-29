@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: User.php 19051 2010-09-30 11:13:27Z akm $}
  */
 
 class Aitsu_Adm_User {
@@ -143,11 +141,11 @@ class Aitsu_Adm_User {
 			return false;
 		}
 		
-		if (isset ($res['client']) && (!isset ($privilege->idclient) || $privilege->idclient != $res['client'])) {
+		if (isset ($res['client']) && (!isset ($privilege->client) || $privilege->client != $res['client'])) {
 			return false;
 		}
 
-		if (isset ($res['language']) && (!isset ($privilege->idlang) || $privilege->idlang != $res['language'])) {
+		if (isset ($res['language']) && (!isset ($privilege->language) || $privilege->language != $res['language'])) {
 			return false;
 		}
 
@@ -163,7 +161,7 @@ class Aitsu_Adm_User {
 			if (!isset ($privilege->resource)) {
 				return false;
 			}
-			if ($res['rsource']['type'] != $privilege->resource->type) {
+			if ($res['resource']['type'] != $privilege->resource->type) {
 				return false;
 			}
 			if ($res['resource']['id'] == $privilege->resource->id) {
