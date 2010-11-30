@@ -527,7 +527,7 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 			}
 
 			Aitsu_Db :: commit();
-			
+
 			Aitsu_Cache :: getInstance()->clean(array (
 				'type_navigation'
 			));
@@ -572,7 +572,7 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 			}
 
 			Aitsu_Db :: commit();
-			
+
 			Aitsu_Cache :: getInstance()->clean(array (
 				'type_navigation'
 			));
@@ -1140,5 +1140,22 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 		'order by parent.lft asc ', array (
 			':idcat' => $idcat
 		));
+	}
+
+	public static function isChildOf($child, $parent) {
+
+		if (Aitsu_Db :: fetchOne('' .
+			'select count(parent.idcat) from _cat as parent ' .
+			'left join _cat as child on child.lft between parent.lft and parent.rgt ' .
+			'where ' .
+			'	parent.idcat = :parent ' .
+			'	and child.idcat = :child ', array (
+				':child' => $child,
+				':parent' => $parent
+			)) > 0) {
+			return true;
+		}
+
+		return false;
 	}
 }
