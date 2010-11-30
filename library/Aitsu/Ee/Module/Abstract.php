@@ -2,12 +2,8 @@
 
 
 /**
- * Abstract module class.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Abstract.php 18351 2010-08-26 07:41:14Z akm $}
  */
 
 abstract class Aitsu_Ee_Module_Abstract {
