@@ -129,7 +129,8 @@ class Aitsu_Persistence_View_Category {
 		'	if (child.idcat is null, 0, if(child.idcat = cat.idcat, 0, 1)) as isparent, ' .
 		'	if (child.idcat = cat.idcat, 1, 0) as iscurrent, ' .
 		'	catlang.public as ispublic, ' .
-		'	if (artlang.online = 1, 1, 0) as isvisible ' .
+		'	if (artlang.online = 1, 1, 0) as isvisible, ' .
+		'	catlang.config ' .
 		'from _cat as cat ' .
 		'left join _cat as root on cat.lft between root.lft and root.rgt ' .
 		'left join _cat_lang as catlang on cat.idcat = catlang.idcat ' .
