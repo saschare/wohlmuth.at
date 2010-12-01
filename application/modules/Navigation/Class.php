@@ -34,19 +34,23 @@ class Module_Navigation_Class extends Aitsu_Ee_Module_Abstract {
 
 		$index = empty ($context['index']) ? 'noindex' : $context['index'];
 		$params = Aitsu_Util :: parseSimpleIni($context['params']);
+		
+		$user = Aitsu_Adm_User :: getInstance();
+		$template = isset ($params->template) ? $params->template : 'index';
 
 		$output = '';
-		if ($instance->_get('Navigation_' . preg_replace('/[^a-zA-Z_0-9]/', '', $index), $output)) {
+		if ($user == null && $instance->_get('Navigation_' . $template . preg_replace('/[^a-zA-Z_0-9]/', '', $index), $output)) {
 			return $output;
 		}
 
 		$view = $instance->_getView();
 		$view->nav = Aitsu_Persistence_View_Category :: nav($params->idcat);
 
-		$template = isset ($params->template) ? $params->template : 'index';
 		$output = $view->render($template . '.phtml');
 
-		$instance->_save($output, 'eternal');
+		if ($user == null) {
+			$instance->_save($output, 'eternal');
+		}
 
 		return $output;
 	}

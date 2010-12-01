@@ -1,0 +1,23 @@
+<form enctype="application/x-www-form-urlencoded" method="post" class="yform" action="./"> 
+	<fieldset id="fieldset-credentials">
+		<legend>
+			<?php echo $this->translate('Credentials'); ?>
+		</legend> 
+ 
+		<div class="type-text">
+			<label for="login" class="required">Login</label> 
+ 
+			<input type="text" name="username" id="login" value="" />
+		</div>
+		 
+		<div class="type-text">
+			<label for="password" class="required">Password</label> 
+ 
+			<input type="password" name="password" id="password" value="" />
+		</div>
+	</fieldset>
+	 
+	<div class="type-button">
+		<button name="submit" id="submit" type="submit" class="login">Login</button>
+	</div>
+</form>
