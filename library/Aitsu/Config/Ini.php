@@ -2,13 +2,9 @@
 
 
 /**
- * Aitsu Config Ini
- *
  * @author Christian Kehres, webtischlerei.de
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, webtischlerei.de
- *
- * {@id $Id: Ini.php 17778 2010-07-27 17:44:55Z akm $}
  */
 
 class Aitsu_Config_Ini {
@@ -32,7 +28,7 @@ class Aitsu_Config_Ini {
 			$config->merge($client_config);
 		}
 		
-		if (substr_count ($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') == 0) {
+		if (!isset($_SERVER['HTTP_ACCEPT_ENCODING']) || substr_count ($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') == 0) {
 			Aitsu_Registry :: get()->config->output->gzhandler = false;
 		}
 
