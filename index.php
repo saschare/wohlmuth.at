@@ -2,12 +2,8 @@
 
 
 /**
- * aitsuEE Bootstrap.
- *
  * @author Anreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- *
- * {@id $Id: index.php 18406 2010-08-27 17:19:35Z akm $}
  */
 
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/application'));
