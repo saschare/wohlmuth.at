@@ -316,7 +316,7 @@ class Aitsu_Bootstrap_EvalRequest {
 
 	protected function _checkUserPermissions() {
 
-		if (Aitsu_Registry :: get()->env->ispublic == 1) {
+		if (isset(Aitsu_Registry :: get()->env->ispublic) && Aitsu_Registry :: get()->env->ispublic == 1) {
 			/*
 			 * No permission check necessary. Return.
 			 */
