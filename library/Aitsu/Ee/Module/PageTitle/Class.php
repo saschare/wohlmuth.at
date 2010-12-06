@@ -2,12 +2,8 @@
 
 
 /**
- * PageTitle ShortCode.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 17813 2010-07-29 09:01:04Z akm $}
  */
 
 class Aitsu_Ee_Module_PageTitle_Class extends Aitsu_Ee_Module_Abstract {
@@ -16,7 +12,7 @@ class Aitsu_Ee_Module_PageTitle_Class extends Aitsu_Ee_Module_Abstract {
 
 		return (object) array (
 			'name' => 'Page title',
-			'description' => Zend_Registry :: get('Zend_Translate')->translate('Returns the page title of the current article.'),
+			'description' => Aitsu_Translate :: translate('Returns the page title of the current article.'),
 			'type' => 'Header',
 			'author' => (object) array (
 				'name' => 'Andreas Kummer',
