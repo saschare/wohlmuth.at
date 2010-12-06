@@ -1,1 +1,5 @@
+<?php if (isset(Aitsu_Registry :: get()->config->extjstest) && Aitsu_Registry :: get()->config->extjstest == true) : ?>
+<?php echo $this->partial('layout/extjsbased.phtml'); ?>
+<?php else : ?>
 <?php echo $this->partial('layout/yamlbased.phtml'); ?>
+<?php endif; ?>
