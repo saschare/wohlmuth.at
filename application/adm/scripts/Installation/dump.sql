@@ -1349,7 +1349,7 @@ INSERT INTO `ait_tracking_customer` VALUES (12,'Media-Konzept Kuster',1);
 INSERT INTO `ait_tracking_customer` VALUES (16,'Bundesamt für Gesundheit',1);
 INSERT INTO `ait_tracking_customer` VALUES (17,'Migros Fitnesspark Zürich',1);
 INSERT INTO `ait_tracking_customer` VALUES (18,'domä',1);
-CREATE TABLE `ait_tracking_project` (  `projectid` int(10) unsigned NOT NULL AUTO_INCREMENT,  `customerid` int(10) unsigned NOT NULL,  `identifier` varchar(255) NOT NULL,  `startdate` date NOT NULL,  `enddate` date DEFAULT NULL,  PRIMARY KEY (`projectid`),  KEY `customerid` (`customerid`),  CONSTRAINT `ait_tracking_project_ibfk_1` FOREIGN KEY (`customerid`) REFERENCES `ait_tracking_customer` (`customerid`) ON DELETE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=ucs2;
+CREATE TABLE `ait_tracking_project` (  `projectid` int(10) unsigned NOT NULL AUTO_INCREMENT,  `customerid` int(10) unsigned NOT NULL,  `identifier` varchar(255) NOT NULL,  `startdate` date NOT NULL,  `enddate` date DEFAULT NULL,  PRIMARY KEY (`projectid`),  KEY `customerid` (`customerid`),  CONSTRAINT `ait_tracking_project_ibfk_1` FOREIGN KEY (`customerid`) REFERENCES `ait_tracking_customer` (`customerid`) ON DELETE CASCADE) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 INSERT INTO `ait_tracking_project` VALUES (2,12,'abitop.ch','2010-10-06',NULL);
 INSERT INTO `ait_tracking_project` VALUES (3,9,'trotec','2010-10-06',NULL);
 INSERT INTO `ait_tracking_project` VALUES (4,16,'KONKORDIA','2010-10-06',NULL);
