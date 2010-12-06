@@ -44,53 +44,16 @@
                 region: 'south',
                 split: true,
                 height: 0,
-                // minSize: 0,
-                // maxSize: 0,
-                // collapsible: true,
-                // title: 'South',
                 margins: '0 0 0 0',
 				bbar: new Ext.ux.StatusBar({
 		            id: 'basic-statusbar',
-		
-		            // defaults to use when the status is cleared:
-		            defaultText: 'Default status text',
-		            //defaultIconCls: 'default-icon',
-		        
-		            // values to set initially:
-		            text: 'Ready',
+		            defaultText: '',
+		            text: '',
 		            iconCls: 'x-status-valid',
-		
-		            // any standard Toolbar items:
 		            items: [
-		                {
-		                    text: 'Show Warning & Clear',
-		                    handler: function (){
-		                        var sb = Ext.getCmp('basic-statusbar');
-		                        sb.setStatus({
-		                            text: 'Oops!',
-		                            iconCls: 'x-status-error',
-		                            clear: true // auto-clear after a set interval
-		                        });
-		                    }
-		                },
-		                {
-		                    text: 'Show Busy',
-		                    handler: function (){
-		                        var sb = Ext.getCmp('basic-statusbar');
-		                        // Set the status bar to show that something is processing:
-		                        sb.showBusy();
-		                    }
-		                },
-		                {
-		                    text: 'Clear status',
-		                    handler: function (){
-		                        var sb = Ext.getCmp('basic-statusbar');
-		                        // once completed
-		                        sb.clearStatus(); 
-		                    }
-		                },
+		                'aitsu 2.1.0.1',
 		                '-',
-		                'Plain Text'
+		                '&copy; 2010 - aitsu.org'
 		            ]
 		        })                
             }, {
