@@ -32,15 +32,12 @@
         var viewport = new Ext.Viewport({
             layout: 'border',
             items: [
-            // create instance immediately
-            new Ext.BoxComponent({
-                region: 'north',
-                height: 32, // give north and south regions a height
-                autoEl: {
-                    tag: 'div',
-                    html:'<p>north - generally for menus, toolbars and/or advertisements</p>'
-                }
-            }), {
+            {
+            	region: 'north',
+            	split: true,
+            	margins: '0 0 0 0',
+            	height: 50
+        	}, {
                 region: 'south',
                 split: true,
                 height: 0,
@@ -134,13 +131,6 @@
                     autoScroll: true
                 }]
             })]
-        });
-        // get a reference to the HTML element with id "hideit" and add a click listener to it 
-        Ext.get("hideit").on('click', function(){
-            // get a reference to the Panel that was created with id = 'west-panel' 
-            var w = Ext.getCmp('west-panel');
-            // expand or collapse that Panel based on its collapsed property state
-            w.collapsed ? w.expand() : w.collapse();
         });
     });
     </script> 
