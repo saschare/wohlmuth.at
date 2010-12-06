@@ -6,10 +6,20 @@
 		
 		<title>aitsu Administration area</title>
 		
-		<link rel="stylesheet" type="text/css" href="/adm/js/ext-3.3.1/resources/css/ext-all.css" />
-		
-		<script type="text/javascript" src="/adm/js/ext-3.3.1/adapter/ext/ext-base.js"></script> 
-		<script type="text/javascript" src="/adm/js/ext-3.3.1/ext-all.js"></script> 
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ext-all-notheme.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ux-all.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/xtheme-gray.css'); ?>" />
+              
+        <?php if (true) : /* change to false in production */ ?>
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/debug.css'); ?>" />
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/adapter/ext/ext-base-debug.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-all-debug-w-comments.js'); ?>"></script>   
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all-debug.js'); ?>"></script>
+        <?php else : ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/adapter/ext/ext-base.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-all.js'); ?>"></script>   
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all.js'); ?>"></script>
+        <?php endif; ?>
     		
 		<?php echo $this->headLink(); ?>
 		<?php echo $this->headStyle(); ?>
@@ -33,14 +43,58 @@
             }), {
                 // lazily created panel (xtype:'panel' is default)
                 region: 'south',
-                contentEl: 'south',
+                // contentEl: 'south',
                 split: true,
-                height: 100,
+                height: 0,
                 minSize: 100,
-                maxSize: 200,
-                collapsible: true,
-                title: 'South',
-                margins: '0 0 0 0'
+                maxSize: 0,
+                // collapsible: true,
+                // title: 'South',
+                margins: '0 0 0 0',
+				bbar: new Ext.ux.StatusBar({
+		            id: 'basic-statusbar',
+		
+		            // defaults to use when the status is cleared:
+		            defaultText: 'Default status text',
+		            //defaultIconCls: 'default-icon',
+		        
+		            // values to set initially:
+		            text: 'Ready',
+		            iconCls: 'x-status-valid',
+		
+		            // any standard Toolbar items:
+		            items: [
+		                {
+		                    text: 'Show Warning & Clear',
+		                    handler: function (){
+		                        var sb = Ext.getCmp('basic-statusbar');
+		                        sb.setStatus({
+		                            text: 'Oops!',
+		                            iconCls: 'x-status-error',
+		                            clear: true // auto-clear after a set interval
+		                        });
+		                    }
+		                },
+		                {
+		                    text: 'Show Busy',
+		                    handler: function (){
+		                        var sb = Ext.getCmp('basic-statusbar');
+		                        // Set the status bar to show that something is processing:
+		                        sb.showBusy();
+		                    }
+		                },
+		                {
+		                    text: 'Clear status',
+		                    handler: function (){
+		                        var sb = Ext.getCmp('basic-statusbar');
+		                        // once completed
+		                        sb.clearStatus(); 
+		                    }
+		                },
+		                '-',
+		                'Plain Text'
+		            ]
+		        })                
             }, {
                 region: 'east',
                 title: 'East Side',
@@ -160,7 +214,6 @@
     <div id="props-panel" class="x-hide-display" style="width:200px;height:200px;overflow:hidden;"> 
     </div> 
     <div id="south" class="x-hide-display"> 
-        <p>south - generally for informational stuff, also could be for status bar</p> 
     </div> 
 </body> 
 </html>
