@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		
+		<title>aitsu Administration area</title>
+		
+		<link rel="stylesheet" href="/adm/fonts/impact-label/stylesheet.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/fonts/liberation/stylesheet.css" type="text/css" media="screen" />
+
+		<link rel="stylesheet" href="/adm/yaml/core/base.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/css/screen/basemod.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/css/screen/content.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/yaml/navigation/nav_slidingdoor.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/yaml/navigation/nav_vlist.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/css/jqueryui/aitsu2/jquery-ui-1.8.6.custom.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/yaml/screen/forms.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/css/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/js/jquery/ui-select/ui.selectmenu.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/js/jQueryContextMenu/1.01/jquery.contextMenu.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/js/jQueryFileTree/jqueryFileTree.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/css/topnav.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/js/jGrowl/jquery.jgrowl.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/js/plupload/css/plupload.queue.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/adm/js/jqGrid/3.8.1/ui.jqgrid.css" type="text/css" media="screen" />
+
+		<!--[if lte IE 7]>
+		<link href="/adm/css/patches/patch.css" rel="stylesheet" type="text/css" />
+		<![endif]-->
+		
+		<?php echo $this->headLink(); ?>
+		<?php echo $this->headStyle(); ?>
+
+	</head>
+	
+	<body class="aee" style="overflow:hidden;">
+		<div class="page_margins">
+			<a class="skip" title="skip link" href="#navigation">Skip to the navigation</a><span class="hideme">.</span>
+			<a class="skip" title="skip link" href="#content">Skip to the content</a><span class="hideme">.</span>
+			<div class="page">
+
+				<div id="header"></div>
+				
+				<div id="nav">
+					<a id="navigation" name="navigation"></a>
+					<?php if (isset(Aitsu_Registry :: get()->session->user)) : ?>
+						<?php echo $this->partial('layout/nav.phtml'); ?>
+					<?php endif; ?>
+				</div>
+	
+				<div id="main">
+					
+					<div id="col1">
+						<div id="col1_content" class="clearfix">
+							<?php if (isset(Aitsu_Registry :: get()->session->user)) : ?>
+								<?php $ph = (string) $this->placeholder('left'); if (empty($ph)) : ?>
+									<?php echo $this->partial('layout/subnav.phtml'); ?>
+								<?php else : ?>
+									<?php echo $ph; ?>
+								<?php endif; ?>
+							<?php endif; ?>
+						</div>
+					</div>
+
+					<div id="col3">
+						<div id="col3_content" class="clearfix">
+							<div class="floatbox">
+								<?php echo $this->layout()->content; ?>
+								<div style="margin-bottom:10px;">&nbsp;</div>							
+							</div>
+						</div>
+						<div id="ie_clearing">
+							&nbsp;
+						</div>
+					</div>					
+						
+				</div>
+		      
+				<div id="footer">
+          			<div class="subcolumns">
+            			<div class="c25l">
+              				<div class="subcl">
+								&nbsp;
+              				</div>
+            			</div>
+            			<div class="c75r">
+              				<div class="subcr">
+              					Version 2.0.10.3 / copyright &copy; 2010, aitsu.org
+              				</div>
+            			</div>
+          			</div>
+        		</div>
+				
+			</div>
+		</div>
+		
+		<?php echo $this->partial('contextmenu/editdelete.phtml'); ?>
+		<?php echo $this->partial('contextmenu/editduplicatedelete.phtml'); ?>
+		<?php echo $this->partial('dialog/confirmdelete.phtml'); ?>
+		<?php echo $this->partial('dialog/noselectionmade.phtml'); ?>
+		
+		<script type="text/javascript" src="/adm/js/jquery/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="/adm/js/jquery/jquery-ui-1.8.6.custom.min.js"></script>
+		<script type="text/javascript" src="/adm/js/jquery/ui-select/ui.selectmenu.js"></script>
+		<script type="text/javascript" src="/adm/js/jQueryContextMenu/1.01/jquery.contextMenu.js"></script>
+		<script type="text/javascript" src="/adm/js/jQueryFileTree/jqueryFileTree.js"></script>
+		<script type="text/javascript" src="/adm/js/jsTree/jquery.jstree.js"></script>
+		<script type="text/javascript" src="/adm/js/jsTree/jquery.cookie.js"></script>
+		<script type="text/javascript" src="/adm/js/jquery/jquery.relativeSize.js"></script>
+		<script type="text/javascript" src="/adm/js/codeMirror/js/codemirror.js"></script>
+		<script type="text/javascript" src="/adm/editors/ckeditor/ckeditor.js"></script> 
+		<script type="text/javascript" src="/adm/editors/ckeditor/adapters/jquery.js"></script> 
+		<script type="text/javascript" src="/adm/editors/ckeditor/dialog-patch.js"></script> 
+		<script type="text/javascript" src="/adm/js/jGrowl/jquery.jgrowl.js"></script>
+		
+		<script type="text/javascript" src="/adm/js/plupload/plupload.full.min.js"></script> 
+		<script type="text/javascript" src="/adm/js/plupload/plupload.gears.min.js"></script> 
+		<script type="text/javascript" src="/adm/js/plupload/plupload.browserplus.min.js"></script> 
+		<script type="text/javascript" src="/adm/js/plupload/jquery.plupload.queue.min.js"></script> 
+		
+		<script type="text/javascript" src="/adm/js/jqGrid/3.8.1/i18n/grid.locale-en.js"></script> 
+		<script type="text/javascript" src="/adm/js/jqGrid/3.8.1/jquery.jqGrid.min.js"></script> 
+
+		<?php echo $this->headScript(); ?>
+		
+<?php $this->inlineScript()->captureStart(); ?>
+$(function() {
+	
+	/* TABS */
+	$(".tabs").tabs();
+	
+	/* CLIENT and LANG chooser */
+	$('select.topleft').selectmenu({style:'dropdown', width: 120});
+	$('select.topleft').bind('change', function() {$(this).parent('form').submit();});
+	
+	$(document).bind('refreshButtons', function() {
+		$('button.type-new').button({icons: {primary: 'ui-icon-circle-plus'}, text:false});
+		$('button.type-refresh').button({icons: {primary: 'ui-icon-refresh'}, text:false});
+		$('button.type-exec').button({icons: {primary: 'ui-icon-gear'}, text:false});
+		$('button.type-delete').button({icons: {primary: 'ui-icon-trash'}, text:false});
+		$('button.type-edit').button({icons: {primary: 'ui-icon-pencil'}, text:false});
+		$('button.type-online').button({icons: {primary: 'ui-icon-power'}, text:false});
+		$('button.type-lock').button({icons: {primary: 'ui-icon-locked'}, text:false});
+		$('button.type-sync').button({icons: {primary: 'ui-icon-transferthick-e-w'}, text:false});
+		$('button.type-reindent').button({icons: {primary: 'ui-icon-transferthick-e-w'}, text:false});
+		$('button.type-save').button({icons: {primary: 'ui-icon-circle-check'}, text:false});
+		$('button.type-close').button({icons: {primary: 'ui-icon-circle-close'}});
+		$('button.type-clock').button({icons: {primary: 'ui-icon-clock'}});
+		$('button.type-clipboard').button({icons: {primary: 'ui-icon-clipboard'}});
+		$('button.cancel').button({icons: {primary: 'ui-icon-circle-close'}});
+		$('button.save').button({icons: {primary: 'ui-icon-circle-check'}});
+		$('button.login').button({icons: {primary: 'ui-icon-unlocked'}});
+		$('.filter-button').button({icons: {primary: 'ui-icon-search'}, text:false});		
+	});
+	$(document).trigger('refreshButtons');	
+	
+	/* INIT FORM */
+	$(document).bind('formload', function() {
+		$('form .date').datepicker({
+			numberOfMonths: 3,
+			showButtonPanel: true,
+			dateFormat: 'yy-mm-dd'
+		});
+
+		$('#fileTree').fileTree({
+				root: '/0/0/0/', 
+				script: '/adm/bits/datatree',
+				multiFolder: false,
+				expandSpeed: 100,
+				collapseSpeed: 100
+			}, function(file) { 
+		});
+		
+		$(document).trigger('refreshButtons');
+	});
+	
+	$(document).bind('bindclicks', function() {
+		$('button.filter-button').live('click', function() {
+			form = $(this).parents('form');
+			action = form.attr('action');
+			target = $(this).parents('.tab-content');
+			$.post(action, form.serialize(), function(data){
+	     		target.html(data);
+	     		$(document).trigger('refreshButtons');
+	     		$(document).trigger('contextmenu');
+	   		}, 'html');
+			return false;
+		});
+	});
+	$(document).trigger('bindclicks');
+	
+	/* SUBMIT */
+	$('form.ajax').live('submit', function() {
+		form = this;
+		$.post($(this).attr('action'), $(this).serialize(),
+   			function(data){
+   				if ($(form).closest('.ajax-target').length == 0) {
+     				$(form).trigger('listload', [$(form).closest('div.tab-content, div.sized-content'), data]);
+   				} else {
+   					$(form).trigger('listload', [$(form).closest('.ajax-target'), data]);
+   				}	
+     		}, 
+     	"html");
+		return false;
+	});
+	/* IE 8 hack */
+	$('form.ajax button[type=submit]').live('click', function() {
+		$(this).trigger('submit');
+		return false;
+	});
+	
+	/* CANCEL */
+	$('form.ajax .cancel').live('click', function() {
+		if ($(this).closest('.ajax-target').length == 0) {
+			tag = $(this).closest('div.tab-content, div.sized-content');
+		} else {
+			tag = $(this).closest('.ajax-target');
+		}
+		$(tag).load($(this).closest('form').attr('action') + '?cancel=1', function() {
+			$(this).trigger('listload', [tag, null]);		
+		});
+	});
+	
+	$(document).bind('contextmenu', function() {
+		$(".hasctxmenu tr").contextMenu({menu: 'editdelete'},
+		    function(action, el, pos) {
+		    	id = $(el).attr('id');
+		    	if (action == 'delete') {
+			        $("#confirm-delete").dialog({
+						resizable: false,
+						modal: true,
+						buttons: {
+							'<?php echo $this->translate('No'); ?>': function() {
+								$(this).dialog('close');
+							},
+							'<?php echo $this->translate('Yes'); ?>': function() {
+								$(document).trigger('itemaction', ['delete', id]);
+								$(this).dialog('close');
+							}
+						}
+					});
+		    	} else if (action == 'edit') {
+		    		$(document).trigger('itemaction', ['edit', id]);
+		    	}
+		        $(document).trigger('bindclicks');
+	    }, function() {
+	    	$(document).trigger('bindclicks');
+	    });
+	});
+	$(document).trigger('contextmenu');	
+	
+	$(document).bind('itemaction', function(event, action, id) {
+		regex = /([^\-]*)\-(.*)/;
+		match = regex.exec(id);
+		$('#tab-' + match[1] + ' div.tab-content').load('<?php echo $this->url(); ?>/' + action + match[1] + '?id=' + match[2], function() {
+			$(this).trigger('listload', [$('#tab-' + match[1] + ' div.tab-content'), null]);
+		});
+	});	
+	
+	$('#sync-lang').selectmenu({style:'popup', width: 120});
+	
+	$('.widthOfButtonBar').relativeSize('.toolbar', '- 40');
+	
+	$('#col1, #col3').css('opacity', 0);
+	$('#col1, #col3').css('visibility', 'visible');
+	$('#col1, #col3').css('opacity', 1);
+	
+	$('.tab-content').relativeSize(window, null, '-200');
+	
+	$(document).bind('resizeContent', function() {
+		$('.tab-content').relativeSize(window, null, '-150');
+		$('.sized-content').relativeSize(window, null, '-208');
+		$('.sized-content-empty-toolbar').relativeSize(window, null, '-185');
+		$('.internal-sized-content').relativeSize(window, null, '-232');
+		$('.full-sized-content').relativeSize(window, null, '-225');
+		$('#subnav-accordion').relativeSize(window, null, '-105');
+		$('.left-accordion').relativeSize(window, null, '-105');
+	});
+	$(document).trigger('resizeContent');
+	$(document).ajaxComplete(function() {
+  		$(document).trigger('resizeContent');
+	});
+	
+	$(".accordion").accordion({
+		fillSpace: true
+	});
+	
+	$(document.documentElement).keyup(function (event) {
+  		if (!event.ctrlKey || event.keyCode != 32) {
+  			return;
+  		}
+  		if ($('#col3').css('margin-left') == '300px') {
+  			$('#col1').css('display', 'none');
+			$('#col3').css('margin-left', '0');
+  		} else {
+  			$('#col1').css('display', 'block');
+			$('#col3').css('margin-left', '300px');
+  		}
+	});
+	
+	$(window).resize(function() {
+		$(document).trigger('resizeContent');
+	});
+	
+	(function($) { 	
+		$.fn.openNode = function(ids, counter, idprefix, selection) {
+			if (!idprefix) {
+				idprefix = 'cat-';
+			}
+			var obj = this;
+			if (counter >= ids.length) {
+				if (selection) {
+					$('#' + selection + ' > a').trigger('click');
+					return this;
+				} else {
+					$('#' + idprefix + ids[ids.length - 1] + ' > a').trigger('click');
+					return this;					
+				}
+			}
+			jQuery.jstree._reference(this).open_node($('#' + idprefix + ids[counter]), function() {obj.openNode(ids, ++counter, idprefix, selection)}, true);
+		};
+	})(jQuery);
+	
+	<?php echo $this->partial('layout/js/sessionManagement.phtml'); ?>
+});
+<?php $this->inlineScript()->captureEnd(); ?>
+
+		<?php echo $this->inlineScript(); ?>
+		
+	</body>
+</html>
