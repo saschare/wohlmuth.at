@@ -1,0 +1,28 @@
+.tm-page {
+    background-image: url(../images/icons/page.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-category {
+    background-image: url(../images/icons/folder.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-logout {
+    background-image: url(../images/icons/door_in.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-management {
+    background-image: url(../images/icons/cog.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-dashboard {
+    background-image: url(../images/icons/application_side_boxes.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-plugin {
+    background-image: url(../images/icons/plugin.png) !important; 
+    background-repeat: no-repeat;
+}
+.logo-medium {
+    background-image: url(../images/wbm_aitsu_ec7537_146x30.png) !important; 
+    background-repeat: no-repeat;
+}

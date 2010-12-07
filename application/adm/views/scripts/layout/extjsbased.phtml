@@ -37,22 +37,72 @@
             	region: 'north',
             	split: true,
             	margins: '0 0 0 0',
-            	height: 28,
-            	items: [
-            		new Ext.Toolbar({
-            			items: [
-            				{
-					            text: 'Pages',
-					            iconCls: 'page'
-        					},
-            				{
-					            text: 'Categories',
-					            iconCls: 'folder'
-        					}
-            			]
-            		})
-            	]
-        	}, {
+            	height: 50,
+            	layout: 'border',
+            	items: [{
+            		region: 'center',
+            		margins: '0 0 0 0',
+            		border: false,
+            		items:
+	            		new Ext.Toolbar({
+	            			layout: 'hbox',
+	            			style: 'padding-top:15px; padding-left:10px;',
+	            			height: '100%',
+	            			items: [
+	            				{
+						            text: 'Dashboard',
+						            iconCls: 'tm-dashboard',
+						            margins: '0 10 0 10'
+	        					},
+	            				{
+						            text: 'Pages',
+						            iconCls: 'tm-page',
+						            margins: '0 10 0 10'
+	        					},
+	            				{
+						            text: 'Categories',
+						            iconCls: 'tm-category',
+						            margins: '0 10 0 10'
+	        					},
+	            				{
+						            text: 'Plugins',
+						            iconCls: 'tm-plugin',
+						            margins: '0 10 0 10'
+	        					},
+	            				{
+						            text: 'Management',
+						            iconCls: 'tm-management',
+						            margins: '0 10 0 10'
+	        					},
+	            				new Ext.form.ComboBox({
+	            					margins: '0 40 0 40',
+							        // store: store,
+							        displayField: 'client-lang',
+							        typeAhead: true,
+							        mode: 'local',
+							        triggerAction: 'all',
+							        emptyText: 'Client / language',
+							        selectOnFocus: true,
+							        width: 135,
+							        getListParent: function() {
+							            return this.el.up('.x-menu');
+							        },
+							        iconCls: 'no-icon'
+							    }),
+	            				{
+						            text: 'Logout',
+						            iconCls: 'tm-logout'
+	        					}
+	            			]
+	            	})
+            	}, {
+            		region: 'east',
+            		margins: '0 0 0 0',
+            		border: false,
+            		width: 200,
+            		html: '<div class="x-toolbar" style="height:50px; padding:10px 10px 0 0; text-align:right;"><img src="<?php echo $this->baseUrl('/images/wbm_aitsu_ec7537_146x30.png'); ?>"</div>'
+            	}
+            ]}, {
                 region: 'south',
                 split: true,
                 height: 0,
