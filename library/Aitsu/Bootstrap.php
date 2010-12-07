@@ -155,11 +155,7 @@ class Aitsu_Bootstrap {
 			return;
 		}
 
-		// TODO: use mapping information to set appropriate client.
-		// For the moment we assume always client1.
-		$ini = 'default';
-
-		Aitsu_Registry :: get()->config = Aitsu_Config_Ini :: getInstance('clients/' . $ini);
+		Aitsu_Registry :: get()->config = Aitsu_Config_Ini :: getInstance('clients/' . Aitsu_Mapping :: getIni());
 		$this->configured = true;
 	}
 
