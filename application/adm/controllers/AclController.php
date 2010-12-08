@@ -77,6 +77,11 @@ class AclController extends Zend_Controller_Action {
 	}
 
 	public function loginAction() {
+		
+		if (Aitsu_Config :: equals('extjstest', false)) {
+			echo 'TEST';
+			exit;
+		} 
 
 		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/login.ini', 'new'));
 		$form->setAction($this->view->url());
