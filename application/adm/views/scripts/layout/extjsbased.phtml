@@ -67,7 +67,12 @@
 							    }),
 	            				{
 						            text: 'Logout',
-						            iconCls: 'tm-logout'
+						            iconCls: 'tm-logout',
+						            listeners: {
+						            	click: function() {
+						            		window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout')); ?>';
+						            	}
+						            }
 	        					}
 	            			]
 	            	})
