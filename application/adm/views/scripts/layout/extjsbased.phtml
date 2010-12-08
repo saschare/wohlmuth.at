@@ -22,9 +22,6 @@
         <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all.js'); ?>"></script>
         <?php endif; ?>
     		
-		<?php echo $this->headLink(); ?>
-		<?php echo $this->headStyle(); ?>
-
     <script type="text/javascript"> 
     Ext.onReady(function(){
     
@@ -53,7 +50,6 @@
 	            				<?php echo $this->partial('layout/navigation/top.phtml'); ?>
 	            				new Ext.form.ComboBox({
 	            					margins: '0 40 0 40',
-							        // store: store,
 							        displayField: 'client-lang',
 							        typeAhead: true,
 							        mode: 'local',

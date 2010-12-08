@@ -1,7 +1,6 @@
 <?php $user = Aitsu_Adm_User :: getInstance(); ?>
 <?php foreach (Zend_Registry :: get('nav') as $pos) : ?>
-	<?php if ($pos->id != 'logout' && (!isset($pos->ac) || true)) : ?>
-	<?php /*if ($pos->id != 'logout' && (!isset($pos->ac) || $user->isAllowed($pos->ac))) :*/ ?>
+	<?php if ($pos->id != 'logout' && (!isset($pos->ac) || $user->isAllowed($pos->ac))) : ?>
 		{
 			text: '<?php echo $pos->label; ?>',
 			<?php if (!empty($pos->icon)) : ?>
@@ -12,8 +11,7 @@
 				menu: {
 					items: [
 					<?php foreach ($pos->pages as $subPage) : ?>
-						<?php if (!isset($subPage->ac) || true) : ?>
-						<?php /*if (!isset($subPage->ac) || $user->isAllowed($subPage->ac)) :*/ ?>
+						<?php if (!isset($subPage->ac) || $user->isAllowed($subPage->ac)) : ?>
 							{
 								text: '<?php echo $subPage->label; ?>',
 								<?php if (!empty($subPage->icon)) : ?>
@@ -23,8 +21,7 @@
 									menu: {
 										items: [
 											<?php foreach ($subPage->pages as $subSubPage) : ?>
-											<?php if (!isset($subSubPage->ac) || true) : ?>
-											<?php /*if (!isset($subSubPage->ac) || $user->isAllowed($subSubPage->ac)) :*/ ?>
+											<?php if (!isset($subSubPage->ac) || $user->isAllowed($subSubPage->ac)) : ?>
 											{
 												text: '<?php echo $subSubPage->label; ?>',
 												<?php if (!empty($subSubPage->icon)) : ?>
@@ -38,8 +35,9 @@
 											},
 											<?php endif; ?>
 											<?php endforeach; ?>
+											{hidden:true}
 										]
-									},
+									}
 								<?php else : ?>
 								listeners: {
 									click: function() {
@@ -50,12 +48,12 @@
 							},
 						<?php endif; ?>
 					<?php endforeach; ?>
+					{hidden:true}
 					]
 				}
 			<?php else : ?>
 				listeners: {
 					click: function() {
-						// window.location.href = '<?php echo $pos->getHref(); ?>';
 						Ext.Loader.load(['<?php echo $pos->getHref(); ?>?ajax=1'], null, this, false);
 					}
 				}
