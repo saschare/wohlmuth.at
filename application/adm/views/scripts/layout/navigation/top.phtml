@@ -55,7 +55,8 @@
 			<?php else : ?>
 				listeners: {
 					click: function() {
-						window.location.href = '<?php echo $pos->getHref(); ?>';
+						// window.location.href = '<?php echo $pos->getHref(); ?>';
+						Ext.Loader.load(['<?php echo $pos->getHref(); ?>?ajax=1'], null, this, false);
 					}
 				}
 			<?php endif; ?>

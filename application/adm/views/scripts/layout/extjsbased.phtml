@@ -32,6 +32,7 @@
         
         var viewport = new Ext.Viewport({
             layout: 'border',
+            id: 'viewport',
             items: [
             {
             	region: 'north',
@@ -70,7 +71,7 @@
 						            iconCls: 'tm-logout',
 						            listeners: {
 						            	click: function() {
-						            		window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout')); ?>';
+						            		window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
 						            	}
 						            }
 	        					}
@@ -101,78 +102,31 @@
 		        })                
             }, {
                 region: 'east',
-                title: 'Configuration',
+                id: 'viewport-east',
                 collapsible: true,
                 split: true,
                 width: 225,
                 minSize: 175,
                 maxSize: 400,
-                margins: '0 5 0 0',
-                layout: 'fit',
-                items: 
-                new Ext.TabPanel({
-                    border: false,
-                    activeTab: 0,
-                    tabPosition: 'bottom',
-                    items: [new Ext.grid.PropertyGrid({
-                        title: 'Property Grid',
-                        closable: false,
-                        source: {
-                            "Status": "online",
-                            "Published": false
-                        }
-                    })]
-                })
+                margins: '0 5 0 0'
             }, {
                 region: 'west',
-                id: 'west-panel',
-                title: 'Navigation',
+                id: 'viewport-west',
                 split: true,
                 width: 200,
                 minSize: 175,
                 maxSize: 400,
                 collapsible: true,
-                margins: '0 0 0 5',
-                layout: {
-                    type: 'accordion',
-                    animate: true
-                },
-                items: [{
-                    contentEl: 'west',
-                    title: 'Navigation',
-                    border: false,
-                    iconCls: 'nav' // see the HEAD section for style used
-                }, {
-                    title: 'Settings',
-                    html: '<p>Some settings in here.</p>',
-                    border: false,
-                    iconCls: 'settings'
-                }]
-            },
-            new Ext.TabPanel({
-                region: 'center',
-                deferredRender: false,
-                activeTab: 0,
-                items: [{
-                    contentEl: 'center',
-                    title: 'Center Panel',
-                    autoScroll: true
-                }]
-            })]
+                margins: '0 0 0 5'
+            },{
+            	region: 'center',
+            	id: 'viewport-center'
+            }]
         });
     });
     </script> 
 </head> 
 
-<body> 
-    <!-- use class="x-hide-display" to prevent a brief flicker of the content --> 
-    <div id="west" class="x-hide-display"> 
-        <p>Hi. I'm the west panel.</p> 
-    </div> 
-    <div id="center" class="x-hide-display">  
-        <p>hier kommt der editierbereich hin.</p> 
-    </div> 
-    <div id="props-panel" class="x-hide-display" style="width:200px;height:200px;overflow:hidden;"> 
-    </div> 
+<body>
 </body> 
 </html>
