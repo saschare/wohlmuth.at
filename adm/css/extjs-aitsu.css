@@ -22,7 +22,31 @@
     background-image: url(../images/icons/plugin.png) !important; 
     background-repeat: no-repeat;
 }
-.logo-medium {
-    background-image: url(../images/wbm_aitsu_ec7537_146x30.png) !important; 
+.tm-user-profile {
+    background-image: url(../images/icons/user_edit.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-usermanagement {
+    background-image: url(../images/icons/group.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-client {
+    background-image: url(../images/icons/building.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-mapping {
+    background-image: url(../images/icons/map.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-configuration {
+    background-image: url(../images/icons/cog.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-translation {
+    background-image: url(../images/icons/font.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-script {
+    background-image: url(../images/icons/application_osx_terminal.png) !important; 
     background-repeat: no-repeat;
 }

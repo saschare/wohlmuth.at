@@ -18,7 +18,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 					'id' => 'dashboard',
 					'controller' => 'index',
 					'action' => 'index',
-					'route' => 'default'
+					'route' => 'default',
+					'icon' => 'tm-dashboard'
 				),
 				array (
 					'label' => $t->translate('Articles'),
@@ -28,7 +29,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 					'route' => 'default',
 					'ac' => array (
 						'area' => 'article'
-					)
+					),
+					'icon' => 'tm-page'
 				),
 				array (
 					'label' => $t->translate('Categories'),
@@ -38,7 +40,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 					'route' => 'default',
 					'ac' => array (
 						'area' => 'category'
-					)
+					),
+					'icon' => 'tm-category'
 				),
 				array (
 					'label' => $t->translate('Plugins'),
@@ -49,7 +52,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 					'pages' => $this->_getPluginNav(),
 					'ac' => array (
 						'area' => 'plugins'
-					)
+					),
+					'icon' => 'tm-plugin'
 				),
 				array (
 					'label' => $t->translate('Management'),
@@ -60,6 +64,7 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 					'ac' => array (
 						'area' => 'management'
 					),
+					'icon' => 'tm-management',
 					'pages' => array (
 						array (
 							'label' => $t->translate('User profile'),
@@ -69,7 +74,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'route' => 'default',
 							'ac' => array (
 								'area' => 'userprofile'
-							)
+							),
+							'icon' => 'tm-user-profile'
 						),
 						array (
 							'label' => $t->translate('User, Roles and Privileges'),
@@ -79,7 +85,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'route' => 'default',
 							'ac' => array (
 								'area' => 'usermanagement'
-							)
+							),
+							'icon' => 'tm-usermanagement'
 						),
 						array (
 							'label' => $t->translate('Clients'),
@@ -89,7 +96,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'route' => 'default',
 							'ac' => array (
 								'area' => 'client'
-							)
+							),
+							'icon' => 'tm-client'
 						),
 						array (
 							'label' => $t->translate('Mappings'),
@@ -99,7 +107,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'route' => 'default',
 							'ac' => array (
 								'area' => 'mapping'
-							)
+							),
+							'icon' => 'tm-mapping'
 						),
 						array (
 							'label' => $t->translate('Configurations'),
@@ -109,7 +118,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'route' => 'default',
 							'ac' => array (
 								'area' => 'config'
-							)
+							),
+							'icon' => 'tm-configuration'
 						),
 						array (
 							'label' => $t->translate('Translations'),
@@ -119,7 +129,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'route' => 'default',
 							'ac' => array (
 								'area' => 'translation'
-							)/*,
+							),
+							'icon' => 'tm-translation'/*,
 							'pages' => array (
 								array (
 									'label' => $t->translate('Import'),
@@ -153,7 +164,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'route' => 'default',
 							'ac' => array (
 								'area' => 'script'
-							)
+							),
+							'icon' => 'tm-script'
 						)
 					)
 				),

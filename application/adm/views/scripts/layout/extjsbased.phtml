@@ -49,31 +49,7 @@
 	            			style: 'padding-top:15px; padding-left:10px;',
 	            			height: '100%',
 	            			items: [
-	            				{
-						            text: 'Dashboard',
-						            iconCls: 'tm-dashboard',
-						            margins: '0 10 0 10'
-	        					},
-	            				{
-						            text: 'Pages',
-						            iconCls: 'tm-page',
-						            margins: '0 10 0 10'
-	        					},
-	            				{
-						            text: 'Categories',
-						            iconCls: 'tm-category',
-						            margins: '0 10 0 10'
-	        					},
-	            				{
-						            text: 'Plugins',
-						            iconCls: 'tm-plugin',
-						            margins: '0 10 0 10'
-	        					},
-	            				{
-						            text: 'Management',
-						            iconCls: 'tm-management',
-						            margins: '0 10 0 10'
-	        					},
+	            				<?php echo $this->partial('layout/navigation/top.phtml'); ?>
 	            				new Ext.form.ComboBox({
 	            					margins: '0 40 0 40',
 							        // store: store,
