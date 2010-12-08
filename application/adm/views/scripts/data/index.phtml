@@ -1,5 +1,43 @@
 Ext.getCmp('viewport-east').setVisible(true);
-Ext.getCmp('viewport-west').setVisible(true);
+
+var west = Ext.getCmp('viewport-west');
+west.removeAll();
+
+west.setVisible(true);
+west.add(new Ext.Panel({
+	layout: 'accordion',
+	layoutConfig: {
+        titleCollapse: true,
+        hideCollapseTool: true,
+        animate: true
+    },
+	items: [
+		new Ext.tree.TreePanel({
+			title: 'Category tree',
+	        useArrows: true,
+	        autoScroll: true,
+	        animate: true,
+	        containerScroll: true,
+	        border: false,
+	        dataUrl: 'get-nodes.php',
+	        root: {
+	            nodeType: 'async',
+	            text: 'Ext JS',
+	            draggable: false,
+	            id: 'src'
+	        }
+	    }),
+	    {
+	    	title: 'Something else',
+	    	html: '<div>this is just a test.</div>'
+	    },
+	    {
+	    	title: 'Something different',
+	    	height: 100,
+	    	html: '<div>this is just a test.</div>'
+	    }
+	]
+}));
 
 Ext.getCmp('viewport').doLayout();
 <?php return; ?>
