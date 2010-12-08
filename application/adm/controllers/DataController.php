@@ -15,6 +15,10 @@ class DataController extends Zend_Controller_Action {
 			))) {
 			throw new Exception('Access denied');
 		}
+		
+		if ($this->getRequest()->getParam('ajax')) {
+			$this->_helper->layout->disableLayout();
+		}
 	}
 
 	public function indexAction() {
