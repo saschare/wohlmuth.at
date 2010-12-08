@@ -29,7 +29,12 @@
 												text: '<?php echo $subSubPage->label; ?>',
 												<?php if (!empty($subSubPage->icon)) : ?>
 													iconCls: '<?php echo $subSubPage->icon; ?>',
-												<?php endif; ?>										
+												<?php endif; ?>	
+												listeners: {
+													click: function() {
+														window.location.href = '<?php echo $subSubPage->getHref(); ?>';
+													}
+												}									
 											},
 											<?php endif; ?>
 											<?php endforeach; ?>
