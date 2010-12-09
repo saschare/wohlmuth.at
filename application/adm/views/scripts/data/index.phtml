@@ -22,15 +22,48 @@ var pagetree = 	new Ext.tree.TreePanel({
 			node.expand();
 		},
 		contextmenu: function(node) {
-			new Ext.menu.Menu({
-  				items: [{
-    				text: '<?php echo $this->translate('Add to favorites'); ?>',
-    				iconCls: 'cm-bookmark-category',
-    				handler: function() {
-    					// Ext.example.msg('Button Click', 'You clicked the {0} button', btn);
-    				}
-				}]
-			}).show(node.ui.getAnchor());
+			// alert(node.attributes.type);
+			var menu = new Ext.menu.Menu();
+			
+			if (node.attributes.online == true) {
+				menu.addItem({
+					text: '<?php echo $this->translate('Set offline'); ?>',
+					iconCls: 'cm-setoffline',
+					handler: function() {
+						alert('set offline');
+					}
+				});
+			} else {
+				menu.addItem({
+					text: '<?php echo $this->translate('Set online'); ?>',
+					iconCls: 'cm-setonline',
+					handler: function() {
+						alert('set online');
+					}
+				});				
+			}
+			
+			if (node.attributes.type == 'category') {
+				menu.addItem({
+					text: '<?php echo $this->translate('Add to favorites'); ?>',
+					iconCls: 'cm-bookmark-category',
+					handler: function() {
+						alert('add to favorites');
+					}
+				});
+			}
+			
+			if (node.attributes.type == 'page' && node.attributes.indexpage == false) {
+				menu.addItem({
+					text: '<?php echo $this->translate('Set as index'); ?>',
+					iconCls: 'cm-indexpage',
+					handler: function() {
+						alert('set as index');
+					}
+				});
+			}
+			
+			menu.show(node.ui.getAnchor());
 		}
 	},
 	stateEvents : ['collapsenode', 'expandnode'],
@@ -88,6 +121,30 @@ var recentlyOpenedPages = new Ext.grid.GridPanel({
 	title: '<?php echo $this->translate('Recently opened pages'); ?>'
 });
 
+var favorites = new Ext.grid.GridPanel({
+	store: new Ext.data.ArrayStore({
+		fields: [
+			{name: 'id'},
+			{name: 'category'}
+		],
+		data: [
+			<?php $counter = 0; foreach ($this->favorites as $cat) : $cat = (object) $cat; $counter++; ?>
+				[<?php echo $cat->idcat; ?>, '<?php echo $cat->name; ?>']
+				<?php if ($counter < count($this->favorites)) : ?>,<?php endif; ?>
+			<?php endforeach; ?>
+		]
+    }),
+    columns: [
+    	{dataIndex: 'id', header: 'IDCAT', menuDisabled: true, sortable: true},
+    	{dataIndex: 'category', header: 'Category', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	title: '<?php echo $this->translate('Favorites'); ?>'
+});
+
 var west = Ext.getCmp('viewport-west');
 west.removeAll();
 west.setVisible(true);
@@ -101,11 +158,7 @@ west.add(new Ext.Panel({
 	items: [
 		pagetree,
 		recentlyOpenedPages,
-	    {
-	    	title: 'Something different',
-	    	height: 100,
-	    	html: '<div>this is just a test.</div>'
-	    }
+		favorites
 	]
 }));
 

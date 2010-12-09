@@ -66,7 +66,31 @@
     background-image: url(../images/icons/page_white_code_red.png) !important; 
     background-repeat: no-repeat;
 }
+.treecat-online {
+    background-image: url(../images/icons/folder.png) !important; 
+    background-repeat: no-repeat;
+}
+.treecat-offline {
+    background-image: url(../images/icons/folder_delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.treecat-private {
+    background-image: url(../images/icons/folder_key.png) !important; 
+    background-repeat: no-repeat;
+}
 .cm-bookmark-category {
     background-image: url(../images/icons/folder_star.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-setonline {
+    background-image: url(../images/icons/accept.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-setoffline {
+    background-image: url(../images/icons/delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-indexpage {
+    background-image: url(../images/icons/page_white_code.png) !important; 
     background-repeat: no-repeat;
 }

@@ -15,7 +15,7 @@ class DataController extends Zend_Controller_Action {
 			))) {
 			throw new Exception('Access denied');
 		}
-		
+
 		if ($this->getRequest()->getParam('ajax')) {
 			$this->_helper->layout->disableLayout();
 		}
@@ -62,6 +62,7 @@ class DataController extends Zend_Controller_Action {
 		));
 
 		$this->view->articles = Aitsu_Persistence_Lastopened :: factory(1)->load()->get(100);
+		$this->view->favorites = Aitsu_Persistence_CatFavorite :: getAll();
 	}
 
 	public function lastopenedAction() {
@@ -149,11 +150,23 @@ class DataController extends Zend_Controller_Action {
 		$categories = Aitsu_Persistence_View_Category :: cat($id, Aitsu_Registry :: get()->session->currentLanguage, null);
 		if ($categories) {
 			foreach ($categories as $cat) {
+				if ($cat['public'] == 1) {
+					if ($cat['online'] == 1) {
+						$cls = 'treecat-online';
+					} else {
+						$cls = 'treecat-offline';
+					}
+				} else {
+					$cls = 'treecat-private';
+				}
 				$return[] = array (
 					'id' => $cat['idcat'],
 					'text' => $cat['name'],
 					'leaf' => false,
-					'cls' => 'folder'
+					'iconCls' => $cls,
+					'online' => $cat['online'] == 1,
+					'public' => $cat['public'] == 1,
+					'type' => 'category'
 				);
 			}
 		}
@@ -161,9 +174,6 @@ class DataController extends Zend_Controller_Action {
 		$articles = Aitsu_Persistence_View_Articles :: art($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
 		if ($articles) {
 			foreach ($articles as $art) {
-				$classes = array ();
-				$classes[] = $art['online'] == 1 ? 'online' : 'offline';
-				$classes[] = $art['isstart'] == 1 ? 'start' : 'normal';
 				if ($art['isstart']) {
 					if ($art['online'] == 1) {
 						$cls = 'treepage-index-online';
@@ -181,7 +191,10 @@ class DataController extends Zend_Controller_Action {
 					'id' => $art['idart'],
 					'text' => $art['title'],
 					'leaf' => true,
-					'iconCls' => $cls
+					'iconCls' => $cls,
+					'online' => $art['online'] == 1,
+					'type' => 'page',
+					'indexpage' => $art['isstart'] == 1
 				);
 			}
 		}
@@ -230,7 +243,7 @@ class DataController extends Zend_Controller_Action {
 
 		/*$syncLang = $this->getRequest()->getParam('sync');
 		$cat = Aitsu_Persistence_Category :: factory($id)->load();
-
+		
 		$this->view->idcat = $id;
 		$this->view->categoryname = $cat->name;
 		$this->view->articles = Aitsu_Persistence_View_Articles :: full($id, $syncLang);
@@ -261,7 +274,7 @@ class DataController extends Zend_Controller_Action {
 			$this,
 			'_comparePosition'
 		));
-		
+
 		$this->view->idcat = $id;
 	}
 
@@ -303,7 +316,7 @@ class DataController extends Zend_Controller_Action {
 		$art->idclient = Aitsu_Registry :: get()->session->currentClient;
 		$art->idcat = $id;
 		$art->save();
-		
+
 		$this->_loadCategoryPlugins($id);
 
 		$cat = Aitsu_Persistence_Category :: factory($id)->load();
@@ -330,13 +343,13 @@ class DataController extends Zend_Controller_Action {
 			'online' => $art->online
 		));
 	}
-	
+
 	public function startpublishingAction() {
-		
+
 		$id = $this->getRequest()->getParam('id');
-		
+
 		$art = Aitsu_Persistence_Article :: factory($id)->publish()->load(true);
-		
+
 		$this->_helper->json(array (
 			'published' => $art->ispublished
 		));
