@@ -18,8 +18,19 @@ var pagetree = 	new Ext.tree.TreePanel({
 		id: '0'
 	},
 	listeners: {
-		click: function(node, event){
+		click: function(node, event) {
 			node.expand();
+		},
+		contextmenu: function(node) {
+			new Ext.menu.Menu({
+  				items: [{
+    				text: '<?php echo $this->translate('Add to favorites'); ?>',
+    				iconCls: 'cm-bookmark-category',
+    				handler: function() {
+    					// Ext.example.msg('Button Click', 'You clicked the {0} button', btn);
+    				}
+				}]
+			}).show(node.ui.getAnchor());
 		}
 	},
 	stateEvents : ['collapsenode', 'expandnode'],
@@ -60,8 +71,10 @@ var recentlyOpenedPages = new Ext.grid.GridPanel({
 			{name: 'category'}
 		],
 		data: [
-			[1, 'test', 'kat 1'],
-			[2, 'zweiter test', 'kat 2']
+			<?php $counter = 0; foreach ($this->articles as $article) : $article = (object) $article; $counter++; ?>
+				[<?php echo $article->idart; ?>, '<?php echo $article->title; ?>', '<?php echo $article->name; ?>']
+				<?php if ($counter < count($this->articles)) : ?>,<?php endif; ?>
+			<?php endforeach; ?>
 		]
     }),
     columns: [

@@ -66,3 +66,7 @@
     background-image: url(../images/icons/page_white_code_red.png) !important; 
     background-repeat: no-repeat;
 }
+.cm-bookmark-category {
+    background-image: url(../images/icons/folder_star.png) !important; 
+    background-repeat: no-repeat;
+}
