@@ -133,6 +133,49 @@ class DataController extends Zend_Controller_Action {
 		$this->_helper->json($return);
 	}
 
+	/**
+	 * Action to deliver extjs tree panels with the
+	 * necessary async tree information.
+	 */
+	public function treesourceAction() {
+
+		$return = array ();
+
+		$id = $this->getRequest()->getParam('node');
+		if (empty ($id)) {
+			$id = 0;
+		}
+
+		$categories = Aitsu_Persistence_View_Category :: cat($id, Aitsu_Registry :: get()->session->currentLanguage, null);
+		if ($categories) {
+			foreach ($categories as $cat) {
+				$return[] = array (
+					'id' => $cat['idcat'],
+					'text' => $cat['name'],
+					'leaf' => false,
+					'cls' => 'folder'
+				);
+			}
+		}
+
+		$articles = Aitsu_Persistence_View_Articles :: art($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
+		if ($articles) {
+			foreach ($articles as $art) {
+				$classes = array ();
+				$classes[] = $art['online'] == 1 ? 'online' : 'offline';
+				$classes[] = $art['isstart'] == 1 ? 'start' : 'normal';
+				$return[] = array (
+					'id' => $art['idart'],
+					'text' => $art['title'],
+					'leaf' => true,
+					'cls' => implode(' ', $classes)
+				);
+			}
+		}
+
+		$this->_helper->json($return);
+	}
+
 	public function editAction() {
 
 		$this->_helper->layout->disableLayout();

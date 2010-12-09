@@ -1,5 +1,3 @@
-Ext.getCmp('viewport-east').setVisible(true);
-
 var west = Ext.getCmp('viewport-west');
 west.removeAll();
 
@@ -13,19 +11,58 @@ west.add(new Ext.Panel({
     },
 	items: [
 		new Ext.tree.TreePanel({
+			id: 'pageview-cattree',
 			title: 'Category tree',
 	        useArrows: true,
 	        autoScroll: true,
 	        animate: true,
 	        containerScroll: true,
 	        border: false,
-	        dataUrl: 'get-nodes.php',
+	        dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>',
+	        rootVisible: false,
+	        singleExpand: true,
+	        stopRestoring: false,
 	        root: {
 	            nodeType: 'async',
-	            text: 'Ext JS',
+	            text: 'Root',
 	            draggable: false,
-	            id: 'src'
-	        }
+	            id: '0'
+	        },
+	        listeners: {
+    			click: function(node, event){
+        			node.expand();
+    			}
+			},
+	        stateEvents : ['collapsenode', 'expandnode'],
+		    stateId : '<?php echo 'categorytree-' . md5(__FILE__); ?>',
+		    stateful : true,
+		    getState : function () {
+		        var nodes = [];
+		        this.getRootNode().eachChild(function (child) {
+		            //function to store state of tree recursively
+		            var storeTreeState = function (node, expandedNodes) {
+		                if(node.isExpanded() && node.childNodes.length > 0) {	                	
+		                    expandedNodes.push(node.getPath());
+		                    node.eachChild(function (child) {
+		                        storeTreeState(child, expandedNodes);
+		                    });
+		                }
+		            };
+		            storeTreeState(child, nodes);
+		        });
+		            
+		        return {
+		            expandedNodes : nodes
+		        }
+		    },
+		    applyState : function (state) {
+	            var nodes = state.expandedNodes;
+	            for(var i = 0; i < nodes.length; i++) {
+	                if(typeof nodes[i] != 'undefined') {
+	                    this.expandPath(nodes[i]);
+	                }
+	            }
+		    }
 	    }),
 	    {
 	    	title: 'Something else',
