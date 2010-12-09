@@ -164,11 +164,24 @@ class DataController extends Zend_Controller_Action {
 				$classes = array ();
 				$classes[] = $art['online'] == 1 ? 'online' : 'offline';
 				$classes[] = $art['isstart'] == 1 ? 'start' : 'normal';
+				if ($art['isstart']) {
+					if ($art['online'] == 1) {
+						$cls = 'treepage-index-online';
+					} else {
+						$cls = 'treepage-index-offline';
+					}
+				} else {
+					if ($art['online'] == 1) {
+						$cls = 'treepage-online';
+					} else {
+						$cls = 'treepage-offline';
+					}
+				}
 				$return[] = array (
 					'id' => $art['idart'],
 					'text' => $art['title'],
 					'leaf' => true,
-					'cls' => implode(' ', $classes)
+					'iconCls' => $cls
 				);
 			}
 		}

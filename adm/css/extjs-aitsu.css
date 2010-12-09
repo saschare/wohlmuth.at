@@ -50,3 +50,19 @@
     background-image: url(../images/icons/application_osx_terminal.png) !important; 
     background-repeat: no-repeat;
 }
+.treepage-online {
+    background-image: url(../images/icons/page.png) !important; 
+    background-repeat: no-repeat;
+}
+.treepage-offline {
+    background-image: url(../images/icons/page_white_delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.treepage-index-online {
+    background-image: url(../images/icons/page_white_code.png) !important; 
+    background-repeat: no-repeat;
+}
+.treepage-index-offline {
+    background-image: url(../images/icons/page_white_code_red.png) !important; 
+    background-repeat: no-repeat;
+}

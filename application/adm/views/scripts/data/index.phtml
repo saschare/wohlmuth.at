@@ -1,73 +1,93 @@
+/* page tree */
+var pagetree = 	new Ext.tree.TreePanel({
+	id: 'pageview-cattree',
+	title: '<?php echo $this->translate('Category tree'); ?>',
+	useArrows: true,
+	autoScroll: true,
+	animate: true,
+	containerScroll: true,
+	border: false,
+	dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>',
+	rootVisible: false,
+	singleExpand: true,
+	stopRestoring: false,
+	root: {
+		nodeType: 'async',
+		text: 'Root',
+		draggable: false,
+		id: '0'
+	},
+	listeners: {
+		click: function(node, event){
+			node.expand();
+		}
+	},
+	stateEvents : ['collapsenode', 'expandnode'],
+	stateId : '<?php echo 'categorytree-' . md5(__FILE__); ?>',
+	stateful : true,
+	getState : function () {
+		var nodes = [];
+		this.getRootNode().eachChild(function (child) {
+			var storeTreeState = function (node, expandedNodes) {
+				if(node.isExpanded() && node.childNodes.length > 0) {
+					expandedNodes.push(node.getPath());
+					node.eachChild(function (child) {
+						storeTreeState(child, expandedNodes);
+					});
+				}
+			};
+			storeTreeState(child, nodes);
+		});
+		return {
+			expandedNodes : nodes
+		}
+	},
+	applyState : function (state) {
+		var nodes = state.expandedNodes;
+		for(var i = 0; i < nodes.length; i++) {
+			if(typeof nodes[i] != 'undefined') {
+				this.expandPath(nodes[i]);
+			}
+		}
+	}
+});
+
+var recentlyOpenedPages = new Ext.grid.GridPanel({
+	store: new Ext.data.ArrayStore({
+		fields: [
+			{name: 'id'},
+			{name: 'name'},
+			{name: 'category'}
+		],
+		data: [
+			[1, 'test', 'kat 1'],
+			[2, 'zweiter test', 'kat 2']
+		]
+    }),
+    columns: [
+    	{dataIndex: 'name', header: 'Page', menuDisabled: true, sortable: true},
+    	{dataIndex: 'category', header: 'Category', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	title: '<?php echo $this->translate('Recently opened pages'); ?>'
+});
+
 var west = Ext.getCmp('viewport-west');
 west.removeAll();
-
 west.setVisible(true);
 west.add(new Ext.Panel({
 	layout: 'accordion',
 	layoutConfig: {
-        titleCollapse: true,
+		titleCollapse: true,
         hideCollapseTool: true,
         animate: true
     },
 	items: [
-		new Ext.tree.TreePanel({
-			id: 'pageview-cattree',
-			title: 'Category tree',
-	        useArrows: true,
-	        autoScroll: true,
-	        animate: true,
-	        containerScroll: true,
-	        border: false,
-	        dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>',
-	        rootVisible: false,
-	        singleExpand: true,
-	        stopRestoring: false,
-	        root: {
-	            nodeType: 'async',
-	            text: 'Root',
-	            draggable: false,
-	            id: '0'
-	        },
-	        listeners: {
-    			click: function(node, event){
-        			node.expand();
-    			}
-			},
-	        stateEvents : ['collapsenode', 'expandnode'],
-		    stateId : '<?php echo 'categorytree-' . md5(__FILE__); ?>',
-		    stateful : true,
-		    getState : function () {
-		        var nodes = [];
-		        this.getRootNode().eachChild(function (child) {
-		            //function to store state of tree recursively
-		            var storeTreeState = function (node, expandedNodes) {
-		                if(node.isExpanded() && node.childNodes.length > 0) {	                	
-		                    expandedNodes.push(node.getPath());
-		                    node.eachChild(function (child) {
-		                        storeTreeState(child, expandedNodes);
-		                    });
-		                }
-		            };
-		            storeTreeState(child, nodes);
-		        });
-		            
-		        return {
-		            expandedNodes : nodes
-		        }
-		    },
-		    applyState : function (state) {
-	            var nodes = state.expandedNodes;
-	            for(var i = 0; i < nodes.length; i++) {
-	                if(typeof nodes[i] != 'undefined') {
-	                    this.expandPath(nodes[i]);
-	                }
-	            }
-		    }
-	    }),
-	    {
-	    	title: 'Something else',
-	    	html: '<div>this is just a test.</div>'
-	    },
+		pagetree,
+		recentlyOpenedPages,
 	    {
 	    	title: 'Something different',
 	    	height: 100,
