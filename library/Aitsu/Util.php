@@ -377,7 +377,7 @@ class Aitsu_Util {
 					} elseif (strtolower($matches[3][$i]) == 'false') {
 						$current = false;
 					} else {
-						$current = trim($matches[3][$i]);
+						$current = (strlen($matches[2][$i]) > 0) ? $matches[3][$i] : trim($matches[3][$i]);
 					}	
 				}
 			}
