@@ -19,12 +19,16 @@ var pagetree = 	new Ext.tree.TreePanel({
 	},
 	listeners: {
 		click: function(node, event) {
-			node.expand();
+			if (node.attributes.type == 'category') {
+				node.expand();
+				Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id], null, this, false);
+			} else {
+				alert('open page: ' + node.id);
+			}
 		},
 		contextmenu: function(node) {
-			// alert(node.attributes.type);
 			var menu = new Ext.menu.Menu();
-			
+
 			if (node.attributes.online == true) {
 				menu.addItem({
 					text: '<?php echo $this->translate('Set offline'); ?>',
@@ -113,6 +117,7 @@ var recentlyOpenedPages = new Ext.grid.GridPanel({
 		forceFit: true,
 		autoFill: true
 	},
+	border: false,
 	title: '<?php echo $this->translate('Recently opened pages'); ?>'
 });
 
@@ -131,6 +136,7 @@ var favorites = new Ext.grid.GridPanel({
 		forceFit: true,
 		autoFill: true
 	},
+	border: false,
 	title: '<?php echo $this->translate('Favorites'); ?>'
 });
 
@@ -139,6 +145,7 @@ west.removeAll();
 west.setVisible(true);
 west.add(new Ext.Panel({
 	layout: 'accordion',
+	border: false,
 	layoutConfig: {
 		titleCollapse: true,
         hideCollapseTool: true,

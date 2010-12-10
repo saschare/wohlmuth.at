@@ -237,18 +237,7 @@ class DataController extends Zend_Controller_Action {
 
 		$this->_helper->layout->disableLayout();
 
-		$id = substr($this->getRequest()->getParam('id'), strlen('cat-'));
-
-		$this->_loadCategoryPlugins($id);
-
-		/*$syncLang = $this->getRequest()->getParam('sync');
-		$cat = Aitsu_Persistence_Category :: factory($id)->load();
-		
-		$this->view->idcat = $id;
-		$this->view->categoryname = $cat->name;
-		$this->view->articles = Aitsu_Persistence_View_Articles :: full($id, $syncLang);
-		$this->view->isInFavories = Aitsu_Persistence_CatFavorite :: factory($id)->load()->isInFavorites();
-		$this->view->isClipboardEmpty = !isset (Aitsu_Registry :: get()->session->clipboard->articles) || count(Aitsu_Registry :: get()->session->clipboard->articles) == 0;*/
+		$this->_loadCategoryPlugins($this->getRequest()->getParam('id'));
 	}
 
 	protected function _loadCategoryPlugins($id) {
