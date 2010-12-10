@@ -1,6 +1,9 @@
 Ext.getCmp('viewport-east').setVisible(false);
 Ext.getCmp('viewport-west').setVisible(false);
 
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
+
 Ext.getCmp('viewport').doLayout();
 <?php return; ?>
 <div class="tabs">

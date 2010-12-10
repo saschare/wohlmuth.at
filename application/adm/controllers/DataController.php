@@ -236,8 +236,12 @@ class DataController extends Zend_Controller_Action {
 	public function categoryoverviewAction() {
 
 		$this->_helper->layout->disableLayout();
+		
+		$id = $this->getRequest()->getParam('id');
 
-		$this->_loadCategoryPlugins($this->getRequest()->getParam('id'));
+		$this->view->cat = Aitsu_Persistence_Category :: factory($id)->getData();
+
+		$this->_loadCategoryPlugins($id);
 	}
 
 	protected function _loadCategoryPlugins($id) {

@@ -1,4 +1,54 @@
+var east = Ext.getCmp('viewport-east');
+east.setVisible(true);
+east.expand(false);
+east.removeAll();
 
+var propsGrid = new Ext.grid.PropertyGrid({
+        autoHeight: true,
+        source: {
+            Name: '<?php echo $this->cat['name']; ?>',
+            IdCat: <?php echo $this->cat['idcat']; ?>,
+            IdCatLang: <?php echo $this->cat['idcatlang']; ?>,
+            Online: <?php echo ($this->cat['visible'] == 1) ? 'true' : 'false'; ?>,
+            Public: <?php echo ($this->cat['public'] == 1) ? 'true' : 'false'; ?>,
+            Created: new Date(Date.parse('<?php echo $this->cat['created']; ?>')),
+            Lastmodified: new Date(Date.parse('<?php echo $this->cat['lastmodified']; ?>'))
+        },
+        viewConfig : {
+            forceFit: true,
+            scrollOffset: 2
+        },
+        listeners: {
+        	beforeedit: function(e) {
+        		e.cancel = true;
+        	}
+        }
+    });
+    
+east.add(propsGrid);
+
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
+
+var tabs = new Ext.TabPanel({
+        resizeTabs: false, 
+        minTabWidth: 115,
+        tabWidth:135,
+        enableTabScroll:true,
+        defaults: {
+        	autoScroll:true
+        },
+        items: [
+        	{
+        		title: 'tab1',
+        		html: 'das ist ein test.'
+        	}
+        ]
+    });
+    
+center.add(tabs);
+
+Ext.getCmp('viewport').doLayout();
 <?php return; ?>
 <div id="category-overview" class="tabs">
 	<ul>
