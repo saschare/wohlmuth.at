@@ -2,12 +2,8 @@
 
 
 /**
- * Javascript utility.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Javascript.php 17771 2010-07-27 15:04:15Z akm $}
  */
 
 class Aitsu_Util_Javascript {
@@ -61,4 +57,19 @@ class Aitsu_Util_Javascript {
 		return $reference;
 	}
 	
+	public static function getArrayString($data, $fields) {
+		
+		$return = array();
+		
+		foreach ($data as $entry) {
+			$entry = (object) $entry;
+			$row = array();
+			foreach ($fields as $field) {
+				$row[] = empty($entry->$field) ? '' : "'" . (string) $entry->$field . "'";
+			}
+			$return[] = '[' . implode(',', $row) . ']';
+		}
+		
+		return '[' . implode(',', $return) . ']';
+	}
 }
