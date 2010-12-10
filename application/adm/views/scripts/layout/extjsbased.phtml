@@ -87,7 +87,7 @@
                 region: 'east',
                 id: 'viewport-east',
                 collapsible: true,
-                split: true,
+                split: false,
                 width: 225,
                 minSize: 175,
                 maxSize: 400,
@@ -96,7 +96,7 @@
                 region: 'west',
                 id: 'viewport-west',
                 layout: 'fit',
-                split: true,
+                split: false,
                 width: 200,
                 minSize: 175,
                 maxSize: 400,
@@ -104,7 +104,9 @@
                 margins: '0 0 0 5'
             },{
             	region: 'center',
-            	id: 'viewport-center'
+            	id: 'viewport-center',
+            	margins: '0 5 0 5',
+            	unstyled: true
             }]
         });
         

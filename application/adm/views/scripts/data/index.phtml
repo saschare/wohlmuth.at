@@ -1,4 +1,3 @@
-/* page tree */
 var pagetree = 	new Ext.tree.TreePanel({
 	id: 'pageview-cattree',
 	title: '<?php echo $this->translate('Category tree'); ?>',
@@ -141,8 +140,9 @@ var favorites = new Ext.grid.GridPanel({
 });
 
 var west = Ext.getCmp('viewport-west');
-west.removeAll();
 west.setVisible(true);
+west.expand(false);
+west.removeAll();
 west.add(new Ext.Panel({
 	layout: 'accordion',
 	border: false,
@@ -157,5 +157,8 @@ west.add(new Ext.Panel({
 		favorites
 	]
 }));
+
+var east = Ext.getCmp('viewport-east');
+east.setVisible(true);
 
 Ext.getCmp('viewport').doLayout();
