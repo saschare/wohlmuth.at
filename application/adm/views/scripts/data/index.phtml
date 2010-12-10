@@ -103,12 +103,7 @@ var recentlyOpenedPages = new Ext.grid.GridPanel({
 			{name: 'name'},
 			{name: 'category'}
 		],
-		data: [
-			<?php $counter = 0; foreach ($this->articles as $article) : $article = (object) $article; $counter++; ?>
-				[<?php echo $article->idart; ?>, '<?php echo $article->title; ?>', '<?php echo $article->name; ?>']
-				<?php if ($counter < count($this->articles)) : ?>,<?php endif; ?>
-			<?php endforeach; ?>
-		]
+		data: <?php echo Aitsu_Util_Javascript :: getArrayString($this->articles, array('idart', 'title', 'name')); ?>
     }),
     columns: [
     	{dataIndex: 'name', header: 'Page', menuDisabled: true, sortable: true},
@@ -127,12 +122,7 @@ var favorites = new Ext.grid.GridPanel({
 			{name: 'id'},
 			{name: 'category'}
 		],
-		data: [
-			<?php $counter = 0; foreach ($this->favorites as $cat) : $cat = (object) $cat; $counter++; ?>
-				[<?php echo $cat->idcat; ?>, '<?php echo $cat->name; ?>']
-				<?php if ($counter < count($this->favorites)) : ?>,<?php endif; ?>
-			<?php endforeach; ?>
-		]
+		data: <?php echo Aitsu_Util_Javascript :: getArrayString($this->favorites, array('idcat', 'name')); ?>
     }),
     columns: [
     	{dataIndex: 'category', header: 'Category', menuDisabled: true, sortable: true}
