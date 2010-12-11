@@ -256,6 +256,7 @@ class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
 		"	artlang.idartlang as idartlang, " .
 		"	artlang.title as articletitle, " .
 		"	artlang.pagetitle as pagetitle, " .
+		"	artlang.teasertitle as teasertitle, " .
 		"	artlang.summary as summary, " .
 		"	artlang.created as created, " .
 		"	unix_timestamp(artlang.created) as ts_created, " .
