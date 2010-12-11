@@ -2,12 +2,8 @@
 
 
 /**
- * Article aggregation for the enterprise edition.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Aggregation.php 18207 2010-08-19 10:16:28Z akm $}
  */
 
 class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
