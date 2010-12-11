@@ -200,6 +200,7 @@ $(function() {
 	$(document).bind('edit-article', function(event, id) {
 		$.post("<?php echo $this->url(array('controller' => 'data', 'action' => 'edit')); ?>", { id: id },
    			function(data){
+   				$('#col3_content > .floatbox').empty();
    				$('#col3_content > .floatbox').html(data);
    				$('.tabs').tabs();
    				$('.tab-content').relativeSize(window, null, '-200');
