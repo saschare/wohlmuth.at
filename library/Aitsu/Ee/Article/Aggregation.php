@@ -343,10 +343,11 @@ class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
 	public function remove($field, $value) {
 		
 		foreach ($this->results as $key => $val) {
-			if ($val->$field != $value) {
+			if ($val->$field == $value) {
 				unset($this->results[$key]);
 			}
 		}
 		
+		$this->results = array_values($this->results);
 	}
 }
