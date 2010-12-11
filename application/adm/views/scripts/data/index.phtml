@@ -136,7 +136,14 @@ var favorites = new Ext.grid.GridPanel({
 		autoFill: true
 	},
 	border: false,
-	title: '<?php echo $this->translate('Favorites'); ?>'
+	title: '<?php echo $this->translate('Favorites'); ?>',
+	listeners: {
+		cellclick: function(grid, rowIndex, columnIndex, e) {
+			var record = grid.getStore().getAt(rowIndex);
+    		var data = record.get('id');
+    		alert(data);
+		}
+	}
 });
 
 var west = Ext.getCmp('viewport-west');
