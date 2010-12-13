@@ -110,7 +110,10 @@ class Aitsu_Lucene_Index {
 			'		or artlang.lastmodified > lucene.lastindexed ' .
 			'		) ' .
 			'	and artlang.online = 1 ' .
-			'	and metatag.robots not like :noindex ', array (
+			'	and ( ' .
+			'		metatag.robots not like :noindex ' .
+			'		or metatag.idartlang is null ' .
+			'		) ', array (
 				':idart' => $idart,
 				':idlang' => $idlang,
 				':noindex' => '%noindex%'
