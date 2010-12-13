@@ -2,15 +2,11 @@
 
 
 /**
- * PageTitle ShortCode.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19945 2010-11-18 19:29:47Z akm $}
  */
 
-class Module_HTML_PageTitle_Class extends Aitsu_Ee_Module_Abstract {
+class Module_HTML_Meta_PageTitle_Class extends Aitsu_Ee_Module_Abstract {
 
 	public static function about() {
 
