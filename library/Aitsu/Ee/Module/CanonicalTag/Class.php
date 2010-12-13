@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19657 2010-11-03 10:48:51Z akm $}
  */
 
 class Aitsu_Ee_Module_CanonicalTag_Class extends Aitsu_Ee_Module_Abstract {
