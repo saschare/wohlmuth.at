@@ -2,29 +2,9 @@
 
 
 /**
- * aitsu Lucene indexer.
- * 
- * Creates and updates the lucene index.
- * 
- * @version 1.0.0
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Index.php 18140 2010-08-16 15:37:00Z akm $}
  */
-
-/*
-CREATE TABLE IF NOT EXISTS `con_lucene_index` (
-  `uid` varchar(255) NOT NULL,
-  `idart` int(10) unsigned DEFAULT NULL,
-  `idlang` int(10) unsigned DEFAULT NULL,
-  `path` varchar(255) DEFAULT NULL,
-  `lastindexed` datetime NOT NULL,
-  PRIMARY KEY (`uid`),
-  KEY `idart` (`idart`,`idlang`),
-  KEY `path` (`path`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-*/
 
 class Aitsu_Lucene_Index {
 
@@ -32,7 +12,7 @@ class Aitsu_Lucene_Index {
 	protected $uid;
 	protected $fields;
 	protected $document;
-	
+
 	protected static $doIndex = true;
 
 	protected function __construct() {
@@ -62,7 +42,7 @@ class Aitsu_Lucene_Index {
 	}
 
 	protected function _index() {
-		
+
 		if (!file_exists($this->path)) {
 			mkdir($this->path, 0777, true);
 		}
@@ -103,7 +83,7 @@ class Aitsu_Lucene_Index {
 			 */
 			return;
 		}
-		
+
 		if (!self :: $doIndex) {
 			/*
 			 * The index has been used within the current request.
@@ -178,21 +158,21 @@ class Aitsu_Lucene_Index {
 	public static function find($query, $inCats, $indexName = null) {
 
 		self :: $doIndex = false;
-		
-		$searchResults = array();
-		
+
+		$searchResults = array ();
+
 		if ($query == null || strlen(trim($query)) == 0) {
 			return $searchResults;
 		}
-		
+
 		$query .= ' AND lang:' . Aitsu_Registry :: get()->env->idlang;
-		
+
 		self :: _init();
 
 		$indexName = $indexName != null ? $indexName : Aitsu_Registry :: get()->config->search->lucene->index;
 		$indexPath = APPLICATION_PATH . '/data/lucene' . '/' . $indexName;
 		$index = Zend_Search_Lucene :: open($indexPath);
-		Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('UTF-8');
+		Zend_Search_Lucene_Search_QueryParser :: setDefaultEncoding('UTF-8');
 
 		$hits = $index->find($query);
 
@@ -214,37 +194,25 @@ class Aitsu_Lucene_Index {
 		"left join _cat_lang as catlang on catart.idcat = catlang.idcat and catlang.idlang = artlang.idlang " .
 		"left join _cat as node on node.idcat = catart.idcat " .
 		"left join _cat as parent on node.lft between parent.lft and parent.rgt " .
-		"left join _frontendpermissions as perms on " .
-		"	perms.plugin = 'category' " .
-		"	and perms.action = 'access' " .
-		"	and ( " .
-		"		perms.item = '__GLOBAL__' " .
-		"		or perms.item = catart.idcat " .
-		"		) " .
-		"left join _frontendgroupmembers as member on perms.idfrontendgroup = member.idfrontendgroup and member.idfrontenduser = ? " .
 		"where " .
 		"	lucene.uid in ({$inUid}) " .
 		"	and parent.idcat in ({$inCats}) " .
-		"	and ( " .
-		"		member.idfrontendgroupmember is not null " .
-		"		or catlang.public = 1 " .
-		"	) " .
-		"and catlang.visible = 1 " .
-		"and artlang.online = 1 " .
-		"and artlang.idlang = ? ", array (
-			Aitsu_Core_User :: getInstance()->getUserId(),
-			Aitsu_Registry :: get()->env->idlang
+		"	and catlang.public = 1 " .
+		"	and catlang.visible = 1 " .
+		"	and artlang.online = 1 " .
+		"	and artlang.idlang = :idlang ", array (
+			':idlang' => Aitsu_Registry :: get()->env->idlang
 		));
-		
+
 		if (!$results) {
 			return $searchResults;
 		}
-		
-		$matches = array();
+
+		$matches = array ();
 		foreach ($results as $result) {
 			$matches[] = $result['idart'] . '-' . $result['idlang'];
 		}
-		
+
 		foreach ($hits as $hit) {
 			if (in_array($hit->uid, $matches)) {
 				$searchResults[] = $hit;
@@ -253,5 +221,5 @@ class Aitsu_Lucene_Index {
 
 		return $searchResults;
 	}
-	
+
 }
