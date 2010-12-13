@@ -347,5 +347,7 @@ class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
 				unset($this->results[$key]);
 			}
 		}
+		
+		$this->results = array_values($this->results);
 	}
 }

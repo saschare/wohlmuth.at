@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Image.php 19762 2010-11-08 17:48:02Z akm $}
  */
 
 class Aitsu_Comparator_Image {

@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19947 2010-11-18 19:33:37Z akm $}
  */
 
 class Module_HTML_Meta_Tags_Class extends Aitsu_Ee_Module_Abstract {
@@ -33,7 +31,7 @@ class Module_HTML_Meta_Tags_Class extends Aitsu_Ee_Module_Abstract {
 		Aitsu_Content_Edit :: noEdit('HTML.Meta.Tags', true);
 
 		$output = '';
-		if ($instance->_get('MetaTags', $output)) {
+		if ($instance->_get('HTML.Meta.Tags', $output)) {
 			return $output;
 		}
 

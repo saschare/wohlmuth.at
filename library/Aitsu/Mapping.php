@@ -48,7 +48,6 @@ class Aitsu_Mapping {
 
 		foreach ($conditions as $condition) {
 			if (preg_match('/^(\\w+)\\s*\\:\\s*(.*)/', $condition, $match)) {
-				trigger_error('condition: ' . $condition);
 				if ($match[1] == 'host') {
 					if (!fnmatch($match[2], $_SERVER['HTTP_HOST'])) {
 						return false;
