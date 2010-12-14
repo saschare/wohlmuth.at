@@ -1,7 +1,84 @@
-tabs.add({
-	title: 'test',
-	html: 'das ist ein test.'
+var categories = new Ext.grid.GridPanel({
+	title: '<?php echo $this->categoryname; ?>',
+	store: new Ext.data.ArrayStore({
+		fields: [
+			{name: 'id'},
+			{name: 'title'},
+			{name: 'pagetitle'},
+			{name: 'urlname'},
+			{name: 'online'},
+			{name: 'published'},
+			{name: 'isstart'}
+		],
+		data: <?php echo Aitsu_Util_Javascript :: getArrayString($this->articles, array('idart', 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart')); ?>
+    }),
+    columns: [
+    	{
+    		xtype: 'actioncolumn',
+    		width: 30,
+    		menuDisabled: true, 
+            sortable: false,
+    		items: [
+    			{
+                    getClass: function(v, meta, rec) {
+                    	if (rec.get('online') == 1) {
+                    		this.items[0].tooltip = 'Online';
+                    		return 'page-online';
+                    	} else {
+                    		this.items[0].tooltip = 'Offline';
+                    		return 'page-offline';
+                    	}
+                    },
+                    handler: function(grid, rowIndex, colIndex) {
+                    	if (categories.getStore().getAt(rowIndex).get('online') == 0) {
+                    		categories.getStore().getAt(rowIndex).set('online', 1);
+                    	} else {
+                    		categories.getStore().getAt(rowIndex).set('online', 0);
+                    	}
+                    }
+                },
+    			{
+                    getClass: function(v, meta, rec) {
+                    	if (rec.get('published') == 1) {
+                    		this.items[1].tooltip = 'Published';
+                    		return 'page-published';
+                    	} else {
+                    		this.items[1].tooltip = 'Unpublished';
+                    		return 'page-unpublished';
+                    	}
+                    },
+                    handler: function(grid, rowIndex, colIndex) {
+                    	if (categories.getStore().getAt(rowIndex).get('published') == 0) {
+                    		categories.getStore().getAt(rowIndex).set('published', 1);
+                    	} else {
+                    		categories.getStore().getAt(rowIndex).set('published', 0);
+                    	}
+                    }
+                },
+    			{
+                    getClass: function(v, meta, rec) {
+                    	if (rec.get('isstart') == 1) {
+                    		this.items[2].tooltip = 'Index article';
+                    		return 'page-indexpage';
+                    	}
+                    }
+                }
+             ]
+        },
+    	{dataIndex: 'id', header: 'ID', menuDisabled: true, sortable: true, width: 20},
+    	{dataIndex: 'title', header: 'Title', menuDisabled: true, sortable: true},
+    	{dataIndex: 'pagetitle', header: 'Pagetitle', menuDisabled: true, sortable: true},
+    	{dataIndex: 'urlname', header: 'URL name', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false
 });
+
+tabs.add(categories);
+tabs.setActiveTab(0);
 
 <?php return; ?>
 <div class="toolbar">

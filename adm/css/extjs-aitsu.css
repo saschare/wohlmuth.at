@@ -94,3 +94,37 @@
     background-image: url(../images/icons/page_white_code.png) !important; 
     background-repeat: no-repeat;
 }
+.page-indexpage {
+    background-image: url(../images/icons/page_white_code.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.page-online {
+    background-image: url(../images/icons/flag_green.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
+.page-offline {
+    background-image: url(../images/icons/flag_red.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
+.page-unpublished {
+    background-image: url(../images/icons/exclamation.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
+.page-published {
+    background-image: url(../images/icons/world.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
