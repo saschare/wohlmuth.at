@@ -74,7 +74,28 @@ var categories = new Ext.grid.GridPanel({
 		forceFit: true,
 		autoFill: true
 	},
-	border: false
+	border: false,
+	tbar: {
+		items: {
+            text: 'Add new article',
+            iconCls: 'tb-add',
+            handler: function(b, e) {
+            	Ext.Ajax.request({
+            		url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'newarticle'), 'default'); ?>',
+            		success: function(response, opts) {
+            			var rsp = Ext.decode(response.responseText);
+            			rsp.id = rsp.idart;
+            			var store = categories.getStore();
+            			store.addSorted(new store.recordType(rsp));            			
+            		},
+            		failure: function() {
+            			alert('something went wrong!');
+            		},
+            		params: { idcat: '<?php echo $this->idcat; ?>' }
+            	});
+            }
+        }
+	}
 });
 
 tabs.add(categories);

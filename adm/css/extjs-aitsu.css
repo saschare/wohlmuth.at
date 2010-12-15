@@ -128,3 +128,7 @@
     height: 16px;
     margin-right:5px;
 }
+.tb-add {
+    background-image: url(../images/icons/add.png) !important; 
+    background-repeat: no-repeat;
+}

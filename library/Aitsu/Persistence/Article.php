@@ -104,6 +104,11 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 		return stripslashes($this->_data[$key]);
 	}
+	
+	public function getData() {
+		
+		return $this->_data;
+	}
 
 	public function __set($key, $value) {
 

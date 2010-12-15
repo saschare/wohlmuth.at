@@ -299,25 +299,15 @@ class DataController extends Zend_Controller_Action {
 
 	public function newarticleAction() {
 
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$id = substr($this->getRequest()->getParam('id'), strlen('cat-'));
+		$id = $this->getRequest()->getParam('idcat');
 
 		$art = Aitsu_Persistence_Article :: factory();
-		$art->title = Zend_Registry :: get('Zend_Translate')->translate('Article') . ' ' . date('Y-m-d H:i:s');
+		$art->title = Aitsu_Translate :: translate('Article') . ' ' . date('Y-m-d H:i:s');
 		$art->idclient = Aitsu_Registry :: get()->session->currentClient;
 		$art->idcat = $id;
 		$art->save();
 
-		$this->_loadCategoryPlugins($id);
-
-		$cat = Aitsu_Persistence_Category :: factory($id)->load();
-
-		$this->view->categoryname = $cat->name;
-		$this->view->articles = Aitsu_Persistence_View_Articles :: full($id);
-
-		$this->render('categoryoverview');
+		$this->_helper->json($art->getData());
 	}
 
 	public function toggleonlineAction() {
