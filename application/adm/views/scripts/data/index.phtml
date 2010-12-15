@@ -4,6 +4,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 	useArrows: true,
 	autoScroll: true,
 	animate: true,
+	enableDD: true,
 	containerScroll: true,
 	border: false,
 	dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>',
@@ -24,6 +25,12 @@ var pagetree = 	new Ext.tree.TreePanel({
 			} else {
 				alert('open page: ' + node.id);
 			}
+		},
+		beforemovenode: function(tree, node, oldParent, newParent, index) {
+			 if (!confirm('Sure to drop here?')) {
+			 	return false;
+			 }
+			 alert('drop done');
 		},
 		contextmenu: function(node) {
 			if (node.attributes.type == 'category') {
