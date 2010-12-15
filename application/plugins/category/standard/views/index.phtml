@@ -95,6 +95,74 @@ var categories = new Ext.grid.GridPanel({
             	});
             }
         }
+	},
+	listeners: {
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			var menu = new Ext.menu.Menu();
+
+			menu.addItem({
+				text: '<?php echo $this->translate('Set as index'); ?>',
+				iconCls: 'cm-indexpage',
+				handler: function() {
+					alert('set as index');
+				}
+			});
+			
+			menu.addItem('-');
+			
+			if (record.get('online') == 1) {
+				menu.addItem({
+					text: '<?php echo $this->translate('Set offline'); ?>',
+					iconCls: 'page-offline',
+					handler: function() {
+						alert('set offline');
+					}
+				});				
+			} else {
+				menu.addItem({
+					text: '<?php echo $this->translate('Set online'); ?>',
+					iconCls: 'page-online',
+					handler: function() {
+						alert('set online');
+					}
+				});				
+			}
+			
+			if (record.get('published') == 0) {
+				menu.addItem({
+					text: '<?php echo $this->translate('Publish'); ?>',
+					iconCls: 'page-published',
+					handler: function() {
+						alert('publish');
+					}
+				});				
+			}
+			
+			menu.addItem('-');
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: 'Address',
+					 	msg: 'Please enter your address:',
+					 	//width:300,
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	//multiline: true,
+					 	fn: function() {
+					 		alert('test');
+					 	},
+					 	animEl: 'mb3'
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
 	}
 });
 

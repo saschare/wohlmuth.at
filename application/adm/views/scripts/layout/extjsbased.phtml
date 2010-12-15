@@ -26,7 +26,7 @@
     Ext.onReady(function(){
 
     	Ext.QuickTips.init();
-    
+		Ext.getBody().on("contextmenu", Ext.emptyFn, null, {preventDefault: true});
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
         
         var viewport = new Ext.Viewport({
