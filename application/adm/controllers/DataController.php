@@ -360,17 +360,19 @@ class DataController extends Zend_Controller_Action {
 
 	public function makeindexAction() {
 
-		$id = $this->getRequest()->getParam('id');
-		$idart = substr($id, strlen('idart-'));
+		$idart = $this->getRequest()->getParam('idart');
 
 		try {
 			Aitsu_Persistence_Article :: factory($idart)->setAsIndex();
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'success' => true,
+				'idart' => $idart,
 				'status' => 'success',
 				'message' => ''
 			));
 		} catch (Exception $e) {
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'success' => false,
 				'status' => 'exception',
 				'message' => Zend_Registry :: get('Zend_Translate')->translate('An error occured while trying to set the specified article as index. ')
 			));
