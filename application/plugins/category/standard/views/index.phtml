@@ -30,11 +30,18 @@ var categories = new Ext.grid.GridPanel({
                     	}
                     },
                     handler: function(grid, rowIndex, colIndex) {
-                    	if (categories.getStore().getAt(rowIndex).get('online') == 0) {
-                    		categories.getStore().getAt(rowIndex).set('online', 1);
-                    	} else {
-                    		categories.getStore().getAt(rowIndex).set('online', 0);
-                    	}
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'toggleonline'), 'default'); ?>',
+				            success: function(response, opts) {
+				            	var rsp = Ext.decode(response.responseText);
+				            	var art = categories.getStore().getAt(categories.getStore().find('id', rsp.idart));
+				            	art.set('online', rsp.online);
+				            	art.set('published', 0); 
+				            	var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
+				            	pagetree.getLoader().load(node, function() {node.expand()});
+				            },
+				            params: { idart: categories.getStore().getAt(rowIndex).get('id') }
+				        });                    	
                     }
                 },
     			{
@@ -49,9 +56,17 @@ var categories = new Ext.grid.GridPanel({
                     },
                     handler: function(grid, rowIndex, colIndex) {
                     	if (categories.getStore().getAt(rowIndex).get('published') == 0) {
-                    		categories.getStore().getAt(rowIndex).set('published', 1);
-                    	} else {
-                    		categories.getStore().getAt(rowIndex).set('published', 0);
+							Ext.Ajax.request({
+								url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'startpublishing'), 'default'); ?>',
+					            success: function(response, opts) {
+					            	var rsp = Ext.decode(response.responseText);
+					            	var art = categories.getStore().getAt(categories.getStore().find('id', rsp.idart));
+					            	art.set('published', 1); 
+					            	var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
+					            	pagetree.getLoader().load(node, function() {node.expand()});
+					            },
+					            params: { idart: categories.getStore().getAt(rowIndex).get('id') }
+					        });
                     	}
                     }
                 },
@@ -86,10 +101,9 @@ var categories = new Ext.grid.GridPanel({
             			var rsp = Ext.decode(response.responseText);
             			rsp.id = rsp.idart;
             			var store = categories.getStore();
-            			store.addSorted(new store.recordType(rsp));            			
-            		},
-            		failure: function() {
-            			alert('something went wrong!');
+            			store.addSorted(new store.recordType(rsp));  
+            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
+					    pagetree.getLoader().load(node, function() {node.expand()});          			
             		},
             		params: { idcat: '<?php echo $this->idcat; ?>' }
             	});
@@ -113,30 +127,41 @@ var categories = new Ext.grid.GridPanel({
 			
 			menu.addItem('-');
 			
-			if (record.get('online') == 1) {
-				menu.addItem({
-					text: '<?php echo $this->translate('Set offline'); ?>',
-					iconCls: 'page-offline',
-					handler: function() {
-						alert('set offline');
-					}
-				});				
-			} else {
-				menu.addItem({
-					text: '<?php echo $this->translate('Set online'); ?>',
-					iconCls: 'page-online',
-					handler: function() {
-						alert('set online');
-					}
-				});				
-			}
+			menu.addItem({
+				text: record.get('online') == 1 ? '<?php echo $this->translate('Set offline'); ?>' : '<?php echo $this->translate('Set online'); ?>',
+				iconCls: record.get('online') == 1 ? 'page-offline' : 'page-online',
+				handler: function() {
+					Ext.Ajax.request({
+						url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'toggleonline'), 'default'); ?>',
+			            success: function(response, opts) {
+			            	var rsp = Ext.decode(response.responseText);
+			            	var art = categories.getStore().getAt(categories.getStore().find('id', rsp.idart));
+			            	art.set('online', rsp.online);
+			            	art.set('published', 0); 
+			            	var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
+			            	pagetree.getLoader().load(node, function() {node.expand()});
+			            },
+			            params: { idart: record.get('id') }
+			        });
+				}
+			});				
 			
 			if (record.get('published') == 0) {
 				menu.addItem({
 					text: '<?php echo $this->translate('Publish'); ?>',
 					iconCls: 'page-published',
 					handler: function() {
-						alert('publish');
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'startpublishing'), 'default'); ?>',
+				            success: function(response, opts) {
+				            	var rsp = Ext.decode(response.responseText);
+				            	var art = categories.getStore().getAt(categories.getStore().find('id', rsp.idart));
+				            	art.set('published', 1); 
+				            	var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
+				            	pagetree.getLoader().load(node, function() {node.expand()});
+				            },
+				            params: { idart: record.get('id') }
+				        });
 					}
 				});				
 			}
@@ -148,15 +173,26 @@ var categories = new Ext.grid.GridPanel({
 				iconCls: 'delete',
 				handler: function() {
 					 Ext.MessageBox.show({
-					 	title: 'Address',
-					 	msg: 'Please enter your address:',
-					 	//width:300,
+					 	title: '<?php echo $this->translate('Delete page'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected page?'); ?>',
 					 	buttons: Ext.MessageBox.OKCANCEL,
-					 	//multiline: true,
-					 	fn: function() {
-					 		alert('test');
-					 	},
-					 	animEl: 'mb3'
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'delete'), 'default'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+					            			var store = categories.getStore(); 
+					            			store.remove(record);
+					            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
+					            			pagetree.getLoader().load(node, function() {node.expand()});
+				            			}
+				            		},
+				            		params: { idart: record.get('id') }
+				            	});					 			
+					 		}
+					 	}
 					 });
 				}
 			});
@@ -168,92 +204,3 @@ var categories = new Ext.grid.GridPanel({
 
 tabs.add(categories);
 tabs.setActiveTab(0);
-
-<?php return; ?>
-<div class="toolbar">
-	<button id="add-new-article" class="type-new"><?php echo $this->translate('Add new article'); ?></button>
-	<button id="paste-article" class="type-clipboard<?php if ($this->isClipboardEmpty) {echo ' init-disabled';} ?>" style="margin-right:15px;"><?php echo $this->translate('Paste from clipboard'); ?></button>
-	<button id="add-to-favorites" value="<?php echo $this->idcat; ?>" class="type-new<?php if ($this->isInFavories) {echo ' init-disabled';} ?>"><?php echo $this->translate('Add category to favorites'); ?></button>
-	<button id="remove-from-favorites" value="<?php echo $this->idcat; ?>" class="type-delete<?php if (!$this->isInFavories) {echo ' init-disabled';} ?>"><?php echo $this->translate('Remove from favorites'); ?></button>
-</div>
-	
-<div class="sized-content">
-	<table border="0" cellpadding="0" cellspacing="0" class="full clickable editduplicatedelete">
-		<thead>
-			<tr>
-				<th scope="col" style="width:68px;"><?php echo $this->translate('Status'); ?></th>
-				<th scope="col"><?php echo $this->translate('ID'); ?></th>
-				<th scope="col"><?php echo $this->translate('Title'); ?></th>
-				<th scope="col"><?php echo $this->translate('Page title'); ?></th>
-				<th scope="col"><?php echo $this->translate('URL name'); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $counter = -1; foreach ($this->articles as $art) : $art = (object) $art; $counter++; ?>
-				<?php if ($art->isstart == 1 && $art->synced == 1) : ?>
-					<tr id="idart-<?php echo $art->idart; ?>">
-						<th>
-							<?php if ($art->online == 1) : ?>
-								<a href="<?php echo $art->idart; ?>" title="<?php echo $this->translate('Online'); ?>" class="article online">&nbsp;</a>
-							<?php else : ?>
-								<a href="<?php echo $art->idart; ?>" title="<?php echo $this->translate('Offline'); ?>" class="article offline">&nbsp;</a>
-							<?php endif; ?>
-							<?php if ($this->usePublishing) : ?>
-								<?php if ($art->published == 1) : ?>
-									<a href="<?php echo $art->idart; ?>" title="<?php echo $this->translate('Current version is online'); ?>" class="article published">&nbsp;</a>
-								<?php else : ?>
-									<a href="<?php echo $art->idart; ?>" title="<?php echo $this->translate('Differences to published version'); ?>" class="article unpublished">&nbsp;</a>
-								<?php endif; ?>
-							<?php endif; ?>
-						</th>
-						<th><?php echo $art->idart; ?> [<?php echo $art->idartlang; ?>]</th>
-						<th><?php echo $art->title; ?></th>
-						<th><?php echo $art->pagetitle; ?></th>
-						<th><?php echo $art->urlname; ?></th>
-					</tr>
-				<?php else : ?>
-					<tr id="idart-<?php echo $art->idart; ?>" class="<?php echo ($counter % 2 == 0 ? 'odd' : 'even'); ?><?php if ($art->synced == 0) {echo ' unsynced ui-state-disabled';} ?>">
-						<td>
-							<?php if ($art->online == 1) : ?>
-								<a href="<?php echo $art->idart; ?>" title="<?php echo $this->translate('Online'); ?>" class="article online">&nbsp;</a>
-							<?php else : ?>
-								<a href="<?php echo $art->idart; ?>" title="<?php echo $this->translate('Offline'); ?>" class="article offline">&nbsp;</a>
-							<?php endif; ?>
-							<?php if ($this->usePublishing) : ?>
-								<?php if ($art->published == 1) : ?>
-									<a href="<?php echo $art->idart; ?>" title="<?php echo $this->translate('Current version is online'); ?>" class="article published">&nbsp;</a>
-								<?php else : ?>
-									<a href="<?php echo $art->idart; ?>" title="<?php echo $this->translate('Publish current version'); ?>" class="article unpublished">&nbsp;</a>
-								<?php endif; ?>
-							<?php endif; ?>
-						</td>
-						<td><?php echo $art->idart; ?> [<?php echo ($art->synced == 1 ? $art->idartlang : 'NS'); ?>]</td>
-						<td><?php echo $art->title; ?></td>
-						<td><?php echo $art->pagetitle; ?></td>
-						<td><?php echo $art->urlname; ?></td>
-					</tr>
-				<?php endif; ?>
-			<?php endforeach; ?>
-		</tbody>
-	</table>	
-</div>		
-
-<script type="text/javascript">
-$(function() {
-	
-	$(document).trigger('refresh-category-overview');
-
-	$('#paste-article').unbind('click');
-	$('#paste-article').click(function() {
-			if ($(this).hasClass('ui-state-disabled')) {
-				return false;
-			}
-			$.post('<?php echo $this->url(array('controller' => 'data', 'action' => 'movehere'), 'default'); ?>', {idcat: <?php echo $this->idcat; ?>}, function(data) {
-				$('#status').html(data.message);
-	  			$(document).trigger('load-category-overview');
-	  			$.jstree._reference('#art-tree').refresh(-1);
-			});
-		});
-	
-});
-</script>

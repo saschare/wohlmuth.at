@@ -236,7 +236,7 @@ class DataController extends Zend_Controller_Action {
 	public function categoryoverviewAction() {
 
 		$this->_helper->layout->disableLayout();
-		
+
 		$id = $this->getRequest()->getParam('id');
 
 		$this->view->cat = Aitsu_Persistence_Category :: factory($id)->getData();
@@ -312,7 +312,7 @@ class DataController extends Zend_Controller_Action {
 
 	public function toggleonlineAction() {
 
-		$id = $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('idart');
 
 		$art = Aitsu_Persistence_Article :: factory($id)->load();
 		if ($art->online == 1) {
@@ -322,36 +322,37 @@ class DataController extends Zend_Controller_Action {
 		}
 		$art->save();
 
-		$this->_helper->json(array (
+		$this->_helper->json((object) array (
+			'idart' => $id,
 			'online' => $art->online
 		));
 	}
 
 	public function startpublishingAction() {
 
-		$id = $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('idart');
 
 		$art = Aitsu_Persistence_Article :: factory($id)->publish()->load(true);
 
-		$this->_helper->json(array (
+		$this->_helper->json((object) array (
+			'idart' => $art->idart,
 			'published' => $art->ispublished
 		));
 	}
 
 	public function deleteAction() {
 
-		$id = $this->getRequest()->getParam('id');
-		$idart = substr($id, strlen('idart-'));
+		$idart = $this->getRequest()->getParam('idart');
 
 		try {
 			Aitsu_Persistence_Article :: factory($idart)->remove();
-			$this->_helper->json(array (
-				'status' => 'success',
-				'message' => Zend_Translate :: translate('Article deleted') . ' [ID ' . $idart . ']'
+			$this->_helper->json((object) array (
+				'success' => true,
+				'message' => Aitsu_Translate :: translate('Article deleted') . ' [ID ' . $idart . ']'
 			));
 		} catch (Exception $e) {
 			$this->_helper->json(array (
-				'status' => 'exception',
+				'success' => false,
 				'message' => $e->getMessage()
 			));
 		}

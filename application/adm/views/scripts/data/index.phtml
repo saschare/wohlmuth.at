@@ -26,42 +26,22 @@ var pagetree = 	new Ext.tree.TreePanel({
 			}
 		},
 		contextmenu: function(node) {
-			var menu = new Ext.menu.Menu();
-
-			if (node.attributes.online == true) {
+			if (node.attributes.type == 'category') {
+				var menu = new Ext.menu.Menu();
+	
 				menu.addItem({
-					text: '<?php echo $this->translate('Set offline'); ?>',
-					iconCls: 'cm-setoffline',
+					text: node.attributes.online ? '<?php echo $this->translate('Set offline'); ?>' : '<?php echo $this->translate('Set online'); ?>',
+					iconCls: node.attributes.online ? 'cm-setoffline' : 'cm-setonline',
 					handler: function() {
-						alert('set offline');
+						alert('set on-/offline');
 					}
 				});
-			} else {
-				menu.addItem({
-					text: '<?php echo $this->translate('Set online'); ?>',
-					iconCls: 'cm-setonline',
-					handler: function() {
-						alert('set online');
-					}
-				});				
-			}
 			
-			if (node.attributes.type == 'category') {
 				menu.addItem({
 					text: '<?php echo $this->translate('Add to favorites'); ?>',
 					iconCls: 'cm-bookmark-category',
 					handler: function() {
 						alert('add to favorites');
-					}
-				});
-			}
-			
-			if (node.attributes.type == 'page' && node.attributes.indexpage == false) {
-				menu.addItem({
-					text: '<?php echo $this->translate('Set as index'); ?>',
-					iconCls: 'cm-indexpage',
-					handler: function() {
-						alert('set as index');
 					}
 				});
 			}
