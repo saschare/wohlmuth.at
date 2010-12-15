@@ -127,21 +127,23 @@ class CategoryController extends Zend_Controller_Action {
 	public function setonlineAction() {
 
 		try {
-			$tmp = explode('-', $this->getRequest()->getParam('id'));
-			$id = $tmp[1];
+			$id = $this->getRequest()->getParam('idcat');
 			$status = $this->getRequest()->getParam('status');
 			$propagate = $this->getRequest()->getParam('propagate');
 
 			Aitsu_Persistence_Category :: factory($id)->setOnline($status, $propagate, Aitsu_Registry :: get()->session->currentLanguage);
 		} catch (Exception $e) {
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'idcat' => $id,
 				'status' => 'exception',
 				'message' => $e->getMessage(),
 				'stacktrace' => $e->getTraceAsString()
 			));
 		}
 
-		$this->_helper->json(array (
+		$this->_helper->json((object) array (
+			'idcat' => $id,
+			'success' => true,
 			'status' => 'success',
 			'idcat' => $id
 		));

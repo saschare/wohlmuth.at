@@ -136,3 +136,11 @@
     background-image: url(../images/icons/delete.png) !important; 
     background-repeat: no-repeat;
 }
+.cut {
+    background-image: url(../images/icons/cut.png) !important; 
+    background-repeat: no-repeat;
+}
+.paste {
+    background-image: url(../images/icons/paste_plain.png) !important; 
+    background-repeat: no-repeat;
+}

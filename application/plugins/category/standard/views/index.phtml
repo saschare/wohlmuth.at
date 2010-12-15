@@ -91,24 +91,35 @@ var categories = new Ext.grid.GridPanel({
 	},
 	border: false,
 	tbar: {
-		items: {
-            text: 'Add new article',
-            iconCls: 'tb-add',
-            handler: function(b, e) {
-            	Ext.Ajax.request({
-            		url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'newarticle'), 'default'); ?>',
-            		success: function(response, opts) {
-            			var rsp = Ext.decode(response.responseText);
-            			rsp.id = rsp.idart;
-            			var store = categories.getStore();
-            			store.addSorted(new store.recordType(rsp));  
-            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
-					    pagetree.getLoader().load(node, function() {node.expand()});          			
-            		},
-            		params: { idcat: '<?php echo $this->idcat; ?>' }
-            	});
-            }
-        }
+		items: [
+			{
+	            tooltip: 'Add new article',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	Ext.Ajax.request({
+	            		url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'newarticle'), 'default'); ?>',
+	            		success: function(response, opts) {
+	            			var rsp = Ext.decode(response.responseText);
+	            			rsp.id = rsp.idart;
+	            			var store = categories.getStore();
+	            			store.addSorted(new store.recordType(rsp));  
+	            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
+						    pagetree.getLoader().load(node, function() {node.expand()});          			
+	            		},
+	            		params: { idcat: '<?php echo $this->idcat; ?>' }
+	            	});
+	            }
+	        },
+	        {
+	        	tooltip: Ext.state.Manager.get('cut-page', null) != null ? 'Paste article (ID ' + Ext.state.Manager.get('cut-page').id + ')' : '',
+	        	iconCls: 'paste',
+	        	disabled: Ext.state.Manager.get('cut-page', null) == null,
+	        	handler: function(b, e) {
+	        		b.disable();
+	        		Ext.state.Manager.clear('cut-page');
+	        	}
+	        }
+	    ]
 	},
 	listeners: {
 		rowcontextmenu: function(grid, rowIndex, event) {
@@ -189,6 +200,14 @@ var categories = new Ext.grid.GridPanel({
 			}
 			
 			menu.addItem('-');
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Cut'); ?>',
+				iconCls: 'cut',
+				handler: function() {
+					Ext.state.Manager.set('cut-page', record.data);
+				}
+			});
 			
 			menu.addItem({
 				text: '<?php echo $this->translate('Delete'); ?>',
