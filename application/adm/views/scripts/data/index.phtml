@@ -33,7 +33,11 @@ var pagetree = 	new Ext.tree.TreePanel({
 			 	buttons: Ext.MessageBox.OKCANCEL,
 			 	fn: function(result) {
 			 		if (result == 'ok') {
-		            	/*persist movement */			 			
+		            	if (node.attributes.type == 'category') {
+		            		alert('move category');
+		            	} else if (node.attributes.type == 'page') {
+		            		alert('move page');
+		            	}
 			 		} else {
 			 			var currentNode = tree.getRootNode();
 			 			var path = oldParent.getPath().split('/');
