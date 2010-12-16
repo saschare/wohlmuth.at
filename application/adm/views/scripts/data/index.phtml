@@ -45,6 +45,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 			 				i++;
 			 				if (i > path.length) return;
 			 				expNode = currentNode.findChild('id', path[i]);
+			 				if (expNode == null) return;
 			 				expNode.expand(false, false, function() {
 			 					doExpand(expNode, path, i);
 			 				});
