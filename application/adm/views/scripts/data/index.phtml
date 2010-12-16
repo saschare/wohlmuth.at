@@ -27,10 +27,30 @@ var pagetree = 	new Ext.tree.TreePanel({
 			}
 		},
 		beforemovenode: function(tree, node, oldParent, newParent, index) {
-			 if (!confirm('Sure to drop here?')) {
-			 	return false;
-			 }
-			 alert('drop done');
+			 Ext.MessageBox.show({
+			 	title: '<?php echo $this->translate('Move node'); ?>',
+			 	msg: '<?php echo $this->translate('Are you sure to move the node to the specified place?'); ?>',
+			 	buttons: Ext.MessageBox.OKCANCEL,
+			 	fn: function(result) {
+			 		if (result == 'ok') {
+		            	/*persist movement */			 			
+			 		} else {
+			 			var currentNode = tree.getRootNode();
+			 			var path = oldParent.getPath().split('/');
+			 			var doExpand = function(currentNode, path, i) {
+			 				i++;
+			 				if (i > path.length) return;
+			 				expNode = currentNode.findChild('id', path[i]);
+			 				expNode.expand(false, false, function() {
+			 					doExpand(expNode, path, i);
+			 				});
+			 			}
+			 			tree.getLoader().load(tree.getRootNode(), function() {
+			 				doExpand(currentNode, path, 1);
+			 			});
+			 		}
+			 	}
+			 });
 		},
 		contextmenu: function(node) {
 			if (node.attributes.type == 'category') {
