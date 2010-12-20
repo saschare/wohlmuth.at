@@ -4,7 +4,7 @@ east.expand(false);
 east.removeAll();
 
 var comboConfigSet = new Ext.form.ComboBox({
-	store: ['Business', 'Personal'],
+	store: <?php echo json_encode($this->configSets); ?>,
 	typeAhead: true,
     mode: 'local',
     triggerAction: 'all',
@@ -23,11 +23,20 @@ var propsGrid = new Ext.grid.PropertyGrid({
 		Public: <?php echo ($this->cat['public'] == 1) ? 'true' : 'false'; ?>,
 		Created: new Date(<?php echo $this->cat['createdts'] * 1000; ?>),
 		Lastmodified: new Date(<?php echo $this->cat['modifiedts'] * 1000; ?>),
-		Urlname: '<?php echo $this->cat['urlname']; ?>'
+		Urlname: '<?php echo $this->cat['urlname']; ?>',
+		ConfigSet: <?php echo empty($this->cat['configsetid']) ? 0 : $this->cat['configsetid']; ?>
 	},
 	customEditors: {
-		Name: new Ext.grid.GridEditor(comboConfigSet)
+		ConfigSet: new Ext.grid.GridEditor(comboConfigSet)
 	},
+	customRenderers: {
+        ConfigSet: function(v) {
+        	var store = comboConfigSet.getStore();
+            return store.getAt(store.findBy(function(record, id) {
+            	return record.get('field1') == v;
+            })).get('field2');
+        }
+    },
 	viewConfig : {
 		forceFit: true,
 		scrollOffset: 2
@@ -38,6 +47,9 @@ var propsGrid = new Ext.grid.PropertyGrid({
 				return;
 			}
 			e.cancel = true;
+		},
+		afteredit: function(e) {
+			alert(e.record.id + ' has to be saved. (idcatlang: <?php echo $this->cat['idcatlang']; ?>)');
 		}
 	}
 });

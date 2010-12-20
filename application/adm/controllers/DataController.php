@@ -240,6 +240,13 @@ class DataController extends Zend_Controller_Action {
 		$id = $this->getRequest()->getParam('id');
 
 		$this->view->cat = Aitsu_Persistence_Category :: factory($id)->getData();
+		
+		$configSets = array(array(0, '[inherit]'));
+		$cSets = Aitsu_Persistence_ConfigSet :: getByName();
+		foreach ($cSets as $set) {
+			$configSets[] = array($set->configsetid, $set->identifier);
+		}
+		$this->view->configSets = $configSets;
 
 		$this->_loadCategoryPlugins($id);
 	}

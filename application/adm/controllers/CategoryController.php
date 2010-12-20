@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: CategoryController.php 18809 2010-09-17 09:09:26Z akm $}
  */
 
 class CategoryController extends Zend_Controller_Action {
@@ -216,6 +214,30 @@ class CategoryController extends Zend_Controller_Action {
 		$this->_helper->json(array (
 			'status' => 'success',
 			'idcat' => $idcat
+		));
+	}
+
+	public function updateAction() {
+
+		$id = $this->getRequest()->getParam('idcat');
+		$property = $this->getRequest()->getParam('property');
+		$value = $this->getRequest()->getParam('value');
+
+		try {
+			Aitsu_Persistence_Category :: factory($id)->setValues(array (
+				$property => $value
+			))->save();
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'sucess' => false,
+				'status' => 'exception',
+				'message' => $e->getMessage()
+			));
+		}
+
+		$this->_helper->json((object) array (
+			'sucess' => true,
+			'data' => $data
 		));
 	}
 
