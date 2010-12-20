@@ -16,8 +16,7 @@ var openTreePath = function(path, tree, select) {
 		expNode = currentNode.findChild('id', path[i]);
 		if (expNode == null) return;
 		if (select != undefined && expNode.id == select) {
-			//alert('selection made');
-			tree.getSelectionModel().select(expNode);
+			expNode.select();
 		}
 		expNode.expand(false, false, function() {
 			doExpand(expNode, path, i);
@@ -72,6 +71,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 			 });
 		},
 		contextmenu: function(node) {
+			node.select();
 			if (node.attributes.type == 'category') {
 				var menu = new Ext.menu.Menu();
 	
