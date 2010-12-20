@@ -80,7 +80,19 @@ var pagetree = 	new Ext.tree.TreePanel({
 				        });   						
 					}
 				});
+				
+				menu.addItem('-');
 			
+				menu.addItem({
+					text: '<?php echo $this->translate('New sub-category'); ?>',
+					iconCls: 'cm-folder-new',
+					handler: function() {
+						alert('add new category');
+					}
+				});
+				
+				menu.addItem('-');
+
 				menu.addItem({
 					text: '<?php echo $this->translate('Add to favorites'); ?>',
 					iconCls: 'cm-bookmark-category',
