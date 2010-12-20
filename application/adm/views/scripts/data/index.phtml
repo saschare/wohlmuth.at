@@ -138,15 +138,19 @@ var pagetree = 	new Ext.tree.TreePanel({
 					text: '<?php echo $this->translate('Add to favorites'); ?>',
 					iconCls: 'cm-bookmark-category',
 					handler: function() {
-						/*Ext.Ajax.request({
+						Ext.Ajax.request({
 							url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'addtofavorites'), 'default'); ?>',
 				            success: function(response) {
 				            	var rsp = Ext.decode(response.responseText);
 				            	var store = favorites.getStore();
-				            	store.addSorted(new store.recordType(rsp.data));
+				            	store.addSorted(new store.recordType({
+				            		id: rsp.data.idcat,
+				            		idcat: rsp.data.idcat,
+				            		category: rsp.data.name
+				            	}));
 				            },
 				            params: { idcat: node.attributes.id }
-				        });  */						
+				        });					
 					}
 				});
 			}
