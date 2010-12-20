@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: ConfigSet.php 19417 2010-10-20 11:38:59Z akm $}
  */
 
 class Aitsu_Persistence_ConfigSet extends Aitsu_Persistence_Abstract {
@@ -75,7 +73,7 @@ class Aitsu_Persistence_ConfigSet extends Aitsu_Persistence_Abstract {
 	}
 
 	public function remove() {
-		
+
 		if ($this->_id == 1) {
 			/*
 			 * The configuration with ID 1 is the default configuration and
@@ -117,23 +115,20 @@ class Aitsu_Persistence_ConfigSet extends Aitsu_Persistence_Abstract {
 
 	public static function getAsArray() {
 
-		$configsets = Aitsu_Db :: fetchAll("
-		            SELECT
-		                *
-		            FROM
-		                `_configset`
-		            ORDER BY
-		                `identifier` ASC
-		            ");
+		$configSets = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	configsetid, ' .
+		'	identifier ' .
+		'from _configset order by identifier asc');
 
-		if (!$configsets) {
+		if (!$configSets) {
 			return array ();
 		}
 
 		$return = array ();
 
-		foreach ($configsets as $configset) {
-			$return[$configset['configsetid']] = $configset['identifier'];
+		foreach ($configSets as $set) {
+			$return[$set['configsetid']] = $set['identifier'];
 		}
 
 		return $return;
