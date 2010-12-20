@@ -28,6 +28,8 @@
     	Ext.QuickTips.init();
 		Ext.getBody().on("contextmenu", Ext.emptyFn, null, {preventDefault: true});
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+        
+        var sessionClock = new Ext.Toolbar.TextItem('');
                 
         var viewport = new Ext.Viewport({
             layout: 'border',
@@ -80,6 +82,12 @@
 		            text: '',
 		            iconCls: 'x-status-valid',
 		            items: [
+		            	{
+		            		xtype: 'tbtext',
+		            		id: 'session-clock',
+		            		text: 'das ist ein test'
+		            	},
+		            	'-',
 		                'aitsu 2.1.0.1',
 		                '-',
 		                '&copy; 2010 - aitsu.org'
@@ -112,6 +120,47 @@
             	split: false
             }]
         });
+        
+        /* SESSION MANAGEMENT */
+        var sessionPeriod = <?php echo Aitsu_Registry :: get()->session->sessionPeriod > 300 ? Aitsu_Registry :: get()->session->sessionPeriod : 300; ?>;
+        var remainingSessionPeriod = sessionPeriod;
+		Ext.TaskMgr.start({
+		    run: function() {
+		    	remainingSessionPeriod--;
+		    	var h = Math.floor(remainingSessionPeriod / 60 / 60);
+		    	var m = Math.floor((remainingSessionPeriod - h * 60 * 60) / 60);
+		    	var s = Math.floor(remainingSessionPeriod - h * 60 * 60 - m * 60);
+		    	m = m < 10 ? '0' + m : m;
+		    	s = s < 10 ? '0' + s : s;
+		    	Ext.getCmp('session-clock').update('<?php echo Aitsu_Translate :: translate('Remaining session time'); ?>: ' + h + ' h ' + m + ' m ' + s + ' s');
+		    },
+		    interval: 1000
+		});
+		Ext.getBody().on('keydown', function() {
+			remainingSessionPeriod = sessionPeriod;
+		});
+		Ext.getBody().on('mousedown', function() {
+			remainingSessionPeriod = sessionPeriod;
+		});
+		Ext.TaskMgr.start({
+		    run: function() {
+		    	Ext.Ajax.request({
+				   url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'refreshsession'), 'default'); ?>',
+				   success: function(response, opts) {
+				      var res = Ext.decode(response.responseText);
+				      if (res.success) {
+				      	Ext.getCmp('basic-statusbar').setStatus('<?php echo Aitsu_Translate :: translate('Session refreshed at'); ?> ' + res.time);
+				      } else {
+				      	window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
+				      }
+				   },
+				   failure: function(response, opts) {
+				      alert('ERROR');
+				   }
+				});
+		    },
+		    interval: 300000
+		});
         
         <?php echo $this->layout()->content; ?>
     });

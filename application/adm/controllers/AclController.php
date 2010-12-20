@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: AclController.php 18796 2010-09-16 20:15:26Z akm $}
  */
 
 class AclController extends Zend_Controller_Action {
@@ -77,13 +75,13 @@ class AclController extends Zend_Controller_Action {
 	}
 
 	public function loginAction() {
-		
+
 		if (Aitsu_Config :: equals('extjstest', true)) {
 			$this->_helper->layout->disableLayout();
 			$this->_helper->viewRenderer->setNoRender(true);
 			$this->render('loginextjs');
 			return;
-		} 
+		}
 
 		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/login.ini', 'new'));
 		$form->setAction($this->view->url());
@@ -594,6 +592,7 @@ class AclController extends Zend_Controller_Action {
 	public function refreshsessionAction() {
 
 		$this->_helper->json((object) array (
+			'success' => Aitsu_Adm_User :: getInstance() != null,
 			'time' => date('Y-m-d H:i:s')
 		));
 	}
