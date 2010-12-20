@@ -223,16 +223,24 @@ class CategoryController extends Zend_Controller_Action {
 		$property = $this->getRequest()->getParam('property');
 		$value = $this->getRequest()->getParam('value');
 
+		if (in_array($value, array (
+				'true',
+				'false'
+			))) {
+			$value = $value == 'true' ? 1 : 0;
+		}
+
 		try {
-			Aitsu_Persistence_Category :: factory($id)->setValues(array (
+			$data = Aitsu_Persistence_Category :: factory($id)->load()->setValues(array (
 				$property => $value
-			))->save();
+			))->save()->getData();
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
 				'sucess' => false,
 				'status' => 'exception',
 				'message' => $e->getMessage()
 			));
+			return;
 		}
 
 		$this->_helper->json((object) array (

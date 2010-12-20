@@ -16,21 +16,21 @@ var comboConfigSet = new Ext.form.ComboBox({
 var propsGrid = new Ext.grid.PropertyGrid({
 	autoHeight: true,
 	source: {
-		Name: '<?php echo $this->cat['name']; ?>',
-		IdCat: <?php echo $this->cat['idcat']; ?>,
-		IdCatLang: <?php echo $this->cat['idcatlang']; ?>,
-		Online: <?php echo ($this->cat['visible'] == 1) ? 'true' : 'false'; ?>,
-		Public: <?php echo ($this->cat['public'] == 1) ? 'true' : 'false'; ?>,
-		Created: new Date(<?php echo $this->cat['createdts'] * 1000; ?>),
-		Lastmodified: new Date(<?php echo $this->cat['modifiedts'] * 1000; ?>),
-		Urlname: '<?php echo $this->cat['urlname']; ?>',
-		ConfigSet: <?php echo empty($this->cat['configsetid']) ? 0 : $this->cat['configsetid']; ?>
+		name: '<?php echo $this->cat['name']; ?>',
+		idcat: <?php echo $this->cat['idcat']; ?>,
+		idcatlang: <?php echo $this->cat['idcatlang']; ?>,
+		visible: <?php echo ($this->cat['visible'] == 1) ? 'true' : 'false'; ?>,
+		public: <?php echo ($this->cat['public'] == 1) ? 'true' : 'false'; ?>,
+		created: new Date(<?php echo $this->cat['createdts'] * 1000; ?>),
+		lastmodified: new Date(<?php echo $this->cat['modifiedts'] * 1000; ?>),
+		urlname: '<?php echo $this->cat['urlname']; ?>',
+		configsetid: <?php echo empty($this->cat['configsetid']) ? 0 : $this->cat['configsetid']; ?>
 	},
 	customEditors: {
-		ConfigSet: new Ext.grid.GridEditor(comboConfigSet)
+		configsetid: new Ext.grid.GridEditor(comboConfigSet)
 	},
 	customRenderers: {
-        ConfigSet: function(v) {
+        configsetid: function(v) {
         	var store = comboConfigSet.getStore();
             return store.getAt(store.findBy(function(record, id) {
             	return record.get('field1') == v;
@@ -43,13 +43,27 @@ var propsGrid = new Ext.grid.PropertyGrid({
 	},
 	listeners: {
 		beforeedit: function(e) {
-			if (/^name|configset|online|public|urlname$/.test(e.record.id.toLowerCase())) {
+			if (/^name|configset|visible|public|urlname$/.test(e.record.id.toLowerCase())) {
 				return;
 			}
 			e.cancel = true;
 		},
 		afteredit: function(e) {
-			alert(e.record.id + ' has to be saved. (idcatlang: <?php echo $this->cat['idcatlang']; ?>)');
+			Ext.Ajax.request({
+				url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'update'), 'default'); ?>',
+				success: function(response) {
+					var r = Ext.decode(response.responseText);
+					alert(response.responseText);
+				},
+				failure: function(response) {
+					alert('Remote server did not respond correcty.');
+				},
+				params: {
+					idcat: '<?php echo $this->cat['idcat']; ?>',
+					property: e.record.id.toLowerCase(),
+					value: e.value
+				}
+			});
 		}
 	}
 });
