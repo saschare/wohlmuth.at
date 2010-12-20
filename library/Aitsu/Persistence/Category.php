@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Category.php 18778 2010-09-15 11:01:23Z akm $}
  */
 
 class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
@@ -128,6 +126,8 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 		Aitsu_Cache :: getInstance()->clean(array (
 			'type_navigation'
 		));
+		
+		return $this;
 	}
 
 	public function remove($idlang) {
