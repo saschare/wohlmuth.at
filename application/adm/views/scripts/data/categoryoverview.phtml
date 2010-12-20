@@ -3,6 +3,16 @@ east.setVisible(true);
 east.expand(false);
 east.removeAll();
 
+var comboConfigSet = new Ext.form.ComboBox({
+	store: ['Business', 'Personal'],
+	typeAhead: true,
+    mode: 'local',
+    triggerAction: 'all',
+    emptyText: '[inherit]',
+    selectOnFocus: true,
+    forceSelection: true
+   });
+
 var propsGrid = new Ext.grid.PropertyGrid({
 	autoHeight: true,
 	source: {
@@ -12,7 +22,11 @@ var propsGrid = new Ext.grid.PropertyGrid({
 		Online: <?php echo ($this->cat['visible'] == 1) ? 'true' : 'false'; ?>,
 		Public: <?php echo ($this->cat['public'] == 1) ? 'true' : 'false'; ?>,
 		Created: new Date(<?php echo $this->cat['createdts'] * 1000; ?>),
-		Lastmodified: new Date(<?php echo $this->cat['modifiedts'] * 1000; ?>)
+		Lastmodified: new Date(<?php echo $this->cat['modifiedts'] * 1000; ?>),
+		Urlname: '<?php echo $this->cat['urlname']; ?>'
+	},
+	customEditors: {
+		Name: new Ext.grid.GridEditor(comboConfigSet)
 	},
 	viewConfig : {
 		forceFit: true,
@@ -20,6 +34,9 @@ var propsGrid = new Ext.grid.PropertyGrid({
 	},
 	listeners: {
 		beforeedit: function(e) {
+			if (/^name|configset|online|public|urlname$/.test(e.record.id.toLowerCase())) {
+				return;
+			}
 			e.cancel = true;
 		}
 	}

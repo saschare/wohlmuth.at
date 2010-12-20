@@ -25,11 +25,11 @@ class DataController extends Zend_Controller_Action {
 
 		$langs = Aitsu_Persistence_Language :: getByClient(Aitsu_Registry :: get()->session->currentClient);
 
-		$datasetSelector = $this->view->partial('data/datasetSelector.phtml', array (
+		/*$datasetSelector = $this->view->partial('data/datasetSelector.phtml', array (
 			'langs' => $langs,
 			'articles' => Aitsu_Persistence_Lastopened :: factory(1)->load()->get()
 		));
-		$this->view->placeholder('left')->set($datasetSelector);
+		$this->view->placeholder('left')->set($datasetSelector);*/
 
 		/*
 		 * Add plugins' head to the head and plugins' js at the bottom
