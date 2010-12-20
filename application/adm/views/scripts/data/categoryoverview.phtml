@@ -53,7 +53,7 @@ var propsGrid = new Ext.grid.PropertyGrid({
 				url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'update'), 'default'); ?>',
 				success: function(response) {
 					var r = Ext.decode(response.responseText);
-					alert(response.responseText);
+					reloadTree('<?php echo $this->cat['idcat']; ?>', pagetree);
 				},
 				failure: function(response) {
 					alert('Remote server did not respond correcty.');
