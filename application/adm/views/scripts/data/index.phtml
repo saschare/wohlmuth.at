@@ -95,10 +95,35 @@ var pagetree = 	new Ext.tree.TreePanel({
 							url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'addnew'), 'default'); ?>',
 				            success: function(response) {
 				            	var rsp = Ext.decode(response.responseText);
-				            	reloadTree(rsp.data.parent, pagetree);
+				            	reloadTree(rsp.parent, pagetree);
 				            },
 				            params: { idcat: node.attributes.id }
 				        });   						
+					}
+				});
+				
+				menu.addItem({
+					text: '<?php echo $this->translate('Delete'); ?>',
+					iconCls: 'cm-folder-delete',
+					handler: function() {
+						var parent = node.parentNode.attributes.id;
+					 	Ext.MessageBox.show({
+						 	title: '<?php echo $this->translate('Delete category'); ?>',
+						 	msg: '<?php echo $this->translate('Are you sure to delete the selected category?'); ?>',
+						 	buttons: Ext.MessageBox.OKCANCEL,
+						 	fn: function(result) {
+						 		if (result == 'ok') {
+									Ext.Ajax.request({
+										url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'delete'), 'default'); ?>',
+							            success: function(response) {
+							            	var rsp = Ext.decode(response.responseText);
+							            	reloadTree(parent, pagetree);
+							            },
+							            params: { idcat: node.attributes.id }
+							        });  						
+						 		}
+						 	}
+						 });
 					}
 				});
 				

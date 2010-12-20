@@ -94,26 +94,19 @@ class CategoryController extends Zend_Controller_Action {
 	public function deleteAction() {
 
 		try {
-			$id = $this->getRequest()->getParam('id');
-			if (empty ($id)) {
-				$id = 0;
-			} else {
-				$tmp = explode('-', $id);
-				$id = $tmp[1];
-			}
-
+			$id = $this->getRequest()->getParam('idcat');
 			Aitsu_Persistence_Category :: factory($id)->remove(Aitsu_Registry :: get()->session->currentLanguage);
 		} catch (Exception $e) {
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'success' => false,
 				'status' => 'exception',
 				'message' => $e->getMessage(),
 				'stacktrace' => $e->getTraceAsString()
 			));
 		}
 
-		$this->_helper->json(array (
-			'status' => 'success',
-			'idcat' => $id
+		$this->_helper->json((object) array (
+			'status' => 'success'
 		));
 	}
 
