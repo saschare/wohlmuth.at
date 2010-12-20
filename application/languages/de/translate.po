@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-26 17:28+0100\n"
-"PO-Revision-Date: 2010-11-26 17:29+0100\n"
+"POT-Creation-Date: 2010-12-20 19:45+0100\n"
+"PO-Revision-Date: 2010-12-20 19:48+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,27 +37,27 @@ msgstr "Letzte"
 msgid "Article with ID %s copied to clipboard."
 msgstr "Der Artikel mit der ID %s wurde in die Zwischenablage kopiert."
 
-#: application/adm/controllers/DataController.php:242
+#: application/adm/controllers/DataController.php:286
 msgid "Article"
 msgstr "Artikel"
 
-#: application/adm/controllers/DataController.php:294
+#: application/adm/controllers/DataController.php:332
 msgid "Article deleted"
 msgstr "Artikel gelöscht."
 
-#: application/adm/controllers/DataController.php:318
+#: application/adm/controllers/DataController.php:358
 msgid "An error occured while trying to set the specified article as index. "
 msgstr "Während dem Vorgang ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:337
+#: application/adm/controllers/DataController.php:377
 msgid "An error occured while trying to duplicate the specified article. "
 msgstr "Während der Duplizierung ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:359
+#: application/adm/controllers/DataController.php:399
 msgid "An error occured while trying to synchronize the specified article. "
 msgstr "Während der Synchronisation ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:400
+#: application/adm/controllers/DataController.php:440
 msgid "Categories moved."
 msgstr "Die Kategorien wurden verschoben."
 
@@ -274,6 +274,10 @@ msgstr "Editierbereich in der Form einer reinen Textarea."
 msgid "Honeytrap to trap spam bots in a black list."
 msgstr "Honigfalle zur Aufnahme von Spam-Bots in die Schwarze Liste."
 
+#: application/modules/CUG/Login/Class.php:15
+msgid "Login mask."
+msgstr "Login-Maske"
+
 #: application/modules/Navigation/Class.php:17
 msgid "Returns a navigation menu based on the specified template."
 msgstr "Gibt eine Navigation auf Basis des spezifizierten Templates zurück."
@@ -345,7 +349,7 @@ msgstr "Gibt den Inhalt des Default-Templates oder des bezeichneten Templates an
 msgid "Returns the canonical tag of the current page."
 msgstr "Gibt den Canonical-Tag der aktuellen Seite zurück."
 
-#: application/modules/HTML/Meta/Tags/Class.php:17
+#: application/modules/HTML/Meta/Tags/Class.php:15
 msgid "Returns the meta tags of the current article."
 msgstr "Gibt die Meta-Tags des aktuellen Artikels zurück."
 
@@ -357,7 +361,7 @@ msgstr "Bündelt die bezeichneten Resourcen (CSS oder JS) in eine einzelne Datei
 msgid "Returns the specified path as a base href tag."
 msgstr "Gibt den spezifizierten Pfad als Base-Href zurück."
 
-#: application/modules/HTML/Meta/PageTitle/Class.php:19
+#: application/modules/HTML/Meta/PageTitle/Class.php:15
 msgid "Returns the page title of the current article."
 msgstr "Gibt den aktuellen Seitentitel zurück."
 
@@ -493,7 +497,7 @@ msgstr "Link hinzugefügt."
 msgid "Link removed."
 msgstr "Link entfernt."
 
-#: application/plugins/category/standard/Class.php:24
+#: application/plugins/category/standard/Class.php:22
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -571,11 +575,11 @@ msgstr "Gibt eine Breadcrumb-Navigation aus."
 msgid "Outputs a definition list out of a list of line separated data."
 msgstr "Gibt eine Definitionsliste zurück aus einer Zeilendelimitierten Eingabe."
 
-#: library/Aitsu/Persistence/Article.php:262
+#: library/Aitsu/Persistence/Article.php:267
 msgid "An error occured while deleting the specified article."
 msgstr "Während dem Löschvorgang ist ein Fehler aufgetreten."
 
-#: library/Aitsu/Persistence/Article.php:339
+#: library/Aitsu/Persistence/Article.php:344
 msgid "Copy of"
 msgstr "Kopie von"
 
@@ -596,43 +600,39 @@ msgstr "Unbehandelte Ausnahme"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:24
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:25
 msgid "Articles"
 msgstr "Artikel"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:34
-msgid "Categories"
-msgstr "Kategorien"
-
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:44
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:36
 msgid "Plugins"
 msgstr "Plugins"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:55
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:48
 msgid "Management"
 msgstr "Management"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:65
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:59
 msgid "User profile"
 msgstr "Benutzerprofil"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:75
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:70
 msgid "User, Roles and Privileges"
 msgstr "Benutzer, Rollen und Rechte"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:85
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:81
 msgid "Clients"
 msgstr "Mandanten"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:95
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:92
 msgid "Mappings"
 msgstr "Mappings"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:105
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:103
 msgid "Configurations"
 msgstr "Konfigurationen"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:115
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:114
 msgid "Translations"
 msgstr "Übersetzungen"
 
@@ -640,24 +640,15 @@ msgstr "Übersetzungen"
 msgid "Scripts"
 msgstr "Skripte"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:161
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:162
 msgid "Logout"
 msgstr "Logout"
-
-#: application/adm/layouts/scripts/layout.phtml:234
-msgid "No"
-msgstr "Nein"
-
-#: application/adm/layouts/scripts/layout.phtml:237
-msgid "Yes"
-msgstr "Ja"
 
 #: application/adm/views/scripts/config/overview.phtml:2
 msgid "Add new configuration set"
 msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/list.phtml:4
-#: application/adm/views/scripts/data/index.phtml:13
 #: application/adm/views/scripts/mapping/list.phtml:11
 msgid "ID"
 msgstr "ID"
@@ -670,50 +661,57 @@ msgstr "Bezeichner"
 msgid "Configuration sets"
 msgstr "Konfigurationen"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:3
-msgid "Synchronisation language"
-msgstr "Synchronisationssprache"
+#: application/adm/views/scripts/data/index.phtml:32
+msgid "Category tree"
+msgstr "Kategoriebaum"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:9
-msgid "No synchronization"
-msgstr "Keine Synchronisation"
+#: application/adm/views/scripts/data/index.phtml:57
+msgid "Move node"
+msgstr "Knoten verschieben."
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:20
-msgid "There is only one language availabe. Therefore there is no language availabe to synchronize from."
-msgstr "Aktuell ist nur eine Sprache verfügbar. Eine Synchronisation ist deshalb nicht möglich."
+#: application/adm/views/scripts/data/index.phtml:58
+msgid "Are you sure to move the node to the specified place?"
+msgstr "Sind Sie sicher, dass Sie den gewählten Knoten an die bezeichnete Stelle verschieben möchten?"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:28
-msgid "Article tree"
-msgstr "Artikelbaum"
+#: application/adm/views/scripts/data/index.phtml:79
+msgid "Set offline"
+msgstr "Offline stellen"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:33
-#: application/adm/views/scripts/data/index.phtml:4
-msgid "Last opened articles"
-msgstr "Zuletzt geöffnete Artikel"
+#: application/adm/views/scripts/data/index.phtml:79
+msgid "Set online"
+msgstr "Online stellen"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:36
-msgid "Favorits"
+#: application/adm/views/scripts/data/index.phtml:96
+msgid "New sub-category"
+msgstr "Neue Unterkategorie erstellen"
+
+#: application/adm/views/scripts/data/index.phtml:111
+msgid "Delete"
+msgstr "Löschen"
+
+#: application/adm/views/scripts/data/index.phtml:116
+msgid "Delete category"
+msgstr "Kategorie löschen"
+
+#: application/adm/views/scripts/data/index.phtml:117
+msgid "Are you sure to delete the selected category?"
+msgstr "Sind Sie sicher, dass Sie die gew&auml;hlte Kategorie l&ouml;schen m&ouml;chten?"
+
+#: application/adm/views/scripts/data/index.phtml:138
+msgid "Add to favorites"
+msgstr "Zu den Favoriten hinzufügen"
+
+#: application/adm/views/scripts/data/index.phtml:213
+msgid "Recently opened pages"
+msgstr "Kürzlich geöffnete Seiten"
+
+#: application/adm/views/scripts/data/index.phtml:232
+msgid "Favorites"
 msgstr "Favoriten"
 
-#: application/adm/views/scripts/data/datasetSelector.phtml:127
-msgid "Publish current version"
-msgstr "Aktuelle Version publizieren"
-
-#: application/adm/views/scripts/data/datasetSelector.phtml:140
-msgid "Current version is online"
-msgstr "Aktuelle Version ist online."
-
-#: application/adm/views/scripts/data/index.phtml:14
-msgid "Title"
-msgstr "Titel"
-
-#: application/adm/views/scripts/data/index.phtml:15
-msgid "Page title"
-msgstr "Seitentitel"
-
-#: application/adm/views/scripts/data/index.phtml:16
-msgid "Category"
-msgstr "Kategorie"
+#: application/adm/views/scripts/data/index.phtml:251
+msgid "Remove"
+msgstr "Entfernen"
 
 #: application/adm/views/scripts/mapping/list.phtml:2
 msgid "New"
@@ -739,11 +737,6 @@ msgstr "Zugriff verweigert"
 msgid "You do not have enough privileges to access the specified resource."
 msgstr "Sie verfügen nicht über ausreichend Rechte zur Ausführung der vorgesehenen Aktion."
 
-#: application/adm/views/scripts/contextmenu/editdelete.phtml:6
-#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:12
-msgid "Delete"
-msgstr "Löschen"
-
 #: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:3
 msgid "Index article"
 msgstr "Index-Artikel"
@@ -757,12 +750,10 @@ msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/adm/views/scripts/translate/index.phtml:13
-#: application/adm/views/scripts/translation/translationlist.phtml:14
 msgid "Key"
 msgstr "Schlüssel"
 
 #: application/adm/views/scripts/translate/index.phtml:14
-#: application/adm/views/scripts/translation/translationlist.phtml:15
 msgid "Value"
 msgstr "Wert"
 
@@ -794,9 +785,25 @@ msgstr "Encodierung"
 msgid "Languages"
 msgstr "Sprachen"
 
+#: application/adm/views/scripts/layout/extjsbased.phtml:135
+msgid "Remaining session time"
+msgstr "Verbleibende Sessiondauer"
+
+#: application/adm/views/scripts/layout/extjsbased.phtml:152
+msgid "Session refreshed at"
+msgstr "Session aktualisiert um"
+
 #: application/adm/views/scripts/layout/subnav.phtml:4
 msgid "Menu"
 msgstr "Menu"
+
+#: application/adm/views/scripts/layout/yamlbased.phtml:234
+msgid "No"
+msgstr "Nein"
+
+#: application/adm/views/scripts/layout/yamlbased.phtml:237
+msgid "Yes"
+msgstr "Ja"
 
 #: application/adm/views/scripts/layout/js/sessionManagement.phtml:20
 msgid "Attention: temporarily lost connection. The session is not refreshed. Store unsaved changes into clipboard."
@@ -848,7 +855,6 @@ msgid "Set online / offline"
 msgstr "On- und offline stellen"
 
 #: application/adm/views/scripts/dialog/setcategoryonline.phtml:4
-#: application/adm/views/scripts/dialog/setcategorylocked.phtml:4
 msgid "Include the sub-categories?"
 msgstr "Unterkategorien einschliessen?"
 
@@ -867,6 +873,22 @@ msgstr "Kategorie bearbeiten"
 #: application/adm/views/scripts/dialog/setcategorylocked.phtml:1
 msgid "Lock / Release"
 msgstr "Schützen / Schutz aufheben"
+
+#: application/adm/views/scripts/category/accordion.phtml:3
+msgid "Synchronisation language"
+msgstr "Synchronisationssprache"
+
+#: application/adm/views/scripts/category/accordion.phtml:9
+msgid "No synchronization"
+msgstr "Keine Synchronisation"
+
+#: application/adm/views/scripts/category/accordion.phtml:21
+msgid "There is only one language availabe. Therefore there is no language availabe to synchronize from."
+msgstr "Aktuell ist nur eine Sprache verfügbar. Eine Synchronisation ist deshalb nicht möglich."
+
+#: application/adm/views/scripts/category/index.phtml:4
+msgid "Categories"
+msgstr "Kategorien"
 
 #: application/adm/views/scripts/category/index.phtml:14
 msgid "Visiblity"
@@ -1149,10 +1171,12 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1197,6 +1221,10 @@ msgstr "Kunde"
 msgid "Add new track"
 msgstr "Neuen Track aufnehmen"
 
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:14
+msgid "Title"
+msgstr "Titel"
+
 #: application/plugins/generic/utilities/tracking/views/tracklist.phtml:16
 msgid "Project"
 msgstr "Projekt"
@@ -1214,7 +1242,6 @@ msgid "Comments"
 msgstr "Kommentare"
 
 #: application/plugins/dashboard/contentAnalyzer/views/index.phtml:4
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:4
 msgid "Indicator"
 msgstr "Indikator"
 
@@ -1264,16 +1291,19 @@ msgstr "Stdabw. langsamste Seite"
 
 #: application/plugins/article/media/views/delete.phtml:5
 #: application/plugins/article/media/views/index.phtml:33
+#: application/plugins/article/media/views/filelist.phtml:5
 msgid "File name"
 msgstr "Dateiname"
 
 #: application/plugins/article/media/views/delete.phtml:6
 #: application/plugins/article/media/views/index.phtml:34
+#: application/plugins/article/media/views/filelist.phtml:6
 msgid "Media name"
 msgstr "Medienname"
 
 #: application/plugins/article/media/views/delete.phtml:8
 #: application/plugins/article/media/views/index.phtml:36
+#: application/plugins/article/media/views/filelist.phtml:8
 msgid "Uploaded"
 msgstr "Hochgeladen"
 
@@ -1414,6 +1444,10 @@ msgstr "Spezialpreis"
 msgid "Primary article image"
 msgstr "Primäres Artikelbild"
 
+#: application/plugins/article/crosslinking/views/crosslinks.phtml:6
+msgid "Category"
+msgstr "Kategorie"
+
 #: application/plugins/article/crosslinking/views/index.phtml:2
 msgid "Delete selected links"
 msgstr "Selektierte Links entfernen"
@@ -1430,29 +1464,21 @@ msgstr "Links entfernen"
 msgid "Yes, remove the links"
 msgstr "Ja, Links löschen"
 
-#: application/plugins/category/standard/views/index.phtml:2
-msgid "Add new article"
-msgstr "Neuen Artikel erstellen"
+#: application/plugins/category/standard/views/index.phtml:132
+msgid "Set as index"
+msgstr "Als Index setzen"
 
-#: application/plugins/category/standard/views/index.phtml:3
-msgid "Paste from clipboard"
-msgstr "Einfügen (aus Zwischenablage)"
+#: application/plugins/category/standard/views/index.phtml:184
+msgid "Publish"
+msgstr "Publizieren"
 
-#: application/plugins/category/standard/views/index.phtml:4
-msgid "Add category to favorites"
-msgstr "Zu den Favoriten hinzufügen"
+#: application/plugins/category/standard/views/index.phtml:217
+msgid "Delete page"
+msgstr "Seite löschen"
 
-#: application/plugins/category/standard/views/index.phtml:5
-msgid "Remove from favorites"
-msgstr "Aus Favoriten entfernen"
-
-#: application/plugins/category/standard/views/index.phtml:16
-msgid "URL name"
-msgstr "URL-Name"
-
-#: application/plugins/category/standard/views/index.phtml:33
-msgid "Differences to published version"
-msgstr "Unterschiede zur publizierten Version"
+#: application/plugins/category/standard/views/index.phtml:218
+msgid "Are you sure to delete the selected page?"
+msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:5
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:28
@@ -1515,6 +1541,26 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
+#~ msgid "Article tree"
+#~ msgstr "Artikelbaum"
+#~ msgid "Last opened articles"
+#~ msgstr "Zuletzt geöffnete Artikel"
+#~ msgid "Publish current version"
+#~ msgstr "Aktuelle Version publizieren"
+#~ msgid "Current version is online"
+#~ msgstr "Aktuelle Version ist online."
+#~ msgid "Page title"
+#~ msgstr "Seitentitel"
+#~ msgid "Add new article"
+#~ msgstr "Neuen Artikel erstellen"
+#~ msgid "Paste from clipboard"
+#~ msgstr "Einfügen (aus Zwischenablage)"
+#~ msgid "Remove from favorites"
+#~ msgstr "Aus Favoriten entfernen"
+#~ msgid "URL name"
+#~ msgstr "URL-Name"
+#~ msgid "Differences to published version"
+#~ msgstr "Unterschiede zur publizierten Version"
 #~ msgid "Referesh"
 #~ msgstr "Referesh"
 #~ msgid "Box model"
@@ -1617,8 +1663,6 @@ msgstr "senden"
 #~ msgstr "festes Breite-Höhen-Verhältnis"
 #~ msgid "User"
 #~ msgstr "Benutzer"
-#~ msgid "New category tree"
-#~ msgstr "Neuer Kategoriebaum"
 #~ msgid "Role"
 #~ msgstr "Rolle"
 #~ msgid "Role identifier"
@@ -1650,12 +1694,6 @@ msgstr "senden"
 #~ msgstr "Kategorie sch&uuml;tzen"
 #~ msgid "unlock category"
 #~ msgstr "Schutz aufheben"
-#~ msgid "delete category"
-#~ msgstr "Kategorie l&ouml;schen"
-#~ msgid "Are you sure to delete the selected category?"
-#~ msgstr ""
-#~ "Sind Sie sicher, dass Sie die gew&auml;hlte Kategorie l&ouml;schen m&ouml;"
-#~ "chten?"
 #~ msgid "Confirm delete"
 #~ msgstr "L&ouml;schung best&auml;tigen"
 #~ msgid "Delete the selected category"
