@@ -62,7 +62,22 @@ var pagetree = 	new Ext.tree.TreePanel({
 		            	if (node.attributes.type == 'category') {
 		            		alert('move category');
 		            	} else if (node.attributes.type == 'page') {
-		            		alert('move page');
+		            		Ext.Ajax.request({
+		            			url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'movepage'), 'default'); ?>',
+		            			success: function(response, opts) {
+		            				var rsp = Ext.decode(response.responseText);
+		            				if (!rsp.success) {
+		            					openTreePath(oldParent.getPath(), tree);
+		            				}
+		            			},
+		            			failure: function() {
+		            				openTreePath(oldParent.getPath(), tree);
+		            			},
+		            			params: {
+		            				idcat: newParent.attributes.id,
+		            				idart: node.attributes.id
+		            			}
+		            		});
 		            	}
 			 		} else {
 			 			openTreePath(oldParent.getPath(), tree);

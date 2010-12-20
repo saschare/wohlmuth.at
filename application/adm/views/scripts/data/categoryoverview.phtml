@@ -16,7 +16,7 @@ var comboConfigSet = new Ext.form.ComboBox({
 var propsGrid = new Ext.grid.PropertyGrid({
 	autoHeight: true,
 	source: {
-		name: '<?php echo $this->cat['name']; ?>',
+		name: '<?php echo addslashes($this->cat['name']); ?>',
 		idcat: <?php echo $this->cat['idcat']; ?>,
 		idcatlang: <?php echo $this->cat['idcatlang']; ?>,
 		visible: <?php echo ($this->cat['visible'] == 1) ? 'true' : 'false'; ?>,

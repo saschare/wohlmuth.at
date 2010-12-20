@@ -1,5 +1,5 @@
 var categories = new Ext.grid.GridPanel({
-	title: '<?php echo $this->categoryname; ?>',
+	title: '<?php echo addslashes($this->categoryname); ?>',
 	store: new Ext.data.ArrayStore({
 		fields: [
 			{name: 'id'},

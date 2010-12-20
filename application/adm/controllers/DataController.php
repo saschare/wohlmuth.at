@@ -440,4 +440,16 @@ class DataController extends Zend_Controller_Action {
 			'message' => Aitsu_Translate :: translate('Categories moved.')
 		));
 	}
+	
+	public function movepageAction() {
+		
+		$idart = $this->getRequest()->getParam('idart');
+		$idcat = $this->getRequest()->getParam('idcat');
+		
+		Aitsu_Persistence_Article :: factory($idart)->moveTo($idcat);
+		
+		$this->_helper->json((object) array (
+			'success' => true
+		));
+	}
 }
