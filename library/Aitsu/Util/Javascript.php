@@ -65,7 +65,7 @@ class Aitsu_Util_Javascript {
 			$entry = (object) $entry;
 			$row = array();
 			foreach ($fields as $field) {
-				$row[] = "'" . $entry->$field . "'";
+				$row[] = "'" . addslashes($entry->$field) . "'";
 			}
 			$return[] = '[' . implode(',', $row) . ']';
 		}

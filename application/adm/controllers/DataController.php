@@ -278,32 +278,6 @@ class DataController extends Zend_Controller_Action {
 		$this->view->idcat = $id;
 	}
 
-	public function addtofavoritesAction() {
-
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$id = $this->getRequest()->getParam('id');
-
-		Aitsu_Persistence_CatFavorite :: factory($id)->save();
-
-		$this->view->favorites = Aitsu_Persistence_CatFavorite :: getAll();
-		$this->render('favorites');
-	}
-
-	public function removefromfavoritesAction() {
-
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$id = $this->getRequest()->getParam('id');
-
-		Aitsu_Persistence_CatFavorite :: factory($id)->remove();
-
-		$this->view->favorites = Aitsu_Persistence_CatFavorite :: getAll();
-		$this->render('favorites');
-	}
-
 	public function newarticleAction() {
 
 		$id = $this->getRequest()->getParam('idcat');

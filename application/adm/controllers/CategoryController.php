@@ -46,42 +46,25 @@ class CategoryController extends Zend_Controller_Action {
 		));
 	}
 
-	public function treecontentAction() {
+	public function addtofavoritesAction() {
 
-		$return = array ();
+		$id = $this->getRequest()->getParam('idcat');
+		Aitsu_Persistence_CatFavorite :: factory($id)->save();
 
-		$id = $this->getRequest()->getParam('id');
-		if (empty ($id)) {
-			$id = 0;
-		} else {
-			$tmp = explode('-', $id);
-			$id = $tmp[1];
-		}
-		$syncLang = $this->getRequest()->getParam('sync');
+		$this->_helper->json((object) array (
+			'success' => true,
+			'data' => Aitsu_Persistence_Category :: factory($id)->getData()
+		));
+	}
 
-		$categories = Aitsu_Persistence_View_Category :: cat($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
-		if ($categories) {
-			foreach ($categories as $cat) {
-				$classes = array ();
-				if (isset ($cat['unsynced']) && $cat['unsynced'] == 1) {
-					$classes[] = 'unsynced';
-				} else {
-					$classes[] = $cat['online'] == 1 ? 'online' : 'offline';
-					$classes[] = $cat['public'] == 1 ? 'public' : 'locked';
-				}
-				$return[] = array (
-					'data' => $cat['name'],
-					'attr' => array (
-						'id' => 'cat-' . $cat['idcat'],
-						'class' => implode(' ', $classes)
-					),
-					'icon' => 'folder',
-					'state' => $cat['haschildren'] == 1 ? 'closed' : ''
-				);
-			}
-		}
+	public function removefavoriteAction() {
 
-		$this->_helper->json($return);
+		$id = $this->getRequest()->getParam('idcat');
+		Aitsu_Persistence_CatFavorite :: factory($id)->remove();
+
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
 	public function addnewAction() {
@@ -170,53 +153,6 @@ class CategoryController extends Zend_Controller_Action {
 		$this->_helper->json(array (
 			'status' => 'success',
 			'idcat' => $id
-		));
-	}
-
-	public function getcatdataAction() {
-
-		try {
-			$tmp = explode('-', $this->getRequest()->getParam('id'));
-			$id = $tmp[1];
-
-			$data = Aitsu_Persistence_Category :: factory($id)->getData();
-		} catch (Exception $e) {
-			$this->_helper->json(array (
-				'status' => 'exception',
-				'message' => $e->getMessage(),
-				'stacktrace' => $e->getTraceAsString()
-			));
-		}
-
-		$this->_helper->json(array (
-			'status' => 'success',
-			'data' => $data
-		));
-	}
-
-	public function saveAction() {
-
-		try {
-			$tmp = explode('-', $this->getRequest()->getParam('idcat'));
-			$idcat = $tmp[1];
-
-			Aitsu_Persistence_Category :: factory($idcat)->load()->setValues(array (
-				'name' => $this->getRequest()->getParam('name'),
-				'urlname' => $this->getRequest()->getParam('urlname'),
-				'configsetid' => $this->getRequest()->getParam('configset'),
-				'config' => $this->getRequest()->getParam('config')
-			))->save();
-		} catch (Exception $e) {
-			$this->_helper->json(array (
-				'status' => 'exception',
-				'message' => $e->getMessage(),
-				'stacktrace' => $e->getTraceAsString()
-			));
-		}
-
-		$this->_helper->json(array (
-			'status' => 'success',
-			'idcat' => $idcat
 		));
 	}
 

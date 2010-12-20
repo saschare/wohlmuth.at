@@ -90,6 +90,10 @@
     background-image: url(../images/icons/delete.png) !important; 
     background-repeat: no-repeat;
 }
+.cm-delete {
+    background-image: url(../images/icons/delete.png) !important; 
+    background-repeat: no-repeat;
+}
 .cm-indexpage {
     background-image: url(../images/icons/page_white_code.png) !important; 
     background-repeat: no-repeat;
