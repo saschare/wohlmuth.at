@@ -7,6 +7,27 @@ var reloadTree = function(id, tree) {
 	});
 }
 
+var openTreePath = function(path, tree, select) {
+	var currentNode = tree.getRootNode();
+	path = path.split('/');
+	var doExpand = function(currentNode, path, i) {
+		i++;
+		if (i > path.length) return;
+		expNode = currentNode.findChild('id', path[i]);
+		if (expNode == null) return;
+		if (select != undefined && expNode.id == select) {
+			//alert('selection made');
+			tree.getSelectionModel().select(expNode);
+		}
+		expNode.expand(false, false, function() {
+			doExpand(expNode, path, i);
+		});
+	}
+	tree.getLoader().load(tree.getRootNode(), function() {
+		doExpand(currentNode, path, 1);
+	});
+}
+
 var pagetree = 	new Ext.tree.TreePanel({
 	id: 'pageview-cattree',
 	title: '<?php echo $this->translate('Category tree'); ?>',
@@ -30,9 +51,6 @@ var pagetree = 	new Ext.tree.TreePanel({
 		click: function(node, event) {
 			if (node.attributes.type == 'category') {
 				node.expand();
-				Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id], null, this, false);
-			} else {
-				alert('open page: ' + node.id);
 			}
 		},
 		beforemovenode: function(tree, node, oldParent, newParent, index) {
@@ -48,20 +66,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 		            		alert('move page');
 		            	}
 			 		} else {
-			 			var currentNode = tree.getRootNode();
-			 			var path = oldParent.getPath().split('/');
-			 			var doExpand = function(currentNode, path, i) {
-			 				i++;
-			 				if (i > path.length) return;
-			 				expNode = currentNode.findChild('id', path[i]);
-			 				if (expNode == null) return;
-			 				expNode.expand(false, false, function() {
-			 					doExpand(expNode, path, i);
-			 				});
-			 			}
-			 			tree.getLoader().load(tree.getRootNode(), function() {
-			 				doExpand(currentNode, path, 1);
-			 			});
+			 			openTreePath(oldParent.getPath(), tree);
 			 		}
 			 	}
 			 });
@@ -171,6 +176,10 @@ var pagetree = 	new Ext.tree.TreePanel({
 	}
 });
 
+pagetree.getSelectionModel().on('beforeselect', function(sm, node, oldnode) {
+	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id], null, this, false);
+});
+
 var recentlyOpenedPages = new Ext.grid.GridPanel({
 	store: new Ext.data.ArrayStore({
 		fields: [
@@ -211,9 +220,17 @@ var favorites = new Ext.grid.GridPanel({
 	title: '<?php echo $this->translate('Favorites'); ?>',
 	listeners: {
 		cellclick: function(grid, rowIndex, columnIndex, e) {
-			var record = grid.getStore().getAt(rowIndex);
-    		var data = record.get('id');
-    		alert(data);
+			Ext.Ajax.request({
+			   url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'getPath'), 'default'); ?>',
+			   success: function(response, opts) {
+			      var res = Ext.decode(response.responseText);
+			      Ext.getCmp('page-accordion').layout.setActiveItem(0);
+			      openTreePath(res.path, pagetree, grid.getStore().getAt(rowIndex).get('id'));
+			   },
+			   params: {
+			   	idcat: grid.getStore().getAt(rowIndex).get('id')
+			   }
+			});
 		}
 	}
 });
@@ -225,6 +242,7 @@ west.removeAll();
 west.add(new Ext.Panel({
 	layout: 'accordion',
 	border: false,
+	id: 'page-accordion',
 	layoutConfig: {
 		titleCollapse: true,
         hideCollapseTool: true,

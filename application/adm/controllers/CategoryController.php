@@ -31,6 +31,21 @@ class CategoryController extends Zend_Controller_Action {
 		$this->view->langs = $langs;
 	}
 
+	/**
+	 * Returns the path of the specified idcat using the
+	 * idcats and beginning with the root level.
+	 * @since 2.1.0.0 - 20.12.2010
+	 */
+	public function getpathAction() {
+
+		$id = $this->getRequest()->getParam('idcat');
+		$path = Aitsu_Persistence_Category :: path($id);
+
+		$this->_helper->json((object) array (
+			'path' => '/0/' . implode('/', $path)
+		));
+	}
+
 	public function treecontentAction() {
 
 		$return = array ();
