@@ -33,17 +33,6 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 					'icon' => 'tm-page'
 				),
 				array (
-					'label' => $t->translate('Categories'),
-					'id' => 'categories',
-					'controller' => 'category',
-					'action' => 'index',
-					'route' => 'default',
-					'ac' => array (
-						'area' => 'category'
-					),
-					'icon' => 'tm-category'
-				),
-				array (
 					'label' => $t->translate('Plugins'),
 					'id' => uniqid(),
 					'controller' => 'plugins',
