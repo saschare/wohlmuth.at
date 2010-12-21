@@ -1,5 +1,8 @@
 var reloadTree = function(id, tree) {
 	var node = tree.getNodeById(id);
+	if (node.id == 0) {
+		tree.getLoader().load(tree.getRootNode());
+	}
 	tree.getLoader().load(node.parentNode, function(n) {
 		n.expand(false, false, function() {
 			tree.getNodeById(node.attributes.id).expand(false, false);
@@ -188,6 +191,26 @@ var pagetree = 	new Ext.tree.TreePanel({
 			}
 			
 			menu.show(node.ui.getAnchor());
+		},
+		containercontextmenu: function(node, e) {
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('New category'); ?>',
+				iconCls: 'cm-folder-new',
+				handler: function() {
+					Ext.Ajax.request({
+						url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'addnew'), 'default'); ?>',
+				           success: function(response) {
+				           	var rsp = Ext.decode(response.responseText);
+				           	reloadTree(0, pagetree);
+				           },
+				           params: { idcat: 0 }
+				       });						
+				}
+			});
+			
+			menu.showAt(e.getXY());
 		}
 	},
 	stateEvents : ['collapsenode', 'expandnode'],
