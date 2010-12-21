@@ -16,6 +16,7 @@ abstract class Aitsu_Forms_Validator {
 	public function isValid($value) {
 		
 		if (isset($this->_args->required) && $this->_args->required && empty($value)) {
+			$this->_message = Aitsu_Translate :: translate('The submission of a value is mandatory.');
 			return false;
 		}
 		

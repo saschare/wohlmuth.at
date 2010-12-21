@@ -39,7 +39,7 @@ class Aitsu_Forms_Validator_Regex extends Aitsu_Forms_Validator {
 	public function _isValid($value) {
 		
 		if (!preg_match($this->_regex, $value)) {
-			$this->_message = Aitsu_Translate :: translate('The value does not match the given pattern');
+			$this->_message = Aitsu_Translate :: translate('The value does not match the given pattern.');
 			return false;
 		}
 
