@@ -29,7 +29,7 @@
 												<?php endif; ?>	
 												listeners: {
 													click: function() {
-														window.location.href = '<?php echo $subSubPage->getHref(); ?>';
+														Ext.Loader.load(['<?php echo $subSubPage->getHref(); ?>?ajax=1'], null, this, false);
 													}
 												}									
 											},
@@ -41,7 +41,7 @@
 								<?php else : ?>
 								listeners: {
 									click: function() {
-										window.location.href = '<?php echo $subPage->getHref(); ?>';
+										Ext.Loader.load(['<?php echo $subPage->getHref(); ?>?ajax=1'], null, this, false);
 									}
 								}
 								<?php endif; ?>

@@ -8,12 +8,17 @@
 
 class Aitsu_Forms {
 
+	protected $_uid;
 	protected $_id;
 	protected $_config = null;
+	
+	public $title = '';
+	public $url = '';
 
 	protected function __construct($id, $ini) {
 
 		$this->_id = $id;
+		$this->_uid = uniqid($id . '-');
 
 		if ($ini != null) {
 			if (is_object($ini)) {
@@ -38,5 +43,33 @@ class Aitsu_Forms {
 	public function isValid() {
 
 		return false;
+	}
+
+	public function render($type) {
+
+		return call_user_func(array (
+			'Aitsu_Forms_Renderer_' . $type,
+			'render'
+		), $this);
+	}
+	
+	public function getParams() {
+		
+		return $this->_config->form;
+	}
+
+	public function getGroups() {
+		
+		return $this->_config->group;
+	}
+	
+	public function getButtons() {
+		
+		return $this->_config->button;
+	}
+	
+	public function getUid() {
+		
+		return $this->_uid;
 	}
 }

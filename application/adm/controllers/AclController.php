@@ -97,34 +97,45 @@ class AclController extends Zend_Controller_Action {
 
 	public function profilAction() {
 
-		$this->_helper->viewRenderer->setNoRender(true);
+		$this->_helper->layout->disableLayout();
 
-		if ($this->getRequest()->isXmlHttpRequest()) {
-			/*
-			 * Disable layout in case of an ajax request.
-			 */
-			$this->_helper->layout->disableLayout();
+		if ($this->getRequest()->isPost()) {
+			$this->_helper->json((object) array (
+				'success' => 'false',
+				'errors' => array (
+					(object) array (
+						'od' => 'firstname',
+						'msg' => 'The field is mandatory'
+					)
+				)
+			));
 		}
 
-		$id = Aitsu_Adm_User :: getInstance()->getId();
+		$this->view->form = Aitsu_Forms :: factory('userprofile', APPLICATION_PATH . '/adm/forms/acl/userprofile.ini');
+		$this->view->form->title = Aitsu_Translate :: translate('User profile');
+		$this->view->form->url = $this->view->url();
 
+		/*$this->_helper->viewRenderer->setNoRender(true);
+		
+		$id = Aitsu_Adm_User :: getInstance()->getId();
+		
 		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/userprofile.ini', 'edit'));
 		$form->setAction($this->view->url());
-
+		
 		$form->getElement('idlang')->setMultiOptions(Aitsu_Persistence_Language :: getAsArray());
 		$form->getElement('login')->getValidator('unique')->setId($id);
-
+		
 		if (!$this->getRequest()->isPost()) {
 			$form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
 		}
-
+		
 		$this->view->form = $form;
-
+		
 		if (!$this->getRequest()->isPost()) {
 			echo $this->view->render('acl/profil.phtml');
 			return;
 		}
-
+		
 		try {
 			if ($form->isValid($_POST)) {
 				$values = $form->getValues();
@@ -139,8 +150,8 @@ class AclController extends Zend_Controller_Action {
 			echo $e->getMessage();
 			exit;
 		}
-
-		echo $this->view->render('acl/profilform.phtml');
+		
+		echo $this->view->render('acl/profilform.phtml');*/
 	}
 
 	public function logoutAction() {

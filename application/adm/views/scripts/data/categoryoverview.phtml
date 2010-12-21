@@ -2,6 +2,7 @@ var east = Ext.getCmp('viewport-east');
 east.setVisible(true);
 east.expand(false);
 east.removeAll();
+east.setWidth(300);
 
 var comboConfigSet = new Ext.form.ComboBox({
 	store: <?php echo json_encode($this->configSets); ?>,
