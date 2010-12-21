@@ -1,3 +1,14 @@
+.msg .x-box-mc {
+    font-size:14px;
+}
+#msg-div {
+    position:absolute;
+    left:35%;
+    top:10px;
+    width:250px;
+    z-index:20000;
+}
+
 .tm-page {
     background-image: url(../images/icons/page.png) !important; 
     background-repeat: no-repeat;

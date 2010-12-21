@@ -53,6 +53,7 @@ var propsGrid = new Ext.grid.PropertyGrid({
 				url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'update'), 'default'); ?>',
 				success: function(response) {
 					var r = Ext.decode(response.responseText);
+					Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Data saved'); ?>', '<?php echo Aitsu_Translate :: translate('Update of category data has been done.'); ?>');
 					reloadTree('<?php echo $this->cat['idcat']; ?>', pagetree);
 				},
 				failure: function(response) {
