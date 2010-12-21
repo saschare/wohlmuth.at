@@ -188,45 +188,40 @@ class CategoryController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * Moves the selected category to the specified category before
+	 * or after or at the end of the content of the parent category.
+	 */
 	public function movecatAction() {
 
-		try {
-			$tmp = explode('-', $this->getRequest()->getParam('id'));
-			$idcat = $tmp[1];
+		$idcat = $this->getRequest()->getParam('idcat');
+		$parentid = $this->getRequest()->getParam('parentid');
+		$next = $this->getRequest()->getParam('next');
+		$previous = $this->getRequest()->getParam('previous');
 
-			$tmp = explode('-', $this->getRequest()->getParam('relative'));
-			$neighbour = $tmp[1];
-
-			$type = $this->getRequest()->getParam('type');
-
-			$tmp = explode('-', $this->getRequest()->getParam('parent'));
-			$parent = $tmp[1];
-
+		try {			
 			$cat = Aitsu_Persistence_Category :: factory($idcat);
 
-			if ($type == 'inside') {
-				$cat->moveInsideCat($parent);
+			if (empty($next) && empty($previous)) {
+				$cat->moveInsideCat($parentid);
 			}
-			elseif ($type == 'before') {
-				$cat->moveBeforeCat($neighbour);
+			elseif (!empty($next)) {
+				$cat->moveBeforeCat($next);
 			}
-			elseif ($type == 'after') {
-				$cat->moveAfterCat($neighbour);
+			elseif (!empty($previous)) {
+				$cat->moveAfterCat($previous);
 			}
 		} catch (Exception $e) {
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'success' => false,
 				'status' => 'exception',
 				'message' => $e->getMessage(),
 				'stacktrace' => $e->getTraceAsString()
 			));
 		}
 
-		$this->_helper->json(array (
-			'status' => 'success',
-			'idcat' => $idcat,
-			'neighbour' => $neighbour,
-			'type' => $type,
-			'parent' => $parent
+		$this->_helper->json((object) array (
+			'success' => true
 		));
 	}
 

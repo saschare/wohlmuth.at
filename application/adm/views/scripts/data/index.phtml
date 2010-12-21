@@ -58,7 +58,25 @@ var pagetree = 	new Ext.tree.TreePanel({
 				msg: '<?php echo $this->translate('Are you sure to move the node to the specified place?'); ?>',
 				ok: function() {
 	            	if (node.attributes.type == 'category') {
-	            		alert('move category');
+	            		Ext.Ajax.request({
+	            			url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'movecat'), 'default'); ?>',
+	            			success: function(response, opts) {
+	            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Category moved'); ?>', '<?php echo Aitsu_Translate :: translate('The selected category has been moved to the specified category.'); ?>');
+	            				var rsp = Ext.decode(response.responseText);
+	            				if (!rsp.success) {
+	            					openTreePath(oldParent.getPath(), tree);
+	            				}
+	            			},
+	            			failure: function() {
+	            				openTreePath(oldParent.getPath(), tree);
+	            			},
+	            			params: {
+	            				parentid: newParent.attributes.id,
+	            				idcat: node.attributes.id,
+	            				previous: node.previousSibling == null || node.previousSibling.attributes.type != 'category' ? null : node.previousSibling.attributes.id,
+	            				next: node.nextSibling == null || node.nextSibling.attributes.type != 'category' ? null : node.nextSibling.attributes.id
+	            			}
+	            		});
 	            	} else if (node.attributes.type == 'page') {
 	            		Ext.Ajax.request({
 	            			url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'movepage'), 'default'); ?>',
