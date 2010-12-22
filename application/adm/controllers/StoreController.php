@@ -13,6 +13,8 @@ class StoreController extends Zend_Controller_Action {
 		// TODO: add user access rules.
 
 		$this->_helper->layout->disableLayout();
+
+		$this->_filter = Aitsu_Util_ExtJs :: encodeFilters($this->getRequest()->getParam('filter'));
 	}
 
 	/**
@@ -22,7 +24,7 @@ class StoreController extends Zend_Controller_Action {
 	public function usersAction() {
 
 		$this->_helper->json((object) array (
-			'data' => Aitsu_Persistence_User :: getStore(100, 0, Aitsu_Util_ExtJs :: encodeFilters($this->getRequest()->getParam('filter')))
+			'data' => Aitsu_Persistence_User :: getStore(100, 0, $this->_filter)
 		));
 	}
 
