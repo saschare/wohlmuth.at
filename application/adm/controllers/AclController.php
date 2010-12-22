@@ -101,11 +101,15 @@ class AclController extends Zend_Controller_Action {
 
 		if ($this->getRequest()->isPost()) {
 			$this->_helper->json((object) array (
-				'success' => 'false',
+				'success' => false,
 				'errors' => array (
 					(object) array (
-						'od' => 'firstname',
+						'id' => 'firstname',
 						'msg' => 'The field is mandatory'
+					),
+					(object) array (
+						'id' => 'locale',
+						'msg' => 'Locale is not supported.'
 					)
 				)
 			));
@@ -114,6 +118,10 @@ class AclController extends Zend_Controller_Action {
 		$this->view->form = Aitsu_Forms :: factory('userprofile', APPLICATION_PATH . '/adm/forms/acl/userprofile.ini');
 		$this->view->form->title = Aitsu_Translate :: translate('User profile');
 		$this->view->form->url = $this->view->url();
+		
+		$id = Aitsu_Adm_User :: getInstance()->getId();
+		$this->view->form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
+		$this->view->form->setValue('password', null);
 
 		/*$this->_helper->viewRenderer->setNoRender(true);
 		

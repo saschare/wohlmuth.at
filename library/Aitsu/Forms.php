@@ -11,7 +11,7 @@ class Aitsu_Forms {
 	protected $_uid;
 	protected $_id;
 	protected $_config = null;
-	
+
 	public $title = '';
 	public $url = '';
 
@@ -24,7 +24,9 @@ class Aitsu_Forms {
 			if (is_object($ini)) {
 				$this->_config = $ini;
 			} else {
-				$this->_config = new Zend_Config_Ini($ini, null);
+				$this->_config = new Zend_Config_Ini($ini, null, array (
+					'allowModifications' => true
+				));
 			}
 		}
 	}
@@ -52,24 +54,56 @@ class Aitsu_Forms {
 			'render'
 		), $this);
 	}
-	
+
 	public function getParams() {
-		
+
 		return $this->_config->form;
 	}
 
 	public function getGroups() {
-		
+
 		return $this->_config->group;
 	}
-	
+
 	public function getButtons() {
-		
+
 		return $this->_config->button;
 	}
-	
+
 	public function getUid() {
-		
+
 		return $this->_uid;
+	}
+
+	public function setValues(array $values) {
+		
+		foreach ($values as $key => $value) {
+			$this->setValue($key, $value);
+		}
+	}
+
+	public function setValue($fieldname, $value) {
+
+		$this->_setValue($this->_config, $fieldname, $value);
+	}
+
+	protected function _setValue($config, & $fieldname, & $value) {
+		
+		if (!is_object($config)) {			
+			return false;
+		}
+
+		if (isset ($config->field-> $fieldname)) {
+			$config->field-> $fieldname->value = $value;
+			return true;
+		}
+		
+		foreach ($config as $key => $obj) {		
+			if ($this->_setValue($obj, $fieldname, $value)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

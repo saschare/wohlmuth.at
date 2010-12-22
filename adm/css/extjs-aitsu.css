@@ -1,3 +1,6 @@
+.msg.error h3 {
+    color:red;
+}
 .msg .x-box-mc {
     font-size:14px;
 }

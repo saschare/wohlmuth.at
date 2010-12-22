@@ -115,6 +115,10 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$configs[] = "name: '{$key}'";
 		$configs[] = "id: '{$key}'";
 
+		if (!empty ($value['value'])) {
+			$configs[] = "value: '{$value['value']}'";
+		}
+
 		if (isset ($value['extjs'])) {
 			foreach ($value['extjs'] as $key => $val) {
 				if (is_array($val)) {
@@ -142,7 +146,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		if ($key == 'save') {
 			$value .= ", iconCls: 'save'";
-			$value .= ", handler: function() {Ext.getCmp('$uid').getForm().submit({success: function() {alert('success');}});}";
+			$value .= ", handler: function() {Ext.getCmp('$uid').getForm().submit({success: formSuccess, failure: formFailure});}";
 		}
 
 		$value .= '}';
