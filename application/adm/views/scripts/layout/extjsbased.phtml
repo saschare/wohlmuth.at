@@ -30,6 +30,10 @@
 		Ext.getBody().on("contextmenu", Ext.emptyFn, null, {preventDefault: true});
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
         
+		Ext.apply(Ext.DatePicker.prototype, {
+			format: "Y-m-d"
+		});
+        
         var sessionClock = new Ext.Toolbar.TextItem('');
                 
         var viewport = new Ext.Viewport({

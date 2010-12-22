@@ -1,23 +1,37 @@
 var users = new Ext.grid.GridPanel({
 	title: '<?php echo Aitsu_Translate :: translate('Users'); ?>',
-	store: new Ext.data.ArrayStore({
-		fields: [
-			{name: 'id'},
-			{name: 'firstname'},
-			{name: 'lastname'},
-			{name: 'login'},
-			{name: 'acfrom'},
-			{name: 'acuntil'}
-		],
-		data: <?php echo Aitsu_Util_Javascript :: getArrayString($this->users, array('userid', 'firstname', 'lastname', 'login', 'acfrom', 'acuntil')); ?>
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'users'), 'default'); ?>',
+        remoteSort: false,
+        storeId: 'userStore',
+        idProperty: 'userid',
+        root: 'data',
+        fields: [{
+            name: 'userid'
+        }, {
+            name: 'firstname'
+        }, {
+            name: 'lastname'
+        }, {
+            name: 'login'
+        }, {
+            name: 'acfrom',
+            type: 'date',
+            dateFormat: 'Y-m-d H:i:s'
+        }, {
+            name: 'acuntil',
+            type: 'date',
+            dateFormat: 'Y-m-d H:i:s'
+        }]
     }),
     columns: [
-    	{dataIndex: 'id', header: 'ID', menuDisabled: false, sortable: false, width: 20},
+    	{dataIndex: 'userid', header: 'ID', menuDisabled: false, sortable: false, width: 20},
     	{dataIndex: 'firstname', header: 'Firstname', menuDisabled: false, sortable: true},
     	{dataIndex: 'lastname', header: 'Lastname', menuDisabled: false, sortable: true},
     	{dataIndex: 'login', header: 'Login', menuDisabled: false, sortable: true},
-    	{dataIndex: 'acfrom', header: 'Access from', menuDisabled: false, sortable: true},
-    	{dataIndex: 'acuntil', header: 'Access until', menuDisabled: false, sortable: true}
+    	{dataIndex: 'acfrom', header: 'Access from', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d')},
+    	{dataIndex: 'acuntil', header: 'Access until', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d')}
 	],
 	viewConfig: {
 		forceFit: true,
@@ -34,7 +48,40 @@ var users = new Ext.grid.GridPanel({
 	        }
 	    ]
 	},
-	
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		}
+	},
+	plugins: [
+		new Ext.ux.grid.GridFilters({
+			encode: false,
+	        local: false,
+	        filters: [{
+	            type: 'numeric',
+	            dataIndex: 'userid'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'firstname'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'lastname'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'login'
+	        }, {
+	            type: 'date',
+	            dataIndex: 'acfrom',
+	            dateFormat: 'Y-m-d'
+	        }, {
+	            type: 'date',
+	            dataIndex: 'acuntil',
+	            dateFormat: 'Y-m-d'
+	        }]
+		})
+	]
 });
 
 tabs.add(users);

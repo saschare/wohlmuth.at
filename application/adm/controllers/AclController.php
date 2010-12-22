@@ -612,21 +612,4 @@ class AclController extends Zend_Controller_Action {
 		));
 	}
 
-	/**
-	 * Returns user data as a JSON response.
-	 * @since 2.1.0.0 - 22.12.2010
-	 */
-	public function userstoreAction() {
-
-		$this->_helper->json(Aitsu_Persistence_User :: getStore(100, 0, array (
-			(object) array (
-				'clause' => 'lastname like',
-				'value' => '%do%'
-			),
-			(object) array (
-				'clause' => 'firstname =',
-				'value' => 'John'
-			)
-		)));
-	}
 }

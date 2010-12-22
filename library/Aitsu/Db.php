@@ -130,11 +130,21 @@ class Aitsu_Db {
 
 		$orderBy = count($orders) == 0 ? '' : 'order by ' . implode(', ', $orders);
 
-		return self :: fetchAll('' .
+		$results = self :: fetchAll('' .
 		$baseQuery .
 		' ' . $where .
 		' ' . $orderBy .
 		'limit ' . $offset . ', ' . $limit, $filterValues);
+		
+		$return = array();
+		
+		if ($results) {
+			foreach ($results as $result) {
+				$return[] = (object) $result;
+			}
+		}
+		
+		return $return;
 	}
 
 	/**
