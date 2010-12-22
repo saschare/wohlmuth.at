@@ -11,6 +11,7 @@ class Aitsu_Forms {
 	protected $_uid;
 	protected $_id;
 	protected $_config = null;
+	protected $_errors = null;
 
 	public $title = '';
 	public $url = '';
@@ -44,7 +45,55 @@ class Aitsu_Forms {
 
 	public function isValid() {
 
-		return false;
+		$errors = array ();
+		$this->_isValid($this->_config, $errors);
+
+		$this->_errors = $errors;
+
+		return count($errors) == 0;
+	}
+
+	public function getErrors() {
+
+		$errors = array ();
+
+		foreach ($this->_errors as $fieldname => $error) {
+			$errors[] = (object) array (
+				'id' => $fieldname,
+				'msg' => $error
+			);
+		}
+
+		return $errors;
+	}
+
+	protected function _isValid(& $config, & $target) {
+
+		if (!is_object($config)) {
+			return;
+		}
+
+		if (isset ($config->field)) {
+			foreach ($config->field as $key => $value) {
+				if (isset ($value->validator)) {
+					foreach ($value->validator as $validator) {
+						if (class_exists('Aitsu_Forms_Validator_' . ucfirst($validator->type))) {
+							$val = call_user_func(array (
+								'Aitsu_Forms_Validator_' . ucfirst($validator->type),
+								'factory'
+							), $validator->param->toArray());
+							if (!$val->isValid($_REQUEST[$key])) {
+								$target[$key] = $val->getMessage();
+							}
+						}
+					}
+				}
+			}
+		}
+
+		foreach ($config as $key => $obj) {
+			$this->_isValid($obj, $target);
+		}
 	}
 
 	public function render($type) {
@@ -111,24 +160,24 @@ class Aitsu_Forms {
 
 		$this->_setVal($this->_config, 'field', 'option', $fieldname, $options);
 	}
-	
+
 	public function getValues() {
-		
-		$values = array();
+
+		$values = array ();
 		$this->_getValues($this->_config, $values);
-		
+
 		return $values;
 	}
-	
+
 	protected function _getValues(& $config, & $target) {
-		
+
 		if (!is_object($config)) {
 			return;
 		}
-		
-		if (isset($config->field)) {
+
+		if (isset ($config->field)) {
 			foreach ($config->field as $key => $value) {
-				$target[$key] = isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
+				$target[$key] = isset ($_REQUEST[$key]) ? $_REQUEST[$key] : null;
 			}
 			return;
 		}

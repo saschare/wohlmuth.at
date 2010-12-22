@@ -8,29 +8,24 @@
 
 class Aitsu_Forms_Validator_Regex extends Aitsu_Forms_Validator {
 	
-	protected function __construct($regex, $args) {
+	protected function __construct($args) {
 		
-		$this->_args = (object) $args[1];
-		$this->_regex = $args[0];
+		$this->_regex = isset($args['regex']) ? $args['regex'] : '/.*/';
+		unset($args['regex']);
+		$this->_args = (object) $args;
 	}
 
-	public static function factory() {
+	public static function factory($args) {
 		
 		static $instance = array();
 		static $id = null;
-		
-		$args = func_get_args();
-		$regex = $args[0];
-		if (count($args) > 1) {
-			$args = $args[1];
-		}
 		
 		if ($args != null) {
 			$id = md5(serialize($args));
 		}
 		
-		if (isset($instance[$id])) {
-			$instance[$id] = new self($regex, $args);
+		if (!isset($instance[$id])) {
+			$instance[$id] = new self($args);
 		}
 		
 		return $instance[$id];
@@ -40,6 +35,16 @@ class Aitsu_Forms_Validator_Regex extends Aitsu_Forms_Validator {
 		
 		if (!preg_match($this->_regex, $value)) {
 			$this->_message = Aitsu_Translate :: translate('The value does not match the given pattern.');
+			return false;
+		}
+		
+		if (isset($this->_args->min) && strlen($value) < $this->_args->min) {
+			$this->_message = sprintf(Aitsu_Translate :: translate('The value must be at least %u characters long.'), $this->_args->min);
+			return false;
+		}
+
+		if (isset($this->_args->max) && strlen($value) > $this->_args->max) {
+			$this->_message = sprintf(Aitsu_Translate :: translate('The value must not be more than %u characters long.'), $this->_args->max);
 			return false;
 		}
 

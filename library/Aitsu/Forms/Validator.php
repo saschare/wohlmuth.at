@@ -11,7 +11,7 @@ abstract class Aitsu_Forms_Validator {
 	protected $_args;
 	protected $_message = null;
 	
-	abstract public static function factory();
+	abstract public static function factory($args);
 	
 	public function isValid($value) {
 		

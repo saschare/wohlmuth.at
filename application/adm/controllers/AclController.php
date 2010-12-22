@@ -137,19 +137,13 @@ class AclController extends Zend_Controller_Action {
 					$values['password'] = md5($values['password']);
 				}
 				Aitsu_Persistence_User :: factory($id)->load()->setValues($values)->save();
+				$this->_helper->json((object) array (
+					'success' => true
+				));
 			} else {
 				$this->_helper->json((object) array (
 					'success' => false,
-					'errors' => array (
-						(object) array (
-							'id' => 'firstname',
-							'msg' => 'The field is mandatory'
-						),
-						(object) array (
-							'id' => 'locale',
-							'msg' => 'Locale is not supported.'
-						)
-					)
+					'errors' => $form->getErrors()
 				));
 			}
 		} catch (Exception $e) {

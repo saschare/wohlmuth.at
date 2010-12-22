@@ -13,21 +13,16 @@ class Aitsu_Forms_Validator_Number extends Aitsu_Forms_Validator {
 		$this->_args = (object) $args;
 	}
 
-	public static function factory() {
+	public static function factory($args) {
 		
 		static $instance = array();
 		static $id = null;
-		
-		$args = func_get_args();
-		if (count($args) > 1) {
-			$args = $args[0];
-		}
 		
 		if ($args != null) {
 			$id = md5(serialize($args));
 		}
 		
-		if (isset($instance[$id])) {
+		if (!isset($instance[$id])) {
 			$instance[$id] = new self($args);
 		}
 		
@@ -42,12 +37,12 @@ class Aitsu_Forms_Validator_Number extends Aitsu_Forms_Validator {
 		}
 		
 		if (isset($this->_args->max) && $value > $this->_args->max) {
-			$this->_message = sprintf(Aitsu_Translate :: translate('The value must be lower or equal than %s.'), $this->_args->max);
+			$this->_message = sprintf(Aitsu_Translate :: translate('The value must be lower or equal than %F.'), $this->_args->max);
 			return false;
 		}
 
 		if (isset($this->_args->min) && $value < $this->_args->min) {
-			$this->_message = sprintf(Aitsu_Translate :: translate('The value must be greater or equal than %s.'), $this->_args->min);
+			$this->_message = sprintf(Aitsu_Translate :: translate('The value must be greater or equal than %F.'), $this->_args->min);
 			return false;
 		}
 
