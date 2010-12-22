@@ -111,4 +111,30 @@ class Aitsu_Forms {
 
 		$this->_setVal($this->_config, 'field', 'option', $fieldname, $options);
 	}
+	
+	public function getValues() {
+		
+		$values = array();
+		$this->_getValues($this->_config, $values);
+		
+		return $values;
+	}
+	
+	protected function _getValues(& $config, & $target) {
+		
+		if (!is_object($config)) {
+			return;
+		}
+		
+		if (isset($config->field)) {
+			foreach ($config->field as $key => $value) {
+				$target[$key] = isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
+			}
+			return;
+		}
+
+		foreach ($config as $key => $obj) {
+			$this->_getValues($obj, $target);
+		}
+	}
 }

@@ -95,33 +95,21 @@ class AclController extends Zend_Controller_Action {
 		$this->view->form = $form;
 	}
 
+	/**
+	 * User profile update.
+	 * @since 2.1.0.0 - 22.12.2010
+	 */
 	public function profilAction() {
 
 		$this->_helper->layout->disableLayout();
 
-		if ($this->getRequest()->isPost()) {
-			$this->_helper->json((object) array (
-				'success' => false,
-				'errors' => array (
-					(object) array (
-						'id' => 'firstname',
-						'msg' => 'The field is mandatory'
-					),
-					(object) array (
-						'id' => 'locale',
-						'msg' => 'Locale is not supported.'
-					)
-				)
-			));
-		}
-
-		$this->view->form = Aitsu_Forms :: factory('userprofile', APPLICATION_PATH . '/adm/forms/acl/userprofile.ini');
-		$this->view->form->title = Aitsu_Translate :: translate('User profile');
-		$this->view->form->url = $this->view->url();
+		$form = Aitsu_Forms :: factory('userprofile', APPLICATION_PATH . '/adm/forms/acl/userprofile.ini');
+		$form->title = Aitsu_Translate :: translate('User profile');
+		$form->url = $this->view->url();
 
 		$id = Aitsu_Adm_User :: getInstance()->getId();
-		$this->view->form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
-		$this->view->form->setValue('password', null);
+		$form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
+		$form->setValue('password', null);
 
 		$langs = array ();
 		foreach (Aitsu_Persistence_Language :: getAsArray() as $key => $value) {
@@ -130,31 +118,18 @@ class AclController extends Zend_Controller_Action {
 				'name' => $value
 			);
 		}
-		$this->view->form->setOptions('idlang', $langs);
+		$form->setOptions('idlang', $langs);
 
-		/*$this->_helper->viewRenderer->setNoRender(true);
-		
-		$id = Aitsu_Adm_User :: getInstance()->getId();
-		
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/userprofile.ini', 'edit'));
-		$form->setAction($this->view->url());
-		
-		$form->getElement('idlang')->setMultiOptions(Aitsu_Persistence_Language :: getAsArray());
-		$form->getElement('login')->getValidator('unique')->setId($id);
-		
 		if (!$this->getRequest()->isPost()) {
-			$form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
-		}
-		
-		$this->view->form = $form;
-		
-		if (!$this->getRequest()->isPost()) {
-			echo $this->view->render('acl/profil.phtml');
+			$this->view->form = $form;
 			return;
 		}
-		
+
 		try {
-			if ($form->isValid($_POST)) {
+			if ($form->isValid()) {
+				/*
+				 * Persist the data.
+				 */
 				$values = $form->getValues();
 				if (empty ($values['password'])) {
 					unset ($values['password']);
@@ -162,13 +137,29 @@ class AclController extends Zend_Controller_Action {
 					$values['password'] = md5($values['password']);
 				}
 				Aitsu_Persistence_User :: factory($id)->load()->setValues($values)->save();
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => array (
+						(object) array (
+							'id' => 'firstname',
+							'msg' => 'The field is mandatory'
+						),
+						(object) array (
+							'id' => 'locale',
+							'msg' => 'Locale is not supported.'
+						)
+					)
+				));
 			}
 		} catch (Exception $e) {
-			echo $e->getMessage();
-			exit;
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
 		}
-		
-		echo $this->view->render('acl/profilform.phtml');*/
+
 	}
 
 	public function logoutAction() {
