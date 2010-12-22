@@ -115,11 +115,11 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$configs[] = "name: '{$key}'";
 		$configs[] = "id: '{$key}'";
 
-		if (!method_exists('Aitsu_Forms_Renderer_ExtJs', '_extraFieldAtts' . ucfirst($value['type']))) {
+		if (method_exists('Aitsu_Forms_Renderer_ExtJs', '_extraFieldAtts' . ucfirst($value['type']))) {
 			call_user_func(array (
 				self,
 				'_extraFieldAtts' . ucfirst($value['type'])
-			), $configs, $key, $value);
+			), & $configs, $key, $value);
 		}
 
 		if (!empty ($value['value'])) {
@@ -138,6 +138,9 @@ class Aitsu_Forms_Renderer_ExtJs {
 						'_transform'
 					));
 					$configs[] = $key . ': {' . implode(', ', $val) . '}';
+				}
+				elseif (is_numeric($val)) {
+					$configs[] = "$key: $val";
 				} else {
 					$configs[] = "$key: '$val'";
 				}
@@ -146,10 +149,30 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		$value = '{' . implode(', ', $configs) . '}';
 	}
-	
-	protected static function _extraFieldAttsCombo($config, $key, $field) {
-		
+
+	protected static function _extraFieldAttsCombo(& $configs, $key, $field) {
+
 		$configs[] = "hiddenName: '{$key}'";
+	}
+
+	protected static function _extraFieldAttsRadiogroup(& $configs, $key, $field) {
+		
+		if (!isset($field['extjs']['columns'])) {
+			$configs[] = "columns: 2";
+		}
+
+		$items = array ();
+		foreach ($field['option'] as $option) {
+			$option = (object) $option;
+			$value = is_numeric($option->value) ? $option->value : "'{$option->value}'";
+			if ($field['value'] == $option->value) {
+				$items[] = "{boxLabel: '{$option->name}', name: '{$key}', inputValue: $value, checked: true}";
+			} else {
+				$items[] = "{boxLabel: '{$option->name}', name: '{$key}', inputValue: $value}";
+			}
+		}
+
+		$configs[] = 'items: [' . implode(', ', $items) . ']';
 	}
 
 	protected static function _transformButtons(& $value, $key, $uid) {
@@ -197,4 +220,5 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		return $return;
 	}
+
 }
