@@ -118,10 +118,19 @@ class AclController extends Zend_Controller_Action {
 		$this->view->form = Aitsu_Forms :: factory('userprofile', APPLICATION_PATH . '/adm/forms/acl/userprofile.ini');
 		$this->view->form->title = Aitsu_Translate :: translate('User profile');
 		$this->view->form->url = $this->view->url();
-		
+
 		$id = Aitsu_Adm_User :: getInstance()->getId();
 		$this->view->form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
 		$this->view->form->setValue('password', null);
+
+		$langs = array ();
+		foreach (Aitsu_Persistence_Language :: getAsArray() as $key => $value) {
+			$langs[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$this->view->form->setOptions('idlang', $langs);
 
 		/*$this->_helper->viewRenderer->setNoRender(true);
 		

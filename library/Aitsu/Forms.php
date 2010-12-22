@@ -76,7 +76,7 @@ class Aitsu_Forms {
 	}
 
 	public function setValues(array $values) {
-		
+
 		foreach ($values as $key => $value) {
 			$this->setValue($key, $value);
 		}
@@ -84,26 +84,31 @@ class Aitsu_Forms {
 
 	public function setValue($fieldname, $value) {
 
-		$this->_setValue($this->_config, $fieldname, $value);
+		$this->_setVal($this->_config, 'field', 'value', $fieldname, $value);
 	}
 
-	protected function _setValue($config, & $fieldname, & $value) {
-		
-		if (!is_object($config)) {			
+	protected function _setVal($config, $toField, $valKey, & $fieldname, & $value) {
+
+		if (!is_object($config)) {
 			return false;
 		}
 
-		if (isset ($config->field-> $fieldname)) {
-			$config->field-> $fieldname->value = $value;
+		if (isset ($config-> $toField-> $fieldname)) {
+			$config-> $toField-> $fieldname-> $valKey = $value;
 			return true;
 		}
-		
-		foreach ($config as $key => $obj) {		
-			if ($this->_setValue($obj, $fieldname, $value)) {
+
+		foreach ($config as $key => $obj) {
+			if ($this->_setVal($obj, $toField, $valKey, $fieldname, $value)) {
 				return true;
 			}
 		}
-		
+
 		return false;
+	}
+
+	public function setOptions($fieldname, array $options) {
+
+		$this->_setVal($this->_config, 'field', 'option', $fieldname, $options);
 	}
 }

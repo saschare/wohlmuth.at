@@ -115,8 +115,19 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$configs[] = "name: '{$key}'";
 		$configs[] = "id: '{$key}'";
 
+		if (!method_exists('Aitsu_Forms_Renderer_ExtJs', '_extraFieldAtts' . ucfirst($value['type']))) {
+			call_user_func(array (
+				self,
+				'_extraFieldAtts' . ucfirst($value['type'])
+			), $configs, $key, $value);
+		}
+
 		if (!empty ($value['value'])) {
 			$configs[] = "value: '{$value['value']}'";
+		}
+
+		if (!empty ($value['option'])) {
+			self :: _addOptions($configs, $value['type'], $value['option']);
 		}
 
 		if (isset ($value['extjs'])) {
@@ -135,6 +146,11 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		$value = '{' . implode(', ', $configs) . '}';
 	}
+	
+	protected static function __extraFieldAttsCombo($config, $key, $field) {
+		
+		$configs[] = "hiddenName: '{$key}'";
+	}
 
 	protected static function _transformButtons(& $value, $key, $uid) {
 
@@ -150,5 +166,35 @@ class Aitsu_Forms_Renderer_ExtJs {
 		}
 
 		$value .= '}';
+	}
+
+	protected static function _addOptions(& $target, $type, $options) {
+
+		if (!method_exists('Aitsu_Forms_Renderer_ExtJs', '_addOptions' . ucfirst($type))) {
+			/*
+			 * If the specified xtype is not supported, we just ignore it.
+			 */
+			return;
+		}
+
+		$target[] = call_user_func(array (
+			self,
+			'_addOptions' . ucfirst($type)
+		), $options);
+	}
+
+	protected static function _addOptionsCombo($options) {
+
+		$return = "mode: 'local', forceSelection: true, editable: false, typeAhead: false, triggerAction: 'all', ";
+		$return .= "store: new Ext.data.ArrayStore({fields: ['dataValue','dataLabel'],";
+		$option = array ();
+		foreach ($options as $value) {
+			$value = (object) $value;
+			$option[] = "['{$value->value}', '{$value->name}']";
+		}
+		$return .= 'data: [' . implode(', ', $option) . ']}),';
+		$return .= "valueField: 'dataValue', displayField: 'dataLabel'";
+
+		return $return;
 	}
 }
