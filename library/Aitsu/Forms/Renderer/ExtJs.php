@@ -147,7 +147,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$value = '{' . implode(', ', $configs) . '}';
 	}
 	
-	protected static function __extraFieldAttsCombo($config, $key, $field) {
+	protected static function _extraFieldAttsCombo($config, $key, $field) {
 		
 		$configs[] = "hiddenName: '{$key}'";
 	}
