@@ -175,6 +175,28 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$configs[] = 'items: [' . implode(', ', $items) . ']';
 	}
 
+	protected static function _extraFieldAttsCheckboxgroup(& $configs, $key, $field) {
+		
+		if (!isset($field['extjs']['columns'])) {
+			$configs[] = "columns: 2";
+		}
+
+		$counter = -1;
+		$items = array ();
+		foreach ($field['option'] as $option) {
+			$counter++;
+			$option = (object) $option;
+			$value = is_numeric($option->value) ? $option->value : "'{$option->value}'";
+			if ($field['value'] == $option->value) {
+				$items[] = "{boxLabel: '{$option->name}', name: '{$key}[$counter]', inputValue: $value, checked: true}";
+			} else {
+				$items[] = "{boxLabel: '{$option->name}', name: '{$key}[$counter]', inputValue: $value}";
+			}
+		}
+
+		$configs[] = 'items: [' . implode(', ', $items) . ']';
+	}
+
 	protected static function _transformButtons(& $value, $key, $uid) {
 
 		if (isset ($value['text'])) {
