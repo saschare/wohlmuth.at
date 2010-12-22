@@ -7,7 +7,7 @@
  */
 
 class Aitsu_Db {
-	
+
 	static public $debugNext = false;
 
 	protected $db;
@@ -73,12 +73,12 @@ class Aitsu_Db {
 			echo $fQuery;
 			echo '</pre>';
 		}
-		
+
 		if (self :: $debugNext) {
 			trigger_error($fQuery);
 			self :: $debugNext = false;
 		}
-		
+
 		try {
 			if ($vars != null) {
 				$returnValue = $this->db-> $method ($fQuery, $vars);
@@ -112,6 +112,29 @@ class Aitsu_Db {
 	public static function fetchAll($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
 
 		return self :: getInstance()->_query('fetchAll', $query, $vars, $suppressTablePrefix, $showQuery);
+	}
+
+	public static function filter($baseQuery, $limit = null, $offset = null, $filters = null, $orders = null) {
+
+		$limit = is_null($limit) || !is_numeric($limit) ? 100 : $limit;
+		$offset = is_null($offset) || !is_numeric($offset) ? 0 : $offset;
+		$filters = is_array($filters) ? $filters : array ();
+		$orders = is_array($orders) ? $orders : array ();
+
+		$filterClause = array ();
+		for ($i = 0; $i < count($filters); $i++) {
+			$filterClause[] = $filters[$i]->clause . ' :value' . $i;
+			$filterValues[':value' . $i] = $filters[$i]->value;
+		}
+		$where = count($filterClause) == 0 ? '' : 'where ' . implode(' and ', $filterClause);
+
+		$orderBy = count($orders) == 0 ? '' : 'order by ' . implode(', ', $orders);
+
+		return self :: fetchAll('' .
+		$baseQuery .
+		' ' . $where .
+		' ' . $orderBy .
+		'limit ' . $offset . ', ' . $limit, $filterValues);
 	}
 
 	/**
@@ -189,18 +212,23 @@ class Aitsu_Db {
 	}
 
 	protected function _productionQuery($query) {
-		
-		if (in_array(substr($query, 0, 6), array('insert', 'update', 'delete', 'create'))) {
+
+		if (in_array(substr($query, 0, 6), array (
+				'insert',
+				'update',
+				'delete',
+				'create'
+			))) {
 			/*
 			 * No rewriting is done, if it is a crud statement.
 			 */
 			return $query;
 		}
-		
+
 		if (is_null($this->_publishMap)) {
 			$this->_publishMap = new Zend_Config_Ini('application/configs/publishmap.ini');
 		}
-		
+
 		foreach ($this->_publishMap as $type => $tables) {
 			foreach ($tables->toArray() as $table) {
 				$query = str_replace($table['source'], $table['view'], $query);
@@ -285,7 +313,7 @@ class Aitsu_Db {
 	}
 
 	public static function debugNext() {
-		
+
 		self :: $debugNext = true;
 	}
 }

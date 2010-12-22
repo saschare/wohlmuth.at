@@ -43,4 +43,5 @@ abstract class Aitsu_Persistence_Abstract {
 
 		return $this;
 	}
+	
 }
