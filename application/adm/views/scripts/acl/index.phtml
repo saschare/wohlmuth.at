@@ -16,6 +16,7 @@ center.add(tabs);
 <?php echo $this->partial('acl/userlist.phtml', array('users' => $this->users)); ?>
 <?php echo $this->partial('acl/rolelist.phtml', array('roles' => $this->roles)); ?>
 <?php echo $this->partial('acl/privilegelist.phtml', array('privileges' => $this->privileges)); ?>
+<?php echo $this->partial('acl/resourcelist.phtml', array('privileges' => $this->privileges)); ?>
 
 tabs.setActiveTab(0);
 

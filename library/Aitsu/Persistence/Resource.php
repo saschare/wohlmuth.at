@@ -127,7 +127,7 @@ class Aitsu_Persistence_Resource extends Aitsu_Persistence_Abstract {
 
 		return $return;
 	}
-	
+
 	/**
 	 * @since 2.1.0.0 - 23.12.2010
 	 */

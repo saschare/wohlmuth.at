@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-23 16:26+0100\n"
-"PO-Revision-Date: 2010-12-23 16:27+0100\n"
+"POT-Creation-Date: 2010-12-23 19:40+0100\n"
+"PO-Revision-Date: 2010-12-23 19:40+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,9 +44,13 @@ msgstr "Benutzer aktualisieren"
 msgid "The login is already in use."
 msgstr "Der Benutzername ist bereits in Gebrauch."
 
-#: application/adm/controllers/AclController.php:307
+#: application/adm/controllers/AclController.php:296
 msgid "Edit role"
 msgstr "Rolle editieren"
+
+#: application/adm/controllers/AclController.php:409
+msgid "Edit privilege"
+msgstr "Privileg aktualisieren"
 
 #: application/adm/controllers/ClipboardController.php:24
 #, php-format
@@ -741,49 +745,67 @@ msgstr "Seite verschoben"
 msgid "The selected page has been moved to the specified category."
 msgstr "Die selektierte Seite wurde in die bezeichnete Kategorie verschoben."
 
-#: application/adm/views/scripts/data/index.phtml:114
+#: application/adm/views/scripts/data/index.phtml:113
 msgid "Set offline"
 msgstr "Offline stellen"
 
-#: application/adm/views/scripts/data/index.phtml:114
+#: application/adm/views/scripts/data/index.phtml:113
 msgid "Set online"
 msgstr "Online stellen"
 
-#: application/adm/views/scripts/data/index.phtml:131
+#: application/adm/views/scripts/data/index.phtml:130
 msgid "New sub-category"
 msgstr "Neue Unterkategorie erstellen"
 
-#: application/adm/views/scripts/data/index.phtml:146
+#: application/adm/views/scripts/data/index.phtml:145
 #: application/adm/views/scripts/contextmenu/editdelete.phtml:6
 #: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:12
 msgid "Delete"
 msgstr "Löschen"
 
-#: application/adm/views/scripts/data/index.phtml:151
+#: application/adm/views/scripts/data/index.phtml:150
 msgid "Delete category"
 msgstr "Kategorie löschen"
 
-#: application/adm/views/scripts/data/index.phtml:152
+#: application/adm/views/scripts/data/index.phtml:151
 msgid "Are you sure to delete the selected category?"
 msgstr "Sind Sie sicher, dass Sie die gew&auml;hlte Kategorie l&ouml;schen m&ouml;chten?"
 
-#: application/adm/views/scripts/data/index.phtml:173
+#: application/adm/views/scripts/data/index.phtml:172
+#: application/adm/views/scripts/data/index.phtml:208
+msgid "Set as resource"
+msgstr "Als Ressource markieren"
+
+#: application/adm/views/scripts/data/index.phtml:178
+#: application/adm/views/scripts/data/index.phtml:214
+msgid "Resource added"
+msgstr "Ressource hinzugefügt"
+
+#: application/adm/views/scripts/data/index.phtml:178
+msgid "The selected category has been added to resources."
+msgstr "Die selektierte Kategorie wurde als Ressource markiert."
+
+#: application/adm/views/scripts/data/index.phtml:188
 msgid "Add to favorites"
 msgstr "Zu den Favoriten hinzufügen"
 
-#: application/adm/views/scripts/data/index.phtml:199
+#: application/adm/views/scripts/data/index.phtml:214
+msgid "The selected page has been added to resources."
+msgstr "Die selektierte Seite wurde als Ressource markiert."
+
+#: application/adm/views/scripts/data/index.phtml:228
 msgid "New category"
 msgstr "Neue Kategorie"
 
-#: application/adm/views/scripts/data/index.phtml:268
+#: application/adm/views/scripts/data/index.phtml:297
 msgid "Recently opened pages"
 msgstr "Kürzlich geöffnete Seiten"
 
-#: application/adm/views/scripts/data/index.phtml:287
+#: application/adm/views/scripts/data/index.phtml:316
 msgid "Favorites"
 msgstr "Favoriten"
 
-#: application/adm/views/scripts/data/index.phtml:306
+#: application/adm/views/scripts/data/index.phtml:335
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -1032,9 +1054,29 @@ msgstr "Kategorie geschützt / Schutz aufgehoben"
 msgid "Category removed"
 msgstr "Kategorie entfernt"
 
-#: application/adm/views/scripts/acl/privilegelist.phtml:3
+#: application/adm/views/scripts/acl/privilegelist.phtml:2
+msgid "Privileges"
+msgstr "Rechte"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:28
 msgid "Add new privilege"
 msgstr "Neues Recht aufnehmen"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:58
+msgid "Delete privilege"
+msgstr "Privileg löschen"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:59
+msgid "Are you sure to delete the selected privilege?"
+msgstr "Sind Sie sicher, dass Sie das selektierte Privileg löschen möchten?"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:68
+msgid "Privilege removed"
+msgstr "Privileg entfernt"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:68
+msgid "The selected privilege has been removed."
+msgstr "Das selektierte Privileg wurde entfernt."
 
 #: application/adm/views/scripts/acl/userlist.phtml:2
 msgid "Users"
@@ -1081,39 +1123,63 @@ msgid "The selected user has been removed."
 msgstr "Der selektierte Benutzer wurde entfernt."
 
 #: application/adm/views/scripts/acl/editrole.phtml:9
+#: application/adm/views/scripts/acl/editprivilege.phtml:9
 #: application/adm/views/scripts/acl/profil.phtml:9
 #: application/adm/views/scripts/acl/edituser.phtml:9
 msgid "Saved"
 msgstr "Gespeichert"
 
 #: application/adm/views/scripts/acl/editrole.phtml:9
+#: application/adm/views/scripts/acl/editprivilege.phtml:9
 #: application/adm/views/scripts/acl/profil.phtml:9
 #: application/adm/views/scripts/acl/edituser.phtml:9
 msgid "Form data have been saved."
 msgstr "Die Formulardaten wurden gespeichert."
 
 #: application/adm/views/scripts/acl/editrole.phtml:13
+#: application/adm/views/scripts/acl/editprivilege.phtml:13
 #: application/adm/views/scripts/acl/profil.phtml:12
 #: application/adm/views/scripts/acl/edituser.phtml:13
 msgid "Form failure"
 msgstr "Formularfehler"
 
 #: application/adm/views/scripts/acl/editrole.phtml:13
+#: application/adm/views/scripts/acl/editprivilege.phtml:13
 #: application/adm/views/scripts/acl/profil.phtml:12
 #: application/adm/views/scripts/acl/edituser.phtml:13
 msgid "Form data have not been save due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
 #: application/adm/views/scripts/acl/resourcelist.phtml:2
+msgid "Resources"
+msgstr "Ressourcen"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:31
+#: application/adm/views/scripts/acl/resourcelist.phtml:108
 msgid "Add new resource"
 msgstr "Neue Ressource aufnehmen"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:61
+msgid "Delete resource"
+msgstr "Ressource löschen"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:62
+msgid "Are you sure to delete the selected resource?"
+msgstr "Sind Sie sicher, dass Sie die selektierte Ressource löschen möchten?"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:71
+msgid "Resource removed"
+msgstr "Ressource entfernt"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:71
+msgid "The selected resource has been removed."
+msgstr "Die selektierte Ressource wurde entfernt."
 
 #: application/adm/views/scripts/acl/rolelist.phtml:2
 msgid "Roles"
 msgstr "Rollen"
 
 #: application/adm/views/scripts/acl/rolelist.phtml:28
-#: application/adm/views/scripts/acl/rolelist.phtml:102
 msgid "Add new role"
 msgstr "Neue Rolle aufnehmen"
 
@@ -1303,10 +1369,12 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1680,10 +1748,6 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
-#~ msgid "Privileges"
-#~ msgstr "Rechte"
-#~ msgid "Resources"
-#~ msgstr "Ressourcen"
 #~ msgid "Article tree"
 #~ msgstr "Artikelbaum"
 #~ msgid "Last opened articles"

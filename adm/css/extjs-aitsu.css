@@ -120,6 +120,10 @@
     background-image: url(../images/icons/folder_delete.png) !important; 
     background-repeat: no-repeat;
 }
+.cm-link-to-acl {
+    background-image: url(../images/icons/table_link.png) !important; 
+    background-repeat: no-repeat;
+}
 .page-indexpage {
     background-image: url(../images/icons/page_white_code.png) !important; 
     background-repeat: no-repeat;

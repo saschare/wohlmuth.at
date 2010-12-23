@@ -50,4 +50,15 @@ class StoreController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * Resource data.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
+	public function resourcesAction() {
+
+		$this->_helper->json((object) array (
+			'data' => Aitsu_Persistence_Resource :: getStore(100, 0, $this->_filter)
+		));
+	}
+
 }

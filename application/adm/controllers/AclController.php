@@ -238,15 +238,18 @@ class AclController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deleteresourceAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_Resource :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_Resource :: factory($this->getRequest()->getParam('resourceid'))->remove();
 
-		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
-		echo $this->view->render('acl/resourcelist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
 	public function newroleAction() {
@@ -292,7 +295,7 @@ class AclController extends Zend_Controller_Action {
 		$form = Aitsu_Forms :: factory('editrole', APPLICATION_PATH . '/adm/forms/acl/role.ini');
 		$form->title = Aitsu_Translate :: translate('Edit role');
 		$form->url = $this->view->url();
-		
+
 		$privs = array ();
 		foreach (Aitsu_Persistence_Privilege :: getAsArray() as $key => $value) {
 			$privs[] = (object) array (
@@ -328,7 +331,7 @@ class AclController extends Zend_Controller_Action {
 			);
 		}
 		$form->setOptions('resources', $res);
-		
+
 		if (!empty ($id)) {
 			$data = Aitsu_Persistence_Role :: factory($id)->load()->toArray();
 			$form->setValues($data);
@@ -382,7 +385,7 @@ class AclController extends Zend_Controller_Action {
 	 * @since 2.1.0.0 - 23.12.2010
 	 */
 	public function deleteroleAction() {
-		
+
 		$this->_helper->layout->disableLayout();
 
 		Aitsu_Persistence_Role :: factory($this->getRequest()->getParam('roleid'))->remove();
@@ -397,7 +400,7 @@ class AclController extends Zend_Controller_Action {
 	 * @since 2.1.0.0 - 23.12.2010
 	 */
 	public function editprivilegeAction() {
-		
+
 		$this->_helper->layout->disableLayout();
 
 		$id = $this->getRequest()->getParam('privilegeid');
@@ -405,7 +408,7 @@ class AclController extends Zend_Controller_Action {
 		$form = Aitsu_Forms :: factory('editprivilege', APPLICATION_PATH . '/adm/forms/acl/privilege.ini');
 		$form->title = Aitsu_Translate :: translate('Edit privilege');
 		$form->url = $this->view->url();
-				
+
 		if (!empty ($id)) {
 			$data = Aitsu_Persistence_Privilege :: factory($id)->load()->toArray();
 			$form->setValues($data);
@@ -446,6 +449,36 @@ class AclController extends Zend_Controller_Action {
 					'errors' => $form->getErrors()
 				));
 			}
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
+	}
+
+	public function addresourceAction() {
+
+		$id = $this->getRequest()->getParam('idart');
+		if (empty ($id)) {
+			$id = $this->getRequest()->getParam('idcat');
+			$type = 'cat';
+			$name = Aitsu_Persistence_Category :: factory($id)->name;
+		} else {
+			$type = 'art';
+			$name = Aitsu_Persistence_Article :: factory($id)->pagetitle;
+		}
+
+		try {
+			Aitsu_Persistence_Resource :: factory()->setValues(array (
+				'name' => $name . ' (ID ' . $id . ')',
+				'resourcetype' => $type,
+				'identifier' => $id
+			))->save();
+			$this->_helper->json((object) array (
+				'success' => true
+			));
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
 				'success' => false,

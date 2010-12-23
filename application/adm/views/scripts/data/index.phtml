@@ -107,9 +107,8 @@ var pagetree = 	new Ext.tree.TreePanel({
 		},
 		contextmenu: function(node) {
 			node.select();
+			var menu = new Ext.menu.Menu();
 			if (node.attributes.type == 'category') {
-				var menu = new Ext.menu.Menu();
-	
 				menu.addItem({
 					text: node.attributes.online ? '<?php echo $this->translate('Set offline'); ?>' : '<?php echo $this->translate('Set online'); ?>',
 					iconCls: node.attributes.online ? 'cm-setoffline' : 'cm-setonline',
@@ -170,6 +169,22 @@ var pagetree = 	new Ext.tree.TreePanel({
 				menu.addItem('-');
 
 				menu.addItem({
+					text: '<?php echo $this->translate('Set as resource'); ?>',
+					iconCls: 'cm-link-to-acl',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'addresource'), 'default'); ?>',
+				            success: function(response) {
+				            	Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Resource added'); ?>', '<?php echo Aitsu_Translate :: translate('The selected category has been added to resources.'); ?>');
+				            },
+				            params: { idcat: node.attributes.id }
+				        });					
+					}
+				});
+
+				menu.addItem('-');
+
+				menu.addItem({
 					text: '<?php echo $this->translate('Add to favorites'); ?>',
 					iconCls: 'cm-bookmark-category',
 					handler: function() {
@@ -188,6 +203,20 @@ var pagetree = 	new Ext.tree.TreePanel({
 				        });					
 					}
 				});
+			} else if (node.attributes.type == 'page') {
+				menu.addItem({
+					text: '<?php echo $this->translate('Set as resource'); ?>',
+					iconCls: 'cm-link-to-acl',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'addresource'), 'default'); ?>',
+				            success: function(response) {
+				            	Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Resource added'); ?>', '<?php echo Aitsu_Translate :: translate('The selected page has been added to resources.'); ?>');
+				            },
+				            params: { idart: node.attributes.id }
+				        });					
+					}
+				});				
 			}
 			
 			menu.show(node.ui.getAnchor());
