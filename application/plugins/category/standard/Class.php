@@ -13,6 +13,7 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 	public function init() {
 
 		$this->_helper->layout->disableLayout();
+		header("Content-type: text/javascript");
 	}
 
 	public static function register($idcat) {

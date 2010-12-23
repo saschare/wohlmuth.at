@@ -11,6 +11,7 @@ class IndexController extends Zend_Controller_Action {
 	public function init() {
 		
 		if ($this->getRequest()->getParam('ajax')) {
+			header("Content-type: text/javascript");
 			$this->_helper->layout->disableLayout();
 		}
 	}

@@ -27,6 +27,7 @@ class AclController extends Zend_Controller_Action {
 
 	public function indexAction() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 
 		$this->view->users = Aitsu_Persistence_User :: getByName();
@@ -83,6 +84,7 @@ class AclController extends Zend_Controller_Action {
 
 		if (!$this->getRequest()->isPost()) {
 			$this->view->form = $form;
+			header("Content-type: text/javascript");
 			return;
 		}
 
@@ -155,6 +157,7 @@ class AclController extends Zend_Controller_Action {
 
 		if (!$this->getRequest()->isPost()) {
 			$this->view->form = $form;
+			header("Content-type: text/javascript");
 			return;
 		}
 

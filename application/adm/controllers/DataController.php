@@ -23,13 +23,9 @@ class DataController extends Zend_Controller_Action {
 
 	public function indexAction() {
 
-		$langs = Aitsu_Persistence_Language :: getByClient(Aitsu_Registry :: get()->session->currentClient);
+		header("Content-type: text/javascript");
 
-		/*$datasetSelector = $this->view->partial('data/datasetSelector.phtml', array (
-			'langs' => $langs,
-			'articles' => Aitsu_Persistence_Lastopened :: factory(1)->load()->get()
-		));
-		$this->view->placeholder('left')->set($datasetSelector);*/
+		$langs = Aitsu_Persistence_Language :: getByClient(Aitsu_Registry :: get()->session->currentClient);
 
 		/*
 		 * Add plugins' head to the head and plugins' js at the bottom
@@ -233,8 +229,12 @@ class DataController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function categoryoverviewAction() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 
 		$id = $this->getRequest()->getParam('id');
