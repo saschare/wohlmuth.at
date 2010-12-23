@@ -207,7 +207,8 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		if ($key == 'save') {
 			$value .= ", iconCls: 'save'";
-			$value .= ", handler: function() {Ext.getCmp('$uid').getForm().submit({success: formSuccess, failure: formFailure});}";
+			// $value .= ", handler: function() {alert('test'); Ext.getCmp('$uid').getForm().submit({success: formSuccess, failure: formFailure});}";
+			$value .= ", handler: function() {formSubmit('$uid');}";
 		}
 
 		$value .= '}';

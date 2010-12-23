@@ -3,11 +3,15 @@ east.removeAll();
 east.setVisible(true);
 east.setWidth(350);
 
-var formSuccess = function() {
-	Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have been saved.'); ?>');
-}
-var formFailure = function() {
-	Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been save due to errors.'); ?>');
+var formSubmit = function(formId) {
+	Ext.getCmp(formId).getForm().submit({
+		success: function() {
+			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have been saved.'); ?>');
+		}, 
+		failure: function() {
+			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been save due to errors.'); ?>');
+		}
+	});
 }
 
 var form = <?php echo $this->form->render('ExtJs'); ?>;
