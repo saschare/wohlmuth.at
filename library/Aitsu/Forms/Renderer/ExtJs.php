@@ -18,7 +18,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$params['id'] = $form->getUid();
 
 		array_walk($params, array (
-			self,
+			'self',
 			'_transform'
 		));
 
@@ -27,7 +27,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$groups = $form->getGroups()->toArray();
 
 		array_walk($groups, array (
-			self,
+			'self',
 			'_transformGroups'
 		));
 
@@ -36,7 +36,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$buttons = $form->getButtons()->toArray();
 
 		array_walk($buttons, array (
-			self,
+			'self',
 			'_transformButtons'
 		), $form->getUid());
 
@@ -85,7 +85,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 				foreach ($value['extjs'] as $key => $val) {
 					if (is_array($val)) {
 						array_walk($val, array (
-							self,
+							'self',
 							'_transform'
 						));
 						$configs[] = $key . ': {' . implode(', ', $val) . '}';
@@ -100,7 +100,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 			$fields = $value['field'];
 
 			array_walk($fields, array (
-				self,
+				'self',
 				'_transformFields'
 			));
 
@@ -115,7 +115,9 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$configs = array ();
 
 		$configs[] = "xtype: '{$value['type']}'";
-		$configs[] = "fieldLabel: '{$value['label']}'";
+		if (!empty($value['label'])) {
+			$configs[] = "fieldLabel: '{$value['label']}'";
+		}
 		$configs[] = "name: '{$key}'";
 		$configs[] = "id: '{$key}'";
 

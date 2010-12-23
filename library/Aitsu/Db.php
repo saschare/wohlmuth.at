@@ -122,6 +122,7 @@ class Aitsu_Db {
 		$orders = is_array($orders) ? $orders : array ();
 
 		$filterClause = array ();
+		$filterValues = array();
 		for ($i = 0; $i < count($filters); $i++) {
 			$filterClause[] = $filters[$i]->clause . ' :value' . $i;
 			$filterValues[':value' . $i] = $filters[$i]->value;
