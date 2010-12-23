@@ -27,33 +27,6 @@ class ClientController extends Zend_Controller_Action {
 		$this->_helper->layout->disableLayout();
 	}
 
-	public function newclientAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/client/client.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			$form->getElement('config')->setMultiOptions(Aitsu_Persistence_Clients :: getPotentialConfigs());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Clients :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->clients = Aitsu_Persistence_Clients :: getAll();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('client/clientlist.phtml');
-	}
-
 	/**
 	 * @since 2.1.0.0 - 23.12.2010
 	 */
@@ -68,15 +41,18 @@ class ClientController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deletelanguageAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_Language :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_Language :: factory($this->getRequest()->getParam('idlang'))->remove();
 
-		$this->view->languages = Aitsu_Persistence_Language :: getAll();
-		echo $this->view->render('client/languagelist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
 	/**
@@ -139,100 +115,113 @@ class ClientController extends Zend_Controller_Action {
 				'message' => $e->getMessage()
 			));
 		}
+	}
+
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
+	public function editlanguageAction() {
+
+		$this->_helper->layout->disableLayout();
+
+		$id = $this->getRequest()->getParam('idlang');
+
+		$form = Aitsu_Forms :: factory('editlanguage', APPLICATION_PATH . '/adm/forms/client/language.ini');
+		$form->title = Aitsu_Translate :: translate('Edit language');
+		$form->url = $this->view->url();
+
+		$clients = array ();
+		foreach (Aitsu_Persistence_Clients :: getAsArray() as $key => $value) {
+			$clients[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('idclient', $clients);
+
+		if (!empty ($id)) {
+			$data = Aitsu_Persistence_Language :: factory($id)->load()->toArray();
+			$form->setValues($data);
+		}
+
+		if (!$this->getRequest()->isPost()) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
+
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
+
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($id)) {
+					/*
+					 * New language.
+					 */
+					unset ($values['idlang']);
+					Aitsu_Persistence_Language :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update language.
+					 */
+					Aitsu_Persistence_Language :: factory($id)->load()->setValues($values)->save();
+				}
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 
 		/*$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender(true);
 		
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('idclient') : $this->getRequest()->getParam('id');
-		
-		if ($this->getRequest()->getParam('cancel') != 1) {
-		
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/client/client.ini', 'edit'));
-			$form->setAction($this->view->url());
-		
-			$form->getElement('config')->setMultiOptions(Aitsu_Persistence_Clients :: getPotentialConfigs());
-		
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_Clients :: factory($this->getRequest()->getParam('id'))->load()->toArray());
-			}
-		
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('client/newclient.phtml');
-				return;
-			}
-		
-			$values = $form->getValues();
-		
-			Aitsu_Persistence_Clients :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-		
-		$this->view->clients = Aitsu_Persistence_Clients :: getAll();
-		
-		echo $this->view->render('client/clientlist.phtml');*/
-	}
-
-	public function editlanguageAction() {
-
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
 		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('idlang') : $this->getRequest()->getParam('id');
-
+		
 		if ($this->getRequest()->getParam('cancel') != 1) {
-
+		
 			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/client/language.ini', 'edit'));
 			$form->setAction($this->view->url());
-
+		
 			$form->getElement('idclient')->setMultiOptions(Aitsu_Persistence_Clients :: getAsArray());
-
+		
 			if (!$this->getRequest()->isPost()) {
 				$form->setValues(Aitsu_Persistence_Language :: factory($this->getRequest()->getParam('id'))->load()->toArray());
 			}
-
+		
 			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
 				$this->view->form = $form;
 				echo $this->view->render('client/newlanguage.phtml');
 				return;
 			}
-
+		
 			$values = $form->getValues();
-
+		
 			Aitsu_Persistence_Language :: factory()->setValues($values)->save();
 		} // else: form has been cancelled.
-
+		
 		$this->view->languages = Aitsu_Persistence_Language :: getAll();
-
-		echo $this->view->render('client/languagelist.phtml');
+		
+		echo $this->view->render('client/languagelist.phtml');*/
 	}
 
-	public function newlanguageAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/client/language.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			$form->getElement('idclient')->setMultiOptions(Aitsu_Persistence_Clients :: getAsArray());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Language :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->languages = Aitsu_Persistence_Language :: getAll();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('client/languagelist.phtml');
-	}
-
+	/**
+	 * @todo implement in version 2.1.x
+	 */
 	public function exportAction() {
 
 		$this->_helper->viewRenderer->setNoRender(true);
@@ -243,6 +232,9 @@ class ClientController extends Zend_Controller_Action {
 		echo $this->view->render('client/index.phtml');
 	}
 
+	/**
+	 * @todo implement in version 2.1.x
+	 */
 	public function exportclientsAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -269,6 +261,9 @@ class ClientController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement in version 2.1.x
+	 */
 	public function exportlanguagesAction() {
 
 		$this->_helper->layout->disableLayout();

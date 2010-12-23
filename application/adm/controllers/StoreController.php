@@ -72,4 +72,15 @@ class StoreController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * Language data.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
+	public function languagesAction() {
+
+		$this->_helper->json((object) array (
+			'data' => Aitsu_Persistence_Language :: getStore(100, 0, $this->_filter)
+		));
+	}
+
 }
