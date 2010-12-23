@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-23 13:35+0100\n"
-"PO-Revision-Date: 2010-12-23 13:41+0100\n"
+"POT-Creation-Date: 2010-12-23 13:53+0100\n"
+"PO-Revision-Date: 2010-12-23 13:54+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1035,6 +1035,22 @@ msgstr "Neues Recht aufnehmen"
 #: application/adm/views/scripts/acl/userlist.phtml:2
 msgid "Users"
 msgstr "Benutzer"
+
+#: application/adm/views/scripts/acl/userlist.phtml:74
+msgid "Delete user"
+msgstr "Benutzer löschen"
+
+#: application/adm/views/scripts/acl/userlist.phtml:75
+msgid "Are you sure to delete the selected user?"
+msgstr "Sind Sie sicher, dass Sie den selektierten Benutzer löschen möchten?"
+
+#: application/adm/views/scripts/acl/userlist.phtml:84
+msgid "User removed"
+msgstr "Benutzer entfernt"
+
+#: application/adm/views/scripts/acl/userlist.phtml:84
+msgid "The selected user has been removed."
+msgstr "Der selektierte Benutzer wurde entfernt."
 
 #: application/adm/views/scripts/acl/resourcelist.phtml:2
 msgid "Add new resource"

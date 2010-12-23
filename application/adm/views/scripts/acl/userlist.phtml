@@ -58,7 +58,44 @@ var users = new Ext.grid.GridPanel({
 		rowclick: function(grid, rowIndex, event) {
 			var id = this.getStore().getAt(rowIndex).get('userid');
 			Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>?userid=' + id], null, this, false);
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete user'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected user?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'deleteuser'), 'default'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+				            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('User removed'); ?>', '<?php echo Aitsu_Translate :: translate('The selected user has been removed.'); ?>');
+					            			var store = grid.getStore().remove(record); 
+				            			}
+				            		},
+				            		params: { userid: record.get('userid') }
+				            	});					 			
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
 		}
+			
 	},
 	plugins: [
 		new Ext.ux.grid.GridFilters({

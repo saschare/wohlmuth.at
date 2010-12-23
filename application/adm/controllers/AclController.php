@@ -234,15 +234,19 @@ class AclController extends Zend_Controller_Action {
 		echo $this->view->render('acl/userlist.phtml');
 	}
 
+	/**
+	 * Removes the specified user.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deleteuserAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_User :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_User :: factory($this->getRequest()->getParam('userid'))->remove();
 
-		$this->view->users = Aitsu_Persistence_User :: getByName();
-		echo $this->view->render('acl/userlist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
 	public function deleteresourceAction() {
