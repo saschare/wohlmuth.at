@@ -200,13 +200,15 @@ class AclController extends Zend_Controller_Action {
 				/*
 				 * Persist the data.
 				 */
-				/*$values = $form->getValues();
+				$values = $form->getValues();
 				if (empty ($values['password'])) {
 					unset ($values['password']);
 				} else {
 					$values['password'] = md5($values['password']);
 				}
-				Aitsu_Persistence_User :: factory($id)->load()->setValues($values)->save();*/
+				$values['acfrom'] = empty($values['acfrom']) ?  date('Y-m-d H:i:s') : $values['acfrom'];
+				$values['acuntil'] = empty($values['acuntil']) ?  date('Y-m-d H:i:s', time() + 365 * 24 * 60 * 60) : $values['acfrom'];
+				Aitsu_Persistence_User :: factory($id)->load()->setValues($values)->save();
 				$this->_helper->json((object) array (
 					'success' => true
 				));
@@ -223,49 +225,6 @@ class AclController extends Zend_Controller_Action {
 				'message' => $e->getMessage()
 			));
 		}
-
-		/*$this->_helper->viewRenderer->setNoRender(true);
-		
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('userid') : $this->getRequest()->getParam('id');
-		
-		if ($this->getRequest()->getParam('cancel') != 1) {
-		
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/user.ini', 'edit'));
-			$form->setAction($this->view->url());
-		
-			$form->getElement('login')->getValidator('unique')->setId($id);
-			$form->getElement('password')->setRequired(false);
-			$form->getElement('roles')->setMultiOptions(Aitsu_Persistence_Role :: getAsArray());
-		
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
-			}
-		
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('acl/newuser.phtml');
-				return;
-			}
-		
-			$values = $form->getValues();
-		
-			if (empty ($values['password'])) {
-				unset ($values['password']);
-			} else {
-				$values['password'] = md5($values['password']);
-			}
-		
-			try {
-				Aitsu_Persistence_User :: factory()->setValues($values)->save();
-			} catch (Exception $e) {
-				echo $e->getMessage();
-				exit;
-			}
-		} // else: form has been cancelled.
-		
-		$this->view->users = Aitsu_Persistence_User :: getByName();
-		
-		echo $this->view->render('acl/userlist.phtml');*/
 	}
 
 	public function filteruserAction() {

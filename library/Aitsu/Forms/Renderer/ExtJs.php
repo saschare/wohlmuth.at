@@ -77,33 +77,37 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		$configs = array ();
 
-		$configs[] = "xtype: '{$value['type']}'";
-		$configs[] = "title: '{$value['legend']}'";
+		if (!empty ($value['type'])) {
+			$configs[] = "xtype: '{$value['type']}'";
+			$configs[] = "title: '{$value['legend']}'";
 
-		if (isset ($value['extjs'])) {
-			foreach ($value['extjs'] as $key => $val) {
-				if (is_array($val)) {
-					array_walk($val, array (
-						self,
-						'_transform'
-					));
-					$configs[] = $key . ': {' . implode(', ', $val) . '}';
-				} else {
-					$configs[] = "$key: '$val'";
+			if (isset ($value['extjs'])) {
+				foreach ($value['extjs'] as $key => $val) {
+					if (is_array($val)) {
+						array_walk($val, array (
+							self,
+							'_transform'
+						));
+						$configs[] = $key . ': {' . implode(', ', $val) . '}';
+					} else {
+						$configs[] = "$key: '$val'";
+					}
 				}
 			}
 		}
 
-		$fields = $value['field'];
+		if (!empty ($value['field'])) {
+			$fields = $value['field'];
 
-		array_walk($fields, array (
-			self,
-			'_transformFields'
-		));
+			array_walk($fields, array (
+				self,
+				'_transformFields'
+			));
 
-		$configs[] = 'items: [' . implode(', ', $fields) . ']';
+			$configs[] = 'items: [' . implode(', ', $fields) . ']';
 
-		$value = '{' . implode(', ', $configs) . '}';
+			$value = '{' . implode(', ', $configs) . '}';
+		}
 	}
 
 	protected static function _transformFields(& $value, $key) {
@@ -156,8 +160,8 @@ class Aitsu_Forms_Renderer_ExtJs {
 	}
 
 	protected static function _extraFieldAttsRadiogroup(& $configs, $key, $field) {
-		
-		if (!isset($field['extjs']['columns'])) {
+
+		if (!isset ($field['extjs']['columns'])) {
 			$configs[] = "columns: 2";
 		}
 
@@ -176,8 +180,8 @@ class Aitsu_Forms_Renderer_ExtJs {
 	}
 
 	protected static function _extraFieldAttsCheckboxgroup(& $configs, $key, $field) {
-		
-		if (!isset($field['extjs']['columns'])) {
+
+		if (!isset ($field['extjs']['columns'])) {
 			$configs[] = "columns: 2";
 		}
 
@@ -195,6 +199,12 @@ class Aitsu_Forms_Renderer_ExtJs {
 		}
 
 		$configs[] = 'items: [' . implode(', ', $items) . ']';
+	}
+
+	protected static function _extraFieldAttsDatefield(& $configs, $key, $field) {
+
+		$configs[] = "format: 'Y-m-d'";
+		$configs[] = "altFormats: 'Y-m-d H:i:s|d.m.Y|d.m.y'";
 	}
 
 	protected static function _transformButtons(& $value, $key, $uid) {
