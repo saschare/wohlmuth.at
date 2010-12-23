@@ -47,6 +47,22 @@ Ext.aitsu = function() {
         			}
         		}
         	});
+        	
+        load : function(source) {
+        		Ext.Ajax.request({
+        			url: source.url,
+        			success: function(response, opts) {
+        				eval(response.responseText);
+        				if (source.callback != undefined) {
+        					source.callback;
+        				}
+        			},
+        			failure: function() {
+        				Ext.aitsu.errmsg('Communication error', 'The requested resource could not be loaded.');
+        			},
+        			params: source.params
+        		});
+        	}
 
         }
     };
