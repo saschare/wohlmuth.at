@@ -223,20 +223,6 @@ class AclController extends Zend_Controller_Action {
 		}
 	}
 
-	public function filteruserAction() {
-
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$term = $this->getRequest()->getParam('filter-user');
-		$term .= '%';
-
-		$this->view->users = Aitsu_Persistence_User :: getByName($term);
-		$this->view->filterterm = $this->getRequest()->getParam('filter-user');
-
-		echo $this->view->render('acl/userlist.phtml');
-	}
-
 	/**
 	 * Removes the specified user.
 	 * @since 2.1.0.0 - 23.12.2010
@@ -392,6 +378,9 @@ class AclController extends Zend_Controller_Action {
 		}
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deleteroleAction() {
 		
 		$this->_helper->layout->disableLayout();
@@ -401,59 +390,6 @@ class AclController extends Zend_Controller_Action {
 		$this->_helper->json((object) array (
 			'success' => true
 		));
-	}
-
-	public function newprivilegeAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/privilege.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Privilege :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->privileges = Aitsu_Persistence_Privilege :: getAll();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('acl/privilegelist.phtml');
-	}
-
-	public function newresourceAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/resource.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			$this->view->openCats = null;
-			$this->view->targetId = null;
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Resource :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('acl/resourcelist.phtml');
 	}
 
 	/**
@@ -581,6 +517,9 @@ class AclController extends Zend_Controller_Action {
 		echo $this->view->render('acl/resourcelist.phtml');
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deleteprivilegeAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -592,6 +531,9 @@ class AclController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportusersAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -618,6 +560,9 @@ class AclController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportrolesAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -644,6 +589,9 @@ class AclController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportresourcesAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -670,6 +618,9 @@ class AclController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportprivilegesAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -696,6 +647,9 @@ class AclController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportAction() {
 
 		$this->_helper->viewRenderer->setNoRender(true);

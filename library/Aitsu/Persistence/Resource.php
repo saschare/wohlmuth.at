@@ -4,24 +4,7 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Resource.php 18633 2010-09-09 10:36:28Z akm $}
  */
-
-/*
-CREATE TABLE IF NOT EXISTS `con_acl_resource` (
-  `resourceid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `resourcetype` enum('cat','art','other') NOT NULL,
-  `specifictype` varchar(255) NOT NULL,
-  `identifier` int(10) unsigned NOT NULL,
-  `removable` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`resourceid`),
-  KEY `id` (`identifier`),
-  KEY `specifictype` (`specifictype`),
-  KEY `identifier` (`identifier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-*/
 
 class Aitsu_Persistence_Resource extends Aitsu_Persistence_Abstract {
 
@@ -143,6 +126,14 @@ class Aitsu_Persistence_Resource extends Aitsu_Persistence_Abstract {
 		}
 
 		return $return;
+	}
+	
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
+	public function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
+
+		return Aitsu_Db :: filter('select * from _acl_resource', $limit, $offset, $filters, $orders);
 	}
 
 }
