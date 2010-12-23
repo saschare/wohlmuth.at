@@ -187,7 +187,7 @@ class AclController extends Zend_Controller_Action {
 					$values['password'] = md5($values['password']);
 				}
 				$values['acfrom'] = empty ($values['acfrom']) ? date('Y-m-d H:i:s') : $values['acfrom'];
-				$values['acuntil'] = empty ($values['acuntil']) ? date('Y-m-d H:i:s', time() + 365 * 24 * 60 * 60) : $values['acfrom'];
+				$values['acuntil'] = empty ($values['acuntil']) ? date('Y-m-d H:i:s', time() + 365 * 24 * 60 * 60) : $values['acuntil'];
 
 				if (empty ($id)) {
 					/*

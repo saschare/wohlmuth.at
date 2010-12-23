@@ -123,7 +123,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		if (method_exists('Aitsu_Forms_Renderer_ExtJs', '_extraFieldAtts' . ucfirst($value['type']))) {
 			call_user_func(array (
-				self,
+				'self',
 				'_extraFieldAtts' . ucfirst($value['type'])
 			), & $configs, $key, $value);
 		}

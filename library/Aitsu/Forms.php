@@ -165,7 +165,7 @@ class Aitsu_Forms {
 
 		$values = array ();
 		$this->_getValues($this->_config, $values);
-
+trigger_error(var_export($values, true));
 		return $values;
 	}
 
