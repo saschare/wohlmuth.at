@@ -1,3 +1,102 @@
+var roles = new Ext.grid.GridPanel({
+	title: '<?php echo Aitsu_Translate :: translate('Roles'); ?>',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'roles'), 'default'); ?>',
+        remoteSort: false,
+        storeId: 'roleStore',
+        idProperty: 'roleid',
+        root: 'data',
+        fields: [{
+            name: 'roleid'
+        }, {
+            name: 'identifier'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'roleid', header: 'ID', menuDisabled: false, sortable: false, width: 20},
+    	{dataIndex: 'identifier', header: '<? echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: false, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new role'); ?>',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editrole'), 'default'); ?>?'], null, this, false);
+	            }
+	        }
+	    ]
+	},
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		rowclick: function(grid, rowIndex, event) {
+			var id = this.getStore().getAt(rowIndex).get('roleid');
+			Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editrole'), 'default'); ?>?roleid=' + id], null, this, false);
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete role'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected role?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'deleterole'), 'default'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+				            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Role removed'); ?>', '<?php echo Aitsu_Translate :: translate('The selected role has been removed.'); ?>');
+					            			var store = grid.getStore().remove(record); 
+				            			}
+				            		},
+				            		params: { roleid: record.get('roleid') }
+				            	});					 			
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+			
+	},
+	plugins: [
+		new Ext.ux.grid.GridFilters({
+			encode: false,
+	        local: false,
+	        filters: [{
+	            type: 'numeric',
+	            dataIndex: 'roleid'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'identifier'
+	        }]
+		})
+	]
+});
+
+tabs.add(roles);
 <?php return; ?>
 <div class="toolbar ui-corner-bottom">
 	<button id="add-new-role" class="type-new confirm"><?php echo $this->translate('Add new role'); ?></button>

@@ -27,11 +27,11 @@ var users = new Ext.grid.GridPanel({
     }),
     columns: [
     	{dataIndex: 'userid', header: 'ID', menuDisabled: false, sortable: false, width: 20},
-    	{dataIndex: 'firstname', header: 'Firstname', menuDisabled: false, sortable: true},
-    	{dataIndex: 'lastname', header: 'Lastname', menuDisabled: false, sortable: true},
-    	{dataIndex: 'login', header: 'Login', menuDisabled: false, sortable: true},
-    	{dataIndex: 'acfrom', header: 'Access from', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d')},
-    	{dataIndex: 'acuntil', header: 'Access until', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d')}
+    	{dataIndex: 'firstname', header: '<?php echo Aitsu_Translate :: translate('Firstname'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'lastname', header: '<?php echo Aitsu_Translate :: translate('Lastname'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'login', header: '<?php echo Aitsu_Translate :: translate('Login'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'acfrom', header: '<?php echo Aitsu_Translate :: translate('Access from'); ?>', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d')},
+    	{dataIndex: 'acuntil', header: '<?php echo Aitsu_Translate :: translate('Access until'); ?>', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d')}
 	],
 	viewConfig: {
 		forceFit: true,
@@ -41,7 +41,7 @@ var users = new Ext.grid.GridPanel({
 	tbar: {
 		items: [
 			{
-	            tooltip: 'Add new user',
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new user'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
 	            	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>?'], null, this, false);

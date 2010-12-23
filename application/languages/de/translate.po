@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-23 13:53+0100\n"
-"PO-Revision-Date: 2010-12-23 13:54+0100\n"
+"POT-Creation-Date: 2010-12-23 16:26+0100\n"
+"PO-Revision-Date: 2010-12-23 16:27+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,17 +32,21 @@ msgstr "vor"
 msgid "Last"
 msgstr "Letzte"
 
-#: application/adm/controllers/AclController.php:68
+#: application/adm/controllers/AclController.php:69
 msgid "User profile"
 msgstr "Benutzerprofil"
 
-#: application/adm/controllers/AclController.php:138
+#: application/adm/controllers/AclController.php:140
 msgid "Edit user"
 msgstr "Benutzer aktualisieren"
 
-#: application/adm/controllers/AclController.php:175
+#: application/adm/controllers/AclController.php:178
 msgid "The login is already in use."
 msgstr "Der Benutzername ist bereits in Gebrauch."
+
+#: application/adm/controllers/AclController.php:307
+msgid "Edit role"
+msgstr "Rolle editieren"
 
 #: application/adm/controllers/ClipboardController.php:24
 #, php-format
@@ -508,7 +512,7 @@ msgstr "Link hinzugefügt."
 msgid "Link removed."
 msgstr "Link entfernt."
 
-#: application/plugins/category/standard/Class.php:22
+#: application/plugins/category/standard/Class.php:23
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -1036,6 +1040,30 @@ msgstr "Neues Recht aufnehmen"
 msgid "Users"
 msgstr "Benutzer"
 
+#: application/adm/views/scripts/acl/userlist.phtml:30
+msgid "Firstname"
+msgstr "Vorname"
+
+#: application/adm/views/scripts/acl/userlist.phtml:31
+msgid "Lastname"
+msgstr "Nachname"
+
+#: application/adm/views/scripts/acl/userlist.phtml:32
+msgid "Login"
+msgstr "Login"
+
+#: application/adm/views/scripts/acl/userlist.phtml:33
+msgid "Access from"
+msgstr "Zugriff von"
+
+#: application/adm/views/scripts/acl/userlist.phtml:34
+msgid "Access until"
+msgstr "Zugriff bis"
+
+#: application/adm/views/scripts/acl/userlist.phtml:44
+msgid "Add new user"
+msgstr "Neuen Benutzer hinzufügen"
+
 #: application/adm/views/scripts/acl/userlist.phtml:74
 msgid "Delete user"
 msgstr "Benutzer löschen"
@@ -1052,33 +1080,58 @@ msgstr "Benutzer entfernt"
 msgid "The selected user has been removed."
 msgstr "Der selektierte Benutzer wurde entfernt."
 
-#: application/adm/views/scripts/acl/resourcelist.phtml:2
-msgid "Add new resource"
-msgstr "Neue Ressource aufnehmen"
-
+#: application/adm/views/scripts/acl/editrole.phtml:9
 #: application/adm/views/scripts/acl/profil.phtml:9
 #: application/adm/views/scripts/acl/edituser.phtml:9
 msgid "Saved"
 msgstr "Gespeichert"
 
+#: application/adm/views/scripts/acl/editrole.phtml:9
 #: application/adm/views/scripts/acl/profil.phtml:9
 #: application/adm/views/scripts/acl/edituser.phtml:9
 msgid "Form data have been saved."
 msgstr "Die Formulardaten wurden gespeichert."
 
+#: application/adm/views/scripts/acl/editrole.phtml:13
 #: application/adm/views/scripts/acl/profil.phtml:12
 #: application/adm/views/scripts/acl/edituser.phtml:13
 msgid "Form failure"
 msgstr "Formularfehler"
 
+#: application/adm/views/scripts/acl/editrole.phtml:13
 #: application/adm/views/scripts/acl/profil.phtml:12
 #: application/adm/views/scripts/acl/edituser.phtml:13
 msgid "Form data have not been save due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
-#: application/adm/views/scripts/acl/rolelist.phtml:3
+#: application/adm/views/scripts/acl/resourcelist.phtml:2
+msgid "Add new resource"
+msgstr "Neue Ressource aufnehmen"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:2
+msgid "Roles"
+msgstr "Rollen"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:28
+#: application/adm/views/scripts/acl/rolelist.phtml:102
 msgid "Add new role"
 msgstr "Neue Rolle aufnehmen"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:58
+msgid "Delete role"
+msgstr "Rolle löschen"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:59
+msgid "Are you sure to delete the selected role?"
+msgstr "Sind Sie sicher, dass Sie die selektierte Rolle löschen möchten?"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:68
+msgid "Role removed"
+msgstr "Rolle entfernt"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:68
+msgid "The selected role has been removed."
+msgstr "Die selektierte Rolle wurde entfernt."
 
 #: application/adm/scripts/Backup/index.phtml:1
 msgid "Backup"
@@ -1587,14 +1640,6 @@ msgstr "Die selektierte Seite wurde gelöscht."
 msgid "The given pattern is not allowed or the field is mandatory. Please change it accordingly."
 msgstr "Das Muster ist nicht zulässig oder das Feld ist ein Pflichtfeld. Bitte ergänzen Sie die Angabe entsprechend."
 
-#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:12
-msgid "Firstname"
-msgstr "Vorname"
-
-#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:19
-msgid "Lastname"
-msgstr "Nachname"
-
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:32
 msgid "Company"
 msgstr "Firma"
@@ -1635,16 +1680,6 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
-#~ msgid "Add new user"
-#~ msgstr "Neuen Benutzer hinzufügen"
-#~ msgid "Login"
-#~ msgstr "Login"
-#~ msgid "Access from"
-#~ msgstr "Zugriff von"
-#~ msgid "Access until"
-#~ msgstr "Zugriff bis"
-#~ msgid "Roles"
-#~ msgstr "Rollen"
 #~ msgid "Privileges"
 #~ msgstr "Rechte"
 #~ msgid "Resources"

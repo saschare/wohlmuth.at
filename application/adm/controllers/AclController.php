@@ -293,53 +293,114 @@ class AclController extends Zend_Controller_Action {
 		echo $this->view->render('acl/rolelist.phtml');
 	}
 
+	/**
+	 * Updates or inserts roles.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function editroleAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('roleid') : $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('roleid');
 
-		if ($this->getRequest()->getParam('cancel') != 1) {
+		$form = Aitsu_Forms :: factory('editrole', APPLICATION_PATH . '/adm/forms/acl/role.ini');
+		$form->title = Aitsu_Translate :: translate('Edit role');
+		$form->url = $this->view->url();
+		
+		$privs = array ();
+		foreach (Aitsu_Persistence_Privilege :: getAsArray() as $key => $value) {
+			$privs[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('privileges', $privs);
 
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/role.ini', 'edit'));
-			$form->setAction($this->view->url());
+		$clients = array ();
+		foreach (Aitsu_Persistence_Clients :: getAsArray() as $key => $value) {
+			$clients[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('clients', $clients);
 
-			$form->getElement('identifier')->getValidator('unique')->setId($id);
-			$form->getElement('privileges')->setMultiOptions(Aitsu_Persistence_Privilege :: getAsArray());
-			$form->getElement('clients')->setMultiOptions(Aitsu_Persistence_Clients :: getAsArray());
-			$form->getElement('languages')->setMultiOptions(Aitsu_Persistence_Language :: getAsArray());
-			$form->getElement('resources')->setMultiOptions(Aitsu_Persistence_Resource :: getAsArray());
+		$langs = array ();
+		foreach (Aitsu_Persistence_Language :: getAsArray() as $key => $value) {
+			$langs[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('languages', $langs);
 
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_Role :: factory($id)->load()->toArray());
+		$res = array ();
+		foreach (Aitsu_Persistence_Resource :: getAsArray() as $key => $value) {
+			$res[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('resources', $res);
+		
+		if (!empty ($id)) {
+			$data = Aitsu_Persistence_Role :: factory($id)->load()->toArray();
+			$form->setValues($data);
+		}
+
+		if (!$this->getRequest()->isPost()) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
+
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
+
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($id)) {
+					/*
+					 * New role.
+					 */
+					unset ($values['roleid']);
+					Aitsu_Persistence_Role :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update role.
+					 */
+					Aitsu_Persistence_Role :: factory($id)->load()->setValues($values)->save();
+				}
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
 			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('acl/newrole.phtml');
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Role :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->roles = Aitsu_Persistence_Role :: getAll();
-
-		echo $this->view->render('acl/rolelist.phtml');
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 
 	public function deleteroleAction() {
-
+		
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_Role :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_Role :: factory($this->getRequest()->getParam('roleid'))->remove();
 
-		$this->view->roles = Aitsu_Persistence_Role :: getAll();
-		echo $this->view->render('acl/rolelist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
 	public function newprivilegeAction() {

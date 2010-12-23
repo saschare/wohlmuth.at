@@ -4,24 +4,7 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Role.php 18713 2010-09-13 07:39:04Z akm $}
  */
-
-/*
-CREATE TABLE IF NOT EXISTS `con_acl_role` (
-  `roleid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `identifier` varchar(255) NOT NULL,
-  PRIMARY KEY (`roleid`),
-  UNIQUE KEY `identifier` (`identifier`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `con_acl_privileges` (
-  `roleid` int(10) unsigned NOT NULL,
-  `privilegeid` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`roleid`,`privilegeid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-*/
 
 class Aitsu_Persistence_Role extends Aitsu_Persistence_Abstract {
 
@@ -38,10 +21,10 @@ class Aitsu_Persistence_Role extends Aitsu_Persistence_Abstract {
 		static $instance = array ();
 
 		if ($id == null || !isset ($instance[$id])) {
-			$instance = new self($id);
+			$instance[$id] = new self($id);
 		}
 
-		return $instance;
+		return $instance[$id];
 	}
 
 	public function load() {
@@ -295,5 +278,13 @@ class Aitsu_Persistence_Role extends Aitsu_Persistence_Abstract {
 		}
 
 		return $return;
+	}
+	
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
+	public function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
+
+		return Aitsu_Db :: filter('select * from _acl_role', $limit, $offset, $filters, $orders);
 	}
 }
