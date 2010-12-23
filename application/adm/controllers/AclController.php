@@ -29,11 +29,6 @@ class AclController extends Zend_Controller_Action {
 
 		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
-
-		$this->view->users = Aitsu_Persistence_User :: getByName();
-		$this->view->privileges = Aitsu_Persistence_Privilege :: getAll();
-		$this->view->roles = Aitsu_Persistence_Role :: getAll();
-		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
 	}
 
 	public function loginAction() {

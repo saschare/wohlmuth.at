@@ -1,22 +1,99 @@
-<div class="toolbar ui-corner-bottom">
-	<button id="add-new-client" class="type-new confirm" title="<?php echo $this->translate('Add new client'); ?>"><?php echo $this->translate('Add new client'); ?></button>
-</div>
-		
-<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
-	<thead>
-		<tr>
-			<th scope="col"><?php echo $this->translate('ID'); ?></th>
-			<th scope="col"><?php echo $this->translate('Name'); ?></th>
-			<th scope="col"><?php echo $this->translate('Configuration'); ?></th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php $counter = 0; foreach ($this->clients as $client) : $counter++; ?>
-			<tr id="client-<?php echo $client->idclient; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
-				<td><?php echo $client->idclient; ?></td>
-				<td><?php echo $client->name; ?></td>
-				<td><?php echo $client->config; ?></td>
-			</tr>
-		<?php endforeach; ?>
-	</tbody>
-</table>
+var clients = new Ext.grid.GridPanel({
+	title: '<?php echo Aitsu_Translate :: translate('Clients'); ?>',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'clients'), 'default'); ?>',
+        remoteSort: false,
+        storeId: 'clientStore',
+        idProperty: 'idclient',
+        root: 'data',
+        fields: [{
+            name: 'idclient'
+        }, {
+            name: 'name'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'idclient', header: 'ID', menuDisabled: false, sortable: false, width: 20},
+    	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: false, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new client'); ?>',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editclient'), 'default'); ?>?'], null, this, false);
+	            }
+	        }
+	    ]
+	},
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		rowclick: function(grid, rowIndex, event) {
+			var id = this.getStore().getAt(rowIndex).get('idclient');
+			Ext.Loader.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editclient'), 'default'); ?>?idclient=' + id], null, this, false);
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete client'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected client?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('controller' => 'client', 'action' => 'deleteclient'), 'default'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+				            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Client removed'); ?>', '<?php echo Aitsu_Translate :: translate('The selected client has been removed.'); ?>');
+					            			var store = grid.getStore().remove(record); 
+				            			}
+				            		},
+				            		params: { idclient: record.get('idclient') }
+				            	});					 			
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+			
+	},
+	plugins: [
+		new Ext.ux.grid.GridFilters({
+			encode: false,
+	        local: false,
+	        filters: [{
+	            type: 'numeric',
+	            dataIndex: 'idclient'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'name'
+	        }]
+		})
+	]
+});
+
+tabs.add(clients);

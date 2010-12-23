@@ -61,4 +61,15 @@ class StoreController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * Clients data.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
+	public function clientsAction() {
+
+		$this->_helper->json((object) array (
+			'data' => Aitsu_Persistence_Clients :: getStore(100, 0, $this->_filter)
+		));
+	}
+
 }

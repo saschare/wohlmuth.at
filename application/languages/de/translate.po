@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-23 20:33+0100\n"
-"PO-Revision-Date: 2010-12-23 20:33+0100\n"
+"POT-Creation-Date: 2010-12-23 21:10+0100\n"
+"PO-Revision-Date: 2010-12-23 21:12+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,27 +32,27 @@ msgstr "vor"
 msgid "Last"
 msgstr "Letzte"
 
-#: application/adm/controllers/AclController.php:69
+#: application/adm/controllers/AclController.php:64
 msgid "User profile"
 msgstr "Benutzerprofil"
 
-#: application/adm/controllers/AclController.php:140
+#: application/adm/controllers/AclController.php:135
 msgid "Edit user"
 msgstr "Benutzer aktualisieren"
 
-#: application/adm/controllers/AclController.php:178
+#: application/adm/controllers/AclController.php:173
 msgid "The login is already in use."
 msgstr "Der Benutzername ist bereits in Gebrauch."
 
-#: application/adm/controllers/AclController.php:266
+#: application/adm/controllers/AclController.php:261
 msgid "Edit role"
 msgstr "Rolle editieren"
 
-#: application/adm/controllers/AclController.php:379
+#: application/adm/controllers/AclController.php:374
 msgid "Edit privilege"
 msgstr "Privileg aktualisieren"
 
-#: application/adm/controllers/AclController.php:471
+#: application/adm/controllers/AclController.php:466
 msgid "Edit resource"
 msgstr "Ressource editieren"
 
@@ -84,6 +84,10 @@ msgstr "Während der Synchronisation ist ein Fehler aufgetreten."
 #: application/adm/controllers/DataController.php:440
 msgid "Categories moved."
 msgstr "Die Kategorien wurden verschoben."
+
+#: application/adm/controllers/ClientController.php:92
+msgid "Edit client"
+msgstr "Mandant editieren"
 
 #: application/adm/controllers/ScriptController.php:26
 msgid "Access denied."
@@ -764,6 +768,7 @@ msgstr "Neue Unterkategorie erstellen"
 #: application/adm/views/scripts/data/index.phtml:145
 #: application/adm/views/scripts/contextmenu/editdelete.phtml:6
 #: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:12
+#: application/adm/views/scripts/client/clientlist.phtml:54
 msgid "Delete"
 msgstr "Löschen"
 
@@ -857,33 +862,57 @@ msgstr "Schlüssel"
 msgid "Value"
 msgstr "Wert"
 
-#: application/adm/views/scripts/client/clientlist.phtml:2
+#: application/adm/views/scripts/client/clientlist.phtml:28
 msgid "Add new client"
 msgstr "Neuen Mandanten aufnehmen"
 
-#: application/adm/views/scripts/client/clientlist.phtml:10
-msgid "Configuration"
-msgstr "Konfiguration"
+#: application/adm/views/scripts/client/clientlist.phtml:58
+msgid "Delete client"
+msgstr "Mandandt löschen"
 
-#: application/adm/views/scripts/client/languagelist.phtml:2
+#: application/adm/views/scripts/client/clientlist.phtml:59
+msgid "Are you sure to delete the selected client?"
+msgstr "Sind Sie sicher, dass Sie den selektierten Mandanten löschen möchten?"
+
+#: application/adm/views/scripts/client/clientlist.phtml:68
+msgid "Client removed"
+msgstr "Mandant entfernt"
+
+#: application/adm/views/scripts/client/clientlist.phtml:68
+msgid "The selected client has been removed."
+msgstr "Der selektierte Mandant wurde entfernt."
+
+#: application/adm/views/scripts/client/languagelist.phtml:3
 msgid "Add new language"
 msgstr "Neue Sprache aufnehmen"
 
-#: application/adm/views/scripts/client/languagelist.phtml:10
+#: application/adm/views/scripts/client/languagelist.phtml:11
 msgid "Client"
 msgstr "Mandant"
 
-#: application/adm/views/scripts/client/languagelist.phtml:11
+#: application/adm/views/scripts/client/languagelist.phtml:12
 msgid "Locale"
 msgstr "Locale"
 
-#: application/adm/views/scripts/client/languagelist.phtml:12
+#: application/adm/views/scripts/client/languagelist.phtml:13
 msgid "Encoding"
 msgstr "Encodierung"
 
-#: application/adm/views/scripts/client/index.phtml:7
-msgid "Languages"
-msgstr "Sprachen"
+#: application/adm/views/scripts/client/editclient.phtml:9
+msgid "Saved"
+msgstr "Gespeichert"
+
+#: application/adm/views/scripts/client/editclient.phtml:9
+msgid "Form data have been saved."
+msgstr "Die Formulardaten wurden gespeichert."
+
+#: application/adm/views/scripts/client/editclient.phtml:13
+msgid "Form failure"
+msgstr "Formularfehler"
+
+#: application/adm/views/scripts/client/editclient.phtml:13
+msgid "Form data have not been save due to errors."
+msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
 #: application/adm/views/scripts/layout/extjsbased.phtml:140
 msgid "Remaining session time"
@@ -1058,22 +1087,6 @@ msgstr "Kategorie geschützt / Schutz aufgehoben"
 msgid "Category removed"
 msgstr "Kategorie entfernt"
 
-#: application/adm/views/scripts/acl/editresource.phtml:9
-msgid "Saved"
-msgstr "Gespeichert"
-
-#: application/adm/views/scripts/acl/editresource.phtml:9
-msgid "Form data have been saved."
-msgstr "Die Formulardaten wurden gespeichert."
-
-#: application/adm/views/scripts/acl/editresource.phtml:13
-msgid "Form failure"
-msgstr "Formularfehler"
-
-#: application/adm/views/scripts/acl/editresource.phtml:13
-msgid "Form data have not been save due to errors."
-msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
-
 #: application/adm/views/scripts/acl/privilegelist.phtml:2
 msgid "Privileges"
 msgstr "Rechte"
@@ -1147,7 +1160,6 @@ msgid "Resources"
 msgstr "Ressourcen"
 
 #: application/adm/views/scripts/acl/resourcelist.phtml:31
-#: application/adm/views/scripts/acl/resourcelist.phtml:108
 msgid "Add new resource"
 msgstr "Neue Ressource aufnehmen"
 
@@ -1361,12 +1373,10 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1403,6 +1413,7 @@ msgid "Add new project"
 msgstr "Neues Projekt aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/projectlist.phtml:15
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:17
 msgid "Customer"
 msgstr "Kunde"
 
@@ -1739,6 +1750,10 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
+#~ msgid "Configuration"
+#~ msgstr "Konfiguration"
+#~ msgid "Languages"
+#~ msgstr "Sprachen"
 #~ msgid "Article tree"
 #~ msgstr "Artikelbaum"
 #~ msgid "Last opened articles"

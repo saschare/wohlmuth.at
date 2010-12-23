@@ -1,54 +1,21 @@
-<div class="tabs">
-	<ul>
-		<li>
-			<a href="#tab-client"><?php echo $this->translate('Clients'); ?></a>
-		</li>
-		<li>
-			<a href="#tab-language"><?php echo $this->translate('Languages'); ?></a>
-		</li>
-	</ul>
-	
-	<div id="tab-client">
-		<div class="tab-content ajax-target">
-			<?php echo $this->partial('client/clientlist.phtml', array('clients' => $this->clients)); ?>
-		</div>
-	</div>
-	
-	<div id="tab-language">
-		<div class="tab-content ajax-target">
-			<?php echo $this->partial('client/languagelist.phtml', array('languages' => $this->languages)); ?>
-		</div>
-	</div>
-	
-</div>
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
 
-<?php $this->inlineScript()->captureStart(); ?>
-$(function() {
-	
-	$(document).bind('bindclicks', function() {
-		$('#add-new-client').live('click', function() {
-			$('#tab-client div.tab-content').load('<?php echo $this->url(); ?>/newclient', function() {
-				$(document).trigger('formload');		
-			});
-			return false;
-		});		
-		$('#add-new-language').live('click', function() {
-			$('#tab-language div.tab-content').load('<?php echo $this->url(); ?>/newlanguage', function() {
-				$(document).trigger('formload');		
-			});
-			return false;
-		});		
-	});
-	$(document).trigger('bindclicks');
-	
-	$(document).bind('listload', function(event, area, data) {
-		if (data != null) {
-			$(area).html(data)
-		}
-     	$(document).trigger('refreshButtons');
-     	$(document).trigger('contextmenu');
-     	$(document).trigger('formload');
-	});	
-		
-});	
-<?php $this->inlineScript()->captureEnd(); ?>
+var tabs = new Ext.TabPanel({
+	resizeTabs: false,
+	minTabWidth: 115,
+	tabWidth:135,
+	enableTabScroll:true,
+	defaults: {
+		autoScroll:true
+	}
+});
+
+center.add(tabs);
+
+<?php echo $this->partial('client/clientlist.phtml'); ?>
+<?php echo $this->partial('client/languagelist.phtml'); ?>
+
+tabs.setActiveTab(0);
+
+Ext.getCmp('viewport').doLayout();
