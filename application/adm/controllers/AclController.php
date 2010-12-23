@@ -456,38 +456,67 @@ class AclController extends Zend_Controller_Action {
 		echo $this->view->render('acl/resourcelist.phtml');
 	}
 
+	/**
+	 * Updates or inserts privileges.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function editprivilegeAction() {
-
+		
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('privilegeid') : $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('privilegeid');
 
-		if ($this->getRequest()->getParam('cancel') != 1) {
+		$form = Aitsu_Forms :: factory('editprivilege', APPLICATION_PATH . '/adm/forms/acl/privilege.ini');
+		$form->title = Aitsu_Translate :: translate('Edit privilege');
+		$form->url = $this->view->url();
+				
+		if (!empty ($id)) {
+			$data = Aitsu_Persistence_Privilege :: factory($id)->load()->toArray();
+			$form->setValues($data);
+		}
 
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/privilege.ini', 'edit'));
-			$form->setAction($this->view->url());
+		if (!$this->getRequest()->isPost()) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
 
-			$form->getElement('identifier')->getValidator('unique')->setId($id);
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
 
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_Privilege :: factory($this->getRequest()->getParam('id'))->load()->toArray());
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($id)) {
+					/*
+					 * New role.
+					 */
+					unset ($values['privilegeid']);
+					Aitsu_Persistence_Privilege :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update role.
+					 */
+					Aitsu_Persistence_Privilege :: factory($id)->load()->setValues($values)->save();
+				}
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
 			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('acl/newprivilege.phtml');
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Privilege :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->privileges = Aitsu_Persistence_Privilege :: getAll();
-
-		echo $this->view->render('acl/privilegelist.phtml');
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 
 	public function editresourceAction() {
@@ -555,13 +584,12 @@ class AclController extends Zend_Controller_Action {
 	public function deleteprivilegeAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_Privilege :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_Privilege :: factory($this->getRequest()->getParam('privilegeid'))->remove();
 
-		$this->view->privileges = Aitsu_Persistence_Privilege :: getAll();
-
-		echo $this->view->render('acl/privilegelist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
 	public function exportusersAction() {
