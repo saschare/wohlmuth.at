@@ -187,7 +187,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 			$counter++;
 			$option = (object) $option;
 			$value = is_numeric($option->value) ? $option->value : "'{$option->value}'";
-			if ($field['value'] == $option->value) {
+			if ($field['value'] == $option->value || (is_array($field['value']) && in_array($option->value, $field['value']))) {
 				$items[] = "{boxLabel: '{$option->name}', name: '{$key}[$counter]', inputValue: $value, checked: true}";
 			} else {
 				$items[] = "{boxLabel: '{$option->name}', name: '{$key}[$counter]', inputValue: $value}";
