@@ -35,47 +35,6 @@ class AclController extends Zend_Controller_Action {
 		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
 	}
 
-	public function newuserAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/user.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			$form->getElement('roles')->setMultiOptions(Aitsu_Persistence_Role :: getAsArray());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			if (empty ($values['password'])) {
-				$values['password'] = md5(uniqid());
-			} else {
-				$values['password'] = md5($values['password']);
-			}
-
-			if (empty ($values['acfrom'])) {
-				$values['acfrom'] = date('Y-m-d H:i:s', time());
-			}
-
-			if (empty ($values['acuntil'])) {
-				$values['acuntil'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 365 * 5);
-			}
-
-			Aitsu_Persistence_User :: factory()->setValues($values)->save();
-
-		} // else: form has been cancelled.
-
-		$this->view->users = Aitsu_Persistence_User :: getByName();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('acl/userlist.phtml');
-	}
-
 	public function loginAction() {
 
 		if (Aitsu_Config :: equals('extjstest', true)) {
@@ -165,6 +124,10 @@ class AclController extends Zend_Controller_Action {
 		$this->_redirect('/');
 	}
 
+	/**
+	 * Updates existing or inserts new users.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function edituserAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -197,18 +160,48 @@ class AclController extends Zend_Controller_Action {
 
 		try {
 			if ($form->isValid()) {
+				$values = $form->getValues();
+
+				/*
+				 * Additionally we have to make sure, the login name is not already 
+				 * in use.
+				 */
+				if (!Aitsu_Persistence_User :: isLoginUnique($id, $values['login'])) {
+					$this->_helper->json((object) array (
+						'success' => false,
+						'errors' => array (
+							(object) array (
+								'id' => 'login',
+								'msg' => Aitsu_Translate :: translate('The login is already in use.')
+							)
+						)
+					));
+				}
+
 				/*
 				 * Persist the data.
 				 */
-				$values = $form->getValues();
 				if (empty ($values['password'])) {
 					unset ($values['password']);
 				} else {
 					$values['password'] = md5($values['password']);
 				}
-				$values['acfrom'] = empty($values['acfrom']) ?  date('Y-m-d H:i:s') : $values['acfrom'];
-				$values['acuntil'] = empty($values['acuntil']) ?  date('Y-m-d H:i:s', time() + 365 * 24 * 60 * 60) : $values['acfrom'];
-				Aitsu_Persistence_User :: factory($id)->load()->setValues($values)->save();
+				$values['acfrom'] = empty ($values['acfrom']) ? date('Y-m-d H:i:s') : $values['acfrom'];
+				$values['acuntil'] = empty ($values['acuntil']) ? date('Y-m-d H:i:s', time() + 365 * 24 * 60 * 60) : $values['acfrom'];
+
+				if (empty ($id)) {
+					/*
+					 * New user.
+					 */
+					unset ($values['userid']);
+					Aitsu_Persistence_User :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update user.
+					 */
+					Aitsu_Persistence_User :: factory($id)->load()->setValues($values)->save();
+				}
+
 				$this->_helper->json((object) array (
 					'success' => true
 				));

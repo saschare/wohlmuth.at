@@ -175,4 +175,24 @@ class Aitsu_Persistence_User extends Aitsu_Persistence_Abstract {
 
 		return Aitsu_Db :: filter('select * from _acl_user', $limit, $offset, $filters, $orders);
 	}
+
+	public static function isLoginUnique($userid, $login) {
+
+		$userid = empty ($userid) ? 0 : $userid;
+
+		$result = Aitsu_Db :: fetchOne('' .
+		'select login from _acl_user ' .
+		'where ' .
+		'	login = :login ' .
+		'	and userid != :userid', array (
+			':userid' => $userid,
+			':login' => $login
+		));
+		
+		if (!$result) {
+			return true;
+		}
+
+		return false;
+	}
 }

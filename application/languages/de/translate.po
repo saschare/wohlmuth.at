@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-20 19:45+0100\n"
-"PO-Revision-Date: 2010-12-20 19:48+0100\n"
+"POT-Creation-Date: 2010-12-23 13:35+0100\n"
+"PO-Revision-Date: 2010-12-23 13:41+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,18 @@ msgstr "vor"
 #: application/adm/controllers/MappingController.php:211
 msgid "Last"
 msgstr "Letzte"
+
+#: application/adm/controllers/AclController.php:68
+msgid "User profile"
+msgstr "Benutzerprofil"
+
+#: application/adm/controllers/AclController.php:138
+msgid "Edit user"
+msgstr "Benutzer aktualisieren"
+
+#: application/adm/controllers/AclController.php:175
+msgid "The login is already in use."
+msgstr "Der Benutzername ist bereits in Gebrauch."
 
 #: application/adm/controllers/ClipboardController.php:24
 #, php-format
@@ -420,7 +432,6 @@ msgid "Media"
 msgstr "Medien"
 
 #: application/plugins/article/media/Class.php:132
-#: application/plugins/article/meta/Class.php:78
 msgid "Meta data saved."
 msgstr "Metadaten wurden gespeichert."
 
@@ -500,6 +511,40 @@ msgstr "Link entfernt."
 #: application/plugins/category/standard/Class.php:22
 msgid "Overview"
 msgstr "Übersicht"
+
+#: library/Aitsu/Forms/Validator.php:19
+msgid "The submission of a value is mandatory."
+msgstr "Die Bezeichnung eines Wertes ist pflicht."
+
+#: library/Aitsu/Forms/Validator/Email.php:28
+msgid "The value does not represent an email."
+msgstr "Der Wert repräsentiert keine Email."
+
+#: library/Aitsu/Forms/Validator/Number.php:35
+msgid "The value is not numeric."
+msgstr "Der Wert ist nicht numerisch."
+
+#: library/Aitsu/Forms/Validator/Number.php:40
+msgid "The value must be lower or equal than %F."
+msgstr "Der Wert muss kleiner oder gleich %F sein."
+
+#: library/Aitsu/Forms/Validator/Number.php:45
+msgid "The value must be greater or equal than %F."
+msgstr "Der Wert muss grösser oder gleich %F sein."
+
+#: library/Aitsu/Forms/Validator/Regex.php:37
+msgid "The value does not match the given pattern."
+msgstr "Der Wert entspricht nicht dem spezifizierten Muster."
+
+#: library/Aitsu/Forms/Validator/Regex.php:42
+#, php-format
+msgid "The value must be at least %u characters long."
+msgstr "Die Zeichenfolge muss mindestens %u Zeichen lang sein."
+
+#: library/Aitsu/Forms/Validator/Regex.php:47
+#, php-format
+msgid "The value must not be more than %u characters long."
+msgstr "Die Zeichenfolge darf eine Länge von %u Zeichen nicht überschreiten."
 
 #: library/Aitsu/Ee/Shortcode.php:99
 #, php-format
@@ -612,10 +657,6 @@ msgstr "Plugins"
 msgid "Management"
 msgstr "Management"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:59
-msgid "User profile"
-msgstr "Benutzerprofil"
-
 #: library/Aitsu/Adm/Controller/Plugin/Navigation.php:70
 msgid "User, Roles and Privileges"
 msgstr "Benutzer, Rollen und Rechte"
@@ -649,7 +690,6 @@ msgid "Add new configuration set"
 msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/list.phtml:4
-#: application/adm/views/scripts/mapping/list.phtml:11
 msgid "ID"
 msgstr "ID"
 
@@ -661,55 +701,85 @@ msgstr "Bezeichner"
 msgid "Configuration sets"
 msgstr "Konfigurationen"
 
-#: application/adm/views/scripts/data/index.phtml:32
+#: application/adm/views/scripts/data/categoryoverview.phtml:57
+msgid "Data saved"
+msgstr "Daten gespeichert"
+
+#: application/adm/views/scripts/data/categoryoverview.phtml:57
+msgid "Update of category data has been done."
+msgstr "Die Aktualisierung der Kategorie ist vorgenommen."
+
+#: application/adm/views/scripts/data/index.phtml:35
 msgid "Category tree"
 msgstr "Kategoriebaum"
 
-#: application/adm/views/scripts/data/index.phtml:57
+#: application/adm/views/scripts/data/index.phtml:60
 msgid "Move node"
 msgstr "Knoten verschieben."
 
-#: application/adm/views/scripts/data/index.phtml:58
+#: application/adm/views/scripts/data/index.phtml:61
 msgid "Are you sure to move the node to the specified place?"
 msgstr "Sind Sie sicher, dass Sie den gewählten Knoten an die bezeichnete Stelle verschieben möchten?"
 
-#: application/adm/views/scripts/data/index.phtml:79
+#: application/adm/views/scripts/data/index.phtml:67
+msgid "Category moved"
+msgstr "Kategorie verschoben"
+
+#: application/adm/views/scripts/data/index.phtml:67
+msgid "The selected category has been moved to the specified category."
+msgstr "Die selektierte Kategorie wurde in die bezeichnete Kategorie verschoben."
+
+#: application/adm/views/scripts/data/index.phtml:87
+msgid "Page moved"
+msgstr "Seite verschoben"
+
+#: application/adm/views/scripts/data/index.phtml:87
+msgid "The selected page has been moved to the specified category."
+msgstr "Die selektierte Seite wurde in die bezeichnete Kategorie verschoben."
+
+#: application/adm/views/scripts/data/index.phtml:114
 msgid "Set offline"
 msgstr "Offline stellen"
 
-#: application/adm/views/scripts/data/index.phtml:79
+#: application/adm/views/scripts/data/index.phtml:114
 msgid "Set online"
 msgstr "Online stellen"
 
-#: application/adm/views/scripts/data/index.phtml:96
+#: application/adm/views/scripts/data/index.phtml:131
 msgid "New sub-category"
 msgstr "Neue Unterkategorie erstellen"
 
-#: application/adm/views/scripts/data/index.phtml:111
+#: application/adm/views/scripts/data/index.phtml:146
+#: application/adm/views/scripts/contextmenu/editdelete.phtml:6
+#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:12
 msgid "Delete"
 msgstr "Löschen"
 
-#: application/adm/views/scripts/data/index.phtml:116
+#: application/adm/views/scripts/data/index.phtml:151
 msgid "Delete category"
 msgstr "Kategorie löschen"
 
-#: application/adm/views/scripts/data/index.phtml:117
+#: application/adm/views/scripts/data/index.phtml:152
 msgid "Are you sure to delete the selected category?"
 msgstr "Sind Sie sicher, dass Sie die gew&auml;hlte Kategorie l&ouml;schen m&ouml;chten?"
 
-#: application/adm/views/scripts/data/index.phtml:138
+#: application/adm/views/scripts/data/index.phtml:173
 msgid "Add to favorites"
 msgstr "Zu den Favoriten hinzufügen"
 
-#: application/adm/views/scripts/data/index.phtml:213
+#: application/adm/views/scripts/data/index.phtml:199
+msgid "New category"
+msgstr "Neue Kategorie"
+
+#: application/adm/views/scripts/data/index.phtml:268
 msgid "Recently opened pages"
 msgstr "Kürzlich geöffnete Seiten"
 
-#: application/adm/views/scripts/data/index.phtml:232
+#: application/adm/views/scripts/data/index.phtml:287
 msgid "Favorites"
 msgstr "Favoriten"
 
-#: application/adm/views/scripts/data/index.phtml:251
+#: application/adm/views/scripts/data/index.phtml:306
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -785,11 +855,11 @@ msgstr "Encodierung"
 msgid "Languages"
 msgstr "Sprachen"
 
-#: application/adm/views/scripts/layout/extjsbased.phtml:135
+#: application/adm/views/scripts/layout/extjsbased.phtml:140
 msgid "Remaining session time"
 msgstr "Verbleibende Sessiondauer"
 
-#: application/adm/views/scripts/layout/extjsbased.phtml:152
+#: application/adm/views/scripts/layout/extjsbased.phtml:157
 msgid "Session refreshed at"
 msgstr "Session aktualisiert um"
 
@@ -855,6 +925,7 @@ msgid "Set online / offline"
 msgstr "On- und offline stellen"
 
 #: application/adm/views/scripts/dialog/setcategoryonline.phtml:4
+#: application/adm/views/scripts/dialog/setcategorylocked.phtml:4
 msgid "Include the sub-categories?"
 msgstr "Unterkategorien einschliessen?"
 
@@ -957,47 +1028,39 @@ msgstr "Kategorie geschützt / Schutz aufgehoben"
 msgid "Category removed"
 msgstr "Kategorie entfernt"
 
-#: application/adm/views/scripts/acl/privilegelist.phtml:2
+#: application/adm/views/scripts/acl/privilegelist.phtml:3
 msgid "Add new privilege"
 msgstr "Neues Recht aufnehmen"
 
-#: application/adm/views/scripts/acl/userlist.phtml:3
-msgid "Add new user"
-msgstr "Neuen Benutzer hinzufügen"
-
-#: application/adm/views/scripts/acl/userlist.phtml:15
-msgid "Login"
-msgstr "Login"
-
-#: application/adm/views/scripts/acl/userlist.phtml:16
-msgid "Access from"
-msgstr "Zugriff von"
-
-#: application/adm/views/scripts/acl/userlist.phtml:17
-msgid "Access until"
-msgstr "Zugriff bis"
-
-#: application/adm/views/scripts/acl/index.phtml:4
+#: application/adm/views/scripts/acl/userlist.phtml:2
 msgid "Users"
 msgstr "Benutzer"
-
-#: application/adm/views/scripts/acl/index.phtml:7
-msgid "Roles"
-msgstr "Rollen"
-
-#: application/adm/views/scripts/acl/index.phtml:10
-msgid "Privileges"
-msgstr "Rechte"
-
-#: application/adm/views/scripts/acl/index.phtml:13
-msgid "Resources"
-msgstr "Ressourcen"
 
 #: application/adm/views/scripts/acl/resourcelist.phtml:2
 msgid "Add new resource"
 msgstr "Neue Ressource aufnehmen"
 
-#: application/adm/views/scripts/acl/rolelist.phtml:2
+#: application/adm/views/scripts/acl/profil.phtml:9
+#: application/adm/views/scripts/acl/edituser.phtml:9
+msgid "Saved"
+msgstr "Gespeichert"
+
+#: application/adm/views/scripts/acl/profil.phtml:9
+#: application/adm/views/scripts/acl/edituser.phtml:9
+msgid "Form data have been saved."
+msgstr "Die Formulardaten wurden gespeichert."
+
+#: application/adm/views/scripts/acl/profil.phtml:12
+#: application/adm/views/scripts/acl/edituser.phtml:13
+msgid "Form failure"
+msgstr "Formularfehler"
+
+#: application/adm/views/scripts/acl/profil.phtml:12
+#: application/adm/views/scripts/acl/edituser.phtml:13
+msgid "Form data have not been save due to errors."
+msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
+
+#: application/adm/views/scripts/acl/rolelist.phtml:3
 msgid "Add new role"
 msgstr "Neue Rolle aufnehmen"
 
@@ -1171,12 +1234,10 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1242,6 +1303,7 @@ msgid "Comments"
 msgstr "Kommentare"
 
 #: application/plugins/dashboard/contentAnalyzer/views/index.phtml:4
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:4
 msgid "Indicator"
 msgstr "Indikator"
 
@@ -1472,13 +1534,29 @@ msgstr "Als Index setzen"
 msgid "Publish"
 msgstr "Publizieren"
 
-#: application/plugins/category/standard/views/index.phtml:217
+#: application/plugins/category/standard/views/index.phtml:209
+msgid "Page cut"
+msgstr "Seite ausgeschnitten"
+
+#: application/plugins/category/standard/views/index.phtml:209
+msgid "The selected page has been put to the clipboard."
+msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
+
+#: application/plugins/category/standard/views/index.phtml:218
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: application/plugins/category/standard/views/index.phtml:218
+#: application/plugins/category/standard/views/index.phtml:219
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
+
+#: application/plugins/category/standard/views/index.phtml:228
+msgid "Page deleted"
+msgstr "Seite gelöscht"
+
+#: application/plugins/category/standard/views/index.phtml:228
+msgid "The selected page has been removed."
+msgstr "Die selektierte Seite wurde gelöscht."
 
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:5
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:28
@@ -1541,6 +1619,20 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
+#~ msgid "Add new user"
+#~ msgstr "Neuen Benutzer hinzufügen"
+#~ msgid "Login"
+#~ msgstr "Login"
+#~ msgid "Access from"
+#~ msgstr "Zugriff von"
+#~ msgid "Access until"
+#~ msgstr "Zugriff bis"
+#~ msgid "Roles"
+#~ msgstr "Rollen"
+#~ msgid "Privileges"
+#~ msgstr "Rechte"
+#~ msgid "Resources"
+#~ msgstr "Ressourcen"
 #~ msgid "Article tree"
 #~ msgstr "Artikelbaum"
 #~ msgid "Last opened articles"
@@ -1759,8 +1851,6 @@ msgstr "senden"
 #~ msgstr "Karussel-Text"
 #~ msgid "Load text"
 #~ msgstr "Lade-Text"
-#~ msgid "The index does not match the specified pattern."
-#~ msgstr "Der index entspricht nicht dem spezifizierten Muster."
 #~ msgid "Tailor"
 #~ msgstr "Tailor"
 #~ msgid "Contentbridge"

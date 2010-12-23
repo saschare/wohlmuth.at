@@ -44,6 +44,7 @@ var users = new Ext.grid.GridPanel({
 	            tooltip: 'Add new user',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
+	            	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>?'], null, this, false);
 	            }
 	        }
 	    ]
