@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-23 19:40+0100\n"
-"PO-Revision-Date: 2010-12-23 19:40+0100\n"
+"POT-Creation-Date: 2010-12-23 20:33+0100\n"
+"PO-Revision-Date: 2010-12-23 20:33+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,13 +44,17 @@ msgstr "Benutzer aktualisieren"
 msgid "The login is already in use."
 msgstr "Der Benutzername ist bereits in Gebrauch."
 
-#: application/adm/controllers/AclController.php:296
+#: application/adm/controllers/AclController.php:266
 msgid "Edit role"
 msgstr "Rolle editieren"
 
-#: application/adm/controllers/AclController.php:409
+#: application/adm/controllers/AclController.php:379
 msgid "Edit privilege"
 msgstr "Privileg aktualisieren"
+
+#: application/adm/controllers/AclController.php:471
+msgid "Edit resource"
+msgstr "Ressource editieren"
 
 #: application/adm/controllers/ClipboardController.php:24
 #, php-format
@@ -1054,6 +1058,22 @@ msgstr "Kategorie geschützt / Schutz aufgehoben"
 msgid "Category removed"
 msgstr "Kategorie entfernt"
 
+#: application/adm/views/scripts/acl/editresource.phtml:9
+msgid "Saved"
+msgstr "Gespeichert"
+
+#: application/adm/views/scripts/acl/editresource.phtml:9
+msgid "Form data have been saved."
+msgstr "Die Formulardaten wurden gespeichert."
+
+#: application/adm/views/scripts/acl/editresource.phtml:13
+msgid "Form failure"
+msgstr "Formularfehler"
+
+#: application/adm/views/scripts/acl/editresource.phtml:13
+msgid "Form data have not been save due to errors."
+msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
+
 #: application/adm/views/scripts/acl/privilegelist.phtml:2
 msgid "Privileges"
 msgstr "Rechte"
@@ -1121,34 +1141,6 @@ msgstr "Benutzer entfernt"
 #: application/adm/views/scripts/acl/userlist.phtml:84
 msgid "The selected user has been removed."
 msgstr "Der selektierte Benutzer wurde entfernt."
-
-#: application/adm/views/scripts/acl/editrole.phtml:9
-#: application/adm/views/scripts/acl/editprivilege.phtml:9
-#: application/adm/views/scripts/acl/profil.phtml:9
-#: application/adm/views/scripts/acl/edituser.phtml:9
-msgid "Saved"
-msgstr "Gespeichert"
-
-#: application/adm/views/scripts/acl/editrole.phtml:9
-#: application/adm/views/scripts/acl/editprivilege.phtml:9
-#: application/adm/views/scripts/acl/profil.phtml:9
-#: application/adm/views/scripts/acl/edituser.phtml:9
-msgid "Form data have been saved."
-msgstr "Die Formulardaten wurden gespeichert."
-
-#: application/adm/views/scripts/acl/editrole.phtml:13
-#: application/adm/views/scripts/acl/editprivilege.phtml:13
-#: application/adm/views/scripts/acl/profil.phtml:12
-#: application/adm/views/scripts/acl/edituser.phtml:13
-msgid "Form failure"
-msgstr "Formularfehler"
-
-#: application/adm/views/scripts/acl/editrole.phtml:13
-#: application/adm/views/scripts/acl/editprivilege.phtml:13
-#: application/adm/views/scripts/acl/profil.phtml:12
-#: application/adm/views/scripts/acl/edituser.phtml:13
-msgid "Form data have not been save due to errors."
-msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
 #: application/adm/views/scripts/acl/resourcelist.phtml:2
 msgid "Resources"
@@ -1411,7 +1403,6 @@ msgid "Add new project"
 msgstr "Neues Projekt aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/projectlist.phtml:15
-#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:17
 msgid "Customer"
 msgstr "Kunde"
 

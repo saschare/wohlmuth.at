@@ -252,36 +252,6 @@ class AclController extends Zend_Controller_Action {
 		));
 	}
 
-	public function newroleAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/role.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			$form->getElement('privileges')->setMultiOptions(Aitsu_Persistence_Privilege :: getAsArray());
-			$form->getElement('clients')->setMultiOptions(Aitsu_Persistence_Clients :: getAsArray());
-			$form->getElement('languages')->setMultiOptions(Aitsu_Persistence_Language :: getAsArray());
-			$form->getElement('resources')->setMultiOptions(Aitsu_Persistence_Resource :: getAsArray());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Role :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->roles = Aitsu_Persistence_Role :: getAll();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('acl/rolelist.phtml');
-	}
-
 	/**
 	 * Updates or inserts roles.
 	 * @since 2.1.0.0 - 23.12.2010
@@ -488,20 +458,79 @@ class AclController extends Zend_Controller_Action {
 		}
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function editresourceAction() {
 
 		$this->_helper->layout->disableLayout();
+
+		$id = $this->getRequest()->getParam('resourceid');
+
+		$form = Aitsu_Forms :: factory('editresource', APPLICATION_PATH . '/adm/forms/acl/resource.ini');
+		$form->title = Aitsu_Translate :: translate('Edit resource');
+		$form->url = $this->view->url();
+
+		if (!empty ($id)) {
+			$data = Aitsu_Persistence_Resource :: factory($id)->load()->toArray();
+			$form->setValues($data);
+		}
+
+		if (!$this->getRequest()->isPost()) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
+
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
+
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($id)) {
+					/*
+					 * New resource.
+					 */
+					unset ($values['resourceid']);
+					Aitsu_Persistence_Resource :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update resource.
+					 */
+					Aitsu_Persistence_Resource :: factory($id)->load()->setValues($values)->save();
+				}
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
+
+		/*$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender(true);
-
+		
 		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('resourceid') : $this->getRequest()->getParam('id');
-
+		
 		if ($this->getRequest()->getParam('cancel') != 1) {
-
+		
 			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/resource.ini', 'edit'));
 			$form->setAction($this->view->url());
-
+		
 			$res = Aitsu_Persistence_Resource :: factory($this->getRequest()->getParam('id'))->load();
-
+		
 			if ($res->resourcetype == 'art') {
 				$this->view->targetId = 'idart-' . $res->identifier;
 				$cats = Aitsu_Db :: fetchCol('' .
@@ -529,25 +558,25 @@ class AclController extends Zend_Controller_Action {
 			} else {
 				$this->view->targetId = null;
 			}
-
+		
 			if (!$this->getRequest()->isPost()) {
 				$form->setValues($res->toArray());
 			}
-
+		
 			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
 				$this->view->form = $form;
 				echo $this->view->render('acl/newresource.phtml');
 				return;
 			}
-
+		
 			$values = $form->getValues();
-
+		
 			Aitsu_Persistence_Resource :: factory()->setValues($values)->save();
 		} // else: form has been cancelled.
-
+		
 		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
-
-		echo $this->view->render('acl/resourcelist.phtml');
+		
+		echo $this->view->render('acl/resourcelist.phtml');*/
 	}
 
 	/**

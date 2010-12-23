@@ -81,7 +81,7 @@ class Aitsu_Forms {
 							$val = call_user_func(array (
 								'Aitsu_Forms_Validator_' . ucfirst($validator->type),
 								'factory'
-							), $validator->param->toArray());
+							), isset ($validator->param) ? $validator->param->toArray() : null);
 							if (!$val->isValid($_REQUEST[$key])) {
 								$target[$key] = $val->getMessage();
 							}
