@@ -57,7 +57,7 @@
 	            			height: '100%',
 	            			items: [
 	            				<?php echo $this->partial('layout/navigation/top.phtml'); ?>
-	            				<?php echo $this->partial('layout/navigation/languagechooser.phtml'); ?>
+	            				<?php echo $this->partial('layout/navigation/languagechooser.phtml'); ?>,
 	            				{
 						            text: 'Logout',
 						            iconCls: 'tm-logout',
@@ -126,46 +126,7 @@
             }]
         });
         
-        /* SESSION MANAGEMENT */
-        var sessionPeriod = <?php echo Aitsu_Registry :: get()->session->sessionPeriod > 300 ? Aitsu_Registry :: get()->session->sessionPeriod : 300; ?>;
-        var remainingSessionPeriod = sessionPeriod;
-		Ext.TaskMgr.start({
-		    run: function() {
-		    	remainingSessionPeriod--;
-		    	var h = Math.floor(remainingSessionPeriod / 60 / 60);
-		    	var m = Math.floor((remainingSessionPeriod - h * 60 * 60) / 60);
-		    	var s = Math.floor(remainingSessionPeriod - h * 60 * 60 - m * 60);
-		    	m = m < 10 ? '0' + m : m;
-		    	s = s < 10 ? '0' + s : s;
-		    	Ext.getCmp('session-clock').update('<?php echo Aitsu_Translate :: translate('Remaining session time'); ?>: ' + h + ' h ' + m + ' m ' + s + ' s');
-		    },
-		    interval: 1000
-		});
-		Ext.getBody().on('keydown', function() {
-			remainingSessionPeriod = sessionPeriod;
-		});
-		Ext.getBody().on('mousedown', function() {
-			remainingSessionPeriod = sessionPeriod;
-		});
-		Ext.TaskMgr.start({
-		    run: function() {
-		    	Ext.Ajax.request({
-				   url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'refreshsession'), 'default'); ?>',
-				   success: function(response, opts) {
-				      var res = Ext.decode(response.responseText);
-				      if (res.success) {
-				      	Ext.getCmp('basic-statusbar').setStatus('<?php echo Aitsu_Translate :: translate('Session refreshed at'); ?> ' + res.time);
-				      } else {
-				      	window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
-				      }
-				   },
-				   failure: function(response, opts) {
-				      alert('ERROR');
-				   }
-				});
-		    },
-		    interval: 300000
-		});
+		<?php echo $this->partial('layout/js/sessionManagement.phtml'); ?>
         
         <?php echo $this->layout()->content; ?>
     });

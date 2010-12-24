@@ -1,14 +1,25 @@
 new Ext.form.ComboBox({
+	store: new Ext.data.JsonStore({
+        url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'clientslangs'), 'default'); ?>',
+        root: 'data',
+        fields: ['idlang', 'identifier']
+    }),
 	margins: '0 40 0 40',
-	displayField: 'client-lang',
+	displayField: 'identifier',
+	valueField: 'idlang',
 	typeAhead: true,
-	mode: 'local',
 	triggerAction: 'all',
-	emptyText: 'Client / language',
+	emptyText: '<?php echo Aitsu_Persistence_Language :: getCurrentLangName(); ?>',
 	selectOnFocus: true,
 	width: 135,
-	getListParent: function() {
-		return this.el.up('.x-menu');
-	},
-	iconCls: 'no-icon'
-}),
+	iconCls: 'no-icon',
+	hiddenName: 'idlang',
+	listeners: {
+        beforequery: function(qe) {
+            delete qe.combo.lastQuery;
+        },
+        select: function(combo, record, index) {
+        	alert(record.get('idlang'));
+        }
+    }
+})

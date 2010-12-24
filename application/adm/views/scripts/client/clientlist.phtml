@@ -67,6 +67,7 @@ var clients = new Ext.grid.GridPanel({
 				            			if (rsp.success) {
 				            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Client removed'); ?>', '<?php echo Aitsu_Translate :: translate('The selected client has been removed.'); ?>');
 					            			var store = grid.getStore().remove(record); 
+					            			languages.getStore().load();
 				            			}
 				            		},
 				            		params: { idclient: record.get('idclient') }

@@ -83,4 +83,32 @@ class StoreController extends Zend_Controller_Action {
 		));
 	}
 
+	/**
+	 * Language and client data (for the dropdown to choose 
+	 * lang/client combination to work with).
+	 * @since 2.1.0.0 - 24.12.2010
+	 */
+	public function clientslangsAction() {
+
+		$results = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	lang.idlang, ' .
+		'	lang.name langname, ' .
+		'	client.name clientname ' .
+		'from _lang lang ' .
+		'left join _clients client on lang.idclient = client.idclient ');
+
+		$data = array ();
+		foreach ($results as $result) {
+			$data[] = (object) array (
+				'idlang' => $result['idlang'],
+				'identifier' => $result['clientname'] . ' / ' . $result['langname']
+			);
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
+
 }
