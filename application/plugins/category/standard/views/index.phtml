@@ -81,9 +81,9 @@ var categories = new Ext.grid.GridPanel({
              ]
         },
     	{dataIndex: 'id', header: 'ID', menuDisabled: true, sortable: true, width: 20},
-    	{dataIndex: 'title', header: 'Title', menuDisabled: true, sortable: true},
-    	{dataIndex: 'pagetitle', header: 'Pagetitle', menuDisabled: true, sortable: true},
-    	{dataIndex: 'urlname', header: 'URL name', menuDisabled: true, sortable: true}
+    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Page title'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'urlname', header: '<?php echo Aitsu_Translate :: translate('URL name'); ?>', menuDisabled: true, sortable: true}
 	],
 	viewConfig: {
 		forceFit: true,
@@ -246,4 +246,3 @@ var categories = new Ext.grid.GridPanel({
 });
 
 tabs.add(categories);
-tabs.setActiveTab(0);

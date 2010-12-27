@@ -158,6 +158,24 @@
     height: 16px;
     margin-right:5px;
 }
+.grid-page {
+    background-image: url(../images/icons/page.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+    position:relative;
+    left:-12px;
+}
+.grid-folder {
+    background-image: url(../images/icons/folder.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+    position:relative;
+    left:-12px;
+}
 .tb-add {
     background-image: url(../images/icons/add.png) !important; 
     background-repeat: no-repeat;

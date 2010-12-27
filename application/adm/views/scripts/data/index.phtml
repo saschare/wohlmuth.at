@@ -371,4 +371,8 @@ west.add(new Ext.Panel({
 	]
 }));
 
+Ext.getCmp('viewport-east').setVisible(false);
+
+<?php echo $this->partial('data/catplugins.phtml', array('plugins' => $this->plugins, 'idcat' => $this->idcat)); ?>
+
 Ext.getCmp('viewport').doLayout();

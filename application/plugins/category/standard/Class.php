@@ -21,7 +21,7 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 		return (object) array (
 			'name' => 'standard',
 			'tabname' => Aitsu_Translate :: translate('Overview'),
-			'enabled' => true,
+			'enabled' => !empty($idcat),
 			'position' => 0,
 			'id' => self :: ID
 		);		
@@ -30,13 +30,13 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 	public function indexAction() {
 
 		$idcat = $this->getRequest()->getParam('idcat');
-		$syncLang = $this->getRequest()->getParam('sync');
 		$cat = Aitsu_Persistence_Category :: factory($idcat)->load();
 
 		$this->view->usePublishing = isset(Aitsu_Registry :: get()->config->sys->usePublishing) &&  Aitsu_Registry :: get()->config->sys->usePublishing == true;
 		$this->view->idcat = $idcat;
 		$this->view->categoryname = $cat->name;
-		$this->view->articles = Aitsu_Persistence_View_Articles :: full($idcat, $syncLang);
+trigger_error('cat-name: ' . $cat->name);		
+		$this->view->articles = Aitsu_Persistence_View_Articles :: full($idcat, null);
 		$this->view->isInFavories = Aitsu_Persistence_CatFavorite :: factory($idcat)->load()->isInFavorites();
 		$this->view->isClipboardEmpty = !isset (Aitsu_Registry :: get()->session->clipboard->articles) || count(Aitsu_Registry :: get()->session->clipboard->articles) == 0;
 	}

@@ -72,25 +72,4 @@ var propsGrid = new Ext.grid.PropertyGrid({
     
 east.add(propsGrid);
 
-var center = Ext.getCmp('viewport-center');
-center.removeAll();
-
-var tabs = new Ext.TabPanel({
-	resizeTabs: false,
-	minTabWidth: 115,
-	tabWidth:135,
-	enableTabScroll:true,
-	defaults: {
-		autoScroll:true
-	}
-});
-
-center.add(tabs);
-
-Ext.getCmp('viewport').doLayout();
-
-<?php foreach ($this->plugins as $plugin) : ?>
-	Ext.Loader.load(['<?php echo $this->url(array('plugin' => $plugin->name, 'paction' => 'index', 'idcat' => $this->idcat), 'cplugin'); ?>'], null, this, false);
-<?php endforeach; ?>
-
-tabs.doLayout();
+<?php echo $this->partial('data/catplugins.phtml', array('plugins' => $this->plugins, 'idcat' => $this->idcat)); ?>

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-23 21:10+0100\n"
-"PO-Revision-Date: 2010-12-23 21:12+0100\n"
+"POT-Creation-Date: 2010-12-27 16:58+0100\n"
+"PO-Revision-Date: 2010-12-27 17:00+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -61,33 +61,33 @@ msgstr "Ressource editieren"
 msgid "Article with ID %s copied to clipboard."
 msgstr "Der Artikel mit der ID %s wurde in die Zwischenablage kopiert."
 
-#: application/adm/controllers/DataController.php:286
+#: application/adm/controllers/DataController.php:273
 msgid "Article"
 msgstr "Artikel"
 
-#: application/adm/controllers/DataController.php:332
+#: application/adm/controllers/DataController.php:319
 msgid "Article deleted"
 msgstr "Artikel gelöscht."
 
-#: application/adm/controllers/DataController.php:358
+#: application/adm/controllers/DataController.php:345
 msgid "An error occured while trying to set the specified article as index. "
 msgstr "Während dem Vorgang ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:377
+#: application/adm/controllers/DataController.php:364
 msgid "An error occured while trying to duplicate the specified article. "
 msgstr "Während der Duplizierung ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:399
-msgid "An error occured while trying to synchronize the specified article. "
-msgstr "Während der Synchronisation ist ein Fehler aufgetreten."
-
-#: application/adm/controllers/DataController.php:440
+#: application/adm/controllers/DataController.php:425
 msgid "Categories moved."
 msgstr "Die Kategorien wurden verschoben."
 
-#: application/adm/controllers/ClientController.php:92
+#: application/adm/controllers/ClientController.php:68
 msgid "Edit client"
 msgstr "Mandant editieren"
+
+#: application/adm/controllers/ClientController.php:130
+msgid "Edit language"
+msgstr "Sprache editieren"
 
 #: application/adm/controllers/ScriptController.php:26
 msgid "Access denied."
@@ -524,6 +524,10 @@ msgstr "Link hinzugefügt."
 msgid "Link removed."
 msgstr "Link entfernt."
 
+#: application/plugins/category/synchronization/Class.php:23
+msgid "Synchronization"
+msgstr "Synchronisation"
+
 #: application/plugins/category/standard/Class.php:23
 msgid "Overview"
 msgstr "Übersicht"
@@ -882,73 +886,77 @@ msgstr "Mandant entfernt"
 msgid "The selected client has been removed."
 msgstr "Der selektierte Mandant wurde entfernt."
 
-#: application/adm/views/scripts/client/languagelist.phtml:3
-msgid "Add new language"
-msgstr "Neue Sprache aufnehmen"
+#: application/adm/views/scripts/client/languagelist.phtml:2
+msgid "Languages"
+msgstr "Sprachen"
 
-#: application/adm/views/scripts/client/languagelist.phtml:11
+#: application/adm/views/scripts/client/languagelist.phtml:25
 msgid "Client"
 msgstr "Mandant"
 
-#: application/adm/views/scripts/client/languagelist.phtml:12
+#: application/adm/views/scripts/client/languagelist.phtml:26
 msgid "Locale"
 msgstr "Locale"
 
-#: application/adm/views/scripts/client/languagelist.phtml:13
+#: application/adm/views/scripts/client/languagelist.phtml:27
 msgid "Encoding"
 msgstr "Encodierung"
 
+#: application/adm/views/scripts/client/languagelist.phtml:37
+msgid "Add new language"
+msgstr "Neue Sprache aufnehmen"
+
+#: application/adm/views/scripts/client/languagelist.phtml:67
+msgid "Delete language"
+msgstr "Sprache löschen"
+
+#: application/adm/views/scripts/client/languagelist.phtml:68
+msgid "Are you sure to delete the selected language?"
+msgstr "Sind Sie sicher, dass Sie die selektierte Sprache löschen möchten?"
+
+#: application/adm/views/scripts/client/languagelist.phtml:77
+msgid "Language removed"
+msgstr "Sprache entfernt"
+
+#: application/adm/views/scripts/client/languagelist.phtml:77
+msgid "The selected language has been removed."
+msgstr "Die selektierte Sprache wurde entfernt."
+
+#: application/adm/views/scripts/client/editlanguage.phtml:9
 #: application/adm/views/scripts/client/editclient.phtml:9
 msgid "Saved"
 msgstr "Gespeichert"
 
+#: application/adm/views/scripts/client/editlanguage.phtml:9
 #: application/adm/views/scripts/client/editclient.phtml:9
 msgid "Form data have been saved."
 msgstr "Die Formulardaten wurden gespeichert."
 
+#: application/adm/views/scripts/client/editlanguage.phtml:13
 #: application/adm/views/scripts/client/editclient.phtml:13
 msgid "Form failure"
 msgstr "Formularfehler"
 
+#: application/adm/views/scripts/client/editlanguage.phtml:13
 #: application/adm/views/scripts/client/editclient.phtml:13
 msgid "Form data have not been save due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
-#: application/adm/views/scripts/layout/extjsbased.phtml:140
+#: application/adm/views/scripts/layout/js/sessionManagement.phtml:12
 msgid "Remaining session time"
 msgstr "Verbleibende Sessiondauer"
 
-#: application/adm/views/scripts/layout/extjsbased.phtml:157
+#: application/adm/views/scripts/layout/js/sessionManagement.phtml:29
 msgid "Session refreshed at"
 msgstr "Session aktualisiert um"
 
-#: application/adm/views/scripts/layout/subnav.phtml:4
-msgid "Menu"
-msgstr "Menu"
+#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:23
+msgid "Language changed"
+msgstr "Sprache gewechselt"
 
-#: application/adm/views/scripts/layout/yamlbased.phtml:234
-msgid "No"
-msgstr "Nein"
-
-#: application/adm/views/scripts/layout/yamlbased.phtml:237
-msgid "Yes"
-msgstr "Ja"
-
-#: application/adm/views/scripts/layout/js/sessionManagement.phtml:20
-msgid "Attention: temporarily lost connection. The session is not refreshed. Store unsaved changes into clipboard."
-msgstr "Achtung: Die Verbindung ist unterbrochen. Die Session wird nicht aktualisiert. Speichern Sie nicht gespeicherte Inhalte in die Zwischenablage."
-
-#: application/adm/views/scripts/layout/js/sessionManagement.phtml:23
-msgid "Session refreshed @ "
-msgstr "Session aktualisiert um"
-
-#: application/adm/views/scripts/layout/js/sessionManagement.phtml:36
-msgid "Attention: the session will be closed in "
-msgstr "Achtung: Die Session wird geschlossen in"
-
-#: application/adm/views/scripts/layout/js/sessionManagement.phtml:36
-msgid "seconds"
-msgstr "Sekunden"
+#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:23
+msgid "The language has been changed."
+msgstr "Die Sprache wurde gewechselt."
 
 #: application/adm/views/scripts/translation/translationlist.phtml:3
 msgid "Refresh list"
@@ -1037,6 +1045,18 @@ msgstr "Sync"
 #: application/adm/views/scripts/category/index.phtml:89
 msgid "Category added"
 msgstr "Kategorie hinzugefügt"
+
+#: application/adm/views/scripts/category/index.phtml:109
+#: application/adm/views/scripts/category/index.phtml:151
+#: application/adm/views/scripts/category/index.phtml:184
+msgid "No"
+msgstr "Nein"
+
+#: application/adm/views/scripts/category/index.phtml:112
+#: application/adm/views/scripts/category/index.phtml:156
+#: application/adm/views/scripts/category/index.phtml:189
+msgid "Yes"
+msgstr "Ja"
 
 #: application/adm/views/scripts/category/index.phtml:123
 msgid "OK"
@@ -1336,6 +1356,10 @@ msgstr "Version"
 msgid "URL"
 msgstr "URL"
 
+#: application/plugins/generic/system/modules/views/subnav.phtml:3
+msgid "Menu"
+msgstr "Menu"
+
 #: application/plugins/generic/system/modules/views/index.phtml:4
 msgid "Modules"
 msgstr "Module"
@@ -1373,10 +1397,12 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1665,6 +1691,19 @@ msgstr "Links entfernen"
 msgid "Yes, remove the links"
 msgstr "Ja, Links löschen"
 
+#: application/plugins/category/synchronization/views/index.phtml:10
+msgid "Synchronization language"
+msgstr "Synchronisationssprache"
+
+#: application/plugins/category/synchronization/views/index.phtml:58
+#: application/plugins/category/standard/views/index.phtml:85
+msgid "Page title"
+msgstr "Seitentitel"
+
+#: application/plugins/category/standard/views/index.phtml:86
+msgid "URL name"
+msgstr "URL-Name"
+
 #: application/plugins/category/standard/views/index.phtml:132
 msgid "Set as index"
 msgstr "Als Index setzen"
@@ -1750,10 +1789,23 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
+#~ msgid "An error occured while trying to synchronize the specified article. "
+#~ msgstr "Während der Synchronisation ist ein Fehler aufgetreten."
+#~ msgid ""
+#~ "Attention: temporarily lost connection. The session is not refreshed. "
+#~ "Store unsaved changes into clipboard."
+#~ msgstr ""
+#~ "Achtung: Die Verbindung ist unterbrochen. Die Session wird nicht "
+#~ "aktualisiert. Speichern Sie nicht gespeicherte Inhalte in die "
+#~ "Zwischenablage."
+#~ msgid "Session refreshed @ "
+#~ msgstr "Session aktualisiert um"
+#~ msgid "Attention: the session will be closed in "
+#~ msgstr "Achtung: Die Session wird geschlossen in"
+#~ msgid "seconds"
+#~ msgstr "Sekunden"
 #~ msgid "Configuration"
 #~ msgstr "Konfiguration"
-#~ msgid "Languages"
-#~ msgstr "Sprachen"
 #~ msgid "Article tree"
 #~ msgstr "Artikelbaum"
 #~ msgid "Last opened articles"
@@ -1762,16 +1814,12 @@ msgstr "senden"
 #~ msgstr "Aktuelle Version publizieren"
 #~ msgid "Current version is online"
 #~ msgstr "Aktuelle Version ist online."
-#~ msgid "Page title"
-#~ msgstr "Seitentitel"
 #~ msgid "Add new article"
 #~ msgstr "Neuen Artikel erstellen"
 #~ msgid "Paste from clipboard"
 #~ msgstr "Einfügen (aus Zwischenablage)"
 #~ msgid "Remove from favorites"
 #~ msgstr "Aus Favoriten entfernen"
-#~ msgid "URL name"
-#~ msgstr "URL-Name"
 #~ msgid "Differences to published version"
 #~ msgstr "Unterschiede zur publizierten Version"
 #~ msgid "Referesh"
@@ -1830,8 +1878,6 @@ msgstr "senden"
 #~ msgstr "Gruppe B"
 #~ msgid "Group C"
 #~ msgstr "Gruppe C"
-#~ msgid "Language Tags"
-#~ msgstr "Sprachtags"
 #~ msgid "English"
 #~ msgstr "Englisch"
 #~ msgid "Deutsch"

@@ -199,16 +199,16 @@ class CategoryController extends Zend_Controller_Action {
 		$next = $this->getRequest()->getParam('next');
 		$previous = $this->getRequest()->getParam('previous');
 
-		try {			
+		try {
 			$cat = Aitsu_Persistence_Category :: factory($idcat);
 
-			if (empty($next) && empty($previous)) {
+			if (empty ($next) && empty ($previous)) {
 				$cat->moveInsideCat($parentid);
 			}
-			elseif (!empty($next)) {
+			elseif (!empty ($next)) {
 				$cat->moveBeforeCat($next);
 			}
-			elseif (!empty($previous)) {
+			elseif (!empty ($previous)) {
 				$cat->moveAfterCat($previous);
 			}
 		} catch (Exception $e) {
@@ -227,23 +227,21 @@ class CategoryController extends Zend_Controller_Action {
 
 	public function syncAction() {
 
-		try {
-			$tmp = explode('-', $this->getRequest()->getParam('id'));
-			$idcat = $tmp[1];
-			$syncLang = $this->getRequest()->getParam('syncLang');
+		$idcat = $this->getRequest()->getParam('idcat');
+		$syncLang = $this->getRequest()->getParam('synclang');
 
+		try {
 			Aitsu_Persistence_Category :: factory($idcat)->synchronize($syncLang);
-		} catch (Exception $e) {
 			$this->_helper->json(array (
+				'success' => true
+			));
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
 				'status' => 'exception',
 				'message' => $e->getMessage(),
 				'stacktrace' => $e->getTraceAsString()
 			));
 		}
-
-		$this->_helper->json(array (
-			'status' => 'success',
-			'idcat' => $idcat
-		));
 	}
 }

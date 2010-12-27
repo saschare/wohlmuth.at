@@ -84,6 +84,37 @@ class StoreController extends Zend_Controller_Action {
 	}
 
 	/**
+	 * Available sync langs.
+	 * @since 2.1.0.0 - 27.12.2010
+	 */
+	public function synclangAction() {
+
+		$results = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	idlang, ' .
+		'	name ' .
+		'from _lang ' .
+		'where ' .
+		'	idclient = :idclient ' .
+		'	and idlang != :idlang', array (
+			':idclient' => Aitsu_Registry :: get()->session->currentClient,
+			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+		));
+
+		$data = array ();
+		foreach ($results as $result) {
+			$data[] = (object) array (
+				'idlang' => $result['idlang'],
+				'name' => $result['name']
+			);
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
+
+	/**
 	 * Language and client data (for the dropdown to choose 
 	 * lang/client combination to work with).
 	 * @since 2.1.0.0 - 24.12.2010
@@ -111,4 +142,80 @@ class StoreController extends Zend_Controller_Action {
 		));
 	}
 
+	public function synccontentAction() {
+
+		$idcat = $this->getRequest()->getParam('idcat');
+		$idlang = $this->getRequest()->getParam('idlang');
+		$currentLang = Aitsu_Registry :: get()->session->currentLanguage;
+
+		$data = array ();
+
+		$cats = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	catlang.idcatlang, ' .
+		'	catlang.idcat, ' .
+		'	catlang.name ' .
+		'from _cat_lang catlang ' .
+		'left join _cat cat on catlang.idcat = cat.idcat ' .
+		'left join _cat_lang scatlang on catlang.idcat = scatlang.idcat and scatlang.idlang = :clang ' .
+		'where ' .
+		'	cat.parentid = :parentid ' .
+		'	and catlang.idlang = :idlang ' .
+		'	and scatlang.idcat is null ' .
+		'order by ' .
+		'	cat.lft asc ' .
+		'	', array (
+			':parentid' => $idcat,
+			':idlang' => $idlang,
+			':clang' => $currentLang
+		));
+
+		if ($cats) {
+			foreach ($cats as $cat) {
+				$data[] = (object) array (
+					'id' => $cat['idcatlang'],
+					'idv' => $cat['idcat'],
+					'type' => 'cat',
+					'title' => $cat['name'],
+					'pagetitle' => ''
+				);
+			}
+		}
+
+		$arts = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	artlang.idartlang, ' .
+		'	artlang.idart, ' .
+		'	artlang.title, ' .
+		'	artlang.pagetitle ' .
+		'from _art_lang artlang ' .
+		'left join _cat_art catart on artlang.idart = catart.idart ' .
+		'left join _art_lang sartlang on artlang.idart = sartlang.idart and sartlang.idlang = :clang ' .
+		'where ' .
+		'	artlang.idlang = :idlang ' .
+		'	and catart.idcat = :idcat ' .
+		'	and sartlang.idart is null ' .
+		'order by ' .
+		'	artlang.title ', array (
+			':idcat' => $idcat,
+			':idlang' => $idlang,
+			'clang' => $currentLang
+		));
+
+		if ($arts) {
+			foreach ($arts as $art) {
+				$data[] = (object) array (
+					'id' => $art['idartlang'],
+					'idv' => $art['idart'],
+					'type' => 'art',
+					'title' => $art['title'],
+					'pagetitle' => $art['pagetitle']
+				);
+			}
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
 }

@@ -25,40 +25,19 @@ class DataController extends Zend_Controller_Action {
 
 		header("Content-type: text/javascript");
 
-		$langs = Aitsu_Persistence_Language :: getByClient(Aitsu_Registry :: get()->session->currentClient);
-
-		/*
-		 * Add plugins' head to the head and plugins' js at the bottom
-		 * of the current page.
-		 */
-		$plugins = Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/plugins/article', 'Class.php');
-		$this->view->plugins = array ();
-		$this->view->addScriptPath(APPLICATION_PATH . '/plugins/article');
-		foreach ($plugins as $plugin) {
-			$parts = preg_split('@[\\/]@', $plugin);
-			$pluginName = $parts[count($parts) - 2];
-			include_once ($plugin);
-			$controller = ucfirst($pluginName) . 'Article';
-			$controllerClass = $controller . 'Controller';
-			$registry = call_user_func(array (
-				$controllerClass,
-				'register'
-			), null);
-			if ($registry->enabled) {
-				if (is_readable(APPLICATION_PATH . '/plugins/article/' . $pluginName . '/views/meta.phtml')) {
-					$this->view->partial($pluginName . '/views/meta.phtml');
-				}
-				$this->view->plugins[] = $registry;
-			}
+		$setIdlang = $this->getRequest()->getParam('setidlang');
+		if (!empty ($setIdlang)) {
+			Aitsu_Registry :: get()->session->currentLanguage = $setIdlang;
+			Aitsu_Registry :: get()->session->currentClient = Aitsu_Db :: fetchOne('' .
+			'select idclient from _lang where idlang = :idlang', array (
+				':idlang' => $setIdlang
+			));
 		}
-
-		uasort($this->view->plugins, array (
-			$this,
-			'_comparePosition'
-		));
 
 		$this->view->articles = Aitsu_Persistence_Lastopened :: factory(1)->load()->get(100);
 		$this->view->favorites = Aitsu_Persistence_CatFavorite :: getAll();
+
+		$this->_loadCategoryPlugins(0);
 	}
 
 	public function lastopenedAction() {
@@ -135,7 +114,7 @@ class DataController extends Zend_Controller_Action {
 	 * necessary async tree information.
 	 */
 	public function treesourceAction() {
-
+		$syncLang = 0;
 		$return = array ();
 
 		$id = $this->getRequest()->getParam('node');
@@ -240,11 +219,19 @@ class DataController extends Zend_Controller_Action {
 		$id = $this->getRequest()->getParam('id');
 
 		$this->view->cat = Aitsu_Persistence_Category :: factory($id)->getData();
-		
-		$configSets = array(array(0, '[inherit]'));
+
+		$configSets = array (
+			array (
+				0,
+				'[inherit]'
+			)
+		);
 		$cSets = Aitsu_Persistence_ConfigSet :: getByName();
 		foreach ($cSets as $set) {
-			$configSets[] = array($set->configsetid, $set->identifier);
+			$configSets[] = array (
+				$set->configsetid,
+				$set->identifier
+			);
 		}
 		$this->view->configSets = $configSets;
 
@@ -381,22 +368,20 @@ class DataController extends Zend_Controller_Action {
 
 	public function syncAction() {
 
-		$id = $this->getRequest()->getParam('id');
-		$idart = substr($id, strlen('idart-'));
-		$syncLang = $this->getRequest()->getParam('sync');
+		$idart = $this->getRequest()->getParam('idart');
+		$syncLang = $this->getRequest()->getParam('synclang');
 
 		try {
 			Aitsu_Persistence_Article :: factory($idart)->sync($syncLang);
 			$this->_helper->json(array (
-				'status' => 'success',
-				'message' => ''
+				'success' => true
 			));
 		} catch (Exception $e) {
-			trigger_error('Exception occured. Thrown at ' . __FILE__ . ' on line ' . __LINE__);
-			trigger_error($e->getTraceAsString());
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'success' => false,
 				'status' => 'exception',
-				'message' => Zend_Registry :: get('Zend_Translate')->translate('An error occured while trying to synchronize the specified article. ')
+				'message' => $e->getMessage(),
+				'stacktrace' => $e->getTraceAsString()
 			));
 		}
 	}
@@ -440,14 +425,14 @@ class DataController extends Zend_Controller_Action {
 			'message' => Aitsu_Translate :: translate('Categories moved.')
 		));
 	}
-	
+
 	public function movepageAction() {
-		
+
 		$idart = $this->getRequest()->getParam('idart');
 		$idcat = $this->getRequest()->getParam('idcat');
-		
+
 		Aitsu_Persistence_Article :: factory($idart)->moveTo($idcat);
-		
+
 		$this->_helper->json((object) array (
 			'success' => true
 		));
