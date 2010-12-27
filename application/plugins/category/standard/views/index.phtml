@@ -1,17 +1,15 @@
 var categories = new Ext.grid.GridPanel({
 	title: '<?php echo addslashes($this->categoryname); ?>',
-	store: new Ext.data.ArrayStore({
-		fields: [
-			{name: 'id'},
-			{name: 'title'},
-			{name: 'pagetitle'},
-			{name: 'urlname'},
-			{name: 'online'},
-			{name: 'published'},
-			{name: 'isstart'}
-		],
-		data: <?php echo Aitsu_Util_Javascript :: getArrayString($this->articles, array('idart', 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart')); ?>
-    }),
+	store: new Ext.data.JsonStore({
+		url: '<?php echo $this->url(array('paction' => 'articles')); ?>',
+		root: 'data',
+		fields: ['id', 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart'],
+		autoLoad: {
+			params: {
+				idcat: <?php echo $this->idcat; ?>
+			}
+		}
+	}),
     columns: [
     	{
     		xtype: 'actioncolumn',

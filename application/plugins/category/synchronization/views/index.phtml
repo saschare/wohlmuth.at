@@ -96,6 +96,11 @@ var syncGrid = new Ext.grid.GridPanel({
 							}
 						});
 						reloadTree(<?php echo $this->idcat; ?>, pagetree);
+						categories.getStore().load({
+							params: {
+								idcat: <?php echo $this->idcat; ?>
+							}
+						});
 					},
 					params: {
 						idart: rec.get('idv'),
