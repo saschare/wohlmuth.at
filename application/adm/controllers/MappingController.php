@@ -2,8 +2,6 @@
 
 
 /**
- * Index controller.
- * @version $Id: MappingController.php 18794 2010-09-16 19:25:49Z akm $
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
@@ -21,9 +19,13 @@ class MappingController extends Zend_Controller_Action {
 			))) {
 			throw new Exception('Access denied');
 		}
+		
+		$this->_helper->layout->disableLayout();
 	}
 
 	public function indexAction() {
+		
+		header("Content-type: text/javascript");
 
 		if (!file_exists(APPLICATION_PATH . '/configs/mapping.ini')) {
 			$this->view->error = 1;

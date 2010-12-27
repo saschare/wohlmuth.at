@@ -1,46 +1,56 @@
-<div class="tabs">
-	<ul>
-		<li>
-			<a href="#tab-mapping"><?php echo $this->translate('Mappings'); ?></a>
-		</li>
-	</ul>
-	
-	<div id="tab-mapping">
-		<div class="tab-content ajax-target">
-			<?php if (isset($this->error)) : ?>
-				<?php if ($this->error == 1) : ?>
-					<?php echo $this->translate('The file /application/configs/mapping.ini does not exist. Please create the file and set the file privileges accordingly to enable the system to write into the file.'); ?>
-				<?php elseif ($this->error == 2) : ?>
-					<?php echo $this->translate('The system does not have enough privileges to write into the file /application/configs/mapping.ini. If you wish to manage its data from within the backend, you need to set the privileges accordingly.'); ?>
-				<?php endif; ?>
-			<?php else : ?>
-				<?php echo $this->partial('mapping/list.phtml', array('mappings' => $this->mappings)); ?>
-			<?php endif; ?>
-		</div>
-	</div>
-</div>
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
 
-<?php $this->inlineScript()->captureStart(); ?>
-$(function() {
-	
-	$(document).bind('bindclicks', function() {
-		$('#add-new-mapping').live('click', function() {
-			$('#tab-mapping div.tab-content').load('<?php echo $this->url(); ?>/new', function() {
-				$(document).trigger('formload');		
-			});
-			return false;
-		});		
-	});
-	$(document).trigger('bindclicks');
-	
-	$(document).bind('listload', function(event, area, data) {
-		if (data != null) {
-			$(area).html(data)
+var mappingGrid = new Ext.grid.GridPanel({
+	title: '<?php echo Aitsu_Translate :: translate('Mapping'); ?>',
+	store: new Ext.data.JsonStore({
+		url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'synccontent'), 'default'); ?>',
+		root: 'data',
+		fields: ['id', 'idv', 'type', 'title']
+	}),
+    columns: [
+    	{
+    		xtype: 'actioncolumn',
+    		width: 1,
+    		align: 'left',
+    		menuDisabled: true, 
+            sortable: false,
+    		items: [
+    			{
+                    getClass: function(v, meta, rec) {
+                    	if (rec.get('type') == 'cat') {
+                    		return 'grid-folder';
+                    	} else {
+                    		return 'grid-page';
+                    	}
+                    }
+    			}
+    		]
+    	},
+    	{dataIndex: 'idv', header: 'ID', menuDisabled: true, sortable: true, width: 10},
+    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Page title'); ?>', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	tbar: {
+	},
+	listeners: {
+		rowclick: function(grid, rowIndex, event) {
+			var rec = grid.getStore().getAt(rowIndex);
+			Ext.Ajax.request({
+				url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'sync'), 'default'); ?>',
+				success: function() {},
+				params: {
+					idart: rec.get('idv')
+				}
+			});					
 		}
-     	$(document).trigger('refreshButtons');
-     	$(document).trigger('contextmenu');
-     	$(document).trigger('formload');
-	});	
-		
-});	
-<?php $this->inlineScript()->captureEnd(); ?>
+	}
+});
+
+center.add(mappingGrid);
+
+Ext.getCmp('viewport').doLayout();
