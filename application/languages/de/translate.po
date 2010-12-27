@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-27 16:58+0100\n"
-"PO-Revision-Date: 2010-12-27 17:00+0100\n"
+"POT-Creation-Date: 2010-12-27 19:38+0100\n"
+"PO-Revision-Date: 2010-12-27 19:39+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,18 +17,15 @@ msgstr ""
 "X-Poedit-SearchPath-0: application\n"
 "X-Poedit-SearchPath-1: library/Aitsu\n"
 
-#: application/adm/controllers/MappingController.php:66
-#: application/adm/controllers/MappingController.php:207
-msgid "First"
-msgstr "Erste"
+#: application/adm/controllers/MappingController.php:170
+msgid "Edit mapping"
+msgstr "Mapping editieren"
 
-#: application/adm/controllers/MappingController.php:68
-#: application/adm/controllers/MappingController.php:209
+#: application/adm/controllers/MappingController.php:177
 msgid "before"
 msgstr "vor"
 
-#: application/adm/controllers/MappingController.php:70
-#: application/adm/controllers/MappingController.php:211
+#: application/adm/controllers/MappingController.php:182
 msgid "Last"
 msgstr "Letzte"
 
@@ -61,23 +58,23 @@ msgstr "Ressource editieren"
 msgid "Article with ID %s copied to clipboard."
 msgstr "Der Artikel mit der ID %s wurde in die Zwischenablage kopiert."
 
-#: application/adm/controllers/DataController.php:273
+#: application/adm/controllers/DataController.php:204
 msgid "Article"
 msgstr "Artikel"
 
-#: application/adm/controllers/DataController.php:319
+#: application/adm/controllers/DataController.php:250
 msgid "Article deleted"
 msgstr "Artikel gelöscht."
 
-#: application/adm/controllers/DataController.php:345
+#: application/adm/controllers/DataController.php:276
 msgid "An error occured while trying to set the specified article as index. "
 msgstr "Während dem Vorgang ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:364
+#: application/adm/controllers/DataController.php:295
 msgid "An error occured while trying to duplicate the specified article. "
 msgstr "Während der Duplizierung ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:425
+#: application/adm/controllers/DataController.php:356
 msgid "Categories moved."
 msgstr "Die Kategorien wurden verschoben."
 
@@ -770,9 +767,11 @@ msgid "New sub-category"
 msgstr "Neue Unterkategorie erstellen"
 
 #: application/adm/views/scripts/data/index.phtml:145
+#: application/adm/views/scripts/mapping/index.phtml:45
 #: application/adm/views/scripts/contextmenu/editdelete.phtml:6
 #: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:12
 #: application/adm/views/scripts/client/clientlist.phtml:54
+#: application/adm/views/scripts/client/languagelist.phtml:63
 msgid "Delete"
 msgstr "Löschen"
 
@@ -822,21 +821,45 @@ msgstr "Favoriten"
 msgid "Remove"
 msgstr "Entfernen"
 
-#: application/adm/views/scripts/mapping/list.phtml:2
-msgid "New"
-msgstr "Neu"
+#: application/adm/views/scripts/mapping/edit.phtml:9
+msgid "Saved"
+msgstr "Gespeichert"
 
-#: application/adm/views/scripts/mapping/list.phtml:6
-msgid "The mappings table is currently empty."
-msgstr "Die Mapping-Tabelle ist zurzeit leer."
+#: application/adm/views/scripts/mapping/edit.phtml:9
+msgid "Form data have been saved."
+msgstr "Die Formulardaten wurden gespeichert."
 
-#: application/adm/views/scripts/mapping/index.phtml:12
-msgid "The file /application/configs/mapping.ini does not exist. Please create the file and set the file privileges accordingly to enable the system to write into the file."
-msgstr "Die Datei /application/configs/mapping.ini existiert nicht. Bitte erstellen Sie die Datei und setzen Sie die Dateirechte so, dass das System in die Datei schreiben kann."
+#: application/adm/views/scripts/mapping/edit.phtml:13
+msgid "Form failure"
+msgstr "Formularfehler"
 
-#: application/adm/views/scripts/mapping/index.phtml:14
-msgid "The system does not have enough privileges to write into the file /application/configs/mapping.ini. If you wish to manage its data from within the backend, you need to set the privileges accordingly."
-msgstr "Das System hat nicht ausreichend Rechte, um in die die Datei /application/configs/mapping.ini zu schreiben. Wenn Sie die Daten mit Hilfe des Systems pflegen möchten, dann müssen Sie die Dateirechte entsprechend setzen."
+#: application/adm/views/scripts/mapping/edit.phtml:13
+msgid "Form data have not been save due to errors."
+msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
+
+#: application/adm/views/scripts/mapping/index.phtml:5
+msgid "Mapping"
+msgstr "Mapping"
+
+#: application/adm/views/scripts/mapping/index.phtml:24
+msgid "Add new mapping"
+msgstr "Neues Mapping aufnehmen"
+
+#: application/adm/views/scripts/mapping/index.phtml:49
+msgid "Delete mapping"
+msgstr "Mapping löschen"
+
+#: application/adm/views/scripts/mapping/index.phtml:50
+msgid "Are you sure to delete the selected mapping?"
+msgstr "Sind Sie sicher, dass Sie das selektierte Mapping löschen möchten?"
+
+#: application/adm/views/scripts/mapping/index.phtml:59
+msgid "Mapping removed"
+msgstr "Mapping entfernt"
+
+#: application/adm/views/scripts/mapping/index.phtml:59
+msgid "The selected mapping has been removed."
+msgstr "Das selektierte Mapping wurde gelöscht."
 
 #: application/adm/views/scripts/plugin/index.phtml:1
 msgid "Access denied"
@@ -921,26 +944,6 @@ msgstr "Sprache entfernt"
 #: application/adm/views/scripts/client/languagelist.phtml:77
 msgid "The selected language has been removed."
 msgstr "Die selektierte Sprache wurde entfernt."
-
-#: application/adm/views/scripts/client/editlanguage.phtml:9
-#: application/adm/views/scripts/client/editclient.phtml:9
-msgid "Saved"
-msgstr "Gespeichert"
-
-#: application/adm/views/scripts/client/editlanguage.phtml:9
-#: application/adm/views/scripts/client/editclient.phtml:9
-msgid "Form data have been saved."
-msgstr "Die Formulardaten wurden gespeichert."
-
-#: application/adm/views/scripts/client/editlanguage.phtml:13
-#: application/adm/views/scripts/client/editclient.phtml:13
-msgid "Form failure"
-msgstr "Formularfehler"
-
-#: application/adm/views/scripts/client/editlanguage.phtml:13
-#: application/adm/views/scripts/client/editclient.phtml:13
-msgid "Form data have not been save due to errors."
-msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
 #: application/adm/views/scripts/layout/js/sessionManagement.phtml:12
 msgid "Remaining session time"
@@ -1027,6 +1030,10 @@ msgstr "Aktuell ist nur eine Sprache verfügbar. Eine Synchronisation ist deshal
 #: application/adm/views/scripts/category/index.phtml:4
 msgid "Categories"
 msgstr "Kategorien"
+
+#: application/adm/views/scripts/category/index.phtml:12
+msgid "New"
+msgstr "Neu"
 
 #: application/adm/views/scripts/category/index.phtml:14
 msgid "Visiblity"
@@ -1324,7 +1331,6 @@ msgid "File selection"
 msgstr "Dateiauswahl"
 
 #: application/plugins/generic/system/modules/views/list.phtml:7
-#: application/plugins/generic/system/modules/views/detail.phtml:34
 msgid "Status"
 msgstr "Status"
 
@@ -1696,43 +1702,43 @@ msgid "Synchronization language"
 msgstr "Synchronisationssprache"
 
 #: application/plugins/category/synchronization/views/index.phtml:58
-#: application/plugins/category/standard/views/index.phtml:85
+#: application/plugins/category/standard/views/index.phtml:83
 msgid "Page title"
 msgstr "Seitentitel"
 
-#: application/plugins/category/standard/views/index.phtml:86
+#: application/plugins/category/standard/views/index.phtml:84
 msgid "URL name"
 msgstr "URL-Name"
 
-#: application/plugins/category/standard/views/index.phtml:132
+#: application/plugins/category/standard/views/index.phtml:130
 msgid "Set as index"
 msgstr "Als Index setzen"
 
-#: application/plugins/category/standard/views/index.phtml:184
+#: application/plugins/category/standard/views/index.phtml:182
 msgid "Publish"
 msgstr "Publizieren"
 
-#: application/plugins/category/standard/views/index.phtml:209
+#: application/plugins/category/standard/views/index.phtml:207
 msgid "Page cut"
 msgstr "Seite ausgeschnitten"
 
-#: application/plugins/category/standard/views/index.phtml:209
+#: application/plugins/category/standard/views/index.phtml:207
 msgid "The selected page has been put to the clipboard."
 msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
 
-#: application/plugins/category/standard/views/index.phtml:218
+#: application/plugins/category/standard/views/index.phtml:216
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: application/plugins/category/standard/views/index.phtml:219
+#: application/plugins/category/standard/views/index.phtml:217
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
-#: application/plugins/category/standard/views/index.phtml:228
+#: application/plugins/category/standard/views/index.phtml:226
 msgid "Page deleted"
 msgstr "Seite gelöscht"
 
-#: application/plugins/category/standard/views/index.phtml:228
+#: application/plugins/category/standard/views/index.phtml:226
 msgid "The selected page has been removed."
 msgstr "Die selektierte Seite wurde gelöscht."
 
@@ -1789,6 +1795,27 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
+#~ msgid "First"
+#~ msgstr "Erste"
+#~ msgid "The mappings table is currently empty."
+#~ msgstr "Die Mapping-Tabelle ist zurzeit leer."
+#~ msgid ""
+#~ "The file /application/configs/mapping.ini does not exist. Please create "
+#~ "the file and set the file privileges accordingly to enable the system to "
+#~ "write into the file."
+#~ msgstr ""
+#~ "Die Datei /application/configs/mapping.ini existiert nicht. Bitte "
+#~ "erstellen Sie die Datei und setzen Sie die Dateirechte so, dass das "
+#~ "System in die Datei schreiben kann."
+#~ msgid ""
+#~ "The system does not have enough privileges to write into the file /"
+#~ "application/configs/mapping.ini. If you wish to manage its data from "
+#~ "within the backend, you need to set the privileges accordingly."
+#~ msgstr ""
+#~ "Das System hat nicht ausreichend Rechte, um in die die Datei /application/"
+#~ "configs/mapping.ini zu schreiben. Wenn Sie die Daten mit Hilfe des "
+#~ "Systems pflegen möchten, dann müssen Sie die Dateirechte entsprechend "
+#~ "setzen."
 #~ msgid "An error occured while trying to synchronize the specified article. "
 #~ msgstr "Während der Synchronisation ist ein Fehler aufgetreten."
 #~ msgid ""
