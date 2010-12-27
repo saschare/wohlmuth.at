@@ -35,7 +35,6 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 		$this->view->usePublishing = isset(Aitsu_Registry :: get()->config->sys->usePublishing) &&  Aitsu_Registry :: get()->config->sys->usePublishing == true;
 		$this->view->idcat = $idcat;
 		$this->view->categoryname = $cat->name;
-trigger_error('cat-name: ' . $cat->name);		
 		$this->view->articles = Aitsu_Persistence_View_Articles :: full($idcat, null);
 		$this->view->isInFavories = Aitsu_Persistence_CatFavorite :: factory($idcat)->load()->isInFavorites();
 		$this->view->isClipboardEmpty = !isset (Aitsu_Registry :: get()->session->clipboard->articles) || count(Aitsu_Registry :: get()->session->clipboard->articles) == 0;
