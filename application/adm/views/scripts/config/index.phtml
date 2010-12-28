@@ -7,7 +7,7 @@ var configGrid = new Ext.grid.GridPanel({
         autoDestroy: true,
         url: '<?php echo $this->url(array('action' => 'store')); ?>',
         remoteSort: false,
-        storeId: 'roleStore',
+        storeId: 'configStore',
         idProperty: 'roleid',
         root: 'data',
         fields: [{

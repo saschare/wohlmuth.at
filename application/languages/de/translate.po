@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-28 13:32+0100\n"
-"PO-Revision-Date: 2010-12-28 13:33+0100\n"
+"POT-Creation-Date: 2010-12-28 14:20+0100\n"
+"PO-Revision-Date: 2010-12-28 14:21+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,10 @@ msgstr ""
 "X-Poedit-KeywordsList: translate;translateBe\n"
 "X-Poedit-SearchPath-0: application\n"
 "X-Poedit-SearchPath-1: library/Aitsu\n"
+
+#: application/adm/controllers/TranslationController.php:53
+msgid "Edit translation"
+msgstr "Übersetzung editieren"
 
 #: application/adm/controllers/MappingController.php:170
 msgid "Edit mapping"
@@ -976,13 +980,29 @@ msgstr "Sprache gewechselt"
 msgid "The language has been changed."
 msgstr "Die Sprache wurde gewechselt."
 
-#: application/adm/views/scripts/translation/translationlist.phtml:3
+#: application/adm/views/scripts/translation/index.phtml:5
+msgid "Translatations"
+msgstr "Übersetzungen"
+
+#: application/adm/views/scripts/translation/index.phtml:34
 msgid "Refresh list"
 msgstr "Liste auffrischen"
 
-#: application/adm/views/scripts/translation/translationlist.phtml:5
-msgid "Filter"
-msgstr "Filtern"
+#: application/adm/views/scripts/translation/index.phtml:68
+msgid "Delete translation"
+msgstr "Übersetzung löschen"
+
+#: application/adm/views/scripts/translation/index.phtml:69
+msgid "Are you sure to delete the selected translation?"
+msgstr "Sind Sie sicher, dass Sie die selektierte Übersetzung löschen möchten?"
+
+#: application/adm/views/scripts/translation/index.phtml:78
+msgid "Translation removed"
+msgstr "Übersetzung entfernt"
+
+#: application/adm/views/scripts/translation/index.phtml:78
+msgid "The selected translation has been removed."
+msgstr "Die selektierte Übersetzung wurde entfernt."
 
 #: application/adm/views/scripts/plugins/index.phtml:16
 msgid "Currently the system has no plugins installed."
@@ -1010,7 +1030,6 @@ msgid "Set online / offline"
 msgstr "On- und offline stellen"
 
 #: application/adm/views/scripts/dialog/setcategoryonline.phtml:4
-#: application/adm/views/scripts/dialog/setcategorylocked.phtml:4
 msgid "Include the sub-categories?"
 msgstr "Unterkategorien einschliessen?"
 
@@ -1316,6 +1335,10 @@ msgstr "Datentabellen"
 #: application/plugins/generic/data/freehand/views/subnav.phtml:15
 msgid "Columns"
 msgstr "Spalten"
+
+#: application/plugins/generic/data/freehand/views/subnav.phtml:21
+msgid "Filter"
+msgstr "Filtern"
 
 #: application/plugins/generic/data/freehand/views/index.phtml:4
 msgid "Data"
@@ -1964,8 +1987,6 @@ msgstr "senden"
 #~ msgstr "Rolle"
 #~ msgid "Role identifier"
 #~ msgstr "Rollenbezeichner"
-#~ msgid "Translation key"
-#~ msgstr "Übersetzungsschlüssel"
 #~ msgid ""
 #~ "The current article is redirecting and therefore cannot be previewed."
 #~ msgstr ""

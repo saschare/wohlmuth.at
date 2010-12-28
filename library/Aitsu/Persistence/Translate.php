@@ -23,10 +23,10 @@ class Aitsu_Persistence_Translate extends Aitsu_Persistence_Abstract {
 		static $instance = array ();
 
 		if ($id == null || !isset ($instance[$id])) {
-			$instance = new self($id);
+			$instance[$id] = new self($id);
 		}
 
-		return $instance;
+		return $instance[$id];
 	}
 
 	public function load() {
@@ -112,5 +112,20 @@ class Aitsu_Persistence_Translate extends Aitsu_Persistence_Abstract {
 		'delete from _translate where translationid = :id', array (
 			':id' => $this->_id
 		));
+	}
+
+	/**
+	 * @since 2.1.0.0 - 28.12.2010
+	 */
+	public function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
+
+		$filters = array_merge(is_null($filters) ? array() : $filters, array (
+			(object) array (
+				'clause' => 'idlang =',
+				'value' => Aitsu_Registry :: get()->session->currentLanguage
+			)
+		));
+
+		return Aitsu_Db :: filter('select * from _translate', $limit, $offset, $filters, $orders);
 	}
 }
