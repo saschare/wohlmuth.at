@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-27 19:38+0100\n"
-"PO-Revision-Date: 2010-12-27 19:39+0100\n"
+"POT-Creation-Date: 2010-12-28 13:32+0100\n"
+"PO-Revision-Date: 2010-12-28 13:33+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,10 @@ msgstr "Privileg aktualisieren"
 #: application/adm/controllers/AclController.php:466
 msgid "Edit resource"
 msgstr "Ressource editieren"
+
+#: application/adm/controllers/ConfigController.php:46
+msgid "Edit config set"
+msgstr "Konfiguration editieren"
 
 #: application/adm/controllers/ClipboardController.php:24
 #, php-format
@@ -702,21 +706,53 @@ msgstr "Skripte"
 msgid "Logout"
 msgstr "Logout"
 
-#: application/adm/views/scripts/config/overview.phtml:2
-msgid "Add new configuration set"
-msgstr "Neue Konfiguration aufnehmen"
+#: application/adm/views/scripts/config/edit.phtml:9
+msgid "Saved"
+msgstr "Gespeichert"
 
-#: application/adm/views/scripts/config/list.phtml:4
-msgid "ID"
-msgstr "ID"
+#: application/adm/views/scripts/config/edit.phtml:9
+msgid "Form data have been saved."
+msgstr "Die Formulardaten wurden gespeichert."
 
-#: application/adm/views/scripts/config/list.phtml:5
+#: application/adm/views/scripts/config/edit.phtml:13
+msgid "Form failure"
+msgstr "Formularfehler"
+
+#: application/adm/views/scripts/config/edit.phtml:13
+msgid "Form data have not been save due to errors."
+msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
+
+#: application/adm/views/scripts/config/index.phtml:5
+msgid "Config sets"
+msgstr "Konfigurationen"
+
+#: application/adm/views/scripts/config/index.phtml:21
 msgid "Identifier"
 msgstr "Bezeichner"
 
-#: application/adm/views/scripts/config/index.phtml:4
-msgid "Configuration sets"
-msgstr "Konfigurationen"
+#: application/adm/views/scripts/config/index.phtml:31
+msgid "Add new configset"
+msgstr "Neue Konfiguration aufnehmen"
+
+#: application/adm/views/scripts/config/index.phtml:57
+msgid "Delete"
+msgstr "Löschen"
+
+#: application/adm/views/scripts/config/index.phtml:61
+msgid "Delete config set"
+msgstr "Konfiguration löschen"
+
+#: application/adm/views/scripts/config/index.phtml:62
+msgid "Are you sure to delete the selected config set?"
+msgstr "Sind Sie sicher, dass Sie die selektierte Konfiguration löschen möchten?"
+
+#: application/adm/views/scripts/config/index.phtml:71
+msgid "Config set removed"
+msgstr "Konfiguration entfernt"
+
+#: application/adm/views/scripts/config/index.phtml:71
+msgid "The selected role has been removed."
+msgstr "Die selektierte Rolle wurde entfernt."
 
 #: application/adm/views/scripts/data/categoryoverview.phtml:57
 msgid "Data saved"
@@ -766,15 +802,6 @@ msgstr "Online stellen"
 msgid "New sub-category"
 msgstr "Neue Unterkategorie erstellen"
 
-#: application/adm/views/scripts/data/index.phtml:145
-#: application/adm/views/scripts/mapping/index.phtml:45
-#: application/adm/views/scripts/contextmenu/editdelete.phtml:6
-#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:12
-#: application/adm/views/scripts/client/clientlist.phtml:54
-#: application/adm/views/scripts/client/languagelist.phtml:63
-msgid "Delete"
-msgstr "Löschen"
-
 #: application/adm/views/scripts/data/index.phtml:150
 msgid "Delete category"
 msgstr "Kategorie löschen"
@@ -821,22 +848,6 @@ msgstr "Favoriten"
 msgid "Remove"
 msgstr "Entfernen"
 
-#: application/adm/views/scripts/mapping/edit.phtml:9
-msgid "Saved"
-msgstr "Gespeichert"
-
-#: application/adm/views/scripts/mapping/edit.phtml:9
-msgid "Form data have been saved."
-msgstr "Die Formulardaten wurden gespeichert."
-
-#: application/adm/views/scripts/mapping/edit.phtml:13
-msgid "Form failure"
-msgstr "Formularfehler"
-
-#: application/adm/views/scripts/mapping/edit.phtml:13
-msgid "Form data have not been save due to errors."
-msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
-
 #: application/adm/views/scripts/mapping/index.phtml:5
 msgid "Mapping"
 msgstr "Mapping"
@@ -880,6 +891,10 @@ msgstr "Duplizieren"
 #: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:15
 msgid "Cut"
 msgstr "Ausschneiden"
+
+#: application/adm/views/scripts/translate/index.phtml:12
+msgid "ID"
+msgstr "ID"
 
 #: application/adm/views/scripts/translate/index.phtml:13
 msgid "Key"
@@ -1226,10 +1241,6 @@ msgstr "Sind Sie sicher, dass Sie die selektierte Rolle löschen möchten?"
 msgid "Role removed"
 msgstr "Rolle entfernt"
 
-#: application/adm/views/scripts/acl/rolelist.phtml:68
-msgid "The selected role has been removed."
-msgstr "Die selektierte Rolle wurde entfernt."
-
 #: application/adm/scripts/Backup/index.phtml:1
 msgid "Backup"
 msgstr "Backup"
@@ -1331,6 +1342,7 @@ msgid "File selection"
 msgstr "Dateiauswahl"
 
 #: application/plugins/generic/system/modules/views/list.phtml:7
+#: application/plugins/generic/system/modules/views/detail.phtml:34
 msgid "Status"
 msgstr "Status"
 
@@ -1474,7 +1486,6 @@ msgid "Comments"
 msgstr "Kommentare"
 
 #: application/plugins/dashboard/contentAnalyzer/views/index.phtml:4
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:4
 msgid "Indicator"
 msgstr "Indikator"
 

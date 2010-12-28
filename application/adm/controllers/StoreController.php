@@ -127,7 +127,10 @@ class StoreController extends Zend_Controller_Action {
 		'	lang.name langname, ' .
 		'	client.name clientname ' .
 		'from _lang lang ' .
-		'left join _clients client on lang.idclient = client.idclient ');
+		'left join _clients client on lang.idclient = client.idclient ' .
+		'order by' .
+		'	client.name asc, ' .
+		'	lang.name asc');
 
 		$data = array ();
 		foreach ($results as $result) {
