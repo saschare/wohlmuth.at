@@ -202,7 +202,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'area' => $file[0]
 						),
 						'route' => 'plugins',
-						'pages' => array ()
+						'pages' => array (),
+						'icon' => isset($content[2]) ? $content[2] : ''
 					);
 				}
 			}
@@ -220,7 +221,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'plugin' => $file[1],
 							'paction' => 'index'
 						),
-						'route' => 'plugin'
+						'route' => 'plugin',
+						'icon' => isset($content[2]) ? $content[2] : ''
 					);
 				}
 			}

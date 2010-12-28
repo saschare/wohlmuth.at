@@ -60,8 +60,28 @@
     background-image: url(../images/icons/font.png) !important; 
     background-repeat: no-repeat;
 }
-.tm-script {
+.tm-terminal {
     background-image: url(../images/icons/application_osx_terminal.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-script {
+    background-image: url(../images/icons/script.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-table {
+    background-image: url(../images/icons/table.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-package {
+    background-image: url(../images/icons/package.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-tag-green {
+    background-image: url(../images/icons/tag_green.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-database-edit {
+    background-image: url(../images/icons/database_edit.png) !important; 
     background-repeat: no-repeat;
 }
 .treepage-online {

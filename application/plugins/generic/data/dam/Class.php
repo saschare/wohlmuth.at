@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19787 2010-11-10 08:59:04Z akm $}
  */
 
 class DamPluginController extends Aitsu_Adm_Plugin_Controller {

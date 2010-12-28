@@ -33,9 +33,9 @@ if (typeof(Ext.getCmp('system-log')) == 'undefined') {
 	    }),
 	    columns: [
 	    	expander,
-	    	{dataIndex: 'time', header: '<?php echo Aitsu_Translate :: translate('Time'); ?>', menuDisabled: false, sortable: true, width: 10, renderer: Ext.util.Format.dateRenderer('H:i:s')},
-	    	{dataIndex: 'type', header: '<? echo Aitsu_Translate :: translate('Type'); ?>', menuDisabled: false, sortable: false, width: 10},
-	    	{dataIndex: 'entry', header: '<? echo Aitsu_Translate :: translate('Entry'); ?>', menuDisabled: false, sortable: true, width: 100}
+	    	{dataIndex: 'time', header: '<?php echo Aitsu_Translate :: translate('Time'); ?>', menuDisabled: true, sortable: false, width: 10, renderer: Ext.util.Format.dateRenderer('H:i:s')},
+	    	{dataIndex: 'type', header: '<? echo Aitsu_Translate :: translate('Type'); ?>', menuDisabled: true, sortable: false, width: 10},
+	    	{dataIndex: 'entry', header: '<? echo Aitsu_Translate :: translate('Entry'); ?>', menuDisabled: true, sortable: false, width: 100}
 		],
 		viewConfig: {
 			forceFit: true,
@@ -74,7 +74,15 @@ if (typeof(Ext.getCmp('system-log')) == 'undefined') {
 		    ]
 		}
 	}));
+	
 	Ext.getCmp('viewport').doLayout();
+	
+	Ext.TaskMgr.start({
+	    run: function() {
+	    	Ext.getCmp('system-log').getStore().load();
+	    },
+	    interval: 60000
+	});
 }
 
 Ext.getCmp('center-south-tab').activate('system-log');
