@@ -31,11 +31,11 @@ class LogsPluginController extends Aitsu_Adm_Plugin_Controller {
 					$data[] = (object) array (
 						'time' => "{$match[4]}:{$match[5]}:{$match[6]}",
 						'type' => $match[7],
-						'entry' => substr($match[8], 0, 200),
-						'full' => $match[8]
+						'entry' => htmlentities((substr($match[8], 0, 200))),
+						'full' => (str_replace("\n", '', $match[8]))
 					);
 				} else {
-					$data[count($data) - 1]->entry .= "\n" . $entry;
+					$data[count($data) - 1]->full .= "\n" . $entry;
 				}
 				if (count($data) > 100) {
 					array_shift($data);
@@ -44,7 +44,7 @@ class LogsPluginController extends Aitsu_Adm_Plugin_Controller {
 		}
 
 		$this->_helper->json((object) array (
-			'data' => $data
+			'data' => array_reverse($data)
 		));
 	}
 

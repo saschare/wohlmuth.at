@@ -24,17 +24,27 @@ class ScriptController extends Zend_Controller_Action {
 				throw new Exception(Aitsu_Translate :: translate('Access denied.'));
 			}
 		}
+		
+		$this->_helper->layout->disableLayout();
 
-		$this->_scripts = Aitsu_Persistence_View_Scripts :: getAll();
+		// $this->_scripts = Aitsu_Persistence_View_Scripts :: getAll();
 	}
 
 	public function indexAction() {
-
-		$subNavi = $this->view->partial('script/subnav.phtml', array (
-			'scripts' => $this->_scripts,
-			'category' => ''
-		));
-		$this->view->placeholder('left')->set($subNavi);
+		
+		header("Content-type: text/javascript");
+	}
+	
+	/**
+	 * @since 2.1.0.0 - 28.12.2010
+	 */
+	public function treeAction() {
+		
+		$scripts = Aitsu_Persistence_View_Scripts :: getAll();
+		
+		trigger_error(var_export($scripts, true));
+		
+		$this->_helper->json($return);
 	}
 
 	public function __call($method, $params) {
