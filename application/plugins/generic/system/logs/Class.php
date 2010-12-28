@@ -7,34 +7,57 @@
  */
 
 class LogsPluginController extends Aitsu_Adm_Plugin_Controller {
-	
-	protected $_logFile;
-	
+
 	public function init() {
-		
+
 		$this->_helper->layout->disableLayout();
-		
-		$this->_logFile = APPLICATION_PATH . '/data/logs' . '/' . date('Y-m-d') . '.log';
 	}
 
 	public function indexAction() {
-		
+
 		header("Content-type: text/javascript");
 	}
 
-	public function deleteAction() {
-		
-		$this->_helper->viewRenderer->setNoRender(true);
-		
-		if (file_exists($this->_logFile) && is_readable($this->_logFile)) {
-			unlink($this->_logFile);
+	public function storeAction() {
+
+		$data = array ();
+
+		$logFile = APPLICATION_PATH . '/data/logs' . '/' . date('Y-m-d') . '.log';
+
+		if (file_exists($logFile) && is_readable($logFile)) {
+			$log = file($logFile, FILE_IGNORE_NEW_LINES);
+			foreach ($log as $entry) {
+				if (preg_match('/(\\d{4})-(\\d{2})-(\\d{2}).(\\d{2}):(\\d{2}):(\\d{2})[^\\s]*\\s*([^:]*):\\s*(.*)/', $entry, $match)) {
+					$data[] = (object) array (
+						'time' => "{$match[4]}:{$match[5]}:{$match[6]}",
+						'type' => $match[7],
+						'entry' => substr($match[8], 0, 200),
+						'full' => $match[8]
+					);
+				} else {
+					$data[count($data) - 1]->entry .= "\n" . $entry;
+				}
+				if (count($data) > 100) {
+					array_shift($data);
+				}
+			}
 		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
 	}
-	
-	public function refreshAction() {
-		
-		if (file_exists($this->_logFile) && is_readable($this->_logFile)) {
-			$this->view->content = file_get_contents($this->_logFile);
+
+	public function deleteAction() {
+
+		$logFile = APPLICATION_PATH . '/data/logs' . '/' . date('Y-m-d') . '.log';
+
+		if (file_exists($logFile) && is_readable($logFile)) {
+			unlink($logFile);
 		}
+
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 }
