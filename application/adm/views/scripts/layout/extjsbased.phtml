@@ -119,12 +119,54 @@
                 margins: '0 0 0 5'
             },{
             	region: 'center',
-            	id: 'viewport-center',
+            	id: 'viewport-centerarea',
             	unstyled: true,
-            	layout: 'fit',
-            	split: false
+            	layout: 'border',
+            	split: false,
+            	items: [
+            		{
+		            	region: 'center',
+		            	id: 'viewport-center',
+		            	unstyled: true,
+		            	layout: 'fit',
+		            	split: false
+		            },
+            		{
+		            	region: 'south',
+		            	id: 'center-south',
+		            	unstyled: true,
+		            	layout: 'fit',
+		            	split: true,
+		            	collapsible: true,
+		            	collapseMode: 'mini',
+		            	hideCollapseTool: true,
+		            	minHeight: 300,
+		            	height: 300,
+		            	items: new Ext.TabPanel({
+		            		id: 'center-south-tab',
+							resizeTabs: false,
+							minTabWidth: 115,
+							tabWidth:135,
+							enableTabScroll:true,
+							defaults: {
+								autoScroll:true
+							},
+							tabPosition: 'top',
+							listeners: {
+								tabchange: function(panel, tab) {
+									if (panel.items.getCount() == 0) {
+										Ext.getCmp('center-south').setVisible(false);
+										Ext.getCmp('viewport').doLayout();
+									}
+								}
+							}
+						})
+		            }
+            	]
             }]
         });
+        
+        Ext.getCmp('center-south').setVisible(false);
         
 		<?php echo $this->partial('layout/js/sessionManagement.phtml'); ?>
         
