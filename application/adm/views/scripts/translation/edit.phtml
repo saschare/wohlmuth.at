@@ -20,4 +20,6 @@ var form = <?php echo $this->form->render('ExtJs'); ?>;
 east.setAutoScroll(true);
 east.add(form);
 
+east.expand(false);
+
 Ext.getCmp('viewport').doLayout();

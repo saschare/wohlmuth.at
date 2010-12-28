@@ -119,31 +119,7 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'ac' => array (
 								'area' => 'translation'
 							),
-							'icon' => 'tm-translation'/*,
-							'pages' => array (
-								array (
-									'label' => $t->translate('Import'),
-									'id' => 'import-translation',
-									'controller' => 'translation',
-									'action' => 'import',
-									'route' => 'default',
-									'ac' => array (
-										'area' => 'translation',
-										'action' => 'import'
-									)
-								),
-								array (
-									'label' => $t->translate('Export'),
-									'id' => 'export-translation',
-									'controller' => 'translation',
-									'action' => 'export',
-									'route' => 'default',
-									'ac' => array (
-										'area' => 'translation',
-										'action' => 'export'
-									)
-								)
-							)*/
+							'icon' => 'tm-translation'
 						),
 						array (
 							'label' => $t->translate('Scripts'),

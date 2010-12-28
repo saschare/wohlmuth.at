@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: ScriptController.php 18689 2010-09-10 10:51:21Z akm $}
  */
 
 class ScriptController extends Zend_Controller_Action {
