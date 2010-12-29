@@ -15,4 +15,4 @@ center.add({
 
 Ext.Loader.load([<?php echo implode(',', $plugins); ?>], function() {
 	Ext.getCmp('viewport').doLayout();
-}, this, false);
+}, this, true);

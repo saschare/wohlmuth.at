@@ -1,48 +1,31 @@
-<?php return; ?>
-<table border="0" cellpadding="0" cellspacing="0" class="full">
-	<thead>
-		<tr>
-			<th scope="col"><?php echo $this->translate('Indicator'); ?></th>
-			<th scope="col" style="text-align:right;"><?php echo $this->translate('#'); ?></th>
-			<th scope="col" style="text-align:right;"><?php echo $this->translate('Status'); ?></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><?php echo $this->translate('Categories'); ?>:</td>
-			<td style="text-align:right;"><?php echo $this->numberOfCategories; ?></td>
-			<td style="text-align:right;">
-				<div class="status-ok">&nbsp;</div>
-			</td>
-		</tr>
-		<tr>
-			<td><?php echo $this->translate('Categories without index'); ?>:</td>
-			<td style="text-align:right;"><?php echo $this->categoriesWithoutIndex; ?></td>
-			<td>
-				<?php if ($this->categoriesWithoutIndex == 0) : ?>
-					<div class="status-ok">&nbsp;</div>
-				<?php else : ?>
-					<div class="status-warning">&nbsp;</div>
-				<?php endif; ?>
-			</td>
-		</tr>
-		<tr>
-			<td><?php echo $this->translate('Articles'); ?>:</td>
-			<td style="text-align:right;"><?php echo $this->numberOfArticles; ?></td>
-			<td>
-				<div class="status-ok">&nbsp;</div>
-			</td>
-		</tr>
-		<tr>
-			<td><?php echo $this->translate('Duplicate URLs'); ?>:</td>
-			<td style="text-align:right;"><?php echo $this->duplicateUrls; ?></td>
-			<td>
-				<?php if ($this->duplicateUrls == 0) : ?>
-					<div class="status-ok">&nbsp;</div>
-				<?php else : ?>
-					<div class="status-fail">&nbsp;</div>
-				<?php endif; ?>
-			</td>
-		</tr>
-	</tbody>
-</table>
+var dashboard = Ext.getCmp('dashboard');
+
+dashboard.add({
+	columnWidth: 1/3,
+	baseCls:'x-plain',
+	bodyStyle:'padding:6px 4px 0 4px',
+	items: {
+		unstyled: true,
+		height: 370,
+		layout: 'fit',
+		items: new Ext.grid.PropertyGrid({
+			title: '<?php echo Aitsu_Translate :: translate('Site analyzer'); ?>',
+			hideHeaders: true,
+			source: {
+				'<?php echo Aitsu_Translate :: translate('Number of categories'); ?>': '<?php echo $this->numberOfCategories; ?>',
+				'<?php echo Aitsu_Translate :: translate('Number of pages'); ?>': '<?php echo $this->numberOfArticles; ?>',
+				'<?php echo Aitsu_Translate :: translate('Categories without index'); ?>': '<?php echo $this->categoriesWithoutIndex; ?>',
+				'<?php echo Aitsu_Translate :: translate('Duplicate URL'); ?>': '<?php echo $this->duplicateUrls; ?>'
+			},
+			viewConfig : {
+				forceFit: true,
+				scrollOffset: 2
+			},
+			listeners: {
+				beforeedit: function(e) {
+					e.cancel = true;
+				}
+			}
+		})
+	}
+});

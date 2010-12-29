@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-28 14:20+0100\n"
-"PO-Revision-Date: 2010-12-28 14:21+0100\n"
+"POT-Creation-Date: 2010-12-29 19:27+0100\n"
+"PO-Revision-Date: 2010-12-29 19:29+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,8 @@ msgstr "Mandant editieren"
 msgid "Edit language"
 msgstr "Sprache editieren"
 
-#: application/adm/controllers/ScriptController.php:26
+#: application/adm/controllers/ScriptController.php:20
+#: application/adm/controllers/SetupController.php:20
 msgid "Access denied."
 msgstr "Zugriff verweigert"
 
@@ -227,12 +228,12 @@ msgstr "Show tables-Privileg fehlt oder der Zugriff auf die Datenbank ist nicht 
 msgid "There seem to be no tables to be backuped"
 msgstr "Es existieren keine Tabellen, von welchen ein Backup vorgenommen werden könnte"
 
-#: application/adm/scripts/Backup/Copydb.php:50
+#: application/adm/scripts/Backup/Copydb.php:54
 #, php-format
 msgid "Copying table %s."
 msgstr "Kopiere table %s."
 
-#: application/adm/scripts/Backup/Copydb.php:61
+#: application/adm/scripts/Backup/Copydb.php:65
 #, php-format
 msgid "Table %s copied."
 msgstr "Die Tabelle %s wurde kopiert."
@@ -268,10 +269,6 @@ msgstr "Ausführung der Zeilen %s bis %s."
 #, php-format
 msgid "Line %s to %s executed."
 msgstr "Zeilen %s bis %s ausgeführt."
-
-#: application/adm/scripts/Installation/Setup.php:19
-msgid "Setup database"
-msgstr "Setup Datenbank"
 
 #: application/adm/scripts/Installation/Setup.php:42
 msgid "The file dump.sql is missing."
@@ -428,15 +425,15 @@ msgstr "Datei gespeichert"
 msgid "File is not writable. Save cannot be done."
 msgstr "Die Datei ist nicht beschreibbar. Die Speicherung wurde nicht vorgenommen."
 
-#: application/plugins/dashboard/contentAnalyzer/Class.php:24
+#: application/plugins/dashboard/contentAnalyzer/Class.php:23
 msgid "Analyzer"
 msgstr "Analyzer"
 
-#: application/plugins/dashboard/aitsuRss/Class.php:24
+#: application/plugins/dashboard/aitsuRss/Class.php:23
 msgid "aitsu RSS"
 msgstr "aitsu RSS"
 
-#: application/plugins/dashboard/performanceAnalyzer/Class.php:24
+#: application/plugins/dashboard/performanceAnalyzer/Class.php:23
 msgid "Site performance"
 msgstr "Site performance"
 
@@ -653,7 +650,7 @@ msgstr "Während dem Löschvorgang ist ein Fehler aufgetreten."
 msgid "Copy of"
 msgstr "Kopie von"
 
-#: library/Aitsu/Adm/Script/Response.php:45
+#: library/Aitsu/Adm/Script/Response.php:43
 #, php-format
 msgid "Exception occured with message: %s"
 msgstr "Ausnahme aufgetreten mit der Nachricht: %s"
@@ -702,11 +699,11 @@ msgstr "Konfigurationen"
 msgid "Translations"
 msgstr "Übersetzungen"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:149
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:125
 msgid "Scripts"
 msgstr "Skripte"
 
-#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:162
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:138
 msgid "Logout"
 msgstr "Logout"
 
@@ -884,17 +881,21 @@ msgstr "Zugriff verweigert"
 msgid "You do not have enough privileges to access the specified resource."
 msgstr "Sie verfügen nicht über ausreichend Rechte zur Ausführung der vorgesehenen Aktion."
 
-#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:3
-msgid "Index article"
-msgstr "Index-Artikel"
+#: application/adm/views/scripts/setup/index.phtml:125
+msgid "Step"
+msgstr "Schritt"
 
-#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:9
-msgid "Duplicate"
-msgstr "Duplizieren"
+#: application/adm/views/scripts/setup/index.phtml:126
+msgid "Result"
+msgstr "Resultat"
 
-#: application/adm/views/scripts/contextmenu/editduplicatedelete.phtml:15
-msgid "Cut"
-msgstr "Ausschneiden"
+#: application/adm/views/scripts/setup/index.phtml:127
+msgid "Status"
+msgstr "Status"
+
+#: application/adm/views/scripts/setup/index.phtml:136
+msgid "Execute script"
+msgstr "Skript ausführen"
 
 #: application/adm/views/scripts/translate/index.phtml:12
 msgid "ID"
@@ -984,23 +985,23 @@ msgstr "Die Sprache wurde gewechselt."
 msgid "Translatations"
 msgstr "Übersetzungen"
 
-#: application/adm/views/scripts/translation/index.phtml:34
+#: application/adm/views/scripts/translation/index.phtml:33
 msgid "Refresh list"
 msgstr "Liste auffrischen"
 
-#: application/adm/views/scripts/translation/index.phtml:68
+#: application/adm/views/scripts/translation/index.phtml:67
 msgid "Delete translation"
 msgstr "Übersetzung löschen"
 
-#: application/adm/views/scripts/translation/index.phtml:69
+#: application/adm/views/scripts/translation/index.phtml:68
 msgid "Are you sure to delete the selected translation?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Übersetzung löschen möchten?"
 
-#: application/adm/views/scripts/translation/index.phtml:78
+#: application/adm/views/scripts/translation/index.phtml:77
 msgid "Translation removed"
 msgstr "Übersetzung entfernt"
 
-#: application/adm/views/scripts/translation/index.phtml:78
+#: application/adm/views/scripts/translation/index.phtml:77
 msgid "The selected translation has been removed."
 msgstr "Die selektierte Übersetzung wurde entfernt."
 
@@ -1008,14 +1009,9 @@ msgstr "Die selektierte Übersetzung wurde entfernt."
 msgid "Currently the system has no plugins installed."
 msgstr "Zurzeit sind keine Plugins installiert."
 
-#: application/adm/views/scripts/script/index.phtml:13
 #: application/adm/views/scripts/script/executionwindow.phtml:23
 msgid "Please choose the script to be executed from the list on the left hand side."
 msgstr "Bitte wählen Sie ein Script aus der Liste aus, die Sie auf der linken Seite finden können."
-
-#: application/adm/views/scripts/script/executionwindow.phtml:13
-msgid "Execute script"
-msgstr "Skript ausführen"
 
 #: application/adm/views/scripts/script/executionwindow.phtml:51
 msgid "Script terminated."
@@ -1280,35 +1276,47 @@ msgstr "Wartung"
 msgid "Tag"
 msgstr "Tag"
 
-#: application/plugins/generic/data/tags/views/index.phtml:12
+#: application/plugins/generic/data/tags/views/index.phtml:1
+#: application/plugins/generic/data/dam/views/index.phtml:1
+#: application/plugins/generic/data/freehand/views/index.phtml:1
+msgid "Not implemented"
+msgstr "Noch nicht implementiert"
+
+#: application/plugins/generic/data/tags/views/index.phtml:1
+#: application/plugins/generic/data/dam/views/index.phtml:1
+#: application/plugins/generic/data/freehand/views/index.phtml:1
+msgid "This feature has not yet been implemented."
+msgstr "Diese Funktion ist zurzeit noch nicht implementiert."
+
+#: application/plugins/generic/data/tags/views/index.phtml:14
 msgid "Delete selected tags"
 msgstr "Selektierte Tags löschen"
 
-#: application/plugins/generic/data/tags/views/index.phtml:37
+#: application/plugins/generic/data/tags/views/index.phtml:39
 msgid "You are about to delete the selected tags. Are you sure?"
 msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
 
-#: application/plugins/generic/data/tags/views/index.phtml:39
+#: application/plugins/generic/data/tags/views/index.phtml:41
 msgid "Delete tags"
 msgstr "Tags löschen"
 
-#: application/plugins/generic/data/tags/views/index.phtml:42
+#: application/plugins/generic/data/tags/views/index.phtml:44
 msgid "Yes, delete the tags"
 msgstr "Ja, Tags löschen"
 
-#: application/plugins/generic/data/dam/views/index.phtml:4
+#: application/plugins/generic/data/dam/views/index.phtml:6
 msgid "Assets"
 msgstr "Assets"
 
-#: application/plugins/generic/data/dam/views/index.phtml:7
+#: application/plugins/generic/data/dam/views/index.phtml:9
 msgid "InBox"
 msgstr "InBox"
 
-#: application/plugins/generic/data/dam/views/index.phtml:58
+#: application/plugins/generic/data/dam/views/index.phtml:60
 msgid "Add new asset?"
 msgstr "Neues Asset anlegen?"
 
-#: application/plugins/generic/data/dam/views/index.phtml:60
+#: application/plugins/generic/data/dam/views/index.phtml:62
 msgid "Add new asset"
 msgstr "Neus Asset anlegen"
 
@@ -1340,15 +1348,15 @@ msgstr "Spalten"
 msgid "Filter"
 msgstr "Filtern"
 
-#: application/plugins/generic/data/freehand/views/index.phtml:4
+#: application/plugins/generic/data/freehand/views/index.phtml:6
 msgid "Data"
 msgstr "Daten"
 
-#: application/plugins/generic/data/freehand/views/index.phtml:11
+#: application/plugins/generic/data/freehand/views/index.phtml:13
 msgid "Add new entry"
 msgstr "Neuen Eintrag aufnehmen"
 
-#: application/plugins/generic/data/freehand/views/index.phtml:16
+#: application/plugins/generic/data/freehand/views/index.phtml:18
 msgid "Please select a data table on the left hand side to show, filter and edit its data."
 msgstr "Bitte wählen Sie eine Datentabelle auf der linken Seite, um deren Daten anzuzeigen, zu filtern oder zu aktualisieren."
 
@@ -1363,11 +1371,6 @@ msgstr "Neu formatieren"
 #: application/plugins/generic/layout/skin/views/links.phtml:5
 msgid "File selection"
 msgstr "Dateiauswahl"
-
-#: application/plugins/generic/system/modules/views/list.phtml:7
-#: application/plugins/generic/system/modules/views/detail.phtml:34
-msgid "Status"
-msgstr "Status"
 
 #: application/plugins/generic/system/modules/views/detail.phtml:12
 msgid "Ready to be used."
@@ -1405,17 +1408,25 @@ msgstr "Menu"
 msgid "Modules"
 msgstr "Module"
 
-#: application/plugins/generic/system/logs/views/index.phtml:4
-msgid "logs"
-msgstr "Logs"
+#: application/plugins/generic/system/logs/views/index.phtml:14
+msgid "Log"
+msgstr "Log"
 
-#: application/plugins/generic/system/logs/views/index.phtml:12
-msgid "Refresh"
-msgstr "Refresh"
+#: application/plugins/generic/system/logs/views/index.phtml:36
+msgid "Time"
+msgstr "Zeit"
 
-#: application/plugins/generic/system/logs/views/index.phtml:13
-msgid "Delete current log"
-msgstr "Aktuelles Log löschen"
+#: application/plugins/generic/system/logs/views/index.phtml:38
+msgid "Entry"
+msgstr "Eintrag"
+
+#: application/plugins/generic/system/logs/views/index.phtml:56
+msgid "Delete log"
+msgstr "Log löschen"
+
+#: application/plugins/generic/system/logs/views/index.phtml:68
+msgid "Refresh log"
+msgstr "Log auffrischen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:3
 msgid "Stop"
@@ -1500,59 +1511,59 @@ msgstr "Projekt"
 msgid "Add new type"
 msgstr "Neuen Typen aufnehmen"
 
-#: application/plugins/generic/utilities/uuid/views/index.phtml:4
-msgid "UUID"
-msgstr "UUID"
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:12
+msgid "Site analyzer"
+msgstr "Site-Analysator"
 
-#: application/plugins/generic/visitordata/comments/views/index.phtml:4
-msgid "Comments"
-msgstr "Kommentare"
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:15
+msgid "Number of categories"
+msgstr "Anzahl Kategorien"
 
-#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:4
-msgid "Indicator"
-msgstr "Indikator"
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:16
+msgid "Number of pages"
+msgstr "Anzahl Seiten"
 
-#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:5
-msgid "#"
-msgstr "#"
-
-#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:18
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:17
 msgid "Categories without index"
 msgstr "Kategorien ohne Index"
 
-#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:36
-msgid "Duplicate URLs"
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:18
+msgid "Duplicate URL"
 msgstr "URL-Duplikate"
 
 #: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:5
+msgid "Indicator"
+msgstr "Indikator"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:6
 msgid "ms"
 msgstr "ms"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:6
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:7
 msgid "n"
 msgstr "n"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:11
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:12
 msgid "Overall average"
 msgstr "Site-Durchschnitt"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:16
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:17
 msgid "Standard deviation"
 msgstr "Standardabweichung"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:21
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:22
 msgid "Min. execution time"
 msgstr "Min. Ausführungsdauer"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:26
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:27
 msgid "Max. execution time"
 msgstr "Max. Ausführungsdauer"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:33
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:34
 msgid "Avg. of slowest page"
 msgstr "Durchsch. langsamste Seite"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:40
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:41
 msgid "Std. dev. of slowest page"
 msgstr "Stdabw. langsamste Seite"
 
@@ -1663,6 +1674,11 @@ msgstr "Das gewählte Modul weist keinen Inhalt und keine Konfiguration auf."
 msgid "Module configuration"
 msgstr "Modulkonfiguration"
 
+#: application/plugins/article/edit/views/index.phtml:2
+#: application/plugins/article/edit/views/index.phtml:49
+msgid "Refresh"
+msgstr "Refresh"
+
 #: application/plugins/article/edit/views/index.phtml:3
 msgid "Full view"
 msgstr "Vollansicht"
@@ -1736,7 +1752,6 @@ msgid "Synchronization language"
 msgstr "Synchronisationssprache"
 
 #: application/plugins/category/synchronization/views/index.phtml:58
-#: application/plugins/category/standard/views/index.phtml:83
 msgid "Page title"
 msgstr "Seitentitel"
 
@@ -1751,6 +1766,10 @@ msgstr "Als Index setzen"
 #: application/plugins/category/standard/views/index.phtml:182
 msgid "Publish"
 msgstr "Publizieren"
+
+#: application/plugins/category/standard/views/index.phtml:203
+msgid "Cut"
+msgstr "Ausschneiden"
 
 #: application/plugins/category/standard/views/index.phtml:207
 msgid "Page cut"
@@ -1829,6 +1848,22 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
+#~ msgid "Setup database"
+#~ msgstr "Setup Datenbank"
+#~ msgid "Index article"
+#~ msgstr "Index-Artikel"
+#~ msgid "Duplicate"
+#~ msgstr "Duplizieren"
+#~ msgid "logs"
+#~ msgstr "Logs"
+#~ msgid "Delete current log"
+#~ msgstr "Aktuelles Log löschen"
+#~ msgid "UUID"
+#~ msgstr "UUID"
+#~ msgid "Comments"
+#~ msgstr "Kommentare"
+#~ msgid "#"
+#~ msgstr "#"
 #~ msgid "First"
 #~ msgstr "Erste"
 #~ msgid "The mappings table is currently empty."
@@ -2087,8 +2122,6 @@ msgstr "senden"
 #~ msgstr ""
 #~ "Geben Sie den Artikelnamen, Seitentitel oder einen Teil der "
 #~ "Zusammenfassung an."
-#~ msgid "No results"
-#~ msgstr "Keine Resultate."
 #~ msgid "searching..."
 #~ msgstr "Suche..."
 #~ msgid "Yes, child nodes, too!"
