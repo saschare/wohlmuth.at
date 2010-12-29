@@ -8,26 +8,11 @@ center.add({
 	id: 'dashboard',
 	unstyled: true,
 	layout: 'column',
-	bodyStyle:'padding:4px',
-	items: [
-		{
-			columnWidth: 1/3,
-			baseCls:'x-plain',
-			bodyStyle:'padding:6px 4px 0 4px',
-			items: {
-				unstyled: true,
-				height: 370,
-				layout: 'fit',
-				items: {
-					html: 'das ist ein test'
-				}
-			}
-		}
-	]
+	bodyStyle:'padding:4px'
 });
 
-<?php for ($i = 0; $i < count($this->plugins); $i++) : $plugin = $this->plugins[$i]; ?>
-Ext.Loader.load(['<?php echo $this->url(array('controller' => 'plugin')); ?>'], null, this, false);
-<?php endfor; ?>
+<?php $plugins = array(); for ($i = 0; $i < count($this->plugins); $i++) {$plugins[] = "'" . $this->url(array('plugin' => $this->plugins[$i]->name), 'dashboard') . "'"; } ?>
 
-Ext.getCmp('viewport').doLayout();
+Ext.Loader.load([<?php echo implode(',', $plugins); ?>], function() {
+	Ext.getCmp('viewport').doLayout();
+}, this, false);

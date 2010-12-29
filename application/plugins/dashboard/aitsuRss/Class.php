@@ -28,6 +28,10 @@ class aitsuRssDashboardController extends Aitsu_Adm_Plugin_Controller {
 
 	public function indexAction() {
 
+	}
+
+	public function rssAction() {
+
 		$cache = Aitsu_Core_Cache :: getInstance('feedsFeedburderComAitsu');
 		if ($cache->isValid()) {
 			$channel = unserialize($cache->load());
@@ -36,7 +40,17 @@ class aitsuRssDashboardController extends Aitsu_Adm_Plugin_Controller {
 			$cache->setLifetime(60 * 60 * 24);
 			$cache->save(serialize($channel));
 		}
-		
-		$this->view->channel = $channel;
+
+		$data = array ();
+		foreach ($channel as $item) {
+			$data[] = (object) array (
+				'title' => $item->title(),
+				'description' => $item->description()
+			);
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
 	}
 }
