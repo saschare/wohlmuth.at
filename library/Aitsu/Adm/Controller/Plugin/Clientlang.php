@@ -10,6 +10,10 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
 
+		if (Aitsu_Adm_User :: getInstance() == null) {
+			return;
+		}
+
 		$prefLang = Aitsu_Adm_User :: getInstance()->idlang;
 
 		if (empty (Aitsu_Registry :: get()->session->currentClient)) {
