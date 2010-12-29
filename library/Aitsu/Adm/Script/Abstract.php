@@ -73,11 +73,15 @@ abstract class Aitsu_Adm_Script_Abstract {
 
 	/*
 	 * Overwrite this method accordingly, if the script does not
-	 * have a known number of methods to be exected. The method
+	 * have a known number of methods to be executed. The method
 	 * returns a string containing information about the next step
 	 * to be displayed in the user's console.
 	 */
 	protected function _next() {
+		
+		if (!isset($this->_methods[$this->_currentStep + 1])) {
+			return '';
+		}
 
 		return substr($this->_methods[$this->_currentStep + 1], 2);
 	}
