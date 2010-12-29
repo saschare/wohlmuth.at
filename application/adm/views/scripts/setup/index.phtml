@@ -56,8 +56,6 @@
 	            			style: 'padding-top:15px; padding-left:10px;',
 	            			height: '100%',
 	            			items: [
-	            				<?php echo $this->partial('layout/navigation/top.phtml'); ?>
-	            				<?php echo $this->partial('layout/navigation/languagechooser.phtml'); ?>,
 	            				{
 						            text: 'Logout',
 						            iconCls: 'tm-logout',
@@ -87,90 +85,97 @@
 		            text: '',
 		            iconCls: 'x-status-valid',
 		            items: [
-		            	{
-		            		xtype: 'tbtext',
-		            		id: 'session-clock',
-		            		text: ''
-		            	},
-		            	'-',
 		                'aitsu <?php echo Aitsu_Application_Status :: version(); ?>',
 		                '-',
 		                '&copy; 2010 - aitsu.org'
 		            ]
 		        })                
-            }, {
-                region: 'east',
-                id: 'viewport-east',
-                collapsible: true,
-                split: true,
-                width: 225,
-                minSize: 175,
-                maxSize: 400,
-                margins: '0 5 0 0'
-            }, {
-                region: 'west',
-                id: 'viewport-west',
-                layout: 'fit',
-                split: true,
-                width: 200,
-                minSize: 175,
-                maxSize: 400,
-                collapsible: true,
-                margins: '0 0 0 5'
-            },{
+             },{
             	region: 'center',
-            	id: 'viewport-centerarea',
+            	id: 'viewport-center',
             	unstyled: true,
-            	layout: 'border',
-            	split: false,
-            	items: [
-            		{
-		            	region: 'center',
-		            	id: 'viewport-center',
-		            	unstyled: true,
-		            	layout: 'fit',
-		            	split: false
-		            },
-            		{
-		            	region: 'south',
-		            	id: 'center-south',
-		            	unstyled: true,
-		            	layout: 'fit',
-		            	split: true,
-		            	collapsible: true,
-		            	collapseMode: 'mini',
-		            	hideCollapseTool: true,
-		            	minHeight: 300,
-		            	height: 300,
-		            	items: new Ext.TabPanel({
-		            		id: 'center-south-tab',
-							resizeTabs: false,
-							minTabWidth: 115,
-							tabWidth:135,
-							enableTabScroll:true,
-							defaults: {
-								autoScroll:true
-							},
-							tabPosition: 'top',
-							listeners: {
-								tabchange: function(panel, tab) {
-									if (panel.items.getCount() == 0) {
-										Ext.getCmp('center-south').setVisible(false);
-										Ext.getCmp('viewport').doLayout();
-									}
-								}
-							}
-						})
-		            }
-            	]
+            	layout: 'fit',
+            	split: false
             }]
         });
         
-        Ext.getCmp('center-south').setVisible(false);
-        
-		<?php echo $this->partial('layout/js/sessionManagement.phtml'); ?>
-        
-        <?php echo $this->layout()->content; ?>
+		var center = Ext.getCmp('viewport-center');
+		center.removeAll();
+		
+		var scriptExpander = new Ext.ux.grid.RowExpander({
+		        tpl : new Ext.Template(
+		            '<p style="margin: 5px 10px 5px 10px; font-family: monospace;">{full}</pre>'
+		        )
+		    });	
+		
+		var scriptGrid = new Ext.grid.GridPanel({
+			title: '<?php echo $this->script->name; ?>',
+			store: new Ext.data.ArrayStore({
+			    autoDestroy: true,
+			    idIndex: 0,  
+		    	fields: [
+		    		'step',
+		    		'result',
+		    		'full',
+		    		'status'
+			    ]
+			}),
+		    columns: [
+		    	scriptExpander,
+		    	{dataIndex: 'step', header: '<?php echo Aitsu_Translate :: translate('Step'); ?>', menuDisabled: false, sortable: false, width: 5},
+		    	{dataIndex: 'result', header: '<?php echo Aitsu_Translate :: translate('Result'); ?>', menuDisabled: false, sortable: false, width: 85},
+		    	{dataIndex: 'status', header: '<? echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: false, sortable: false, width: 10}
+			],
+			viewConfig: {
+				forceFit: true,
+				autoFill: true
+			},
+			tbar: {
+				items: [
+					{
+			            tooltip: '<?php echo Aitsu_Translate :: translate('Execute script'); ?>',
+			            iconCls: 'execute',
+			            handler: function(b, e) {
+			            	scriptGrid.getStore().removeAll();
+			            	executeScriptRecursive(<?php echo $this->script->id; ?>, 1);
+			            }
+			        }
+			    ]
+			},
+			plugins: scriptExpander
+		});
+		
+		var scriptResultRecord = Ext.data.Record.create([
+		    'result',
+		    'status'
+		]);
+		
+		var executeScriptRecursive = function(id, step) {
+			Ext.Ajax.request({
+				url: '<?php echo $this->url(array('controller' => 'script', 'action' => 'execute'), 'default'); ?>',
+				success: function(response, opts) {
+					var obj = Ext.decode(response.responseText);
+					scriptGrid.getStore().insert(0, new scriptResultRecord({
+						step: step,
+						result: Ext.util.Format.ellipsis(obj.message, 200, true),
+						full: obj.message,
+						status: obj.status
+					}));
+					if (obj.nextStep != '') {
+						step++;
+						executeScriptRecursive(id, step);
+					}
+				},
+				params: {
+					script: id,
+					step: step
+				}
+			});	
+		}
+		
+		center.add(scriptGrid);
+		
+		Ext.getCmp('viewport').doLayout();        
     });
     </script> 
 </head> 

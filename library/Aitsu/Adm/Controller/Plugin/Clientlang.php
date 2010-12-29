@@ -10,7 +10,7 @@ class Aitsu_Adm_Controller_Plugin_Clientlang extends Zend_Controller_Plugin_Abst
 
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
 
-		if (Aitsu_Adm_User :: getInstance() == null) {
+		if (Aitsu_Adm_User :: getInstance() == null || Aitsu_Adm_User :: getInstance()->getId() == 'setup') {
 			return;
 		}
 

@@ -142,4 +142,9 @@ class Aitsu_Application_Status {
 
 		self :: _getInstance()->_locked = true;
 	}
+	
+	public static function version() {
+		
+		return '2.1.0.0';
+	}
 }

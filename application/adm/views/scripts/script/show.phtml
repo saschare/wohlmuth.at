@@ -35,6 +35,7 @@ var scriptGrid = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Execute script'); ?>',
 	            iconCls: 'execute',
 	            handler: function(b, e) {
+	            	scriptGrid.getStore().removeAll();
 	            	executeScriptRecursive(<?php echo $this->script->id; ?>, 1);
 	            }
 	        }

@@ -13,17 +13,11 @@ class ScriptController extends Zend_Controller_Action {
 	 */
 	public function init() {
 
-		if (isset (Aitsu_Registry :: get()->allowTempAccess) && Aitsu_Registry :: get()->allowTempAccess) {
-			/*
-			 * Give the user temporary access to the script area for setup purposes.
-			 */
-		} else {
-			if (!Aitsu_Adm_User :: getInstance()->isAllowed(array (
-					'area' => 'script',
-					'action' => 'execute'
-				))) {
-				throw new Exception(Aitsu_Translate :: translate('Access denied.'));
-			}
+		if (!Aitsu_Adm_User :: getInstance()->isAllowed(array (
+				'area' => 'script',
+				'action' => 'execute'
+			))) {
+			throw new Exception(Aitsu_Translate :: translate('Access denied.'));
 		}
 
 		$this->_helper->layout->disableLayout();

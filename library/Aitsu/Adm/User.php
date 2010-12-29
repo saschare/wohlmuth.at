@@ -16,11 +16,30 @@ class Aitsu_Adm_User {
 	protected function __construct($id) {
 
 		$this->_id = $id;
+
+		if ($id == 'setup') {
+			$this->_privs['area']['script']['execute'][] = (object) array (
+				'client' => null,
+				'language' => null,
+				'area' => 'script',
+				'action' => 'execute',
+				'resource' => null
+			);
+			return;
+		}
+
 		$this->_data = Aitsu_Persistence_User :: factory($id)->load()->getData();
 		$this->_loadRoles();
 	}
 
 	public static function getInstance() {
+
+		return self :: $_instance;
+	}
+
+	public static function setupLogin() {
+
+		self :: $_instance = new self('setup');
 
 		return self :: $_instance;
 	}
@@ -41,7 +60,7 @@ class Aitsu_Adm_User {
 		if (isset ($this->_data[$key])) {
 			return $this->_data[$key];
 		}
-		
+
 		return null;
 	}
 
@@ -84,11 +103,11 @@ class Aitsu_Adm_User {
 
 	public function isAllowed(array $res) {
 
-		if (isset ($res['client']) && !isset ($this->_privs['client'][$res['client']])) {		
+		if (isset ($res['client']) && !isset ($this->_privs['client'][$res['client']])) {
 			return false;
 		}
 
-		if (isset ($res['language']) && !isset ($this->_privs['language'][$res['language']])) {	
+		if (isset ($res['language']) && !isset ($this->_privs['language'][$res['language']])) {
 			return false;
 		}
 
@@ -99,11 +118,11 @@ class Aitsu_Adm_User {
 			return true;
 		}
 
-		if (isset ($res['area']) && !isset ($this->_privs['area'][$res['area']])) {				
+		if (isset ($res['area']) && !isset ($this->_privs['area'][$res['area']])) {
 			return false;
 		}
 
-		if (!isset($res['action'])) {
+		if (!isset ($res['action'])) {
 			/*
 			 * No further tests necessary.
 			 */
@@ -124,7 +143,7 @@ class Aitsu_Adm_User {
 		}
 
 		foreach ($privileges as $privs) {
-			if (isset($privs[$res['action']])) {
+			if (isset ($privs[$res['action']])) {
 				foreach ($privs[$res['action']] as $priv) {
 					if ($this->_hasAccess($res, $priv)) {
 						return true;
@@ -141,7 +160,7 @@ class Aitsu_Adm_User {
 		if ($privilege == null) {
 			return false;
 		}
-		
+
 		if (isset ($res['client']) && (!isset ($privilege->client) || $privilege->client != $res['client'])) {
 			return false;
 		}
@@ -190,5 +209,5 @@ class Aitsu_Adm_User {
 
 		return true;
 	}
-	
+
 }

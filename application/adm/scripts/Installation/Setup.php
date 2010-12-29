@@ -16,7 +16,7 @@ class Adm_Script_Setup extends Aitsu_Adm_Script_Abstract {
 
 	public static function getName() {
 
-		return Aitsu_Translate :: translate('Setup database');
+		return 'Setup';
 	}
 
 	protected function _hasNext() {
@@ -27,7 +27,7 @@ class Adm_Script_Setup extends Aitsu_Adm_Script_Abstract {
 		}
 		$dirs = scandir($path);
 		foreach ($dirs as $dir) {
-			if ($dir != '.' && $dir != '..') {
+			if ($dir != '.' && $dir != '..' && substr($dir, 0, 1) != '.') {
 				if (!is_writable($path . '/' . $dir)) {
 					throw new Exception(sprintf(Aitsu_Translate :: translate('File or directory with path %s is not writable. Please allow the server to write to %s and underneath.'), $path . '/' . $dir, $path));
 				}
@@ -43,8 +43,8 @@ class Adm_Script_Setup extends Aitsu_Adm_Script_Abstract {
 		}
 
 		$line = 0;
-		$this->_from = ($step -1) * 100 + 1;
-		$this->_to = $step * 100;
+		$this->_from = ($step -1) * 50 + 1;
+		$this->_to = $step * 50;
 		while (!feof($handle)) {
 			$line++;
 			$buffer = fgets($handle, 50000);
