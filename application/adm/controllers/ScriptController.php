@@ -8,8 +8,9 @@
 
 class ScriptController extends Zend_Controller_Action {
 
-	protected $_scripts;
-
+	/**
+	 * @since 2.1.0.0 - 29.12.2010
+	 */
 	public function init() {
 
 		if (isset (Aitsu_Registry :: get()->allowTempAccess) && Aitsu_Registry :: get()->allowTempAccess) {
@@ -24,63 +25,87 @@ class ScriptController extends Zend_Controller_Action {
 				throw new Exception(Aitsu_Translate :: translate('Access denied.'));
 			}
 		}
-		
-		$this->_helper->layout->disableLayout();
 
-		// $this->_scripts = Aitsu_Persistence_View_Scripts :: getAll();
+		$this->_helper->layout->disableLayout();
 	}
 
 	public function indexAction() {
-		
+
 		header("Content-type: text/javascript");
 	}
-	
+
 	/**
 	 * @since 2.1.0.0 - 28.12.2010
 	 */
 	public function treeAction() {
-		
+
 		$scripts = Aitsu_Persistence_View_Scripts :: getAll();
-		
-		trigger_error(var_export($scripts, true));
-		
+		$node = $this->getRequest()->getParam('node');
+		$return = array ();
+
+		if ($node == '0') {
+			/*
+			 * Return root node.
+			 */
+			foreach ($scripts as $key => $value) {
+				$return[] = array (
+					'id' => $key,
+					'text' => $key,
+					'type' => 'category',
+					'iconCls' => 'treecat-online'
+				);
+			}
+		} else {
+			foreach ($scripts[$node] as $script) {
+				$return[] = array (
+					'id' => $script->id,
+					'text' => $script->name,
+					'type' => 'script',
+					'iconCls' => 'tm-script'
+				);
+			}
+		}
+
 		$this->_helper->json($return);
 	}
 
-	public function __call($method, $params) {
+	/**
+	 * @since 2.1.0.0 - 29.12.2010
+	 */
+	public function showAction() {
 
-		$this->_helper->viewRenderer->setNoRender(true);
+		header("Content-type: text/javascript");
 
-		if ($this->getRequest()->getParam('exec') != null) {
-			return $this->_exec();
+		$exScript = $this->getRequest()->getParam('script');
+
+		foreach (Aitsu_Persistence_View_Scripts :: getAll() as $category => $scripts) {
+			foreach ($scripts as $script) {
+				if ($exScript == $script->id) {
+					$this->view->script = $script;
+					return;
+				}
+			}
 		}
-
-		$class = $this->getRequest()->getParam('show');
-
-		if ($class != null && !class_exists($class)) {
-			return $this->_helper->redirector('index');
-		}
-
-		$this->view->scriptName = $class == null ? 'Scripts' : call_user_func(array (
-			$class,
-			'getName'
-		));
-
-		$subNavi = $this->view->partial('script/subnav.phtml', array (
-			'scripts' => Aitsu_Persistence_View_Scripts :: getAll(),
-			'category' => substr($method, 0, -6)
-		));
-		$this->view->placeholder('left')->set($subNavi);
-
-		echo $this->view->render('script/executionwindow.phtml');
 	}
 
-	protected function _exec() {
+	/**
+	 * @since 2.1.0.0 - 29.12.2010
+	 */
+	public function executeAction() {
 
-		$this->_helper->layout->disableLayout();
+		$id = $this->getRequest()->getParam('script');
+		$step = $this->getRequest()->getParam('step');
 
-		$class = $this->getRequest()->getParam('exec');
-		$class = new $class ($this->getRequest()->getParam('step'));
+		foreach (Aitsu_Persistence_View_Scripts :: getAll() as $category => $scripts) {
+			foreach ($scripts as $script) {
+				if ($id == $script->id) {
+					break 2;
+				}
+			}
+		}
+
+		$class = $script->className;
+		$class = new $class ($step);
 		$response = $class->exec();
 
 		$this->_helper->json($response->toArray());

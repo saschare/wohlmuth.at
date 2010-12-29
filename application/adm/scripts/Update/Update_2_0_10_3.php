@@ -25,7 +25,7 @@ class Adm_Script_Update_2_0_10_3 extends Aitsu_Adm_Script_Abstract {
 		}
 		$dirs = scandir($path);
 		foreach ($dirs as $dir) {
-			if ($dir != '.' && $dir != '..') {
+			if ($dir != '.' && $dir != '..' && substr($dir, 0, 1) != '.') {
 				if (!is_writable($path . '/' . $dir)) {
 					throw new Exception(sprintf(Aitsu_Translate :: translate('File or directory with path %s is not writable. Please allow the server to write to %s and underneath.'), $path . '/' . $dir, $path));
 				}

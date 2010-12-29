@@ -1,0 +1,76 @@
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
+
+var scriptExpander = new Ext.ux.grid.RowExpander({
+        tpl : new Ext.Template(
+            '<p style="margin: 5px 10px 5px 10px; font-family: monospace;">{full}</pre>'
+        )
+    });	
+
+var scriptGrid = new Ext.grid.GridPanel({
+	title: '<?php echo $this->script->name; ?>',
+	store: new Ext.data.ArrayStore({
+	    autoDestroy: true,
+	    idIndex: 0,  
+    	fields: [
+    		'step',
+    		'result',
+    		'full',
+    		'status'
+	    ]
+	}),
+    columns: [
+    	scriptExpander,
+    	{dataIndex: 'step', header: '<?php echo Aitsu_Translate :: translate('Step'); ?>', menuDisabled: false, sortable: false, width: 5},
+    	{dataIndex: 'result', header: '<?php echo Aitsu_Translate :: translate('Result'); ?>', menuDisabled: false, sortable: false, width: 85},
+    	{dataIndex: 'status', header: '<? echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: false, sortable: false, width: 10}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Execute script'); ?>',
+	            iconCls: 'execute',
+	            handler: function(b, e) {
+	            	executeScriptRecursive(<?php echo $this->script->id; ?>, 1);
+	            }
+	        }
+	    ]
+	},
+	plugins: scriptExpander
+});
+
+var scriptResultRecord = Ext.data.Record.create([
+    'result',
+    'status'
+]);
+
+var executeScriptRecursive = function(id, step) {
+	Ext.Ajax.request({
+		url: '<?php echo $this->url(array('action' => 'execute')); ?>',
+		success: function(response, opts) {
+			var obj = Ext.decode(response.responseText);
+			scriptGrid.getStore().insert(0, new scriptResultRecord({
+				step: step,
+				result: Ext.util.Format.ellipsis(obj.message, 200, true),
+				full: obj.message,
+				status: obj.status
+			}));
+			if (obj.nextStep != '') {
+				step++;
+				executeScriptRecursive(id, step);
+			}
+		},
+		params: {
+			script: id,
+			step: step
+		}
+	});	
+}
+
+center.add(scriptGrid);
+
+Ext.getCmp('viewport').doLayout();

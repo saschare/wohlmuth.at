@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Response.php 18687 2010-09-10 10:05:09Z akm $}
  */
 
 class Aitsu_Adm_Script_Response {

@@ -21,6 +21,16 @@ west.add(new Ext.tree.TreePanel({
 		text: 'Root',
 		draggable: false,
 		id: '0'
+	},
+	listeners: {
+		click: function(node, event) {
+			if (node.attributes.type == 'category') {
+				node.expand();
+			}
+			if (node.attributes.type == 'script') {
+				Ext.Loader.load(['<?php echo $this->url(array('action' => 'show')); ?>?script=' + node.attributes.id], null, this, false);
+			}
+		}
 	}
 }));
 
