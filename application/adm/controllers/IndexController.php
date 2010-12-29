@@ -18,11 +18,26 @@ class IndexController extends Zend_Controller_Action {
 
 	public function indexAction() {
 	
-		
+		$this->_loadPlugins();
 	}
 	
-	public function managementAction() {
-		
-		$this->_redirect('acl/profil');
+	protected function _loadPlugins() {
+
+		$plugins = Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/plugins/dashboard', 'Class.php');
+		$this->view->plugins = array ();
+		foreach ($plugins as $plugin) {
+			$parts = explode('/', $plugin);
+			$pluginName = $parts[count($parts) - 2];
+			include_once ($plugin);
+			$controller = ucfirst($pluginName) . 'Dashboard';
+			$controllerClass = $controller . 'Controller';
+			$registry = call_user_func(array (
+				$controllerClass,
+				'register'
+			));
+			if ($registry->enabled) {
+				$this->view->plugins[] = $registry;
+			}
+		}
 	}
 }
