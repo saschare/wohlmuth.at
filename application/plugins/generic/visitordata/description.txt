@@ -1,2 +1,0 @@
-Visitor data
-Data that belongs to or origins vistors of the site. Such as comments, polls, email and so on.

@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19867 2010-11-12 18:54:35Z akm $}
  */
 
 class FreehandPluginController extends Aitsu_Adm_Plugin_Controller {
@@ -13,6 +11,9 @@ class FreehandPluginController extends Aitsu_Adm_Plugin_Controller {
 	protected $_user = null;
 
 	public function init() {
+		
+		$this->_helper->layout->disableLayout();
+		header("Content-type: text/javascript");
 
 		$this->user = Aitsu_Adm_User :: getInstance();
 

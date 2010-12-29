@@ -1,2 +1,0 @@
-Comments
-Management of visitor comments.
