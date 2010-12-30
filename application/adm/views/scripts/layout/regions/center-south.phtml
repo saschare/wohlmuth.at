@@ -25,7 +25,18 @@
 					Ext.getCmp('center-south').setVisible(false);
 					Ext.getCmp('viewport').doLayout();
 				}
-			}
+			},
+			render: function(p) {
+            	p.header.on('dblclick', function(e, el, o) {
+            		if (this.getHeight() > 300) {
+            			Ext.getCmp('viewport-west').expand(false);
+            			Ext.getCmp('center-south').setHeight(300);
+            		} else {
+            			Ext.getCmp('viewport-west').collapse(false);
+            			Ext.getCmp('center-south').setHeight(600);
+            		}
+            	}, this);
+        	}
 		}
 	})
 }
