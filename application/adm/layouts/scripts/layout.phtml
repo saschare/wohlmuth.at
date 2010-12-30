@@ -1,5 +1,80 @@
-<?php if (isset(Aitsu_Registry :: get()->config->extjstest) && Aitsu_Registry :: get()->config->extjstest == true) : ?>
-<?php echo $this->partial('layout/extjsbased.phtml'); ?>
-<?php else : ?>
-<?php echo $this->partial('layout/yamlbased.phtml'); ?>
-<?php endif; ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		
+		<title>aitsu Administration area</title>
+		
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ext-all-notheme.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ux-all.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/xtheme-gray.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/css/extjs-aitsu.css'); ?>" />
+              
+        <?php if (true) : /* change to false in production */ ?>
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/debug.css'); ?>" />
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/adapter/ext/ext-base-debug.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-all-debug-w-comments.js'); ?>"></script>   
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all-debug.js'); ?>"></script>
+        <?php else : ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/adapter/ext/ext-base.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-all.js'); ?>"></script>   
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all.js'); ?>"></script>
+        <?php endif; ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-aitsu.js'); ?>"></script>
+    		
+    <script type="text/javascript"> 
+    Ext.onReady(function(){
+
+    	Ext.QuickTips.init();
+		Ext.getBody().on("contextmenu", Ext.emptyFn, null, {preventDefault: true});
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+        
+		Ext.apply(Ext.DatePicker.prototype, {
+			format: "Y-m-d"
+		});
+        
+        var sessionClock = new Ext.Toolbar.TextItem('');
+                
+        var viewport = new Ext.Viewport({
+            layout: 'border',
+            id: 'viewport',
+            items: [
+            <?php echo $this->partial('layout/regions/north.phtml'); ?>, 
+            <?php echo $this->partial('layout/regions/south.phtml'); ?>,  
+            <?php echo $this->partial('layout/regions/west.phtml'); ?>, 
+            {
+            	region: 'center',
+            	id: 'viewport-centerarea',
+            	unstyled: true,
+            	layout: 'border',
+            	split: false,
+            	items: [
+            		{
+            			region: 'center',
+            			id: 'viewport-inner-centerarea',
+            			unstyled: true,
+            			layout: 'border',
+            			split: false,
+            			items: [
+            				<?php echo $this->partial('layout/regions/center.phtml'); ?>,
+            				<?php echo $this->partial('layout/regions/east.phtml'); ?>
+            			]
+            		},
+            		<?php echo $this->partial('layout/regions/center-south.phtml'); ?>
+            	]
+            }]
+        });
+        
+        Ext.getCmp('center-south').setVisible(false);
+        
+		<?php echo $this->partial('layout/js/sessionManagement.phtml'); ?>
+        
+        <?php echo $this->layout()->content; ?>
+    });
+    </script> 
+</head> 
+
+<body>
+</body> 
+</html>
