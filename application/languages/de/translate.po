@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-29 19:27+0100\n"
-"PO-Revision-Date: 2010-12-29 19:29+0100\n"
+"POT-Creation-Date: 2010-12-30 10:17+0100\n"
+"PO-Revision-Date: 2010-12-30 10:19+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1531,41 +1531,37 @@ msgstr "Kategorien ohne Index"
 msgid "Duplicate URL"
 msgstr "URL-Duplikate"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:5
-msgid "Indicator"
-msgstr "Indikator"
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:13
+msgid "Overall performance"
+msgstr "Leistung (Overall)"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:6
-msgid "ms"
-msgstr "ms"
-
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:7
-msgid "n"
-msgstr "n"
-
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:12
-msgid "Overall average"
-msgstr "Site-Durchschnitt"
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:16
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:35
+msgid "Number of impressions (n)"
+msgstr "Anzahl Impressionen (n)"
 
 #: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:17
-msgid "Standard deviation"
-msgstr "Standardabweichung"
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:36
+msgid "Average rendering (ms)"
+msgstr "Durchschn. Rendering (ms)"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:22
-msgid "Min. execution time"
-msgstr "Min. Ausführungsdauer"
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:18
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:37
+msgid "Fastest rendering (ms)"
+msgstr "Schnellstes Rendering (ms)"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:27
-msgid "Max. execution time"
-msgstr "Max. Ausführungsdauer"
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:19
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:38
+msgid "Slowest rendering (ms)"
+msgstr "Langsamstes Rendering (ms)"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:34
-msgid "Avg. of slowest page"
-msgstr "Durchsch. langsamste Seite"
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:32
+msgid "Slowest page"
+msgstr "Langsamste Seite"
 
-#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:41
-msgid "Std. dev. of slowest page"
-msgstr "Stdabw. langsamste Seite"
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:40
+msgid "Page title"
+msgstr "Seitentitel"
 
 #: application/plugins/article/media/views/delete.phtml:5
 #: application/plugins/article/media/views/index.phtml:33
@@ -1751,10 +1747,6 @@ msgstr "Ja, Links löschen"
 msgid "Synchronization language"
 msgstr "Synchronisationssprache"
 
-#: application/plugins/category/synchronization/views/index.phtml:58
-msgid "Page title"
-msgstr "Seitentitel"
-
 #: application/plugins/category/standard/views/index.phtml:84
 msgid "URL name"
 msgstr "URL-Name"
@@ -1848,6 +1840,25 @@ msgstr "Nachricht"
 msgid "send"
 msgstr "senden"
 
+#, fuzzy
+#~ msgid "Overall"
+#~ msgstr "Site-Durchschnitt"
+#~ msgid "Indicator"
+#~ msgstr "Indikator"
+#~ msgid "ms"
+#~ msgstr "ms"
+#~ msgid "n"
+#~ msgstr "n"
+#~ msgid "Standard deviation"
+#~ msgstr "Standardabweichung"
+#~ msgid "Min. execution time"
+#~ msgstr "Min. Ausführungsdauer"
+#~ msgid "Max. execution time"
+#~ msgstr "Max. Ausführungsdauer"
+#~ msgid "Avg. of slowest page"
+#~ msgstr "Durchsch. langsamste Seite"
+#~ msgid "Std. dev. of slowest page"
+#~ msgstr "Stdabw. langsamste Seite"
 #~ msgid "Setup database"
 #~ msgstr "Setup Datenbank"
 #~ msgid "Index article"

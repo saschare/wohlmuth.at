@@ -10,13 +10,13 @@ dashboard.add({
 		layout: 'vbox',
 		items: [
 			new Ext.grid.PropertyGrid({
-				title: '<?php echo Aitsu_Translate :: translate('Overall'); ?>',
+				title: '<?php echo Aitsu_Translate :: translate('Overall performance'); ?>',
 				hideHeaders: true,
 				source: {
 					'<?php echo Aitsu_Translate :: translate('Number of impressions (n)'); ?>': '<?php echo $this->overall['n']; ?>',
-					'<?php echo Aitsu_Translate :: translate('Average (ms)'); ?>': '<?php echo $this->overall['avg']; ?>',
-					'<?php echo Aitsu_Translate :: translate('Fastest (ms)'); ?>': '<?php echo $this->overall['fastest']; ?>',
-					'<?php echo Aitsu_Translate :: translate('Slowest (ms)'); ?>': '<?php echo $this->overall['slowest']; ?>'
+					'<?php echo Aitsu_Translate :: translate('Average rendering (ms)'); ?>': '<?php echo $this->overall['avg']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Fastest rendering (ms)'); ?>': '<?php echo $this->overall['fastest']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Slowest rendering (ms)'); ?>': '<?php echo $this->overall['slowest']; ?>'
 				},
 				viewConfig : {
 					forceFit: true,
@@ -33,9 +33,9 @@ dashboard.add({
 				hideHeaders: true,
 				source: {
 					'<?php echo Aitsu_Translate :: translate('Number of impressions (n)'); ?>': '<?php echo $this->slowest['n']; ?>',
-					'<?php echo Aitsu_Translate :: translate('Average (ms)'); ?>': '<?php echo $this->slowest['avg']; ?>',
-					'<?php echo Aitsu_Translate :: translate('Fastest (ms)'); ?>': '<?php echo $this->slowest['fastest']; ?>',
-					'<?php echo Aitsu_Translate :: translate('Slowest (ms)'); ?>': '<?php echo $this->slowest['slowest']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Average rendering (ms)'); ?>': '<?php echo $this->slowest['avg']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Fastest rendering (ms)'); ?>': '<?php echo $this->slowest['fastest']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Slowest rendering (ms)'); ?>': '<?php echo $this->slowest['slowest']; ?>',
 					'<?php echo Aitsu_Translate :: translate('URL'); ?>': '<?php echo $this->slowest['url']; ?>',
 					'<?php echo Aitsu_Translate :: translate('Page title'); ?>': '<?php echo $this->slowest['pagetitle']; ?>'
 				},
