@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19916 2010-11-17 12:40:58Z akm $}
  */
 
 class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
@@ -16,6 +14,7 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 
 		$idart = $this->getRequest()->getParam('idart');

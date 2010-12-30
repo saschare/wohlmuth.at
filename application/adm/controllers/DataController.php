@@ -110,9 +110,10 @@ class DataController extends Zend_Controller_Action {
 
 	public function editAction() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 
-		$idart = substr($this->getRequest()->getParam('id'), strlen('idart-'));
+		$idart = $this->getRequest()->getParam('id');
 		$this->view->idart = $idart;
 		Aitsu_Persistence_Lastopened :: factory($idart)->save();
 

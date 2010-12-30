@@ -31,7 +31,7 @@
 		Ext.getBody().on("contextmenu", Ext.emptyFn, null, {preventDefault: true});
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
         
-        var registry = new Ext.util.MixedCollection();
+        var registry = Ext.aitsu.registry();
         
         var resetUI = function() {
         	var dim = registry.get('center-south-dim');

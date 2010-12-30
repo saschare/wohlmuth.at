@@ -3,8 +3,6 @@
 /**
  * @author Christian Kehres, webtischlerei.de
  * @copyright Copyright &copy; 2010, webtischlerei.de
- * 
- * {@id $Id: Class.php 19916 2010-11-17 12:40:58Z akm $}
  */
 
 class ConfigArticleController extends Aitsu_Adm_Plugin_Controller {
@@ -13,6 +11,7 @@ class ConfigArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 	}
 

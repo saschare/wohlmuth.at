@@ -1,3 +1,16 @@
+Ext.getCmp('page-edit-tab').add({
+	id: 'article-plugin-edit',
+	title: '<?php echo Aitsu_Translate :: translate('Edit'); ?>',
+	bodyCfg: {
+		tag: 'iframe',
+        src: 'http://www.wdrei.ch/',
+        style: {
+			border: '0px none'
+        }
+	}
+});
+
+<?php return; ?>
 <div class="toolbar ui-corner-bottom">
 	<button id="refresh-edit-iframe" class="type-refresh" title="<?php echo $this->translate('Refresh'); ?>"><?php echo $this->translate('Refresh'); ?></button>
 	<button id="edit-fullview" title="<?php echo $this->translate('Full view'); ?>"><?php echo $this->translate('Full view'); ?></button>

@@ -1,28 +1,30 @@
-<div class="tabs">
-	<ul>
-	<?php foreach ($this->plugins as $plugin) : ?>
-		<li>
-			<a href="#tab-aplugin-<?php echo $plugin->id; ?>">
-				<?php echo $plugin->tabname; ?>
-			</a>
-		</li>	
-	<?php endforeach; ?>
-	</ul>
-	
-	<?php foreach ($this->plugins as $plugin) : ?>
-	<div id="tab-aplugin-<?php echo $plugin->id; ?>" class="tab">
-		<div class="tab-content" id="content-<?php echo $plugin->id; ?>"></div>
-	</div>
-	<?php endforeach; ?>
-</div>
+Ext.getCmp('viewport-east').setVisible(false);
 
-<script type="text/javascript">
-$(function() {
-	
-<?php foreach ($this->plugins as $plugin) : ?>
-	$("#content-<?php echo $plugin->id; ?>").load("<?php echo $this->url(array('plugin' => $plugin->name, 'paction' => 'index', 'idart' => $this->idart), 'aplugin'); ?>");
-<?php endforeach; ?>
-	
-	$('#lastopened-articles').load("<?php echo $this->url(array('controller' => 'data', 'action' => 'lastopened'), 'default'); ?>");
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
+
+center.add(new Ext.TabPanel(
+	{
+		id: 'page-edit-tab',
+		resizeTabs: false,
+		minTabWidth: 115,
+		tabWidth:135,
+		enableTabScroll:true,
+		defaults: {
+			autoScroll:true
+		},
+		tabPosition: 'top'
+	}
+));
+
+var spot = new Ext.ux.Spotlight({
+	easing: 'easeOut',
+	duration: .3
 });
-</script>
+
+<?php $plugins = array(); foreach($this->plugins as $plugin) {$plugins[] = "'" . $this->url(array('plugin' => $plugin->name), 'aplugin') . "?idart={$this->idart}'"; } ?>
+
+Ext.Loader.load([<?php echo implode(',', $plugins); ?>], function() {
+	Ext.getCmp('page-edit-tab').activate(0);
+	Ext.getCmp('viewport').doLayout();
+}, this, true);

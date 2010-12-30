@@ -1,6 +1,8 @@
 Ext.aitsu = function() {
 	
 	var msgCt;
+	var registry;
+	var spot;
 
     function createBox(t, s, error){
     	if (error == undefined) {
@@ -47,6 +49,27 @@ Ext.aitsu = function() {
         			}
         		}
         	});	
+        },
+        
+        spot : function(id) {
+        	if (typeof(spot) == 'undefined') {
+        		spot = new Ext.ux.Spotlight({
+        			easing: 'easeOut',
+        			duration: .3
+        		});
+        	}
+        	if (typeof(id) == 'undefined') {
+        		spot.hide();
+        	} else {
+        		spot.show(id);
+        	}
+        },
+        
+        registry : function() {
+        	if (typeof(registry) == 'undefined') {
+        		registry = new Ext.util.MixedCollection();
+        	}
+        	return registry;
         }
     };
 }();

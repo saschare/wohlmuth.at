@@ -1,3 +1,7 @@
+var editPage = function(id) {
+	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>?id=' + id], null, this, false);
+}
+
 var reloadTree = function(id, tree) {
 	var node = tree.getNodeById(id);
 	if (node.id == 0) {
@@ -53,6 +57,8 @@ var pagetree = 	new Ext.tree.TreePanel({
 		click: function(node, event) {
 			if (node.attributes.type == 'category') {
 				node.expand();
+			} else if (node.attributes.type == 'page') {
+				editPage(node.attributes.id);
 			}
 		},
 		beforemovenode: function(tree, node, oldParent, newParent, index) {
@@ -273,7 +279,9 @@ var pagetree = 	new Ext.tree.TreePanel({
 });
 
 pagetree.getSelectionModel().on('beforeselect', function(sm, node, oldnode) {
-	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id], null, this, false);
+	if (node.attributes.type == 'category') {
+		Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id], null, this, false);
+	}
 });
 
 var recentlyOpenedPages = new Ext.grid.GridPanel({
