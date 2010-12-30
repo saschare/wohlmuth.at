@@ -28,13 +28,35 @@
 			},
 			render: function(p) {
             	p.header.on('dblclick', function(e, el, o) {
-            		if (this.getHeight() > 300) {
-            			Ext.getCmp('viewport-west').expand(false);
+            		var dim = registry.get('center-south-dim');
+            		if (typeof dim == 'undefined') {
+            			dim = {
+            				isBig: false,
+							height: 500,
+							westIsCollapsed: Ext.getCmp('viewport').layout.west.isCollapsed
+            			}
+            		}
+            		if (dim.isBig) {
+            			/* reduce */
+            			dim.isBig = false;
+            			if (!dim.westIsCollapsed && Ext.getCmp('viewport').layout.west.isVisible()) {
+            				Ext.getCmp('viewport-west').expand(false);
+            			}
+            			dim.height = Ext.getCmp('center-south').getHeight();
             			Ext.getCmp('center-south').setHeight(300);
             		} else {
-            			Ext.getCmp('viewport-west').collapse(false);
-            			Ext.getCmp('center-south').setHeight(600);
+            			/* maximize */
+            			dim.isBig = true;
+            			if (Ext.getCmp('viewport').layout.west.isCollapsed) {
+            				dim.westIsCollapsed = true;
+            			} else {
+            				dim.westIsCollapsed = false;
+            				Ext.getCmp('viewport-west').collapse(false);
+            			}
+            			Ext.getCmp('center-south').setHeight(dim.height);
             		}
+            		Ext.getCmp('viewport').doLayout();
+            		registry.add('center-south-dim', dim);
             	}, this);
         	}
 		}
