@@ -40,128 +40,19 @@
             layout: 'border',
             id: 'viewport',
             items: [
+            <?php echo $this->partial('layout/regions/north.phtml'); ?>, 
+            <?php echo $this->partial('layout/regions/south.phtml'); ?>, 
+            <?php echo $this->partial('layout/regions/east.phtml'); ?>, 
+            <?php echo $this->partial('layout/regions/west.phtml'); ?>, 
             {
-            	region: 'north',
-            	split: true,
-            	margins: '0 0 0 0',
-            	height: 50,
-            	layout: 'border',
-            	items: [{
-            		region: 'center',
-            		margins: '0 0 0 0',
-            		border: false,
-            		items:
-	            		new Ext.Toolbar({
-	            			layout: 'hbox',
-	            			style: 'padding-top:15px; padding-left:10px;',
-	            			height: '100%',
-	            			items: [
-	            				<?php echo $this->partial('layout/navigation/top.phtml'); ?>
-	            				<?php echo $this->partial('layout/navigation/languagechooser.phtml'); ?>,
-	            				{
-						            text: 'Logout',
-						            iconCls: 'tm-logout',
-						            listeners: {
-						            	click: function() {
-						            		window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
-						            	}
-						            }
-	        					}
-	            			]
-	            	})
-            	}, {
-            		region: 'east',
-            		margins: '0 0 0 0',
-            		border: false,
-            		width: 200,
-            		html: '<div class="x-toolbar" style="height:50px; padding:10px 10px 0 0; text-align:right;"><img src="<?php echo $this->baseUrl('/images/wbm_aitsu_ec7537_146x30.png'); ?>"</div>'
-            	}
-            ]}, {
-                region: 'south',
-                split: true,
-                height: 0,
-                margins: '0 0 0 0',
-				bbar: new Ext.ux.StatusBar({
-		            id: 'basic-statusbar',
-		            defaultText: '',
-		            text: '',
-		            iconCls: 'x-status-valid',
-		            items: [
-		            	{
-		            		xtype: 'tbtext',
-		            		id: 'session-clock',
-		            		text: ''
-		            	},
-		            	'-',
-		                'aitsu <?php echo Aitsu_Application_Status :: version(); ?>',
-		                '-',
-		                '&copy; 2010 - aitsu.org'
-		            ]
-		        })                
-            }, {
-                region: 'east',
-                id: 'viewport-east',
-                collapsible: true,
-                split: true,
-                width: 225,
-                minSize: 175,
-                maxSize: 400,
-                margins: '0 5 0 0'
-            }, {
-                region: 'west',
-                id: 'viewport-west',
-                layout: 'fit',
-                split: true,
-                width: 200,
-                minSize: 175,
-                maxSize: 400,
-                collapsible: true,
-                margins: '0 0 0 5'
-            },{
             	region: 'center',
             	id: 'viewport-centerarea',
             	unstyled: true,
             	layout: 'border',
             	split: false,
             	items: [
-            		{
-		            	region: 'center',
-		            	id: 'viewport-center',
-		            	unstyled: true,
-		            	layout: 'fit',
-		            	split: false
-		            },
-            		{
-		            	region: 'south',
-		            	id: 'center-south',
-		            	unstyled: true,
-		            	layout: 'fit',
-		            	split: true,
-		            	collapsible: true,
-		            	collapseMode: 'mini',
-		            	hideCollapseTool: true,
-		            	minHeight: 300,
-		            	height: 300,
-		            	items: new Ext.TabPanel({
-		            		id: 'center-south-tab',
-							resizeTabs: false,
-							minTabWidth: 115,
-							tabWidth:135,
-							enableTabScroll:true,
-							defaults: {
-								autoScroll:true
-							},
-							tabPosition: 'top',
-							listeners: {
-								tabchange: function(panel, tab) {
-									if (panel.items.getCount() == 0) {
-										Ext.getCmp('center-south').setVisible(false);
-										Ext.getCmp('viewport').doLayout();
-									}
-								}
-							}
-						})
-		            }
+            		<?php echo $this->partial('layout/regions/center.phtml'); ?>,
+            		<?php echo $this->partial('layout/regions/center-south.phtml'); ?>
             	]
             }]
         });
