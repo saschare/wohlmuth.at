@@ -3,10 +3,18 @@ Ext.getCmp('page-edit-tab').add({
 	title: '<?php echo Aitsu_Translate :: translate('Edit'); ?>',
 	bodyCfg: {
 		tag: 'iframe',
-        src: 'http://www.wdrei.ch/',
+		id: 'edit-iframe-<?php echo $this->idartlang; ?>',
+        src: '/adm/edit/<?php echo $this->idartlang; ?>',
         style: {
 			border: '0px none'
         }
+	},
+	listeners: {
+		render: function() {
+			Ext.get('edit-iframe-<?php echo $this->idartlang; ?>').on('load', function(e, t, o) {
+				alert(this.dom.body);
+			});
+		}
 	}
 });
 

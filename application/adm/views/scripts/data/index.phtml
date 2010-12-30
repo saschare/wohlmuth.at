@@ -1,5 +1,8 @@
 var editPage = function(id) {
-	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>?id=' + id], null, this, false);
+	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>?id=' + id], function() {
+		Ext.getCmp('viewport').doLayout();
+		Ext.getCmp('page-edit-tab').activate(0);
+	}, this, false);
 }
 
 var reloadTree = function(id, tree) {

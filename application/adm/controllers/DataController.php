@@ -117,9 +117,8 @@ class DataController extends Zend_Controller_Action {
 		$this->view->idart = $idart;
 		Aitsu_Persistence_Lastopened :: factory($idart)->save();
 
-		$plugins = Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/plugins/article', 'Class.php');
-		$this->view->plugins = array ();
-		foreach ($plugins as $plugin) {
+		$plugins = array ();
+		foreach (Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/plugins/article', 'Class.php') as $plugin) {
 			$parts = explode('/', $plugin);
 			$pluginName = $parts[count($parts) - 2];
 			include_once ($plugin);
@@ -130,14 +129,22 @@ class DataController extends Zend_Controller_Action {
 				'register'
 			), $idart);
 			if ($registry->enabled) {
-				$this->view->plugins[] = $registry;
+				$plugins[] = $registry;
 			}
 		}
 
-		uasort($this->view->plugins, array (
+		uasort($plugins, array (
 			$this,
 			'_comparePosition'
 		));
+		$plugins = array_reverse($plugins);
+
+		foreach ($plugins as $plugin) {
+			$this->_helper->actionStack('article', 'plugin', 'default', array (
+				'plugin' => $plugin->name,
+				'idart' => $idart
+			));
+		}
 	}
 
 	/**

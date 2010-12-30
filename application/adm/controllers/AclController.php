@@ -33,23 +33,9 @@ class AclController extends Zend_Controller_Action {
 
 	public function loginAction() {
 
-		if (Aitsu_Config :: equals('extjstest', true)) {
-			$this->_helper->layout->disableLayout();
-			$this->_helper->viewRenderer->setNoRender(true);
-			$this->render('loginextjs');
-			return;
-		}
-
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/login.ini', 'new'));
-		$form->setAction($this->view->url());
-
-		if ($this->getRequest()->isPost()) {
-			$form->setValues(array (
-				'login' => $this->getRequest()->getParam('login')
-			));
-		}
-
-		$this->view->form = $form;
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+		$this->render('loginextjs');
 	}
 
 	/**
@@ -513,65 +499,6 @@ class AclController extends Zend_Controller_Action {
 				'message' => $e->getMessage()
 			));
 		}
-
-		/*$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-		
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('resourceid') : $this->getRequest()->getParam('id');
-		
-		if ($this->getRequest()->getParam('cancel') != 1) {
-		
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/resource.ini', 'edit'));
-			$form->setAction($this->view->url());
-		
-			$res = Aitsu_Persistence_Resource :: factory($this->getRequest()->getParam('id'))->load();
-		
-			if ($res->resourcetype == 'art') {
-				$this->view->targetId = 'idart-' . $res->identifier;
-				$cats = Aitsu_Db :: fetchCol('' .
-				'select parent.idcat ' .
-				'from _cat_art as catart ' .
-				'left join _cat as child on catart.idcat = child.idcat ' .
-				'left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
-				'where catart.idart = :idart ' .
-				'order by parent.lft asc', array (
-					':idart' => $res->identifier
-				));
-				$this->view->openCats = "'" . implode("', '", $cats) . "'";
-			}
-			elseif ($res->resourcetype == 'cat') {
-				$this->view->targetId = 'cat-' . $res->identifier;
-				$cats = Aitsu_Db :: fetchCol('' .
-				'select parent.idcat ' .
-				'from _cat as child ' .
-				'left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
-				'where child.idcat = :idcat ' .
-				'order by parent.lft asc', array (
-					':idcat' => $res->identifier
-				));
-				$this->view->openCats = "'" . implode("', '", $cats) . "'";
-			} else {
-				$this->view->targetId = null;
-			}
-		
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues($res->toArray());
-			}
-		
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('acl/newresource.phtml');
-				return;
-			}
-		
-			$values = $form->getValues();
-		
-			Aitsu_Persistence_Resource :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-		
-		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
-		
-		echo $this->view->render('acl/resourcelist.phtml');*/
 	}
 
 	/**

@@ -21,10 +21,3 @@ var spot = new Ext.ux.Spotlight({
 	easing: 'easeOut',
 	duration: .3
 });
-
-<?php $plugins = array(); foreach($this->plugins as $plugin) {$plugins[] = "'" . $this->url(array('plugin' => $plugin->name), 'aplugin') . "?idart={$this->idart}'"; } ?>
-
-Ext.Loader.load([<?php echo implode(',', $plugins); ?>], function() {
-	Ext.getCmp('page-edit-tab').activate(0);
-	Ext.getCmp('viewport').doLayout();
-}, this, true);

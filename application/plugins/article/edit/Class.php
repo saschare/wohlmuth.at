@@ -33,7 +33,6 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		$idart = $this->getRequest()->getParam('idart');
 
 		$idartlang = Aitsu_Persistence_Article :: factory($idart)->load()->idartlang;
-
 		$this->view->idart = $idart;
 		$this->view->idartlang = $idartlang;
 	}
