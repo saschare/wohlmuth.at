@@ -41,8 +41,7 @@
             id: 'viewport',
             items: [
             <?php echo $this->partial('layout/regions/north.phtml'); ?>, 
-            <?php echo $this->partial('layout/regions/south.phtml'); ?>, 
-            <?php echo $this->partial('layout/regions/east.phtml'); ?>, 
+            <?php echo $this->partial('layout/regions/south.phtml'); ?>,  
             <?php echo $this->partial('layout/regions/west.phtml'); ?>, 
             {
             	region: 'center',
@@ -51,7 +50,17 @@
             	layout: 'border',
             	split: false,
             	items: [
-            		<?php echo $this->partial('layout/regions/center.phtml'); ?>,
+            		{
+            			region: 'center',
+            			id: 'viewport-inner-centerarea',
+            			unstyled: true,
+            			layout: 'border',
+            			split: false,
+            			items: [
+            				<?php echo $this->partial('layout/regions/center.phtml'); ?>,
+            				<?php echo $this->partial('layout/regions/east.phtml'); ?>
+            			]
+            		},
             		<?php echo $this->partial('layout/regions/center-south.phtml'); ?>
             	]
             }]
