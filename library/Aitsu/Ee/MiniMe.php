@@ -314,7 +314,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 			$match = $matches[0][$i];
 			$quote = $matches[1][$i];
 			$url = $matches[2][$i];
-			if (substr($url, 0, 4) != 'http')
+			if (substr($url, 0, 4) != 'http' && substr($url, 0, 1) != '/') {
 				if (substr($url, 0, 1) != '.' && substr($url, 0, 4) != 'http') {
 					// Link showing downwards.
 					$css = str_replace($matches[0][$i], "url({$quote}/skin/{$dir}/{$url}{$quote})", $css);
@@ -330,6 +330,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 					$css = str_replace($matches[0][$i], "url({$quote}/skin/{$env}{$new}/{$url}{$quote})", $css);
 					$css = str_replace('//', '/', $css);
 				}
+			}
 		}
 
 		return $css;
