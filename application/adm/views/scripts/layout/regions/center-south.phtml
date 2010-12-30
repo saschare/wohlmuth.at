@@ -7,8 +7,8 @@
 	collapsible: true,
 	collapseMode: 'mini',
 	hideCollapseTool: true,
-	minHeight: 300,
-	height: 300,
+	minHeight: 150,
+	height: 250,
 	items: new Ext.TabPanel({
 		id: 'center-south-tab',
 		resizeTabs: false,
@@ -22,6 +22,11 @@
 		listeners: {
 			tabchange: function(panel, tab) {
 				if (panel.items.getCount() == 0) {
+					var dim = registry.get('center-south-dim');
+					if (typeof dim != 'undefined' && dim.westIsVisible) {
+						Ext.getCmp('viewport-west').setVisible(true);
+					}
+					Ext.getCmp('viewport-inner-centerarea').setVisible(true);
 					Ext.getCmp('center-south').setVisible(false);
 					Ext.getCmp('viewport').doLayout();
 				}
@@ -32,28 +37,27 @@
             		if (typeof dim == 'undefined') {
             			dim = {
             				isBig: false,
-							height: 500,
-							westIsCollapsed: Ext.getCmp('viewport').layout.west.isCollapsed
+							height: 250,
+							westIsCollapsed: Ext.getCmp('viewport').layout.west.isCollapsed,
+							westIsVisible: Ext.getCmp('viewport').layout.west.isVisible()
             			}
             		}
             		if (dim.isBig) {
             			/* reduce */
             			dim.isBig = false;
-            			if (!dim.westIsCollapsed && Ext.getCmp('viewport').layout.west.isVisible()) {
-            				Ext.getCmp('viewport-west').expand(false);
+            			Ext.getCmp('viewport-inner-centerarea').setVisible(true);
+            			if (dim.westIsVisible) {
+            				Ext.getCmp('viewport-west').setVisible(true);
             			}
-            			dim.height = Ext.getCmp('center-south').getHeight();
-            			Ext.getCmp('center-south').setHeight(300);
+            			Ext.getCmp('center-south').setHeight(dim.height);
             		} else {
             			/* maximize */
             			dim.isBig = true;
-            			if (Ext.getCmp('viewport').layout.west.isCollapsed) {
-            				dim.westIsCollapsed = true;
-            			} else {
-            				dim.westIsCollapsed = false;
-            				Ext.getCmp('viewport-west').collapse(false);
-            			}
-            			Ext.getCmp('center-south').setHeight(dim.height);
+            			Ext.getCmp('viewport-inner-centerarea').setVisible(false);
+            			dim.westIsVisible = Ext.getCmp('viewport').layout.west.isVisible();
+            			Ext.getCmp('viewport-west').setVisible(false);
+            			dim.height = Ext.getCmp('center-south').getHeight();
+            			Ext.getCmp('center-south').setHeight(Ext.getCmp('viewport-centerarea').getHeight());
             		}
             		Ext.getCmp('viewport').doLayout();
             		registry.add('center-south-dim', dim);

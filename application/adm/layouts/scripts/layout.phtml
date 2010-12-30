@@ -33,6 +33,18 @@
         
         var registry = new Ext.util.MixedCollection();
         
+        var resetUI = function() {
+        	var dim = registry.get('center-south-dim');
+			if (typeof(dim) != 'undefined' && dim.isBig) {
+				Ext.getCmp('viewport-inner-centerarea').setVisible(true);
+				Ext.getCmp('center-south').setHeight(dim.height);
+				if (dim.westIsVisible) {
+					Ext.getCmp('viewport-west').setVisible(true);
+				}
+				dim.isBig = false;
+			}
+        }
+        
 		Ext.apply(Ext.DatePicker.prototype, {
 			format: "Y-m-d"
 		});
@@ -58,7 +70,7 @@
             			id: 'viewport-inner-centerarea',
             			unstyled: true,
             			layout: 'border',
-            			split: false,
+            			split: true,
             			items: [
             				<?php echo $this->partial('layout/regions/center.phtml'); ?>,
             				<?php echo $this->partial('layout/regions/east.phtml'); ?>
