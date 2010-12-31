@@ -176,4 +176,3 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Aitsu_Application_Status :: lock();
 	}
 }
-?>

@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Dir.php 18861 2010-09-20 13:36:14Z akm $}
  */
 
 class Aitsu_Util_Dir {
