@@ -1,3 +1,5 @@
+<?php echo $this->partial('edit-hover.phtml'); ?>
+
 Ext.getCmp('page-edit-tab').add({
 	id: 'article-plugin-edit',
 	title: '<?php echo Aitsu_Translate :: translate('Edit'); ?>',
@@ -12,11 +14,21 @@ Ext.getCmp('page-edit-tab').add({
 	listeners: {
 		render: function() {
 			Ext.get('edit-iframe-<?php echo $this->idartlang; ?>').on('load', function(e, t, o) {
-				alert(this.dom.body);
+				$(document).trigger('edit-page-content', [$('#edit-iframe-<?php echo $this->idartlang; ?>')]);
 			});
 		}
 	}
 });
+
+/*
+Shows / hides sub template bars.
+$(document).trigger('toogle-sub-templates');
+*/
+
+var doEditHandler = function(p) {
+	alert('edit: ' + p.type + ' / ' + p.container + ' / ' + p.idartlang);
+	$(document).trigger('doReplace', [p.type, p.container, p.idartlang, '<div class="aitsu_hover"><p>just a test</p></div>']);
+}
 
 <?php return; ?>
 <div class="toolbar ui-corner-bottom">
