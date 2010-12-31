@@ -2,6 +2,7 @@ var editPage = function(id) {
 	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>?id=' + id], function() {
 		Ext.getCmp('viewport').doLayout();
 		Ext.getCmp('page-edit-tab').activate(0);
+		Ext.getCmp('rop').getStore().load();
 	}, this, false);
 }
 
@@ -288,13 +289,22 @@ pagetree.getSelectionModel().on('beforeselect', function(sm, node, oldnode) {
 });
 
 var recentlyOpenedPages = new Ext.grid.GridPanel({
-	store: new Ext.data.ArrayStore({
-		fields: [
-			{name: 'id'},
-			{name: 'name'},
-			{name: 'category'}
-		],
-		data: <?php echo Aitsu_Util_Javascript :: getArrayString($this->articles, array('idart', 'title', 'name')); ?>
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('action' => 'ropstore')); ?>',
+        remoteSort: false,
+        storeId: 'ropStore',
+        idProperty: 'id',
+        root: 'data',
+        fields: [{
+            name: 'id'
+        }, {
+            name: 'idcat'
+        }, {
+            name: 'name'
+        }, {
+            name: 'category'
+        }]
     }),
     columns: [
     	{dataIndex: 'name', header: 'Page', menuDisabled: true, sortable: true},
@@ -305,7 +315,29 @@ var recentlyOpenedPages = new Ext.grid.GridPanel({
 		autoFill: true
 	},
 	border: false,
-	title: '<?php echo $this->translate('Recently opened pages'); ?>'
+	title: '<?php echo $this->translate('Recently opened pages'); ?>',
+	id: 'rop',
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		cellclick: function(grid, rowIndex, columnIndex, e) {
+			Ext.Ajax.request({
+			   url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'getPath'), 'default'); ?>',
+			   success: function(response, opts) {
+			      var res = Ext.decode(response.responseText);
+			      Ext.getCmp('page-accordion').layout.setActiveItem(0);
+			      openTreePath(res.path, pagetree, grid.getStore().getAt(rowIndex).get('id'));
+			      editPage(grid.getStore().getAt(rowIndex).get('id'));
+			   },
+			   params: {
+			   	idcat: grid.getStore().getAt(rowIndex).get('idcat')
+			   }
+			});
+		}
+	}
 });
 
 var favorites = new Ext.grid.GridPanel({

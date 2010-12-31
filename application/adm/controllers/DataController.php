@@ -41,6 +41,27 @@ class DataController extends Zend_Controller_Action {
 	}
 
 	/**
+	 * @since 2.1.0.0 - 31.12.2010
+	 */
+	public function ropstoreAction() {
+
+		$data = array ();
+
+		foreach (Aitsu_Persistence_Lastopened :: factory(1)->load()->get(100) as $rop) {
+			$data[] = (object) array (
+				'id' => $rop['idart'],
+				'idcat' => $rop['idcat'],
+				'name' => $rop['title'],
+				'category' => $rop['name']
+			);
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
+
+	/**
 	 * Action to deliver extjs tree panels with the
 	 * necessary async tree information.
 	 */

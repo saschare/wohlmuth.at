@@ -79,7 +79,10 @@ if (typeof(Ext.getCmp('system-log')) == 'undefined') {
 	
 	Ext.TaskMgr.start({
 	    run: function() {
-	    	Ext.getCmp('system-log').getStore().load();
+	    	var slog = Ext.getCmp('system-log');
+	    	if (typeof(slog) != 'undefined') {
+	    		slog.getStore().load();
+	    	}
 	    },
 	    interval: 600000
 	});
