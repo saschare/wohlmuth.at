@@ -52,7 +52,7 @@ class Aitsu_Cron_Bootstrap {
 			$jobName = basename($job, '.php');
 			$className = 'CronJob_' . $jobName;
 			include_once $job;
-			$job = new $className();
+			$job = new $className ();
 			$job->execute($jobName);
 		}
 	}
@@ -71,18 +71,10 @@ class Aitsu_Cron_Bootstrap {
 			$counter = 0;
 			foreach (get_class_methods($instance) as $phase) {
 				if (substr($phase, 0, strlen('_')) == '_') {
-					if ($instance->configured) {
-						$id = substr($phase, 1);
-						call_user_func(array (
-							$instance,
-							$phase
-						));
-					} else {
-						call_user_func(array (
-							$instance,
-							$phase
-						));
-					}
+					call_user_func(array (
+						$instance,
+						$phase
+					));
 				}
 				$counter++;
 			}
