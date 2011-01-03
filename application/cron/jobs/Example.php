@@ -21,8 +21,7 @@ class CronJob_Example extends Aitsu_Cron_Job_Abstract {
 			return false;
 		}
 
-		$weekday = date('w');
-		if (!in_array($weekday, array (
+		if (!in_array(date('w'), array (
 				6
 			))) {
 			/*
