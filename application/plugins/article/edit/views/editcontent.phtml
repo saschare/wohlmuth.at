@@ -19,7 +19,7 @@ win = new Ext.Window({
 				<?php for ($i = 0; $i < count($this->data->editInfo); $i++) : ?>
 					<?php /* edit fields */ ?>
 					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>
-					<?php if ($i < count($this->data->editInfo)) : ?>,<?php endif; ?>
+					<?php if ($i < count($this->data->editInfo) - 1) : ?>,<?php endif; ?>
 				<?php endfor; ?>
 				<?php if (!empty($this->data->configInfo)) : ?>
 					<?php /* configuration */ ?>
@@ -35,7 +35,7 @@ win = new Ext.Window({
 								<?php if ($counter < count($this->data->configInfo)) : ?>,<?php endif; ?>
 							<?php endforeach; ?>
 						]
-					},
+					}
 				<?php endif; ?>
 			]
 		},
