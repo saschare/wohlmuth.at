@@ -5,7 +5,7 @@
 	items: [{
 		xtype: 'textarea',
 		name: 'content[<?php echo $this->field->index; ?>]',
-		value: '<?php echo str_replace("\n", '\n', $this->field->content); ?>',
+		value: '<?php echo str_replace("\r", '', str_replace("\n", '\n', $this->field->content)); ?>',
 		listeners: {
 			afterrender: function(f) {
 				CKEDITOR.replace(f.getId(), {
