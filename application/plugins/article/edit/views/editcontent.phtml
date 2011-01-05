@@ -18,10 +18,12 @@ win = new Ext.Window({
 			items:[
 				<?php for ($i = 0; $i < count($this->data->editInfo); $i++) : ?>
 					<?php /* edit fields */ ?>
-					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>,
+					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>
+					<?php if ($i < count($this->data->editInfo)) : ?>,<?php endif; ?>
 				<?php endfor; ?>
 				<?php if (!empty($this->data->configInfo)) : ?>
 					<?php /* configuration */ ?>
+					<?php if (!empty($this->data->editInfo)) : ?>,<?php endif; ?>
 					{
 						title: '<?php echo Aitsu_Translate :: translate('Configuration'); ?>', 
 						layout: 'form',
@@ -35,13 +37,7 @@ win = new Ext.Window({
 						]
 					},
 				<?php endif; ?>
-				{}
 			]
-		},
-		{
-			xtype: 'hidden',
-			name: 'index',
-			value: '<?php echo $this->data->index; ?>'
 		},
 		{
 			xtype: 'hidden',
@@ -74,11 +70,15 @@ win = new Ext.Window({
 		text: '<?php echo Aitsu_Translate :: translate('Save'); ?>',
 		iconCls: 'save',
 		handler: function(){
+			for(var i in CKEDITOR.instances) {
+				Ext.getCmp(i).setRawValue(CKEDITOR.instances[i].getData());
+			}
 			Ext.getCmp('edit-content-form').getForm().submit({
-				success: function() {
+				success: function(form, action) {
+					$(document).trigger('doReplace', [action.result.data.type, action.result.data.container, action.result.data.idartlang, action.result.data.html]);
 					win.destroy();
 				},
-				failure: function() {
+				failure: function(form, action) {
 					win.destroy();
 				} 
 			});

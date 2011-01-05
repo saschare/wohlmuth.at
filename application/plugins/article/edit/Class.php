@@ -82,7 +82,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		$params = $this->getRequest()->getParam('params');
 		$index = $this->getRequest()->getParam('index');
 		$contents = $this->getRequest()->getParam('content');
-		
+
 		$config = array ();
 		$configType = array ();
 
@@ -109,10 +109,9 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 				'idartlang' => $idartlang
 			));
 
-			if ($index != null) {
-				foreach ($index as $key => $value) {
-					$content = $contents[$key];
-					Aitsu_Content :: set($index[$key], $idartlang, $content);
+			if ($contents != null) {
+				foreach ($contents as $key => $value) {
+					Aitsu_Content :: set($key, $idartlang, $value);
 				}
 			}
 
@@ -151,7 +150,12 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$this->_helper->json((object) array (
 			'success' => true,
-			'data' => $data
+			'data' => (object) array (
+				'html' => $data,
+				'type' => $type,
+				'container' => $container,
+				'idartlang' => $idartlang
+			)
 		));
 	}
 
