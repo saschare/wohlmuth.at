@@ -224,6 +224,10 @@
     background-image: url(../images/icons/accept.png) !important; 
     background-repeat: no-repeat;
 }
+.cancel {
+    background-image: url(../images/icons/cancel.png) !important; 
+    background-repeat: no-repeat;
+}
 .execute {
     background-image: url(../images/icons/cog_go.png) !important; 
     background-repeat: no-repeat;
