@@ -50,7 +50,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$editInfo = Aitsu_Content_Edit :: getContents();
 		$configs = Aitsu_Content_Edit :: getConfigs();
-		
+var_dump($configs);exit;		
 		$configInfo = array();
 		foreach ($configs as $config) {
 			$fieldset = $config->fieldset == '' ? -1 : $config->fieldset;
