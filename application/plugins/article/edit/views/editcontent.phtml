@@ -1,0 +1,102 @@
+win = new Ext.Window({
+	layout:'fit',
+	width:700,
+	height:500,
+	modal: true,
+	closable: false,
+	plain: true,
+	shadow: true,
+	floating: true,
+	items: new Ext.FormPanel({
+		id: 'edit-content-form',
+		border: false,
+		layout: 'fit',
+		items: {
+			xtype:'tabpanel',
+			activeTab: 0,
+			items:[{
+				title:'Test',
+				layout:'fit',
+				border: false,
+				items: [{
+					xtype: 'textarea',
+					name: 'my-field-name',
+					listeners: {
+						afterrender: function(f) {
+							CKEDITOR.replace(f.getId(), {
+								toolbar: [
+									['Source'],
+									['Cut','Copy','PasteText'],
+									['Undo','Redo','-','Replace','-','SelectAll','RemoveFormat'],
+									['Styles','Format'],
+									['Maximize', 'ShowBlocks'],
+									'/',
+									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+									['Link','Unlink','Anchor'],
+									['HorizontalRule','SpecialChar']
+								],
+	                    		toolbarCanCollapse: false,
+	                    		skin: 'office2003',
+	                    		height: win.getSize().height - 163,
+	                    		resize_enabled: false
+	                    	});
+	                    },
+						beforedestroy: function(f) {
+	                    	CKEDITOR.instances[f.getId()].destroy();
+	                    }
+					}
+				}]
+			}, {
+				title:'Test2',
+				layout:'fit',
+				border: false,
+				items: [{
+					xtype: 'textarea',
+					name: 'my-field-name',
+					listeners: {
+						afterrender: function(f) {
+							CKEDITOR.replace(f.getId(), {
+								toolbar: [
+									['Source'],
+									['Cut','Copy','PasteText'],
+									['Undo','Redo','-','Replace','-','SelectAll','RemoveFormat'],
+									['Styles','Format'],
+									['Maximize', 'ShowBlocks'],
+									'/',
+									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+									['Link','Unlink','Anchor'],
+									['HorizontalRule','SpecialChar']
+								],
+	                    		toolbarCanCollapse: false,
+	                    		skin: 'office2003',
+	                    		height: win.getSize().height - 163,
+	                    		resize_enabled: false
+	                    	});
+	                    },
+	                    beforedestroy: function(f) {
+	                    	CKEDITOR.instances[f.getId()].destroy();
+	                    }
+					}
+				}]
+			}]
+		}
+	}),
+	buttons: [{
+		text:'<?php echo Aitsu_Translate :: translate('Cancel'); ?>',
+		iconCls: 'cancel',
+		handler: function(){
+			win.destroy();
+		}
+	},{
+		text: '<?php echo Aitsu_Translate :: translate('Save'); ?>',
+		iconCls: 'save',
+		handler: function(){
+			win.destroy();
+		}
+	}]
+});
+win.show();
