@@ -96,6 +96,7 @@ $(function() {
 		/* Content replace handler. */
 		$(document).bind('doReplace', function(event, type, container, idartlang, data) {
 			$('#' + type + '-' + container + '-' + idartlang, oBody).html($('#.aitsu_hover:first', data));
+			$(document).trigger('edit-page-content');
 		});
 	});
 	
