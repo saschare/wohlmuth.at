@@ -1,8 +1,23 @@
 <?php echo $this->partial('edit-hover.phtml'); ?>
 
-Ext.getCmp('page-edit-tab').add({
+var pageEditTabs = new Ext.TabPanel(
+	{
+		id: 'page-edit-tabs',
+		title: '<?php echo Aitsu_Translate :: translate('Edit'); ?>',
+		resizeTabs: false,
+		minTabWidth: 115,
+		tabWidth:135,
+		enableTabScroll:true,
+		defaults: {
+			autoScroll:true
+		},
+		tabPosition: 'bottom'
+	}
+);
+
+pageEditTabs.add({
 	id: 'article-plugin-edit',
-	title: '<?php echo Aitsu_Translate :: translate('Edit'); ?>',
+	title: '<?php echo Aitsu_Translate :: translate('Normal'); ?>',
 	bodyCfg: {
 		tag: 'iframe',
 		id: 'edit-iframe-<?php echo $this->idartlang; ?>',
@@ -17,8 +32,53 @@ Ext.getCmp('page-edit-tab').add({
 				$(document).trigger('edit-page-content', [$('#edit-iframe-<?php echo $this->idartlang; ?>')]);
 			});
 		}
+	},
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh'); ?>',
+	            iconCls: 'tb-refresh',
+	            handler: function(b, e) {
+	            	alert('refresh view');
+	            }
+	        }
+	    ]
 	}
 });
+
+/*pageEditTabs.add({
+	id: 'article-plugin-edit-boxmodel',
+	title: '<?php echo Aitsu_Translate :: translate('Box model'); ?>',
+	html: '<p>this feature is not implemented yet.</p>'
+});*/
+
+pageEditTabs.add({
+	id: 'article-plugin-edit-preview',
+	title: '<?php echo Aitsu_Translate :: translate('Preview'); ?>',
+	bodyCfg: {
+		tag: 'iframe',
+		id: 'edit-iframe-preview-<?php echo $this->idartlang; ?>',
+        src: '/adm/preview/<?php echo $this->idartlang; ?>',
+        style: {
+			border: '0px none'
+        }
+	},
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh'); ?>',
+	            iconCls: 'tb-refresh',
+	            handler: function(b, e) {
+	            	alert('refresh view');
+	            }
+	        }
+	    ]
+	}
+});
+
+pageEditTabs.activate(0);
+
+Ext.getCmp('page-edit-tab').add(pageEditTabs);
 
 /*
 Shows / hides sub template bars.
