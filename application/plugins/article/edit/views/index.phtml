@@ -97,7 +97,8 @@ $(document).trigger('doReplace', [p.type, p.container, p.idartlang, '<div><div c
 */
 
 var doEditHandler = function(p) {
-	win = new Ext.Window({
+	Ext.Loader.load(['<?php echo $this->url(array('paction' => 'editcontent')); ?>?'], null, this, false);
+	/*win = new Ext.Window({
 		layout:'fit',
 		width:700,
         height:500,
@@ -198,7 +199,7 @@ var doEditHandler = function(p) {
 			}
 		}]
 	});
-	win.show();
+	win.show();*/
 	
 	/* just showing what then would happen (after editing is successfylly done). */
 	// $(document).trigger('doReplace', [p.type, p.container, p.idartlang, '<div><div class="aitsu_hover"><div id="PagetitleAsHeadline--440" class="aitsu_editable"><div class="aitsu_hover"><code class="aitsu_params" style="display:none;"> tag = h1 </code><h1>test</h1></div></div></div></div>']);
