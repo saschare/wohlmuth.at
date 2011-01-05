@@ -39,8 +39,6 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function editcontentAction() {
 
-		$this->_helper->layout->disableLayout();
-
 		$type = $this->getRequest()->getParam('type');
 		$container = $this->getRequest()->getParam('container');
 		$idartlang = $this->getRequest()->getParam('idartlang');
@@ -56,7 +54,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		foreach ($editInfo as $key => $panel) {
 			$editInfo[$key]->content = Aitsu_Content :: get($panel->index, $panel->type, $panel->idart, $panel->idlang, null);
 		}
-
+var_dump($editInfo);exit;
 		$this->view->type = $type;
 		$this->view->idartlang = $idartlang;
 		$this->view->container = $container;
