@@ -1,4 +1,4 @@
-<?php echo var_export($this->field, true); ?>
+<?php //echo var_export($this->field, true); ?>
 {
 	xtype: 'radiogroup',
 	<?php if (!empty($this->field->label)) : ?>
@@ -8,21 +8,16 @@
 	<?php endif; ?>
 	columns: 2,
 	items: [
-		<?php $counter = 0; foreach ($this->field->params['keyValuePairs'] as $key => $value) : $counter++; ?>
+		<?php $counter = 0; foreach ($this->field->keyValuePairs as $key => $value) : $counter++; ?>
 		{
-			boxLabel: '',
-			name: '', 
-			inputValue: ''
-			checked: false
+			boxLabel: '<?php echo $key; ?>',
+			name: 'config-<?php echo $this->field->name; ?>', 
+			inputValue: '<?php echo $value; ?>',
+			checked: <?php echo $value == $this->field->currentValue() ? 'true' : 'false'; ?>
 		}
-		<?php if ($counter < count($this->field->params['keyValuePairs'])) : ?>
+		<?php if ($counter < count($this->field->keyValuePairs)) : ?>
 		,
 		<?php endif; ?>
 		<?php endforeach; ?>
-		/*{boxLabel: 'Item 1', name: 'rb-auto', inputValue: 1},
-        {boxLabel: 'Item 2', name: 'rb-auto', inputValue: 2, checked: true},
-        {boxLabel: 'Item 3', name: 'rb-auto', inputValue: 3},
-        {boxLabel: 'Item 4', name: 'rb-auto', inputValue: 4},
-        {boxLabel: 'Item 5', name: 'rb-auto', inputValue: 5}*/
 	]
 }
