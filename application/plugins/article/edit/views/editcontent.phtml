@@ -14,75 +14,35 @@ win = new Ext.Window({
 		items: {
 			xtype:'tabpanel',
 			activeTab: 0,
-			items:[{
-				title:'Test',
-				layout:'fit',
-				border: false,
-				items: [{
-					xtype: 'textarea',
-					name: 'my-field-name',
-					listeners: {
-						afterrender: function(f) {
-							CKEDITOR.replace(f.getId(), {
-								toolbar: [
-									['Source'],
-									['Cut','Copy','PasteText'],
-									['Undo','Redo','-','Replace','-','SelectAll','RemoveFormat'],
-									['Styles','Format'],
-									['Maximize', 'ShowBlocks'],
-									'/',
-									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
-									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-									['Link','Unlink','Anchor'],
-									['HorizontalRule','SpecialChar']
-								],
-	                    		toolbarCanCollapse: false,
-	                    		skin: 'office2003',
-	                    		height: win.getSize().height - 163,
-	                    		resize_enabled: false
-	                    	});
-	                    },
-						beforedestroy: function(f) {
-	                    	CKEDITOR.instances[f.getId()].destroy();
-	                    }
+			items:[
+				<?php for ($i = 0; $i < count($this->data->editInfo); $i++) : ?>
+					<?php /* edit fields */ ?>
+					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>
+					<?php if ($i < count($this->data->editInfo) - 1) : ?>
+						,
+					<?php endif; ?>
+				<?php endfor; ?>
+				<?php if (!empty($this->data->configInfo)) : ?>
+					<?php /* configuration */ ?>
+					<?php if (!empty($this->data->editInfo)) : ?>
+						,
+					<?php endif; ?>
+					{
+						title: '<?php echo Aitsu_Translate :: translate('Configuration'); ?>', 
+						layout: 'form',
+						autoScroll: true,
+						padding: '5px',
+						items: [					
+							<?php $counter = 1; foreach($this->data->configInfo as $fieldset => $config) : $counter++; ?>
+								<?php echo $this->partial('edit/fieldset.phtml', array('fieldset' => $fieldset, 'config' => $config)); ?>
+								<?php if ($counter < count($this->data->configInfo)) : ?>
+								,
+								<?php endif; ?>
+							<?php endforeach; ?>
+						]
 					}
-				}]
-			}, {
-				title:'Test2',
-				layout:'fit',
-				border: false,
-				items: [{
-					xtype: 'textarea',
-					name: 'my-field-name',
-					listeners: {
-						afterrender: function(f) {
-							CKEDITOR.replace(f.getId(), {
-								toolbar: [
-									['Source'],
-									['Cut','Copy','PasteText'],
-									['Undo','Redo','-','Replace','-','SelectAll','RemoveFormat'],
-									['Styles','Format'],
-									['Maximize', 'ShowBlocks'],
-									'/',
-									['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-									['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
-									['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-									['Link','Unlink','Anchor'],
-									['HorizontalRule','SpecialChar']
-								],
-	                    		toolbarCanCollapse: false,
-	                    		skin: 'office2003',
-	                    		height: win.getSize().height - 163,
-	                    		resize_enabled: false
-	                    	});
-	                    },
-	                    beforedestroy: function(f) {
-	                    	CKEDITOR.instances[f.getId()].destroy();
-	                    }
-					}
-				}]
-			}]
+				<?php endif; ?>
+			]
 		}
 	}),
 	buttons: [{

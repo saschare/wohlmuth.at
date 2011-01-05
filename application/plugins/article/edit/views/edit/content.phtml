@@ -1,0 +1,36 @@
+{
+	title:'<?php echo $this->field->index; ?>',
+	layout:'fit',
+	border: false,
+	items: [{
+		xtype: 'textarea',
+		name: 'content[<?php echo $this->field->index; ?>]',
+		value: '<?php echo str_replace("\n", '\n', $this->field->content); ?>',
+		listeners: {
+			afterrender: function(f) {
+				CKEDITOR.replace(f.getId(), {
+					toolbar: [
+						['Source'],
+						['Cut','Copy','PasteText'],
+						['Undo','Redo','-','Replace','-','SelectAll','RemoveFormat'],
+						['Styles','Format'],
+						['Maximize', 'ShowBlocks'],
+						'/',
+						['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+						['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+						['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+						['Link','Unlink','Anchor'],
+						['HorizontalRule','SpecialChar']
+					],
+               		toolbarCanCollapse: false,
+               		skin: 'office2003',
+               		height: win.getSize().height - 163,
+               		resize_enabled: false
+               	});
+			},
+			beforedestroy: function(f) {
+				CKEDITOR.instances[f.getId()].destroy();
+			}
+		}
+	}]
+}

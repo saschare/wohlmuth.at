@@ -2,12 +2,8 @@
 
 
 /**
- * Abstract configuration class.
- * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Abstract.php 18211 2010-08-19 11:10:00Z akm $}
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 abstract class Aitsu_Content_Config_Abstract {

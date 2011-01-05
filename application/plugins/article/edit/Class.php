@@ -49,18 +49,27 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		Aitsu_Content_Edit :: end();
 
 		$editInfo = Aitsu_Content_Edit :: getContents();
-		$configInfo = Aitsu_Content_Edit :: getConfigs();
+		$configs = Aitsu_Content_Edit :: getConfigs();
+		
+		$configInfo = array();
+		foreach ($configs as $config) {
+			$fieldset = $config->fieldset == '' ? -1 : $config->fieldset;
+			$configInfo[$fieldset][] = $config; 
+		}
 
 		foreach ($editInfo as $key => $panel) {
 			$editInfo[$key]->content = Aitsu_Content :: get($panel->index, $panel->type, $panel->idart, $panel->idlang, null);
 		}
-var_dump($editInfo);exit;
-		$this->view->type = $type;
-		$this->view->idartlang = $idartlang;
-		$this->view->container = $container;
-		$this->view->params = $params;
-		$this->view->editInfo = $editInfo;
-		$this->view->configInfo = $configInfo;
+//var_dump($configInfo); exit;
+		$this->view->data = (object) array (
+			'type' => $type,
+			'idartlang' => $idartlang,
+			'container' => $container,
+			'params' => $params,
+			'editInfo' => $editInfo,
+			'configInfo' => $configInfo
+		);
+
 	}
 
 	public function saveAction() {
@@ -149,7 +158,7 @@ var_dump($editInfo);exit;
 			Aitsu_Event :: raise('backend.article.edit.save.end', array (
 				'idartlang' => $idartlang
 			));
-			
+
 			Aitsu_Persistence_Article :: touch($idartlang);
 
 			Aitsu_Db :: commit();
