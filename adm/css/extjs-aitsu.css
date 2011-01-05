@@ -204,6 +204,10 @@
     background-image: url(../images/icons/arrow_rotate_clockwise.png) !important; 
     background-repeat: no-repeat;
 }
+.tb-templates {
+    background-image: url(../images/icons/layers.png) !important; 
+    background-repeat: no-repeat;
+}
 .delete {
     background-image: url(../images/icons/delete.png) !important; 
     background-repeat: no-repeat;

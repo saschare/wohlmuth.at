@@ -39,7 +39,16 @@ pageEditTabs.add({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh'); ?>',
 	            iconCls: 'tb-refresh',
 	            handler: function(b, e) {
-	            	alert('refresh view');
+	            	Ext.get('edit-iframe-<?php echo $this->idartlang; ?>').set({
+	            		src: '/adm/edit/<?php echo $this->idartlang; ?>'
+	            	});
+	            }
+	        },
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Show template bars'); ?>',
+	            iconCls: 'tb-templates',
+	            handler: function(b, e) {
+	            	$(document).trigger('toogle-sub-templates');
 	            }
 	        }
 	    ]
@@ -69,7 +78,9 @@ pageEditTabs.add({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh'); ?>',
 	            iconCls: 'tb-refresh',
 	            handler: function(b, e) {
-	            	alert('refresh view');
+					Ext.get('edit-iframe-preview-<?php echo $this->idartlang; ?>').set({
+	            		src: '/adm/preview/<?php echo $this->idartlang; ?>'
+	            	});
 	            }
 	        }
 	    ]
@@ -79,11 +90,6 @@ pageEditTabs.add({
 pageEditTabs.activate(0);
 
 Ext.getCmp('page-edit-tab').add(pageEditTabs);
-
-/*
-Shows / hides sub template bars.
-$(document).trigger('toogle-sub-templates');
-*/
 
 /*
 Replaces the previously edited area.
