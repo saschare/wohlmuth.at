@@ -2,12 +2,8 @@
 
 
 /**
- * HTML as ShortCode.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 17813 2010-07-29 09:01:04Z akm $}
  */
 
 class Aitsu_Ee_Module_HTML_Class extends Aitsu_Ee_Module_Abstract {
