@@ -9,24 +9,19 @@ win = new Ext.Window({
 	floating: true,
 	items: new Ext.FormPanel({
 		id: 'edit-content-form',
+		url: '<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'save'), 'aplugin'); ?>',
 		border: false,
 		layout: 'fit',
-		items: {
+		items: [{
 			xtype:'tabpanel',
 			activeTab: 0,
 			items:[
 				<?php for ($i = 0; $i < count($this->data->editInfo); $i++) : ?>
 					<?php /* edit fields */ ?>
-					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>
-					<?php if ($i < count($this->data->editInfo) - 1) : ?>
-						,
-					<?php endif; ?>
+					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>,
 				<?php endfor; ?>
 				<?php if (!empty($this->data->configInfo)) : ?>
 					<?php /* configuration */ ?>
-					<?php if (!empty($this->data->editInfo)) : ?>
-						,
-					<?php endif; ?>
 					{
 						title: '<?php echo Aitsu_Translate :: translate('Configuration'); ?>', 
 						layout: 'form',
@@ -35,15 +30,39 @@ win = new Ext.Window({
 						items: [					
 							<?php $counter = 1; foreach($this->data->configInfo as $fieldset => $config) : $counter++; ?>
 								<?php echo $this->partial('edit/fieldset.phtml', array('fieldset' => $fieldset, 'config' => $config)); ?>
-								<?php if ($counter < count($this->data->configInfo)) : ?>
-								,
-								<?php endif; ?>
+								<?php if ($counter < count($this->data->configInfo)) : ?>,<?php endif; ?>
 							<?php endforeach; ?>
 						]
-					}
+					},
 				<?php endif; ?>
+				{}
 			]
-		}
+		},
+		{
+			xtype: 'hidden',
+			name: 'index',
+			value: '<?php echo $this->data->index; ?>'
+		},
+		{
+			xtype: 'hidden',
+			name: 'type',
+			value: '<?php echo $this->data->type; ?>'
+		},
+		{
+			xtype: 'hidden',
+			name: 'container',
+			value: '<?php echo $this->data->container; ?>'
+		},
+		{
+			xtype: 'hidden',
+			name: 'idartlang',
+			value: '<?php echo $this->data->idartlang; ?>'
+		},
+		{
+			xtype: 'hidden',
+			name: 'params',
+			value: '<?php echo str_replace("\n", '\n', $this->data->params); ?>'
+		}]		
 	}),
 	buttons: [{
 		text:'<?php echo Aitsu_Translate :: translate('Cancel'); ?>',
@@ -55,7 +74,14 @@ win = new Ext.Window({
 		text: '<?php echo Aitsu_Translate :: translate('Save'); ?>',
 		iconCls: 'save',
 		handler: function(){
-			win.destroy();
+			Ext.getCmp('edit-content-form').getForm().submit({
+				success: function() {
+					win.destroy();
+				},
+				failure: function() {
+					win.destroy();
+				} 
+			});
 		}
 	}]
 });
