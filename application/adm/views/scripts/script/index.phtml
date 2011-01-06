@@ -28,7 +28,7 @@ west.add(new Ext.tree.TreePanel({
 				node.expand();
 			}
 			if (node.attributes.type == 'script') {
-				Ext.Loader.load(['<?php echo $this->url(array('action' => 'show')); ?>?script=' + node.attributes.id], null, this, false);
+				Ext.aitsu.load(['<?php echo $this->url(array('action' => 'show')); ?>?script=' + node.attributes.id], null, this, false);
 			}
 		}
 	}

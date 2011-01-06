@@ -28,7 +28,7 @@ var roles = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new role'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
-	            	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editrole'), 'default'); ?>?'], null, this, false);
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editrole'), 'default'); ?>?'], null, this, false);
 	            }
 	        }
 	    ]
@@ -41,7 +41,7 @@ var roles = new Ext.grid.GridPanel({
 		},
 		rowclick: function(grid, rowIndex, event) {
 			var id = this.getStore().getAt(rowIndex).get('roleid');
-			Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editrole'), 'default'); ?>?roleid=' + id], null, this, false);
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editrole'), 'default'); ?>?roleid=' + id], null, this, false);
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			

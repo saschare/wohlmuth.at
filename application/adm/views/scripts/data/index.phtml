@@ -1,5 +1,5 @@
 var editPage = function(id) {
-	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>?id=' + id], function() {
+	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>?id=' + id], function() {
 		Ext.getCmp('viewport').doLayout();
 		Ext.getCmp('page-edit-tab').activate(0);
 		Ext.getCmp('rop').getStore().load();
@@ -284,7 +284,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 
 pagetree.getSelectionModel().on('beforeselect', function(sm, node, oldnode) {
 	if (node.attributes.type == 'category') {
-		Ext.Loader.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id], null, this, false);
+		Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id], null, this, false);
 	}
 });
 

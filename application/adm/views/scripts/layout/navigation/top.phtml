@@ -29,7 +29,7 @@
 												<?php endif; ?>	
 												listeners: {
 													click: function() {
-														Ext.Loader.load(['<?php echo $subSubPage->getHref(); ?>?ajax=1'], null, this, false);
+														Ext.aitsu.load(['<?php echo $subSubPage->getHref(); ?>?ajax=1'], null, this, false);
 													}
 												}									
 											},
@@ -41,7 +41,7 @@
 								<?php else : ?>
 								listeners: {
 									click: function() {
-										Ext.Loader.load(['<?php echo $subPage->getHref(); ?>?ajax=1'], null, this, false);
+										Ext.aitsu.load(['<?php echo $subPage->getHref(); ?>?ajax=1'], null, this, false);
 									}
 								}
 								<?php endif; ?>
@@ -54,7 +54,7 @@
 			<?php else : ?>
 				listeners: {
 					click: function() {
-						Ext.Loader.load(['<?php echo $pos->getHref(); ?>?ajax=1'], null, this, false);
+						Ext.aitsu.load(['<?php echo $pos->getHref(); ?>?ajax=1'], null, this, false);
 					}
 				}
 			<?php endif; ?>

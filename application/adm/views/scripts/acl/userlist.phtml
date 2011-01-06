@@ -44,7 +44,7 @@ var users = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new user'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
-	            	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>?'], null, this, false);
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>?'], null, this, false);
 	            }
 	        }
 	    ]
@@ -57,7 +57,7 @@ var users = new Ext.grid.GridPanel({
 		},
 		rowclick: function(grid, rowIndex, event) {
 			var id = this.getStore().getAt(rowIndex).get('userid');
-			Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>?userid=' + id], null, this, false);
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>?userid=' + id], null, this, false);
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			

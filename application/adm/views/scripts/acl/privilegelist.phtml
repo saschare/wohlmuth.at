@@ -28,7 +28,7 @@ var privileges = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new privilege'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
-	            	Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editprivilege'), 'default'); ?>?'], null, this, false);
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editprivilege'), 'default'); ?>?'], null, this, false);
 	            }
 	        }
 	    ]
@@ -41,7 +41,7 @@ var privileges = new Ext.grid.GridPanel({
 		},
 		rowclick: function(grid, rowIndex, event) {
 			var id = this.getStore().getAt(rowIndex).get('privilegeid');
-			Ext.Loader.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editprivilege'), 'default'); ?>?privilegeid=' + id], null, this, false);
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editprivilege'), 'default'); ?>?privilegeid=' + id], null, this, false);
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			

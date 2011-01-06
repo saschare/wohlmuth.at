@@ -55,11 +55,11 @@ pageEditTabs.add({
 	}
 });
 
-/*pageEditTabs.add({
+pageEditTabs.add({
 	id: 'article-plugin-edit-boxmodel',
 	title: '<?php echo Aitsu_Translate :: translate('Box model'); ?>',
 	html: '<p>this feature is not implemented yet.</p>'
-});*/
+});
 
 pageEditTabs.add({
 	id: 'article-plugin-edit-preview',
@@ -97,5 +97,5 @@ $(document).trigger('doReplace', [p.type, p.container, p.idartlang, '<div><div c
 */
 
 var doEditHandler = function(p) {
-	Ext.Loader.load(['<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'editcontent'), 'aplugin'); ?>?type=' + p.type + '&container=' + p.container + '&idartlang=' + p.idartlang + '&params=' + encodeURI(p.params)], null, this, false);
+	Ext.aitsu.load(['<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'editcontent'), 'aplugin'); ?>?type=' + p.type + '&container=' + p.container + '&idartlang=' + p.idartlang + '&params=' + encodeURI(p.params)], null, this, false);
 }

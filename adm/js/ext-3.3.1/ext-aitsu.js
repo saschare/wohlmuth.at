@@ -70,6 +70,17 @@ Ext.aitsu = function() {
         		registry = new Ext.util.MixedCollection();
         	}
         	return registry;
+        },
+        
+        load : function(urls, callback, context, preserveOrder) {
+        	for (var i in urls) {
+        		if (String(urls[i]).indexOf('?') == -1) {
+        			urls[i] = urls[i] + '?cid=' + new Date().getTime();
+        		} else {
+        			urls[i] = urls[i] + '&cid=' + new Date().getTime();
+        		}
+        	}
+        	Ext.Loader.load(urls, callback, context, preserveOrder);
         }
     };
 }();

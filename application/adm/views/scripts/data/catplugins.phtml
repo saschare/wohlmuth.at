@@ -19,7 +19,7 @@ Ext.getCmp('viewport').doLayout();
 	<?php $plugins[] = "'" . $this->url(array('plugin' => $plugin->name, 'paction' => 'index'), 'cplugin') . "?idcat={$this->idcat}'"; ?>
 <?php endforeach; ?>
 
-Ext.Loader.load([<?php echo implode(',', $plugins); ?>], function() {
+Ext.aitsu.load([<?php echo implode(',', $plugins); ?>], function() {
 	tabs.setActiveTab(0);
 	tabs.doLayout();
 }, this, true);

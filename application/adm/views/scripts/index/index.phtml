@@ -13,6 +13,6 @@ center.add({
 
 <?php $plugins = array(); for ($i = 0; $i < count($this->plugins); $i++) {$plugins[] = "'" . $this->url(array('plugin' => $this->plugins[$i]->name), 'dashboard') . "'"; } ?>
 
-Ext.Loader.load([<?php echo implode(',', $plugins); ?>], function() {
+Ext.aitsu.load([<?php echo implode(',', $plugins); ?>], function() {
 	Ext.getCmp('viewport').doLayout();
 }, this, true);
