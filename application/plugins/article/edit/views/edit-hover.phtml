@@ -18,6 +18,7 @@ $(function() {
 		$('.show-on-demand', oBody).unbind();
 		$(document).unbind('edit-save');
 		$(document).unbind('toogle-sub-templates');
+		$(document).unbind('doReplace');
 		
 		/* Hover and edit binding normal .aitsu_editables (except on-domand). */
 		$('.aitsu_editable:not(.on-demand)', oBody).bind('mouseenter', function (e){
