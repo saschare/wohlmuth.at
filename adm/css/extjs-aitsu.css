@@ -232,3 +232,19 @@
     background-image: url(../images/icons/cog_go.png) !important; 
     background-repeat: no-repeat;
 }
+.upload-add {
+    background-image: url(../images/icons/add.png) !important; 
+    background-repeat: no-repeat;
+}
+.upload-delete {
+    background-image: url(../images/icons/delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.upload-stop {
+    background-image: url(../images/icons/stop.png) !important; 
+    background-repeat: no-repeat;
+}
+.upload-start {
+    background-image: url(../images/icons/disk.png) !important; 
+    background-repeat: no-repeat;
+}

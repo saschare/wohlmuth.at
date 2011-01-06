@@ -1,3 +1,49 @@
+var uploader = new Ext.ux.PluploadPanel({
+    url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>',
+    runtimes: 'html5,gears,flash,silverlight,html4',
+    multipart: true,
+    multipart_params: {
+    	idart: <? echo $this->idart; ?>
+    },
+    max_file_size: '100mb',
+    flash_swf_url: '<?php echo $this->baseUrl('/js/plupload/js/plupload.flash.swf'); ?>',
+    silverlight_xap_url: '<?php echo $this->baseUrl('/js/plupload/js/plupload.silverlight.xap'); ?>',
+    runtime_visible: false,
+    addButtonCls: 'upload-add',
+    uploadButtonCls: 'upload-start',
+    cancelButtonCls: 'upload-stop',
+    deleteButtonCls: 'upload-delete',
+    addButtonText: '<?php Aitsu_Translate :: translate('Add files'); ?>',
+    uploadButtonText: '<?php Aitsu_Translate :: translate('Upload'); ?>',
+    cancelButtonText: '<?php Aitsu_Translate :: translate('Cancel'); ?>',
+    deleteButtonText: '<?php Aitsu_Translate :: translate('Remove'); ?>',
+    deleteSelectedText: '<b>Remove selected</b>',
+    deleteUploadedText: 'Remove uploaded',
+    deleteAllText: 'Remove ALL',
+    statusQueuedText: 'Queued',
+    statusUploadingText: 'Uploading ({0}%)',
+    statusFailedText: '<span style="color: red">FAILED</span>',
+    statusDoneText: '<span style="color: green">DONE</span>',
+    statusInvalidSizeText: 'Too big',
+    statusInvalidExtensionText: 'Invalid file type',
+    emptyText: '<div class="plupload_emptytext"><span>Upload queue is empty</span></div>',
+    emptyDropText: '<div class="plupload_emptytext"><span>Drop files here</span></div>',
+    progressText: '{0}/{1} ({3} failed) ({5}/s)',
+    listeners: {
+        beforestart: function(uploadpanel) {
+            uploadpanel.uploader.settings.url = '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>?_runtime=' + uploadpanel.runtime;
+        },
+        uploadstarted: function(uploadpanel) {
+
+        },
+        uploadcomplete: function(uploadpanel, success, failures) {
+            if ( success.length ) {
+                alert('upload finished');
+            }
+        }
+    }
+});
+
 Ext.getCmp('page-edit-tab').add({
 	id: 'article-plugin-media',
 	title: '<?php echo Aitsu_Translate :: translate('Media'); ?>',
@@ -23,7 +69,9 @@ Ext.getCmp('page-edit-tab').add({
 		{
 			region: 'east',
 			split: true,
-			html: '<p>das ist der bereich für das editieren, respektive das hochladen.</p>'
+			width: 350,
+			layout: 'fit',
+			items: uploader
 		}
 	]
 });

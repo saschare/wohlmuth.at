@@ -48,28 +48,21 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$this->view->idart = $this->getRequest()->getParam('idart');
 	}
-	
+
 	public function storeAction() {
-		
+
 		$files = Aitsu_Core_File :: getFiles($this->_idartlang, '*', 'filename', true, true);
-		
+
 		// TODO: return the files as a json object.
 	}
 
 	public function uploadAction() {
 
-		$this->_helper->viewRenderer->setNoRender(true);
+		Aitsu_Core_File :: upload($this->getRequest()->getParam('idart'), $_FILES['file']['name'], $_FILES['file']['tmp_name']);
 
-		$idart = Aitsu_Db :: fetchOne('select idart from _art_lang where idartlang = :idartlang', array (
-			':idartlang' => $this->getRequest()->getParam('idartlang')
+		$this->_helper->json((object) array (
+			'success' => true
 		));
-
-		$tmpFileName = $_FILES['Filedata']['tmp_name'];
-		$fileName = $_FILES['Filedata']['name'];
-
-		Aitsu_Core_File :: upload($idart, $fileName, $tmpFileName);
-
-		echo '1';
 	}
 
 	public function filelistAction() {
