@@ -1,6 +1,31 @@
 Ext.getCmp('page-edit-tab').add({
 	id: 'article-plugin-media',
-	title: '<?php echo Aitsu_Translate :: translate('Media'); ?>'
+	title: '<?php echo Aitsu_Translate :: translate('Media'); ?>',
+	layout: 'border',
+	items: [
+		{
+			region: 'center',
+			split: true,
+			layout: 'border',
+			items: [
+				{
+					region: 'center',
+					split: true,
+					html: '<p>hier werden die medien angezeigt werden.</p>'
+				},
+				{
+					region: 'south',
+					split: true,
+					html: '<p>hier kommt das formular mit dem mediendetails hin.</p>'
+				}
+			]
+		},
+		{
+			region: 'east',
+			split: true,
+			html: '<p>das ist der bereich für das editieren, respektive das hochladen.</p>'
+		}
+	]
 });
 
 <?php return; ?>

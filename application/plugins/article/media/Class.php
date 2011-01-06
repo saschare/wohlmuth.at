@@ -46,10 +46,14 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function indexAction() {
 
-		$id = $this->getRequest()->getParam('idart');
-
-		$this->view->pluginId = self :: ID;
-		$this->view->files = Aitsu_Core_File :: getFiles($this->_idartlang, '*', 'filename', true, true);
+		$this->view->idart = $this->getRequest()->getParam('idart');
+	}
+	
+	public function storeAction() {
+		
+		$files = Aitsu_Core_File :: getFiles($this->_idartlang, '*', 'filename', true, true);
+		
+		// TODO: return the files as a json object.
 	}
 
 	public function uploadAction() {
