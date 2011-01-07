@@ -17,7 +17,30 @@ center.add(new Ext.TabPanel(
 	}
 ));
 
-var spot = new Ext.ux.Spotlight({
-	easing: 'easeOut',
-	duration: .3
+Ext.getCmp('page-edit-tab').add({
+	title: '<?php echo Aitsu_Translate :: translate('Meta data'); ?>',
+	layout: 'border',
+	items: [
+		{
+			region: 'center',
+			split: true,
+			html: 'hier kommen die notizen hin.'
+		},
+		{
+			region: 'east',
+			split: true,
+			width: 350,
+			layout: 'fit',
+			items: new Ext.Panel({
+				layout: 'accordion',
+				border: false,
+				id: 'page-plugin-accordion',
+				layoutConfig: {
+					titleCollapse: true,
+			        hideCollapseTool: true,
+			        animate: true
+			    }
+			})
+		}
+	]
 });
