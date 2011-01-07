@@ -208,6 +208,10 @@
     background-image: url(../images/icons/layers.png) !important; 
     background-repeat: no-repeat;
 }
+.edit {
+    background-image: url(../images/icons/pencil.png) !important; 
+    background-repeat: no-repeat;
+}
 .delete {
     background-image: url(../images/icons/delete.png) !important; 
     background-repeat: no-repeat;
@@ -246,5 +250,13 @@
 }
 .upload-start {
     background-image: url(../images/icons/disk.png) !important; 
+    background-repeat: no-repeat;
+}
+.flag-done {
+    background-image: url(../images/icons/flag_green.png) !important; 
+    background-repeat: no-repeat;
+}
+.flag-pending {
+    background-image: url(../images/icons/flag_red.png) !important; 
     background-repeat: no-repeat;
 }

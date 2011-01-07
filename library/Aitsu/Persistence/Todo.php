@@ -69,7 +69,14 @@ class Aitsu_Persistence_Todo extends Aitsu_Persistence_Abstract {
 			return;
 		}
 
-		Aitsu_Db :: put('_todo', 'todoid', $this->_data);
+		$this->_id = Aitsu_Db :: put('_todo', 'todoid', $this->_data);
+
+		if (empty ($this->_data['duedate'])) {
+			Aitsu_Db :: query('' .
+			'update _todo set duedate = null where todoid = :todoid', array (
+				':todoid' => $this->_id
+			));
+		}
 	}
 
 	public function remove() {
