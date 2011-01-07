@@ -86,58 +86,24 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 		));
 	}
 
-	public function editAction() {
-
-		$idartlang = $this->getRequest()->getParam('idartlang');
-		$mediaid = $this->getRequest()->getParam('mediaid');
-		$mediaid = str_replace('mediaid-', '', $mediaid);
-
-		$file = Aitsu_Core_File :: factory($idartlang, $mediaid);
-
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/media/forms/file.ini', 'edit'));
-		$form->setAction($this->view->url());
-
-		$form->setValues(array (
-			'idartlang' => $idartlang,
-			'mediaid' => $mediaid,
-			'filename' => $file->filename,
-			'medianame' => $file->medianame,
-			'subline' => $file->subline,
-			'description' => $file->description
-		));
-
-		$this->view->pluginId = self :: ID;
-		$this->view->form = $form;
-	}
-
 	public function saveAction() {
 
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/media/forms/file.ini', 'edit'));
-		$form->setAction($this->view->url());
+		try {
+			$file = Aitsu_Core_File :: factory($this->getRequest()->getParam('idartlang'), $this->getRequest()->getParam('mediaid'));
+			$file->filename = $this->getRequest()->getParam('filename');
+			$file->medianame = $this->getRequest()->getParam('name');
+			$file->subline = $this->getRequest()->getParam('subline');
+			$file->description = $this->getRequest()->getParam('description');
+			$file->save();
 
-		if ($form->isValid($_POST)) {
-			try {
-				$file = Aitsu_Core_File :: factory($this->getRequest()->getParam('idartlang'), $this->getRequest()->getParam('mediaid'));
-				$file->filename = $this->getRequest()->getParam('filename');
-				$file->medianame = $this->getRequest()->getParam('medianame');
-				$file->subline = $this->getRequest()->getParam('subline');
-				$file->description = $this->getRequest()->getParam('description');
-				$file->save();
-
-				$this->_helper->json(array (
-					'status' => 'success',
-					'message' => Zend_Registry :: get('Zend_Translate')->translate('Meta data saved.')
-				));
-			} catch (Exception $e) {
-				$this->_helper->json(array (
-					'status' => 'exception',
-					'message' => $e->getMessage()
-				));
-			}
-		} else {
 			$this->_helper->json(array (
-				'status' => 'validationerror',
-				'html' => (string) $form
+				'success' => true
+			));
+		} catch (Exception $e) {
+			$this->_helper->json(array (
+				'success' => false,
+				'status' => 'exception',
+				'message' => $e->getMessage()
 			));
 		}
 	}
