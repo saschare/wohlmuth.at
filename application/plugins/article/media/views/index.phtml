@@ -191,7 +191,57 @@ Ext.getCmp('page-edit-tab').add({
 				{
 					region: 'south',
 					split: true,
-					html: '<p>hier kommt das formular mit dem mediendetails hin.</p>'
+					height: 300,
+					border: false,
+					items: {
+						layout: 'column',
+						items: [
+							{
+								width: 500,
+								height: 300,
+								border: false,
+								items: new Ext.FormPanel({
+									url: '<?php echo $this->url(array('plugin' => 'todo', 'paction' => 'save'), 'aplugin'); ?>',
+									labelAlign: 'top',
+									//frame:true,
+									bodyStyle:'padding:5px 5px 0',
+									items: [
+										{
+											xtype:'textfield',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Title'); ?>',
+											name: 'title',
+											anchor: '100%'
+										}, {
+											xtype:'textarea',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Description'); ?>',
+											name: 'description',
+											anchor: '100%',
+											height: 200
+										}, {
+											xtype:'datefield',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Due'); ?>',
+											name: 'duedate',
+											width: 150,
+											format: 'Y-m-d'
+										}, {
+											xtype: 'hidden',
+											name: 'idartlang',
+											value: <?php echo $this->idartlang; ?>
+										}, {
+											xtype: 'hidden',
+											name: 'todoid'
+										}
+									]
+								})
+							},
+							{
+								columnWidth: 1,
+								html: 'bildvorschau',
+								border: false,
+								padding: 20
+							}
+						]
+					}
 				}
 			]
 		},
