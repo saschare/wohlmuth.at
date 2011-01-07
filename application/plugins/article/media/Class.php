@@ -53,7 +53,16 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$files = Aitsu_Core_File :: getFiles($this->_idartlang, '*', 'filename', true, true);
 
-		// TODO: return the files as a json object.
+		$data = array ();
+		if ($files) {
+			foreach ($files as $file) {
+				$data[] = (object) $file;
+			}
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
 	}
 
 	public function uploadAction() {
@@ -65,24 +74,16 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 		));
 	}
 
-	public function filelistAction() {
-
-		$id = $this->getRequest()->getParam('idart');
-
-		$this->view->pluginId = self :: ID;
-		$this->view->files = Aitsu_Core_File :: getFiles($this->_idartlang, '*', 'filename', true, true);
-	}
-
 	public function deleteAction() {
 
-		$idartlang = $this->getRequest()->getParam('idartlang');
-		$files = $this->getRequest()->getParam('delete');
-		$files = str_replace('mediaid-', '', $files);
+		$idart = $this->getRequest()->getParam('idart');
+		$id = $this->getRequest()->getParam('mediaid');
 
-		Aitsu_Core_File :: delete($idartlang, explode(',', $files));
+		Aitsu_Core_File :: delete($idart, $id);
 
-		$this->view->pluginId = self :: ID;
-		$this->view->files = Aitsu_Core_File :: getFiles($idartlang, '*', 'filename', true, true);
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
 	public function editAction() {

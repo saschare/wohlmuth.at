@@ -33,15 +33,143 @@ var uploader = new Ext.ux.PluploadPanel({
         beforestart: function(uploadpanel) {
             uploadpanel.uploader.settings.url = '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>?_runtime=' + uploadpanel.runtime;
         },
-        uploadstarted: function(uploadpanel) {
-
-        },
         uploadcomplete: function(uploadpanel, success, failures) {
-            if ( success.length ) {
-                alert('upload finished');
+            if (success.length) {
+                media.getStore().load({
+					params: {
+						idart: <?php echo $this->idart; ?>
+					}
+				});
             }
         }
     }
+});
+
+var media = new Ext.grid.GridPanel({
+	title: '<?php echo Aitsu_Translate :: translate('Media'); ?>',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'store'), 'aplugin'); ?>',
+        remoteSort: false,
+        storeId: 'mediaStore',
+        idProperty: 'mediaid',
+        root: 'data',
+        fields: [{
+            name: 'mediaid'
+        }, {
+            name: 'idart'
+        }, {
+            name: 'filename'
+        }, {
+            name: 'extension'
+        }, {
+            name: 'size'
+        }, {
+            name: 'xtl'
+        }, {
+            name: 'ytl'
+        }, {
+            name: 'xbr'
+        }, {
+            name: 'ybr'
+        }, {
+            name: 'uploaded',
+            type: 'date',
+            dateFormat: 'Y-m-d H:i:s'
+        }, {
+            name: 'name'
+        }, {
+            name: 'subline'
+        }, {
+            name: 'description'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'mediaid', header: '<?php echo Aitsu_Translate :: translate('Preview'); ?>', width: 40, menuDisabled: false, sortable: false, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+    		var extension = record.get('extension').toLowerCase();
+    		if (extension != 'jpg' && extension != 'gif' && extension != 'jpeg' && extension != 'png') {
+    			return '';
+    		}
+    		return '<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 2), 'default'); ?>/id/' + record.get('mediaid') + '" width="32" height="32" alt="' + record.get('filename') + '" />';
+    	}},
+    	{dataIndex: 'mediaid', header: 'ID', menuDisabled: false, sortable: true, width: 20},
+    	{dataIndex: 'filename', header: '<?php echo Aitsu_Translate :: translate('File name'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Media name'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'uploaded', header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load({
+					params: {
+						idart: <?php echo $this->idart; ?>
+					}
+				});
+			}
+		},
+		rowclick: function(grid, rowIndex, event) {
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			// this.getSelectionModel().selectRow(rowIndex);
+			// var record = this.getStore().getAt(rowIndex);
+			
+			var selectionModel = this.getSelectionModel();
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete files'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected file(s)?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+					 			selectionModel.each(function(record) {
+					            	Ext.Ajax.request({
+					            		url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete'), 'aplugin'); ?>',
+					            		success: function(response, opts) {
+					            			var rsp = Ext.decode(response.responseText);
+					            			if (rsp.success) {
+						            			grid.getStore().remove(record); 
+					            			}
+					            		},
+					            		params: { 
+					            			mediaid: record.get('mediaid'),
+					            			idart: record.get('idart')	
+					            		}
+					            	});					 			
+								});
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+			
+	},
+	plugins: [
+		new Ext.ux.grid.GridFilters({
+			encode: false,
+	        local: false,
+	        filters: [{
+	            type: 'numeric',
+	            dataIndex: 'roleid'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'identifier'
+	        }]
+		})
+	]
 });
 
 Ext.getCmp('page-edit-tab').add({
@@ -57,7 +185,8 @@ Ext.getCmp('page-edit-tab').add({
 				{
 					region: 'center',
 					split: true,
-					html: '<p>hier werden die medien angezeigt werden.</p>'
+					layout: 'fit',
+					items: media
 				},
 				{
 					region: 'south',

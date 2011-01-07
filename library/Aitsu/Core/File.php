@@ -57,9 +57,9 @@ class Aitsu_Core_File {
 			$mediaid,
 			$file->idlang
 		));
-		$file->medianame = isset($result->name) ? $result->name : '';
-		$file->subline = isset($result->subline) ? $result->subline : '';
-		$file->description = isset($result->description) ? $result->description : '';
+		$file->medianame = isset ($result->name) ? $result->name : '';
+		$file->subline = isset ($result->subline) ? $result->subline : '';
+		$file->description = isset ($result->description) ? $result->description : '';
 
 		return $file;
 	}
@@ -78,7 +78,7 @@ class Aitsu_Core_File {
 			 * The target directory does not yet exist and therefore needs to be created.
 			 */
 			mkdir(APPLICATION_PATH . '/data/media/' . $idart, 0777, true);
-			chmod (APPLICATION_PATH . '/data/media/' . $idart, 0777);
+			chmod(APPLICATION_PATH . '/data/media/' . $idart, 0777);
 		}
 
 		$file->_save();
@@ -86,17 +86,17 @@ class Aitsu_Core_File {
 		move_uploaded_file($tmpFilename, APPLICATION_PATH . '/data/media/' . $idart . '/' . $file->mediaid . '.' . $file->extension);
 	}
 
-	public static function delete($idartlang, $ids) {
+	public static function delete($idart, $id) {
 
 		Aitsu_Db :: query('' .
 		'update _media as media, _media as filename, _art_lang as artlang ' .
 		'set media.deleted = now() ' .
 		'where ' .
 		'	media.filename = filename.filename ' .
-		'	and filename.mediaid in (' . implode(',', $ids) . ') ' .
-		'	and media.idart = artlang.idart ' .
-		'	and artlang.idartlang = ? ', array (
-			$idartlang
+		'	and filename.mediaid = :id ' .
+		'	and media.idart = :idart', array (
+			':id' => $id,
+			':idart' => $idart
 		));
 	}
 
@@ -132,7 +132,11 @@ class Aitsu_Core_File {
 		'	media.filename, ' .
 		'	media.extension, ' .
 		'	media2.size, ' .
-		'	date_format(media.uploaded, \'%d.%m.%y, %H:%i\') as uploaded, ' .
+		'	media2.xtl, ' .
+		'	media2.ytl, ' .
+		'	media2.xbr, ' .
+		'	media2.ybr, ' .
+		'	media.uploaded, ' .
 		'	description.name, ' .
 		'	description.subline, ' .
 		'	description.description ' .
@@ -164,7 +168,6 @@ class Aitsu_Core_File {
 			$pattern,
 			$pattern
 		));
-
 		if (!$files) {
 			return array ();
 		}
@@ -326,7 +329,7 @@ class Aitsu_Core_File {
 		if (!$inline) {
 			header('Content-Disposition: attachment; filename="' . $fileName . '"');
 		}
-		
+
 		if ($file['extension'] == 'png' || $file['extension'] == 'jpg' || $file['extension'] == 'jpeg' || $file['extension'] == 'gif') {
 			header('Content-type: imge/' . $file['extension']);
 		} else {
@@ -335,26 +338,26 @@ class Aitsu_Core_File {
 
 		readfile($fileSource);
 	}
-	
+
 	public static function getByFilename($ids) {
-		
+
 		if (!is_array($ids) || count($ids) == 0) {
 			return array ();
 		}
 
-		$ids2 = array();
+		$ids2 = array ();
 		foreach ($ids as $id) {
-			if (!empty($id)) {
+			if (!empty ($id)) {
 				$ids2[] = $id;
 			}
 		}
-		
+
 		if (count($ids2) == null) {
-			return array();
+			return array ();
 		}
 
 		$ids = '\'' . implode('\',\'', $ids2) . '\'';
-		
+
 		$files = Aitsu_Db :: fetchAll('' .
 		'select ' .
 		'	media.mediaid, ' .
@@ -408,16 +411,16 @@ class Aitsu_Core_File {
 		}
 
 		$idlang = Aitsu_Registry :: get()->env->idlang;
-		
-		$ids2 = array();
+
+		$ids2 = array ();
 		foreach ($ids as $id) {
-			if (!empty($id)) {
+			if (!empty ($id)) {
 				$ids2[] = $id;
 			}
 		}
-		
+
 		if (count($ids2) == null) {
-			return array();
+			return array ();
 		}
 
 		$ids = implode(',', $ids2);
@@ -452,7 +455,7 @@ class Aitsu_Core_File {
 		'	media.mediaid in (' . $ids . ') ', array (
 			$idlang
 		));
-		
+
 		if (!$files) {
 			return array ();
 		}

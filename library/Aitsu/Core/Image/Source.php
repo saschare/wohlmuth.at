@@ -2,8 +2,6 @@
 
 
 /**
- * @abstract Image resizer.
- * @version $Id: Source.php 18556 2010-09-07 12:15:52Z akm $
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2009, w3concepts AG
  */
