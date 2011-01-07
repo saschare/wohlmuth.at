@@ -2,13 +2,8 @@
 
 
 /**
- * File.
- * 
- * @version 1.0.0
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: File.php 17488 2010-07-03 15:10:50Z akm $}
  */
 
 class Aitsu_Core_File {
@@ -22,6 +17,11 @@ class Aitsu_Core_File {
 	public $subline = null;
 	public $description = null;
 	public $idlang = null;
+
+	public $xtl = 0;
+	public $ytl = 0;
+	public $xbr = 1;
+	public $ybr = 1;
 
 	protected $unsavedChanges = false;
 
@@ -279,6 +279,17 @@ class Aitsu_Core_File {
 		}
 
 		Aitsu_Db :: query('' .
+		'update _media set ' .
+		'xtl = :xtl, ytl = :ytl, xbr = :xbr, ybr = :ybr ' .
+		'where mediaid = :mediaid', array (
+			':xtl' => $this->xtl,
+			':ytl' => $this->ytl,
+			':xbr' => $this->xbr,
+			':ybr' => $this->ybr,
+			':mediaid' => $this->mediaid
+		));
+
+		Aitsu_Db :: query('' .
 		'replace into _media_description ' .
 		'(mediaid, idlang, name, subline, description) ' .
 		'values ' .
@@ -289,6 +300,8 @@ class Aitsu_Core_File {
 			$this->subline,
 			$this->description
 		));
+		
+		Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/thumbs/' . $this->idart . '/' . $this->mediaid);
 	}
 
 	public static function get($path, $inline = false) {

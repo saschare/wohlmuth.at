@@ -19,7 +19,7 @@ class Aitsu_Core_Image_Resize {
 
 		$this->basePath = isset (Aitsu_Registry :: get()->config->dir->image->basePath) ? Aitsu_Registry :: get()->config->dir->image->basePath : '';
 
-		$thumbDir = APPLICATION_PATH . '/data/thumbs/' . Aitsu_Registry :: get()->config->sys->client;
+		$thumbDir = APPLICATION_PATH . '/data/thumbs/';
 		if (!file_exists($thumbDir)) {
 			mkdir($thumbDir, 0777, true);
 		}
@@ -56,7 +56,7 @@ class Aitsu_Core_Image_Resize {
 
 	public function outputImage($outputPath = NULL, $imageSource = null) {
 
-		if ($outputPath != NULL) {
+		/*if ($outputPath != NULL) {
 
 			$this->thumbDir .= "/$outputPath/";
 			$this->thumbDir = preg_replace('@\/{2}@', '/', $this->thumbDir);
@@ -64,7 +64,7 @@ class Aitsu_Core_Image_Resize {
 			if (!is_dir($this->thumbDir)) {
 				mkdir($this->thumbDir);
 			}
-		}
+		}*/
 
 		$this->_setDimToAllowedValues();
 
@@ -123,7 +123,13 @@ class Aitsu_Core_Image_Resize {
 
 		$box = ($this->imageSrc->isBox()) ? ('.b') : ('');
 		$box = ($this->imageSrc->isEBox()) ? ('.e') : $box;
-		$targetName = str_replace('/', '_', preg_replace('@\\.\\w*$@', '', $this->imagePath)) . '.' . $this->imageSrc->getThumbWidth() . 'x' . $this->imageSrc->getThumbHeight() . $box . "." . $this->imageSrc->getImageType();
+		
+		$targetDir = preg_replace('/\\.[a-zA-Z]{3,4}$/', '', $this->imagePath);
+		if (!is_dir($this->thumbDir . $targetDir)) {
+			mkdir($this->thumbDir . $targetDir, 0777, true);
+		}
+		
+		$targetName = $targetDir . '/' . $this->imageSrc->getThumbWidth() . '.' . $this->imageSrc->getThumbHeight() . $box . "." . $this->imageSrc->getImageType();
 
 		if (file_exists($this->thumbDir . $targetName)) {
 			/*

@@ -94,6 +94,10 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 			$file->medianame = $this->getRequest()->getParam('name');
 			$file->subline = $this->getRequest()->getParam('subline');
 			$file->description = $this->getRequest()->getParam('description');
+			$file->xtl = $this->getRequest()->getParam('xtl');
+			$file->ytl = $this->getRequest()->getParam('ytl');
+			$file->xbr = $this->getRequest()->getParam('xbr');
+			$file->ybr = $this->getRequest()->getParam('ybr');
 			$file->save();
 
 			$this->_helper->json(array (

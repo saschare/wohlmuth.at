@@ -1,13 +1,36 @@
+var imageCrop;
 var mediaPreview = function(record) {
 	var prev = Ext.getCmp('media-preview');
 	prev.removeAll();
-	prev.add(new Ext.ux.ImageCrop({
-		initialHeight: 260,
-		initialWidth: 260,
-		imageUrl: '<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 260, 'height' => 260, 'boxed' => 0), 'default'); ?>/id/' + record.get('mediaid'),
-		preserveRatio: false
-	}));
+
+	var ext = record.get('extension').toLowerCase();
+	if (ext != 'jpg' && ext != 'jpeg' && ext != 'jpeg' && ext != 'png') {
+		return;
+	}
+
+	prev.add({
+		border: false,
+		html: '<img id="media-image-preview" src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 400, 'height' => 280, 'boxed' => 0), 'default'); ?>/id/' + record.get('mediaid') + '" />'
+	});
 	prev.doLayout();
+	Ext.get('media-image-preview').on('load', function(e, t, o) {
+		var form = Ext.getCmp('media-edit-form').getForm();
+		var xtl = form.findField('xtl').getValue() * t.width;
+		var ytl = form.findField('ytl').getValue() * t.height;
+		var xbr = form.findField('xbr').getValue() * t.width;
+		var ybr = form.findField('ybr').getValue() * t.height;
+		imageCrop = $.Jcrop('#media-image-preview', {
+			setSelect: [ xtl, ytl, xbr, ybr ]
+		});
+		jQuery('#media-image-preview').Jcrop({
+			onSelect: function(c) {
+				form.findField('xtl').setValue(c.x / t.width);
+				form.findField('ytl').setValue(c.y / t.height);
+				form.findField('xbr').setValue(c.x2 / t.width);
+				form.findField('ybr').setValue(c.y2 / t.height);
+			}
+		});
+	});
 }
 
 var uploader = new Ext.ux.PluploadPanel({
@@ -129,6 +152,10 @@ var media = new Ext.grid.GridPanel({
 						form.findField('name').setValue(record.get('name'));
 						form.findField('subline').setValue(record.get('subline'));
 						form.findField('description').setValue(record.get('description'));
+						form.findField('xtl').setValue(record.get('xtl'));
+						form.findField('ytl').setValue(record.get('ytl'));
+						form.findField('xbr').setValue(record.get('xbr'));
+						form.findField('ybr').setValue(record.get('ybr'));
 						Ext.getCmp('media-edit-form-save-button').enable();
 						mediaPreview(record);
 				});
@@ -249,6 +276,18 @@ Ext.getCmp('page-edit-tab').add({
 									xtype: 'hidden',
 									name: 'idartlang',
 									value: <?php echo $this->idartlang; ?>
+								}, {
+									xtype: 'hidden',
+									name: 'xtl'
+								}, {
+									xtype: 'hidden',
+									name: 'ytl'
+								}, {
+									xtype: 'hidden',
+									name: 'xbr'
+								}, {
+									xtype: 'hidden',
+									name: 'ybr'
 								}
 							],
 							buttons: [{
@@ -273,7 +312,7 @@ Ext.getCmp('page-edit-tab').add({
 					{
 						columnWidth: 1,
 						border: false,
-						padding: 20,
+						padding: 10,
 						id: 'media-preview'
 					}
 				]
