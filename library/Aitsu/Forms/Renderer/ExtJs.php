@@ -205,13 +205,15 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 	protected static function _extraFieldAttsDatefield(& $configs, $key, $field) {
 
-		$configs[] = "format: 'Y-m-d'";
-		$configs[] = "altFormats: 'Y-m-d H:i:s|d.m.Y|d.m.y'";
+		$configs[] = "format: 'Y-m-d H:i:s'";
+		$configs[] = "altFormats: 'Y-m-d|d.m.Y|d.m.y'";
 	}
 
 	protected static function _transformButtons(& $value, $key, $uid) {
+		
+		$button = $value;
 
-		if (isset ($value['text'])) {
+		if (isset ($button['text'])) {
 			$value = "{tooltip: '{$value['text']}'";
 		} else {
 			$value = "{tooltip: ''";
@@ -219,8 +221,11 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		if ($key == 'save') {
 			$value .= ", iconCls: 'save'";
-			// $value .= ", handler: function() {alert('test'); Ext.getCmp('$uid').getForm().submit({success: formSuccess, failure: formFailure});}";
-			$value .= ", handler: function() {formSubmit('$uid');}";
+			if (isset($button['handler'])) {
+				$value .= ", handler: function() {{$button['handler']}('$uid');}";
+			} else {
+				$value .= ", handler: function() {formSubmit('$uid');}";
+			}
 		}
 
 		$value .= '}';

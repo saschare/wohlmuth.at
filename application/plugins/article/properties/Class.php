@@ -26,50 +26,52 @@ class PropertiesArticleController extends Aitsu_Adm_Plugin_Controller {
 			'id' => self :: ID
 		);
 	}
-	
+
 	public function indexAction() {
 
 		$id = $this->getRequest()->getParam('idart');
 
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/properties/forms/properties.ini', 'edit'));
-		$form->setAction($this->view->url());
+		$form = Aitsu_Forms :: factory('pageproperties', APPLICATION_PATH . '/plugins/article/properties/forms/properties.ini');
+		$form->title = Aitsu_Translate :: translate('Properties');
+		$form->url = $this->view->url(array (
+			'plugin' => 'properties',
+			'paction' => 'index'
+		), 'aplugin');
 
 		$data = Aitsu_Persistence_Article :: factory($id)->load();
-		$data->redirect = 0;
+		$form->setValues($data->toArray());
 
 		if (!$this->getRequest()->isPost()) {
-			$form->setValues($data->toArray());
-		}
-		
-		$this->view->pluginId = self :: ID;
-		$this->view->form = $form;
-
-		if (!$this->getRequest()->isPost()) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
 			return;
 		}
 
-		if (!$form->isValid($_POST)) {
-			$this->_helper->json((object) array (
-				'status' => 'validationfailure',
-				'message' => $this->view->render('index.phtml')
-			));
-		}
-
 		try {
-			Aitsu_Event :: raise('backend.article.edit.save.start', array (
-				'idart' => $id
-			));
-			$data->setValues($form->getValues())->save();
-			$form->setValues($data->toArray());
-			$this->_helper->json((object) array (
-				'status' => 'success',
-				'message' => Zend_Registry :: get('Zend_Translate')->translate('Properties saved.'),
-				'data' => (object) $data->toArray(),
-				'html' => $this->view->render('index.phtml')
-			));
+			if ($form->isValid()) {
+				Aitsu_Event :: raise('backend.article.edit.save.start', array (
+					'idart' => $id
+				));
+
+				/*
+				 * Persist the data.
+				 */
+				$data->setValues($form->getValues())->save();
+
+				$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) $data->toArray()
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
-				'status' => 'exception',
+				'success' => false,
+				'exception' => true,
 				'message' => $e->getMessage()
 			));
 		}
