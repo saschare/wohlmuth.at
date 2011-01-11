@@ -73,14 +73,36 @@ Ext.aitsu = function() {
         },
         
         load : function(urls, callback, context, preserveOrder) {
-        	for (var i in urls) {
+        	/*for (var i in urls) {
         		if (String(urls[i]).indexOf('?') == -1) {
         			urls[i] = urls[i] + '?cid=' + new Date().getTime();
         		} else {
         			urls[i] = urls[i] + '&cid=' + new Date().getTime();
         		}
         	}
-        	Ext.Loader.load(urls, callback, context, preserveOrder);
+        	Ext.Loader.load(urls, callback, context, preserveOrder);*/
+        	var pendingRequests = urls.length;
+        	var code = new Array(urls.length);
+        	for (var i in urls) {
+        		if (i < urls.length) {
+		        	Ext.Ajax.request({
+		        		url: urls[i],
+		        		callback: function(opts, success, response) {
+		        			pendingRequests = pendingRequests - 1;
+		        			code[opts.index] = response.responseText;
+		        			if (pendingRequests == 0) {
+		        				eval(code.join(' '));
+		        				if (typeof(callback) != 'undefined' && callback != null) {
+		        					callback();
+		        				}
+		        			}
+		        		},
+		        		disableCaching: true,
+		        		index: i,
+		        		scope: context
+		        	});
+        		}
+        	}
         }
     };
 }();

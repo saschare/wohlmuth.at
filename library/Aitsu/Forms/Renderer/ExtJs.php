@@ -116,10 +116,9 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		$configs[] = "xtype: '{$value['type']}'";
 		if (!empty($value['label'])) {
-			$configs[] = "fieldLabel: '{$value['label']}'";
+			$configs[] = "fieldLabel: '" . Aitsu_Translate :: translate($value['label']) . "'";
 		}
 		$configs[] = "name: '{$key}'";
-		$configs[] = "id: '{$key}'";
 
 		if (method_exists('Aitsu_Forms_Renderer_ExtJs', '_extraFieldAtts' . ucfirst($value['type']))) {
 			call_user_func(array (

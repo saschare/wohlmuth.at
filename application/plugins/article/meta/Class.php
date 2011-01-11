@@ -28,8 +28,23 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 	}
 
 	public function indexAction() {
-
+		
 		$id = $this->getRequest()->getParam('idart');
+		
+		$form = Aitsu_Forms :: factory('pagemetadata', APPLICATION_PATH . '/plugins/article/meta/forms/meta.ini');
+		$form->title = Aitsu_Translate :: translate('Meta data');
+		$form->url = $this->view->url(array (
+			'plugin' => 'meta',
+			'paction' => 'index'
+		), 'aplugin');
+		
+		if (!$this->getRequest()->isPost()) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
+
+		/*$id = $this->getRequest()->getParam('idart');
 
 		$robotsOptions = array (
 			'index' => 'index',
@@ -83,7 +98,7 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 				'status' => 'exception',
 				'message' => $e->getMessage()
 			));
-		}
+		}*/
 	}
 
 }
