@@ -30,6 +30,19 @@ class DcArticleController extends Aitsu_Adm_Plugin_Controller {
 	public function indexAction() {
 
 		$id = $this->getRequest()->getParam('idart');
+		
+		$form = Aitsu_Forms :: factory('pagedcmetadata', APPLICATION_PATH . '/plugins/article/dc/forms/meta.ini');
+		$form->title = Aitsu_Translate :: translate('Dublin core');
+		$form->url = $this->view->url(array (
+			'plugin' => 'dc',
+			'paction' => 'index'
+		), 'aplugin');
+		
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
 
 		/*$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/dc/forms/meta.ini', 'edit'));
 		$form->setAction($this->view->url());
