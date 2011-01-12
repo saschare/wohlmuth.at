@@ -28,24 +28,58 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 	}
 
 	public function indexAction() {
-		
+
 		$id = $this->getRequest()->getParam('idart');
-		
+
 		$form = Aitsu_Forms :: factory('pagemetadata', APPLICATION_PATH . '/plugins/article/meta/forms/meta.ini');
 		$form->title = Aitsu_Translate :: translate('Meta data');
 		$form->url = $this->view->url(array (
 			'plugin' => 'meta',
 			'paction' => 'index'
 		), 'aplugin');
-		
+
+		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
+		$data->robots = explode(', ', $data->robots);
+		$data->idart = $id;
+		$form->setValues($data->toArray());
+
 		if (!$this->getRequest()->isPost()) {
 			$this->view->form = $form;
 			header("Content-type: text/javascript");
 			return;
 		}
 
-		/*$id = $this->getRequest()->getParam('idart');
+		try {
+			if ($form->isValid()) {
+				Aitsu_Event :: raise('backend.article.edit.save.start', array (
+					'idart' => $id
+				));			
 
+				/*
+				 * Persist the data.
+				 */
+				$data->setValues($form->getValues())->save();
+
+				$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) $data->toArray()
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
+
+		/*$id = $this->getRequest()->getParam('idart');
+		
 		$robotsOptions = array (
 			'index' => 'index',
 			'follow' => 'follow',
@@ -55,31 +89,31 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/meta/forms/meta.ini', 'edit'));
 		$form->setAction($this->view->url());
 		$form->getElement('robots')->setMultiOptions($robotsOptions);
-
+		
 		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
-
+		
 		if (!$this->getRequest()->isPost()) {
 			$formData = $data->toArray();
 			$formData['robots'] = explode(', ', $formData['robots']);
 			$form->setValues($formData);
 		}
-
+		
 		$data->robots = explode(', ', $data->robots);
-
+		
 		$this->view->pluginId = self :: ID;
 		$this->view->form = $form;
-
+		
 		if (!$this->getRequest()->isPost()) {
 			return;
 		}
-
+		
 		if (!$form->isValid($_POST)) {
 			$this->_helper->json((object) array (
 				'status' => 'validationfailure',
 				'message' => $this->view->render('index.phtml')
 			));
 		}
-
+		
 		try {
 			$data->setValues($form->getValues());
 			$data->save();
