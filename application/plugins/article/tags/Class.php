@@ -29,9 +29,7 @@ class TagsArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function indexAction() {
 
-		$idart = $this->getRequest()->getParam('idart');
-
-		$this->view->tags = Aitsu_Persistence_Article :: factory($idart)->getTags();
+		$this->view->idart = $this->getRequest()->getParam('idart');
 	}
 
 	public function addAction() {
@@ -43,51 +41,51 @@ class TagsArticleController extends Aitsu_Adm_Plugin_Controller {
 		Aitsu_Persistence_Article :: factory($idart)->addTag($token, $value);
 
 		$this->_helper->json((object) array (
-			'status' => 'success',
-			'message' => sprintf(Aitsu_Translate :: translate('Tag %s added.'), $token),
-			'list' => $this->view->partial('taglist.phtml', array (
-				'tags' => Aitsu_Persistence_Article :: factory($idart)->getTags()
-			))
+			'success' => true
+		));
+	}
+
+	public function storeAction() {
+
+		$idart = $this->getRequest()->getParam('idart');
+		$tags = Aitsu_Persistence_Article :: factory($idart)->getTags();
+
+		$data = array ();
+		foreach ($tags as $tag) {
+			$data[] = (object) $tag;
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
 		));
 	}
 
 	public function deleteAction() {
 
 		$idart = $this->getRequest()->getParam('idart');
-		$tagids = $this->getRequest()->getParam('tagids');
-		$tagids = explode(',', $tagids);
+		$tagid = $this->getRequest()->getParam('tagid');
 
-		foreach ($tagids as $tagid) {
-			$tagid = str_replace('tagid-', '', $tagid);
-			Aitsu_Persistence_Article :: factory($idart)->removeTag($tagid);
-		}
+		Aitsu_Persistence_Article :: factory($idart)->removeTag($tagid);
 
 		$this->_helper->json((object) array (
-			'status' => 'success',
-			'message' => Aitsu_Translate :: translate('Tag removed.'),
-			'list' => $this->view->partial('taglist.phtml', array (
-				'tags' => Aitsu_Persistence_Article :: factory($idart)->getTags()
-			))
+			'success' => true
 		));
 	}
 
-	public function tagAction() {
+	/**
+	 * @since 2.1.0 - 12.01.2011
+	 */
+	public function tagstoreAction() {
 
-		$term = $this->getRequest()->getParam('term');
+		$filter = array (
+			(object) array (
+				'clause' => 'tag like',
+				'value' => '%' . $this->getRequest()->getParam('query') . '%'
+			)
+		);
 
-		$return = array ();
-
-		$tags = Aitsu_Persistence_Tag :: getByName('%' . $term . '%', 20);
-		if ($tags) {
-			foreach ($tags as $tag) {
-				$return[] = (object) array (
-					'id' => $tag->tagid,
-					'label' => $tag->tag,
-					'value' => $tag->tag
-				);
-			}
-		}
-
-		$this->_helper->json($return);
+		$this->_helper->json((object) array (
+			'data' => Aitsu_Persistence_Tag :: getStore(100, 0, $filter)
+		));
 	}
 }
