@@ -72,7 +72,7 @@ Ext.aitsu = function() {
         	return registry;
         },
         
-        load : function(urls, callback) {
+        load : function(urls, callback, params) {
         	var pendingRequests = urls.length;
         	var code = new Array(urls.length);
         	for (var i in urls) {
@@ -90,7 +90,8 @@ Ext.aitsu = function() {
 		        			}
 		        		},
 		        		disableCaching: true,
-		        		index: i
+		        		index: i,
+		        		params: params
 		        	});
         		}
         	}

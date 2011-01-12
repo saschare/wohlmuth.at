@@ -97,5 +97,10 @@ $(document).trigger('doReplace', [p.type, p.container, p.idartlang, '<div><div c
 */
 
 var doEditHandler = function(p) {
-	Ext.aitsu.load(['<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'editcontent'), 'aplugin'); ?>?type=' + p.type + '&container=' + p.container + '&idartlang=' + p.idartlang + '&params=' + encodeURI(p.params)]);
+	Ext.aitsu.load(['<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'editcontent'), 'aplugin'); ?>'], null, {
+		type: p.type,
+		container: p.container,
+		idartlang: p.idartlang,
+		params: p.params
+	});
 }

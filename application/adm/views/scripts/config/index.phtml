@@ -31,7 +31,7 @@ var configGrid = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new configset'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
-	            	Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>?']);
+	            	Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>']);
 	            }
 	        }
 	    ]
@@ -44,7 +44,7 @@ var configGrid = new Ext.grid.GridPanel({
 		},
 		rowclick: function(grid, rowIndex, event) {
 			var id = this.getStore().getAt(rowIndex).get('configsetid');
-			Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>?configsetid=' + id]);
+			Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>'], null, {configsetid: id});
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			

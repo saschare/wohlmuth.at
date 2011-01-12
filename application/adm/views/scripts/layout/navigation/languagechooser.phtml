@@ -19,8 +19,11 @@ new Ext.form.ComboBox({
             delete qe.combo.lastQuery;
         },
         select: function(combo, record, index) {
-        	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'index'), 'default'); ?>?ajax=1&setidlang=' + record.get('idlang')], function() {
+        	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'index'), 'default'); ?>'], function() {
         		Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Language changed'); ?>', '<?php echo Aitsu_Translate :: translate('The language has been changed.'); ?>');
+        	}, {
+        		ajax: 1, 
+        		setidlang: record.get('idlang')
         	});
         }
     }

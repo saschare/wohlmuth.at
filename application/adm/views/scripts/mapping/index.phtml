@@ -32,7 +32,9 @@ var mappingGrid = new Ext.grid.GridPanel({
 	listeners: {
 		rowclick: function(grid, rowIndex, event) {
 			var rec = grid.getStore().getAt(rowIndex);
-			Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>?id=' + rec.get('id')]);
+			Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>'], null, {
+				id: rec.get('id')
+			});
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			

@@ -1,9 +1,9 @@
 var editPage = function(id) {
-	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>?id=' + id], function() {
+	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>'], function() {
 		Ext.getCmp('viewport').doLayout();
 		Ext.getCmp('page-edit-tab').activate(0);
 		Ext.getCmp('rop').getStore().load();
-	});
+	}, {id: id});
 }
 
 var reloadTree = function(id, tree) {
@@ -284,7 +284,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 
 pagetree.getSelectionModel().on('beforeselect', function(sm, node, oldnode) {
 	if (node.attributes.type == 'category') {
-		Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id]);
+		Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>'], null, {id: node.id});
 	}
 });
 
