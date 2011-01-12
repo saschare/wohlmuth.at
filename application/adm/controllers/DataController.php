@@ -116,6 +116,7 @@ class DataController extends Zend_Controller_Action {
 				}
 				$return[] = array (
 					'id' => $art['idart'],
+					'idartlang' => $art['idartlang'],
 					'text' => $art['title'],
 					'leaf' => true,
 					'iconCls' => $cls,

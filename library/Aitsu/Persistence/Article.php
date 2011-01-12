@@ -65,6 +65,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		'	artlang.idartlang as idartlang, ' .
 		'	artlang.idart as idart, ' .
 		'	artlang.title as title, ' .
+		'	artlang.pagetitle as pagetitle, ' .
 		'	catlang.idcat as idcat, ' .
 		'	catlang.name as category ' .
 		'from _crosslink as crosslink ' .
