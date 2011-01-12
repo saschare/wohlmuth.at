@@ -5,7 +5,7 @@ var editPage = function(id) {
 		Ext.getCmp('rop').getStore().load();
 	}, {id: id});
 }
-
+		
 var reloadTree = function(id, tree) {
 	var node = tree.getNodeById(id);
 	if (node.id == 0) {
@@ -17,7 +17,7 @@ var reloadTree = function(id, tree) {
 		});
 	});
 }
-
+		
 var openTreePath = function(path, tree, select) {
 	var currentNode = tree.getRootNode();
 	path = path.split('/');
