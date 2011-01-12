@@ -38,51 +38,44 @@ class DcArticleController extends Aitsu_Adm_Plugin_Controller {
 			'paction' => 'index'
 		), 'aplugin');
 		
+		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
+		$data->idart = $id;
+		$form->setValues($data->toArray());
+		
 		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
 			header("Content-type: text/javascript");
 			return;
 		}
-
-		/*$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/dc/forms/meta.ini', 'edit'));
-		$form->setAction($this->view->url());
-
-		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
-
-		if ($this->getRequest()->getParam('loader')) {
-			$form->setValues($data->toArray());
-		}
-
-		$this->view->pluginId = self :: ID;
-		$this->view->form = $form;
-
-		if ($this->getRequest()->getParam('loader')) {
-			return;
-		}
-
-		if (!$form->isValid($_POST)) {
-			$this->_helper->json((object) array (
-				'status' => 'validationfailure',
-				'message' => $this->view->render('index.phtml')
-			));
-		}
-
+		
 		try {
-			$data->setValues($form->getValues());
-			$data->save();
-			$form->setValues($data->toArray());
-			$this->_helper->json((object) array (
-				'status' => 'success',
-				'message' => Zend_Registry :: get('Zend_Translate')->translate('DC.meta data saved.'),
-				'data' => (object) $data->toArray(),
-				'html' => $this->view->render('index.phtml')
-			));
+			if ($form->isValid()) {
+				Aitsu_Event :: raise('backend.article.edit.save.start', array (
+					'idart' => $id
+				));			
+
+				/*
+				 * Persist the data.
+				 */
+				$data->setValues($form->getValues())->save();
+
+				$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) $data->toArray()
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
-				'status' => 'exception',
+				'success' => false,
+				'exception' => true,
 				'message' => $e->getMessage()
 			));
-		}*/
+		}
 	}
 
 }
