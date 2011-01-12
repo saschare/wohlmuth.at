@@ -81,7 +81,6 @@ var uploader = new Ext.ux.PluploadPanel({
 });
 
 var media = new Ext.grid.GridPanel({
-	title: '<?php echo Aitsu_Translate :: translate('Media'); ?>',
 	store: new Ext.data.JsonStore({
         autoDestroy: true,
         url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'store'), 'aplugin'); ?>',
