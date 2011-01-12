@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 17812 2010-07-29 08:29:55Z akm $}
  */
 
 class Aitsu_Ee_Module_HoneyTrap_Class extends Aitsu_Ee_Module_Abstract {
@@ -37,8 +35,8 @@ class Aitsu_Ee_Module_HoneyTrap_Class extends Aitsu_Ee_Module_Abstract {
 		}
 		
 		$honeyTraps = array_flip(Aitsu_Registry :: get()->config->honeytrap->keyword->toArray());
-		if (!empty ($_POST)) {
-			if (count(array_intersect_key($honeyTraps, $_GET)) > 0) {
+		if (!empty ($_POST)) {			
+			if (count(array_intersect_key($honeyTraps, $_GET)) > 0) {				
 				$ht = Aitsu_Persistence_Honeytrap :: factory();
 				$ht->ip = $_SERVER["REMOTE_ADDR"];
 				$ht->save();
