@@ -73,14 +73,6 @@ Ext.aitsu = function() {
         },
         
         load : function(urls, callback, context, preserveOrder) {
-        	/*for (var i in urls) {
-        		if (String(urls[i]).indexOf('?') == -1) {
-        			urls[i] = urls[i] + '?cid=' + new Date().getTime();
-        		} else {
-        			urls[i] = urls[i] + '&cid=' + new Date().getTime();
-        		}
-        	}
-        	Ext.Loader.load(urls, callback, context, preserveOrder);*/
         	var pendingRequests = urls.length;
         	var code = new Array(urls.length);
         	for (var i in urls) {
