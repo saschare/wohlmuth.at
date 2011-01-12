@@ -3,7 +3,7 @@ var editPage = function(id) {
 		Ext.getCmp('viewport').doLayout();
 		Ext.getCmp('page-edit-tab').activate(0);
 		Ext.getCmp('rop').getStore().load();
-	}, this, false);
+	});
 }
 
 var reloadTree = function(id, tree) {
@@ -284,7 +284,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 
 pagetree.getSelectionModel().on('beforeselect', function(sm, node, oldnode) {
 	if (node.attributes.type == 'category') {
-		Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id], null, this, false);
+		Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>?id=' + node.id]);
 	}
 });
 

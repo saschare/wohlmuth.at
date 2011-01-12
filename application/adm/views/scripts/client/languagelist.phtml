@@ -37,7 +37,7 @@ var languages = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new language'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
-	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editlanguage'), 'default'); ?>'], null, this, false);
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editlanguage'), 'default'); ?>']);
 	            }
 	        }
 	    ]
@@ -50,7 +50,7 @@ var languages = new Ext.grid.GridPanel({
 		},
 		rowclick: function(grid, rowIndex, event) {
 			var id = this.getStore().getAt(rowIndex).get('idlang');
-			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editlanguage'), 'default'); ?>?idlang=' + id], null, this, false);
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editlanguage'), 'default'); ?>?idlang=' + id]);
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			

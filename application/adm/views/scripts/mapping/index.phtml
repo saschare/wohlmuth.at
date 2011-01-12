@@ -24,7 +24,7 @@ var mappingGrid = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new mapping'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
-	            	Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>'], null, this, false);
+	            	Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>']);
 	            }
 	        }
 	    ]
@@ -32,7 +32,7 @@ var mappingGrid = new Ext.grid.GridPanel({
 	listeners: {
 		rowclick: function(grid, rowIndex, event) {
 			var rec = grid.getStore().getAt(rowIndex);
-			Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>?id=' + rec.get('id')], null, this, false);
+			Ext.aitsu.load(['<?php echo $this->url(array('action' => 'edit')); ?>?id=' + rec.get('id')]);
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			

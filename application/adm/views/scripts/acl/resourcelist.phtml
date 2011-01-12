@@ -31,7 +31,7 @@ var resources = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new resource'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
-	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editresource'), 'default'); ?>?'], null, this, false);
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editresource'), 'default'); ?>?']);
 	            }
 	        }
 	    ]
@@ -44,7 +44,7 @@ var resources = new Ext.grid.GridPanel({
 		},
 		rowclick: function(grid, rowIndex, event) {
 			var id = this.getStore().getAt(rowIndex).get('resourceid');
-			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editresource'), 'default'); ?>?resourceid=' + id], null, this, false);
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editresource'), 'default'); ?>?resourceid=' + id]);
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			
