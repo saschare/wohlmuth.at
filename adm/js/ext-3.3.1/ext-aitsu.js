@@ -75,6 +75,11 @@ Ext.aitsu = function() {
         load : function(urls, callback, params) {
         	var pendingRequests = urls.length;
         	var code = new Array(urls.length);
+        	if (typeof(params) == 'undefined' || params == null) {
+        		params = {loader: true}
+        	} else {
+        		params.loader = true;
+        	}
         	for (var i in urls) {
         		if (i < urls.length) {
 		        	Ext.Ajax.request({

@@ -43,7 +43,7 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 		$data->idart = $id;
 		$form->setValues($data->toArray());
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
 			header("Content-type: text/javascript");
 			return;

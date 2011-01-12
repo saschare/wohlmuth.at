@@ -30,7 +30,7 @@ class ConfigArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$id = $this->getRequest()->getParam('idart');
 
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/config/forms/config.ini', 'edit'));
+		/*$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/config/forms/config.ini', 'edit'));
 		$configSetOptions = array (
 			'0' => ''
 		);
@@ -80,6 +80,6 @@ class ConfigArticleController extends Aitsu_Adm_Plugin_Controller {
 				'status' => 'exception',
 				'message' => $e->getMessage()
 			));
-		}
+		}*/
 	}
 }
