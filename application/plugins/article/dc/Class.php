@@ -31,7 +31,7 @@ class DcArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$id = $this->getRequest()->getParam('idart');
 
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/dc/forms/meta.ini', 'edit'));
+		/*$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/dc/forms/meta.ini', 'edit'));
 		$form->setAction($this->view->url());
 
 		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
@@ -69,7 +69,7 @@ class DcArticleController extends Aitsu_Adm_Plugin_Controller {
 				'status' => 'exception',
 				'message' => $e->getMessage()
 			));
-		}
+		}*/
 	}
 
 }
