@@ -79,7 +79,7 @@ class RedirectorArticleController extends Aitsu_Adm_Plugin_Controller {
 			$this->view->openCats = "'0'";
 		}
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			return;
 		}
 

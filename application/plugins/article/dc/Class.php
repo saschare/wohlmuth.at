@@ -36,14 +36,14 @@ class DcArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			$form->setValues($data->toArray());
 		}
 
 		$this->view->pluginId = self :: ID;
 		$this->view->form = $form;
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			return;
 		}
 

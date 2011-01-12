@@ -42,7 +42,7 @@ class ConfigArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$data = Aitsu_Persistence_Article :: factory($id)->load();
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			$formData = $data->toArray();
 			$form->setValues($formData);
 		}
@@ -51,7 +51,7 @@ class ConfigArticleController extends Aitsu_Adm_Plugin_Controller {
 		$this->view->id = $id;
 		$this->view->form = $form;
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			return;
 		}
 

@@ -2,6 +2,7 @@ var center = Ext.getCmp('viewport-center');
 center.removeAll();
 
 var configGrid = new Ext.grid.GridPanel({
+	id: 'configuration-grid',
 	title: '<?php echo Aitsu_Translate :: translate('Config sets'); ?>',
 	store: new Ext.data.JsonStore({
         autoDestroy: true,

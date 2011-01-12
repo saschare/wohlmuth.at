@@ -53,7 +53,7 @@ class ConfigController extends Zend_Controller_Action {
 			$form->setValues($data);
 		}
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
 			header("Content-type: text/javascript");
 			return;

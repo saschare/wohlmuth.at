@@ -56,7 +56,7 @@ class TranslationController extends Zend_Controller_Action {
 		$data = Aitsu_Persistence_Translate :: factory($id)->load()->toArray();
 		$form->setValues($data);
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
 			header("Content-type: text/javascript");
 			return;
@@ -87,35 +87,6 @@ class TranslationController extends Zend_Controller_Action {
 				'message' => $e->getMessage()
 			));
 		}
-
-		/*$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-		
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('translationid') : $this->getRequest()->getParam('id');
-		
-		if ($this->getRequest()->getParam('cancel') != 1) {
-		
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/translation/translation.ini', 'edit'));
-			$form->setAction($this->view->url());
-		
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_Translate :: factory($this->getRequest()->getParam('id'))->load()->toArray());
-			}
-		
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('translation/newtranslation.phtml');
-				return;
-			}
-		
-			$values = $form->getValues();
-		
-			Aitsu_Persistence_Translate :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-		
-		$this->view->translations = Aitsu_Persistence_Translate :: getByLanguage(Aitsu_Registry :: get()->session->currentLanguage);
-		
-		echo $this->view->render('translation/translationlist.phtml');*/
 	}
 
 	/**

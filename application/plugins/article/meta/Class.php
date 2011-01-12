@@ -92,7 +92,7 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 		
 		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
 		
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			$formData = $data->toArray();
 			$formData['robots'] = explode(', ', $formData['robots']);
 			$form->setValues($formData);
@@ -103,7 +103,7 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 		$this->view->pluginId = self :: ID;
 		$this->view->form = $form;
 		
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			return;
 		}
 		

@@ -193,7 +193,7 @@ class MappingController extends Zend_Controller_Action {
 			)));
 		}
 
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
 			header("Content-type: text/javascript");
 			return;
