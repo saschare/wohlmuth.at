@@ -156,6 +156,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 			$this->_data['idart'] = Aitsu_Db :: put('_art', 'idart', $this->_data);
 			$this->_idartlang = Aitsu_Db :: put('_art_lang', 'idartlang', $this->_data);
+			$this->_data['idartlang'] = $this->_idartlang;
 
 			/*
 			 * Setting date to NULL seems not to work in Zend. As a workaround we set the values

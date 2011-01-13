@@ -28,4 +28,28 @@ class Aitsu_Config {
 		
 		return $config == $value;
 	}
+	
+	public static function get($string) {
+		
+		static $val = array ();
+
+		if (isset ($val[$string])) {
+			return $val[$string];
+		}
+
+		$config = Aitsu_Registry :: get()->config;
+		$parts = explode('.', $string);
+
+		for ($i = 0; $i < count($parts); $i++) {
+			if (!isset($config-> $parts[$i])) {
+				return false;
+			}
+			$config = $config-> $parts[$i];
+		}
+		
+		$val = $config;
+		
+		return $config;
+	}
+
 }

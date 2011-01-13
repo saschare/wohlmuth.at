@@ -100,30 +100,34 @@ class DataController extends Zend_Controller_Action {
 
 		$articles = Aitsu_Persistence_View_Articles :: art($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
 		if ($articles) {
+			$artCounter = 0;
 			foreach ($articles as $art) {
-				if ($art['isstart']) {
-					if ($art['online'] == 1) {
-						$cls = 'treepage-index-online';
+				$artCounter++;
+				if (!Aitsu_Config :: get('backend.pagetree.maxpages') || Aitsu_Config :: get('backend.pagetree.maxpages') >= $artCounter) {
+					if ($art['isstart']) {
+						if ($art['online'] == 1) {
+							$cls = 'treepage-index-online';
+						} else {
+							$cls = 'treepage-index-offline';
+						}
 					} else {
-						$cls = 'treepage-index-offline';
+						if ($art['online'] == 1) {
+							$cls = 'treepage-online';
+						} else {
+							$cls = 'treepage-offline';
+						}
 					}
-				} else {
-					if ($art['online'] == 1) {
-						$cls = 'treepage-online';
-					} else {
-						$cls = 'treepage-offline';
-					}
+					$return[] = array (
+						'id' => $art['idart'],
+						'idartlang' => $art['idartlang'],
+						'text' => $art['title'],
+						'leaf' => true,
+						'iconCls' => $cls,
+						'online' => $art['online'] == 1,
+						'type' => 'page',
+						'indexpage' => $art['isstart'] == 1
+					);
 				}
-				$return[] = array (
-					'id' => $art['idart'],
-					'idartlang' => $art['idartlang'],
-					'text' => $art['title'],
-					'leaf' => true,
-					'iconCls' => $cls,
-					'online' => $art['online'] == 1,
-					'type' => 'page',
-					'indexpage' => $art['isstart'] == 1
-				);
 			}
 		}
 
