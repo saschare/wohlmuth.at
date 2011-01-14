@@ -13,6 +13,20 @@ var comboConfigSet = new Ext.form.ComboBox({
     selectOnFocus: true,
     forceSelection: true
    });
+   
+var reloadTree = function(id, tree) {
+	var node = tree.getNodeById(id);
+	if (node.id == 0) {
+		tree.getLoader().load(tree.getRootNode());
+	}
+	tree.getLoader().load(node.parentNode, function(n) {
+		n.expand(false, false, function() {
+			tree.getNodeById(node.attributes.id).expand(false, false);
+		});
+	});
+}
+
+var pagetree = Ext.getCmp('pageview-cattree');
 
 var propsGrid = new Ext.grid.PropertyGrid({
 	autoHeight: true,

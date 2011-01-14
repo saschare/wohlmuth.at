@@ -101,9 +101,11 @@ class DataController extends Zend_Controller_Action {
 		$articles = Aitsu_Persistence_View_Articles :: art($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
 		if ($articles) {
 			$artCounter = 0;
+			$maxPages = Aitsu_Config :: get('backend.pagetree.maxpages');
+			$maxPages = empty($maxPages) ? 100 : $maxPages;			
 			foreach ($articles as $art) {
-				$artCounter++;
-				if (!Aitsu_Config :: get('backend.pagetree.maxpages') || Aitsu_Config :: get('backend.pagetree.maxpages') >= $artCounter) {
+				$artCounter++;			
+				if ($artCounter <= $maxPages) {
 					if ($art['isstart']) {
 						if ($art['online'] == 1) {
 							$cls = 'treepage-index-online';
