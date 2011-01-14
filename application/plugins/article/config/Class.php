@@ -58,6 +58,7 @@ class ConfigArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
+			$this->view->idart = $id;
 			header("Content-type: text/javascript");
 			return;
 		}
