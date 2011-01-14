@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * @author Christian Kehres, webtischlerei.de
  * @copyright Copyright &copy; 2010, webtischlerei.de
@@ -29,57 +30,65 @@ class ConfigArticleController extends Aitsu_Adm_Plugin_Controller {
 	public function indexAction() {
 
 		$id = $this->getRequest()->getParam('idart');
-
-		/*$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/config/forms/config.ini', 'edit'));
-		$configSetOptions = array (
-			'0' => ''
-		);
-		foreach (Aitsu_Persistence_ConfigSet :: getAsArray() as $key => $value) {
-			$configSetOptions[$key] = $value;
-		}
-		$form->getElement('configsetid')->setMultiOptions($configSetOptions);
-		$form->setAction($this->view->url());
-
 		$data = Aitsu_Persistence_Article :: factory($id)->load();
 
-		if ($this->getRequest()->getParam('loader')) {
-			$formData = $data->toArray();
-			$form->setValues($formData);
+		$form = Aitsu_Forms :: factory('pageconfiguration', APPLICATION_PATH . '/plugins/article/config/forms/config.ini');
+		$form->title = Aitsu_Translate :: translate('Configuration');
+		$form->url = $this->view->url(array (
+			'plugin' => 'config',
+			'paction' => 'index'
+		), 'aplugin');
+
+		$options = array (
+			(object) array (
+				'name' => '[inherit]',
+				'value' => null
+			)
+		);
+		$configSets = Aitsu_Persistence_ConfigSet :: getAsArray();
+		foreach ($configSets as $key => $value) {
+			$options[] = (object) array (
+				'name' => $value,
+				'value' => $key
+			);
 		}
 
-		$this->view->pluginId = self :: ID;
-		$this->view->id = $id;
-		$this->view->form = $form;
+		$form->setOptions('configsetid', $options);
+		$form->setValues($data->toArray());
 
 		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
 			return;
 		}
 
-		if (!$form->isValid($_POST)) {
-			$this->_helper->json((object) array (
-				'status' => 'validationfailure',
-				'message' => $this->view->render('index.phtml')
-			));
-		}
-
 		try {
-			Aitsu_Event :: raise('backend.article.edit.save.start', array (
-				'idart' => $id
-			));
-			$data->setValues($form->getValues());
-			$data->save();
-			$form->setValues($data->toArray());
-			$this->_helper->json((object) array (
-				'status' => 'success',
-				'message' => Aitsu_Translate :: translate('Article configuration saved.'),
-				'data' => (object) $data->toArray(),
-				'html' => $this->view->render('index.phtml')
-			));
+			if ($form->isValid()) {
+				Aitsu_Event :: raise('backend.article.edit.save.start', array (
+					'idart' => $id
+				));
+
+				/*
+				 * Persist the data.
+				 */
+				$data->setValues($form->getValues())->save();
+
+				$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) $data->toArray()
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
-				'status' => 'exception',
+				'success' => false,
+				'exception' => true,
 				'message' => $e->getMessage()
 			));
-		}*/
+		}
 	}
 }
