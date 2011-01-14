@@ -240,7 +240,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		}
 
 		$target[] = call_user_func(array (
-			self,
+			'self',
 			'_addOptions' . ucfirst($type)
 		), $options);
 	}

@@ -1,3 +1,4 @@
+var dc = (new Date).getTime();
 var imageCrop;
 var mediaPreview = function(record) {
 	var prev = Ext.getCmp('media-preview');
@@ -10,7 +11,7 @@ var mediaPreview = function(record) {
 
 	prev.add({
 		border: false,
-		html: '<img id="media-image-preview" src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 400, 'height' => 280, 'boxed' => 0), 'default'); ?>/id/' + record.get('mediaid') + '" />'
+		html: '<img id="media-image-preview" src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 400, 'height' => 280, 'boxed' => 0), 'default'); ?>/id/' + record.get('mediaid') + '?dc=' + dc + '" />'
 	});
 	prev.doLayout();
 	Ext.get('media-image-preview').on('load', function(e, t, o) {
@@ -124,7 +125,7 @@ var media = new Ext.grid.GridPanel({
     		if (extension != 'jpg' && extension != 'gif' && extension != 'jpeg' && extension != 'png') {
     			return '';
     		}
-    		return '<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 2), 'default'); ?>/id/' + record.get('mediaid') + '" width="32" height="32" alt="' + record.get('filename') + '" />';
+    		return '<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 2), 'default'); ?>/id/' + record.get('mediaid') + '?dc=' + dc + '" width="32" height="32" alt="' + record.get('filename') + '" />';
     	}},
     	{dataIndex: 'mediaid', header: 'ID', menuDisabled: false, sortable: true, width: 20},
     	{dataIndex: 'filename', header: '<?php echo Aitsu_Translate :: translate('File name'); ?>', menuDisabled: false, sortable: true},
