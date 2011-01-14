@@ -65,6 +65,80 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 		));
 	}
 
+	/**
+	 * Returns selected media tags.
+	 * @since 2.1.0 - 14.01.2011
+	 */
+	public function tagstoreAction() {
+
+		$mediaid = $this->getRequest()->getParam('mediaid');
+		$tags = Aitsu_Persistence_File :: factory($mediaid)->getTags();
+
+		$data = array ();
+		if ($tags) {
+			foreach ($tags as $tag) {
+				$data[] = (object) $tag;
+			}
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
+	
+	/**
+	 * Adds the specifed tag to the media.
+	 * @since 2.1.0 - 14.01.2011
+	 */
+	public function addtagAction() {
+		
+		$mediaid = $this->getRequest()->getParam('mediaid');
+		$token = $this->getRequest()->getParam('token');
+		$value = $this->getRequest()->getParam('value');
+		
+		if (!empty($token)) {
+			Aitsu_Persistence_File :: factory($mediaid)->addTag($token, $value);
+		}
+		
+		$this->_helper->json((object) array (
+			'success' => true
+		));
+	}
+
+	/**
+	 * Returns available media tags.
+	 * @since 2.1.0 - 14.01.2011
+	 */
+	public function atagstoreAction() {
+
+		$filter = array (
+			(object) array (
+				'clause' => 'tag like',
+				'value' => '%' . $this->getRequest()->getParam('query') . '%'
+			)
+		);
+
+		$this->_helper->json((object) array (
+			'data' => Aitsu_Persistence_MediaTag :: getStore(100, 0, $filter)
+		));
+	}
+	
+	/**
+	 * Removes the specifed tag from the media.
+	 * @since 2.1.0 - 14.01.2011
+	 */
+	public function removetagAction() {
+		
+		$mediaid = $this->getRequest()->getParam('mediaid');
+		$mediatagid = $this->getRequest()->getParam('mediatagid');
+		
+		Aitsu_Persistence_File :: factory($mediaid)->removeTag($mediatagid);
+		
+		$this->_helper->json((object) array (
+			'success' => true
+		));
+	}
+
 	public function uploadAction() {
 
 		Aitsu_Core_File :: upload($this->getRequest()->getParam('idart'), $_FILES['file']['name'], $_FILES['file']['tmp_name']);

@@ -99,7 +99,7 @@ var todos = new Ext.grid.GridPanel({
     columns: [
     	todoExpander,
     	{dataIndex: 'todoid', header: '<?php echo Aitsu_Translate :: translate('ID'); ?>', menuDisabled: true, sortable: true, width: 5},
-    	{dataIndex: 'title', header: '<? echo Aitsu_Translate :: translate('Title'); ?>', menuDisabled: true, sortable: true, width: 75},
+    	{dataIndex: 'title', header: '<? echo Aitsu_Translate :: translate('To Do'); ?>', menuDisabled: true, sortable: true, width: 75},
     	{dataIndex: 'duedate', header: '<? echo Aitsu_Translate :: translate('Due'); ?>', menuDisabled: true, sortable: true, width: 10, renderer: Ext.util.Format.dateRenderer('Y-m-d')},
     	{dataIndex: 'status', header: '<? echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: true, sortable: true, width: 10, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
     		if (record.get('status') == '0') {

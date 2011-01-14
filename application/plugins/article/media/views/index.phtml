@@ -147,17 +147,22 @@ var media = new Ext.grid.GridPanel({
 				});
 				media.getSelectionModel().on('rowselect', function(selectionModel, rowIndex, record) {
 					var form = Ext.getCmp('media-edit-form').getForm();
-						form.findField('mediaid').setValue(record.get('mediaid'));
-						form.findField('filename').setValue(record.get('filename'));
-						form.findField('name').setValue(record.get('name'));
-						form.findField('subline').setValue(record.get('subline'));
-						form.findField('description').setValue(record.get('description'));
-						form.findField('xtl').setValue(record.get('xtl'));
-						form.findField('ytl').setValue(record.get('ytl'));
-						form.findField('xbr').setValue(record.get('xbr'));
-						form.findField('ybr').setValue(record.get('ybr'));
-						Ext.getCmp('media-edit-form-save-button').enable();
-						mediaPreview(record);
+					form.findField('mediaid').setValue(record.get('mediaid'));
+					form.findField('filename').setValue(record.get('filename'));
+					form.findField('name').setValue(record.get('name'));
+					form.findField('subline').setValue(record.get('subline'));
+					form.findField('description').setValue(record.get('description'));
+					form.findField('xtl').setValue(record.get('xtl'));
+					form.findField('ytl').setValue(record.get('ytl'));
+					form.findField('xbr').setValue(record.get('xbr'));
+					form.findField('ybr').setValue(record.get('ybr'));
+					Ext.getCmp('media-edit-form-save-button').enable();
+					Ext.getCmp('media-tags-grid').getStore().load({
+						params: {
+							mediaid: record.get('mediaid')
+						}
+					});
+					mediaPreview(record);
 				});
 			}
 		},
@@ -216,6 +221,121 @@ var media = new Ext.grid.GridPanel({
 	]
 });
 
+var mediaTagToken = new Ext.form.ComboBox({
+	id: 'mediatagid',
+    typeAhead: true,
+    triggerAction: 'all',
+    lazyRender:true,
+  	width: 150,
+  	minChars: 1,
+  	emptyText: '<?php echo Aitsu_Translate :: translate('Choose tag'); ?>',
+    store: new Ext.data.JsonStore({
+    	autoDestroy: true,
+    	url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'atagstore'), 'aplugin'); ?>',
+    	storeId: 'tagsStore',
+    	root: 'data',
+    	idProperty: 'tagid',
+    	fields: ['tagid', 'tag']
+	}),
+    valueField: 'tag',
+    displayField: 'tag'
+});
+
+var mediaTagValue = new Ext.form.TextField({
+	id: 'mediatagvalue',
+	width: 150,
+	style: {
+		margin: '0 5px 0 5px'
+	},
+	emptyText: 'NULL'
+});
+
+var mediaTags = new Ext.grid.GridPanel({
+	id: 'media-tags-grid',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'tagstore'), 'aplugin'); ?>',
+        remoteSort: false,
+        storeId: 'mediaTagStore',
+        idProperty: 'mediatagid',
+        root: 'data',
+        fields: [{
+            name: 'mediatagid'
+        }, {
+            name: 'tag'
+        }, {
+            name: 'value'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'tag', header: '<?php echo Aitsu_Translate :: translate('Tag'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'value', header: '<?php echo Aitsu_Translate :: translate('Value'); ?>', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	hideHeaders: true,
+	tbar: {
+		items: [
+			mediaTagToken,
+			mediaTagValue,
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Save tag'); ?>',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	var token = mediaTagToken.getValue();
+	            	var value = mediaTagValue.getValue();
+	            	Ext.Ajax.request({
+	            		url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'addtag'), 'aplugin'); ?>',
+	            		success: function(response, opts) {
+	            			mediaTags.getStore().load({
+	            				params: {
+	            					mediaid: Ext.getCmp('media-edit-form').getForm().findField('mediaid').getValue()
+	            				}
+	            			});
+	            			mediaTagToken.setValue('');
+	            			mediaTagValue.setValue('');
+	            		},
+	            		params: {
+	            			mediaid: Ext.getCmp('media-edit-form').getForm().findField('mediaid').getValue(),
+	            			token: token,
+	            			value: value
+	            		}
+	            	});
+	            }
+	        }
+	    ]
+	},
+	listeners: {
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			var record = grid.getStore().getAt(rowIndex);
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+	            	Ext.Ajax.request({
+	            		url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'removetag'), 'aplugin'); ?>',
+	            		success: function(response, opts) {
+	            			grid.getStore().remove(record); 
+	            		},
+	            		params: { 
+	            			mediaid: Ext.getCmp('media-edit-form').getForm().findField('mediaid').getValue(),
+	            			mediatagid: record.get('mediatagid')	
+	            		}
+	            	});					 			
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+	}
+});
+
 Ext.getCmp('page-edit-tab').add({
 	id: 'article-plugin-media',
 	title: '<?php echo Aitsu_Translate :: translate('Media'); ?>',
@@ -240,73 +360,88 @@ Ext.getCmp('page-edit-tab').add({
 						height: 300,
 						border: false,
 						layout: 'fit',
-						items: new Ext.FormPanel({
-							url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'save'), 'aplugin'); ?>',
-							labelAlign: 'left',
-							id: 'media-edit-form',
-							frame: true,
-							border: false,
-							bodyStyle:'padding:5px 5px 0',
-							items: [
-								{
-									xtype:'textfield',
-									fieldLabel: '<?php echo Aitsu_Translate :: translate('File name'); ?>',
-									name: 'filename',
-									anchor: '100%'
-								}, {
-									xtype:'textfield',
-									fieldLabel: '<?php echo Aitsu_Translate :: translate('Media name'); ?>',
-									name: 'name',
-									anchor: '100%'
-								}, {
-									xtype:'textfield',
-									fieldLabel: '<?php echo Aitsu_Translate :: translate('Subline'); ?>',
-									name: 'subline',
-									anchor: '100%'
-								}, {
-									xtype:'textarea',
-									fieldLabel: '<?php echo Aitsu_Translate :: translate('Description'); ?>',
-									name: 'description',
-									anchor: '100%',
-									height: 160
-								}, {
-									xtype: 'hidden',
-									name: 'mediaid'
-								}, {
-									xtype: 'hidden',
-									name: 'idartlang',
-									value: <?php echo $this->idartlang; ?>
-								}, {
-									xtype: 'hidden',
-									name: 'xtl'
-								}, {
-									xtype: 'hidden',
-									name: 'ytl'
-								}, {
-									xtype: 'hidden',
-									name: 'xbr'
-								}, {
-									xtype: 'hidden',
-									name: 'ybr'
+						items: new Ext.TabPanel({
+							listeners: {
+								render: function() {
+									this.activate(0);
 								}
-							],
-							buttons: [{
-								id: 'media-edit-form-save-button',
-								text: '<?php echo Aitsu_Translate :: translate('Save'); ?>',
-            					iconCls: 'save',
-            					disabled: true,
-            					handler: function(b, e) {
-            						Ext.getCmp('media-edit-form').getForm().submit({
-										success: function(form, action) {
-											media.getStore().load({
-												params: {
-													idart: <?php echo $this->idart; ?>
-												}
+							},
+							items: [
+								new Ext.FormPanel({
+									title: '<?php echo Aitsu_Translate :: translate('Meta data'); ?>',
+									url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'save'), 'aplugin'); ?>',
+									labelAlign: 'left',
+									id: 'media-edit-form',
+									frame: true,
+									border: false,
+									bodyStyle:'padding:5px 5px 0',
+									items: [
+										{
+											xtype:'textfield',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('File name'); ?>',
+											name: 'filename',
+											anchor: '100%'
+										}, {
+											xtype:'textfield',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Media name'); ?>',
+											name: 'name',
+											anchor: '100%'
+										}, {
+											xtype:'textfield',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Subline'); ?>',
+											name: 'subline',
+											anchor: '100%'
+										}, {
+											xtype:'textarea',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Description'); ?>',
+											name: 'description',
+											anchor: '100%',
+											height: 140
+										}, {
+											xtype: 'hidden',
+											name: 'mediaid'
+										}, {
+											xtype: 'hidden',
+											name: 'idartlang',
+											value: <?php echo $this->idartlang; ?>
+										}, {
+											xtype: 'hidden',
+											name: 'xtl'
+										}, {
+											xtype: 'hidden',
+											name: 'ytl'
+										}, {
+											xtype: 'hidden',
+											name: 'xbr'
+										}, {
+											xtype: 'hidden',
+											name: 'ybr'
+										}
+									],
+									buttons: [{
+										id: 'media-edit-form-save-button',
+										text: '<?php echo Aitsu_Translate :: translate('Save'); ?>',
+		            					iconCls: 'save',
+		            					disabled: true,
+		            					handler: function(b, e) {
+		            						Ext.getCmp('media-edit-form').getForm().submit({
+												success: function(form, action) {
+													media.getStore().load({
+														params: {
+															idart: <?php echo $this->idart; ?>
+														}
+													});
+												} 
 											});
-										} 
-									});
-            					}
-        					}]
+		            					}
+		        					}]
+								}),
+								{
+									title: '<?php echo Aitsu_Translate :: translate('Tags'); ?>',
+									layout: 'fit',
+									items: mediaTags
+								}
+							]
 						})
 					},
 					{

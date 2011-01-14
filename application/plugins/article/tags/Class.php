@@ -38,7 +38,9 @@ class TagsArticleController extends Aitsu_Adm_Plugin_Controller {
 		$token = $this->getRequest()->getParam('token');
 		$value = $this->getRequest()->getParam('value');
 
-		Aitsu_Persistence_Article :: factory($idart)->addTag($token, $value);
+		if (!empty($token)) {
+			Aitsu_Persistence_Article :: factory($idart)->addTag($token, $value);
+		}
 
 		$this->_helper->json((object) array (
 			'success' => true
