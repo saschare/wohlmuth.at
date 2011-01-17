@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Date.php 18277 2010-08-23 11:37:19Z akm $}
  */
 
 class Aitsu_Util_Date {
@@ -29,5 +27,10 @@ class Aitsu_Util_Date {
 	public function get($format = 'd.m.y H:i') {
 
 		return date($format, $this->_time);
+	}
+	
+	public static function from($date) {
+		
+		return new self(strtotime($date));
 	}
 }
