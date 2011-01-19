@@ -115,13 +115,13 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$configs = array ();
 
 		$configs[] = "xtype: '{$value['type']}'";
-		if (!empty($value['label'])) {
+		if (!empty ($value['label'])) {
 			$configs[] = "fieldLabel: '" . Aitsu_Translate :: translate($value['label']) . "'";
 		}
 		$configs[] = "name: '{$key}'";
 
 		if (method_exists('Aitsu_Forms_Renderer_ExtJs', '_extraFieldAtts' . ucfirst($value['type']))) {
-			call_user_func(array (
+			$configs = call_user_func(array (
 				'self',
 				'_extraFieldAtts' . ucfirst($value['type'])
 			), $configs, $key, $value);
@@ -158,6 +158,8 @@ class Aitsu_Forms_Renderer_ExtJs {
 	protected static function _extraFieldAttsCombo(& $configs, $key, $field) {
 
 		$configs[] = "hiddenName: '{$key}'";
+		
+		return $configs;
 	}
 
 	protected static function _extraFieldAttsRadiogroup(& $configs, $key, $field) {
@@ -178,6 +180,8 @@ class Aitsu_Forms_Renderer_ExtJs {
 		}
 
 		$configs[] = 'items: [' . implode(', ', $items) . ']';
+		
+		return $configs;
 	}
 
 	protected static function _extraFieldAttsCheckboxgroup(& $configs, $key, $field) {
@@ -192,7 +196,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 			$counter++;
 			$option = (object) $option;
 			$value = is_numeric($option->value) ? $option->value : "'{$option->value}'";
-			if (isset($field['value']) && ($field['value'] == $option->value || (is_array($field['value']) && in_array($option->value, $field['value'])))) {
+			if (isset ($field['value']) && ($field['value'] == $option->value || (is_array($field['value']) && in_array($option->value, $field['value'])))) {
 				$items[] = "{boxLabel: '{$option->name}', name: '{$key}[$counter]', inputValue: $value, checked: true}";
 			} else {
 				$items[] = "{boxLabel: '{$option->name}', name: '{$key}[$counter]', inputValue: $value}";
@@ -200,16 +204,20 @@ class Aitsu_Forms_Renderer_ExtJs {
 		}
 
 		$configs[] = 'items: [' . implode(', ', $items) . ']';
+		
+		return $configs;
 	}
 
 	protected static function _extraFieldAttsDatefield(& $configs, $key, $field) {
 
 		$configs[] = "format: 'Y-m-d H:i:s'";
 		$configs[] = "altFormats: 'Y-m-d|d.m.Y|d.m.y'";
+		
+		return $configs;
 	}
 
 	protected static function _transformButtons(& $value, $key, $uid) {
-		
+
 		$button = $value;
 
 		if (isset ($button['text'])) {
@@ -220,7 +228,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		if ($key == 'save') {
 			$value .= ", iconCls: 'save'";
-			if (isset($button['handler'])) {
+			if (isset ($button['handler'])) {
 				$value .= ", handler: function() {{$button['handler']}('$uid');}";
 			} else {
 				$value .= ", handler: function() {formSubmit('$uid');}";
