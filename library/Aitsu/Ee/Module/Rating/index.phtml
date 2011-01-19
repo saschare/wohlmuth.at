@@ -3,5 +3,5 @@ $stars = 5;
 $checked = round($this->rating) - 1;
 ?>
 <?php for ($i = 0; $i < $stars; $i++) : ?>
-	<input name="rating" type="radio" class="star"<?php if ($i == $checked) : ?> checked="checked"<?php endif; ?>/>
+	<input class="rating" name="rating" type="radio" class="star"<?php if ($i == $checked) : ?> checked="checked"<?php endif; ?>/>
 <?php endfor; ?>

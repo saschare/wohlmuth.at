@@ -22,7 +22,7 @@ class Aitsu_Ee_Module_Rating_Class extends Aitsu_Ee_Module_Abstract {
 		}
 
 		$view = $instance->_getView();
-		$view->rating = Aitsu_Persistence_Rating(Aitsu_Registry :: get()->env->idartlang)->rating;
+		$view->rating = Aitsu_Persistence_Rating :: factory(Aitsu_Registry :: get()->env->idartlang)->rating;
 		
 		$output = $view->render($template . '.phtml');
 
