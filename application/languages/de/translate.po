@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 12:08+0100\n"
-"PO-Revision-Date: 2011-01-20 12:09+0100\n"
+"POT-Creation-Date: 2011-01-20 20:12+0100\n"
+"PO-Revision-Date: 2011-01-20 20:12+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -260,6 +260,7 @@ msgstr "Die Tabelle %s existiert bereits."
 #: application/adm/scripts/Update/Update_Database.php:234
 #: application/adm/scripts/Update/Update_Database.php:366
 #: application/adm/scripts/Update/Update_Database.php:402
+#: application/adm/scripts/Maintenance/ActualizeRelations.php:29
 #, php-format
 msgid "Table %s added."
 msgstr "Die Tabelle %s wurde angelegt."
@@ -322,6 +323,14 @@ msgstr "Alle Artikel publizieren."
 #, php-format
 msgid "Page with ID %s published."
 msgstr "Die Seite mit der ID %s wurde publiziert."
+
+#: application/adm/scripts/Maintenance/ActualizeRelations.php:15
+msgid "Actualize relations based on tags"
+msgstr "Aktualisierung der Artikelrelationen"
+
+#: application/adm/scripts/Maintenance/ActualizeRelations.php:49
+msgid "Article relations have been actualized."
+msgstr "Die Artikelrelationen wurden aktualisiert."
 
 #: application/modules/Text/Class.php:17
 msgid "Editable area rendered as a plain text area."
