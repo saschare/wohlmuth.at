@@ -24,6 +24,7 @@ class Aitsu_Ee_Module_Rating_Class extends Aitsu_Ee_Module_Abstract {
 		if (isset($_POST[self :: PARAMNAME]) && is_numeric($_POST[self :: PARAMNAME]) && $_POST[self :: PARAMNAME] > 0) {
 			$view->readonly = true;
 			Aitsu_Persistence_Rating :: rate($_POST[self :: PARAMNAME]);
+			$instance->_remove();
 		} else {
 			$view->readonly = false;
 		}
@@ -36,8 +37,7 @@ class Aitsu_Ee_Module_Rating_Class extends Aitsu_Ee_Module_Abstract {
 		$rating = Aitsu_Persistence_Rating :: factory(Aitsu_Registry :: get()->env->idartlang);
 		$view->rating = $rating->rating;
 		$view->votes = $rating->votes;
-trigger_error(var_export($rating->rating, true));		
-trigger_error(var_export($rating->votes, true));		
+	
 		$output = $view->render($template . '.phtml');
 
 		$instance->_save($output, 'eternal');
