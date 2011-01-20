@@ -7,6 +7,8 @@
  */
 
 class Aitsu_Persistence_Rating extends Aitsu_Persistence_Abstract {
+	
+	protected $_data = null;
 
 	protected function __construct($id) {
 
@@ -113,7 +115,7 @@ class Aitsu_Persistence_Rating extends Aitsu_Persistence_Abstract {
 			'(idartlang, rating, votes) ' .
 			'select ' .
 			'	idartlang, ' .
-			'	agv(rate) as rating, ' .
+			'	avg(rate) as rating, ' .
 			'	count(*) as votes ' .
 			'from _ratings ' .
 			'where idartlang = :idartlang ' .
