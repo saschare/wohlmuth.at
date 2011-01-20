@@ -4,7 +4,7 @@ $checked = round($this->rating);
 ?>
 <form id="rating-form" style="display:inline;">
 <?php for ($i = 1; $i <= $stars; $i++) : ?>
-	<input value="<?php echo $i; ?>" class="rating" name="rating" type="radio"<?php if ($i == $checked) : ?> checked="checked"<?php endif; ?>/>
+	<input value="<?php echo ($stars / $i); ?>" class="rating" name="<?php echo $this->paramName; ?>" type="radio"<?php if ($i == $checked) : ?> checked="checked"<?php endif; ?>/>
 <?php endfor; ?>
 	<input type="hidden" name="renderOnly" value="Rating" />
 	<input type="button" id="rating-button" value="rate!" />

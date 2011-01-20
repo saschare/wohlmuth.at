@@ -100,7 +100,7 @@ class Aitsu_Persistence_Rating extends Aitsu_Persistence_Abstract {
 			'on duplicate key update rate = :rate', array (
 				':idartlang' => $idartlang,
 				':ip' => $ip,
-				':rating' => $rating
+				':rate' => $rating
 			));
 
 			Aitsu_Db :: query('' .
