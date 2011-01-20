@@ -110,10 +110,11 @@ class Aitsu_Persistence_Rating extends Aitsu_Persistence_Abstract {
 
 			Aitsu_Db :: query('' .
 			'insert into _rating ' .
-			'(idartlang, rating) ' .
+			'(idartlang, rating, votes) ' .
 			'select ' .
 			'	idartlang, ' .
-			'	agv(rate) as rating ' .
+			'	agv(rate) as rating, ' .
+			'	count(*) as votes ' .
 			'from _ratings ' .
 			'where idartlang = :idartlang ' .
 			'group by idartlang', array (
