@@ -15,7 +15,7 @@ $request = array_merge($_GET, $_POST, array (
 ksort($request);
 define('REQUEST_HASH', md5(serialize($request)));
 unset ($request);
-define('CACHE_PATH', realpath('./application/data/pagecache'));
+define('CACHE_PATH', APPLICATION_PATH . '/data/pagecache');
 
 require_once (realpath('./library/Aitsu/Bootstrap.php'));
 $content = Aitsu_Bootstrap :: run()->getOutput();
