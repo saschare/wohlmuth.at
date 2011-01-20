@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20 09:01+0100\n"
-"PO-Revision-Date: 2011-01-20 09:03+0100\n"
+"POT-Creation-Date: 2011-01-20 12:08+0100\n"
+"PO-Revision-Date: 2011-01-20 12:09+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -313,6 +313,15 @@ msgstr "Entferne %s (ID %s)"
 #, php-format
 msgid "File %s removed."
 msgstr "Die Datei %s wurde entfernt."
+
+#: application/adm/scripts/Maintenance/PublishAll.php:13
+msgid "Publish all pages."
+msgstr "Alle Artikel publizieren."
+
+#: application/adm/scripts/Maintenance/PublishAll.php:67
+#, php-format
+msgid "Page with ID %s published."
+msgstr "Die Seite mit der ID %s wurde publiziert."
 
 #: application/modules/Text/Class.php:17
 msgid "Editable area rendered as a plain text area."
