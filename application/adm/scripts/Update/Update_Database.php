@@ -147,6 +147,93 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
 	}
 
+	public function doAddTablePubArtMeta() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'pub_art_meta';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'CREATE TABLE IF NOT EXISTS _pub_art_meta (' .
+		'`idartlang` INT(10) UNSIGNED NOT NULL ,  ' .
+		'`description` TEXT NOT NULL ,  ' .
+		'`author` VARCHAR(255) NOT NULL ,  ' .
+		'`keywords` TEXT NOT NULL ,  ' .
+		'`date` DATE NULL DEFAULT NULL ,  ' .
+		'`expires` DATE NULL DEFAULT NULL ,  ' .
+		'`robots` VARCHAR(255) NOT NULL ,  ' .
+		'`dctitle` VARCHAR(255) NOT NULL ,  ' .
+		'`dccreator` VARCHAR(255) NOT NULL ,  ' .
+		'`dcsubject` VARCHAR(255) NOT NULL ,  ' .
+		'`dcpublisher` VARCHAR(255) NOT NULL ,  ' .
+		'`dccontributor` VARCHAR(255) NOT NULL ,  ' .
+		'`dcdate` VARCHAR(255) NOT NULL ,  ' .
+		'`dctype` VARCHAR(255) NOT NULL ,  ' .
+		'`dcformat` VARCHAR(255) NOT NULL ,  ' .
+		'`dcidentifier` VARCHAR(255) NOT NULL ,  ' .
+		'`dcsource` VARCHAR(255) NOT NULL ,  ' .
+		'`dclanguage` VARCHAR(255) NOT NULL ,  ' .
+		'`dcrelation` VARCHAR(255) NOT NULL ,  ' .
+		'`cdcoverage` VARCHAR(255) NOT NULL ,  ' .
+		'`dcrights` VARCHAR(255) NOT NULL ,  ' .
+		'`pubid` INT(10) UNSIGNED NOT NULL ,  ' .
+		'`status` TINYINT(4) NOT NULL ,  ' .
+		'PRIMARY KEY (`idartlang`, `pubid`) ,  ' .
+		'INDEX `pubid` (`pubid` ASC) ,  ' .
+		'CONSTRAINT _pub_art_meta_ibfk_1 FOREIGN KEY (`idartlang` ) REFERENCES _art_lang (`idartlang` ) ON DELETE CASCADE,  ' .
+		'CONSTRAINT _pub_art_meta_ibfk_2 FOREIGN KEY (`pubid` ) REFERENCES _pub (`pubid` ) ON DELETE CASCADE)' .
+		'ENGINE = InnoDB DEFAULT CHARACTER SET = utf8');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+
+	public function doAddTablePubArticleContent() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'pub_article_content';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'CREATE TABLE IF NOT EXISTS _pub_article_content (' .
+		'`idartlang` INT(10) UNSIGNED NOT NULL ,  ' .
+		'`index` VARCHAR(20) NOT NULL ,  ' .
+		'`value` LONGTEXT NOT NULL ,  ' .
+		'`modified` DATETIME NOT NULL ,  ' .
+		'`pubid` INT(10) UNSIGNED NOT NULL ,  ' .
+		'`status` TINYINT(4) NOT NULL DEFAULT \'1\' ,  ' .
+		'PRIMARY KEY (`idartlang`, `index`, `pubid`) ,  ' .
+		'INDEX `pubid` (`pubid` ASC) ,  ' .
+		'CONSTRAINT _pub_article_content_ibfk_1 FOREIGN KEY (`idartlang` ) REFERENCES _art_lang (`idartlang` ) ON DELETE CASCADE,  ' .
+		'CONSTRAINT _pub_article_content_ibfk_2 FOREIGN KEY (`pubid` ) REFERENCES _pub (`pubid` ) ON DELETE CASCADE)' .
+		'ENGINE = InnoDB DEFAULT CHARACTER SET = utf8');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+
 	public function doRestorePublicationViews() {
 
 		Aitsu_Db :: query('' .
