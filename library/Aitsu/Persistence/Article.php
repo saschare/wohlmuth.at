@@ -14,6 +14,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 	protected $_idlang = null;
 	protected $_catConf = null;
 	protected $_tags = null;
+	protected $_config = null;
 
 	protected function __construct($id) {
 
@@ -65,6 +66,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		'	artlang.idartlang as idartlang, ' .
 		'	artlang.idart as idart, ' .
 		'	artlang.title as title, ' .
+		'	artlang.pagetitle as pagetitle, ' .
 		'	catlang.idcat as idcat, ' .
 		'	catlang.name as category ' .
 		'from _crosslink as crosslink ' .
@@ -103,6 +105,11 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		}
 
 		return stripslashes($this->_data[$key]);
+	}
+
+	public function getData() {
+
+		return $this->_data;
 	}
 
 	public function __set($key, $value) {
@@ -150,6 +157,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 			$this->_data['idart'] = Aitsu_Db :: put('_art', 'idart', $this->_data);
 			$this->_idartlang = Aitsu_Db :: put('_art_lang', 'idartlang', $this->_data);
+			$this->_data['idartlang'] = $this->_idartlang;
 
 			/*
 			 * Setting date to NULL seems not to work in Zend. As a workaround we set the values
@@ -485,6 +493,9 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		}
 	}
 
+	/**
+	 * @deprecated 2.1.0.0 - 22.01.2011
+	 */
 	public function getCatConf($key) {
 
 		if ($key == null) {
@@ -515,6 +526,73 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		));*/
 
 		return $this->_catConf[$key];
+	}
+
+	public function getConfig() {
+
+		if ($this->_config == null) {
+			$this->_evalConfig();
+		}
+
+		return $this->_config;
+	}
+
+	protected function _evalConfig() {
+
+		$config = Aitsu_Util :: parseSimpleIni(Aitsu_Db :: fetchOne('' .
+		'select config from _configset ' .
+		'where configsetid = 1'));
+
+		$configData = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	artlang.config as artconfig, ' .
+		'	artconf.config as artconfigset, ' .
+		'	catlang.config as catconfig, ' .
+		'	catconf.config as catconfigset ' .
+		'from ait_art_lang artlang ' .
+		'left join ait_cat_art catart on artlang.idart = catart.idart ' .
+		'left join ait_cat cat on catart.idcat = cat.idcat ' .
+		'left join ait_cat parent on cat.lft between parent.lft and parent.rgt ' .
+		'left join ait_cat_lang catlang on parent.idcat = catlang.idcat and catlang.idlang = artlang.idlang ' .
+		'left join ait_configset catconf on catconf.configsetid = catlang.configsetid ' .
+		'left join ait_configset artconf on artconf.configsetid = artlang.configsetid ' .
+		'where ' .
+		'	artlang.idart = :idart ' .
+		'	and artlang.idlang = :idlang ' .
+		'order by ' .
+		'	parent.lft desc', array (
+			':idart' => $this->_id,
+			':idlang' => $this->_idlang
+		));
+		
+		if (!$configData) {
+			$this->_config = $config;
+		}
+		
+		if (empty($configData[0]['artconfigset'])) {
+			foreach ($configData as $conf) {
+				if (!empty($conf['catconfigset'])) {
+					$config = Aitsu_Util :: parseSimpleIni($conf['catconfigset'], $config);
+					break 1;
+				}
+			}
+		} else {
+			$config = Aitsu_Util :: parseSimpleIni($configData[0]['artconfigset'], $config);
+		}
+		
+		$configData = array_reverse($configData);
+		
+		foreach ($configData as $conf) {
+			if (!empty($conf['catconfig'])) {
+				$config = Aitsu_Util :: parseSimpleIni($conf['catconfig'], $config);
+			}
+		}
+		
+		if (!empty($configData[0]['artconfig'])) {
+			$config = Aitsu_Util :: parseSimpleIni($configData[0]['artconfig'], $config);
+		}
+		
+		$this->_config = $config;
 	}
 
 	public function addTag($token, $value) {
