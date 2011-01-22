@@ -14,6 +14,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 	protected $_idlang = null;
 	protected $_catConf = null;
 	protected $_tags = null;
+	protected $_config = null;
 
 	protected function __construct($id) {
 
@@ -492,6 +493,9 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		}
 	}
 
+	/**
+	 * @deprecated 2.1.0.0 - 22.01.2011
+	 */
 	public function getCatConf($key) {
 
 		if ($key == null) {
