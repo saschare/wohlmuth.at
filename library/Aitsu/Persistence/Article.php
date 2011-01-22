@@ -112,6 +112,11 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		return $this->_data;
 	}
 
+	public function getData() {
+
+		return $this->_data;
+	}
+
 	public function __set($key, $value) {
 
 		if ($this->_data === null) {
@@ -526,6 +531,73 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		));*/
 
 		return $this->_catConf[$key];
+	}
+
+	public function getConfig() {
+
+		if ($this->_config == null) {
+			$this->_evalConfig();
+		}
+
+		return $this->_config;
+	}
+
+	protected function _evalConfig() {
+
+		$config = Aitsu_Util :: parseSimpleIni(Aitsu_Db :: fetchOne('' .
+		'select config from _configset ' .
+		'where configsetid = 1'));
+
+		$configData = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	artlang.config as artconfig, ' .
+		'	artconf.config as artconfigset, ' .
+		'	catlang.config as catconfig, ' .
+		'	catconf.config as catconfigset ' .
+		'from ait_art_lang artlang ' .
+		'left join ait_cat_art catart on artlang.idart = catart.idart ' .
+		'left join ait_cat cat on catart.idcat = cat.idcat ' .
+		'left join ait_cat parent on cat.lft between parent.lft and parent.rgt ' .
+		'left join ait_cat_lang catlang on parent.idcat = catlang.idcat and catlang.idlang = artlang.idlang ' .
+		'left join ait_configset catconf on catconf.configsetid = catlang.configsetid ' .
+		'left join ait_configset artconf on artconf.configsetid = artlang.configsetid ' .
+		'where ' .
+		'	artlang.idart = :idart ' .
+		'	and artlang.idlang = :idlang ' .
+		'order by ' .
+		'	parent.lft desc', array (
+			':idart' => $this->_id,
+			':idlang' => $this->_idlang
+		));
+		
+		if (!$configData) {
+			$this->_config = $config;
+		}
+		
+		if (empty($configData[0]['artconfigset'])) {
+			foreach ($configData as $conf) {
+				if (!empty($conf['catconfigset'])) {
+					$config = Aitsu_Util :: parseSimpleIni($conf['catconfigset'], $config);
+					break 1;
+				}
+			}
+		} else {
+			$config = Aitsu_Util :: parseSimpleIni($configData[0]['artconfigset'], $config);
+		}
+		
+		$configData = array_reverse($configData);
+		
+		foreach ($configData as $conf) {
+			if (!empty($conf['catconfig'])) {
+				$config = Aitsu_Util :: parseSimpleIni($conf['catconfig'], $config);
+			}
+		}
+		
+		if (!empty($configData[0]['artconfig'])) {
+			$config = Aitsu_Util :: parseSimpleIni($configData[0]['artconfig'], $config);
+		}
+		
+		$this->_config = $config;
 	}
 
 	public function addTag($token, $value) {
