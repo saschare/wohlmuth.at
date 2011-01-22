@@ -108,11 +108,6 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 	}
 	
 	public function getData() {
-		
-		return $this->_data;
-	}
-
-	public function getData() {
 
 		return $this->_data;
 	}
