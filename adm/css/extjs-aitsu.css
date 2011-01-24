@@ -1,3 +1,12 @@
+/* Extensions */
+.x-form-field-wrap .x-form-link-trigger {
+    background-image: url(../images/icons/link_trigger.png) !important;
+}
+.x-form-link-trigger {
+    cursor:pointer;
+}
+
+/*  Tailoring */
 .msg.error h3 {
     color:red;
 }
