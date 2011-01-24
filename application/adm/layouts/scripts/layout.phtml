@@ -63,6 +63,12 @@
 			format: "Y-m-d"
 		});
         
+		Ext.apply(Ext.ux.form.LinkField.prototype, {
+			dataSource: "<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>",
+			cancelButtonText: "<?php echo Aitsu_Translate :: translate('Cancel'); ?>",
+			selectButtonText: "<?php echo Aitsu_Translate :: translate('Select'); ?>"
+		});
+        
         var sessionClock = new Ext.Toolbar.TextItem('');
                         
         var viewport = new Ext.Viewport({

@@ -160,6 +160,11 @@ class Aitsu_Forms {
 
 		$this->_setVal($this->_config, 'field', 'option', $fieldname, $options);
 	}
+	
+	public function setFormOption() {
+		
+		
+	}
 
 	public function getValues() {
 

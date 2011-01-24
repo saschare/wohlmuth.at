@@ -56,7 +56,9 @@ class PropertiesArticleController extends Aitsu_Adm_Plugin_Controller {
 				/*
 				 * Persist the data.
 				 */
-				$data->setValues($form->getValues())->save();
+				$data->setValues($form->getValues());
+				$data->redirect = 1;
+				$data->save();
 
 				$this->_helper->json((object) array (
 					'success' => true,

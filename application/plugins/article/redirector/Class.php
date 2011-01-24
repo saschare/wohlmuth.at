@@ -31,17 +31,51 @@ class RedirectorArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$id = $this->getRequest()->getParam('idart');
 
-		$form = Aitsu_Forms :: factory('pageproperties', APPLICATION_PATH . '/plugins/article/redirector/forms/redirector.ini');
+		$form = Aitsu_Forms :: factory('redirector', APPLICATION_PATH . '/plugins/article/redirector/forms/redirector.ini');
 		$form->title = Aitsu_Translate :: translate('Redirection');
 		$form->url = $this->view->url(array (
 			'plugin' => 'redirector',
 			'paction' => 'index'
 		), 'aplugin');
 
+		$data = Aitsu_Persistence_Article :: factory($id)->load();
+		$form->setValues($data->toArray());
+
 		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
 			header("Content-type: text/javascript");
 			return;
+		}
+
+		try {
+			if ($form->isValid()) {
+				Aitsu_Event :: raise('backend.article.edit.save.start', array (
+					'idart' => $id
+				));
+
+				/*
+				 * Persist the data.
+				 */
+				$data->setValues($form->getValues());
+				$data->redirect = 1;
+				$data->save();
+
+				$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) $data->toArray()
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
 		}
 	}
 }

@@ -101,8 +101,16 @@ class DataController extends Zend_Controller_Action {
 		$articles = Aitsu_Persistence_View_Articles :: art($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
 		if ($articles) {
 			$artCounter = 0;
-			$maxPages = Aitsu_Config :: get('backend.pagetree.maxpages');
-			$maxPages = empty($maxPages) ? 100 : $maxPages;			
+			if (empty($_REQUEST['showpages'])) {
+				$maxPages = Aitsu_Config :: get('backend.pagetree.maxpages');
+				$maxPages = empty($maxPages) ? 100 : $maxPages;
+			} else {
+				if ($_REQUEST['showpages'] == 'all') {
+					$maxPages = PHP_INT_MAX;
+				} else {
+					$maxPages = (int) $_REQUEST['showpages'];
+				}
+			}			
 			foreach ($articles as $art) {
 				$artCounter++;			
 				if ($artCounter <= $maxPages) {
