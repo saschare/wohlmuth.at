@@ -3,6 +3,7 @@ var pageMetadataHandler = function(formId) {
 		success: function(form, action) {
 			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Meta data have been saved.'); ?>');
 			form.findField('urlname').setValue(action.result.data.urlname);
+			setUnpublished();
 		}, 
 		failure: function() {
 			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been saved due to errors.'); ?>');

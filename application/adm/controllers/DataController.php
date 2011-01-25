@@ -152,6 +152,8 @@ class DataController extends Zend_Controller_Action {
 		$idart = $this->getRequest()->getParam('id');
 		$this->view->idart = $idart;
 		Aitsu_Persistence_Lastopened :: factory($idart)->save();
+		
+		$this->view->art = Aitsu_Persistence_Article :: factory($idart)->load();
 
 		$plugins = array ();
 		foreach (Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/plugins/article', 'Class.php') as $plugin) {

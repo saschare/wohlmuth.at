@@ -1,3 +1,9 @@
+var setUnpublished = function() {
+	var b = Ext.getCmp('publish-button');
+	b.setIconClass('page-unpublished');
+	b.setDisabled(false);
+}
+
 win = new Ext.Window({
 	layout:'fit',
 	width:700,
@@ -77,6 +83,7 @@ win = new Ext.Window({
 				success: function(form, action) {
 					$(document).trigger('doReplace', [action.result.data.type, action.result.data.container, action.result.data.idartlang, action.result.data.html]);
 					win.destroy();
+					setUnpublished();
 				},
 				failure: function(form, action) {
 					win.destroy();
