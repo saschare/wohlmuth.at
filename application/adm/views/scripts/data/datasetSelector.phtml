@@ -79,10 +79,10 @@ $(function() {
 	$(document).bind('refresh-category-overview', function() {
 		$('#category-overview').tabs();
 		$('.tab-content').relativeSize(window, null, '-200');
-		$('#add-new-article').button({icons: {primary: 'ui-icon-circle-plus'}}); 
-		$('#add-to-favorites').button({icons: {primary: 'ui-icon-circle-plus'}}); 
-		$('#paste-article').button({icons: {primary: 'ui-icon-clipboard'}}); 
-		$('#remove-from-favorites').button({icons: {primary: 'ui-icon-circle-minus'}}); 
+		$('#add-new-article').button({icons: {primary: 'ui-icon-circle-plus'}, text:false}); 
+		$('#add-to-favorites').button({icons: {primary: 'ui-icon-circle-star'}, text:false}); 
+		$('#paste-article').button({icons: {primary: 'ui-icon-clipboard'}, text:false}); 
+		$('#remove-from-favorites').button({icons: {primary: 'ui-icon-circle-star'}, text:false}); 
 		$('.init-disabled').button('disable');
 		$(document).trigger('ctx-article');		
 	});
