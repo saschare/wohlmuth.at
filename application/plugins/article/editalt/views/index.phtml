@@ -6,11 +6,26 @@
 				font-size:11px;
 				color: #333;
 			}
-			.shortcode {
-				border: 1px solid #CCC;
-				border-radius: 5px;
-				padding: 10px;
-				margin: 10px;
+			div.boxmodel-root, div.boxmodel-root div.shortcode {
+				border:1px solid #CCC;
+				padding:8px;
+				padding-bottom:0;
+				-moz-border-radius: 5px;
+			    -webkit-border-radius: 5px;
+			    border-radius: 5px;
+			}
+			div.boxmodel-root div.shortcode {
+				margin-bottom:8px;
+				cursor:pointer;
+			}
+			div.boxmodel-root div.shortcode-title {
+				margin-bottom:8px;
+			}
+			div.boxmodel-root div.shortcode.hover {
+				background-color:#EEE;
+			}
+			div.boxmodel-root div.shortcode.focused {
+				background-color:#CCC;
 			}
 		</style>
 	</head>

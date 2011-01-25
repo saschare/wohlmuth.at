@@ -65,6 +65,13 @@ pageEditTabs.add({
         style: {
 			border: '0px none'
         }
+	},
+	listeners: {
+		render: function() {
+			Ext.get('edit-iframe-boxmodel-<?php echo $this->idartlang; ?>').on('load', function(e, t, o) {
+				$(document).trigger('edit-page-content-box', [$('#edit-iframe-boxmodel-<?php echo $this->idartlang; ?>')]);
+			});
+		}
 	}
 });
 

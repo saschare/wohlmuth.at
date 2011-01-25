@@ -103,4 +103,20 @@ $(function() {
 		});
 	});
 	
+	$(document).unbind('edit-page-content-box');
+	$(document).bind('edit-page-content-box', function(event, obj) {
+		var bBody = obj.contents().find("body");
+		alert(bBody.html());
+		$('div.shortcode', bBody).hover(function() {
+			$(this).toggleClass('hover');
+		});
+		
+		$('div.shortcode', bBody).click(function() {
+			$('.shortcode', bBody).removeClass('focused');
+			$(this).addClass('focused');
+			//$(document).trigger('doBoxModelEdit', [$(this), $('#box-edit-save').data('idartlang')]);
+			return false;
+		});
+	});
+	
 });
