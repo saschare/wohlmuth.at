@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- *
- * {@id $Id: Class.php 19916 2010-11-17 12:40:58Z akm $}
  */
 
 class EditaltArticleController extends Aitsu_Adm_Plugin_Controller {
@@ -14,7 +12,7 @@ class EditaltArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
-		header("Content-type: text/javascript");
+		// header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 	}
 
@@ -22,9 +20,9 @@ class EditaltArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		return (object) array (
 			'name' => 'editalt',
-			'tabname' => Aitsu_Translate :: translate('EditBox'),
-			'enabled' => self :: getPosition($idart, 'editalt'),
-			'position' => self :: getPosition($idart, 'editalt'),
+			'tabname' => 'none',
+			'enabled' => false,
+			'position' => 0,
 			'id' => self :: ID
 		);
 	}
@@ -72,7 +70,7 @@ class EditaltArticleController extends Aitsu_Adm_Plugin_Controller {
 		$content = Aitsu_Ee_Transformation_Shortcode :: getInstance()->getContent('<script type="application/x-aitsu" src="Template:Root"></script>');
 
 		$content = strip_tags($content, '<shortcode>,<code>');
-		$content = preg_replace('/&[a-zA-Z]*;/', ' ', $content);
+		$content = preg_replace('/&[a-zA-Z0-9]*;/', ' ', $content);
 		$content = preg_replace('/\\s{2,}/s', ' ', $content);
 
 		$doc = new DOMDocument();

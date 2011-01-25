@@ -1,32 +1,9 @@
-/* will be included in the normal edit area. */
+<html>
+<head></head>
+<body>
+	<?php echo $this->content; ?>
+</body>
 <?php return; ?>
-<div class="toolbar ui-corner-bottom">
-	<button id="save-<?php echo $this->pluginId; ?>" class="confirm" title="<?php echo $this->translate('save'); ?>"><?php echo $this->translate('save'); ?></button>
-</div>
-
-<div class="sized-content">
-	<div class="subcolumns">
-		<div class="c62l">
-			<div class="subcl">
-				<div class="rounded-corners internal-sized-content" style="border:1px solid #CCC; padding:10px;">
-					<div id="edit-box-edit-area"></div>
-					<div style="text-align:right;">
-						<button id="box-edit-save"><?php echo $this->translate('save'); ?></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	
-		<div class="c38r">
-			<div class="subcr">
-				<div class="internal-sized-content rounded-corners" style="border:1px solid #CCC; padding:10px;">
-					<?php echo $this->content; ?>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 <script type="text/javascript">
 $(function() {
 	

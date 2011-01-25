@@ -58,7 +58,14 @@ pageEditTabs.add({
 pageEditTabs.add({
 	id: 'article-plugin-edit-boxmodel',
 	title: '<?php echo Aitsu_Translate :: translate('Box model'); ?>',
-	html: '<p>this feature is not implemented yet.</p>'
+	bodyCfg: {
+		tag: 'iframe',
+		id: 'edit-iframe-boxmodel-<?php echo $this->idartlang; ?>',
+        src: '<?php echo $this->url(array('plugin' => 'editalt', 'paction' => 'index'), 'aplugin'); ?>?idart=<?php echo $this->idart; ?>',
+        style: {
+			border: '0px none'
+        }
+	}
 });
 
 pageEditTabs.add({
