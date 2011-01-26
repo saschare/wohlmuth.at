@@ -168,19 +168,28 @@ $(function() {
 				title: '<?php echo $this->translate('Delete files'); ?>',
 				modal: true,
 				buttons: {
-					'<?php echo $this->translate('Yes, delete the files'); ?>': function() {
-						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete')); ?>', {
-  							'idartlang': '<?php echo $this->idartlang; ?>',
-  							'delete': selectedFiles.join(",")
-  						}, function() {
-  							$(this).trigger('fileListLoaded');
-  							$(this).trigger('ace-mediacontentchanged');
-  						});
-  						$(this).dialog('close');
-					},
 					'<?php echo $this->translate('No'); ?>': function() {
 						$(this).dialog('close');
+					},
+					'<?php echo $this->translate('Yes, delete the files'); ?>': function() {
+						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete')); ?>', {
+								'idartlang': '<?php echo $this->idartlang; ?>',
+								'delete': selectedFiles.join(",")
+							}, function() {
+								$(this).trigger('fileListLoaded');
+								$(this).trigger('ace-mediacontentchanged');
+							});
+							$(this).dialog('close');
 					}
+				},
+				'open': function(event, ui) {
+					var buttons = $(event.target).parent().find('.ui-dialog-buttonset').children();
+
+					buttons.removeClass('ui-button-text-only').addClass('ui-button-icon-only');
+
+					$(buttons[0]).append("<span class='ui-icon ui-icon-circle-close'></span>").addClass('deny');
+					$(buttons[1]).append("<span class='ui-icon ui-icon-trash'></span>").addClass('confirm');
+					$(buttons[0]).css('position','absolute').css('left','15px');
 				}
 			});  		
   	});
