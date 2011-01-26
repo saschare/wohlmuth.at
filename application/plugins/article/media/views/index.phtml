@@ -86,6 +86,9 @@ $(function() {
     	autoOpen: false,
     	title: '<?php echo $this->translate('Edit file'); ?>',
     	buttons: {
+			'<?php echo $this->translate('Cancel'); ?>': function() {
+				$(this).dialog('close');
+			},
 			'<?php echo $this->translate('Save'); ?>': function() {
 				var dialog = $(this);
 				$.post("<?php echo $this->url(array('plugin' => 'media', 'paction' => 'save'), 'aplugin'); ?>", $("#media-meta-data").serialize(), function(data) {
@@ -93,16 +96,22 @@ $(function() {
 						$('#status').html(data.message);				
 						dialog.dialog('close');
 						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'filelist')); ?>', 
-      						{'idartlang': '<?php echo $this->idartlang; ?>'},
-      						function() {$(this).trigger('fileListLoaded')});
+	  						{'idartlang': '<?php echo $this->idartlang; ?>'},
+	  						function() {$(this).trigger('fileListLoaded')});
 					} else {
 						dialog.html(data.html);
 					}
 				});
-			},
-			'<?php echo $this->translate('Cancel'); ?>': function() {
-				$(this).dialog('close');
 			}
+    	},
+		'open': function(event, ui) {
+			var buttons = $(event.target).parent().find('.ui-dialog-buttonset').children();
+
+			buttons.removeClass('ui-button-text-only').addClass('ui-button-icon-only');
+
+			$(buttons[0]).append("<span class='ui-icon ui-icon-circle-close'></span>").addClass('deny');
+			$(buttons[1]).append("<span class='ui-icon ui-icon-circle-check'></span>").addClass('confirm');
+			$(buttons[0]).css('position','absolute').css('left','15px');
 		}
   	});
   	
