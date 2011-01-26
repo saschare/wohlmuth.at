@@ -14,7 +14,7 @@ $(function() {
 		$(this).parents('.tab-content').find('form button[type=submit]').trigger('click');
 	});
 
-	$('#content-<?php echo $this->pluginId; ?> button.save').button({icons: {primary: 'ui-icon-circle-check'}});
+	$('#content-<?php echo $this->pluginId; ?> button.save').button({icons: {primary: 'ui-icon-circle-check'}, text:false}).addClass('confirm').css('float','right');
 	
 	$('#content-<?php echo $this->pluginId; ?> button#submit').bind('click', function() {
 		var form = $(this).closest('form');
