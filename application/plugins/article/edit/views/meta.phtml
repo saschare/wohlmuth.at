@@ -120,6 +120,15 @@ $(function() {
 									$(this).remove();
 								}
 							},
+							'open': function(event, ui) {
+							var buttons = $(event.target).parent().find('.ui-dialog-buttonset').children();
+
+							buttons.removeClass('ui-button-text-only').addClass('ui-button-icon-only');
+
+							$(buttons[0]).append("<span class='ui-icon ui-icon-circle-close'></span>").addClass('deny');
+							$(buttons[1]).append("<span class='ui-icon ui-icon-circle-check'></span>").addClass('confirm');
+							$(buttons[0]).css('position','absolute').css('left','15px');
+							},
 							close: function(event, ui) {
 								$(this).remove();
 							}
