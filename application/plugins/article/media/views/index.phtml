@@ -1,7 +1,7 @@
 <?php $uid = uniqid(); ?>
 
 <div class="toolbar ui-corner-bottom">
-	<button id="media-upload-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Upload'); ?>">
+	<button id="media-upload-<?php echo $this->pluginId . $uid; ?>" class="confirm" title="<?php echo $this->translate('Upload'); ?>">
 	   	<?php echo $this->translate('Upload'); ?>
 	</button>
 	<button id="media-select-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Select all'); ?>">
@@ -63,10 +63,10 @@
 <script type="text/javascript">
 $(function() {
 	
-	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-disk'}, text:false});
-	$("#media-select-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-plus'}, text:false});
-	$("#media-deselect-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-minus'}, text:false});
-	$("#media-toggleselection-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-transferthick-e-w'}, text:false});
+	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-plus'}, text:false});
+	$("#media-select-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circlesmall-plus'}, text:false});
+	$("#media-deselect-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circlesmall-minus'}, text:false});
+	$("#media-toggleselection-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-transfer-e-w'}, text:false});
 	$("#media-delete-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-trash'}, text:false});
   
 	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").click(function() {
