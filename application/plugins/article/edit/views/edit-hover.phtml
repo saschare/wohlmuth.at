@@ -127,12 +127,12 @@ $(function() {
 	  		if ($(this).find('code.params').length > 0) {
 	  			params = $(this).find('code.params').first().html();
 	  		}
-			
+	  		
 			doEditHandler({
 				type: type,
 				container: container,
 				idartlang: <?php echo $this->idartlang; ?>,
-				params: $(this).find('code.aitsu_params').length > 0 ? $(this).find('code.aitsu_params').first().html() : ''
+				params: $(this).find('code.params').length > 0 ? $(this).find('code.params').first().html() : ''
 			});
 			
 			return false;
