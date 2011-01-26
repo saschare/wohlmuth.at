@@ -98,6 +98,12 @@ $(function() {
 		$(document).bind('doReplace', function(event, type, container, idartlang, data) {
 			$('#' + type + '-' + container + '-' + idartlang, oBody).html($('#.aitsu_hover:first', data));
 			$(document).trigger('edit-page-content', [$('#edit-iframe-' + idartlang)]);
+			var boxModelFrame = Ext.get('edit-iframe-boxmodel-<?php echo $this->idartlang; ?>');
+			if (boxModelFrame != null) {
+				boxModelFrame.set({
+		        	src: '<?php echo $this->url(array('plugin' => 'editalt', 'paction' => 'index'), 'aplugin'); ?>?idart=<?php echo $this->idart; ?>'
+				});
+			}
 			$(document).trigger('toogle-sub-templates');
 			$(document).trigger('toogle-sub-templates');
 		});
@@ -106,7 +112,7 @@ $(function() {
 	$(document).unbind('edit-page-content-box');
 	$(document).bind('edit-page-content-box', function(event, obj) {
 		var bBody = obj.contents().find("body");
-		alert(bBody.html());
+		
 		$('div.shortcode', bBody).hover(function() {
 			$(this).toggleClass('hover');
 		});
@@ -114,7 +120,21 @@ $(function() {
 		$('div.shortcode', bBody).click(function() {
 			$('.shortcode', bBody).removeClass('focused');
 			$(this).addClass('focused');
-			//$(document).trigger('doBoxModelEdit', [$(this), $('#box-edit-save').data('idartlang')]);
+			
+			var type = $(this).children('input[name=method]').val();
+	  		var container = $(this).children('input[name=index]').val();
+	  		var params = '';
+	  		if ($(this).find('code.params').length > 0) {
+	  			params = $(this).find('code.params').first().html();
+	  		}
+			
+			doEditHandler({
+				type: type,
+				container: container,
+				idartlang: <?php echo $this->idartlang; ?>,
+				params: $(this).find('code.aitsu_params').length > 0 ? $(this).find('code.aitsu_params').first().html() : ''
+			});
+			
 			return false;
 		});
 	});

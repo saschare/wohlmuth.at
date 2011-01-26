@@ -7,7 +7,7 @@ var crosslinkingTree = new Ext.tree.TreePanel({
 	containerScroll: true,
 	border: false,
 	padding: '10px 0 10px 10px',
-	dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>',
+	dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>?showpages=all',
 	rootVisible: false,
 	singleExpand: true,
 	stopRestoring: false,
