@@ -6,7 +6,7 @@
 	<div class="subcolumns">
 		<div class="c62l">
 			<div class="subcl">
-				<div class="rounded-corners internal-sized-content" style="border:1px solid #CCC; padding:10px;">
+				<div class="rounded-corners internal-sized-content" style="border:1px solid #CCC; padding:10px;overflow:auto;">
 					<div id="edit-box-edit-area"></div>
 					<div style="text-align:right;">
 						<button id="box-edit-save"><?php echo $this->translate('save'); ?></button>
@@ -17,7 +17,7 @@
 	
 		<div class="c38r">
 			<div class="subcr">
-				<div class="internal-sized-content rounded-corners" style="border:1px solid #CCC; padding:10px;">
+				<div class="internal-sized-content rounded-corners" style="border:1px solid #CCC; padding:10px;overflow:auto;">
 					<?php echo $this->content; ?>
 				</div>
 			</div>
@@ -33,7 +33,7 @@ $(function() {
 		$(this).parents('.tab-content').find('form button[type=submit]').trigger('click');
 	});
 
-	$('#box-edit-save').button({icons: {primary: 'ui-icon-circle-check'}}).css('visibility', 'hidden');
+	$('#box-edit-save').button({icons: {primary: 'ui-icon-circle-check'}, text:false}).addClass('confirm').css('visibility', 'hidden');
 	$('#box-edit-save').data('idartlang', <?php echo $this->idartlang; ?>);
 	$('#box-edit-save').data('idart', <?php echo $this->idart; ?>);
 
