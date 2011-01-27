@@ -110,12 +110,12 @@ $(function() {
 							width: width,
 							height: height,
 							buttons: {
-								'<?php echo $this->translate('Save'); ?>': function() {
-									$(document).trigger('edit-save', [type, container, idartlang]);
+								'<?php echo $this->translate('Cancel'); ?>': function() {
 									$(this).dialog('close');
 									$(this).remove();
 								},
-								'<?php echo $this->translate('Cancel'); ?>': function() {
+								'<?php echo $this->translate('Save'); ?>': function() {
+									$(document).trigger('edit-save', [type, container, idartlang]);
 									$(this).dialog('close');
 									$(this).remove();
 								}
