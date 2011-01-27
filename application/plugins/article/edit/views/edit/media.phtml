@@ -43,7 +43,10 @@ ksort($media);
         listeners: {
             checkchange: function(node, checked) {
                 jsonParams.add('<?php echo $this->field->name; ?>', node.getOwnerTree().getChecked('filename'));
-            }
+            },
+            movenode: function(tree, node, oldParent, newParent, index) {
+            	jsonParams.add('<?php echo $this->field->name; ?>', tree.getChecked('filename'));
+            } 
         }
     })
 }
