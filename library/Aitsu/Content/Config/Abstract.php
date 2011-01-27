@@ -43,6 +43,11 @@ abstract class Aitsu_Content_Config_Abstract {
 		return $this->facts[$key];
 	}
 	
+	public function __isset($key) {
+		
+		return isset($this->facts[$key]) || isset($this->params[$key]);
+	}
+	
 	abstract public function getTemplate();
 	
 	public function currentValue() {

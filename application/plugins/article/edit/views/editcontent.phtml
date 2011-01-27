@@ -4,6 +4,8 @@ var setUnpublished = function() {
 	b.setDisabled(false);
 }
 
+var jsonParams = new Ext.util.MixedCollection();
+
 win = new Ext.Window({
 	layout:'fit',
 	width:700,
@@ -27,9 +29,19 @@ win = new Ext.Window({
 					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>
 					<?php if ($i < count($this->data->editInfo) - 1) : ?>,<?php endif; ?>
 				<?php endfor; ?>
+				<?php if (count($this->data->editInfo) > 0 && (count($this->data->configTabs) > 0) || !empty($this->data->editInfo)) : ?>
+				,
+				<?php endif; ?>
+				<?php for ($i = 0; $i < count($this->data->configTabs); $i++) : ?>
+					<?php /* config as tab */ ?>
+					<?php echo $this->partial('edit/' . $this->data->configTabs[$i]->getTemplate(), array('field' => $this->data->configTabs[$i])); ?>
+					<?php if ($i < count($this->data->configTabs) - 1) : ?>,<?php endif; ?>
+				<?php endfor; ?>
+				<?php if (count($this->data->configTabs) > 0 && !empty($this->data->editInfo)) : ?>
+				,
+				<?php endif; ?>
 				<?php if (!empty($this->data->configInfo)) : ?>
 					<?php /* configuration */ ?>
-					<?php if (!empty($this->data->editInfo)) : ?>,<?php endif; ?>
 					{
 						title: '<?php echo Aitsu_Translate :: translate('Configuration'); ?>', 
 						layout: 'form',
@@ -45,6 +57,22 @@ win = new Ext.Window({
 				<?php endif; ?>
 			]
 		},
+		<?php foreach($this->data->configInfo as $fieldset => $config) : ?>
+		<?php foreach ($config as $field) : ?>
+		{
+			xtype: 'hidden',
+			name: 'configType-<?php echo $field->name; ?>',
+			value: '<?php echo $field->type; ?>'
+		},
+		<?php endforeach; ?>
+		<?php endforeach; ?>
+		<?php foreach($this->data->configTabs as $field) : ?>
+		{
+			xtype: 'hidden',
+			name: 'configType-<?php echo $field->name; ?>',
+			value: '<?php echo $field->type; ?>'
+		},
+		<?php endforeach; ?>
 		{
 			xtype: 'hidden',
 			name: 'type',
@@ -87,7 +115,10 @@ win = new Ext.Window({
 				},
 				failure: function(form, action) {
 					win.destroy();
-				} 
+				},
+				params: {
+					json: Ext.util.JSON.encode(jsonParams.map)
+				}
 			});
 		}
 	}]

@@ -49,24 +49,28 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		Aitsu_Content_Edit :: end();
 
 		$editInfo = Aitsu_Content_Edit :: getContents();
-		$configs = Aitsu_Content_Edit :: getConfigs();
-		//var_dump($configs);exit;		
+		$configs = Aitsu_Content_Edit :: getConfigs();	
 		$configInfo = array ();
+		$configTabs = array();
 		foreach ($configs as $config) {
-			$fieldset = $config->fieldset == '' ? -1 : $config->fieldset;
-			$configInfo[$fieldset][] = $config;
+			if (isset($config->tab) && $config->tab) {
+				$configTabs[] = $config;
+			} else {
+				$fieldset = $config->fieldset == '' ? -1 : $config->fieldset;
+				$configInfo[$fieldset][] = $config;
+			}
 		}
 
 		foreach ($editInfo as $key => $panel) {
 			$editInfo[$key]->content = Aitsu_Content :: get($panel->index, $panel->type, $panel->idart, $panel->idlang, null);
 		}
-		//var_dump($configInfo); exit;
 		$this->view->data = (object) array (
 			'type' => $type,
 			'idartlang' => $idartlang,
 			'container' => $container,
 			'params' => $params,
 			'editInfo' => $editInfo,
+			'configTabs' => $configTabs,
 			'configInfo' => $configInfo
 		);
 
@@ -94,7 +98,16 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 				$config[substr($key, 7)] = $value;
 			}
 		}
-
+		
+		if (isset($_REQUEST['json'])) {
+			$json = json_decode($_REQUEST['json']);
+			foreach ($json as $key => $value) {
+				$config[$key] = $value;
+			}
+		}
+		
+trigger_error(var_export($config, true));
+trigger_error(var_export($_REQUEST, true));
 		$this->_restoreContext($idartlang);
 
 		Aitsu_Registry :: get()->env->ajaxResponse = '1';
@@ -117,7 +130,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 
 			if ($config != null) {
 				foreach ($config as $key => $value) {
-					$cType = $configType[$key];
+					$cType = $configType[str_replace('.', '_', $key)];
 					Aitsu_Core_Article_Property :: factory($idartlang)->setValue('ModuleConfig_' . $container, $key, $value, $cType);
 				}
 			}

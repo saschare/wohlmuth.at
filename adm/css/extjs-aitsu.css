@@ -269,3 +269,15 @@
     background-image: url(../images/icons/flag_red.png) !important; 
     background-repeat: no-repeat;
 }
+.image {
+    background-image: url(../images/icons/picture.png) !important; 
+    background-repeat: no-repeat;
+}
+.file {
+    background-image: url(../images/icons/page_white.png) !important; 
+    background-repeat: no-repeat;
+}
+.movie {
+    background-image: url(../images/icons/film.png) !important; 
+    background-repeat: no-repeat;
+}

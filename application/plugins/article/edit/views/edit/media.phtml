@@ -1,0 +1,49 @@
+<?php
+$selectedVals = $this->field->currentValue();
+if (empty($selectedVals)) {
+	$selectedVals = array();
+}
+$media = array();
+$counter = -1;
+foreach ($this->field->media as $file) {
+	$counter++;
+	$text = empty($file['name']) ? $file['filename'] : "{$file['name']} ({$file['filename']}),";
+	$iconCls = 'file';
+	if (in_array($file['extension'], array('png', 'jpeg', 'jpg', 'gif'))) {
+		$iconCls = 'image';
+	}
+	if (in_array($file['extension'], array('mov', 'swf', 'mpeg', 'avi', 'mp4'))) {
+		$iconCls = 'movie';
+	}
+	if (in_array($file['filename'], $selectedVals)) {
+		$index = array_search($file['filename'], $selectedVals);
+		$media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "{text: '$text', leaf: true, checked: true, iconCls: 'image', filename: '{$file['filename']}'}";
+	} else {
+		$media['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "{text: '$text', leaf: true, checked: false, iconCls: 'image', filename: '{$file['filename']}'}";
+	}
+}
+ksort($media);
+?>
+{
+	title:'<?php echo $this->field->label; ?>',
+	layout:'fit',
+	border: false,
+	items: new Ext.tree.TreePanel({
+        useArrows:true,
+        autoScroll:true,
+        animate:true,
+        enableDD:true,
+        containerScroll: true,
+        rootVisible: false,
+        frame: true,
+        root: new Ext.tree.AsyncTreeNode({
+            expanded: true,
+            children: [<?php echo implode(',', $media); ?>]
+        }),
+        listeners: {
+            checkchange: function(node, checked) {
+                jsonParams.add('<?php echo $this->field->name; ?>', node.getOwnerTree().getChecked('filename'));
+            }
+        }
+    })
+}
