@@ -17,14 +17,16 @@ foreach ($this->field->media as $file) {
 	}
 	if (in_array($file['filename'], $selectedVals)) {
 		$index = array_search($file['filename'], $selectedVals);
-		$media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "{text: '$text', leaf: true, checked: true, iconCls: 'image', filename: '{$file['filename']}'}";
+		// $media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "{text: '$text', leaf: true, checked: true, iconCls: 'image', filename: '{$file['filename']}'}";
+		$media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", $file) . "', 1]";
 	} else {
-		$media['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "{text: '$text', leaf: true, checked: false, iconCls: 'image', filename: '{$file['filename']}'}";
+		// $media['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "{text: '$text', leaf: true, checked: false, iconCls: 'image', filename: '{$file['filename']}'}";
+		$media['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", $file) . "', 0]";
 	}
 }
 ksort($media);
 ?>
-{
+/*{
 	title:'<?php echo $this->field->label; ?>',
 	layout:'fit',
 	border: false,
@@ -49,4 +51,101 @@ ksort($media);
             } 
         }
     })
+}*/
+{
+	title:'<?php echo $this->field->label; ?>',
+	layout: 'fit',
+	border: false,
+	items: new Ext.grid.GridPanel({
+		store: new Ext.data.ArrayStore({
+			autoDestroy: true,
+			fields: [
+				'mediaid',
+				'idart',
+				'filename',
+				'size',
+				'extension',
+				'name',
+				'subline',
+				'description',
+				'selected'
+			],
+			data: [<?php echo implode(',', $media); ?>]
+		}),
+		hideHeaders: true,
+		loadMask: true,
+    	ddGroup:'mygridDD',
+    	enableDragDrop: true,
+		sm: new Ext.grid.RowSelectionModel({
+			singleSelect:true
+		}),
+		viewConfig: {
+			forceFit: true,
+			getRowClass: function(record, index) {
+            	var s = record.get('selected');
+            	if (s == 1) {
+                	return 'selectedRow';
+            	} else {
+                	return '';
+            	}
+       		}
+		},
+		columns: [
+	    	{dataIndex: 'mediaid', header: '<?php echo Aitsu_Translate :: translate('Preview'); ?>', width: 30, menuDisabled: true, sortable: false, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+	    		var extension = record.get('extension').toLowerCase();
+	    		if (extension != 'jpg' && extension != 'gif' && extension != 'jpeg' && extension != 'png') {
+	    			return '';
+	    		}
+	    		return '<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 2), 'default'); ?>/id/' + record.get('mediaid') + '" width="32" height="32" alt="' + record.get('filename') + '" />';
+	    	}},
+	    	{dataIndex: 'mediaid', header: 'ID', menuDisabled: true, sortable: false, width: 20},
+	    	{dataIndex: 'filename', header: '<?php echo Aitsu_Translate :: translate('File name'); ?>', menuDisabled: true, sortable: false},
+	    	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Media name'); ?>', menuDisabled: true, sortable: false}
+		],
+		listeners: {
+			render: function(grid) {
+				var ddrow = new Ext.dd.DropTarget(grid.container, {
+					ddGroup : 'mygridDD',
+					copy:false,
+					notifyDrop : function(dd, e, data){
+						var ds = grid.store;
+						var sm = grid.getSelectionModel();
+	                       var rows = sm.getSelections();
+	                       if(dd.getDragData(e)) {
+							var cindex=dd.getDragData(e).rowIndex;
+							if(typeof(cindex) != "undefined") {
+								for(i = 0; i <  rows.length; i++) {
+									ds.remove(ds.getById(rows[i].id));
+								}
+								ds.insert(cindex,data.selections);
+								sm.clearSelections();
+								var data = new Array();
+								grid.store.each(function(r) {
+									if (r.get('selected') == 1) {
+										data.push(r.get('filename'));
+									}
+								});
+								jsonParams.add('<?php echo $this->field->name; ?>', data);
+							}
+						}
+					}
+				});
+			},
+			rowdblclick : function(grid, rowIndex, e) {
+				if (grid.store.getAt(rowIndex).get('selected') == 1) {
+					grid.store.getAt(rowIndex).set('selected', 0);
+				} else {
+					grid.store.getAt(rowIndex).set('selected', 1);
+				}
+				grid.getSelectionModel().clearSelections();
+				var data = new Array();
+				grid.store.each(function(r) {
+					if (r.get('selected') == 1) {
+						data.push(r.get('filename'));
+					}
+				});
+				jsonParams.add('<?php echo $this->field->name; ?>', data);
+			}
+		}
+	})
 }

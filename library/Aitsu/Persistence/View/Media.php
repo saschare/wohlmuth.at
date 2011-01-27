@@ -12,6 +12,7 @@ class Aitsu_Persistence_View_Media {
 
 		return Aitsu_Db :: fetchAll('' .
 		'select ' .
+		'	media.mediaid, ' .
 		'	media.idart, ' .
 		'	media.filename, ' .
 		'	media.size, ' .
@@ -33,6 +34,7 @@ class Aitsu_Persistence_View_Media {
 
 		$images = Aitsu_Db :: fetchAll('' .
 		'select ' .
+		'	media.mediaid, ' .
 		'	media.idart, ' .
 		'	media.filename, ' .
 		'	media.size, ' .
