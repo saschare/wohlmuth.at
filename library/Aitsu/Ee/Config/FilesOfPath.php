@@ -2,14 +2,16 @@
 
 
 /**
- * Files of a particular source configuration.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: FilesOfPath.php 16863 2010-06-04 16:05:57Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 28.01.2011
+ * Currently there is no replacement available. Beginning with version 2.1.0
+ * this class will no longer be usable. It is available for documentation
+ * purposes only. 
+ */
 class Aitsu_Ee_Config_FilesOfPath extends Aitsu_Content_Config_Abstract {
 
 	public function getTemplate() {
@@ -25,13 +27,13 @@ class Aitsu_Ee_Config_FilesOfPath extends Aitsu_Content_Config_Abstract {
 		$instance->facts['fieldset'] = $fieldset;
 		$instance->facts['label'] = $label;
 		$instance->facts['type'] = 'text';
-		
+
 		if (!Aitsu_Registry :: isEdit()) {
 			return $instance->currentValue();
 		}
 
 		$keyValuePairs = array ();
-		
+
 		$files = self :: _glob($startPath, $pattern);
 		foreach ($files as $file) {
 			$file = substr($file, strlen($startPath));
@@ -44,9 +46,9 @@ class Aitsu_Ee_Config_FilesOfPath extends Aitsu_Content_Config_Abstract {
 
 	protected static function _glob($dir, $pattern) {
 
-		$return = array();
+		$return = array ();
 
-		$items = glob($dir . '/*');	
+		$items = glob($dir . '/*');
 
 		foreach ($items as $item) {
 			if (is_dir($item)) {

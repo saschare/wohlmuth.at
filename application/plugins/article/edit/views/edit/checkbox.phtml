@@ -1,0 +1,26 @@
+{
+	xtype: 'checkboxgroup',
+	<?php if (!empty($this->field->label)) : ?>
+		fieldLabel: '<?php echo $this->field->label; ?>',
+	<?php else : ?>
+		hideLabel: true,
+	<?php endif; ?>
+	columns: 2,
+	items: [
+		<?php $counter = 0; foreach ($this->field->keyValuePairs as $key => $value) : $counter++; ?>
+		{
+			boxLabel: '<?php echo $key; ?>',
+			name: 'config-<?php echo $this->field->name; ?>[<?php echo $counter; ?>]', 
+			inputValue: '<?php echo $value; ?>',
+			<?php if ($value == $this->field->currentValue() || (is_array($this->field->currentValue()) && in_array($value, $this->field->currentValue()))) : ?>
+			checked: true
+			<?php else : ?>
+			checked: false
+			<?php endif; ?>
+		}
+		<?php if ($counter < count($this->field->keyValuePairs)) : ?>
+		,
+		<?php endif; ?>
+		<?php endforeach; ?>
+	]
+}

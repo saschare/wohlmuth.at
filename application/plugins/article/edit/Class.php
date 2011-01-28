@@ -98,7 +98,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 				$config[substr($key, 7)] = $value;
 			}
 		}
-		
+
 		if (isset($_REQUEST['json'])) {
 			$json = json_decode($_REQUEST['json']);
 			foreach ($json as $key => $value) {
@@ -106,8 +106,6 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 			}
 		}
 		
-trigger_error(var_export($config, true));
-trigger_error(var_export($_REQUEST, true));
 		$this->_restoreContext($idartlang);
 
 		Aitsu_Registry :: get()->env->ajaxResponse = '1';
@@ -128,11 +126,10 @@ trigger_error(var_export($_REQUEST, true));
 				}
 			}
 
-			if ($config != null) {
-				foreach ($config as $key => $value) {
-					$cType = $configType[str_replace('.', '_', $key)];
-					Aitsu_Core_Article_Property :: factory($idartlang)->setValue('ModuleConfig_' . $container, $key, $value, $cType);
-				}
+			foreach ($configType as $key => $value) {
+				$cType = $value;
+				$fieldValue = isset($config[$key]) ? $config[$key] : null;				
+				Aitsu_Core_Article_Property :: factory($idartlang)->setValue('ModuleConfig_' . $container, $key, $fieldValue, $cType);
 			}
 
 			Aitsu_Registry :: get()->env->substituteEmptyAreas = '1';

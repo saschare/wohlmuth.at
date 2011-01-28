@@ -23,6 +23,7 @@ win = new Ext.Window({
 		items: [{
 			xtype:'tabpanel',
 			activeTab: 0,
+			deferredRender: false,
 			items:[
 				<?php for ($i = 0; $i < count($this->data->editInfo); $i++) : ?>
 					<?php /* edit fields */ ?>
@@ -48,7 +49,7 @@ win = new Ext.Window({
 						autoScroll: true,
 						padding: '5px',
 						items: [					
-							<?php $counter = 1; foreach($this->data->configInfo as $fieldset => $config) : $counter++; ?>
+							<?php $counter = 0; foreach($this->data->configInfo as $fieldset => $config) : $counter++; ?>
 								<?php echo $this->partial('edit/fieldset.phtml', array('fieldset' => $fieldset, 'config' => $config)); ?>
 								<?php if ($counter < count($this->data->configInfo)) : ?>,<?php endif; ?>
 							<?php endforeach; ?>

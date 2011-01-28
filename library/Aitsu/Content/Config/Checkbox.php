@@ -6,15 +6,11 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-/**
- * @deprecated 2.1.0 - 28.01.2011
- * Use class Aitsu_Content_Config_Radio instead.
- */
-class Aitsu_Ee_Config_Radio extends Aitsu_Content_Config_Abstract {
+class Aitsu_Content_Config_Checkbox extends Aitsu_Content_Config_Abstract {
 	
 	public function getTemplate() {
 
-		return 'radio.phtml';
+		return 'checkbox.phtml';
 	}
 	
 	public static function set($index, $name, $label, $keyValuePairs, $fieldset) {
@@ -23,6 +19,7 @@ class Aitsu_Ee_Config_Radio extends Aitsu_Content_Config_Abstract {
 		
 		$instance->facts['fieldset'] = $fieldset;
 		$instance->facts['label'] = $label;
+		$instance->facts['type'] = 'serialized';
 		$instance->params['keyValuePairs'] = $keyValuePairs;
 		
 		return $instance->currentValue();

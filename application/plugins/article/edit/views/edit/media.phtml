@@ -17,41 +17,13 @@ foreach ($this->field->media as $file) {
 	}
 	if (in_array($file['filename'], $selectedVals)) {
 		$index = array_search($file['filename'], $selectedVals);
-		// $media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "{text: '$text', leaf: true, checked: true, iconCls: 'image', filename: '{$file['filename']}'}";
 		$media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", $file) . "', 1]";
 	} else {
-		// $media['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "{text: '$text', leaf: true, checked: false, iconCls: 'image', filename: '{$file['filename']}'}";
 		$media['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", $file) . "', 0]";
 	}
 }
 ksort($media);
 ?>
-/*{
-	title:'<?php echo $this->field->label; ?>',
-	layout:'fit',
-	border: false,
-	items: new Ext.tree.TreePanel({
-        useArrows:true,
-        autoScroll:true,
-        animate:true,
-        enableDD:true,
-        containerScroll: true,
-        rootVisible: false,
-        frame: true,
-        root: new Ext.tree.AsyncTreeNode({
-            expanded: true,
-            children: [<?php echo implode(',', $media); ?>]
-        }),
-        listeners: {
-            checkchange: function(node, checked) {
-                jsonParams.add('<?php echo $this->field->name; ?>', node.getOwnerTree().getChecked('filename'));
-            },
-            movenode: function(tree, node, oldParent, newParent, index) {
-            	jsonParams.add('<?php echo $this->field->name; ?>', tree.getChecked('filename'));
-            } 
-        }
-    })
-}*/
 {
 	title:'<?php echo $this->field->label; ?>',
 	layout: 'fit',
@@ -130,6 +102,13 @@ ksort($media);
 						}
 					}
 				});
+				var data = new Array();
+				grid.store.each(function(r) {
+					if (r.get('selected') == 1) {
+						data.push(r.get('filename'));
+					}
+				});
+				jsonParams.add('<?php echo $this->field->name; ?>', data);
 			},
 			rowdblclick : function(grid, rowIndex, e) {
 				if (grid.store.getAt(rowIndex).get('selected') == 1) {

@@ -6,11 +6,7 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-/**
- * @deprecated 2.1.0 - 28.01.2011
- * Use class Aitsu_Content_Config_Radio instead.
- */
-class Aitsu_Ee_Config_Radio extends Aitsu_Content_Config_Abstract {
+class Aitsu_Content_Config_Radio extends Aitsu_Content_Config_Abstract {
 	
 	public function getTemplate() {
 
