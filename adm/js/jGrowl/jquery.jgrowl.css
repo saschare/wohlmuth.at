@@ -1,4 +1,3 @@
-
 div.jGrowl {
 	padding: 			10px;
 	z-index: 			9999;
@@ -81,7 +80,7 @@ div.center div.jGrowl-notification, div.center div.jGrowl-closer {
 }
 
 div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer {
-	background-color: 		#999;
+	background-color: 		#000;
 	opacity: 				.85;
     -ms-filter: 			"progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"; 
     filter: 				progid:DXImageTransform.Microsoft.Alpha(Opacity=85); 
