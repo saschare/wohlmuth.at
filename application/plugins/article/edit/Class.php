@@ -128,7 +128,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 
 			foreach ($configType as $key => $value) {
 				$cType = $value;
-				$fieldValue = isset($config[$key]) ? $config[$key] : null;	
+				$fieldValue = isset($config[$key]) ? $config[$key] : null;					
 				Aitsu_Core_Article_Property :: factory($idartlang)->setValue('ModuleConfig_' . $container, $key, $fieldValue, $cType);
 			}
 

@@ -35,6 +35,17 @@ class Aitsu_Ee_Module_Image_Class extends Aitsu_Ee_Module_Abstract {
 		$test5 = Aitsu_Content_Config_Date :: set($index, 'end_time', 'Ende', 'Periode');
 		$test6 = Aitsu_Content_Config_Text :: set($index, 'remark1', 'Text', 'Periode');
 		$test7 = Aitsu_Content_Config_Text :: set($index, 'remark2', 'Text', 'Test');
+		$test8 = Aitsu_Content_Config_Select :: set($index, 'Select_1', 'Select (Combo)', array (
+			'key1' => 'value1',
+			'key2' => 'value2',
+			'key3' => 'value3',
+			'key4' => 'value4',
+			'key5' => 'value5',
+			'key6' => 'value6',
+			'key7' => 'value7',
+			'key8' => 'value8',
+			'key9' => 'value9'
+		), 'Test');
 
 		$output = '';
 		if (!$instance->_get('Image' . preg_replace('/[^a-zA-Z_0-9]/', '', $index), $output)) {

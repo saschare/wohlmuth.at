@@ -2,14 +2,14 @@
 
 
 /**
- * Hidden 'field' configuration.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Hidden.php 17293 2010-06-24 18:10:57Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 28.01.2011
+ * Please use class Aitsu_Content_Config_Hidden instead.
+ */
 class Aitsu_Ee_Config_Hidden extends Aitsu_Content_Config_Abstract {
 
 	public function getTemplate() {
