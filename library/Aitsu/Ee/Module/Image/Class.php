@@ -33,6 +33,8 @@ class Aitsu_Ee_Module_Image_Class extends Aitsu_Ee_Module_Abstract {
 		), 'Checkboxes');
 		$test4 = Aitsu_Content_Config_Date :: set($index, 'start_time', 'Start', 'Periode');
 		$test5 = Aitsu_Content_Config_Date :: set($index, 'end_time', 'Ende', 'Periode');
+		$test6 = Aitsu_Content_Config_Text :: set($index, 'remark1', 'Text', 'Periode');
+		$test7 = Aitsu_Content_Config_Text :: set($index, 'remark2', 'Text', 'Test');
 
 		$output = '';
 		if (!$instance->_get('Image' . preg_replace('/[^a-zA-Z_0-9]/', '', $index), $output)) {
