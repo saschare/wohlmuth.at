@@ -6,7 +6,7 @@ Ext.ux.form.LinkField = Ext.extend(Ext.form.TriggerField,  {
 	onTriggerClick : function() {
 		var target = this;
 		var dataSource = this.dataSource;
-		win = new Ext.Window({
+		var linkWin = new Ext.Window({
 			width:400,
 			height:400,
 			layout: 'fit',
@@ -47,11 +47,11 @@ Ext.ux.form.LinkField = Ext.extend(Ext.form.TriggerField,  {
 	        		var node = Ext.getCmp('linkfield-page-tree').getSelectionModel().getSelectedNode();
 	        		var type = node.attributes.type == 'category' ? 'idcat' : 'idart';
 	        		target.setValue(type + ' ' + node.attributes.id);
-	        		win.close();
+	        		linkWin.close();
 	        	}
 	        }]
 		});
-		win.show(this);
+		linkWin.show(this);
     }
 });
 Ext.reg('linkfield', Ext.ux.form.LinkField);

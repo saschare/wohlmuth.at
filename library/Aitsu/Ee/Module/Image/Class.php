@@ -46,6 +46,7 @@ class Aitsu_Ee_Module_Image_Class extends Aitsu_Ee_Module_Abstract {
 			'key8' => 'value8',
 			'key9' => 'value9'
 		), 'Test');
+		$test9 = Aitsu_Content_Config_Link :: set($index, 'link', 'Quelle', 'Link');
 
 		$output = '';
 		if (!$instance->_get('Image' . preg_replace('/[^a-zA-Z_0-9]/', '', $index), $output)) {
