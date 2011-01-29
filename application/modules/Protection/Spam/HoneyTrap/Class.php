@@ -4,29 +4,10 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19943 2010-11-18 19:17:08Z akm $}
  */
 
 class Module_Protection_Spam_HoneyTrap_Class extends Aitsu_Ee_Module_Abstract {
 	
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Honeytrap',
-			'description' => Aitsu_Translate :: translate('Honeytrap to trap spam bots in a black list.'),
-			'type' => 'Spam protection',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '0.1.0',
-			'status' => 'in development',
-			'url' => null,
-			'id' => '4ce57475-7cf4-4a24-956f-4bd97f000101'
-		);
-	}
-
 	public static function init($context) {
 
 		$instance = new self();
