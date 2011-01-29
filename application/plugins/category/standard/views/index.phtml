@@ -142,14 +142,11 @@ var categories = new Ext.grid.GridPanel({
 	    ]
 	},
 	listeners: {
-		cellclick: function(grid, rowIndex, columnIndex, e) {
-			if (columnIndex > 0) {
+		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			/*if (columnIndex > 0) {*/
 				editPage(this.getStore().getAt(rowIndex).get('id'));
-			}
+			/*}*/
 		},
-		/*rowclick: function(grid, rowIndex, e) {
-			editPage(this.getStore().getAt(rowIndex).get('id'));
-		},*/
 		rowcontextmenu: function(grid, rowIndex, event) {
 			
 			this.getSelectionModel().selectRow(rowIndex);

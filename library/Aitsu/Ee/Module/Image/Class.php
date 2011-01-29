@@ -16,6 +16,7 @@ class Aitsu_Ee_Module_Image_Class extends Aitsu_Ee_Module_Abstract {
 		Aitsu_Content_Edit :: isBlock(false);
 
 		$test = Aitsu_Content_Html :: get('Kummer');
+		$test = Aitsu_Content_Text :: get('Andreas');
 		$test2 = Aitsu_Content_Config_Radio :: set($index, 'Radio', '', array (
 			'key1' => 'value1',
 			'key2' => 'value2'
