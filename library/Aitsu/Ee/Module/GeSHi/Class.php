@@ -4,31 +4,12 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 18285 2010-08-23 13:11:23Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_GeSHi_Class extends Aitsu_Ee_Module_Abstract {
-
-	public static function about() {
-
-		return (object) array (
-			'name' => 'GeSHi',
-			'description' => Zend_Registry :: get('Zend_Translate')->translate('Generic Syntax Highlighter.'),
-			'type' => array (
-				'Content',
-				'Code'
-			),
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'stable',
-			'url' => null,
-			'id' => 'a0725368-c565-11df-851a-0800200c9a66'
-		);
-	}
 
 	public static function init($context) {
 

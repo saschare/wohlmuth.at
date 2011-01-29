@@ -6,6 +6,9 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_Image_Class extends Aitsu_Ee_Module_Abstract {
 
 	public static function init($context) {
@@ -15,44 +18,10 @@ class Aitsu_Ee_Module_Image_Class extends Aitsu_Ee_Module_Abstract {
 		$index = $context['index'];
 		Aitsu_Content_Edit :: isBlock(false);
 
-		$test = Aitsu_Content_Html :: get('Kummer');
-		$test = Aitsu_Content_Text :: get('Andreas');
-		$test2 = Aitsu_Content_Config_Radio :: set($index, 'Radio', '', array (
-			'key1' => 'value1',
-			'key2' => 'value2'
-		), 'Radio buttons');
-		$test3 = Aitsu_Content_Config_Checkbox :: set($index, 'Checkbox_1', '', array (
-			'key1' => 'value1',
-			'key2' => 'value2',
-			'key3' => 'value3',
-			'key4' => 'value4',
-			'key5' => 'value5',
-			'key6' => 'value6',
-			'key7' => 'value7',
-			'key8' => 'value8',
-			'key9' => 'value9'
-		), 'Checkboxes');
-		$test4 = Aitsu_Content_Config_Date :: set($index, 'start_time', 'Start', 'Periode');
-		$test5 = Aitsu_Content_Config_Date :: set($index, 'end_time', 'Ende', 'Periode');
-		$test6 = Aitsu_Content_Config_Text :: set($index, 'remark1', 'Text', 'Periode');
-		$test7 = Aitsu_Content_Config_Text :: set($index, 'remark2', 'Text', 'Test');
-		$test8 = Aitsu_Content_Config_Select :: set($index, 'Select_1', 'Select (Combo)', array (
-			'key1' => 'value1',
-			'key2' => 'value2',
-			'key3' => 'value3',
-			'key4' => 'value4',
-			'key5' => 'value5',
-			'key6' => 'value6',
-			'key7' => 'value7',
-			'key8' => 'value8',
-			'key9' => 'value9'
-		), 'Test');
-		$test9 = Aitsu_Content_Config_Link :: set($index, 'link', 'Quelle', 'Link');
-
 		$output = '';
 		if (!$instance->_get('Image' . preg_replace('/[^a-zA-Z_0-9]/', '', $index), $output)) {
 
-			$template = Aitsu_Ee_Config_Radio :: set($index, 'ImageTemplate', '', $instance->_getTemplates(), 'Template');
+			$template = Aitsu_Content_Config_Radio :: set($index, 'ImageTemplate', '', $instance->_getTemplates(), 'Template');
 
 			if (empty ($template)) {
 				$template = 'small';

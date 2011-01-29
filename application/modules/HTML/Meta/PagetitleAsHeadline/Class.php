@@ -6,10 +6,7 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-/**
- * @deprecated 2.1.0 - 29.01.2011
- */
-class Aitsu_Ee_Module_PagetitleAsHeadline_Class extends Aitsu_Ee_Module_Abstract {
+class Module_HTML_Meta_PagetitleAsHeadline_Class extends Aitsu_Ee_Module_Abstract {
 
 	public static function init($context) {
 
