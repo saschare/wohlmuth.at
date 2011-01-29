@@ -102,18 +102,18 @@ class DataController extends Zend_Controller_Action {
 		$articles = Aitsu_Persistence_View_Articles :: art($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
 		if ($articles) {
 			$artCounter = 0;
-			if (empty($_REQUEST['showpages'])) {
+			if (empty ($_REQUEST['showpages'])) {
 				$maxPages = Aitsu_Config :: get('backend.pagetree.maxpages');
-				$maxPages = empty($maxPages) ? 100 : $maxPages;
+				$maxPages = empty ($maxPages) ? 100 : $maxPages;
 			} else {
 				if ($_REQUEST['showpages'] == 'all') {
 					$maxPages = PHP_INT_MAX;
 				} else {
 					$maxPages = (int) $_REQUEST['showpages'];
 				}
-			}			
+			}
 			foreach ($articles as $art) {
-				$artCounter++;			
+				$artCounter++;
 				if ($artCounter <= $maxPages) {
 					if ($art['isstart']) {
 						if ($art['online'] == 1) {
@@ -154,7 +154,7 @@ class DataController extends Zend_Controller_Action {
 		$idart = $this->getRequest()->getParam('id');
 		$this->view->idart = $idart;
 		Aitsu_Persistence_Lastopened :: factory($idart)->save();
-		
+
 		$this->view->art = Aitsu_Persistence_Article :: factory($idart)->load();
 
 		$plugins = array ();
@@ -409,11 +409,12 @@ class DataController extends Zend_Controller_Action {
 
 		$idart = $this->getRequest()->getParam('idart');
 		$idcat = $this->getRequest()->getParam('idcat');
-
-		Aitsu_Persistence_Article :: factory($idart)->moveTo($idcat);
+trigger_error(var_export(array($idart, $idcat), true));
+		$art = Aitsu_Persistence_Article :: factory($idart)->moveTo($idcat)->load(true);
 
 		$this->_helper->json((object) array (
-			'success' => true
+			'success' => true,
+			'data' => $art->getData()
 		));
 	}
 }

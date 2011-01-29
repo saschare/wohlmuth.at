@@ -763,6 +763,8 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			Aitsu_Db :: rollback();
 			throw $e;
 		}
+		
+		return $this;
 	}
 
 	public function publish() {
