@@ -8,31 +8,12 @@
  * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 18069 2010-08-12 16:47:39Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_WormHole_Class extends Aitsu_Ee_Module_Abstract {
-
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Worm hole',
-			'description' => Zend_Registry :: get('Zend_Translate')->translate('Outputs the output of the specified module of the specified page, while still allowing to edit its content in the edit mode.'),
-			'type' => array (
-				'Content',
-				'Foreign sources'
-			),
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '0.9.1',
-			'status' => 'beta',
-			'url' => null,
-			'id' => 'a0725376-c565-11df-851a-0800200c9a66'
-		);
-	}
 
 	public static function init($context) {
 

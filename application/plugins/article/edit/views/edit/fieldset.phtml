@@ -1,0 +1,17 @@
+<?php if ($this->fieldset != -1) : ?>
+{
+	xtype: 'fieldset',
+	title: '<?php echo $this->fieldset; ?>',
+	collapsible: true,
+	items: [
+	<?php endif; ?>
+	<?php for ($i = 0; $i < count($this->config); $i++) : ?>
+		<?php echo $this->partial('edit/' . $this->config[$i]->getTemplate(), array('field' => $this->config[$i])); ?>
+		<?php if ($i < count($this->config) - 1) : ?>
+		,
+		<?php endif; ?>
+	<?php endfor; ?>
+	<?php if ($this->fieldset != -1) : ?>
+	]
+}
+<?php endif; ?>

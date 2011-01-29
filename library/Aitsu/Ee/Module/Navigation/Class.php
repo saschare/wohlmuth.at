@@ -4,30 +4,14 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 17663 2010-07-21 13:30:22Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_Navigation_Class extends Aitsu_Ee_Module_Abstract {
 
 	protected $type = 'navigation';
-
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Navigation',
-			'description' => Aitsu_Translate :: translate('Returns a navigation menu based on the specified template.'),
-			'type' => 'Navigation',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'stable',
-			'url' => null,
-			'id' => '4cdc126d-aef8-484f-b085-1c237f000101'
-		);
-	}
 
 	public static function init($context) {
 

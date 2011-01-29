@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19142 2010-10-04 09:49:15Z akm $}
  */
 
 class CrosslinkingArticleController extends Aitsu_Adm_Plugin_Controller {
@@ -14,6 +12,7 @@ class CrosslinkingArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 	}
 
@@ -30,72 +29,49 @@ class CrosslinkingArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function indexAction() {
 
-		$idart = $this->getRequest()->getParam('idart');
-
-		$this->view->crosslinks = Aitsu_Persistence_Article :: factory($idart)->load()->crosslinks;
+		$this->view->idart = $this->getRequest()->getParam('idart');
 	}
 
-	public function articlesbytermAction() {
+	public function storeAction() {
 
-		$return = array ();
+		$idart = $this->getRequest()->getParam('idart');
+		$links = Aitsu_Persistence_Article :: factory($idart)->load()->crosslinks;
 
-		$term = $this->getRequest()->getParam('term');
-
-		$arts = Aitsu_Persistence_Article :: getByTerm($term, 20);
-		if ($arts) {
-			foreach ($arts as $art) {
-				$art = (object) $art;
-				$return[] = (object) array (
-					'id' => $art->idartlang,
-					'label' => $art->title . ' (' . $art->idart . ' [' . $art->idartlang . '])',
-					'desc' => $art->pagetitle . ' / ' . $art->category,
-					'value' => $art->idartlang
-				);
+		$data = array ();
+		if ($links) {
+			foreach ($links as $link) {
+				$data[] = (object) $link;
 			}
 		}
 
-		$this->_helper->json($return);
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
 	}
 
 	public function addAction() {
 
-		$idart = (int) $this->getRequest()->getParam('idart');
+		$idart = $this->getRequest()->getParam('idart');
 		$idartlangA = Aitsu_Persistence_Article :: factory($idart)->load()->idartlang;
-		$idartlangB = preg_replace('/[^\\d]*/', '', $this->getRequest()->getParam('id'));
-		
-		if ($this->getRequest()->getParam('linkidart') != null) {
-			$idartlangB = Aitsu_Persistence_Article :: factory(preg_replace('/[^\\d]*/', '', $this->getRequest()->getParam('linkidart')))->load()->idartlang;
-		}
+		$idartlangB = $this->getRequest()->getParam('idartlang');
 
 		Aitsu_Persistence_Article :: addCrosslink($idartlangA, $idartlangB);
 
 		$this->_helper->json((object) array (
-			'status' => 'success',
-			'message' => Aitsu_Translate :: translate('Link added.'),
-			'list' => $this->view->partial('crosslinks.phtml', array (
-				'crosslinks' => Aitsu_Persistence_Article :: factory($idart)->load(true)->crosslinks
-			))
+			'success' => true
 		));
 	}
 
 	public function deleteAction() {
 
 		$idart = $this->getRequest()->getParam('idart');
-		$idartlang = Aitsu_Persistence_Article :: factory($idart)->load()->idartlang;
-		$ids = $this->getRequest()->getParam('ids');
-		$ids = explode(',', $ids);
+		$idartlangB = $this->getRequest()->getParam('idartlang');
+		$idartlangA = Aitsu_Persistence_Article :: factory($idart)->load()->idartlang;
 
-		foreach ($ids as $linkid) {
-			$linkid = str_replace('crosslink-', '', $linkid);			
-			Aitsu_Persistence_Article :: removeCrosslink($idartlang, $linkid);
-		}
+		Aitsu_Persistence_Article :: removeCrosslink($idartlangA, $idartlangB);
 
 		$this->_helper->json((object) array (
-			'status' => 'success',
-			'message' => Aitsu_Translate :: translate('Link removed.'),
-			'list' => $this->view->partial('crosslinks.phtml', array (
-				'crosslinks' => Aitsu_Persistence_Article :: factory($idart)->load(true)->crosslinks
-			))
+			'success' => true
 		));
 	}
 }

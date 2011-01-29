@@ -1,0 +1,129 @@
+var reloadTree = function(id, tree) {
+	var node = tree.getNodeById(id);
+	if (node.id == 0) {
+		tree.getLoader().load(tree.getRootNode());
+	}
+	tree.getLoader().load(node.parentNode, function(n) {
+		n.expand(false, false, function() {
+			tree.getNodeById(node.attributes.id).expand(false, false);
+		});
+	});
+}
+
+var pagetree = Ext.getCmp('pageview-cattree');
+
+var syncLang = new Ext.form.ComboBox({
+	store: new Ext.data.JsonStore({
+		url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'synclang'), 'default'); ?>',
+		root: 'data',
+		fields: ['idlang', 'name']
+	}),
+	displayField: 'name',
+	valueField: 'idlang',
+	triggerAction: 'all',
+	emptyText: '<?php echo Aitsu_Translate :: translate('Synchronization language'); ?>',
+	selectOnFocus: true,
+	width: 200,
+	iconCls: 'no-icon',
+	hiddenName: 'idlang',
+	listeners: {
+		beforequery: function(qe) {
+			delete qe.combo.lastQuery;
+		},
+		select: function(combo, record, index) {
+			syncGrid.getStore().load({
+				params: {
+					idlang: syncLang.getValue(),
+					idcat: <?php echo $this->idcat; ?>
+				}
+			});
+		}
+	}
+});
+
+var syncGrid = new Ext.grid.GridPanel({
+	title: '<?php echo Aitsu_Translate :: translate('Synchronization'); ?>',
+	store: new Ext.data.JsonStore({
+		url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'synccontent'), 'default'); ?>',
+		root: 'data',
+		fields: ['id', 'idv', 'type', 'title']
+	}),
+    columns: [
+    	{
+    		xtype: 'actioncolumn',
+    		width: 1,
+    		align: 'left',
+    		menuDisabled: true, 
+            sortable: false,
+    		items: [
+    			{
+                    getClass: function(v, meta, rec) {
+                    	if (rec.get('type') == 'cat') {
+                    		return 'grid-folder';
+                    	} else {
+                    		return 'grid-page';
+                    	}
+                    }
+    			}
+    		]
+    	},
+    	{dataIndex: 'idv', header: 'ID', menuDisabled: true, sortable: true, width: 10},
+    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Page title'); ?>', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	tbar: {
+		items: syncLang
+	},
+	listeners: {
+		rowclick: function(grid, rowIndex, event) {
+			var rec = grid.getStore().getAt(rowIndex);
+			if (rec.get('type') == 'cat') {
+				Ext.Ajax.request({
+					url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'sync'), 'default'); ?>',
+					success: function() {
+						syncGrid.getStore().load({
+							params: {
+								idlang: syncLang.getValue(),
+								idcat: <?php echo $this->idcat; ?>
+							}
+						});
+						reloadTree(<?php echo $this->idcat; ?>, pagetree);
+					},
+					params: {
+						idcat: rec.get('idv'),
+						synclang: syncLang.getValue()
+					}
+				});	
+			} else if (rec.get('type') == 'art') {
+				Ext.Ajax.request({
+					url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'sync'), 'default'); ?>',
+					success: function() {
+						syncGrid.getStore().load({
+							params: {
+								idlang: syncLang.getValue(),
+								idcat: <?php echo $this->idcat; ?>
+							}
+						});
+						reloadTree(<?php echo $this->idcat; ?>, pagetree);
+						categories.getStore().load({
+							params: {
+								idcat: <?php echo $this->idcat; ?>
+							}
+						});
+					},
+					params: {
+						idart: rec.get('idv'),
+						synclang: syncLang.getValue()
+					}
+				});					
+			}
+		}
+	}
+});
+
+Ext.getCmp('center-tabs').add(syncGrid);

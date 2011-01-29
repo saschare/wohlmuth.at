@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19916 2010-11-17 12:40:58Z akm $}
  */
 
 class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
@@ -16,6 +14,7 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 
 		$idart = $this->getRequest()->getParam('idart');
@@ -47,100 +46,142 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function indexAction() {
 
-		$id = $this->getRequest()->getParam('idart');
+		$this->view->idart = $this->getRequest()->getParam('idart');
+	}
 
-		$this->view->pluginId = self :: ID;
-		$this->view->files = Aitsu_Core_File :: getFiles($this->_idartlang, '*', 'filename', true, true);
+	public function storeAction() {
+
+		$files = Aitsu_Core_File :: getFiles($this->_idartlang, '*', 'filename', true, true);
+
+		$data = array ();
+		if ($files) {
+			foreach ($files as $file) {
+				$data[] = (object) $file;
+			}
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
+
+	/**
+	 * Returns selected media tags.
+	 * @since 2.1.0 - 14.01.2011
+	 */
+	public function tagstoreAction() {
+
+		$mediaid = $this->getRequest()->getParam('mediaid');
+		$tags = Aitsu_Persistence_File :: factory($mediaid)->getTags();
+
+		$data = array ();
+		if ($tags) {
+			foreach ($tags as $tag) {
+				$data[] = (object) $tag;
+			}
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
+	
+	/**
+	 * Adds the specifed tag to the media.
+	 * @since 2.1.0 - 14.01.2011
+	 */
+	public function addtagAction() {
+		
+		$mediaid = $this->getRequest()->getParam('mediaid');
+		$token = $this->getRequest()->getParam('token');
+		$value = $this->getRequest()->getParam('value');
+		
+		if (!empty($token)) {
+			Aitsu_Persistence_File :: factory($mediaid)->addTag($token, $value);
+		}
+		
+		$this->_helper->json((object) array (
+			'success' => true
+		));
+	}
+
+	/**
+	 * Returns available media tags.
+	 * @since 2.1.0 - 14.01.2011
+	 */
+	public function atagstoreAction() {
+
+		$filter = array (
+			(object) array (
+				'clause' => 'tag like',
+				'value' => '%' . $this->getRequest()->getParam('query') . '%'
+			)
+		);
+
+		$this->_helper->json((object) array (
+			'data' => Aitsu_Persistence_MediaTag :: getStore(100, 0, $filter)
+		));
+	}
+	
+	/**
+	 * Removes the specifed tag from the media.
+	 * @since 2.1.0 - 14.01.2011
+	 */
+	public function removetagAction() {
+		
+		$mediaid = $this->getRequest()->getParam('mediaid');
+		$mediatagid = $this->getRequest()->getParam('mediatagid');
+		
+		Aitsu_Persistence_File :: factory($mediaid)->removeTag($mediatagid);
+		
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
 	public function uploadAction() {
 
-		$this->_helper->viewRenderer->setNoRender(true);
+		Aitsu_Core_File :: upload($this->getRequest()->getParam('idart'), $_FILES['file']['name'], $_FILES['file']['tmp_name']);
 
-		$idart = Aitsu_Db :: fetchOne('select idart from _art_lang where idartlang = :idartlang', array (
-			':idartlang' => $this->getRequest()->getParam('idartlang')
+		$this->_helper->json((object) array (
+			'success' => true
 		));
-
-		$tmpFileName = $_FILES['Filedata']['tmp_name'];
-		$fileName = $_FILES['Filedata']['name'];
-
-		Aitsu_Core_File :: upload($idart, $fileName, $tmpFileName);
-
-		echo '1';
-	}
-
-	public function filelistAction() {
-
-		$id = $this->getRequest()->getParam('idart');
-
-		$this->view->pluginId = self :: ID;
-		$this->view->files = Aitsu_Core_File :: getFiles($this->_idartlang, '*', 'filename', true, true);
 	}
 
 	public function deleteAction() {
 
-		$idartlang = $this->getRequest()->getParam('idartlang');
-		$files = $this->getRequest()->getParam('delete');
-		$files = str_replace('mediaid-', '', $files);
+		$idart = $this->getRequest()->getParam('idart');
+		$id = $this->getRequest()->getParam('mediaid');
 
-		Aitsu_Core_File :: delete($idartlang, explode(',', $files));
+		Aitsu_Core_File :: delete($idart, $id);
 
-		$this->view->pluginId = self :: ID;
-		$this->view->files = Aitsu_Core_File :: getFiles($idartlang, '*', 'filename', true, true);
-	}
-
-	public function editAction() {
-
-		$idartlang = $this->getRequest()->getParam('idartlang');
-		$mediaid = $this->getRequest()->getParam('mediaid');
-		$mediaid = str_replace('mediaid-', '', $mediaid);
-
-		$file = Aitsu_Core_File :: factory($idartlang, $mediaid);
-
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/media/forms/file.ini', 'edit'));
-		$form->setAction($this->view->url());
-
-		$form->setValues(array (
-			'idartlang' => $idartlang,
-			'mediaid' => $mediaid,
-			'filename' => $file->filename,
-			'medianame' => $file->medianame,
-			'subline' => $file->subline,
-			'description' => $file->description
+		$this->_helper->json((object) array (
+			'success' => true
 		));
-
-		$this->view->pluginId = self :: ID;
-		$this->view->form = $form;
 	}
 
 	public function saveAction() {
 
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/media/forms/file.ini', 'edit'));
-		$form->setAction($this->view->url());
+		try {
+			$file = Aitsu_Core_File :: factory($this->getRequest()->getParam('idartlang'), $this->getRequest()->getParam('mediaid'));
+			$file->filename = $this->getRequest()->getParam('filename');
+			$file->medianame = $this->getRequest()->getParam('name');
+			$file->subline = $this->getRequest()->getParam('subline');
+			$file->description = $this->getRequest()->getParam('description');
+			$file->xtl = $this->getRequest()->getParam('xtl');
+			$file->ytl = $this->getRequest()->getParam('ytl');
+			$file->xbr = $this->getRequest()->getParam('xbr');
+			$file->ybr = $this->getRequest()->getParam('ybr');
+			$file->save();
 
-		if ($form->isValid($_POST)) {
-			try {
-				$file = Aitsu_Core_File :: factory($this->getRequest()->getParam('idartlang'), $this->getRequest()->getParam('mediaid'));
-				$file->filename = $this->getRequest()->getParam('filename');
-				$file->medianame = $this->getRequest()->getParam('medianame');
-				$file->subline = $this->getRequest()->getParam('subline');
-				$file->description = $this->getRequest()->getParam('description');
-				$file->save();
-
-				$this->_helper->json(array (
-					'status' => 'success',
-					'message' => Zend_Registry :: get('Zend_Translate')->translate('Meta data saved.')
-				));
-			} catch (Exception $e) {
-				$this->_helper->json(array (
-					'status' => 'exception',
-					'message' => $e->getMessage()
-				));
-			}
-		} else {
 			$this->_helper->json(array (
-				'status' => 'validationerror',
-				'html' => (string) $form
+				'success' => true
+			));
+		} catch (Exception $e) {
+			$this->_helper->json(array (
+				'success' => false,
+				'status' => 'exception',
+				'message' => $e->getMessage()
 			));
 		}
 	}

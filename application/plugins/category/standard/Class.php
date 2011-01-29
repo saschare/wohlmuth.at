@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19619 2010-11-02 16:36:22Z akm $}
  */
 
 class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
@@ -15,6 +13,7 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 	public function init() {
 
 		$this->_helper->layout->disableLayout();
+		header("Content-type: text/javascript");
 	}
 
 	public static function register($idcat) {
@@ -22,23 +21,46 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 		return (object) array (
 			'name' => 'standard',
 			'tabname' => Aitsu_Translate :: translate('Overview'),
-			'enabled' => true,
+			'enabled' => !empty ($idcat),
 			'position' => 0,
 			'id' => self :: ID
-		);		
+		);
 	}
 
 	public function indexAction() {
 
 		$idcat = $this->getRequest()->getParam('idcat');
-		$syncLang = $this->getRequest()->getParam('sync');
 		$cat = Aitsu_Persistence_Category :: factory($idcat)->load();
 
-		$this->view->usePublishing = isset(Aitsu_Registry :: get()->config->sys->usePublishing) &&  Aitsu_Registry :: get()->config->sys->usePublishing == true;
+		$this->view->usePublishing = isset (Aitsu_Registry :: get()->config->sys->usePublishing) && Aitsu_Registry :: get()->config->sys->usePublishing == true;
 		$this->view->idcat = $idcat;
 		$this->view->categoryname = $cat->name;
-		$this->view->articles = Aitsu_Persistence_View_Articles :: full($idcat, $syncLang);
+		$this->view->articles = Aitsu_Persistence_View_Articles :: full($idcat, null);
 		$this->view->isInFavories = Aitsu_Persistence_CatFavorite :: factory($idcat)->load()->isInFavorites();
 		$this->view->isClipboardEmpty = !isset (Aitsu_Registry :: get()->session->clipboard->articles) || count(Aitsu_Registry :: get()->session->clipboard->articles) == 0;
+	}
+
+	public function articlesAction() {
+
+		$data = array ();
+
+		$arts = Aitsu_Persistence_View_Articles :: full($this->getRequest()->getParam('idcat'), null);
+		if ($arts) {
+			foreach ($arts as $art) {
+				$data[] = (object) array (
+					'id' => $art['idart'],
+					'title' => $art['title'],
+					'pagetitle' => $art['pagetitle'],
+					'urlname' => $art['urlname'],
+					'online' => $art['online'],
+					'published' => $art['published'],
+					'isstart' => $art['isstart']
+				);
+			}
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
 	}
 }

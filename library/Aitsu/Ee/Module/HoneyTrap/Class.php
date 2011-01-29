@@ -4,28 +4,12 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 17812 2010-07-29 08:29:55Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_HoneyTrap_Class extends Aitsu_Ee_Module_Abstract {
-	
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Honeytrap',
-			'description' => Zend_Registry :: get('Zend_Translate')->translate('Honeytrap to trap spam bots in a black list.'),
-			'type' => 'Spam protection',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '0.1.0',
-			'status' => 'in development',
-			'url' => null,
-			'id' => 'a0725369-c565-11df-851a-0800200c9a66'
-		);
-	}
 
 	public static function init($context) {
 
@@ -35,7 +19,7 @@ class Aitsu_Ee_Module_HoneyTrap_Class extends Aitsu_Ee_Module_Abstract {
 		if (!isset (Aitsu_Registry :: get()->config->honeytrap->keyword)) {
 			return '';
 		}
-		
+
 		$honeyTraps = array_flip(Aitsu_Registry :: get()->config->honeytrap->keyword->toArray());
 		if (!empty ($_POST)) {
 			if (count(array_intersect_key($honeyTraps, $_GET)) > 0) {

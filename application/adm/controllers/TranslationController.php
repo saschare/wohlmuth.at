@@ -4,12 +4,13 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: TranslationController.php 18801 2010-09-16 21:20:02Z akm $}
  */
 
 class TranslationController extends Zend_Controller_Action {
 
+	/**
+	 * @since 2.1.0.0 - 28.12.2010
+	 */
 	public function init() {
 
 		if (!Aitsu_Adm_User :: getInstance()->isAllowed(array (
@@ -17,90 +18,94 @@ class TranslationController extends Zend_Controller_Action {
 			))) {
 			throw new Exception('Access denied');
 		}
-	}
-
-	public function indexAction() {
-
-		$this->view->translations = Aitsu_Persistence_Translate :: getByLanguage(Aitsu_Registry :: get()->session->currentLanguage);
-	}
-
-	public function refreshAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
+
+		$this->_filter = Aitsu_Util_ExtJs :: encodeFilters($this->getRequest()->getParam('filter'));
+	}
+
+	/**
+	 * @since 2.1.0.0 - 28.12.2010
+	 */
+	public function indexAction() {
+	}
+
+	public function storeAction() {
+
+		$refresh = $this->getRequest()->getParam('refresh');
+
+		if ($refresh == 1) {
+			Aitsu_Translate :: populate(Aitsu_Registry :: get()->session->currentLanguage);
+		}
+
+		$this->_helper->json((object) array (
+			'data' => Aitsu_Persistence_Translate :: getStore(100, 0, $this->_filter)
+		));
+	}
+
+	public function editAction() {
+
+		$this->_helper->layout->disableLayout();
+
+		$id = $this->getRequest()->getParam('translationid');
+
+		$form = Aitsu_Forms :: factory('edittranslation', APPLICATION_PATH . '/adm/forms/translation/translation.ini');
+		$form->title = Aitsu_Translate :: translate('Edit translation');
+		$form->url = $this->view->url();
+
+		$data = Aitsu_Persistence_Translate :: factory($id)->load()->toArray();
+		$form->setValues($data);
+
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
 
 		try {
-			Aitsu_Translate :: populate(Aitsu_Registry :: get()->session->currentLanguage);
+			if ($form->isValid()) {
+				$values = $form->getValues();
+
+				/*
+				 * Update config set.
+				 */
+				Aitsu_Persistence_Translate :: factory($id)->load()->setValues($values)->save();
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
 		} catch (Exception $e) {
-			echo '<pre>' . $e->getTraceAsString() . '</pre>';
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
 		}
-
-		$this->view->translations = Aitsu_Persistence_Translate :: getByLanguage(Aitsu_Registry :: get()->session->currentLanguage);
-
-		echo $this->view->render('translation/translationlist.phtml');
 	}
 
-	public function filtertranslationAction() {
+	/**
+	 * @since 2.1.0.0 - 28.12.2010
+	 */
+	public function deleteAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		$term = $this->getRequest()->getParam('filter-translation');
+		Aitsu_Persistence_Translate :: factory($this->getRequest()->getParam('translationid'))->remove();
 
-		$this->view->translations = Aitsu_Persistence_Translate :: getByLanguage(Aitsu_Registry :: get()->session->currentLanguage, $term);
-		$this->view->filterterm = $this->getRequest()->getParam('filter-user');
-
-		echo $this->view->render('translation/translationlist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
-	public function edittranslateAction() {
-
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('translationid') : $this->getRequest()->getParam('id');
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/translation/translation.ini', 'edit'));
-			$form->setAction($this->view->url());
-
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_Translate :: factory($this->getRequest()->getParam('id'))->load()->toArray());
-			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('translation/newtranslation.phtml');
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Translate :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->translations = Aitsu_Persistence_Translate :: getByLanguage(Aitsu_Registry :: get()->session->currentLanguage);
-
-		echo $this->view->render('translation/translationlist.phtml');
-	}
-	
-	public function deletetranslateAction() {
-		
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-		
-		$id = $this->getRequest()->getParam('id');
-		
-		if ($id != null) {
-			Aitsu_Persistence_Translate :: factory($id)->remove();
-		}
-		
-		$this->view->translations = Aitsu_Persistence_Translate :: getByLanguage(Aitsu_Registry :: get()->session->currentLanguage);
-
-		echo $this->view->render('translation/translationlist.phtml');
-	}
-
+	/**
+	 * @todo Implement export into version 2.1.x
+	 */
 	public function exportAction() {
 
 		$this->_helper->layout->disableLayout();

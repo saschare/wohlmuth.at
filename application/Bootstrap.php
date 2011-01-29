@@ -122,7 +122,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		}
 
 		$frontController = Zend_Controller_Front :: getInstance();
-		
+
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Accesscontrol());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_BackendLocale());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Clientlang());
@@ -175,5 +175,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Aitsu_Application_Status :: setEnv('backend');
 		Aitsu_Application_Status :: lock();
 	}
+
+	protected function _initDisableCaching() {
+
+		header("Cache-Control: no-cache, must-revalidate");
+		header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+	}
 }
-?>

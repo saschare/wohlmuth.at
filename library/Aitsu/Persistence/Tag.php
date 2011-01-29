@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Tag.php 19364 2010-10-18 09:53:44Z akm $}
  */
 
 class Aitsu_Persistence_Tag extends Aitsu_Persistence_Abstract {
@@ -108,4 +106,12 @@ class Aitsu_Persistence_Tag extends Aitsu_Persistence_Abstract {
 		return $return;
 	}
 
+	/**
+	 * @since 2.1.0 - 12.01.2011
+	 */
+	public function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
+
+		return Aitsu_Db :: filter('select * from _tag', $limit, $offset, $filters, $orders);
+	}
+	
 }

@@ -1,0 +1,23 @@
+{
+	region: 'south',
+	split: true,
+	height: 0,
+	margins: '0 0 0 0',
+	bbar: new Ext.ux.StatusBar({
+		id: 'basic-statusbar',
+		defaultText: '',
+		text: '',
+		iconCls: 'x-status-valid',
+		items: [
+			{
+				xtype: 'tbtext',
+				id: 'session-clock',
+				text: ''
+			},
+			'-',
+			'aitsu <?php echo Aitsu_Application_Status :: version(); ?>',
+			'-',
+			'&copy; 2010 - aitsu.org'
+		]
+	})                
+}

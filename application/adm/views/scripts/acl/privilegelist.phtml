@@ -1,22 +1,99 @@
-<div class="toolbar">
-	<button id="add-new-privilege" class="type-new confirm"><?php echo $this->translate('Add new privilege'); ?></button>
-</div>
+var privileges = new Ext.grid.GridPanel({
+	title: '<?php echo Aitsu_Translate :: translate('Privileges'); ?>',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'privileges'), 'default'); ?>',
+        remoteSort: false,
+        storeId: 'privilegStore',
+        idProperty: 'privilegeid',
+        root: 'data',
+        fields: [{
+            name: 'privilegeid'
+        }, {
+            name: 'identifier'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'privilegeid', header: 'ID', menuDisabled: false, sortable: false, width: 20},
+    	{dataIndex: 'identifier', header: '<?php echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: false, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new privilege'); ?>',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editprivilege'), 'default'); ?>']);
+	            }
+	        }
+	    ]
+	},
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		rowclick: function(grid, rowIndex, event) {
+			var id = this.getStore().getAt(rowIndex).get('privilegeid');
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'editprivilege'), 'default'); ?>'], null, {privilegeid: id});
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete privilege'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected privilege?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'deleteprivilege'), 'default'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+				            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Privilege removed'); ?>', '<?php echo Aitsu_Translate :: translate('The selected privilege has been removed.'); ?>');
+					            			var store = grid.getStore().remove(record); 
+				            			}
+				            		},
+				            		params: { privilegeid: record.get('privilegeid') }
+				            	});					 			
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+			
+	},
+	plugins: [
+		new Ext.ux.grid.GridFilters({
+			encode: false,
+	        local: false,
+	        filters: [{
+	            type: 'numeric',
+	            dataIndex: 'privilegeid'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'identifier'
+	        }]
+		})
+	]
+});
 
-<div class="sized-content">		
-	<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
-		<thead>
-			<tr>
-				<th scope="col" style="width:70px;"><?php echo $this->translate('ID'); ?></th>
-				<th scope="col"><?php echo $this->translate('Identifier'); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $counter = 0; foreach ($this->privileges as $privilege) : $counter++; ?>
-				<tr id="privilege-<?php echo $privilege->privilegeid; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
-					<td><?php echo $privilege->privilegeid; ?></td>
-					<td><?php echo $privilege->identifier; ?></td>
-				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
-</div>
+tabs.add(privileges);

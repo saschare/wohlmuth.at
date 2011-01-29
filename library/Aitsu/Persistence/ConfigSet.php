@@ -21,10 +21,10 @@ class Aitsu_Persistence_ConfigSet extends Aitsu_Persistence_Abstract {
 		static $instance = array ();
 
 		if ($id == null || !isset ($instance[$id])) {
-			$instance = new self($id);
+			$instance[$id] = new self($id);
 		}
 
-		return $instance;
+		return $instance[$id];
 	}
 
 	public function load() {
@@ -132,5 +132,13 @@ class Aitsu_Persistence_ConfigSet extends Aitsu_Persistence_Abstract {
 		}
 
 		return $return;
+	}
+
+	/**
+	 * @since 2.1.0.0 - 28.12.2010
+	 */
+	public function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
+
+		return Aitsu_Db :: filter('select * from _configset', $limit, $offset, $filters, $orders);
 	}
 }

@@ -14,21 +14,6 @@ abstract class Aitsu_Ee_Module_Abstract {
 
 	abstract public static function init($context);
 
-	public static function about() {
-
-		return (object) array (
-			'name' => '',
-			'description' => '',
-			'author' => (object) array (
-				'name' => '',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => 'not specified',
-			'status' => 'stable',
-			'url' => null
-		);
-	}
-
 	/**
 	 * Overwrite this method accordingly if the module has
 	 * dependencies to ensure it returns true only, if all
@@ -99,43 +84,9 @@ abstract class Aitsu_Ee_Module_Abstract {
 		return $view;
 	}
 
-	/**
-	 * This function is deprecated. Please use _get to receive and _save to persist
-	 * cache data.
-	 * @deprecated 0.9.2 - 2010-07-27
-	 */
-	protected function _cache($id, $data = null, $lifeTime = null) {
-
-		$id = Aitsu_Registry :: get()->env->idartlang . '_' . $id;
-		$cache = Aitsu_Cache :: getInstance($id);
-
-		if (Aitsu_Registry :: isEdit()) {
-			$cache->remove();
-			return false;
-		}
-
-		if (empty ($data)) {
-			return $cache->load();
-		}
-
-		if (!empty ($this->type)) {
-			$tags[] = 'type_' . $this->type;
-		}
-		$tags[] = 'cat_' . Aitsu_Registry :: get()->env->idcat;
-		$tags[] = 'art_' . Aitsu_Registry :: get()->env->idart;
-
-		if (!empty ($lifeTime)) {
-			if ($lifeTime == 'eternal') {
-				$lifeTime = 60 * 60 * 24 * 365; // one year
-			}
-			$cache->setLifetime($lifeTime);
-		}
-
-		$cache->save($data, $tags);
-	}
-
 	protected function _get($id, & $output, $overwriteDisable = false) {
 
+		$id = str_replace('.', '_', $id);
 		$this->id = $id . '_' . Aitsu_Registry :: get()->env->idartlang;
 		$cache = Aitsu_Cache :: getInstance($this->id, $overwriteDisable);
 

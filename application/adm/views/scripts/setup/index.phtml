@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		
+		<title>aitsu Administration area</title>
+		
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ext-all-notheme.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ux-all.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/xtheme-gray.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/css/extjs-aitsu.css'); ?>" />
+              
+        <?php if (true) : /* change to false in production */ ?>
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/debug.css'); ?>" />
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/adapter/ext/ext-base-debug.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-all-debug-w-comments.js'); ?>"></script>   
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all-debug.js'); ?>"></script>
+        <?php else : ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/adapter/ext/ext-base.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-all.js'); ?>"></script>   
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all.js'); ?>"></script>
+        <?php endif; ?>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-aitsu.js'); ?>"></script>
+    		
+    <script type="text/javascript"> 
+    Ext.onReady(function(){
+
+    	Ext.QuickTips.init();
+		Ext.getBody().on("contextmenu", Ext.emptyFn, null, {preventDefault: true});
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+        
+		Ext.apply(Ext.DatePicker.prototype, {
+			format: "Y-m-d"
+		});
+        
+        var sessionClock = new Ext.Toolbar.TextItem('');
+                
+        var viewport = new Ext.Viewport({
+            layout: 'border',
+            id: 'viewport',
+            items: [
+            {
+            	region: 'north',
+            	split: true,
+            	margins: '0 0 0 0',
+            	height: 50,
+            	layout: 'border',
+            	items: [{
+            		region: 'center',
+            		margins: '0 0 0 0',
+            		border: false,
+            		items:
+	            		new Ext.Toolbar({
+	            			layout: 'hbox',
+	            			style: 'padding-top:15px; padding-left:10px;',
+	            			height: '100%',
+	            			items: [
+	            				{
+						            text: 'Logout',
+						            iconCls: 'tm-logout',
+						            listeners: {
+						            	click: function() {
+						            		window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
+						            	}
+						            }
+	        					}
+	            			]
+	            	})
+            	}, {
+            		region: 'east',
+            		margins: '0 0 0 0',
+            		border: false,
+            		width: 200,
+            		html: '<div class="x-toolbar" style="height:50px; padding:10px 10px 0 0; text-align:right;"><img src="<?php echo $this->baseUrl('/images/wbm_aitsu_ec7537_146x30.png'); ?>"</div>'
+            	}
+            ]}, {
+                region: 'south',
+                split: true,
+                height: 0,
+                margins: '0 0 0 0',
+				bbar: new Ext.ux.StatusBar({
+		            id: 'basic-statusbar',
+		            defaultText: '',
+		            text: '',
+		            iconCls: 'x-status-valid',
+		            items: [
+		                'aitsu <?php echo Aitsu_Application_Status :: version(); ?>',
+		                '-',
+		                '&copy; 2010 - aitsu.org'
+		            ]
+		        })                
+             },{
+            	region: 'center',
+            	id: 'viewport-center',
+            	unstyled: true,
+            	layout: 'fit',
+            	split: false
+            }]
+        });
+        
+		var center = Ext.getCmp('viewport-center');
+		center.removeAll();
+		
+		var scriptExpander = new Ext.ux.grid.RowExpander({
+		        tpl : new Ext.Template(
+		            '<p style="margin: 5px 10px 5px 10px; font-family: monospace;">{full}</pre>'
+		        )
+		    });	
+		
+		var scriptGrid = new Ext.grid.GridPanel({
+			title: '<?php echo $this->script->name; ?>',
+			store: new Ext.data.ArrayStore({
+			    autoDestroy: true,
+			    idIndex: 0,  
+		    	fields: [
+		    		'step',
+		    		'result',
+		    		'full',
+		    		'status'
+			    ]
+			}),
+		    columns: [
+		    	scriptExpander,
+		    	{dataIndex: 'step', header: '<?php echo Aitsu_Translate :: translate('Step'); ?>', menuDisabled: false, sortable: false, width: 5},
+		    	{dataIndex: 'result', header: '<?php echo Aitsu_Translate :: translate('Result'); ?>', menuDisabled: false, sortable: false, width: 85},
+		    	{dataIndex: 'status', header: '<? echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: false, sortable: false, width: 10}
+			],
+			viewConfig: {
+				forceFit: true,
+				autoFill: true
+			},
+			tbar: {
+				items: [
+					{
+			            tooltip: '<?php echo Aitsu_Translate :: translate('Execute script'); ?>',
+			            iconCls: 'execute',
+			            handler: function(b, e) {
+			            	scriptGrid.getStore().removeAll();
+			            	executeScriptRecursive(<?php echo $this->script->id; ?>, 1);
+			            }
+			        }
+			    ]
+			},
+			plugins: scriptExpander
+		});
+		
+		var scriptResultRecord = Ext.data.Record.create([
+		    'result',
+		    'status'
+		]);
+		
+		var executeScriptRecursive = function(id, step) {
+			Ext.Ajax.request({
+				url: '<?php echo $this->url(array('controller' => 'script', 'action' => 'execute'), 'default'); ?>',
+				success: function(response, opts) {
+					var obj = Ext.decode(response.responseText);
+					scriptGrid.getStore().insert(0, new scriptResultRecord({
+						step: step,
+						result: Ext.util.Format.ellipsis(obj.message, 200, true),
+						full: obj.message,
+						status: obj.status
+					}));
+					if (obj.nextStep != '') {
+						step++;
+						executeScriptRecursive(id, step);
+					}
+				},
+				params: {
+					script: id,
+					step: step
+				}
+			});	
+		}
+		
+		center.add(scriptGrid);
+		
+		Ext.getCmp('viewport').doLayout();        
+    });
+    </script> 
+</head> 
+
+<body>
+</body> 
+</html>

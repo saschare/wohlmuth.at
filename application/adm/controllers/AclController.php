@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: AclController.php 18796 2010-09-16 20:15:26Z akm $}
  */
 
 class AclController extends Zend_Controller_Action {
@@ -29,99 +27,53 @@ class AclController extends Zend_Controller_Action {
 
 	public function indexAction() {
 
-		$this->view->users = Aitsu_Persistence_User :: getByName();
-		$this->view->privileges = Aitsu_Persistence_Privilege :: getAll();
-		$this->view->roles = Aitsu_Persistence_Role :: getAll();
-		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
-	}
-
-	public function newuserAction() {
-
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/user.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			$form->getElement('roles')->setMultiOptions(Aitsu_Persistence_Role :: getAsArray());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			if (empty ($values['password'])) {
-				$values['password'] = md5(uniqid());
-			} else {
-				$values['password'] = md5($values['password']);
-			}
-
-			if (empty ($values['acfrom'])) {
-				$values['acfrom'] = date('Y-m-d H:i:s', time());
-			}
-
-			if (empty ($values['acuntil'])) {
-				$values['acuntil'] = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 365 * 5);
-			}
-
-			Aitsu_Persistence_User :: factory()->setValues($values)->save();
-
-		} // else: form has been cancelled.
-
-		$this->view->users = Aitsu_Persistence_User :: getByName();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('acl/userlist.phtml');
 	}
 
 	public function loginAction() {
 
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/login.ini', 'new'));
-		$form->setAction($this->view->url());
-
-		if ($this->getRequest()->isPost()) {
-			$form->setValues(array (
-				'login' => $this->getRequest()->getParam('login')
-			));
-		}
-
-		$this->view->form = $form;
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+		$this->render('loginextjs');
 	}
 
+	/**
+	 * User profile update.
+	 * @since 2.1.0.0 - 22.12.2010
+	 */
 	public function profilAction() {
 
-		$this->_helper->viewRenderer->setNoRender(true);
+		$this->_helper->layout->disableLayout();
 
-		if ($this->getRequest()->isXmlHttpRequest()) {
-			/*
-			 * Disable layout in case of an ajax request.
-			 */
-			$this->_helper->layout->disableLayout();
-		}
+		$form = Aitsu_Forms :: factory('userprofile', APPLICATION_PATH . '/adm/forms/acl/userprofile.ini');
+		$form->title = Aitsu_Translate :: translate('User profile');
+		$form->url = $this->view->url();
 
 		$id = Aitsu_Adm_User :: getInstance()->getId();
+		$form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
+		$form->setValue('password', null);
 
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/userprofile.ini', 'edit'));
-		$form->setAction($this->view->url());
-
-		$form->getElement('idlang')->setMultiOptions(Aitsu_Persistence_Language :: getAsArray());
-		$form->getElement('login')->getValidator('unique')->setId($id);
-
-		if (!$this->getRequest()->isPost()) {
-			$form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
+		$langs = array ();
+		foreach (Aitsu_Persistence_Language :: getAsArray() as $key => $value) {
+			$langs[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
 		}
+		$form->setOptions('idlang', $langs);
 
-		$this->view->form = $form;
-
-		if (!$this->getRequest()->isPost()) {
-			echo $this->view->render('acl/profil.phtml');
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
 			return;
 		}
 
 		try {
-			if ($form->isValid($_POST)) {
+			if ($form->isValid()) {
+				/*
+				 * Persist the data.
+				 */
 				$values = $form->getValues();
 				if (empty ($values['password'])) {
 					unset ($values['password']);
@@ -129,13 +81,23 @@ class AclController extends Zend_Controller_Action {
 					$values['password'] = md5($values['password']);
 				}
 				Aitsu_Persistence_User :: factory($id)->load()->setValues($values)->save();
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
 			}
 		} catch (Exception $e) {
-			echo $e->getMessage();
-			exit;
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
 		}
 
-		echo $this->view->render('acl/profilform.phtml');
 	}
 
 	public function logoutAction() {
@@ -145,329 +107,417 @@ class AclController extends Zend_Controller_Action {
 		$this->_redirect('/');
 	}
 
+	/**
+	 * Updates existing or inserts new users.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function edituserAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('userid') : $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('userid');
 
-		if ($this->getRequest()->getParam('cancel') != 1) {
+		$form = Aitsu_Forms :: factory('edituser', APPLICATION_PATH . '/adm/forms/acl/user.ini');
+		$form->title = Aitsu_Translate :: translate('Edit user');
+		$form->url = $this->view->url();
 
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/user.ini', 'edit'));
-			$form->setAction($this->view->url());
+		$roles = array ();
+		foreach (Aitsu_Persistence_Role :: getAsArray() as $key => $value) {
+			$roles[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('roles', $roles);
 
-			$form->getElement('login')->getValidator('unique')->setId($id);
-			$form->getElement('password')->setRequired(false);
-			$form->getElement('roles')->setMultiOptions(Aitsu_Persistence_Role :: getAsArray());
+		if (!empty ($id)) {
+			$userData = Aitsu_Persistence_User :: factory($id)->load()->toArray();
+			$form->setValues($userData);
+			$form->setValue('password', null);
+		}
 
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_User :: factory($id)->load()->toArray());
-			}
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
 
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('acl/newuser.phtml');
-				return;
-			}
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
 
-			$values = $form->getValues();
+				/*
+				 * Additionally we have to make sure, the login name is not already 
+				 * in use.
+				 */
+				if (!Aitsu_Persistence_User :: isLoginUnique($id, $values['login'])) {
+					$this->_helper->json((object) array (
+						'success' => false,
+						'errors' => array (
+							(object) array (
+								'id' => 'login',
+								'msg' => Aitsu_Translate :: translate('The login is already in use.')
+							)
+						)
+					));
+				}
 
-			if (empty ($values['password'])) {
-				unset ($values['password']);
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($values['password'])) {
+					unset ($values['password']);
+				} else {
+					$values['password'] = md5($values['password']);
+				}
+				$values['acfrom'] = empty ($values['acfrom']) ? date('Y-m-d H:i:s') : $values['acfrom'];
+				$values['acuntil'] = empty ($values['acuntil']) ? date('Y-m-d H:i:s', time() + 365 * 24 * 60 * 60) : $values['acuntil'];
+
+				if (empty ($id)) {
+					/*
+					 * New user.
+					 */
+					unset ($values['userid']);
+					Aitsu_Persistence_User :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update user.
+					 */
+					Aitsu_Persistence_User :: factory($id)->load()->setValues($values)->save();
+				}
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
 			} else {
-				$values['password'] = md5($values['password']);
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
 			}
-
-			try {
-				Aitsu_Persistence_User :: factory()->setValues($values)->save();
-			} catch (Exception $e) {
-				echo $e->getMessage();
-				exit;
-			}
-		} // else: form has been cancelled.
-
-		$this->view->users = Aitsu_Persistence_User :: getByName();
-
-		echo $this->view->render('acl/userlist.phtml');
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 
-	public function filteruserAction() {
-
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$term = $this->getRequest()->getParam('filter-user');
-		$term .= '%';
-
-		$this->view->users = Aitsu_Persistence_User :: getByName($term);
-		$this->view->filterterm = $this->getRequest()->getParam('filter-user');
-
-		echo $this->view->render('acl/userlist.phtml');
-	}
-
+	/**
+	 * Removes the specified user.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deleteuserAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_User :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_User :: factory($this->getRequest()->getParam('userid'))->remove();
 
-		$this->view->users = Aitsu_Persistence_User :: getByName();
-		echo $this->view->render('acl/userlist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deleteresourceAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_Resource :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_Resource :: factory($this->getRequest()->getParam('resourceid'))->remove();
 
-		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
-		echo $this->view->render('acl/resourcelist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
-	public function newroleAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/role.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			$form->getElement('privileges')->setMultiOptions(Aitsu_Persistence_Privilege :: getAsArray());
-			$form->getElement('clients')->setMultiOptions(Aitsu_Persistence_Clients :: getAsArray());
-			$form->getElement('languages')->setMultiOptions(Aitsu_Persistence_Language :: getAsArray());
-			$form->getElement('resources')->setMultiOptions(Aitsu_Persistence_Resource :: getAsArray());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Role :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->roles = Aitsu_Persistence_Role :: getAll();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('acl/rolelist.phtml');
-	}
-
+	/**
+	 * Updates or inserts roles.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function editroleAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('roleid') : $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('roleid');
 
-		if ($this->getRequest()->getParam('cancel') != 1) {
+		$form = Aitsu_Forms :: factory('editrole', APPLICATION_PATH . '/adm/forms/acl/role.ini');
+		$form->title = Aitsu_Translate :: translate('Edit role');
+		$form->url = $this->view->url();
 
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/role.ini', 'edit'));
-			$form->setAction($this->view->url());
+		$privs = array ();
+		foreach (Aitsu_Persistence_Privilege :: getAsArray() as $key => $value) {
+			$privs[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('privileges', $privs);
 
-			$form->getElement('identifier')->getValidator('unique')->setId($id);
-			$form->getElement('privileges')->setMultiOptions(Aitsu_Persistence_Privilege :: getAsArray());
-			$form->getElement('clients')->setMultiOptions(Aitsu_Persistence_Clients :: getAsArray());
-			$form->getElement('languages')->setMultiOptions(Aitsu_Persistence_Language :: getAsArray());
-			$form->getElement('resources')->setMultiOptions(Aitsu_Persistence_Resource :: getAsArray());
+		$clients = array ();
+		foreach (Aitsu_Persistence_Clients :: getAsArray() as $key => $value) {
+			$clients[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('clients', $clients);
 
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_Role :: factory($id)->load()->toArray());
+		$langs = array ();
+		foreach (Aitsu_Persistence_Language :: getAsArray() as $key => $value) {
+			$langs[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('languages', $langs);
+
+		$res = array ();
+		foreach (Aitsu_Persistence_Resource :: getAsArray() as $key => $value) {
+			$res[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('resources', $res);
+
+		if (!empty ($id)) {
+			$data = Aitsu_Persistence_Role :: factory($id)->load()->toArray();
+			$form->setValues($data);
+		}
+
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
+
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
+
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($id)) {
+					/*
+					 * New role.
+					 */
+					unset ($values['roleid']);
+					Aitsu_Persistence_Role :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update role.
+					 */
+					Aitsu_Persistence_Role :: factory($id)->load()->setValues($values)->save();
+				}
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
 			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('acl/newrole.phtml');
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Role :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->roles = Aitsu_Persistence_Role :: getAll();
-
-		echo $this->view->render('acl/rolelist.phtml');
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deleteroleAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_Role :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_Role :: factory($this->getRequest()->getParam('roleid'))->remove();
 
-		$this->view->roles = Aitsu_Persistence_Role :: getAll();
-		echo $this->view->render('acl/rolelist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
-	public function newprivilegeAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/privilege.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Privilege :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->privileges = Aitsu_Persistence_Privilege :: getAll();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('acl/privilegelist.phtml');
-	}
-
-	public function newresourceAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/resource.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			$this->view->openCats = null;
-			$this->view->targetId = null;
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Resource :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('acl/resourcelist.phtml');
-	}
-
+	/**
+	 * Updates or inserts privileges.
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function editprivilegeAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('privilegeid') : $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('privilegeid');
 
-		if ($this->getRequest()->getParam('cancel') != 1) {
+		$form = Aitsu_Forms :: factory('editprivilege', APPLICATION_PATH . '/adm/forms/acl/privilege.ini');
+		$form->title = Aitsu_Translate :: translate('Edit privilege');
+		$form->url = $this->view->url();
 
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/privilege.ini', 'edit'));
-			$form->setAction($this->view->url());
+		if (!empty ($id)) {
+			$data = Aitsu_Persistence_Privilege :: factory($id)->load()->toArray();
+			$form->setValues($data);
+		}
 
-			$form->getElement('identifier')->getValidator('unique')->setId($id);
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
 
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_Privilege :: factory($this->getRequest()->getParam('id'))->load()->toArray());
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
+
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($id)) {
+					/*
+					 * New role.
+					 */
+					unset ($values['privilegeid']);
+					Aitsu_Persistence_Privilege :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update role.
+					 */
+					Aitsu_Persistence_Privilege :: factory($id)->load()->setValues($values)->save();
+				}
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
 			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('acl/newprivilege.phtml');
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Privilege :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->privileges = Aitsu_Persistence_Privilege :: getAll();
-
-		echo $this->view->render('acl/privilegelist.phtml');
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 
+	public function addresourceAction() {
+
+		$id = $this->getRequest()->getParam('idart');
+		if (empty ($id)) {
+			$id = $this->getRequest()->getParam('idcat');
+			$type = 'cat';
+			$name = Aitsu_Persistence_Category :: factory($id)->name;
+		} else {
+			$type = 'art';
+			$name = Aitsu_Persistence_Article :: factory($id)->pagetitle;
+		}
+
+		try {
+			Aitsu_Persistence_Resource :: factory()->setValues(array (
+				'name' => $name . ' (ID ' . $id . ')',
+				'resourcetype' => $type,
+				'identifier' => $id
+			))->save();
+			$this->_helper->json((object) array (
+				'success' => true
+			));
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
+	}
+
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function editresourceAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('resourceid') : $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('resourceid');
 
-		if ($this->getRequest()->getParam('cancel') != 1) {
+		$form = Aitsu_Forms :: factory('editresource', APPLICATION_PATH . '/adm/forms/acl/resource.ini');
+		$form->title = Aitsu_Translate :: translate('Edit resource');
+		$form->url = $this->view->url();
 
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/acl/resource.ini', 'edit'));
-			$form->setAction($this->view->url());
+		if (!empty ($id)) {
+			$data = Aitsu_Persistence_Resource :: factory($id)->load()->toArray();
+			$form->setValues($data);
+		}
 
-			$res = Aitsu_Persistence_Resource :: factory($this->getRequest()->getParam('id'))->load();
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
 
-			if ($res->resourcetype == 'art') {
-				$this->view->targetId = 'idart-' . $res->identifier;
-				$cats = Aitsu_Db :: fetchCol('' .
-				'select parent.idcat ' .
-				'from _cat_art as catart ' .
-				'left join _cat as child on catart.idcat = child.idcat ' .
-				'left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
-				'where catart.idart = :idart ' .
-				'order by parent.lft asc', array (
-					':idart' => $res->identifier
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
+
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($id)) {
+					/*
+					 * New resource.
+					 */
+					unset ($values['resourceid']);
+					Aitsu_Persistence_Resource :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update resource.
+					 */
+					Aitsu_Persistence_Resource :: factory($id)->load()->setValues($values)->save();
+				}
+
+				$this->_helper->json((object) array (
+					'success' => true
 				));
-				$this->view->openCats = "'" . implode("', '", $cats) . "'";
-			}
-			elseif ($res->resourcetype == 'cat') {
-				$this->view->targetId = 'cat-' . $res->identifier;
-				$cats = Aitsu_Db :: fetchCol('' .
-				'select parent.idcat ' .
-				'from _cat as child ' .
-				'left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
-				'where child.idcat = :idcat ' .
-				'order by parent.lft asc', array (
-					':idcat' => $res->identifier
-				));
-				$this->view->openCats = "'" . implode("', '", $cats) . "'";
 			} else {
-				$this->view->targetId = null;
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
 			}
-
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues($res->toArray());
-			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('acl/newresource.phtml');
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_Resource :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->resources = Aitsu_Persistence_Resource :: getAll();
-
-		echo $this->view->render('acl/resourcelist.phtml');
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function deleteprivilegeAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_Privilege :: factory($this->getRequest()->getParam('id'))->remove();
+		Aitsu_Persistence_Privilege :: factory($this->getRequest()->getParam('privilegeid'))->remove();
 
-		$this->view->privileges = Aitsu_Persistence_Privilege :: getAll();
-
-		echo $this->view->render('acl/privilegelist.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportusersAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -494,6 +544,9 @@ class AclController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportrolesAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -520,6 +573,9 @@ class AclController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportresourcesAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -546,6 +602,9 @@ class AclController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportprivilegesAction() {
 
 		$this->_helper->layout->disableLayout();
@@ -572,6 +631,9 @@ class AclController extends Zend_Controller_Action {
 		))->saveXML();
 	}
 
+	/**
+	 * @todo implement into version 2.1.x
+	 */
 	public function exportAction() {
 
 		$this->_helper->viewRenderer->setNoRender(true);
@@ -587,7 +649,9 @@ class AclController extends Zend_Controller_Action {
 	public function refreshsessionAction() {
 
 		$this->_helper->json((object) array (
+			'success' => Aitsu_Adm_User :: getInstance() != null,
 			'time' => date('Y-m-d H:i:s')
 		));
 	}
+
 }

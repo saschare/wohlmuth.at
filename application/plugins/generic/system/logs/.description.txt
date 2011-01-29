@@ -1,2 +1,3 @@
 Logs
 Shows the current error and debug log.
+tm-terminal

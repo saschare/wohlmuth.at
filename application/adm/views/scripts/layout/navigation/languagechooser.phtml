@@ -1,0 +1,30 @@
+new Ext.form.ComboBox({
+	store: new Ext.data.JsonStore({
+        url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'clientslangs'), 'default'); ?>',
+        root: 'data',
+        fields: ['idlang', 'identifier']
+    }),
+	margins: '0 40 0 40',
+	displayField: 'identifier',
+	valueField: 'idlang',
+	typeAhead: true,
+	triggerAction: 'all',
+	emptyText: '<?php echo Aitsu_Persistence_Language :: getCurrentLangName(); ?>',
+	selectOnFocus: true,
+	width: 135,
+	iconCls: 'no-icon',
+	hiddenName: 'idlang',
+	listeners: {
+        beforequery: function(qe) {
+            delete qe.combo.lastQuery;
+        },
+        select: function(combo, record, index) {
+        	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'index'), 'default'); ?>'], function() {
+        		Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Language changed'); ?>', '<?php echo Aitsu_Translate :: translate('The language has been changed.'); ?>');
+        	}, {
+        		ajax: 1, 
+        		setidlang: record.get('idlang')
+        	});
+        }
+    }
+})

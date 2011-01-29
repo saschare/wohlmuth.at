@@ -1,49 +1,39 @@
-<div class="tabs">
-	<ul>
-		<li>
-			<a href="#tab-script"><?php echo $this->translate('Scripts'); ?></a>
-		</li>
-	</ul>
-	
-	<div id="tab-script">
-		<div class="tab-content">
-			<div class="toolbar ui-corner-bottom"></div>
-			
-			<div class="sized-content">
-				<?php echo $this->translate('Please choose the script to be executed from the list on the left hand side.'); ?>
-			</div>
-		</div>
-	</div>
-		
-</div>
+var west = Ext.getCmp('viewport-west');
+west.removeAll();
+west.setVisible(true);
+west.expand(false);
+west.removeAll();
 
-<?php $this->inlineScript()->captureStart(); ?>
-$(function() {
-	
-	$(document).bind('refreshButtons', function() {
-		$('.filter-button').button({icons: {primary: 'ui-icon-search'}});		
-	});
-	$(document).trigger('refreshButtons');
-	
-	$(document).bind('listload', function(event, area, data) {
-		if (data != null) {
-			$(area).html(data)
+west.add(new Ext.tree.TreePanel({
+	id: 'pageview-cattree',
+	title: '<?php echo $this->translate('Scripts'); ?>',
+	useArrows: true,
+	autoScroll: true,
+	animate: true,
+	containerScroll: true,
+	border: false,
+	dataUrl: '<?php echo $this->url(array('action' => 'tree')); ?>',
+	rootVisible: false,
+	singleExpand: true,
+	stopRestoring: false,
+	root: {
+		nodeType: 'async',
+		text: 'Root',
+		draggable: false,
+		id: '0'
+	},
+	listeners: {
+		click: function(node, event) {
+			if (node.attributes.type == 'category') {
+				node.expand();
+			}
+			if (node.attributes.type == 'script') {
+				Ext.aitsu.load(['<?php echo $this->url(array('action' => 'show')); ?>'], null, {
+					script: node.attributes.id
+				});
+			}
 		}
-		$('.toolbar').button();
-     	$(area).find('.filter-button').button({icons: {primary: 'ui-icon-search'}});
-     	$(document).trigger('contextmenu');
-     	$(document).trigger('formload');
-	});	
+	}
+}));
 
-	$(document).bind('bindclicks', function() {
-		$('#refresh-translation').live('click', function() {
-			$('#tab-translate div.tab-content').load('<?php echo $this->url(); ?>/refresh', function() {
-				$(document).trigger('formload');		
-			});
-			return false;
-		});		
-	});
-	$(document).trigger('bindclicks');
-		
-});
-<?php $this->inlineScript()->captureEnd(); ?>
+Ext.getCmp('viewport').doLayout();

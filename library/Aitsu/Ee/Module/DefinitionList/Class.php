@@ -2,32 +2,11 @@
 
 
 /**
- * Definition list
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright © 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 17663 2010-07-21 13:30:22Z akm $}
  */
 
 class Aitsu_Ee_Module_DefinitionList_Class extends Aitsu_Ee_Module_Abstract {
-
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Definition list',
-			'description' => Zend_Registry :: get('Zend_Translate')->translate('Outputs a definition list out of a list of line separated data.'),
-			'type' => 'Content',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'stable',
-			'url' => null,
-			'id' => 'a0725365-c565-11df-851a-0800200c9a66'
-		);
-	}
 
 	public static function init($context) {
 

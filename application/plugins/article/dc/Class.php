@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19142 2010-10-04 09:49:15Z akm $}
  */
 
 class DcArticleController extends Aitsu_Adm_Plugin_Controller {
@@ -14,6 +12,7 @@ class DcArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 	}
 
@@ -31,43 +30,49 @@ class DcArticleController extends Aitsu_Adm_Plugin_Controller {
 	public function indexAction() {
 
 		$id = $this->getRequest()->getParam('idart');
-
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/dc/forms/meta.ini', 'edit'));
-		$form->setAction($this->view->url());
-
+		
+		$form = Aitsu_Forms :: factory('pagedcmetadata', APPLICATION_PATH . '/plugins/article/dc/forms/meta.ini');
+		$form->title = Aitsu_Translate :: translate('Dublin core');
+		$form->url = $this->view->url(array (
+			'plugin' => 'dc',
+			'paction' => 'index'
+		), 'aplugin');
+		
 		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
-
-		if (!$this->getRequest()->isPost()) {
-			$form->setValues($data->toArray());
-		}
-
-		$this->view->pluginId = self :: ID;
-		$this->view->form = $form;
-
-		if (!$this->getRequest()->isPost()) {
+		$data->idart = $id;
+		$form->setValues($data->toArray());
+		
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
 			return;
 		}
-
-		if (!$form->isValid($_POST)) {
-			$this->_helper->json((object) array (
-				'status' => 'validationfailure',
-				'message' => $this->view->render('index.phtml')
-			));
-		}
-
+		
 		try {
-			$data->setValues($form->getValues());
-			$data->save();
-			$form->setValues($data->toArray());
-			$this->_helper->json((object) array (
-				'status' => 'success',
-				'message' => Zend_Registry :: get('Zend_Translate')->translate('DC.meta data saved.'),
-				'data' => (object) $data->toArray(),
-				'html' => $this->view->render('index.phtml')
-			));
+			if ($form->isValid()) {
+				Aitsu_Event :: raise('backend.article.edit.save.start', array (
+					'idart' => $id
+				));			
+
+				/*
+				 * Persist the data.
+				 */
+				$data->setValues($form->getValues())->save();
+
+				$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) $data->toArray()
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
-				'status' => 'exception',
+				'success' => false,
+				'exception' => true,
 				'message' => $e->getMessage()
 			));
 		}

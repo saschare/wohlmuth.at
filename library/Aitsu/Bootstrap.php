@@ -113,12 +113,12 @@ class Aitsu_Bootstrap {
 			return;
 		}
 
-		if (isset ($_GET['edit']) && $_GET['edit'] == 1) {
+		if (isset ($_GET['edit']) || isset ($_GET['preview'])) {
 			/*
 			 * The client is determined by investigation of the 
 			 * parameter id, which represents the idartlang of the 
 			 * page to be edited.
-			 */
+			 */			 
 			Aitsu_Registry :: get()->config = Aitsu_Config_Ini :: getInstance('config');
 			$config = Aitsu_Db :: fetchOne('' .
 			'select ' .
@@ -298,7 +298,7 @@ class Aitsu_Bootstrap {
 
 	protected function _EvaluateRequest() {
 
-		if (!Aitsu_Registry :: isEdit()) {
+		if (!Aitsu_Registry :: isEdit() && !isset($_GET['id'])) {
 			return Aitsu_Bootstrap_EvalRequest :: run();
 		}
 

@@ -2,8 +2,6 @@
 
 
 /**
- * aitsu.
- * @version $Id: index.php 17663 2010-07-21 13:30:22Z akm $
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
  */

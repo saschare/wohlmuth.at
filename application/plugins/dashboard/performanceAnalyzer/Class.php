@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19673 2010-11-03 15:47:47Z akm $}
  */
 
 class PerformanceAnalyzerDashboardController extends Aitsu_Adm_Plugin_Controller {
@@ -15,6 +13,7 @@ class PerformanceAnalyzerDashboardController extends Aitsu_Adm_Plugin_Controller
 	public function init() {
 
 		$this->_helper->layout->disableLayout();
+		header("Content-type: text/javascript");
 	}
 
 	public static function register() {

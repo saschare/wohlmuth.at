@@ -2,19 +2,19 @@
 
 
 /**
- * Radio configuration.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Radio.php 16750 2010-06-02 08:15:42Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 28.01.2011
+ * Use class Aitsu_Content_Config_Radio instead.
+ */
 class Aitsu_Ee_Config_Radio extends Aitsu_Content_Config_Abstract {
 	
 	public function getTemplate() {
 
-		return 'Radio.phtml';
+		return 'radio.phtml';
 	}
 	
 	public static function set($index, $name, $label, $keyValuePairs, $fieldset) {

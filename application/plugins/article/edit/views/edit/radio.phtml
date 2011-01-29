@@ -1,0 +1,22 @@
+{
+	xtype: 'radiogroup',
+	<?php if (!empty($this->field->label)) : ?>
+		fieldLabel: '<?php echo $this->field->label; ?>',
+	<?php else : ?>
+		hideLabel: true,
+	<?php endif; ?>
+	columns: 2,
+	items: [
+		<?php $counter = 0; foreach ($this->field->keyValuePairs as $key => $value) : $counter++; ?>
+		{
+			boxLabel: '<?php echo $key; ?>',
+			name: 'config-<?php echo $this->field->name; ?>', 
+			inputValue: '<?php echo $value; ?>',
+			checked: <?php echo $value == $this->field->currentValue() ? 'true' : 'false'; ?>
+		}
+		<?php if ($counter < count($this->field->keyValuePairs)) : ?>
+		,
+		<?php endif; ?>
+		<?php endforeach; ?>
+	]
+}

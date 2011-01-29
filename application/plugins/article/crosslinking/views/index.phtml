@@ -1,119 +1,132 @@
-<div class="toolbar ui-corner-bottom">
-	<button id="delete-links" class="type-delete deny"><?php echo $this->translate('Delete selected links'); ?></button>
-	<input type="text" id="link-term" name="linkterm" value="" class="button-input ui-corner-all" style="width:350px;">
-	<button id="add-link" class="type-new confirm">&nbsp;</button>
-</div>
-		
-<div class="subcolumns sized-content">
-	<div class="c33l">
-		<div class="subcl">
-			<div id="selection-tree" class="internal-sized-content rounded-corners" style="border:1px solid #CCC; padding:10px;">
-				<div id="crosslink-selection-tree"></div>
-			</div>
-		</div>
-	</div>
-
-	<div class="c66r">
-		<div class="subcr">
-			<div id="selected-arts" class="internal-sized-content rounded-corners" style="border:1px solid #CCC; padding:10px;">
-				<?php echo $this->partial('crosslinks.phtml', array('crosslinks' => $this->crosslinks)); ?>
-			</div>
-		</div>
-	</div>
-</div>
-
-<script type="text/javascript">
-$(function() {
-	
-	$('button#delete-links').button({icons: {primary: 'ui-icon-trash'}, text:false});
-	$('button#add-link').button({icons: {primary: 'ui-icon-circle-plus'}, text: false});
-	
-	$('button#add-link').bind('click', function() {
-		if ($('#link-term').data('value') == null) {
-			return;
+var crosslinkingTree = new Ext.tree.TreePanel({
+	id: 'crosslinking-cattree',
+	useArrows: true,
+	autoScroll: true,
+	animate: true,
+	enableDD: true,
+	containerScroll: true,
+	border: false,
+	padding: '10px 0 10px 10px',
+	dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>?showpages=all',
+	rootVisible: false,
+	singleExpand: true,
+	stopRestoring: false,
+	root: {
+		nodeType: 'async',
+		text: 'Root',
+		draggable: false,
+		id: '0'
+	},
+	listeners: {
+		click: function(node, event) {
+			if (node.attributes.type == 'category') {
+				node.expand();
+			} else if (node.attributes.type == 'page') {
+            	Ext.Ajax.request({
+            		url: '<?php echo $this->url(array('plugin' => 'crosslinking', 'paction' => 'add'), 'aplugin'); ?>',
+            		success: function(response, opts) {
+            			crosslinks.getStore().load();
+            		},
+            		params: {
+            			idart: <?php echo $this->idart; ?>,
+            			idartlang: node.attributes.idartlang
+            		}
+            	});					 			
+			}
 		}
-		$.post('<?php echo $this->url(array('paction' => 'add')); ?>', { id: $('#link-term').data('value') },
-   			function(data){
-     			$('div#selected-arts').html(data.list);
-     			$('#link-term').val('');
-     			$('#link-term').data('value', null);
-   			});
-	});
-	
-	$('#link-term').autocomplete({
-		minLength: 3,
-		source: '<?php echo $this->url(array('paction' => 'articlesbyterm')); ?>',
-		select: function(event, ui) {
-			$('#link-term').data('value', ui.item.value);
-			$('#link-term').val(ui.item.label);
-			return false;
-		}
-	})
-	.data('autocomplete')._renderItem = function( ul, item ) {
-		return $( "<li></li>" )
-			.data( "item.autocomplete", item )
-			.append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
-			.appendTo( ul );
-	};
-	
-	$('#link-term').data('value', null);
-	
-	$(document).unbind('delete-link');
-	$(document).bind('delete-link', function() {
-		var selectedLinks = new Array();
-  		$('div#selected-arts table tbody tr.selected').each(function() {
-  			selectedLinks.push($(this).attr("id"));
-  		});
-  		$('<div></div>')
-  			.html('<?php echo $this->translate('You are about to remove the selected links. Are you sure?'); ?>')
-  			.dialog({
-				title: '<?php echo $this->translate('Remove links'); ?>',
-				modal: true,
-				buttons: {
-					'<?php echo $this->translate('Yes, remove the links'); ?>': function() {
-						$.post("<?php echo $this->url(array('plugin' => 'crosslinking', 'paction' => 'delete'), 'aplugin'); ?>", { ids: selectedLinks.join(",") }, function(data) {
-							$('div#selected-arts').html(data.list);
-						});
-  						$(this).dialog('close');
-					},
-					'<?php echo $this->translate('No'); ?>': function() {
-						$(this).dialog('close');
-					}
+	}
+});
+
+var crosslinks = new Ext.grid.GridPanel({
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('plugin' => 'crosslinking', 'paction' => 'store'), 'aplugin'); ?>',
+        remoteSort: false,
+        storeId: 'crosslinkStore',
+        idProperty: 'idartlang',
+        root: 'data',
+        fields: ['idartlang', 'idart', 'title', 'pagetitle', 'idcat', 'category'],
+        baseParams: {
+        	idart: <?php echo $this->idart; ?>
+        }
+    }),
+    columns: [
+    	{dataIndex: 'idart', header: 'ID', menuDisabled: true, sortable: true, width: 20},
+    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Page title'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'category', header: '<?php echo Aitsu_Translate :: translate('Category'); ?>', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete link'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected link?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('plugin' => 'crosslinking', 'paction' => 'delete'), 'aplugin'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+					            			var store = grid.getStore().remove(record); 
+				            			}
+				            		},
+				            		params: { 
+				            			idart: <?php echo $this->idart; ?>,
+				            			idartlang: record.get('idartlang')
+				            		}
+				            	});					 			
+					 		}
+					 	}
+					 });
 				}
 			});
-	});
-	
-	$('#crosslink-selection-tree').jstree({
-		"core" : {
-			"animation" : 200
-		},
-		"themes" : {
-            "theme" : "aitsu",
-            "dots" : false,
-            "icons" : true
-        },
-        "json_data" : {
-            "ajax" : {
-                "url" : "<?php echo $this->url(array('controller' => 'data', 'action' => 'treecontent'), 'default'); ?>",
-                "data" : function (n) {
-                    return { id : n.attr ? n.attr("id") : 0, sync : $("#sync-lang-form input[name='sync-lang']:checked").val() };
-                },
-                "progressive_render" : true
-            }
-        },
-        "cookies" : {
-        	"save_opened" : "crosslink-tree-opened",
-        	"save_selected" : "crosslink-tree-selected"
-        },
-        "plugins" : [ "themes", "json_data", "dnd", "ui", "cookies" ]
-    });
-    
-    $('#crosslink-selection-tree ul li.article').live('click', function() {
-    	$.post('<?php echo $this->url(array('paction' => 'add')); ?>', { linkidart: $(this).attr('id') },
-   			function(data){
-     			$('div#selected-arts').html(data.list);
-   			});
-    });
-	
+			
+			menu.showAt(event.getXY());
+		}
+			
+	}
 });
-</script>
+
+
+Ext.getCmp('page-edit-tab').add({
+	id: 'article-plugin-crosslinking',
+	title: '<?php echo Aitsu_Translate :: translate('Crosslinking'); ?>',
+	layout: 'border',
+	items: [
+		{
+			region: 'west',
+			width: 250,
+			layout: 'fit',
+			split: true,
+			items: crosslinkingTree
+		}, 
+		{
+			region: 'center',
+			layout: 'fit',
+			split: true,
+			items: crosslinks
+		}
+	]
+});

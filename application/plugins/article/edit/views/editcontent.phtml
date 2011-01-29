@@ -1,55 +1,118 @@
-<?php
-if (count($this->editInfo) == 0 && count($this->configInfo) == 0) {
-	echo $this->translate('The current module has no content nor configuration to be made.');
-	return;
+var setUnpublished = function() {
+	var b = Ext.getCmp('publish-button');
+	b.setIconClass('page-unpublished');
+	b.setDisabled(false);
 }
-?>
-<form id="aitsu-content-edit-form" class="yform" style="max-width:100%;">
-	<input type="hidden" name="idartlang" value="<?php echo $this->idartlang; ?>" />
-	<input type="hidden" name="container" value="<?php echo $this->container; ?>" />
-	<input type="hidden" name="type" value="<?php echo $this->type; ?>" />
-	<textarea name="params" style="display:none;"><?php echo $this->params; ?></textarea>
-	<div id="tabs">
-		<ul>
-		<?php foreach ($this->editInfo as $index => $panel) : ?>
-			<li><a href="#tabs-<?php echo $index; ?>"><?php if (preg_match('/.*?\\:(.*)/', $panel->index, $match)) { echo $match[1]; } else {echo $panel->index;} ?></a></li>
+
+var jsonParams = new Ext.util.MixedCollection();
+
+win = new Ext.Window({
+	layout:'fit',
+	width:700,
+	height:500,
+	modal: true,
+	closable: false,
+	plain: true,
+	shadow: true,
+	floating: true,
+	items: new Ext.FormPanel({
+		id: 'edit-content-form',
+		url: '<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'save'), 'aplugin'); ?>',
+		border: false,
+		layout: 'fit',
+		items: [{
+			xtype:'tabpanel',
+			activeTab: 0,
+			deferredRender: false,
+			items:[
+				<?php for ($i = 0; $i < count($this->data->editInfo); $i++) : ?>
+					<?php /* edit fields */ $setComma = true; ?>
+					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>,
+				<?php endfor; ?>
+				<?php for ($i = 0; $i < count($this->data->configTabs); $i++) : ?>
+					<?php /* config as tab */ ?>
+					<?php echo $this->partial('edit/' . $this->data->configTabs[$i]->getTemplate(), array('field' => $this->data->configTabs[$i])); ?>,
+				<?php endfor; ?>
+				<?php /* configuration */ ?>
+				{
+					title: '<?php echo Aitsu_Translate :: translate('Configuration'); ?>', 
+					layout: 'form',
+					autoScroll: true,
+					padding: '5px',
+					disabled: <?php if (empty($this->data->configInfo)) : ?>true<?php else : ?>false<?php endif; ?>,
+					items: [					
+						<?php $counter = 0; foreach($this->data->configInfo as $fieldset => $config) : $counter++; ?>
+							<?php echo $this->partial('edit/fieldset.phtml', array('fieldset' => $fieldset, 'config' => $config)); ?>
+							<?php if ($counter < count($this->data->configInfo)) : ?>,<?php endif; ?>
+						<?php endforeach; ?>
+					]
+				}
+			]
+		},
+		<?php foreach($this->data->configInfo as $fieldset => $config) : ?>
+		<?php foreach ($config as $field) : ?>
+		{
+			xtype: 'hidden',
+			name: 'configType-<?php echo $field->name; ?>',
+			value: '<?php echo $field->type; ?>'
+		},
 		<?php endforeach; ?>
-		<?php if (count($this->configInfo) > 0) : ?>
-			<li><a href="#tabs-config"><?php echo $this->translate('Module configuration'); ?></a></li>
-		<?php endif; ?>
-		</ul>
-		<?php foreach ($this->editInfo as $index => $panel) : ?>
-		<div id="tabs-<?php echo $index; ?>">
-			<div class="toolbar empty"></div>
-			<p>
-			<?php if ($panel->type == Aitsu_Content :: WIKICODE) : ?>
-				<textarea name="content[<?php echo $index; ?>]" class="markItUp-wiki"><?php echo htmlentities($panel->content, ENT_COMPAT, 'UTF-8'); ?></textarea>
-			<?php elseif ($panel->type == Aitsu_Content :: HTML) : ?>
-				<textarea id="<?php echo uniqid('jqck'); ?>" name="content[<?php echo $index; ?>]"  class="jquery_ckeditor"><?php echo htmlentities($panel->content, ENT_COMPAT, 'UTF-8'); ?></textarea>
-			<?php else : ?>
-				<textarea name="content[<?php echo $index; ?>]" class="plaintext-editor" id="<?php echo uniqid('editor-'); ?>"><?php echo htmlentities($panel->content, ENT_COMPAT, 'UTF-8'); ?></textarea>
-			<?php endif; ?>
-			</p>
-			<input type="hidden" name="index[<?php echo $index; ?>]" value="<?php echo $panel->index; ?>" />
-		</div>
 		<?php endforeach; ?>
-		<?php if (count($this->configInfo) > 0) : ?>
-		<div id="tabs-config" style="overflow:auto;">
-			<div class="toolbar empty"></div>
-			<?php 
-			foreach ($this->configInfo as $config) {
-				$fieldsets[$config->fieldset][$config->name] = $config;
+		<?php foreach($this->data->configTabs as $field) : ?>
+		{
+			xtype: 'hidden',
+			name: 'configType-<?php echo $field->name; ?>',
+			value: '<?php echo $field->type; ?>'
+		},
+		<?php endforeach; ?>
+		{
+			xtype: 'hidden',
+			name: 'type',
+			value: '<?php echo $this->data->type; ?>'
+		},
+		{
+			xtype: 'hidden',
+			name: 'container',
+			value: '<?php echo $this->data->container; ?>'
+		},
+		{
+			xtype: 'hidden',
+			name: 'idartlang',
+			value: '<?php echo $this->data->idartlang; ?>'
+		},
+		{
+			xtype: 'hidden',
+			name: 'params',
+			value: '<?php echo str_replace("\n", '\n', $this->data->params); ?>'
+		}]		
+	}),
+	buttons: [{
+		text:'<?php echo Aitsu_Translate :: translate('Cancel'); ?>',
+		iconCls: 'cancel',
+		handler: function(){
+			win.destroy();
+		}
+	},{
+		text: '<?php echo Aitsu_Translate :: translate('Save'); ?>',
+		iconCls: 'save',
+		handler: function(){
+			for(var i in CKEDITOR.instances) {
+				Ext.getCmp(i).setRawValue(CKEDITOR.instances[i].getData());
 			}
-			?>
-			<?php foreach ($fieldsets as $fieldset_legend => $fieldset) : ?>
-			<fieldset>
-				<legend><?php echo $fieldset_legend; ?></legend>
-				<?php foreach ($fieldset as $input) : ?>
-				<?php echo $this->partial('moduleConfigs/' . $input->getTemplate(), array('config' => $input)); ?>
-				<?php endforeach; ?>
-			</fieldset>
-			<?php endforeach; ?>
-		</div>
-		<?php endif; ?>
-	</div>
-</form>
+			Ext.getCmp('edit-content-form').getForm().submit({
+				success: function(form, action) {
+					$(document).trigger('doReplace', [action.result.data.type, action.result.data.container, action.result.data.idartlang, action.result.data.html]);
+					win.destroy();
+					setUnpublished();
+				},
+				failure: function(form, action) {
+					win.destroy();
+				},
+				params: {
+					json: Ext.util.JSON.encode(jsonParams.map)
+				}
+			});
+		}
+	}]
+});
+win.show();

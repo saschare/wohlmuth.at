@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Clients.php 18494 2010-09-01 11:41:57Z akm $}
  */
 
 class Aitsu_Persistence_Language extends Aitsu_Persistence_Abstract {
@@ -23,10 +21,10 @@ class Aitsu_Persistence_Language extends Aitsu_Persistence_Abstract {
 		static $instance = array ();
 
 		if ($id == null || !isset ($instance[$id])) {
-			$instance = new self($id);
+			$instance[$id] = new self($id);
 		}
 
-		return $instance;
+		return $instance[$id];
 	}
 
 	public function load() {
@@ -158,6 +156,36 @@ class Aitsu_Persistence_Language extends Aitsu_Persistence_Abstract {
 
 		Aitsu_Db :: query('delete from _lang where idlang = :id', array (
 			':id' => $this->_id
+		));
+	}
+
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
+	public function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
+
+		return Aitsu_Db :: filter('' .
+		'select * from (' .
+		'	select ' .
+		'		lang.idlang, ' .
+		'		lang.name, ' .
+		'		client.name as client, ' .
+		'		lang.locale, ' .
+		'		lang.encoding, ' .
+		'		lang.direction ' .
+		'	from _lang lang' .
+		'	left join _clients client on lang.idclient = client.idclient ' .
+		') lang ', $limit, $offset, $filters, $orders);
+	}
+
+	public static function getCurrentLangName() {
+
+		return Aitsu_Db :: fetchOne('' .
+		'select concat(client.name, \' / \', lang.name) ' .
+		'from _lang lang ' .
+		'left join _clients client on lang.idclient = client.idclient ' .
+		'where lang.idlang = :idlang', array (
+			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
 		));
 	}
 

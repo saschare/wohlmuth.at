@@ -8,23 +8,6 @@
 
 class Module_HTML_Meta_PageTitle_Class extends Aitsu_Ee_Module_Abstract {
 
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Page title',
-			'description' => Aitsu_Translate :: translate('Returns the page title of the current article.'),
-			'type' => 'Header',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'stable',
-			'url' => null,
-			'id' => '4ce57ea4-18ec-4583-923f-4c097f000101'
-		);
-	}
-
 	public static function init($context) {
 
 		Aitsu_Content_Edit :: noEdit('HTML.Meta.PageTitle', true);

@@ -1,0 +1,26 @@
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
+
+var tabs = new Ext.TabPanel({
+	id: 'center-tabs',
+	resizeTabs: false,
+	minTabWidth: 115,
+	tabWidth:135,
+	enableTabScroll:true,
+	defaults: {
+		autoScroll:true
+	}
+});
+
+center.add(tabs);
+
+Ext.getCmp('viewport').doLayout();
+
+<?php $plugins = array(); foreach ($this->plugins as $plugin) : ?>
+	<?php $plugins[] = "'" . $this->url(array('plugin' => $plugin->name, 'paction' => 'index'), 'cplugin') . "?idcat={$this->idcat}'"; ?>
+<?php endforeach; ?>
+
+Ext.aitsu.load([<?php echo implode(',', $plugins); ?>], function() {
+	tabs.setActiveTab(0);
+	tabs.doLayout();
+});

@@ -10,23 +10,6 @@ class Module_Navigation_Class extends Aitsu_Ee_Module_Abstract {
 
 	protected $type = 'navigation';
 
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Navigation',
-			'description' => Aitsu_Translate :: translate('Returns a navigation menu based on the specified template.'),
-			'type' => 'Navigation',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'stable',
-			'url' => null,
-			'id' => '4cec07bf-5e60-43f2-a44d-10e87f000101'
-		);
-	}
-
 	public static function init($context) {
 
 		Aitsu_Content_Edit :: noEdit('Navigation', true);

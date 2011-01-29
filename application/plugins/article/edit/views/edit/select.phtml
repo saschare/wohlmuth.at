@@ -1,0 +1,24 @@
+<?php
+$option = array ();
+foreach ($this->field->keyValuePairs as $key => $value) {
+	$option[] = "['{$value}', '{$key}']";
+}
+?>
+{
+	xtype: 'combo',
+	fieldLabel: '<?php echo $this->field->label; ?>',
+	mode: 'local', 
+	forceSelection: true, 
+	editable: false, 
+	typeAhead: false, 
+	triggerAction: 'all', 
+	store: new Ext.data.ArrayStore({
+		fields: ['dataValue','dataLabel'],
+		data: [<?php echo implode(', ', $option); ?>]
+	}),
+	valueField: 'dataValue', 
+	displayField: 'dataLabel',
+	hiddenName: 'config-<?php echo $this->field->name; ?>',
+	value: '<?php echo $this->field->currentValue(); ?>',
+	anchor: '100%'
+}

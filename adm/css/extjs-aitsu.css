@@ -1,0 +1,286 @@
+/* Extensions */
+.x-form-field-wrap .x-form-link-trigger {
+    background-image: url(../images/icons/link_trigger.png) !important;
+}
+.x-form-link-trigger {
+    cursor:pointer;
+}
+
+/*  Tailoring */
+.msg.error h3 {
+    color:red;
+}
+.msg .x-box-mc {
+    font-size:14px;
+}
+#msg-div {
+    position:absolute;
+    left:35%;
+    top:10px;
+    width:250px;
+    z-index:20000;
+}
+
+.tm-page {
+    background-image: url(../images/icons/page.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-category {
+    background-image: url(../images/icons/folder.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-logout {
+    background-image: url(../images/icons/door_in.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-management {
+    background-image: url(../images/icons/cog.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-dashboard {
+    background-image: url(../images/icons/application_side_boxes.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-plugin {
+    background-image: url(../images/icons/plugin.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-user-profile {
+    background-image: url(../images/icons/user_edit.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-usermanagement {
+    background-image: url(../images/icons/group.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-client {
+    background-image: url(../images/icons/building.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-mapping {
+    background-image: url(../images/icons/map.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-configuration {
+    background-image: url(../images/icons/cog.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-translation {
+    background-image: url(../images/icons/font.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-terminal {
+    background-image: url(../images/icons/application_osx_terminal.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-script {
+    background-image: url(../images/icons/script.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-table {
+    background-image: url(../images/icons/table.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-package {
+    background-image: url(../images/icons/package.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-tag-green {
+    background-image: url(../images/icons/tag_green.png) !important; 
+    background-repeat: no-repeat;
+}
+.tm-database-edit {
+    background-image: url(../images/icons/database_edit.png) !important; 
+    background-repeat: no-repeat;
+}
+.treepage-online {
+    background-image: url(../images/icons/page.png) !important; 
+    background-repeat: no-repeat;
+}
+.treepage-offline {
+    background-image: url(../images/icons/page_white_delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.treepage-index-online {
+    background-image: url(../images/icons/page_white_code.png) !important; 
+    background-repeat: no-repeat;
+}
+.treepage-index-offline {
+    background-image: url(../images/icons/page_white_code_red.png) !important; 
+    background-repeat: no-repeat;
+}
+.treecat-online {
+    background-image: url(../images/icons/folder.png) !important; 
+    background-repeat: no-repeat;
+}
+.treecat-offline {
+    background-image: url(../images/icons/folder_delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.treecat-private {
+    background-image: url(../images/icons/folder_key.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-bookmark-category {
+    background-image: url(../images/icons/folder_star.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-setonline {
+    background-image: url(../images/icons/accept.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-setoffline {
+    background-image: url(../images/icons/delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-delete {
+    background-image: url(../images/icons/delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-indexpage {
+    background-image: url(../images/icons/page_white_code.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-folder-new {
+    background-image: url(../images/icons/folder_add.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-folder-delete {
+    background-image: url(../images/icons/folder_delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.cm-link-to-acl {
+    background-image: url(../images/icons/table_link.png) !important; 
+    background-repeat: no-repeat;
+}
+.page-indexpage {
+    background-image: url(../images/icons/page_white_code.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.page-online {
+    background-image: url(../images/icons/flag_green.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
+.page-offline {
+    background-image: url(../images/icons/flag_red.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
+.page-unpublished {
+    background-image: url(../images/icons/exclamation.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
+.page-published {
+    background-image: url(../images/icons/world.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
+.grid-page {
+    background-image: url(../images/icons/page.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+    position:relative;
+    left:-12px;
+}
+.grid-folder {
+    background-image: url(../images/icons/folder.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+    position:relative;
+    left:-12px;
+}
+.tb-add {
+    background-image: url(../images/icons/add.png) !important; 
+    background-repeat: no-repeat;
+}
+.tb-refresh {
+    background-image: url(../images/icons/arrow_rotate_clockwise.png) !important; 
+    background-repeat: no-repeat;
+}
+.tb-templates {
+    background-image: url(../images/icons/layers.png) !important; 
+    background-repeat: no-repeat;
+}
+.edit {
+    background-image: url(../images/icons/pencil.png) !important; 
+    background-repeat: no-repeat;
+}
+.delete {
+    background-image: url(../images/icons/delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.cut {
+    background-image: url(../images/icons/cut.png) !important; 
+    background-repeat: no-repeat;
+}
+.paste {
+    background-image: url(../images/icons/paste_plain.png) !important; 
+    background-repeat: no-repeat;
+}
+.save {
+    background-image: url(../images/icons/accept.png) !important; 
+    background-repeat: no-repeat;
+}
+.cancel {
+    background-image: url(../images/icons/cancel.png) !important; 
+    background-repeat: no-repeat;
+}
+.execute {
+    background-image: url(../images/icons/cog_go.png) !important; 
+    background-repeat: no-repeat;
+}
+.upload-add {
+    background-image: url(../images/icons/add.png) !important; 
+    background-repeat: no-repeat;
+}
+.upload-delete {
+    background-image: url(../images/icons/delete.png) !important; 
+    background-repeat: no-repeat;
+}
+.upload-stop {
+    background-image: url(../images/icons/stop.png) !important; 
+    background-repeat: no-repeat;
+}
+.upload-start {
+    background-image: url(../images/icons/disk.png) !important; 
+    background-repeat: no-repeat;
+}
+.flag-done {
+    background-image: url(../images/icons/flag_green.png) !important; 
+    background-repeat: no-repeat;
+}
+.flag-pending {
+    background-image: url(../images/icons/flag_red.png) !important; 
+    background-repeat: no-repeat;
+}
+.image {
+    background-image: url(../images/icons/picture.png) !important; 
+    background-repeat: no-repeat;
+}
+.file {
+    background-image: url(../images/icons/page_white.png) !important; 
+    background-repeat: no-repeat;
+}
+.movie {
+    background-image: url(../images/icons/film.png) !important; 
+    background-repeat: no-repeat;
+}
+.selectedRow {
+    background-color: #ec7537;
+}

@@ -30,10 +30,10 @@ class Aitsu_Persistence_ArticleMeta extends Aitsu_Persistence_Abstract {
 		static $instance = array ();
 
 		if ($id == null || !isset ($instance[$id])) {
-			$instance = new self($id);
+			$instance[$id] = new self($id);
 		}
 
-		return $instance;
+		return $instance[$id];
 	}
 
 	public function load() {

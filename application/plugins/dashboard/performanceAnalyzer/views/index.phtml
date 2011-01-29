@@ -1,45 +1,56 @@
-<table border="0" cellpadding="0" cellspacing="0" class="full">
-	<thead>
-		<tr>
-			<th scope="col"><?php echo $this->translate('Indicator'); ?></th>
-			<th scope="col" style="text-align:right;"><?php echo $this->translate('ms'); ?></th>
-			<th scope="col" style="text-align:right;"><?php echo $this->translate('n'); ?></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><?php echo $this->translate('Overall average'); ?>:</td>
-			<td style="text-align:right;"><?php echo number_format($this->overall['avg'], 2); ?></td>
-			<td style="text-align:right;"><?php echo $this->overall['n']; ?></td>
-		</tr>
-		<tr>
-			<td><?php echo $this->translate('Standard deviation'); ?>:</td>
-			<td style="text-align:right;"><?php echo number_format($this->overall['sigma'], 2); ?></td>
-			<td style="text-align:right;"><?php echo $this->overall['n']; ?></td>
-		</tr>
-		<tr>
-			<td><?php echo $this->translate('Min. execution time'); ?>:</td>
-			<td style="text-align:right;"><?php echo number_format($this->overall['fastest'], 2); ?></td>
-			<td style="text-align:right;">1</td>
-		</tr>
-		<tr>
-			<td><?php echo $this->translate('Max. execution time'); ?>:</td>
-			<td style="text-align:right;"><?php echo number_format($this->overall['slowest'], 2); ?></td>
-			<td style="text-align:right;">1</td>
-		</tr>
-		<tr>
-			<td>
-				<a href="/adm/edit/<?php echo $this->slowest['idartlang']; ?>?profile=1" target="_blank" title="Profile: <?php echo $this->slowest['pagetitle']; ?>">
-					<?php echo $this->translate('Avg. of slowest page'); ?>
-				</a>:
-			</td>
-			<td style="text-align:right;"><?php echo number_format($this->slowest['avg'], 2); ?></td>
-			<td style="text-align:right;"><?php echo $this->slowest['n']; ?></td>
-		</tr>
-		<tr>
-			<td><?php echo $this->translate('Std. dev. of slowest page'); ?>:</td>
-			<td style="text-align:right;"><?php echo number_format($this->slowest['sigma'], 2); ?></td>
-			<td style="text-align:right;"><?php echo $this->slowest['n']; ?></td>
-		</tr>
-	</tbody>
-</table>
+var dashboard = Ext.getCmp('dashboard');
+
+dashboard.add({
+	columnWidth: 1/3,
+	baseCls:'x-plain',
+	bodyStyle:'padding:6px 4px 0 4px',
+	items: {
+		unstyled: true,
+		height: 370,
+		layout: 'vbox',
+		items: [
+			new Ext.grid.PropertyGrid({
+				title: '<?php echo Aitsu_Translate :: translate('Overall performance'); ?>',
+				hideHeaders: true,
+				source: {
+					'<?php echo Aitsu_Translate :: translate('Number of impressions (n)'); ?>': '<?php echo $this->overall['n']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Average rendering (ms)'); ?>': '<?php echo $this->overall['avg']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Fastest rendering (ms)'); ?>': '<?php echo $this->overall['fastest']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Slowest rendering (ms)'); ?>': '<?php echo $this->overall['slowest']; ?>'
+				},
+				viewConfig : {
+					forceFit: true,
+					scrollOffset: 2
+				},
+				listeners: {
+					beforeedit: function(e) {
+						e.cancel = true;
+					}
+				}
+			}),
+			new Ext.grid.PropertyGrid({
+				title: '<?php echo Aitsu_Translate :: translate('Slowest page'); ?>',
+				hideHeaders: true,
+				source: {
+					'<?php echo Aitsu_Translate :: translate('Number of impressions (n)'); ?>': '<?php echo $this->slowest['n']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Average rendering (ms)'); ?>': '<?php echo $this->slowest['avg']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Fastest rendering (ms)'); ?>': '<?php echo $this->slowest['fastest']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Slowest rendering (ms)'); ?>': '<?php echo $this->slowest['slowest']; ?>',
+					'<?php echo Aitsu_Translate :: translate('URL'); ?>': '<?php echo $this->slowest['url']; ?>',
+					'<?php echo Aitsu_Translate :: translate('Page title'); ?>': '<?php echo $this->slowest['pagetitle']; ?>'
+				},
+				viewConfig : {
+					forceFit: true,
+					scrollOffset: 2
+				},
+				listeners: {
+					beforeedit: function(e) {
+						e.cancel = true;
+					}
+				},
+				flex: 1,
+				margins: '5 0 0 0'
+			})
+		]
+	}
+});

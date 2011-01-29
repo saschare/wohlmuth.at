@@ -12,6 +12,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 	}
 
@@ -32,14 +33,11 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		$idart = $this->getRequest()->getParam('idart');
 
 		$idartlang = Aitsu_Persistence_Article :: factory($idart)->load()->idartlang;
-
 		$this->view->idart = $idart;
 		$this->view->idartlang = $idartlang;
 	}
 
 	public function editcontentAction() {
-
-		$this->_helper->layout->disableLayout();
 
 		$type = $this->getRequest()->getParam('type');
 		$container = $this->getRequest()->getParam('container');
@@ -51,41 +49,69 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		Aitsu_Content_Edit :: end();
 
 		$editInfo = Aitsu_Content_Edit :: getContents();
-		$configInfo = Aitsu_Content_Edit :: getConfigs();
+		$configs = Aitsu_Content_Edit :: getConfigs();	
+		$configInfo = array ();
+		$configTabs = array();
+		foreach ($configs as $config) {
+			if (isset($config->tab) && $config->tab) {
+				$configTabs[] = $config;
+			} else {
+				$fieldset = $config->fieldset == '' ? -1 : $config->fieldset;
+				$configInfo[$fieldset][] = $config;
+			}
+		}
 
 		foreach ($editInfo as $key => $panel) {
 			$editInfo[$key]->content = Aitsu_Content :: get($panel->index, $panel->type, $panel->idart, $panel->idlang, null);
 		}
+		$this->view->data = (object) array (
+			'type' => $type,
+			'idartlang' => $idartlang,
+			'container' => $container,
+			'params' => $params,
+			'editInfo' => $editInfo,
+			'configTabs' => $configTabs,
+			'configInfo' => $configInfo
+		);
 
-		$this->view->type = $type;
-		$this->view->idartlang = $idartlang;
-		$this->view->container = $container;
-		$this->view->params = $params;
-		$this->view->editInfo = $editInfo;
-		$this->view->configInfo = $configInfo;
 	}
 
 	public function saveAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
 		$type = $this->getRequest()->getParam('type');
 		$container = $this->getRequest()->getParam('container');
 		$idartlang = $this->getRequest()->getParam('idartlang');
 		$params = $this->getRequest()->getParam('params');
+		$index = $this->getRequest()->getParam('index');
+		$contents = $this->getRequest()->getParam('content');
 
+		$config = array ();
+		$configType = array ();
+
+		foreach ($_REQUEST as $key => $value) {
+			if (substr($key, 0, 11) == 'configType-') {
+				$configType[substr($key, 11)] = $value;
+			}
+			elseif (substr($key, 0, 7) == 'config-') {
+				$config[substr($key, 7)] = $value;
+			}
+		}
+
+		if (isset($_REQUEST['json'])) {
+			$json = json_decode($_REQUEST['json']);
+			foreach ($json as $key => $value) {
+				$config[$key] = $value;
+			}
+		}
+		
 		$this->_restoreContext($idartlang);
 
 		Aitsu_Registry :: get()->env->ajaxResponse = '1';
 		Aitsu_Registry :: get()->env->editAction = '1';
 		Aitsu_Registry :: get()->env->edit = '1';
 		Aitsu_Registry :: get()->env->env = 'backend';
-
-		$index = $this->getRequest()->getParam('index');
-		$contents = $this->getRequest()->getParam('content');
-		$config = $this->getRequest()->getParam('config');
-		$configType = $this->getRequest()->getParam('configType');
 
 		try {
 			Aitsu_Db :: startTransaction();
@@ -94,44 +120,16 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 				'idartlang' => $idartlang
 			));
 
-			if ($type == 'container') {
-				/*
-				 * Save standard module data.
-				 */
-				if ($index != null) {
-					foreach ($index as $key => $value) {
-						$content = $contents[$key];
-						Aitsu_Content :: set($index[$key], $idartlang, $content);
-					}
-				}
-
-				if ($config != null) {
-					foreach ($config as $key => $value) {
-						$cType = $configType[$key];
-						Aitsu_Core_Article_Property :: factory($idartlang)->setValue('ModuleConfig_' . $container, $key, $value, $cType);
-					}
-				}
-
-				Aitsu_Registry :: get()->env->substituteEmptyAreas = '1';
-				echo Aitsu_Core_Module :: factory($idartlang, $container)->getOutput(true, '1');
-				return;
-			}
-
-			/*
-			 * Save shortCode data.
-			 */
-			if ($index != null) {
-				foreach ($index as $key => $value) {
-					$content = $contents[$key];
-					Aitsu_Content :: set($index[$key], $idartlang, $content);
+			if ($contents != null) {
+				foreach ($contents as $key => $value) {
+					Aitsu_Content :: set($key, $idartlang, $value);
 				}
 			}
 
-			if ($config != null) {
-				foreach ($config as $key => $value) {
-					$cType = $configType[$key];
-					Aitsu_Core_Article_Property :: factory($idartlang)->setValue('ModuleConfig_' . $container, $key, $value, $cType);
-				}
+			foreach ($configType as $key => $value) {
+				$cType = $value;
+				$fieldValue = isset($config[$key]) ? $config[$key] : null;					
+				Aitsu_Core_Article_Property :: factory($idartlang)->setValue('ModuleConfig_' . $container, $key, $fieldValue, $cType);
 			}
 
 			Aitsu_Registry :: get()->env->substituteEmptyAreas = '1';
@@ -151,7 +149,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 			Aitsu_Event :: raise('backend.article.edit.save.end', array (
 				'idartlang' => $idartlang
 			));
-			
+
 			Aitsu_Persistence_Article :: touch($idartlang);
 
 			Aitsu_Db :: commit();
@@ -160,7 +158,15 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 			throw $e;
 		}
 
-		echo $data;
+		$this->_helper->json((object) array (
+			'success' => true,
+			'data' => (object) array (
+				'html' => $data,
+				'type' => $type,
+				'container' => $container,
+				'idartlang' => $idartlang
+			)
+		));
 	}
 
 	protected function _restoreContext($idartlang) {

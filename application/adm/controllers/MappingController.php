@@ -2,8 +2,6 @@
 
 
 /**
- * Index controller.
- * @version $Id: MappingController.php 18794 2010-09-16 19:25:49Z akm $
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
@@ -21,9 +19,13 @@ class MappingController extends Zend_Controller_Action {
 			))) {
 			throw new Exception('Access denied');
 		}
+
+		$this->_helper->layout->disableLayout();
 	}
 
 	public function indexAction() {
+
+		header("Content-type: text/javascript");
 
 		if (!file_exists(APPLICATION_PATH . '/configs/mapping.ini')) {
 			$this->view->error = 1;
@@ -39,60 +41,26 @@ class MappingController extends Zend_Controller_Action {
 		}
 	}
 
-	public function newAction() {
+	public function mappingsAction() {
 
-		$this->_helper->layout->disableLayout();
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			try {
-				$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/mapping.ini', 'map', array (
-					'allowModifications' => true
-				));
-			} catch (Exception $e) {
-				$config = new Zend_Config(array (), true);
-			}
-
-			if (empty ($config->item)) {
-				$config->item = array ();
-			}
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/mapping/mapping.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			// $form->getElement('client')->setMultiOptions(Aitsu_Persistence_Clients :: getAsArray());
-
-			$posOptions = array ();
-			$posOptions[] = $this->view->translate('First');
-			foreach ($config->item as $id => $item) {
-				$posOptions[] = $this->view->translate('before') . ': ' . $item->name;
-			}
-			$posOptions[] = $this->view->translate('Last');
-			$form->getElement('pos')->setMultiOptions($posOptions);
-
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(array (
-					'pos' => count($posOptions) - 1
-				));
-			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$this->_saveMapping($form->getValues(), $config);
-
-		} // else: form has been cancelled.
+		$data = array ();
 
 		try {
-			$this->view->mappings = new Zend_Config_Ini(APPLICATION_PATH . '/configs/mapping.ini', 'map');
+			$mappings = new Zend_Config_Ini(APPLICATION_PATH . '/configs/mapping.ini', 'map');
+
+			foreach ($mappings->item as $id => $item) {
+				$data[] = (object) array (
+					'id' => $id,
+					'name' => $item->name,
+					'env' => $item->env
+				);
+			}
 		} catch (Exception $e) {
-			$this->view->mappings = array ();
 		}
 
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('mapping/list.phtml');
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
 	}
 
 	protected function _saveMapping($values, $config) {
@@ -179,72 +147,86 @@ class MappingController extends Zend_Controller_Action {
 		return $return;
 	}
 
-	public function editmappingAction() {
+	/**
+	 * @since 2.1.0.0 - 27.12.2010
+	 */
+	public function editAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			try {
-				$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/mapping.ini', 'map', array (
-					'allowModifications' => true
-				));
-			} catch (Exception $e) {
-				$config = new Zend_Config(array (), true);
-			}
-
-			if (empty ($config->item)) {
-				$config->item = array ();
-			}
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/mapping/mapping.ini', 'edit'));
-			$form->setAction($this->view->url());
-
-			// $form->getElement('client')->setMultiOptions(Aitsu_Persistence_Clients :: getAsArray());
-
-			$posOptions = array ();
-			$posOptions[] = $this->view->translate('First');
-			foreach ($config->item as $id => $item) {
-				$posOptions[] = $this->view->translate('before') . ': ' . $item->name;
-			}
-			$posOptions[] = $this->view->translate('Last');
-			$form->getElement('pos')->setMultiOptions($posOptions);
-
-			if (!$this->getRequest()->isPost()) {
-				$id = $this->getRequest()->getParam('id');
-				$item = $config->item-> {
-					$id };
-				$form->setValues(array_merge($item->toArray(), array (
-					'id' => $id,
-					'conditions' => implode("\n", $item->conditions->toArray()),
-					'pos' => $id
-				)));
-			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('mapping/new.phtml');
-				return;
-			}
-
-			$this->_saveMapping($form->getValues(), $config);
-
-		} // else: form has been cancelled.
 
 		try {
-			$this->view->mappings = new Zend_Config_Ini(APPLICATION_PATH . '/configs/mapping.ini', 'map');
+			$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/mapping.ini', 'map', array (
+				'allowModifications' => true
+			));
 		} catch (Exception $e) {
-			$this->view->mappings = array ();
+			$config = new Zend_Config(array (), true);
 		}
 
-		echo $this->view->render('mapping/list.phtml');
+		if (empty ($config->item)) {
+			$config->item = array ();
+		}
+
+		$form = Aitsu_Forms :: factory('editmapping', APPLICATION_PATH . '/adm/forms/mapping/mapping.ini');
+		$form->title = Aitsu_Translate :: translate('Edit mapping');
+		$form->url = $this->view->url();
+
+		$positions = array ();
+		foreach ($config->item as $id => $item) {
+			$positions[] = (object) array (
+				'value' => $id,
+				'name' => $this->view->translate('before') . ': ' . $item->name
+			);
+		}
+		$positions[] = (object) array (
+			'value' => $id +1,
+			'name' => $this->view->translate('Last')
+		);
+		$form->setOptions('pos', $positions);
+
+		$id = $this->getRequest()->getParam('id');
+		if (!empty ($id)) {
+			$item = $config->item-> $id;
+			$form->setValues(array_merge($item->toArray(), array (
+				'id' => $id,
+				'conditions' => implode('\n', $item->conditions->toArray()),
+				'pos' => $id
+			)));
+		}
+
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
+
+		try {
+			if ($form->isValid()) {
+				/*
+				 * Persist the data.
+				 */
+				$this->_saveMapping($form->getValues(), $config);
+
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 
-	public function deletemappingAction() {
+	public function deleteAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
 		try {
 			$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/mapping.ini', 'map', array (
@@ -260,12 +242,8 @@ class MappingController extends Zend_Controller_Action {
 
 		$this->_saveMapping($this->getRequest()->getParam('id'), $config);
 
-		try {
-			$this->view->mappings = new Zend_Config_Ini(APPLICATION_PATH . '/configs/mapping.ini', 'map');
-		} catch (Exception $e) {
-			$this->view->mappings = array ();
-		}
-
-		echo $this->view->render('mapping/list.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 }

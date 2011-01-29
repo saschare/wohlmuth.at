@@ -2,14 +2,16 @@
 
 
 /**
- * Select configuration.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: ArticlesBySpecifiedCategoryAsSelect.php 16494 2010-05-20 08:45:23Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 28.01.2011
+ * Currently there is no replacement available. Beginning with version 2.1.0
+ * this class will no longer be usable. It is available for documentation
+ * purposes only.
+ */
 class Aitsu_Ee_Config_ArticlesBySpecifiedCategoryAsSelect extends Aitsu_Content_Config_Abstract {
 
 	public function getTemplate() {
@@ -41,7 +43,7 @@ class Aitsu_Ee_Config_ArticlesBySpecifiedCategoryAsSelect extends Aitsu_Content_
 		'order by artlang.title asc ', array (
 			$idlang
 		));
-		
+
 		if ($cats) {
 			foreach ($cats as $cat) {
 				$instance->params['keyValuePairs'][$cat['title']] = $cat['idartlang'];

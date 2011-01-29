@@ -46,6 +46,10 @@ class Adm_Script_Copydb extends Aitsu_Adm_Script_Abstract {
 	}
 
 	protected function _next() {
+		
+		if (!isset($this->_tables[$this->_currentStep + 1])) {
+			return '';
+		}
 
 		return sprintf(Aitsu_Translate :: translate('Copying table %s.'), $this->_tables[$this->_currentStep + 1]);
 	}

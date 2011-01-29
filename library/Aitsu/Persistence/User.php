@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Lang.php 18403 2010-08-27 16:59:26Z akm $}
  */
 
 class Aitsu_Persistence_User extends Aitsu_Persistence_Abstract {
@@ -171,5 +169,33 @@ class Aitsu_Persistence_User extends Aitsu_Persistence_Abstract {
 	public function getData() {
 
 		return $this->_data;
+	}
+
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
+	public function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
+
+		return Aitsu_Db :: filter('select * from _acl_user', $limit, $offset, $filters, $orders);
+	}
+
+	public static function isLoginUnique($userid, $login) {
+
+		$userid = empty ($userid) ? 0 : $userid;
+
+		$result = Aitsu_Db :: fetchOne('' .
+		'select login from _acl_user ' .
+		'where ' .
+		'	login = :login ' .
+		'	and userid != :userid', array (
+			':userid' => $userid,
+			':login' => $login
+		));
+		
+		if (!$result) {
+			return true;
+		}
+
+		return false;
 	}
 }

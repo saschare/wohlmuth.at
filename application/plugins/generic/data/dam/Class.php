@@ -4,19 +4,19 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19787 2010-11-10 08:59:04Z akm $}
  */
 
 class DamPluginController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
+		$this->_helper->layout->disableLayout();
+		header("Content-type: text/javascript");
 	}
 
 	public function indexAction() {
 
-		$this->view->files = $this->_getFiles();
+		// $this->view->files = $this->_getFiles();
 	}
 
 	public function uploadAction() {
@@ -126,12 +126,12 @@ class DamPluginController extends Aitsu_Adm_Plugin_Controller {
 			'id' => 'id'
 		));
 	}
-	
+
 	public function refreshinboxAction() {
-		
+
 		$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender(true);
-		
+
 		$this->view->files = $this->_getFiles();
 		echo $this->view->render('inbox/content.phtml');
 	}
@@ -158,7 +158,7 @@ class DamPluginController extends Aitsu_Adm_Plugin_Controller {
 				}
 			}
 		}
-		
+
 		return $return;
 	}
 }

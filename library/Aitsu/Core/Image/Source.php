@@ -2,8 +2,6 @@
 
 
 /**
- * @abstract Image resizer.
- * @version $Id: Source.php 18556 2010-09-07 12:15:52Z akm $
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2009, w3concepts AG
  */
@@ -62,7 +60,7 @@ class Aitsu_Core_Image_Source {
 		
 		if (!in_array($this->imageType, $this->supportedTypes)) {
 			$path_parts = pathinfo(current($matches[4]));
-			$this->imagePath = $path_parts['dirname'] . '/__' . $path_parts['filename'] . '.jpg';
+			$this->imagePath = (isset($path_parts['dirname']) ? $path_parts['dirname'] : '') . '/__' . $path_parts['filename'] . '.jpg';
 			$this->imageType = 'jpeg';
 		}
 	}

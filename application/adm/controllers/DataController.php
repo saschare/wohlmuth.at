@@ -15,114 +15,131 @@ class DataController extends Zend_Controller_Action {
 			))) {
 			throw new Exception('Access denied');
 		}
+
+		if ($this->getRequest()->getParam('ajax')) {
+			$this->_helper->layout->disableLayout();
+		}
 	}
 
 	public function indexAction() {
 
-		$langs = Aitsu_Persistence_Language :: getByClient(Aitsu_Registry :: get()->session->currentClient);
+		header("Content-type: text/javascript");
 
-		$datasetSelector = $this->view->partial('data/datasetSelector.phtml', array (
-			'langs' => $langs,
-			'articles' => Aitsu_Persistence_Lastopened :: factory(1)->load()->get()
-		));
-		$this->view->placeholder('left')->set($datasetSelector);
-
-		/*
-		 * Add plugins' head to the head and plugins' js at the bottom
-		 * of the current page.
-		 */
-		$plugins = Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/plugins/article', 'Class.php');
-		$this->view->plugins = array ();
-		$this->view->addScriptPath(APPLICATION_PATH . '/plugins/article');
-		foreach ($plugins as $plugin) {
-			$parts = preg_split('@[\\/]@', $plugin);
-			$pluginName = $parts[count($parts) - 2];
-			include_once ($plugin);
-			$controller = ucfirst($pluginName) . 'Article';
-			$controllerClass = $controller . 'Controller';
-			$registry = call_user_func(array (
-				$controllerClass,
-				'register'
-			), null);
-			if ($registry->enabled) {
-				if (is_readable(APPLICATION_PATH . '/plugins/article/' . $pluginName . '/views/meta.phtml')) {
-					$this->view->partial($pluginName . '/views/meta.phtml');
-				}
-				$this->view->plugins[] = $registry;
-			}
+		$setIdlang = $this->getRequest()->getParam('setidlang');
+		if (!empty ($setIdlang)) {
+			Aitsu_Registry :: get()->session->currentLanguage = $setIdlang;
+			Aitsu_Registry :: get()->session->currentClient = Aitsu_Db :: fetchOne('' .
+			'select idclient from _lang where idlang = :idlang', array (
+				':idlang' => $setIdlang
+			));
 		}
-
-		uasort($this->view->plugins, array (
-			$this,
-			'_comparePosition'
-		));
 
 		$this->view->articles = Aitsu_Persistence_Lastopened :: factory(1)->load()->get(100);
-	}
-
-	public function lastopenedAction() {
-
-		$this->_helper->layout->disableLayout();
-
-		$this->view->articles = Aitsu_Persistence_Lastopened :: factory(1)->load()->get();
-	}
-
-	public function favoritesAction() {
-
-		$this->_helper->layout->disableLayout();
-
 		$this->view->favorites = Aitsu_Persistence_CatFavorite :: getAll();
+
+		$this->_loadCategoryPlugins(0);
 	}
 
-	public function treecontentAction() {
+	/**
+	 * @since 2.1.0.0 - 31.12.2010
+	 */
+	public function ropstoreAction() {
 
+		$data = array ();
+
+		foreach (Aitsu_Persistence_Lastopened :: factory(1)->load()->get(100) as $rop) {
+			$data[] = (object) array (
+				'id' => $rop['idart'],
+				'idcat' => $rop['idcat'],
+				'name' => $rop['title'],
+				'category' => $rop['name']
+			);
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
+
+	/**
+	 * Action to deliver extjs tree panels with the
+	 * necessary async tree information.
+	 */
+	public function treesourceAction() {
+		$syncLang = 0;
 		$return = array ();
 
-		$id = $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('node');
 		if (empty ($id)) {
 			$id = 0;
-		} else {
-			preg_match('/\\d*$/', $id, $id);
-			$id = $id[0];
 		}
-		$syncLang = $this->getRequest()->getParam('sync');
 
-		$idprefix = $this->getRequest()->getParam('idprefix');
-
-		$categories = Aitsu_Persistence_View_Category :: cat($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
+		$categories = Aitsu_Persistence_View_Category :: cat($id, Aitsu_Registry :: get()->session->currentLanguage, null);
 		if ($categories) {
 			foreach ($categories as $cat) {
-				$classes = array ();
-				$classes[] = $cat['online'] == 1 ? 'online' : 'offline';
-				$classes[] = $cat['public'] == 1 ? 'public' : 'locked';
+				if ($cat['public'] == 1) {
+					if ($cat['online'] == 1) {
+						$cls = 'treecat-online';
+					} else {
+						$cls = 'treecat-offline';
+					}
+				} else {
+					$cls = 'treecat-private';
+				}
 				$return[] = array (
-					'data' => $cat['name'] . ' [' . $cat['idcat'] . ']',
-					'attr' => array (
-						'id' => $idprefix . 'cat-' . $cat['idcat'],
-						'class' => implode(' ', $classes)
-					),
-					'icon' => 'folder',
-					'state' => 'closed'
+					'id' => $cat['idcat'],
+					'idcat' => $cat['idcat'],
+					'text' => $cat['name'],
+					'leaf' => false,
+					'iconCls' => $cls,
+					'online' => $cat['online'] == 1,
+					'public' => $cat['public'] == 1,
+					'type' => 'category'
 				);
 			}
 		}
 
 		$articles = Aitsu_Persistence_View_Articles :: art($id, Aitsu_Registry :: get()->session->currentLanguage, $syncLang);
 		if ($articles) {
+			$artCounter = 0;
+			if (empty ($_REQUEST['showpages'])) {
+				$maxPages = Aitsu_Config :: get('backend.pagetree.maxpages');
+				$maxPages = empty ($maxPages) ? 100 : $maxPages;
+			} else {
+				if ($_REQUEST['showpages'] == 'all') {
+					$maxPages = PHP_INT_MAX;
+				} else {
+					$maxPages = (int) $_REQUEST['showpages'];
+				}
+			}
 			foreach ($articles as $art) {
-				$classes = array ();
-				$classes[] = $art['online'] == 1 ? 'online' : 'offline';
-				$classes[] = $art['isstart'] == 1 ? 'start' : 'normal';
-				$classes[] = 'article';
-				$return[] = array (
-					'data' => $art['title'],
-					'attr' => array (
-						'id' => $idprefix . 'idart-' . $art['idart'],
-						'class' => implode(' ', $classes)
-					),
-					'icon' => 'article',
-					'state' => ''
-				);
+				$artCounter++;
+				if ($artCounter <= $maxPages) {
+					if ($art['isstart']) {
+						if ($art['online'] == 1) {
+							$cls = 'treepage-index-online';
+						} else {
+							$cls = 'treepage-index-offline';
+						}
+					} else {
+						if ($art['online'] == 1) {
+							$cls = 'treepage-online';
+						} else {
+							$cls = 'treepage-offline';
+						}
+					}
+					$return[] = array (
+						'id' => 'idart-' . $art['idart'],
+						'idart' => $art['idart'],
+						'idartlang' => $art['idartlang'],
+						'text' => $art['title'],
+						'leaf' => true,
+						'iconCls' => $cls,
+						'online' => $art['online'] == 1,
+						'type' => 'page',
+						'indexpage' => $art['isstart'] == 1
+					);
+				}
 			}
 		}
 
@@ -131,15 +148,17 @@ class DataController extends Zend_Controller_Action {
 
 	public function editAction() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 
-		$idart = substr($this->getRequest()->getParam('id'), strlen('idart-'));
+		$idart = $this->getRequest()->getParam('id');
 		$this->view->idart = $idart;
 		Aitsu_Persistence_Lastopened :: factory($idart)->save();
 
-		$plugins = Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/plugins/article', 'Class.php');
-		$this->view->plugins = array ();
-		foreach ($plugins as $plugin) {
+		$this->view->art = Aitsu_Persistence_Article :: factory($idart)->load();
+
+		$plugins = array ();
+		foreach (Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/plugins/article', 'Class.php') as $plugin) {
 			$parts = explode('/', $plugin);
 			$pluginName = $parts[count($parts) - 2];
 			include_once ($plugin);
@@ -150,32 +169,52 @@ class DataController extends Zend_Controller_Action {
 				'register'
 			), $idart);
 			if ($registry->enabled) {
-				$this->view->plugins[] = $registry;
+				$plugins[] = $registry;
 			}
 		}
 
-		uasort($this->view->plugins, array (
+		uasort($plugins, array (
 			$this,
 			'_comparePosition'
 		));
+		$plugins = array_reverse($plugins);
+
+		foreach ($plugins as $plugin) {
+			$this->_helper->actionStack('article', 'plugin', 'default', array (
+				'plugin' => $plugin->name,
+				'idart' => $idart
+			));
+		}
 	}
 
+	/**
+	 * @since 2.1.0.0 - 23.12.2010
+	 */
 	public function categoryoverviewAction() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 
-		$id = substr($this->getRequest()->getParam('id'), strlen('cat-'));
+		$id = $this->getRequest()->getParam('id');
+
+		$this->view->cat = Aitsu_Persistence_Category :: factory($id)->getData();
+
+		$configSets = array (
+			array (
+				0,
+				'[inherit]'
+			)
+		);
+		$cSets = Aitsu_Persistence_ConfigSet :: getByName();
+		foreach ($cSets as $set) {
+			$configSets[] = array (
+				$set->configsetid,
+				$set->identifier
+			);
+		}
+		$this->view->configSets = $configSets;
 
 		$this->_loadCategoryPlugins($id);
-
-		/*$syncLang = $this->getRequest()->getParam('sync');
-		$cat = Aitsu_Persistence_Category :: factory($id)->load();
-
-		$this->view->idcat = $id;
-		$this->view->categoryname = $cat->name;
-		$this->view->articles = Aitsu_Persistence_View_Articles :: full($id, $syncLang);
-		$this->view->isInFavories = Aitsu_Persistence_CatFavorite :: factory($id)->load()->isInFavorites();
-		$this->view->isClipboardEmpty = !isset (Aitsu_Registry :: get()->session->clipboard->articles) || count(Aitsu_Registry :: get()->session->clipboard->articles) == 0;*/
 	}
 
 	protected function _loadCategoryPlugins($id) {
@@ -201,62 +240,26 @@ class DataController extends Zend_Controller_Action {
 			$this,
 			'_comparePosition'
 		));
-		
+
 		$this->view->idcat = $id;
-	}
-
-	public function addtofavoritesAction() {
-
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$id = $this->getRequest()->getParam('id');
-
-		Aitsu_Persistence_CatFavorite :: factory($id)->save();
-
-		$this->view->favorites = Aitsu_Persistence_CatFavorite :: getAll();
-		$this->render('favorites');
-	}
-
-	public function removefromfavoritesAction() {
-
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$id = $this->getRequest()->getParam('id');
-
-		Aitsu_Persistence_CatFavorite :: factory($id)->remove();
-
-		$this->view->favorites = Aitsu_Persistence_CatFavorite :: getAll();
-		$this->render('favorites');
 	}
 
 	public function newarticleAction() {
 
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
-
-		$id = substr($this->getRequest()->getParam('id'), strlen('cat-'));
+		$id = $this->getRequest()->getParam('idcat');
 
 		$art = Aitsu_Persistence_Article :: factory();
-		$art->title = Zend_Registry :: get('Zend_Translate')->translate('Article') . ' ' . date('Y-m-d H:i:s');
+		$art->title = Aitsu_Translate :: translate('Article') . ' ' . date('Y-m-d H:i:s');
 		$art->idclient = Aitsu_Registry :: get()->session->currentClient;
 		$art->idcat = $id;
 		$art->save();
-		
-		$this->_loadCategoryPlugins($id);
 
-		$cat = Aitsu_Persistence_Category :: factory($id)->load();
-
-		$this->view->categoryname = $cat->name;
-		$this->view->articles = Aitsu_Persistence_View_Articles :: full($id);
-
-		$this->render('categoryoverview');
+		$this->_helper->json($art->getData());
 	}
 
 	public function toggleonlineAction() {
 
-		$id = $this->getRequest()->getParam('id');
+		$id = $this->getRequest()->getParam('idart');
 
 		$art = Aitsu_Persistence_Article :: factory($id)->load();
 		if ($art->online == 1) {
@@ -266,36 +269,37 @@ class DataController extends Zend_Controller_Action {
 		}
 		$art->save();
 
-		$this->_helper->json(array (
+		$this->_helper->json((object) array (
+			'idart' => $id,
 			'online' => $art->online
 		));
 	}
-	
+
 	public function startpublishingAction() {
-		
-		$id = $this->getRequest()->getParam('id');
-		
+
+		$id = $this->getRequest()->getParam('idart');
+
 		$art = Aitsu_Persistence_Article :: factory($id)->publish()->load(true);
-		
-		$this->_helper->json(array (
+
+		$this->_helper->json((object) array (
+			'idart' => $art->idart,
 			'published' => $art->ispublished
 		));
 	}
 
 	public function deleteAction() {
 
-		$id = $this->getRequest()->getParam('id');
-		$idart = substr($id, strlen('idart-'));
+		$idart = $this->getRequest()->getParam('idart');
 
 		try {
 			Aitsu_Persistence_Article :: factory($idart)->remove();
-			$this->_helper->json(array (
-				'status' => 'success',
-				'message' => Zend_Translate :: translate('Article deleted') . ' [ID ' . $idart . ']'
+			$this->_helper->json((object) array (
+				'success' => true,
+				'message' => Aitsu_Translate :: translate('Article deleted') . ' [ID ' . $idart . ']'
 			));
 		} catch (Exception $e) {
 			$this->_helper->json(array (
-				'status' => 'exception',
+				'success' => false,
 				'message' => $e->getMessage()
 			));
 		}
@@ -303,17 +307,19 @@ class DataController extends Zend_Controller_Action {
 
 	public function makeindexAction() {
 
-		$id = $this->getRequest()->getParam('id');
-		$idart = substr($id, strlen('idart-'));
+		$idart = $this->getRequest()->getParam('idart');
 
 		try {
 			Aitsu_Persistence_Article :: factory($idart)->setAsIndex();
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'success' => true,
+				'idart' => $idart,
 				'status' => 'success',
 				'message' => ''
 			));
 		} catch (Exception $e) {
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'success' => false,
 				'status' => 'exception',
 				'message' => Zend_Registry :: get('Zend_Translate')->translate('An error occured while trying to set the specified article as index. ')
 			));
@@ -341,22 +347,20 @@ class DataController extends Zend_Controller_Action {
 
 	public function syncAction() {
 
-		$id = $this->getRequest()->getParam('id');
-		$idart = substr($id, strlen('idart-'));
-		$syncLang = $this->getRequest()->getParam('sync');
+		$idart = $this->getRequest()->getParam('idart');
+		$syncLang = $this->getRequest()->getParam('synclang');
 
 		try {
 			Aitsu_Persistence_Article :: factory($idart)->sync($syncLang);
 			$this->_helper->json(array (
-				'status' => 'success',
-				'message' => ''
+				'success' => true
 			));
 		} catch (Exception $e) {
-			trigger_error('Exception occured. Thrown at ' . __FILE__ . ' on line ' . __LINE__);
-			trigger_error($e->getTraceAsString());
-			$this->_helper->json(array (
+			$this->_helper->json((object) array (
+				'success' => false,
 				'status' => 'exception',
-				'message' => Zend_Registry :: get('Zend_Translate')->translate('An error occured while trying to synchronize the specified article. ')
+				'message' => $e->getMessage(),
+				'stacktrace' => $e->getTraceAsString()
 			));
 		}
 	}
@@ -398,6 +402,19 @@ class DataController extends Zend_Controller_Action {
 		$this->_helper->json((object) array (
 			'status' => 'success',
 			'message' => Aitsu_Translate :: translate('Categories moved.')
+		));
+	}
+
+	public function movepageAction() {
+
+		$idart = $this->getRequest()->getParam('idart');
+		$idcat = $this->getRequest()->getParam('idcat');
+trigger_error(var_export(array($idart, $idcat), true));
+		$art = Aitsu_Persistence_Article :: factory($idart)->moveTo($idcat)->load(true);
+
+		$this->_helper->json((object) array (
+			'success' => true,
+			'data' => $art->getData()
 		));
 	}
 }

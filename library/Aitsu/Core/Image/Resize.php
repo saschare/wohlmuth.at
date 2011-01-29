@@ -2,8 +2,6 @@
 
 
 /**
- * @abstract Image resizer.
- * @version $Id: Resize.php 18556 2010-09-07 12:15:52Z akm $
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2009, w3concepts AG
  */
@@ -17,9 +15,9 @@ class Aitsu_Core_Image_Resize {
 
 	protected function __construct() {
 
-		$this->basePath = isset(Aitsu_Registry :: get()->config->dir->image->basePath) ? Aitsu_Registry :: get()->config->dir->image->basePath : '';
+		$this->basePath = isset (Aitsu_Registry :: get()->config->dir->image->basePath) ? Aitsu_Registry :: get()->config->dir->image->basePath : '';
 
-		$thumbDir = APPLICATION_PATH . '/data/thumbs/' . Aitsu_Registry :: get()->config->sys->client;
+		$thumbDir = APPLICATION_PATH . '/data/thumbs/';
 		if (!file_exists($thumbDir)) {
 			mkdir($thumbDir, 0777, true);
 		}
@@ -56,7 +54,7 @@ class Aitsu_Core_Image_Resize {
 
 	public function outputImage($outputPath = NULL, $imageSource = null) {
 
-		if ($outputPath != NULL) {
+		/*if ($outputPath != NULL) {
 
 			$this->thumbDir .= "/$outputPath/";
 			$this->thumbDir = preg_replace('@\/{2}@', '/', $this->thumbDir);
@@ -64,10 +62,10 @@ class Aitsu_Core_Image_Resize {
 			if (!is_dir($this->thumbDir)) {
 				mkdir($this->thumbDir);
 			}
-		}
+		}*/
 
 		$this->_setDimToAllowedValues();
-	
+
 		$imagename = $this->_resize();
 
 		if ($imagename == FALSE) {
@@ -76,7 +74,7 @@ class Aitsu_Core_Image_Resize {
 		}
 
 		$this->_sendHeaders();
-		
+
 		readfile($imagename);
 	}
 
@@ -123,7 +121,13 @@ class Aitsu_Core_Image_Resize {
 
 		$box = ($this->imageSrc->isBox()) ? ('.b') : ('');
 		$box = ($this->imageSrc->isEBox()) ? ('.e') : $box;
-		$targetName = str_replace('/', '_', preg_replace('@\\.\\w*$@', '', $this->imagePath)) . '.' . $this->imageSrc->getThumbWidth() . 'x' . $this->imageSrc->getThumbHeight() . $box . "." . $this->imageSrc->getImageType();
+		
+		$targetDir = preg_replace('/\\.[a-zA-Z]{3,4}$/', '', $this->imagePath);
+		if (!is_dir($this->thumbDir . $targetDir)) {
+			mkdir($this->thumbDir . $targetDir, 0777, true);
+		}
+		
+		$targetName = $targetDir . '/' . $this->imageSrc->getThumbWidth() . '.' . $this->imageSrc->getThumbHeight() . $box . "." . $this->imageSrc->getImageType();
 
 		if (file_exists($this->thumbDir . $targetName)) {
 			/*
@@ -231,7 +235,7 @@ class Aitsu_Core_Image_Resize {
 				 * sure the area of interest is a near as possible in the center
 				 * of the target image.
 				 */
-				$dimenpos = $this->_calculateDimensionAndOffset($width, $height, $targetWidth, $targetHeight, $imageSourceDimensions[0], $imageSourceDimensions[1]);
+				$dimenpos = $this->_calculateDimensionAndOffset($imageSource, $width, $height, $targetWidth, $targetHeight, $imageSourceDimensions[0], $imageSourceDimensions[1]);
 				$width = $dimenpos['width'];
 				$height = $dimenpos['height'];
 				$x = $dimenpos['x'];
@@ -335,10 +339,10 @@ class Aitsu_Core_Image_Resize {
 
 		return false;
 	}
-	
+
 	protected function _setDimToAllowedValues() {
-	
-		if (isset(Aitsu_Registry :: get()->config->image->allowed->widths)) {
+
+		if (isset (Aitsu_Registry :: get()->config->image->allowed->widths)) {
 			$widths = explode(',', Aitsu_Registry :: get()->config->image->allowed->widths);
 			if (!in_array($this->imageSrc->getThumbWidth(), $widths)) {
 				rsort($widths, SORT_NUMERIC);
@@ -352,7 +356,7 @@ class Aitsu_Core_Image_Resize {
 			}
 		}
 
-		if (isset(Aitsu_Registry :: get()->config->image->allowed->heights)) {
+		if (isset (Aitsu_Registry :: get()->config->image->allowed->heights)) {
 			$heights = explode(',', Aitsu_Registry :: get()->config->image->allowed->heights);
 			if (!in_array($this->imageSrc->getThumbHeight(), $heights)) {
 				rsort($heights, SORT_NUMERIC);
@@ -360,22 +364,32 @@ class Aitsu_Core_Image_Resize {
 				foreach ($heights as $height) {
 					if ($height <= $this->imageSrc->getThumbHeight()) {
 						$this->imageSrc->setThumbHeight($height);
-						return; 
+						return;
 					}
 				}
 			}
 		}
 	}
 
-	protected function _calculateDimensionAndOffset($width, $height, $tWidth, $tHeight, $oWidth, $oHeight) {
+	protected function _calculateDimensionAndOffset($imageSource, $width, $height, $tWidth, $tHeight, $oWidth, $oHeight) {
 
-		/*
-		 * Following values will be taken from the source in production mode.
-		 */
-		$xlt = $_GET['xlt'];
-		$ylt = $_GET['ylt'];
-		$xbr = $_GET['xbr'];
-		$ybr = $_GET['ybr'];
+		try {
+			preg_match('/(\\d*)\\.[a-zA-Z]{3,4}$/', $imageSource, $match);
+			$dims = Aitsu_Db :: fetchRow('' .
+			'select xtl, ytl, xbr, ybr from _media ' .
+			'where mediaid = :mediaid', array (
+				':mediaid' => $match[1]
+			));
+			$xlt = $dims['xtl'];
+			$ylt = $dims['ytl'];
+			$xbr = $dims['xbr'];
+			$ybr = $dims['ybr'];			
+		} catch (Exception $e) {
+			$xlt = 0;
+			$ylt = 0;
+			$xbr = 1;
+			$ybr = 1;
+		}
 
 		/*
 		 * Dimension of the area of interest.
@@ -388,8 +402,6 @@ class Aitsu_Core_Image_Resize {
 		 * as great as the target dimension, at least as great as the area 
 		 * of interest and as small as possible.
 		 */
-		// $maxWidthFactor = $width / min(max($tWidth, $aiWidth), $width);
-		// $maxHeightFactor = $height / min(max($tHeight, $aiHeight), $height);
 		$maxWidthFactor = $oWidth / max($tWidth, $aiWidth);
 		$maxHeightFactor = $oHeight / max($tHeight, $aiHeight);
 

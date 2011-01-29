@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19619 2010-11-02 16:36:22Z akm $}
  */
 
 class aitsuRssDashboardController extends Aitsu_Adm_Plugin_Controller {
@@ -15,6 +13,7 @@ class aitsuRssDashboardController extends Aitsu_Adm_Plugin_Controller {
 	public function init() {
 
 		$this->_helper->layout->disableLayout();
+		header("Content-type: text/javascript");
 	}
 
 	public static function register() {
@@ -29,6 +28,10 @@ class aitsuRssDashboardController extends Aitsu_Adm_Plugin_Controller {
 
 	public function indexAction() {
 
+	}
+
+	public function rssAction() {
+
 		$cache = Aitsu_Core_Cache :: getInstance('feedsFeedburderComAitsu');
 		if ($cache->isValid()) {
 			$channel = unserialize($cache->load());
@@ -37,7 +40,17 @@ class aitsuRssDashboardController extends Aitsu_Adm_Plugin_Controller {
 			$cache->setLifetime(60 * 60 * 24);
 			$cache->save(serialize($channel));
 		}
-		
-		$this->view->channel = $channel;
+
+		$data = array ();
+		foreach ($channel as $item) {
+			$data[] = (object) array (
+				'title' => $item->title(),
+				'description' => $item->description()
+			);
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
 	}
 }

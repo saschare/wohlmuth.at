@@ -1,0 +1,38 @@
+{
+	region: 'north',
+	split: true,
+	margins: '0 0 0 0',
+	height: 50,
+	layout: 'border',
+	items: [{
+		region: 'center',
+		margins: '0 0 0 0',
+		border: false,
+		items:
+			new Ext.Toolbar({
+				layout: 'hbox',
+				style: 'padding-top:15px; padding-left:10px;',
+				height: '100%',
+				items: [
+					<?php echo $this->partial('layout/navigation/top.phtml'); ?>
+					<?php echo $this->partial('layout/navigation/languagechooser.phtml'); ?>,
+					{
+						text: 'Logout',
+						iconCls: 'tm-logout',
+						listeners: {
+							click: function() {
+								window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
+							}
+						}
+					}
+				]
+			})
+		}, {
+			region: 'east',
+			margins: '0 0 0 0',
+			border: false,
+			width: 200,
+			html: '<div class="x-toolbar" style="height:50px; padding:10px 10px 0 0; text-align:right;"><img src="<?php echo $this->baseUrl('/images/wbm_aitsu_ec7537_146x30.png'); ?>"</div>'
+		}
+	]
+}

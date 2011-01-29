@@ -1,101 +1,23 @@
-<div class="tabs">
-	<ul>
-		<li>
-			<a href="#tab-user"><?php echo $this->translate('Users'); ?></a>
-		</li>
-		<li>
-			<a href="#tab-role"><?php echo $this->translate('Roles'); ?></a>
-		</li>
-		<li>
-			<a href="#tab-privilege"><?php echo $this->translate('Privileges'); ?></a>
-		</li>
-		<li>
-			<a href="#tab-resource"><?php echo $this->translate('Resources'); ?></a>
-		</li>
-	</ul>
-	
-	<div id="tab-user">
-		<div class="tab-content ajax-target">
-			<?php echo $this->partial('acl/userlist.phtml', array('users' => $this->users)); ?>
-		</div>
-	</div>
-		
-	<div id="tab-role" class="tab">
-		<div class="tab-content ajax-target">
-			<?php echo $this->partial('acl/rolelist.phtml', array('roles' => $this->roles)); ?>
-		</div>
-	</div>
-		
-	<div id="tab-privilege" class="tab">
-		<div class="tab-content ajax-target">
-			<?php echo $this->partial('acl/privilegelist.phtml', array('privileges' => $this->privileges)); ?>
-		</div>
-	</div>
-		
-	<div id="tab-resource" class="tab">
-		<div class="tab-content ajax-target">
-			<?php echo $this->partial('acl/resourcelist.phtml', array('resources' => $this->resources)); ?>
-		</div>
-	</div>
-		
-</div>
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
 
-<?php $this->inlineScript()->captureStart(); ?>
-$(function() {
-	
-	$(document).bind('bindclicks', function() {
-		$('#add-new-user').live('click', function() {
-			$('#tab-user div.tab-content').load('<?php echo $this->url(); ?>/newuser', function() {
-				$(document).trigger('formload');
-			});
-			return false;
-		});	
-		$('#add-new-role').live('click', function() {
-			$('#tab-role div.tab-content').load('<?php echo $this->url(); ?>/newrole', function() {
-				$(document).trigger('formload');		
-			});
-			return false;
-		});
-		$('#add-new-privilege').live('click', function() {
-			$('#tab-privilege div.tab-content').load('<?php echo $this->url(); ?>/newprivilege', function() {
-				$(document).trigger('formload');		
-			});
-			return false;
-		});		
-		$('#add-new-resource').live('click', function() {
-			$('#tab-resource div.tab-content').load('<?php echo $this->url(); ?>/newresource', function() {
-				$(document).trigger('formload');		
-			});
-			return false;
-		});		
-	});
-	$(document).trigger('bindclicks');
-	
-	$(document).bind('listload', function(event, area, data) {
-		if (data != null) {
-			$(area).html(data)
-		}
-     	$(document).trigger('refreshButtons');
-     	$(document).trigger('contextmenu');
-     	$(document).trigger('formload');
-	});
-	
-	$('li.directory').live('dblclick', function() {
-		$("input[name='resourcetype']").filter('[value=cat]').attr('checked', true);
-		id = $(this).find('a').attr('rel');
-		regex = /^.(\d*)/;
-  		regex.exec(id);
-		$("input[name='identifier']").val(RegExp.$1);
-		return false;
-	});
-	$('li.file').live('dblclick', function() {
-		$("input[name='resourcetype']").filter('[value=art]').attr('checked', true);
-		id = $(this).find('a').attr('rel');
-		regex = /^.(\d*)/;
-  		regex.exec(id);
-		$("input[name='identifier']").val(RegExp.$1);
-		return false;
-	});
-	
+var tabs = new Ext.TabPanel({
+	resizeTabs: false,
+	minTabWidth: 115,
+	tabWidth:135,
+	enableTabScroll:true,
+	defaults: {
+		autoScroll:true
+	}
 });
-<?php $this->inlineScript()->captureEnd(); ?>
+
+center.add(tabs);
+
+<?php echo $this->partial('acl/userlist.phtml'); ?>
+<?php echo $this->partial('acl/rolelist.phtml'); ?>
+<?php echo $this->partial('acl/privilegelist.phtml'); ?>
+<?php echo $this->partial('acl/resourcelist.phtml'); ?>
+
+tabs.setActiveTab(0);
+
+Ext.getCmp('viewport').doLayout();

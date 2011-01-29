@@ -1,214 +1,464 @@
-<?php $uid = uniqid(); ?>
+var dc = (new Date).getTime();
+var imageCrop;
+var mediaPreview = function(record) {
+	var prev = Ext.getCmp('media-preview');
+	prev.removeAll();
 
-<div class="toolbar ui-corner-bottom">
-	<button id="media-upload-<?php echo $this->pluginId . $uid; ?>" class="confirm" title="<?php echo $this->translate('Upload'); ?>">
-	   	<?php echo $this->translate('Upload'); ?>
-	</button>
-	<button id="media-select-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Select all'); ?>">
-		<?php echo $this->translate('Select all'); ?>
-	</button>
-	<button id="media-deselect-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Deselect all'); ?>">
-		<?php echo $this->translate('Deselect all'); ?>
-	</button>
-	<button id="media-toggleselection-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Toggle selection'); ?>">
-		<?php echo $this->translate('Toggle selection'); ?>
-	</button>
-	<button id="media-delete-<?php echo $this->pluginId . $uid; ?>" class="deny" title="<?php echo $this->translate('Delete selected files'); ?>">
-		<?php echo $this->translate('Delete selected files'); ?>
-	</button>
-</div>
+	var ext = record.get('extension').toLowerCase();
+	if (ext != 'jpg' && ext != 'jpeg' && ext != 'jpeg' && ext != 'png') {
+		return;
+	}
 
-<div id="media-uploadmodal-<?php echo $this->pluginId . $uid; ?>">
-  <div id="media-uploadstart-<?php echo $this->pluginId . $uid; ?>"></div>
-  <div id="media-uploadqueue-<?php echo $this->pluginId . $uid; ?>" style="width:390px;height:450px;border:1px solid #E5E5E5;padding: 0;overflow:auto;margin-bottom: 10px;">&nbsp;</div>
-</div>
+	prev.add({
+		border: false,
+		html: '<img id="media-image-preview" src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 400, 'height' => 280, 'boxed' => 0), 'default'); ?>/id/' + record.get('mediaid') + '?dc=' + dc + '" />'
+	});
+	prev.doLayout();
+	Ext.get('media-image-preview').on('load', function(e, t, o) {
+		var form = Ext.getCmp('media-edit-form').getForm();
+		var xtl = form.findField('xtl').getValue() * t.width;
+		var ytl = form.findField('ytl').getValue() * t.height;
+		var xbr = form.findField('xbr').getValue() * t.width;
+		var ybr = form.findField('ybr').getValue() * t.height;
+		imageCrop = $.Jcrop('#media-image-preview', {
+			setSelect: [ xtl, ytl, xbr, ybr ]
+		});
+		jQuery('#media-image-preview').Jcrop({
+			onSelect: function(c) {
+				form.findField('xtl').setValue(c.x / t.width);
+				form.findField('ytl').setValue(c.y / t.height);
+				form.findField('xbr').setValue(c.x2 / t.width);
+				form.findField('ybr').setValue(c.y2 / t.height);
+			}
+		});
+	});
+}
 
-<div id="media-editmodal-<?php echo $this->pluginId . $uid; ?>"></div>
-
-<div id="media-filelist-<?php echo $this->pluginId . $uid; ?>" class="sized-content">
-	<table border="0" cellpadding="0" cellspacing="0" class="full">
-		<thead>
-			<tr>
-				<th scope="col" style="width:40px;">&nbsp;</th>
-				<th scope="col"><?php echo $this->translate('File name'); ?></th>
-				<th scope="col"><?php echo $this->translate('Media name'); ?></th>
-				<th scope="col" style="text-align:right;"><?php echo $this->translate('Size'); ?></th>
-				<th scope="col" style="text-align:right;"><?php echo $this->translate('Uploaded'); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $images = array('jpg', 'jpeg', 'png', 'gif'); foreach ($this->files as $file) : ?>
-				<tr id="mediaid-<?php echo $file->mediaid; ?>" style="cursor:pointer;">
-					<td>
-						<?php if (in_array($file->extension, $images)) : ?>
-							<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 1, 'id' => $file->mediaid), 'default'); ?>" width="32" height="32" alt="<?php echo $file->filename; ?>" />
-						<?php else : ?>
-							<img src="/adm/images/0.gif" width="32" height="32" alt="<?php echo $file->filename; ?>" />
-						<?php endif; ?>
-					</td>
-					<td><?php echo $file->filename; ?></td>
-					<td><?php echo $file->name; ?></td>
-					<?php if ($file->size > 1024 * 1024) : ?>
-						<td style="text-align:right;"><?php echo number_format($file->size / 1024 / 1024, 2); ?> MB</td>
-					<?php else : ?>
-						<td style="text-align:right;"><?php echo number_format($file->size / 1024, 2); ?> KB</td>
-					<?php endif; ?>
-					<td style="text-align:right;"><?php echo $file->uploaded; ?></td>
-				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
-</div>
-
-<script type="text/javascript">
-$(function() {
-	
-	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-plus'}, text:false});
-	$("#media-select-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circlesmall-plus'}, text:false});
-	$("#media-deselect-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circlesmall-minus'}, text:false});
-	$("#media-toggleselection-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-transfer-e-w'}, text:false});
-	$("#media-delete-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-trash'}, text:false});
-  
-	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").click(function() {
-		$("#media-uploadmodal-<?php echo $this->pluginId . $uid; ?>").dialog("open"); 
-  	});
-
-  	$("#media-uploadmodal-<?php echo $this->pluginId . $uid; ?>").dialog({
-    	width: 415,
-    	modal: true,
-    	autoOpen: false,
-    	title: '<?php echo $this->translate('File upload'); ?>'
-  	});
-  
-  	$("#media-editmodal-<?php echo $this->pluginId . $uid; ?>").dialog({
-    	width: 550,
-    	modal: true,
-    	autoOpen: false,
-    	title: '<?php echo $this->translate('Edit file'); ?>',
-    	buttons: {
-			'<?php echo $this->translate('Cancel'); ?>': function() {
-				$(this).dialog('close');
-			},
-			'<?php echo $this->translate('Save'); ?>': function() {
-				var dialog = $(this);
-				$.post("<?php echo $this->url(array('plugin' => 'media', 'paction' => 'save'), 'aplugin'); ?>", $("#media-meta-data").serialize(), function(data) {
-					if (data.status == 'success' || data.status == 'exception') {	
-						$('#status').html(data.message);				
-						dialog.dialog('close');
-						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'filelist')); ?>', 
-	  						{'idartlang': '<?php echo $this->idartlang; ?>'},
-	  						function() {$(this).trigger('fileListLoaded')});
-					} else {
-						dialog.html(data.html);
+var uploader = new Ext.ux.PluploadPanel({
+    url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>',
+    runtimes: 'html5,gears,flash,silverlight,html4',
+    multipart: true,
+    multipart_params: {
+    	idart: <? echo $this->idart; ?>
+    },
+    max_file_size: '100mb',
+    flash_swf_url: '<?php echo $this->baseUrl('/js/plupload/js/plupload.flash.swf'); ?>',
+    silverlight_xap_url: '<?php echo $this->baseUrl('/js/plupload/js/plupload.silverlight.xap'); ?>',
+    runtime_visible: false,
+    addButtonCls: 'upload-add',
+    uploadButtonCls: 'upload-start',
+    cancelButtonCls: 'upload-stop',
+    deleteButtonCls: 'upload-delete',
+    addButtonText: '<?php Aitsu_Translate :: translate('Add files'); ?>',
+    uploadButtonText: '<?php Aitsu_Translate :: translate('Upload'); ?>',
+    cancelButtonText: '<?php Aitsu_Translate :: translate('Cancel'); ?>',
+    deleteButtonText: '<?php Aitsu_Translate :: translate('Remove'); ?>',
+    deleteSelectedText: '<b>Remove selected</b>',
+    deleteUploadedText: 'Remove uploaded',
+    deleteAllText: 'Remove ALL',
+    statusQueuedText: 'Queued',
+    statusUploadingText: 'Uploading ({0}%)',
+    statusFailedText: '<span style="color: red">FAILED</span>',
+    statusDoneText: '<span style="color: green">DONE</span>',
+    statusInvalidSizeText: 'Too big',
+    statusInvalidExtensionText: 'Invalid file type',
+    emptyText: '<div class="plupload_emptytext"><span>Upload queue is empty</span></div>',
+    emptyDropText: '<div class="plupload_emptytext"><span>Drop files here</span></div>',
+    progressText: '{0}/{1} ({3} failed) ({5}/s)',
+    listeners: {
+        beforestart: function(uploadpanel) {
+            uploadpanel.uploader.settings.url = '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>?_runtime=' + uploadpanel.runtime;
+        },
+        uploadcomplete: function(uploadpanel, success, failures) {
+            if (success.length) {
+                media.getStore().load({
+					params: {
+						idart: <?php echo $this->idart; ?>
 					}
 				});
-			}
-    	},
-		'open': function(event, ui) {
-			var buttons = $(event.target).parent().find('.ui-dialog-buttonset').children();
-
-			buttons.removeClass('ui-button-text-only').addClass('ui-button-icon-only');
-
-			$(buttons[0]).append("<span class='ui-icon ui-icon-circle-close'></span>").addClass('deny');
-			$(buttons[1]).append("<span class='ui-icon ui-icon-circle-check'></span>").addClass('confirm');
-			$(buttons[0]).css('position','absolute').css('left','15px');
-		}
-  	});
-  	
-	$('#media-uploadstart-<?php echo $this->pluginId . $uid; ?>').uploadify({
-    	'uploader': '/adm/js/uploadify/v2_1_0/uploadify.swf',
-    	'script': '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>',
-    	'cancelImg': '/adm/js/uploadify/v2_1_0/cancel.png',
-    	'multi': true,
-    	'auto': true,
-    	'wmode': 'transparent',
-    	'hideButton': false,
-    	'queueID': 'media-uploadqueue-<?php echo $this->pluginId . $uid; ?>',
-    	'width': 100,
-    	'scriptData': {
-      		'PHPSESSID': '<?php echo session_id();?>', 
-      		'idartlang': '<?php echo $this->idartlang; ?>'
-      	},
-    	onComplete: function(event, queueID, fileObj, response, data) {
-      		$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'filelist')); ?>', 
-      			{'idartlang': '<?php echo $this->idartlang; ?>'},
-      			function() {$(this).trigger('fileListLoaded')});
-    	},
-    	onAllComplete: function(event, data) {
-      		$(document).trigger('ace-mediacontentchanged');
-      		$("#media-uploadmodal-<?php echo $this->pluginId . $uid; ?>").dialog("close");
-    	}
-  	});  	
-  	
-  	$('#media-filelist-<?php echo $this->pluginId . $uid; ?> tbody tr').live('click', function() {
-  		if ($(this).hasClass('selected')) {
-  			$(this).removeClass('selected');
-  		} else {
-  			$(this).addClass('selected');
-  		}
-  	});
-  
-  	$("#media-toggleselection-<?php echo $this->pluginId . $uid; ?>").live('click', function() {
-  		$('#media-filelist-<?php echo $this->pluginId . $uid; ?> table tbody tr').each(function() {
-  			if ($(this).hasClass('selected')) {
-  				$(this).removeClass('selected');
-  			} else {
-  				$(this).addClass('selected');
-  			}
-  		});
-  	});
-  
-  	$('#media-deselect-<?php echo $this->pluginId . $uid; ?>').live('click', function() {
-  		$('#media-filelist-<?php echo $this->pluginId . $uid; ?> table tbody tr').removeClass('selected');
-  	});
-  
-  	$("#media-select-<?php echo $this->pluginId . $uid; ?>").live('click', function() {
-  		$('#media-filelist-<?php echo $this->pluginId . $uid; ?> table tbody tr').addClass('selected');
-  	});
-  
-  	$("#media-delete-<?php echo $this->pluginId . $uid; ?>").live('click', function() {
-  		var selectedFiles = new Array();
-  		$("#media-filelist-<?php echo $this->pluginId . $uid; ?> table tbody tr.selected").each(function() {
-  			selectedFiles.push($(this).attr("id"));
-  		});
-  		$('<div></div>')
-  			.html('<?php echo $this->translate('You are about to delete the selected files. Are you sure?'); ?>')
-  			.dialog({
-				title: '<?php echo $this->translate('Delete files'); ?>',
-				modal: true,
-				buttons: {
-					'<?php echo $this->translate('No'); ?>': function() {
-						$(this).dialog('close');
-					},
-					'<?php echo $this->translate('Yes, delete the files'); ?>': function() {
-						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete')); ?>', {
-								'idartlang': '<?php echo $this->idartlang; ?>',
-								'delete': selectedFiles.join(",")
-							}, function() {
-								$(this).trigger('fileListLoaded');
-								$(this).trigger('ace-mediacontentchanged');
-							});
-							$(this).dialog('close');
-					}
-				},
-				'open': function(event, ui) {
-					var buttons = $(event.target).parent().find('.ui-dialog-buttonset').children();
-
-					buttons.removeClass('ui-button-text-only').addClass('ui-button-icon-only');
-
-					$(buttons[0]).append("<span class='ui-icon ui-icon-circle-close'></span>").addClass('deny');
-					$(buttons[1]).append("<span class='ui-icon ui-icon-trash'></span>").addClass('confirm');
-					$(buttons[0]).css('position','absolute').css('left','15px');
-				}
-			});  		
-  	});
- 	
-  	$('#media-filelist-<?php echo $this->pluginId . $uid; ?> tbody tr').live('dblclick', function() {
-  		$('#media-meta-data').remove();
-  		$('#media-editmodal-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'edit')); ?>', {idartlang: <?php echo $this->idartlang; ?>, mediaid: $(this).attr('id')}, function() {
- 				$(this).dialog('open');
-		});
-  	});
-
+            }
+        }
+    }
 });
-</script>
+
+var media = new Ext.grid.GridPanel({
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'store'), 'aplugin'); ?>',
+        remoteSort: false,
+        storeId: 'mediaStore',
+        idProperty: 'mediaid',
+        root: 'data',
+        fields: [{
+            name: 'mediaid'
+        }, {
+            name: 'idart'
+        }, {
+            name: 'filename'
+        }, {
+            name: 'extension'
+        }, {
+            name: 'size'
+        }, {
+            name: 'xtl'
+        }, {
+            name: 'ytl'
+        }, {
+            name: 'xbr'
+        }, {
+            name: 'ybr'
+        }, {
+            name: 'uploaded',
+            type: 'date',
+            dateFormat: 'Y-m-d H:i:s'
+        }, {
+            name: 'name'
+        }, {
+            name: 'subline'
+        }, {
+            name: 'description'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'mediaid', header: '<?php echo Aitsu_Translate :: translate('Preview'); ?>', width: 40, menuDisabled: false, sortable: false, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+    		var extension = record.get('extension').toLowerCase();
+    		if (extension != 'jpg' && extension != 'gif' && extension != 'jpeg' && extension != 'png') {
+    			return '';
+    		}
+    		return '<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 2), 'default'); ?>/id/' + record.get('mediaid') + '?dc=' + dc + '" width="32" height="32" alt="' + record.get('filename') + '" />';
+    	}},
+    	{dataIndex: 'mediaid', header: 'ID', menuDisabled: false, sortable: true, width: 20},
+    	{dataIndex: 'filename', header: '<?php echo Aitsu_Translate :: translate('File name'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Media name'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'uploaded', header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load({
+					params: {
+						idart: <?php echo $this->idart; ?>
+					}
+				});
+				media.getSelectionModel().on('rowselect', function(selectionModel, rowIndex, record) {
+					var form = Ext.getCmp('media-edit-form').getForm();
+					form.findField('mediaid').setValue(record.get('mediaid'));
+					form.findField('filename').setValue(record.get('filename'));
+					form.findField('name').setValue(record.get('name'));
+					form.findField('subline').setValue(record.get('subline'));
+					form.findField('description').setValue(record.get('description'));
+					form.findField('xtl').setValue(record.get('xtl'));
+					form.findField('ytl').setValue(record.get('ytl'));
+					form.findField('xbr').setValue(record.get('xbr'));
+					form.findField('ybr').setValue(record.get('ybr'));
+					Ext.getCmp('media-edit-form-save-button').enable();
+					Ext.getCmp('media-tags-grid').getStore().load({
+						params: {
+							mediaid: record.get('mediaid')
+						}
+					});
+					mediaPreview(record);
+				});
+			}
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			var selectionModel = this.getSelectionModel();
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete files'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected file(s)?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+					 			selectionModel.each(function(record) {
+					            	Ext.Ajax.request({
+					            		url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete'), 'aplugin'); ?>',
+					            		success: function(response, opts) {
+					            			var rsp = Ext.decode(response.responseText);
+					            			if (rsp.success) {
+						            			grid.getStore().remove(record); 
+					            			}
+					            		},
+					            		params: { 
+					            			mediaid: record.get('mediaid'),
+					            			idart: record.get('idart')	
+					            		}
+					            	});					 			
+								});
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+			
+	},
+	plugins: [
+		new Ext.ux.grid.GridFilters({
+			encode: false,
+	        local: false,
+	        filters: [{
+	            type: 'numeric',
+	            dataIndex: 'roleid'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'identifier'
+	        }]
+		})
+	]
+});
+
+var mediaTagToken = new Ext.form.ComboBox({
+	id: 'mediatagid',
+    typeAhead: true,
+    triggerAction: 'all',
+    lazyRender:true,
+  	width: 150,
+  	minChars: 1,
+  	emptyText: '<?php echo Aitsu_Translate :: translate('Choose tag'); ?>',
+    store: new Ext.data.JsonStore({
+    	autoDestroy: true,
+    	url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'atagstore'), 'aplugin'); ?>',
+    	storeId: 'tagsStore',
+    	root: 'data',
+    	idProperty: 'tagid',
+    	fields: ['tagid', 'tag']
+	}),
+    valueField: 'tag',
+    displayField: 'tag'
+});
+
+var mediaTagValue = new Ext.form.TextField({
+	id: 'mediatagvalue',
+	width: 150,
+	style: {
+		margin: '0 5px 0 5px'
+	},
+	emptyText: 'NULL'
+});
+
+var mediaTags = new Ext.grid.GridPanel({
+	id: 'media-tags-grid',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'tagstore'), 'aplugin'); ?>',
+        remoteSort: false,
+        storeId: 'mediaTagStore',
+        idProperty: 'mediatagid',
+        root: 'data',
+        fields: [{
+            name: 'mediatagid'
+        }, {
+            name: 'tag'
+        }, {
+            name: 'value'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'tag', header: '<?php echo Aitsu_Translate :: translate('Tag'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'value', header: '<?php echo Aitsu_Translate :: translate('Value'); ?>', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	hideHeaders: true,
+	tbar: {
+		items: [
+			mediaTagToken,
+			mediaTagValue,
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Save tag'); ?>',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	var token = mediaTagToken.getValue();
+	            	var value = mediaTagValue.getValue();
+	            	Ext.Ajax.request({
+	            		url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'addtag'), 'aplugin'); ?>',
+	            		success: function(response, opts) {
+	            			mediaTags.getStore().load({
+	            				params: {
+	            					mediaid: Ext.getCmp('media-edit-form').getForm().findField('mediaid').getValue()
+	            				}
+	            			});
+	            			mediaTagToken.setValue('');
+	            			mediaTagValue.setValue('');
+	            		},
+	            		params: {
+	            			mediaid: Ext.getCmp('media-edit-form').getForm().findField('mediaid').getValue(),
+	            			token: token,
+	            			value: value
+	            		}
+	            	});
+	            }
+	        }
+	    ]
+	},
+	listeners: {
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			var record = grid.getStore().getAt(rowIndex);
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+	            	Ext.Ajax.request({
+	            		url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'removetag'), 'aplugin'); ?>',
+	            		success: function(response, opts) {
+	            			grid.getStore().remove(record); 
+	            		},
+	            		params: { 
+	            			mediaid: Ext.getCmp('media-edit-form').getForm().findField('mediaid').getValue(),
+	            			mediatagid: record.get('mediatagid')	
+	            		}
+	            	});					 			
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+	}
+});
+
+Ext.getCmp('page-edit-tab').add({
+	id: 'article-plugin-media',
+	title: '<?php echo Aitsu_Translate :: translate('Media'); ?>',
+	layout: 'border',
+	items: [
+		{
+			region: 'center',
+			split: true,
+			layout: 'fit',
+			items: media
+		},
+		{
+			region: 'south',
+			split: true,
+			height: 300,
+			border: false,
+			items: {
+				layout: 'column',
+				items: [
+					{
+						width: 500,
+						height: 300,
+						border: false,
+						layout: 'fit',
+						items: new Ext.TabPanel({
+							listeners: {
+								render: function() {
+									this.activate(0);
+								}
+							},
+							items: [
+								new Ext.FormPanel({
+									title: '<?php echo Aitsu_Translate :: translate('Meta data'); ?>',
+									url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'save'), 'aplugin'); ?>',
+									labelAlign: 'left',
+									id: 'media-edit-form',
+									frame: true,
+									border: false,
+									bodyStyle:'padding:5px 5px 0',
+									items: [
+										{
+											xtype:'textfield',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('File name'); ?>',
+											name: 'filename',
+											anchor: '100%'
+										}, {
+											xtype:'textfield',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Media name'); ?>',
+											name: 'name',
+											anchor: '100%'
+										}, {
+											xtype:'textfield',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Subline'); ?>',
+											name: 'subline',
+											anchor: '100%'
+										}, {
+											xtype:'textarea',
+											fieldLabel: '<?php echo Aitsu_Translate :: translate('Description'); ?>',
+											name: 'description',
+											anchor: '100%',
+											height: 140
+										}, {
+											xtype: 'hidden',
+											name: 'mediaid'
+										}, {
+											xtype: 'hidden',
+											name: 'idartlang',
+											value: <?php echo $this->idartlang; ?>
+										}, {
+											xtype: 'hidden',
+											name: 'xtl'
+										}, {
+											xtype: 'hidden',
+											name: 'ytl'
+										}, {
+											xtype: 'hidden',
+											name: 'xbr'
+										}, {
+											xtype: 'hidden',
+											name: 'ybr'
+										}
+									],
+									buttons: [{
+										id: 'media-edit-form-save-button',
+										text: '<?php echo Aitsu_Translate :: translate('Save'); ?>',
+		            					iconCls: 'save',
+		            					disabled: true,
+		            					handler: function(b, e) {
+		            						Ext.getCmp('media-edit-form').getForm().submit({
+												success: function(form, action) {
+													media.getStore().load({
+														params: {
+															idart: <?php echo $this->idart; ?>
+														}
+													});
+												} 
+											});
+		            					}
+		        					}]
+								}),
+								{
+									title: '<?php echo Aitsu_Translate :: translate('Tags'); ?>',
+									layout: 'fit',
+									items: mediaTags
+								}
+							]
+						})
+					},
+					{
+						columnWidth: 1,
+						border: false,
+						padding: 10,
+						id: 'media-preview'
+					}
+				]
+			}
+		},
+		{
+			region: 'east',
+			split: true,
+			width: 350,
+			layout: 'fit',
+			items: uploader
+		}
+	]
+});

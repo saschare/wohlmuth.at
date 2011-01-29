@@ -2,12 +2,8 @@
 
 
 /**
- * Abstract configuration class.
- * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Abstract.php 18211 2010-08-19 11:10:00Z akm $}
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 abstract class Aitsu_Content_Config_Abstract {
@@ -18,7 +14,7 @@ abstract class Aitsu_Content_Config_Abstract {
 	protected function __construct($index, $name, $idartlang = null, $suppressRegistration = false) {
 		
 		$this->facts['index'] = $index;
-		$this->facts['name'] = $name;
+		$this->facts['name'] = str_replace('.', '_', $name);
 		
 		$this->facts['type'] = 'text';
 		
@@ -47,6 +43,11 @@ abstract class Aitsu_Content_Config_Abstract {
 		return $this->facts[$key];
 	}
 	
+	public function __isset($key) {
+		
+		return isset($this->facts[$key]) || isset($this->params[$key]);
+	}
+	
 	abstract public function getTemplate();
 	
 	public function currentValue() {
@@ -54,7 +55,13 @@ abstract class Aitsu_Content_Config_Abstract {
 		if (Aitsu_Core_Article_Property :: factory($this->facts['idartlang'])->getValue('ModuleConfig_' . $this->facts['index'], $this->facts['name']) == null) {
 			return null;
 		}
+		
+		$value = Aitsu_Core_Article_Property :: factory($this->facts['idartlang'])->getValue('ModuleConfig_' . $this->facts['index'], $this->facts['name'])->value;
 	
-		return Aitsu_Core_Article_Property :: factory($this->facts['idartlang'])->getValue('ModuleConfig_' . $this->facts['index'], $this->facts['name'])->value;
+		if ($this->facts['type'] == 'date' && $value == '0000-00-00 00:00:00') {
+			$value = '';
+		} 
+	
+		return $value;
 	}
 }

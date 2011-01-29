@@ -4,83 +4,96 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: ConfigController.php 19822 2010-11-11 13:00:12Z akm $}
  */
 
 class ConfigController extends Zend_Controller_Action {
 
+	public function init() {
+
+		$this->_helper->layout->disableLayout();
+
+		$this->_filter = Aitsu_Util_ExtJs :: encodeFilters($this->getRequest()->getParam('filter'));
+	}
+
 	public function indexAction() {
-
-		$this->view->configs = Aitsu_Persistence_ConfigSet :: getByName('%', 200);
 	}
 
-	public function newAction() {
+	public function storeAction() {
+
+		$this->_helper->json((object) array (
+			'data' => Aitsu_Persistence_ConfigSet :: getStore(100, 0, $this->_filter)
+		));
+	}
+
+	public function deleteAction() {
 
 		$this->_helper->layout->disableLayout();
 
-		if ($this->getRequest()->getParam('cancel') != 1) {
+		Aitsu_Persistence_ConfigSet :: factory($this->getRequest()->getParam('configsetid'))->remove();
 
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/config/configset.ini', 'new'));
-			$form->setAction($this->view->url());
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_ConfigSet :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->configs = Aitsu_Persistence_ConfigSet :: getByName('%', 200);
-
-		$this->_helper->viewRenderer->setNoRender(true);
-		echo $this->view->render('config/overview.phtml');
+		$this->_helper->json((object) array (
+			'success' => true
+		));
 	}
 
-	public function deleteconfigsAction() {
+	public function editAction() {
 
 		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
 
-		Aitsu_Persistence_ConfigSet :: factory($this->getRequest()->getParam('id'))->remove();
+		$id = $this->getRequest()->getParam('configsetid');
 
-		$this->view->configs = Aitsu_Persistence_ConfigSet :: getByName('%', 200);
+		$form = Aitsu_Forms :: factory('editconfigset', APPLICATION_PATH . '/adm/forms/config/config.ini');
+		$form->title = Aitsu_Translate :: translate('Edit config set');
+		$form->url = $this->view->url();
 
-		echo $this->view->render('config/overview.phtml');
-	}
+		if (!empty ($id)) {
+			$data = Aitsu_Persistence_ConfigSet :: factory($id)->load()->toArray();
+			$data['config'] = str_replace("\r", '', $data['config']);
+			$data['config'] = str_replace("\n", '\n', $data['config']);
+			$form->setValues($data);
+		}
 
-	public function editconfigsAction() {
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
 
-		$this->_helper->layout->disableLayout();
-		$this->_helper->viewRenderer->setNoRender(true);
+		try {
+			if ($form->isValid()) {
+				$values = $form->getValues();
 
-		$id = $this->getRequest()->getParam('id') == null ? $this->getRequest()->getParam('configsetid') : $this->getRequest()->getParam('id');
+				/*
+				 * Persist the data.
+				 */
+				if (empty ($id)) {
+					/*
+					 * New config set.
+					 */
+					unset ($values['configsetid']);
+					Aitsu_Persistence_ConfigSet :: factory()->setValues($values)->save();
+				} else {
+					/*
+					 * Update config set.
+					 */
+					Aitsu_Persistence_ConfigSet :: factory($id)->load()->setValues($values)->save();
+				}
 
-		if ($this->getRequest()->getParam('cancel') != 1) {
-
-			$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/adm/forms/config/configset.ini', 'edit'));
-			$form->setAction($this->view->url());
-
-			if (!$this->getRequest()->isPost()) {
-				$form->setValues(Aitsu_Persistence_ConfigSet :: factory($id)->load()->toArray());
+				$this->_helper->json((object) array (
+					'success' => true
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
 			}
-
-			if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
-				$this->view->form = $form;
-				echo $this->view->render('config/new.phtml');
-				return;
-			}
-
-			$values = $form->getValues();
-
-			Aitsu_Persistence_ConfigSet :: factory()->setValues($values)->save();
-		} // else: form has been cancelled.
-
-		$this->view->configs = Aitsu_Persistence_ConfigSet :: getByName('%', 200);
-
-		echo $this->view->render('config/overview.phtml');
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 }

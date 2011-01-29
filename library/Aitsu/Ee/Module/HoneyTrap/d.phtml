@@ -1,5 +1,5 @@
 <?php if ($this->showForm) : ?>
-	<form action="front_content.php?idart=<?php echo Aitsu_Registry :: get()->env->idart; ?>&<?php echo $this->keyword; ?>=1" method="post">
+	<form action="{ref:idart-<?php echo Aitsu_Registry :: get()->env->idart; ?>}?<?php echo $this->keyword; ?>=1" method="post">
 		
 		<input type="hidden" name="level" value="1" />
 		
@@ -20,7 +20,7 @@
 		
 	</form>
 <?php else : ?>
-	<a href="front_content.php?idart=<?php echo Aitsu_Registry :: get()->env->idart; ?>&<?php echo $this->keyword; ?>=1">
+	<a href="{ref:idart-<?php echo Aitsu_Registry :: get()->env->idart; ?>}?<?php echo $this->keyword; ?>=1">
 		<!-- comment/contact -->
 	</a>
 <?php endif; ?>

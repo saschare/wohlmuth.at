@@ -1,26 +1,117 @@
-<div class="toolbar ui-corner-bottom">
-	<button id="add-new-language" class="type-new confirm" title="<?php echo $this->translate('Add new language'); ?>"><?php echo $this->translate('Add new language'); ?></button>
-</div>
-		
-<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
-	<thead>
-		<tr>
-			<th scope="col"><?php echo $this->translate('ID'); ?></th>
-			<th scope="col"><?php echo $this->translate('Name'); ?></th>
-			<th scope="col"><?php echo $this->translate('Client'); ?></th>
-			<th scope="col"><?php echo $this->translate('Locale'); ?></th>
-			<th scope="col"><?php echo $this->translate('Encoding'); ?></th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php $counter = 0; foreach ($this->languages as $lang) : $counter++; ?>
-			<tr id="language-<?php echo $lang->idlang; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
-				<td><?php echo $lang->idlang; ?></td>
-				<td><?php echo $lang->name; ?></td>
-				<td><?php echo $lang->client; ?></td>
-				<td><?php echo $lang->locale; ?></td>
-				<td><?php echo $lang->encoding; ?></td>
-			</tr>
-		<?php endforeach; ?>
-	</tbody>
-</table>
+var languages = new Ext.grid.GridPanel({
+	title: '<?php echo Aitsu_Translate :: translate('Languages'); ?>',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'languages'), 'default'); ?>',
+        remoteSort: false,
+        storeId: 'languageStore',
+        idProperty: 'idlang',
+        root: 'data',
+        fields: [{
+            name: 'idlang'
+        }, {
+            name: 'name'
+        }, {
+            name: 'client'
+        }, {
+            name: 'locale'
+        }, {
+            name: 'encoding'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'idlang', header: 'ID', menuDisabled: false, sortable: false, width: 20},
+    	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'client', header: '<?php echo Aitsu_Translate :: translate('Client'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'locale', header: '<?php echo Aitsu_Translate :: translate('Locale'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'encoding', header: '<?php echo Aitsu_Translate :: translate('Encoding'); ?>', menuDisabled: false, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new language'); ?>',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editlanguage'), 'default'); ?>']);
+	            }
+	        }
+	    ]
+	},
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		rowclick: function(grid, rowIndex, event) {
+			var id = this.getStore().getAt(rowIndex).get('idlang');
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editlanguage'), 'default'); ?>'], null, {idlang: id});
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete language'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected language?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('controller' => 'client', 'action' => 'deletelanguage'), 'default'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+				            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Language removed'); ?>', '<?php echo Aitsu_Translate :: translate('The selected language has been removed.'); ?>');
+					            			var store = grid.getStore().remove(record); 
+				            			}
+				            		},
+				            		params: { idlang: record.get('idlang') }
+				            	});					 			
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+			
+	},
+	plugins: [
+		new Ext.ux.grid.GridFilters({
+			encode: false,
+	        local: false,
+	        filters: [{
+	            type: 'numeric',
+	            dataIndex: 'idlang'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'name'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'client'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'locale'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'encoding'
+	        }]
+		})
+	]
+});
+
+tabs.add(languages);

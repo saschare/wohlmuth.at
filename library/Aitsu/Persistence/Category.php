@@ -37,7 +37,11 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
 
 		$this->_data = Aitsu_Db :: fetchRow('' .
-		'select * from _cat_lang ' .
+		'select ' .
+		'	*, ' .
+		'	unix_timestamp(created) as createdts, ' .
+		'	unix_timestamp(lastmodified) as modifiedts ' .
+		'from _cat_lang ' .
 		'where ' .
 		'	idcat = :id ' .
 		'	and idlang = :idlang', array (

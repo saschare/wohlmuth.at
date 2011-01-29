@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19916 2010-11-17 12:40:58Z akm $}
  */
 
 class RedirectorArticleController extends Aitsu_Adm_Plugin_Controller {
@@ -14,6 +12,7 @@ class RedirectorArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function init() {
 
+		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 	}
 
@@ -32,80 +31,51 @@ class RedirectorArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$id = $this->getRequest()->getParam('idart');
 
-		$form = new Aitsu_Form(new Zend_Config_Ini(APPLICATION_PATH . '/plugins/article/redirector/forms/redirector.ini', 'edit'));
-		$form->setAction($this->view->url());
+		$form = Aitsu_Forms :: factory('redirector', APPLICATION_PATH . '/plugins/article/redirector/forms/redirector.ini');
+		$form->title = Aitsu_Translate :: translate('Redirection');
+		$form->url = $this->view->url(array (
+			'plugin' => 'redirector',
+			'paction' => 'index'
+		), 'aplugin');
 
 		$data = Aitsu_Persistence_Article :: factory($id)->load();
-		$data->redirect = 1;
+		$form->setValues($data->toArray());
 
-		if ($this->getRequest()->isPost()) {
-			$data->redirect_url = $_POST['redirect_url'];
-		} else {
-			$form->setValues($data->toArray());
-		}
-
-		$this->view->pluginId = self :: ID;
-		$this->view->form = $form;
-
-		if (substr($data->redirect_url, 0, 5) == 'idart') {
-			preg_match('/\\d*$/', $data->redirect_url, $match);
-			$this->view->targetId = 'idart-' . $match[0];
-
-			$cats = Aitsu_Db :: fetchCol('' .
-			'select parent.idcat ' .
-			'from _cat_art as catart ' .
-			'left join _cat as child on catart.idcat = child.idcat ' .
-			'left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
-			'where catart.idart = :idart ' .
-			'order by parent.lft asc', array (
-				':idart' => $match[0]
-			));
-			$this->view->openCats = "'" . implode("', '", $cats) . "'";
-		}
-		elseif (substr($data->redirect_url, 0, 5) == 'idcat') {
-			preg_match('/\\d*$/', $data->redirect_url, $match);
-			$this->view->targetId = 'cat-' . $match[0];
-
-			$cats = Aitsu_Db :: fetchCol('' .
-			'select parent.idcat ' .
-			'from _cat as child ' .
-			'left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
-			'where child.idcat = :idcat ' .
-			'order by parent.lft asc', array (
-				':idcat' => $match[0]
-			));
-			$this->view->openCats = "'" . implode("', '", $cats) . "'";
-		} else {
-			$this->view->targetId = '0';
-			$this->view->openCats = "'0'";
-		}
-
-		if (!$this->getRequest()->isPost()) {
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
 			return;
 		}
 
-		if (!$form->isValid($_POST)) {
-			$this->_helper->json((object) array (
-				'status' => 'validationfailure',
-				'message' => $this->view->render('index.phtml')
-			));
-		}
-
 		try {
-			$data->setValues($form->getValues())->save();
-			$form->setValues($data->toArray());
-			$this->_helper->json((object) array (
-				'status' => 'success',
-				'message' => Zend_Registry :: get('Zend_Translate')->translate('Properties saved.'),
-				'data' => (object) $data->toArray(),
-				'html' => $this->view->render('index.phtml')
-			));
+			if ($form->isValid()) {
+				Aitsu_Event :: raise('backend.article.edit.save.start', array (
+					'idart' => $id
+				));
+
+				/*
+				 * Persist the data.
+				 */
+				$data->setValues($form->getValues());
+				$data->redirect = 1;
+				$data->save();
+
+				$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) $data->toArray()
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
-				'status' => 'exception',
+				'success' => false,
+				'exception' => true,
 				'message' => $e->getMessage()
 			));
 		}
 	}
-
 }

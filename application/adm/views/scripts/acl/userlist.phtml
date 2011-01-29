@@ -1,32 +1,129 @@
-<form action="/adm/acl/filteruser" method="post" style="display:inline;">	
-	<div class="toolbar ui-corner-bottom">
-		<button id="add-new-user" class="type-new confirm"><?php echo $this->translate('Add new user'); ?></button>
-		<input type="text" name="filter-user" value="<?php echo $this->filterterm; ?>" class="button-input ui-button ui-corner-all" />
-		<button id="filter-user" class="filter-button"><?php echo $this->translate('Filter'); ?></button>
-	</div>
-</form>
+var users = new Ext.grid.GridPanel({
+	title: '<?php echo Aitsu_Translate :: translate('Users'); ?>',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'users'), 'default'); ?>',
+        remoteSort: false,
+        storeId: 'userStore',
+        idProperty: 'userid',
+        root: 'data',
+        fields: [{
+            name: 'userid'
+        }, {
+            name: 'firstname'
+        }, {
+            name: 'lastname'
+        }, {
+            name: 'login'
+        }, {
+            name: 'acfrom',
+            type: 'date',
+            dateFormat: 'Y-m-d H:i:s'
+        }, {
+            name: 'acuntil',
+            type: 'date',
+            dateFormat: 'Y-m-d H:i:s'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'userid', header: 'ID', menuDisabled: false, sortable: false, width: 20},
+    	{dataIndex: 'firstname', header: '<?php echo Aitsu_Translate :: translate('Firstname'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'lastname', header: '<?php echo Aitsu_Translate :: translate('Lastname'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'login', header: '<?php echo Aitsu_Translate :: translate('Login'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'acfrom', header: '<?php echo Aitsu_Translate :: translate('Access from'); ?>', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d')},
+    	{dataIndex: 'acuntil', header: '<?php echo Aitsu_Translate :: translate('Access until'); ?>', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d')}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new user'); ?>',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>']);
+	            }
+	        }
+	    ]
+	},
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		rowclick: function(grid, rowIndex, event) {
+			var id = this.getStore().getAt(rowIndex).get('userid');
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'acl', 'action' => 'edituser'), 'default'); ?>'], null, {userid: id});
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete user'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected user?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'deleteuser'), 'default'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+				            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('User removed'); ?>', '<?php echo Aitsu_Translate :: translate('The selected user has been removed.'); ?>');
+					            			var store = grid.getStore().remove(record); 
+				            			}
+				            		},
+				            		params: { userid: record.get('userid') }
+				            	});					 			
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+			
+	},
+	plugins: [
+		new Ext.ux.grid.GridFilters({
+			encode: false,
+	        local: false,
+	        filters: [{
+	            type: 'numeric',
+	            dataIndex: 'userid'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'firstname'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'lastname'
+	        }, {
+	            type: 'string',
+	            dataIndex: 'login'
+	        }, {
+	            type: 'date',
+	            dataIndex: 'acfrom',
+	            dateFormat: 'Y-m-d'
+	        }, {
+	            type: 'date',
+	            dataIndex: 'acuntil',
+	            dateFormat: 'Y-m-d'
+	        }]
+		})
+	]
+});
 
-<div class="sized-content">
-	<table border="0" cellpadding="0" cellspacing="0" class="full hasctxmenu">
-		<thead>
-			<tr>
-				<th scope="col" style="width:70px;"><?php echo $this->translate('ID'); ?></th>
-				<th scope="col"><?php echo $this->translate('Name'); ?></th>
-				<th scope="col"><?php echo $this->translate('Login'); ?></th>
-				<th scope="col"><?php echo $this->translate('Access from'); ?></th>
-				<th scope="col"><?php echo $this->translate('Access until'); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $counter = 0; foreach ($this->users as $user) : $counter++; ?>
-				<tr id="user-<?php echo $user->userid; ?>" class="<?php echo ($counter % 2 == 0 ? 'even' : 'odd'); ?>">
-					<td><?php echo $user->userid; ?></td>
-					<td><?php echo $user->lastname; ?>, <?php echo $user->firstname; ?></td>
-					<td><?php echo $user->login; ?></td>
-					<td><?php echo $user->acfrom; ?></td>
-					<td><?php echo $user->acuntil; ?></td>
-				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
-</div>
+tabs.add(users);

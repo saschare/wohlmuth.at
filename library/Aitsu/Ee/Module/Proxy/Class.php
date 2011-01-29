@@ -4,31 +4,12 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 19910 2010-11-16 19:05:57Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_Proxy_Class extends Aitsu_Ee_Module_Abstract {
-
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Proxy',
-			'description' => Aitsu_Translate :: translate('Proxy to the specified URL.'),
-			'type' => array (
-				'Content',
-				'Foreign sources'
-			),
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'experimental',
-			'url' => null,
-			'id' => '4ce29529-7108-41b0-ad93-13de7f000101'
-		);
-	}
 
 	public static function init($context) {
 

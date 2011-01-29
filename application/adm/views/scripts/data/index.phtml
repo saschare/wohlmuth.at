@@ -1,39 +1,435 @@
-<div class="tabs">
-	<ul>
-		<li>
-			<a href="#tabs-1"><?php echo $this->translate('Last opened articles'); ?></a>
-		</li>
-	</ul>
-	
-	<div id="tabs-1">
-		<div class="tab-content">
-			<table id="lastopened-overview" border="0" cellpadding="0" cellspacing="0" class="full">
-				<thead>
-					<tr>
-						<th scope="col"><?php echo $this->translate('ID'); ?></th>
-						<th scope="col"><?php echo $this->translate('Title'); ?></th>
-						<th scope="col"><?php echo $this->translate('Page title'); ?></th>
-						<th scope="col"><?php echo $this->translate('Category'); ?></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($this->articles as $article) : $article = (object) $article; ?>
-						<tr id="idart-<?php echo $article->idart; ?>" style="cursor:pointer;">
-							<td><?php echo $article->idart; ?> [<?php echo $article->idartlang; ?>]</td>
-							<td><?php echo $article->title; ?></td>
-							<td><?php echo $article->pagetitle; ?></td>
-							<td><?php echo $article->name; ?></td>
-						</tr>
-					<?php endforeach; ?>
-				</tbody>
-			</table>			
-		</div>
-	</div>
-	
-</div>
+var editPage = function(id) {
+	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>'], function() {
+		Ext.getCmp('viewport').doLayout();
+		Ext.getCmp('page-edit-tab').activate(0);
+		Ext.getCmp('rop').getStore().load();
+	}, {id: id});
+}
+		
+var reloadTree = function(id, tree) {
+	var node = tree.getNodeById(id);
+	if (node.id == 0) {
+		tree.getLoader().load(tree.getRootNode());
+	}
+	tree.getLoader().load(node.parentNode, function(n) {
+		n.expand(false, false, function() {
+			tree.getNodeById(node.attributes.id).expand(false, false);
+		});
+	});
+}
+		
+var openTreePath = function(path, tree, select) {
+	var currentNode = tree.getRootNode();
+	path = path.split('/');
+	var doExpand = function(currentNode, path, i) {
+		i++;
+		if (i > path.length) return;
+		expNode = currentNode.findChild('id', path[i]);
+		if (expNode == null) return;
+		if (select != undefined && expNode.id == select) {
+			expNode.select();
+		}
+		expNode.expand(false, false, function() {
+			doExpand(expNode, path, i);
+		});
+	}
+	tree.getLoader().load(tree.getRootNode(), function() {
+		doExpand(currentNode, path, 1);
+	});
+}
 
-<?php $this->inlineScript()->captureStart(); ?>
-<?php foreach ($this->plugins as $plugin) : ?>
-<?php echo (isset($plugin->js) ? $plugin->js : ''); ?>
-<?php endforeach; ?>
-<?php $this->inlineScript()->captureEnd(); ?>
+var pagetree = 	new Ext.tree.TreePanel({
+	id: 'pageview-cattree',
+	title: '<?php echo $this->translate('Category tree'); ?>',
+	useArrows: true,
+	autoScroll: true,
+	animate: true,
+	enableDD: true,
+	containerScroll: true,
+	border: false,
+	dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>',
+	rootVisible: false,
+	singleExpand: true,
+	stopRestoring: false,
+	root: {
+		nodeType: 'async',
+		text: 'Root',
+		draggable: false,
+		id: '0'
+	},
+	listeners: {
+		click: function(node, event) {
+			if (node.attributes.type == 'category') {
+				if (node.isExpandable() && !node.isExpanded()) {
+					node.expand();
+				} else {
+					Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>'], null, {id: node.attributes.idcat});
+				}
+			} else if (node.attributes.type == 'page') {
+				editPage(node.attributes.idart);
+			}
+		},
+		beforemovenode: function(tree, node, oldParent, newParent, index) {
+			Ext.aitsu.confirm({
+				title: '<?php echo $this->translate('Move node'); ?>',
+				msg: '<?php echo $this->translate('Are you sure to move the node to the specified place?'); ?>',
+				ok: function() {
+	            	if (node.attributes.type == 'category') {
+	            		Ext.Ajax.request({
+	            			url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'movecat'), 'default'); ?>',
+	            			success: function(response, opts) {
+	            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Category moved'); ?>', '<?php echo Aitsu_Translate :: translate('The selected category has been moved to the specified category.'); ?>');
+	            				var rsp = Ext.decode(response.responseText);
+	            				if (!rsp.success) {
+	            					openTreePath(oldParent.getPath(), tree);
+	            				}
+	            			},
+	            			failure: function() {
+	            				openTreePath(oldParent.getPath(), tree);
+	            			},
+	            			params: {
+	            				parentid: newParent.attributes.idcat,
+	            				idcat: node.attributes.idcat,
+	            				previous: node.previousSibling == null || node.previousSibling.attributes.type != 'category' ? null : node.previousSibling.attributes.idcat,
+	            				next: node.nextSibling == null || node.nextSibling.attributes.type != 'category' ? null : node.nextSibling.attributes.idcat
+	            			}
+	            		});
+	            	} else if (node.attributes.type == 'page') {
+	            		Ext.Ajax.request({
+	            			url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'movepage'), 'default'); ?>',
+	            			success: function(response, opts) {
+	            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Page moved'); ?>', '<?php echo Aitsu_Translate :: translate('The selected page has been moved to the specified category.'); ?>');
+	            				var rsp = Ext.decode(response.responseText);
+	            				if (!rsp.success) {
+	            					openTreePath(oldParent.getPath(), tree);
+	            				}
+	            			},
+	            			failure: function() {
+	            				openTreePath(oldParent.getPath(), tree);
+	            			},
+	            			params: {
+	            				idcat: newParent.attributes.idcat,
+	            				idart: node.attributes.idart
+	            			}
+	            		});
+	            	}
+				},
+				cancel: function() {
+					openTreePath(oldParent.getPath(), tree);
+				}
+			});
+		},
+		contextmenu: function(node) {
+			node.select();
+			var menu = new Ext.menu.Menu();
+			if (node.attributes.type == 'category') {
+				menu.addItem({
+					text: node.attributes.online ? '<?php echo $this->translate('Set offline'); ?>' : '<?php echo $this->translate('Set online'); ?>',
+					iconCls: node.attributes.online ? 'cm-setoffline' : 'cm-setonline',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'setonline'), 'default'); ?>',
+				            success: function(response, opts) {
+				            	var rsp = Ext.decode(response.responseText);
+				            	reloadTree(rsp.idcat, pagetree);
+				            },
+				            params: {
+				            	idcat: node.attributes.idcat, 
+				            	status: node.attributes.online == 1 ? 0 : 1, propagate: 0
+				            }
+				        });   						
+					}
+				});
+				
+				menu.addItem('-');
+			
+				menu.addItem({
+					text: '<?php echo $this->translate('New sub-category'); ?>',
+					iconCls: 'cm-folder-new',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'addnew'), 'default'); ?>',
+				            success: function(response) {
+				            	var rsp = Ext.decode(response.responseText);
+				            	reloadTree(rsp.parent, pagetree);
+				            },
+				            params: {
+				            	idcat: node.attributes.idcat
+				            }
+				        });   						
+					}
+				});
+				
+				menu.addItem({
+					text: '<?php echo $this->translate('Delete'); ?>',
+					iconCls: 'cm-folder-delete',
+					handler: function() {
+						var parent = node.parentNode.attributes.idcat;
+					 	Ext.MessageBox.show({
+						 	title: '<?php echo $this->translate('Delete category'); ?>',
+						 	msg: '<?php echo $this->translate('Are you sure to delete the selected category?'); ?>',
+						 	buttons: Ext.MessageBox.OKCANCEL,
+						 	fn: function(result) {
+						 		if (result == 'ok') {
+									Ext.Ajax.request({
+										url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'delete'), 'default'); ?>',
+							            success: function(response) {
+							            	var rsp = Ext.decode(response.responseText);
+							            	reloadTree(parent, pagetree);
+							            },
+							            params: {
+							            	idcat: node.attributes.idcat
+							            }
+							        });  						
+						 		}
+						 	}
+						 });
+					}
+				});
+				
+				menu.addItem('-');
+
+				menu.addItem({
+					text: '<?php echo $this->translate('Set as resource'); ?>',
+					iconCls: 'cm-link-to-acl',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'addresource'), 'default'); ?>',
+				            success: function(response) {
+				            	Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Resource added'); ?>', '<?php echo Aitsu_Translate :: translate('The selected category has been added to resources.'); ?>');
+				            },
+				            params: {
+				            	idcat: node.attributes.idcat
+				            }
+				        });					
+					}
+				});
+
+				menu.addItem('-');
+
+				menu.addItem({
+					text: '<?php echo $this->translate('Add to favorites'); ?>',
+					iconCls: 'cm-bookmark-category',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'addtofavorites'), 'default'); ?>',
+				            success: function(response) {
+				            	var rsp = Ext.decode(response.responseText);
+				            	var store = favorites.getStore();
+				            	store.addSorted(new store.recordType({
+				            		id: rsp.data.idcat,
+				            		idcat: rsp.data.idcat,
+				            		category: rsp.data.name
+				            	}));
+				            },
+				            params: {
+				            	idcat: node.attributes.idcat
+				            }
+				        });					
+					}
+				});
+			} else if (node.attributes.type == 'page') {
+				menu.addItem({
+					text: '<?php echo $this->translate('Set as resource'); ?>',
+					iconCls: 'cm-link-to-acl',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('controller' => 'acl', 'action' => 'addresource'), 'default'); ?>',
+				            success: function(response) {
+				            	Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Resource added'); ?>', '<?php echo Aitsu_Translate :: translate('The selected page has been added to resources.'); ?>');
+				            },
+				            params: {
+				            	idart: node.attributes.idart
+				            }
+				        });					
+					}
+				});				
+			}
+			
+			menu.show(node.ui.getAnchor());
+		},
+		containercontextmenu: function(node, e) {
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('New category'); ?>',
+				iconCls: 'cm-folder-new',
+				handler: function() {
+					Ext.Ajax.request({
+						url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'addnew'), 'default'); ?>',
+				           success: function(response) {
+				           	var rsp = Ext.decode(response.responseText);
+				           	reloadTree(0, pagetree);
+				           },
+				           params: {
+				           	idcat: 0
+				           }
+				       });						
+				}
+			});
+			
+			menu.showAt(e.getXY());
+		}
+	},
+	stateEvents : ['collapsenode', 'expandnode'],
+	stateId : '<?php echo 'categorytree-' . md5(__FILE__); ?>',
+	stateful : true,
+	getState : function () {
+		var nodes = [];
+		this.getRootNode().eachChild(function (child) {
+			var storeTreeState = function (node, expandedNodes) {
+				if(node.isExpanded() && node.childNodes.length > 0) {
+					expandedNodes.push(node.getPath());
+					node.eachChild(function (child) {
+						storeTreeState(child, expandedNodes);
+					});
+				}
+			};
+			storeTreeState(child, nodes);
+		});
+		return {
+			expandedNodes : nodes
+		}
+	},
+	applyState : function (state) {
+		var nodes = state.expandedNodes;
+		for(var i = 0; i < nodes.length; i++) {
+			if(typeof nodes[i] != 'undefined') {
+				this.expandPath(nodes[i]);
+			}
+		}
+	}
+});
+
+var recentlyOpenedPages = new Ext.grid.GridPanel({
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('action' => 'ropstore')); ?>',
+        remoteSort: false,
+        storeId: 'ropStore',
+        idProperty: 'id',
+        root: 'data',
+        fields: [{
+            name: 'id'
+        }, {
+            name: 'idcat'
+        }, {
+            name: 'name'
+        }, {
+            name: 'category'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'name', header: 'Page', menuDisabled: true, sortable: true},
+    	{dataIndex: 'category', header: 'Category', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	title: '<?php echo $this->translate('Recently opened pages'); ?>',
+	id: 'rop',
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		cellclick: function(grid, rowIndex, columnIndex, e) {
+			Ext.Ajax.request({
+			   url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'getPath'), 'default'); ?>',
+			   success: function(response, opts) {
+			      var res = Ext.decode(response.responseText);
+			      Ext.getCmp('page-accordion').layout.setActiveItem(0);
+			      openTreePath(res.path, pagetree, grid.getStore().getAt(rowIndex).get('id'));
+			      editPage(grid.getStore().getAt(rowIndex).get('id'));
+			   },
+			   params: {
+			   	idcat: grid.getStore().getAt(rowIndex).get('idcat')
+			   }
+			});
+		}
+	}
+});
+
+var favorites = new Ext.grid.GridPanel({
+	store: new Ext.data.ArrayStore({
+		fields: [
+			{name: 'id'},
+			{name: 'category'}
+		],
+		data: <?php echo Aitsu_Util_Javascript :: getArrayString($this->favorites, array('idcat', 'name')); ?>
+    }),
+    columns: [
+    	{dataIndex: 'category', header: 'Category', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	title: '<?php echo $this->translate('Favorites'); ?>',
+	listeners: {
+		cellclick: function(grid, rowIndex, columnIndex, e) {
+			Ext.Ajax.request({
+			   url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'getPath'), 'default'); ?>',
+			   success: function(response, opts) {
+			      var res = Ext.decode(response.responseText);
+			      Ext.getCmp('page-accordion').layout.setActiveItem(0);
+			      openTreePath(res.path, pagetree, grid.getStore().getAt(rowIndex).get('id'));
+			   },
+			   params: {
+			   	idcat: grid.getStore().getAt(rowIndex).get('id')
+			   }
+			});
+		},
+		cellcontextmenu: function(grid, rowIndex, cellIndex, e) {
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Remove'); ?>',
+				iconCls: 'cm-delete',
+				handler: function() {
+					Ext.Ajax.request({
+						url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'removefavorite'), 'default'); ?>',
+			            success: function(response, opts) {
+			            	var rsp = Ext.decode(response.responseText);
+			            	grid.getStore().removeAt(rowIndex);
+			            },
+			            params: { idcat: grid.getStore().getAt(rowIndex).get('id') }
+			        });						
+				}
+			});	
+			
+			menu.showAt(e.xy);	
+		}
+	}
+});
+
+var west = Ext.getCmp('viewport-west');
+west.removeAll();
+west.setVisible(true);
+west.expand(false);
+west.removeAll();
+west.add(new Ext.Panel({
+	layout: 'accordion',
+	border: false,
+	id: 'page-accordion',
+	layoutConfig: {
+		titleCollapse: true,
+        hideCollapseTool: true,
+        animate: true
+    },
+	items: [
+		pagetree,
+		recentlyOpenedPages,
+		favorites
+	]
+}));
+
+Ext.getCmp('viewport-east').setVisible(false);
+
+<?php echo $this->partial('data/catplugins.phtml', array('plugins' => $this->plugins, 'idcat' => $this->idcat)); ?>
+
+Ext.getCmp('viewport').doLayout();

@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Articles.php 20000 2010-11-19 18:22:14Z akm $}
  */
 
 class Aitsu_Persistence_View_Articles {

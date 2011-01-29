@@ -1,2 +1,3 @@
 Tags
 Allows the user to delete unused tags.
+tm-tag-green

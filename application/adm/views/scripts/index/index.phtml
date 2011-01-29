@@ -1,50 +1,18 @@
-<div class="tabs">
-	<ul>
-		<li>
-			<a href="#tabs-1"><?php echo $this->translate('Dashboard'); ?></a>
-		</li>
-	</ul>
-	
-	<div id="tabs-1">
-		<div class="tab-content">
-			<div style="padding-top:15px;">
-				<ul class="dashboard">
-					<li id="dashboard-1" class="ui-widget-content ui-corner-all">
-						<h3 class="ui-widget-header ui-corner-all">aitsu News</h3>
-						<div></div>
-					</li>
-					<li id="dashboard-2" class="ui-widget-content ui-corner-all">
-						<h3 class="ui-widget-header ui-corner-all">Analyzer</h3>
-						<div></div>
-					</li>
-					<li id="dashboard-3" class="ui-widget-content ui-corner-all">
-						<h3 class="ui-widget-header ui-corner-all">Site performance</h3>
-						<div></div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
+Ext.getCmp('viewport-east').setVisible(false);
+Ext.getCmp('viewport-west').setVisible(false);
 
-<?php $this->inlineScript()->captureStart(); ?>
-$(function() {
-	
-	$('#col1').css('display', 'none');
-	$('#col3').css('margin-left', '0');
-	
-	$("ul.dashboard").sortable({
-		placeholder: 'ui-state-highlight',
-		forcePlaceholderSize: true,
-		disabled: true,
-   		update: function(event, ui) {
-   			alert($(this).sortable('serialize'));
-   		}
-	});
-	
-	$('#dashboard-1 > div').load('<?php echo $this->url(array('plugin' => 'aitsuRss'), 'dashboard'); ?>');
-	$('#dashboard-2 > div').load('<?php echo $this->url(array('plugin' => 'contentAnalyzer'), 'dashboard'); ?>');
-	$('#dashboard-3 > div').load('<?php echo $this->url(array('plugin' => 'performanceAnalyzer'), 'dashboard'); ?>');
-	
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
+
+center.add({
+	id: 'dashboard',
+	unstyled: true,
+	layout: 'column',
+	bodyStyle:'padding:4px'
 });
-<?php $this->inlineScript()->captureEnd(); ?>
+
+<?php $plugins = array(); for ($i = 0; $i < count($this->plugins); $i++) {$plugins[] = "'" . $this->url(array('plugin' => $this->plugins[$i]->name), 'dashboard') . "'"; } ?>
+
+Ext.aitsu.load([<?php echo implode(',', $plugins); ?>], function() {
+	Ext.getCmp('viewport').doLayout();
+});

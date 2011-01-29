@@ -1,107 +1,120 @@
-<div class="toolbar ui-corner-bottom">
-	<button id="refresh-edit-iframe" class="type-refresh" title="<?php echo $this->translate('Refresh'); ?>"><?php echo $this->translate('Refresh'); ?></button>
-	<button id="edit-fullview" title="<?php echo $this->translate('Full view'); ?>"><?php echo $this->translate('Full view'); ?></button>
-	<button id="toggle-sub-templates" title="<?php echo $this->translate('Show/Hide subtemplates'); ?>"><?php echo $this->translate('Show/Hide subtemplates'); ?></button>
-</div>
+<?php echo $this->partial('edit-hover.phtml', array('idartlang' => $this->idartlang, 'idart' => $this->idart)); ?>
 
-<iframe src="/adm/edit/<?php echo $this->idartlang; ?>" width="100%" frameborder="0" style="border:none;" id="iframe-<?php echo $this->pluginId; ?>" class="edit-iframe"></iframe>
-<script type="text/javascript">
-$(function() {
-	
-	$('#content-<?php echo $this->pluginId; ?> iframe').relativeSize(window, null, '-208');
-	
-	$('#refresh-edit-iframe').button({icons: {primary: 'ui-icon-refresh'}, text: false});
-	$('#refresh-edit-iframe').click(function() {
-		$(document).trigger('refresh-edit-iframe')
-	});
-	
-	$('#edit-fullview').button({icons: {primary: 'ui-icon-arrow-4-diag'}, text: false});
-	$('#edit-fullview').click(function() {
-		var iframe = $('#iframe-<?php echo $this->pluginId; ?>');
-		iframe.data('height', iframe.height());
-		iframe.relativeSize(window, null, '-51');
-		iframe.css({
-			'position': 'fixed',
-			'top': '0',
-			'left': '0',
-			'z-index': '11'
-		});
-		$('body').append('<button id="edit-normalview" class="remove-in-normalview" title="<?php echo $this->translate('Return to normal view'); ?>">&nbsp;</button>');
-		$('#edit-normalview')
-			.css({
-				'position': 'fixed',
-				'top': '10px',
-				'left': ($(window).width() - 60) + 'px',
-				'z-index': '1000'
-			})
-			.button({
-				icons: {primary: 'ui-icon-circle-close'}, 
-				text: false
-			})
-			.click(function() {
-				iframe.css({
-					'position': 'static',
-					'z-index': '1',
-					'height': iframe.data('height')
-				});
-				$('button.remove-in-normalview').remove();
-			});
-		$('body').append('<button id="small-refresh-edit-iframe" class="remove-in-normalview" title="<?php echo $this->translate('Refresh'); ?>">&nbsp;</button>');
-		$('#small-refresh-edit-iframe')
-			.css({
-				'position': 'fixed',
-				'top': '50px',
-				'left': ($(window).width() - 60) + 'px',
-				'z-index': '1000'
-			})
-			.button({
-				icons: {primary: 'ui-icon-refresh'}, 
-				text: false
-			})
-			.click(function() {
-				$(document).trigger('refresh-edit-iframe');
-			});
-		$('body').append('<button id="small-toogle-sub-templates" class="remove-in-normalview" title="<?php echo $this->translate('Show/Hide sub-templates'); ?>">&nbsp;</button>');
-		$('#small-toogle-sub-templates')
-			.css({
-				'position': 'fixed',
-				'top': '90px',
-				'left': ($(window).width() - 60) + 'px',
-				'z-index': '1000'
-			})
-			.button({
-				icons: {primary: 'ui-icon-script'}, 
-				text: false
-			})
-			.click(function() {
-				$(document).trigger('toogle-sub-templates');
-			});
-	});
-	
-	$('#toggle-sub-templates').button({icons: {primary: 'ui-icon-script'}, text: false});
-	$('#toggle-sub-templates').click(function() {
-		$(document).trigger('toogle-sub-templates');
-	});
+var pageEditTabs = new Ext.TabPanel(
+	{
+		id: 'page-edit-tabs',
+		title: '<?php echo Aitsu_Translate :: translate('Edit'); ?>',
+		resizeTabs: false,
+		minTabWidth: 115,
+		tabWidth:135,
+		enableTabScroll:true,
+		defaults: {
+			autoScroll:true
+		},
+		tabPosition: 'bottom'
+	}
+);
 
-	$(document).bind('article-properties-changed', function() {
-		$(document).trigger('refresh-edit-iframe');
-	});
-	
-	$(document).bind('refresh-edit-iframe', function() {
-		$('edit-iframe').attr({src: $(this).attr("src")});
-		jQuery.each($(".edit-iframe"), function() {$(this).attr({
-				src: $(this).attr("src")
+pageEditTabs.add({
+	id: 'article-plugin-edit',
+	title: '<?php echo Aitsu_Translate :: translate('Normal'); ?>',
+	bodyCfg: {
+		tag: 'iframe',
+		id: 'edit-iframe-<?php echo $this->idartlang; ?>',
+        src: '/adm/edit/<?php echo $this->idartlang; ?>',
+        style: {
+			border: '0px none'
+        }
+	},
+	listeners: {
+		render: function() {
+			Ext.get('edit-iframe-<?php echo $this->idartlang; ?>').on('load', function(e, t, o) {
+				$(document).trigger('edit-page-content', [$('#edit-iframe-<?php echo $this->idartlang; ?>')]);
 			});
-		});		
-	});
-	
-	$('#iframe-<?php echo $this->pluginId; ?>').load(function() {
-		$(document).trigger('edit-page-content', [$(this)]);
-	});
-	
-	$(document).bind('edit-page-content-rebind', function() {
-		$(document).trigger('edit-page-content', [$('#iframe-<?php echo $this->pluginId; ?>')]);
-	});
-	
+		}
+	},
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh'); ?>',
+	            iconCls: 'tb-refresh',
+	            handler: function(b, e) {
+	            	Ext.get('edit-iframe-<?php echo $this->idartlang; ?>').set({
+	            		src: '/adm/edit/<?php echo $this->idartlang; ?>'
+	            	});
+	            }
+	        },
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Show template bars'); ?>',
+	            iconCls: 'tb-templates',
+	            handler: function(b, e) {
+	            	$(document).trigger('toogle-sub-templates');
+	            }
+	        }
+	    ]
+	}
 });
-</script>
+
+pageEditTabs.add({
+	id: 'article-plugin-edit-boxmodel',
+	title: '<?php echo Aitsu_Translate :: translate('Box model'); ?>',
+	bodyCfg: {
+		tag: 'iframe',
+		id: 'edit-iframe-boxmodel-<?php echo $this->idartlang; ?>',
+        src: '<?php echo $this->url(array('plugin' => 'editalt', 'paction' => 'index'), 'aplugin'); ?>?idart=<?php echo $this->idart; ?>',
+        style: {
+			border: '0px none'
+        }
+	},
+	listeners: {
+		render: function() {
+			Ext.get('edit-iframe-boxmodel-<?php echo $this->idartlang; ?>').on('load', function(e, t, o) {
+				$(document).trigger('edit-page-content-box', [$('#edit-iframe-boxmodel-<?php echo $this->idartlang; ?>')]);
+			});
+		}
+	}
+});
+
+pageEditTabs.add({
+	id: 'article-plugin-edit-preview',
+	title: '<?php echo Aitsu_Translate :: translate('Preview'); ?>',
+	bodyCfg: {
+		tag: 'iframe',
+		id: 'edit-iframe-preview-<?php echo $this->idartlang; ?>',
+        src: '/adm/preview/<?php echo $this->idartlang; ?>',
+        style: {
+			border: '0px none'
+        }
+	},
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh'); ?>',
+	            iconCls: 'tb-refresh',
+	            handler: function(b, e) {
+					Ext.get('edit-iframe-preview-<?php echo $this->idartlang; ?>').set({
+	            		src: '/adm/preview/<?php echo $this->idartlang; ?>'
+	            	});
+	            }
+	        }
+	    ]
+	}
+});
+
+pageEditTabs.activate(0);
+
+Ext.getCmp('page-edit-tab').add(pageEditTabs);
+
+/*
+Replaces the previously edited area.
+$(document).trigger('doReplace', [p.type, p.container, p.idartlang, '<div><div class="aitsu_hover"><div id="PagetitleAsHeadline--440" class="aitsu_editable"><div class="aitsu_hover"><code class="aitsu_params" style="display:none;"> tag = h1 </code><h1>test</h1></div></div></div></div>']);
+*/
+
+var doEditHandler = function(p) {
+	Ext.aitsu.load(['<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'editcontent'), 'aplugin'); ?>'], null, {
+		type: p.type,
+		container: p.container,
+		idartlang: p.idartlang,
+		params: p.params
+	});
+}

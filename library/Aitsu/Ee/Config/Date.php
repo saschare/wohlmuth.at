@@ -2,14 +2,14 @@
 
 
 /**
- * Text configuration.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Date.php 16849 2010-06-04 13:05:25Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 28.01.2011
+ * Please use class Aitsu_Content_Config_Date instead.
+ */
 class Aitsu_Ee_Config_Date extends Aitsu_Content_Config_Abstract {
 	
 	public function getTemplate() {
