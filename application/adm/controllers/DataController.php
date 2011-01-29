@@ -129,7 +129,7 @@ class DataController extends Zend_Controller_Action {
 						}
 					}
 					$return[] = array (
-						'id' => $art['idart'],
+						'id' => 'idart-' . $art['idart'],
 						'idart' => $art['idart'],
 						'idartlang' => $art['idartlang'],
 						'text' => $art['title'],

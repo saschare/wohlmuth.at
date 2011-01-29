@@ -14,7 +14,7 @@ abstract class Aitsu_Content_Config_Abstract {
 	protected function __construct($index, $name, $idartlang = null, $suppressRegistration = false) {
 		
 		$this->facts['index'] = $index;
-		$this->facts['name'] = $name;
+		$this->facts['name'] = str_replace('.', '_', $name);
 		
 		$this->facts['type'] = 'text';
 		
