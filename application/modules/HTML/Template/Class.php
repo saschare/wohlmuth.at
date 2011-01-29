@@ -4,28 +4,9 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- *
- * {@id $Id: Class.php 19954 2010-11-18 20:00:29Z akm $}
  */
 
 class Module_HTML_Template_Class extends Aitsu_Ee_Module_Abstract {
-
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Template',
-			'description' => Aitsu_Translate :: translate('Outputs the content of the default template or the specified template, if configured accordingly.'),
-			'type' => 'Layout',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'stable',
-			'url' => null,
-			'id' => '4ce57ea4-8b60-4118-aaf1-4c097f000101'
-		);
-	}
 
 	protected static function _getDefaultTemplate($index, $params) {
 
@@ -56,7 +37,7 @@ class Module_HTML_Template_Class extends Aitsu_Ee_Module_Abstract {
 
 		$index = str_replace('_', ' ', $context['index']);
 		$parameters = ($context['params'] === null) ? null : Aitsu_Util :: parseSimpleIni($context['params']);
-		$params = Aitsu_Ee_Config_Hidden :: set($index, 'Template_params', $parameters);
+		$params = Aitsu_Content_Config_Hidden :: set($index, 'Template_params', $parameters);
 
 		$idartlang = Aitsu_Registry :: get()->env->idartlang;
 
@@ -74,7 +55,7 @@ class Module_HTML_Template_Class extends Aitsu_Ee_Module_Abstract {
 				$keyValuePairs[$line->name] = $key;
 				$keys[] = $key;
 			}
-			$template = Aitsu_Ee_Config_Radio :: set($index, 'SubTemplate', '', $keyValuePairs, 'Template');
+			$template = Aitsu_Content_Config_Radio :: set($index, 'SubTemplate', '', $keyValuePairs, 'Template');
 
 			if (Aitsu_Registry :: isEdit()) {
 				$startTag = '<div id="Template-' . $index . '-' . $idartlang . '" class="aitsu_editable on-demand"><div class="aitsu_hover">';

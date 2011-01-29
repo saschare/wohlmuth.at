@@ -4,28 +4,12 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 18277 2010-08-23 11:37:19Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_Comments_Class extends Aitsu_Ee_Module_Abstract {
-
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Article comments',
-			'description' => Zend_Registry :: get('Zend_Translate')->translate('Allows to add comments to the current article (frontend).'),
-			'type' => 'Interaction',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '0.1.0',
-			'status' => 'beta',
-			'url' => null,
-			'id' => 'a0725362-c565-11df-851a-0800200c9a66'
-		);
-	}
 
 	public static function init($context) {
 
