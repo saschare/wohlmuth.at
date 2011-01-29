@@ -14,21 +14,6 @@ abstract class Aitsu_Ee_Module_Abstract {
 
 	abstract public static function init($context);
 
-	public static function about() {
-
-		return (object) array (
-			'name' => '',
-			'description' => '',
-			'author' => (object) array (
-				'name' => '',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => 'not specified',
-			'status' => 'stable',
-			'url' => null
-		);
-	}
-
 	/**
 	 * Overwrite this method accordingly if the module has
 	 * dependencies to ensure it returns true only, if all
@@ -101,6 +86,7 @@ abstract class Aitsu_Ee_Module_Abstract {
 
 	protected function _get($id, & $output, $overwriteDisable = false) {
 
+		$id = str_replace('.', '_', $id);
 		$this->id = $id . '_' . Aitsu_Registry :: get()->env->idartlang;
 		$cache = Aitsu_Cache :: getInstance($this->id, $overwriteDisable);
 
