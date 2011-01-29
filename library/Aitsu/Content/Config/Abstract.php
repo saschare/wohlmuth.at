@@ -55,7 +55,13 @@ abstract class Aitsu_Content_Config_Abstract {
 		if (Aitsu_Core_Article_Property :: factory($this->facts['idartlang'])->getValue('ModuleConfig_' . $this->facts['index'], $this->facts['name']) == null) {
 			return null;
 		}
+		
+		$value = Aitsu_Core_Article_Property :: factory($this->facts['idartlang'])->getValue('ModuleConfig_' . $this->facts['index'], $this->facts['name'])->value;
 	
-		return Aitsu_Core_Article_Property :: factory($this->facts['idartlang'])->getValue('ModuleConfig_' . $this->facts['index'], $this->facts['name'])->value;
+		if ($this->facts['type'] == 'date' && $value == '0000-00-00 00:00:00') {
+			$value = '';
+		} 
+	
+		return $value;
 	}
 }
