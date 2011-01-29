@@ -13,7 +13,7 @@ class Module_HTML_Meta_PagetitleAsHeadline_Class extends Aitsu_Ee_Module_Abstrac
 		$instance = new self();
 
 		$output = '';
-		if ($instance->_get('PagetitleAsHeadline', $output)) {
+		if ($instance->_get('HTML.Meta.PagetitleAsHeadline', $output)) {
 			return $output;
 		}
 

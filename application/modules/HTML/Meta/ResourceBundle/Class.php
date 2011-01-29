@@ -9,7 +9,7 @@
 class Module_HTML_Meta_ResourceBundle_Class extends Aitsu_Ee_Module_Abstract {
 
 	public static function init($context) {
-		
+
 		Aitsu_Content_Edit :: noEdit('HTML.Meta.ResourceBundle', true);
 
 		$instance = new self();

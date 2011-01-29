@@ -1,0 +1,17 @@
+<?php
+$stars = 5;
+$checked = round($this->rating * $stars);
+?>
+<?php if ($this->readonly) : ?>
+	<?php for ($i = 1; $i <= $stars; $i++) : ?>
+		<input value="<?php echo ($i/$stars); ?>" class="rating" name="<?php echo $this->paramName; ?>" type="radio"<?php if ($i == $checked) : ?> checked="checked"<?php endif; ?>/>
+	<?php endfor; ?>
+<?php else : ?>
+	<form id="rating-form" style="display:inline;">
+	<?php for ($i = 1; $i <= $stars; $i++) : ?>
+		<input value="<?php echo ($i/$stars); ?>" class="rating" name="<?php echo $this->paramName; ?>" type="radio"<?php if ($i == $checked) : ?> checked="checked"<?php endif; ?>/>
+	<?php endfor; ?>
+		<input type="hidden" name="renderOnly" value="Rating" />
+		<button id="rating-button">rate!</button>
+	</form>
+<?php endif; ?>

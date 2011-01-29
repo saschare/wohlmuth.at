@@ -6,7 +6,7 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-class Module_HTML_Template_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Template_Class extends Aitsu_Ee_Module_Abstract {
 
 	protected static function _getDefaultTemplate($index, $params) {
 

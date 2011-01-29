@@ -6,14 +6,11 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-/**
- * @deprecated 2.1.0 - 29.01.2011
- */
-class Aitsu_Ee_Module_Proxy_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Syndication_Proxy_Class extends Aitsu_Ee_Module_Abstract {
 
 	public static function init($context) {
 
-		Aitsu_Content_Edit :: noEdit('Proxy', true);
+		Aitsu_Content_Edit :: noEdit('Syndication.Proxy', true);
 
 		$params = Aitsu_Util :: parseSimpleIni($context['params']);
 

@@ -2,38 +2,17 @@
 
 
 /**
- * Adds a resource bundle (CSS or JS).
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright © 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 18339 2010-08-25 17:45:12Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_ResourceBundle_Class extends Aitsu_Ee_Module_Abstract {
 
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Resource bundle',
-			'description' => Zend_Registry :: get('Zend_Translate')->translate('Bundles the specified ressources (CSS or JS) to a single file and outputs a single reference containing the content of the specified resources.'),
-			'type' => array (
-				'Header',
-				'Layout'
-			),
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'stable',
-			'url' => null,
-			'id' => 'a0725372-c565-11df-851a-0800200c9a66'
-		);
-	}
-
 	public static function init($context) {
-		
+
 		Aitsu_Content_Edit :: noEdit('ResourceBundle', true);
 
 		$instance = new self();

@@ -4,28 +4,12 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Class.php 17010 2010-06-10 16:11:15Z akm $}
  */
 
+/**
+ * @deprecated 2.1.0 - 29.01.2011
+ */
 class Aitsu_Ee_Module_Text_Class extends Aitsu_Ee_Module_Abstract {
-
-	public static function about() {
-
-		return (object) array (
-			'name' => 'Text',
-			'description' => Zend_Registry :: get('Zend_Translate')->translate('Editable area rendered as a plain text area.'),
-			'type' => 'Content',
-			'author' => (object) array (
-				'name' => 'Andreas Kummer',
-				'copyright' => 'w3concepts AG'
-			),
-			'version' => '1.0.0',
-			'status' => 'stable',
-			'url' => null,
-			'id' => 'a0725375-c565-11df-851a-0800200c9a66'
-		);
-	}
 
 	public static function init($context) {
 
@@ -42,7 +26,7 @@ class Aitsu_Ee_Module_Text_Class extends Aitsu_Ee_Module_Abstract {
 
 		$text = (empty ($text) && Aitsu_Registry :: isEdit()) ? Aitsu_LoremIpsum :: get(5) : $text;
 
-		if (isset($params->tag)) {
+		if (isset ($params->tag)) {
 			$output = '<' . $params->tag . '>' . $text . '</' . $params->tag . '>';
 		} else {
 			$output = $text;

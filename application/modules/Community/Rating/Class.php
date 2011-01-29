@@ -6,10 +6,7 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-/**
- * @deprecated 2.1.0 - 29.01.2011
- */
-class Aitsu_Ee_Module_Rating_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Community_Rating_Class extends Aitsu_Ee_Module_Abstract {
 
 	const PARAMNAME = '4d37f1ee-ebf0-46e8-8a95-6207b24d50ae';
 
