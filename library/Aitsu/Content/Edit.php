@@ -2,13 +2,8 @@
 
 
 /**
- * aitsu Edit helper.
- * 
- * @version 1.0.0
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Edit.php 16853 2010-06-04 13:16:46Z akm $}
  */
 
 class Aitsu_Content_Edit {

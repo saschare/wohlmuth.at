@@ -2,13 +2,8 @@
 
 
 /**
- * HTML content.
- * 
- * @version 1.0.0
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Html.php 17649 2010-07-21 08:21:14Z akm $}
  */
 
 class Aitsu_Content_Html {

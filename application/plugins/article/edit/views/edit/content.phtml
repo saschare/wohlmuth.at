@@ -6,6 +6,10 @@
 		xtype: 'textarea',
 		name: 'content[<?php echo $this->field->index; ?>]',
 		value: '<?php echo str_replace("\r", '', str_replace("\n", '\n', $this->field->content)); ?>',
+		<?php if ($this->field->type == Aitsu_Content :: PLAINTEXT) : ?>
+		listeners : {			
+		}
+		<?php elseif ($this->field->type == Aitsu_Content :: HTML) : ?>
 		listeners: {
 			afterrender: function(f) {
 				CKEDITOR.replace(f.getId(), {
@@ -32,5 +36,6 @@
 				CKEDITOR.instances[f.getId()].destroy();
 			}
 		}
+		<?php endif; ?>
 	}]
 }
