@@ -45,8 +45,11 @@ Ext.ux.form.LinkField = Ext.extend(Ext.form.TriggerField,  {
 	            text: this.selectButtonText,
 	            handler: function() {
 	        		var node = Ext.getCmp('linkfield-page-tree').getSelectionModel().getSelectedNode();
-	        		var type = node.attributes.type == 'category' ? 'idcat' : 'idart';
-	        		target.setValue(type + ' ' + node.attributes.id);
+	        		if (node.attributes.type == 'category') {
+	        			target.setValue('idcat ' + node.attributes.idcat);
+	        		} else {
+	        			target.setValue('idart ' + node.attributes.idart);
+	        		}
 	        		linkWin.close();
 	        	}
 	        }]
