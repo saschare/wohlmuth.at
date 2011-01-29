@@ -60,7 +60,11 @@ var pagetree = 	new Ext.tree.TreePanel({
 	listeners: {
 		click: function(node, event) {
 			if (node.attributes.type == 'category') {
-				node.expand();
+				if (node.isExpandable() && !node.isExpanded()) {
+					node.expand();
+				} else {
+					Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>'], null, {id: node.id});
+				}
 			} else if (node.attributes.type == 'page') {
 				editPage(node.attributes.id);
 			}
@@ -279,12 +283,6 @@ var pagetree = 	new Ext.tree.TreePanel({
 				this.expandPath(nodes[i]);
 			}
 		}
-	}
-});
-
-pagetree.getSelectionModel().on('beforeselect', function(sm, node, oldnode) {
-	if (node.attributes.type == 'category') {
-		Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'categoryoverview'), 'default'); ?>'], null, {id: node.id});
 	}
 });
 
