@@ -26,36 +26,27 @@ win = new Ext.Window({
 			deferredRender: false,
 			items:[
 				<?php for ($i = 0; $i < count($this->data->editInfo); $i++) : ?>
-					<?php /* edit fields */ ?>
-					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>
-					<?php if ($i < count($this->data->editInfo) - 1) : ?>,<?php endif; ?>
+					<?php /* edit fields */ $setComma = true; ?>
+					<?php echo $this->partial('edit/content.phtml', array('field' => $this->data->editInfo[$i])); ?>,
 				<?php endfor; ?>
-				<?php if (count($this->data->editInfo) > 0 && (count($this->data->configTabs) > 0) || !empty($this->data->editInfo)) : ?>
-				,
-				<?php endif; ?>
 				<?php for ($i = 0; $i < count($this->data->configTabs); $i++) : ?>
 					<?php /* config as tab */ ?>
-					<?php echo $this->partial('edit/' . $this->data->configTabs[$i]->getTemplate(), array('field' => $this->data->configTabs[$i])); ?>
-					<?php if ($i < count($this->data->configTabs) - 1) : ?>,<?php endif; ?>
+					<?php echo $this->partial('edit/' . $this->data->configTabs[$i]->getTemplate(), array('field' => $this->data->configTabs[$i])); ?>,
 				<?php endfor; ?>
-				<?php if (count($this->data->configTabs) > 0 && !empty($this->data->configInfo)) : ?>
-				,
-				<?php endif; ?>
-				<?php if (!empty($this->data->configInfo)) : ?>
-					<?php /* configuration */ ?>
-					{
-						title: '<?php echo Aitsu_Translate :: translate('Configuration'); ?>', 
-						layout: 'form',
-						autoScroll: true,
-						padding: '5px',
-						items: [					
-							<?php $counter = 0; foreach($this->data->configInfo as $fieldset => $config) : $counter++; ?>
-								<?php echo $this->partial('edit/fieldset.phtml', array('fieldset' => $fieldset, 'config' => $config)); ?>
-								<?php if ($counter < count($this->data->configInfo)) : ?>,<?php endif; ?>
-							<?php endforeach; ?>
-						]
-					}
-				<?php endif; ?>
+				<?php /* configuration */ ?>
+				{
+					title: '<?php echo Aitsu_Translate :: translate('Configuration'); ?>', 
+					layout: 'form',
+					autoScroll: true,
+					padding: '5px',
+					disabled: <?php if (empty($this->data->configInfo)) : ?>true<?php else : ?>false<?php endif; ?>,
+					items: [					
+						<?php $counter = 0; foreach($this->data->configInfo as $fieldset => $config) : $counter++; ?>
+							<?php echo $this->partial('edit/fieldset.phtml', array('fieldset' => $fieldset, 'config' => $config)); ?>
+							<?php if ($counter < count($this->data->configInfo)) : ?>,<?php endif; ?>
+						<?php endforeach; ?>
+					]
+				}
 			]
 		},
 		<?php foreach($this->data->configInfo as $fieldset => $config) : ?>
