@@ -135,8 +135,12 @@ var categories = new Ext.grid.GridPanel({
 	        	iconCls: 'paste',
 	        	disabled: Ext.state.Manager.get('cut-page', null) == null,
 	        	handler: function(b, e) {
+	        		// reloadTree(0, pagetree);
 	        		b.disable();
+	        		b.setTooltip('');
 	        		Ext.state.Manager.clear('cut-page');
+	        		var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
+					pagetree.getLoader().load(node, function() {node.expand()});    
 	        	}
 	        }
 	    ]

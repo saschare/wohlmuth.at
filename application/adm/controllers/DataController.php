@@ -88,6 +88,7 @@ class DataController extends Zend_Controller_Action {
 				}
 				$return[] = array (
 					'id' => $cat['idcat'],
+					'idcat' => $cat['idcat'],
 					'text' => $cat['name'],
 					'leaf' => false,
 					'iconCls' => $cls,
@@ -129,6 +130,7 @@ class DataController extends Zend_Controller_Action {
 					}
 					$return[] = array (
 						'id' => $art['idart'],
+						'idart' => $art['idart'],
 						'idartlang' => $art['idartlang'],
 						'text' => $art['title'],
 						'leaf' => true,
