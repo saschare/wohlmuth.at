@@ -1,7 +1,7 @@
 <?php $uid = uniqid(); ?>
 
 <div class="toolbar ui-corner-bottom">
-	<button id="media-upload-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Upload'); ?>">
+	<button id="media-upload-<?php echo $this->pluginId . $uid; ?>" class="confirm" title="<?php echo $this->translate('Upload'); ?>">
 	   	<?php echo $this->translate('Upload'); ?>
 	</button>
 	<button id="media-select-<?php echo $this->pluginId . $uid; ?>" title="<?php echo $this->translate('Select all'); ?>">
@@ -63,10 +63,10 @@
 <script type="text/javascript">
 $(function() {
 	
-	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-disk'}, text:false});
-	$("#media-select-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-plus'}, text:false});
-	$("#media-deselect-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-minus'}, text:false});
-	$("#media-toggleselection-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-transferthick-e-w'}, text:false});
+	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circle-plus'}, text:false});
+	$("#media-select-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circlesmall-plus'}, text:false});
+	$("#media-deselect-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-circlesmall-minus'}, text:false});
+	$("#media-toggleselection-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-transfer-e-w'}, text:false});
 	$("#media-delete-<?php echo $this->pluginId . $uid; ?>").button({icons: {primary: 'ui-icon-trash'}, text:false});
   
 	$("#media-upload-<?php echo $this->pluginId . $uid; ?>").click(function() {
@@ -86,6 +86,9 @@ $(function() {
     	autoOpen: false,
     	title: '<?php echo $this->translate('Edit file'); ?>',
     	buttons: {
+			'<?php echo $this->translate('Cancel'); ?>': function() {
+				$(this).dialog('close');
+			},
 			'<?php echo $this->translate('Save'); ?>': function() {
 				var dialog = $(this);
 				$.post("<?php echo $this->url(array('plugin' => 'media', 'paction' => 'save'), 'aplugin'); ?>", $("#media-meta-data").serialize(), function(data) {
@@ -93,16 +96,22 @@ $(function() {
 						$('#status').html(data.message);				
 						dialog.dialog('close');
 						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'filelist')); ?>', 
-      						{'idartlang': '<?php echo $this->idartlang; ?>'},
-      						function() {$(this).trigger('fileListLoaded')});
+	  						{'idartlang': '<?php echo $this->idartlang; ?>'},
+	  						function() {$(this).trigger('fileListLoaded')});
 					} else {
 						dialog.html(data.html);
 					}
 				});
-			},
-			'<?php echo $this->translate('Cancel'); ?>': function() {
-				$(this).dialog('close');
 			}
+    	},
+		'open': function(event, ui) {
+			var buttons = $(event.target).parent().find('.ui-dialog-buttonset').children();
+
+			buttons.removeClass('ui-button-text-only').addClass('ui-button-icon-only');
+
+			$(buttons[0]).append("<span class='ui-icon ui-icon-circle-close'></span>").addClass('deny');
+			$(buttons[1]).append("<span class='ui-icon ui-icon-circle-check'></span>").addClass('confirm');
+			$(buttons[0]).css('position','absolute').css('left','15px');
 		}
   	});
   	
@@ -168,19 +177,28 @@ $(function() {
 				title: '<?php echo $this->translate('Delete files'); ?>',
 				modal: true,
 				buttons: {
-					'<?php echo $this->translate('Yes, delete the files'); ?>': function() {
-						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete')); ?>', {
-  							'idartlang': '<?php echo $this->idartlang; ?>',
-  							'delete': selectedFiles.join(",")
-  						}, function() {
-  							$(this).trigger('fileListLoaded');
-  							$(this).trigger('ace-mediacontentchanged');
-  						});
-  						$(this).dialog('close');
-					},
 					'<?php echo $this->translate('No'); ?>': function() {
 						$(this).dialog('close');
+					},
+					'<?php echo $this->translate('Yes, delete the files'); ?>': function() {
+						$('#media-filelist-<?php echo $this->pluginId . $uid; ?>').load('<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete')); ?>', {
+								'idartlang': '<?php echo $this->idartlang; ?>',
+								'delete': selectedFiles.join(",")
+							}, function() {
+								$(this).trigger('fileListLoaded');
+								$(this).trigger('ace-mediacontentchanged');
+							});
+							$(this).dialog('close');
 					}
+				},
+				'open': function(event, ui) {
+					var buttons = $(event.target).parent().find('.ui-dialog-buttonset').children();
+
+					buttons.removeClass('ui-button-text-only').addClass('ui-button-icon-only');
+
+					$(buttons[0]).append("<span class='ui-icon ui-icon-circle-close'></span>").addClass('deny');
+					$(buttons[1]).append("<span class='ui-icon ui-icon-trash'></span>").addClass('confirm');
+					$(buttons[0]).css('position','absolute').css('left','15px');
 				}
 			});  		
   	});
