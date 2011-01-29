@@ -38,7 +38,7 @@ win = new Ext.Window({
 					<?php echo $this->partial('edit/' . $this->data->configTabs[$i]->getTemplate(), array('field' => $this->data->configTabs[$i])); ?>
 					<?php if ($i < count($this->data->configTabs) - 1) : ?>,<?php endif; ?>
 				<?php endfor; ?>
-				<?php if (count($this->data->configTabs) > 0 && !empty($this->data->editInfo)) : ?>
+				<?php if (count($this->data->configTabs) > 0 && !empty($this->data->configInfo)) : ?>
 				,
 				<?php endif; ?>
 				<?php if (!empty($this->data->configInfo)) : ?>
