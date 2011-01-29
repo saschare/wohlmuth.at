@@ -4,6 +4,10 @@
 <?php endif; ?>
 <ul>
 <?php foreach ($this->files as $file) : ?>
-	<li><?php echo $file->filename, true; ?></li>
+	<li>
+		<a href="/file/<?php echo $file->idart; ?>/<?php echo $file->filename; ?>">
+			<?php echo $file->name; ?>
+		</a>
+	</li>
 <?php endforeach; ?>
 </ul>
