@@ -401,9 +401,9 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $pf . 'rating'));
 	}
-	
+
 	public function doAddTodo() {
-		
+
 		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
 		$table = $pf . 'todo';
 
@@ -434,6 +434,66 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 		') ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1');
 
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+
+	public function doAddTableHoneytrap() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'honeytrap';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'CREATE TABLE IF NOT EXISTS _honeytrap (' .
+		'`trapid` int(10) unsigned NOT NULL AUTO_INCREMENT,' .
+		'`ip` varchar(15) NOT NULL,' .
+		'`created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,' .
+		'PRIMARY KEY (`trapid`),' .
+		'KEY `ip` (`ip`),' .
+		'KEY `created` (`created`)' .
+		') ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+
+	public function doAlterTableMedia() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'media';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.columns ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName ' .
+		'	and column_name = :columnName ', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table,
+			':columnName' => 'xtl'
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s is already up to date.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'ALTER TABLE  _media ADD  `xtl` FLOAT NOT NULL DEFAULT \'0\' AFTER  `extension`,' .
+		'ADD  `ytl` FLOAT NOT NULL DEFAULT  \'0\' AFTER  `xtl` ,' .
+		'ADD  `xbr` FLOAT NOT NULL DEFAULT  \'1\' AFTER  `ytl` ,' .
+		'ADD  `ybr` FLOAT NOT NULL DEFAULT  \'1\' AFTER  `xbr`');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
 	}
 
 }
