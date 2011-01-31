@@ -155,14 +155,14 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$value = '{' . implode(', ', $configs) . '}';
 	}
 
-	protected static function _extraFieldAttsCombo(& $configs, $key, $field) {
+	protected static function _extraFieldAttsCombo($configs, $key, $field) {
 
 		$configs[] = "hiddenName: '{$key}'";
 		
 		return $configs;
 	}
 
-	protected static function _extraFieldAttsRadiogroup(& $configs, $key, $field) {
+	protected static function _extraFieldAttsRadiogroup($configs, $key, $field) {
 
 		if (!isset ($field['extjs']['columns'])) {
 			$configs[] = "columns: 2";
@@ -184,7 +184,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		return $configs;
 	}
 
-	protected static function _extraFieldAttsCheckboxgroup(& $configs, $key, $field) {
+	protected static function _extraFieldAttsCheckboxgroup($configs, $key, $field) {
 
 		if (!isset ($field['extjs']['columns'])) {
 			$configs[] = "columns: 2";
@@ -208,7 +208,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		return $configs;
 	}
 
-	protected static function _extraFieldAttsDatefield(& $configs, $key, $field) {
+	protected static function _extraFieldAttsDatefield($configs, $key, $field) {
 
 		$configs[] = "format: 'Y-m-d H:i:s'";
 		$configs[] = "altFormats: 'Y-m-d|d.m.Y|d.m.y'";
