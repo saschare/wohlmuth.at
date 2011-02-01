@@ -526,4 +526,30 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
 	}
 
+	public function doAlterTableArtLang() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'art_lang';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.columns ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName ' .
+		'	and column_name = :columnName ', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table,
+			':columnName' => 'mainimage'
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s is already up to date.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'ALTER TABLE _art_lang ADD  `mainimage` VARCHAR( 255 ) NULL DEFAULT NULL');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
+	}
+
 }
