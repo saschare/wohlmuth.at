@@ -557,7 +557,7 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 	public function doAlterTableArtLangPub() {
 
 		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
-		$table = $pf . 'art_lang_pub';
+		$table = $pf . 'pub_art_lang';
 
 		$exists = Aitsu_Db :: fetchOne('' .
 		'select count(*) from information_schema.columns ' .
@@ -575,7 +575,7 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 		}
 
 		Aitsu_Db :: query('' .
-		'ALTER TABLE _art_lang_pub ADD  `mainimage` VARCHAR( 255 ) NULL DEFAULT NULL');
+		'ALTER TABLE _pub_art_lang ADD  `mainimage` VARCHAR( 255 ) NULL DEFAULT NULL');
 
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
 	}
