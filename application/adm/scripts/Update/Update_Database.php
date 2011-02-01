@@ -236,98 +236,102 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 
 	public function doRestorePublicationViews() {
 
-		Aitsu_Db :: query('' .
-		'drop view if exists _pubv_article_content');
+		try {
+			Aitsu_Db :: query('' .
+			'drop view if exists _pubv_article_content');
 
-		Aitsu_Db :: query('' .
-		'CREATE VIEW _pubv_article_content AS ' .
-		'select ' .
-		'	`idartlang` AS `idartlang`,' .
-		'	`index` AS `index`,' .
-		'	`value` AS `value`,' .
-		'	`modified` AS `modified`,' .
-		'	`pubid` AS `pubid`,' .
-		'	`status` AS `status` ' .
-		'from _pub_article_content ' .
-		'where (`status` = 1);');
+			Aitsu_Db :: query('' .
+			'CREATE VIEW _pubv_article_content AS ' .
+			'select ' .
+			'	`idartlang` AS `idartlang`,' .
+			'	`index` AS `index`,' .
+			'	`value` AS `value`,' .
+			'	`modified` AS `modified`,' .
+			'	`pubid` AS `pubid`,' .
+			'	`status` AS `status` ' .
+			'from _pub_article_content ' .
+			'where (`status` = 1);');
 
-		Aitsu_Db :: query('' .
-		'drop view if exists _pubv_art_lang');
+			Aitsu_Db :: query('' .
+			'drop view if exists _pubv_art_lang');
 
-		Aitsu_Db :: query('' .
-		'CREATE VIEW _pubv_art_lang AS ' .
-		'select `idartlang` AS `idartlang`,' .
-		'`idart` AS `idart`,' .
-		'`idlang` AS `idlang`,' .
-		'`title` AS `title`,' .
-		'`urlname` AS `urlname`,' .
-		'`pagetitle` AS `pagetitle`,' .
-		'`teasertitle` AS `teasertitle`,' .
-		'`summary` AS `summary`,' .
-		'`created` AS `created`,' .
-		'`lastmodified` AS `lastmodified`,' .
-		'`online` AS `online`,' .
-		'`pubfrom` AS `pubfrom`,' .
-		'`pubuntil` AS `pubuntil`,' .
-		'`published` AS `published`,' .
-		'`redirect` AS `redirect`,' .
-		'`redirect_url` AS `redirect_url`,' .
-		'`artsort` AS `artsort`,' .
-		'`locked` AS `locked`,' .
-		'`configsetid` AS `configsetid`,' .
-		'`config` AS `config`,' .
-		'`pubid` AS `pubid`,' .
-		'`status` AS `status` ' .
-		'from _pub_art_lang ' .
-		'where (`status` = 1);');
+			Aitsu_Db :: query('' .
+			'CREATE VIEW _pubv_art_lang AS ' .
+			'select `idartlang` AS `idartlang`,' .
+			'`idart` AS `idart`,' .
+			'`idlang` AS `idlang`,' .
+			'`title` AS `title`,' .
+			'`urlname` AS `urlname`,' .
+			'`pagetitle` AS `pagetitle`,' .
+			'`teasertitle` AS `teasertitle`,' .
+			'`summary` AS `summary`,' .
+			'`created` AS `created`,' .
+			'`lastmodified` AS `lastmodified`,' .
+			'`online` AS `online`,' .
+			'`pubfrom` AS `pubfrom`,' .
+			'`pubuntil` AS `pubuntil`,' .
+			'`published` AS `published`,' .
+			'`redirect` AS `redirect`,' .
+			'`redirect_url` AS `redirect_url`,' .
+			'`artsort` AS `artsort`,' .
+			'`locked` AS `locked`,' .
+			'`configsetid` AS `configsetid`,' .
+			'`config` AS `config`,' .
+			'`pubid` AS `pubid`,' .
+			'`status` AS `status` ' .
+			'from _pub_art_lang ' .
+			'where (`status` = 1);');
 
-		Aitsu_Db :: query('' .
-		'drop view if exists _pubv_art_meta');
+			Aitsu_Db :: query('' .
+			'drop view if exists _pubv_art_meta');
 
-		Aitsu_Db :: query('' .
-		'CREATE VIEW _pubv_art_meta AS ' .
-		'select `idartlang` AS `idartlang`,' .
-		'`description` AS `description`,' .
-		'`author` AS `author`,' .
-		'`keywords` AS `keywords`,' .
-		'`date` AS `date`,' .
-		'`expires` AS `expires`,' .
-		'`robots` AS `robots`,' .
-		'`dctitle` AS `dctitle`,' .
-		'`dccreator` AS `dccreator`,' .
-		'`dcsubject` AS `dcsubject`,' .
-		'`dcpublisher` AS `dcpublisher`,' .
-		'`dccontributor` AS `dccontributor`,' .
-		'`dcdate` AS `dcdate`,' .
-		'`dctype` AS `dctype`,' .
-		'`dcformat` AS `dcformat`,' .
-		'`dcidentifier` AS `dcidentifier`,' .
-		'`dcsource` AS `dcsource`,' .
-		'`dclanguage` AS `dclanguage`,' .
-		'`dcrelation` AS `dcrelation`,' .
-		'`cdcoverage` AS `cdcoverage`,' .
-		'`dcrights` AS `dcrights`,' .
-		'`pubid` AS `pubid`,' .
-		'`status` AS `status` ' .
-		'from _pub_art_meta ' .
-		'where (`status` = 1);');
+			Aitsu_Db :: query('' .
+			'CREATE VIEW _pubv_art_meta AS ' .
+			'select `idartlang` AS `idartlang`,' .
+			'`description` AS `description`,' .
+			'`author` AS `author`,' .
+			'`keywords` AS `keywords`,' .
+			'`date` AS `date`,' .
+			'`expires` AS `expires`,' .
+			'`robots` AS `robots`,' .
+			'`dctitle` AS `dctitle`,' .
+			'`dccreator` AS `dccreator`,' .
+			'`dcsubject` AS `dcsubject`,' .
+			'`dcpublisher` AS `dcpublisher`,' .
+			'`dccontributor` AS `dccontributor`,' .
+			'`dcdate` AS `dcdate`,' .
+			'`dctype` AS `dctype`,' .
+			'`dcformat` AS `dcformat`,' .
+			'`dcidentifier` AS `dcidentifier`,' .
+			'`dcsource` AS `dcsource`,' .
+			'`dclanguage` AS `dclanguage`,' .
+			'`dcrelation` AS `dcrelation`,' .
+			'`cdcoverage` AS `cdcoverage`,' .
+			'`dcrights` AS `dcrights`,' .
+			'`pubid` AS `pubid`,' .
+			'`status` AS `status` ' .
+			'from _pub_art_meta ' .
+			'where (`status` = 1);');
 
-		Aitsu_Db :: query('' .
-		'drop view if exists _pubv_aitsu_article_property');
+			Aitsu_Db :: query('' .
+			'drop view if exists _pubv_aitsu_article_property');
 
-		Aitsu_Db :: query('' .
-		'CREATE VIEW _pubv_aitsu_article_property AS ' .
-		'select `propertyid` AS `propertyid`,' .
-		'`idartlang` AS `idartlang`,' .
-		'`textvalue` AS `textvalue`,' .
-		'`floatvalue` AS `floatvalue`,' .
-		'`datevalue` AS `datevalue`,' .
-		'`pubid` AS `pubid`,' .
-		'`status` AS `status` ' .
-		'from _pub_aitsu_article_property ' .
-		'where (`status` = 1);');
+			Aitsu_Db :: query('' .
+			'CREATE VIEW _pubv_aitsu_article_property AS ' .
+			'select `propertyid` AS `propertyid`,' .
+			'`idartlang` AS `idartlang`,' .
+			'`textvalue` AS `textvalue`,' .
+			'`floatvalue` AS `floatvalue`,' .
+			'`datevalue` AS `datevalue`,' .
+			'`pubid` AS `pubid`,' .
+			'`status` AS `status` ' .
+			'from _pub_aitsu_article_property ' .
+			'where (`status` = 1);');
 
-		return Aitsu_Adm_Script_Response :: factory(Aitsu_Translate :: translate('Views restored.'));
+			return Aitsu_Adm_Script_Response :: factory(Aitsu_Translate :: translate('Views restored.'));
+		} catch (Exception $e) {
+			return Aitsu_Adm_Script_Response :: factory(Aitsu_Translate :: translate('Views have not been restored. Please create view with a tool of your choice.'));
+		}
 	}
 
 	public function doAddTableRatings() {
@@ -492,6 +496,32 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 		'ADD  `ytl` FLOAT NOT NULL DEFAULT  \'0\' AFTER  `xtl` ,' .
 		'ADD  `xbr` FLOAT NOT NULL DEFAULT  \'1\' AFTER  `ytl` ,' .
 		'ADD  `ybr` FLOAT NOT NULL DEFAULT  \'1\' AFTER  `xbr`');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
+	}
+
+	public function doAlterTableMediaTags() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'media_tags';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.columns ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName ' .
+		'	and column_name = :columnName ', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table,
+			':columnName' => 'val'
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s is already up to date.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'ALTER TABLE _media_tags ADD  `val` VARCHAR( 255 ) NULL DEFAULT NULL');
 
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
 	}
