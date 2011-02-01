@@ -117,6 +117,8 @@ var media = new Ext.grid.GridPanel({
             name: 'subline'
         }, {
             name: 'description'
+        }, {
+            name: 'mainimage'
         }]
     }),
     columns: [
@@ -127,6 +129,21 @@ var media = new Ext.grid.GridPanel({
     		}
     		return '<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 2), 'default'); ?>/id/' + record.get('mediaid') + '?dc=' + dc + '" width="32" height="32" alt="' + record.get('filename') + '" />';
     	}},
+    	{
+    		xtype: 'actioncolumn',
+    		width: 15,
+    		menuDisabled: true, 
+            sortable: false,
+    		items: [{
+    			getClass: function(v, meta, rec) {
+					if (rec.get('mainimage') == 1) {
+						return 'mainimage';
+					} else {
+						return '';
+					}
+				}
+			}]
+    	},
     	{dataIndex: 'mediaid', header: 'ID', menuDisabled: false, sortable: true, width: 20},
     	{dataIndex: 'filename', header: '<?php echo Aitsu_Translate :: translate('File name'); ?>', menuDisabled: false, sortable: true},
     	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Media name'); ?>', menuDisabled: false, sortable: true},
@@ -170,6 +187,52 @@ var media = new Ext.grid.GridPanel({
 			
 			var selectionModel = this.getSelectionModel();
 			var menu = new Ext.menu.Menu();
+			
+			if (grid.getStore().getAt(rowIndex).get('mainimage') == '1') {
+				menu.addItem({
+					text: '<?php echo $this->translate('Remove main image flag.'); ?>',
+					iconCls: 'mainimage-remove',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'mainimage'), 'aplugin'); ?>',
+							success: function(response, opts) {
+								grid.getStore().load({
+									params: {
+										idart: <?php echo $this->idart; ?>
+									}
+								});
+							},
+							params: {
+								mediaid: grid.getStore().getAt(rowIndex).get('mediaid'),
+								set: 0
+							}
+						});
+					}
+				});
+			} else {
+				menu.addItem({
+					text: '<?php echo $this->translate('Set main image flag.'); ?>',
+					iconCls: 'mainimage',
+					handler: function() {
+						Ext.Ajax.request({
+							url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'mainimage'), 'aplugin'); ?>',
+							success: function(response, opts) {
+								grid.getStore().load({
+									params: {
+										idart: <?php echo $this->idart; ?>
+									}
+								});
+							},
+							params: {
+								mediaid: grid.getStore().getAt(rowIndex).get('mediaid'),
+								set: 1
+							}
+						});
+					}
+				});				
+			}
+			
+			menu.addItem('-');
 			
 			menu.addItem({
 				text: '<?php echo $this->translate('Delete'); ?>',

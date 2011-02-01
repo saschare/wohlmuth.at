@@ -139,7 +139,8 @@ class Aitsu_Core_File {
 		'	media.uploaded, ' .
 		'	description.name, ' .
 		'	description.subline, ' .
-		'	description.description ' .
+		'	description.description, ' .
+		'	if(artlang.mainimage = media.filename, 1, 0) as mainimage ' .
 		'from ( ' .
 		'	select ' .
 		'		idart, ' .

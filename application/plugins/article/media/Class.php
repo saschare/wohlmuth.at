@@ -85,21 +85,21 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 			'data' => $data
 		));
 	}
-	
+
 	/**
 	 * Adds the specifed tag to the media.
 	 * @since 2.1.0 - 14.01.2011
 	 */
 	public function addtagAction() {
-		
+
 		$mediaid = $this->getRequest()->getParam('mediaid');
 		$token = $this->getRequest()->getParam('token');
 		$value = $this->getRequest()->getParam('value');
-		
-		if (!empty($token)) {
+
+		if (!empty ($token)) {
 			Aitsu_Persistence_File :: factory($mediaid)->addTag($token, $value);
 		}
-		
+
 		$this->_helper->json((object) array (
 			'success' => true
 		));
@@ -122,18 +122,18 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 			'data' => Aitsu_Persistence_MediaTag :: getStore(100, 0, $filter)
 		));
 	}
-	
+
 	/**
 	 * Removes the specifed tag from the media.
 	 * @since 2.1.0 - 14.01.2011
 	 */
 	public function removetagAction() {
-		
+
 		$mediaid = $this->getRequest()->getParam('mediaid');
 		$mediatagid = $this->getRequest()->getParam('mediatagid');
-		
+
 		Aitsu_Persistence_File :: factory($mediaid)->removeTag($mediatagid);
-		
+
 		$this->_helper->json((object) array (
 			'success' => true
 		));
@@ -185,4 +185,17 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 			));
 		}
 	}
+
+	public function mainimageAction() {
+
+		$mediaid = $this->getRequest()->getParam('mediaid');
+		$set = $this->getRequest()->getParam('set');
+trigger_error(var_export($set, true));		
+		Aitsu_Persistence_File :: factory($mediaid)->setAsMainImage($set == 0);
+
+		$this->_helper->json(array (
+			'success' => true
+		));
+	}
+
 }

@@ -281,6 +281,17 @@
     background-image: url(../images/icons/film.png) !important; 
     background-repeat: no-repeat;
 }
+.mainimage {
+    background-image: url(../images/icons/images.png) !important; 
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    margin-right:5px;
+}
+.mainimage-remove {
+    background-image: url(../images/icons/image_delete.png) !important; 
+    background-repeat: no-repeat;
+}
 .selectedRow {
     background-color: #ec7537;
 }

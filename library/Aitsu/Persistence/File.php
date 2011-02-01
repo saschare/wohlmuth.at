@@ -22,6 +22,7 @@ class Aitsu_Persistence_File extends Aitsu_Persistence_Abstract {
 	protected function __construct($id) {
 
 		$this->_id = $id;
+		$this->_idlang = Aitsu_Registry :: get()->env->idlang;
 	}
 
 	public function factory($id = null, $idlang = null) {
@@ -164,6 +165,42 @@ class Aitsu_Persistence_File extends Aitsu_Persistence_Abstract {
 			':mediaid' => $this->_id,
 			':tagid' => $tagid
 		));
+	}
+
+	public function setAsMainImage($unset = false) {
+trigger_error(var_export($unset, true));
+		if ($unset) {
+			Aitsu_Db :: query('' .
+			'update ' .
+			'	_art_lang artlang, ' .
+			'	_media media ' .
+			'set ' .
+			'	artlang.mainimage = null ' .
+			'where ' .
+			'	artlang.idart = media.idart ' .
+			'	and artlang.idlang = :idlang ' .
+			'	and media.mediaid = :id', array (
+				':id' => $this->_id,
+				':idlang' => $this->_idlang
+			));
+			return $this;
+		}
+
+		Aitsu_Db :: query('' .
+		'update ' .
+		'	_art_lang artlang, ' .
+		'	_media media ' .
+		'set ' .
+		'	artlang.mainimage = media.filename ' .
+		'where ' .
+		'	artlang.idart = media.idart ' .
+		'	and artlang.idlang = :idlang ' .
+		'	and media.mediaid = :id', array (
+			':id' => $this->_id,
+			':idlang' => $this->_idlang
+		));
+
+		return $this;
 	}
 
 }
