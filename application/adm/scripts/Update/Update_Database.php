@@ -130,6 +130,7 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 		'`config` TEXT NULL DEFAULT NULL ,  ' .
 		'`pubid` INT(10) UNSIGNED NOT NULL ,  ' .
 		'`status` TINYINT(4) NOT NULL ,  ' .
+		'`mainimage` VARCHAR(255) NULL DEFAULT NULL,  ' .
 		'PRIMARY KEY (`idartlang`, `pubid`) ,  ' .
 		'INDEX `idlang` (`idlang` ASC) ,  ' .
 		'INDEX `title` (`title` ASC) ,  ' .
@@ -278,7 +279,8 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 			'`configsetid` AS `configsetid`,' .
 			'`config` AS `config`,' .
 			'`pubid` AS `pubid`,' .
-			'`status` AS `status` ' .
+			'`status` AS `status`, ' .
+			'`mainimage` AS `mainimage` ' .
 			'from _pub_art_lang ' .
 			'where (`status` = 1);');
 
@@ -548,6 +550,32 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 
 		Aitsu_Db :: query('' .
 		'ALTER TABLE _art_lang ADD  `mainimage` VARCHAR( 255 ) NULL DEFAULT NULL');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
+	}
+
+	public function doAlterTableArtLangPub() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'art_lang_pub';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.columns ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName ' .
+		'	and column_name = :columnName ', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table,
+			':columnName' => 'mainimage'
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s is already up to date.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'ALTER TABLE _art_lang_pub ADD  `mainimage` VARCHAR( 255 ) NULL DEFAULT NULL');
 
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
 	}
