@@ -40,6 +40,10 @@ class Aitsu_Persistence_View_Media {
 	}
 
 	public static function byFileName($idart, $filenames) {
+		
+		if (empty($filenames)) {
+			return array();
+		}
 
 		$idlang = Aitsu_Registry :: get()->env->idlang;
 
