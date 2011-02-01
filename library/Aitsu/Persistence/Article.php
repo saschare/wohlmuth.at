@@ -174,7 +174,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			'insert into _cat_art (idart, idcat) values (:idart, :idcat) ' .
 			'on duplicate key update lastmodified = now() ', array (
 				':idart' => $this->_data['idart'],
-				'idcat' => $this->_data['idcat']
+				':idcat' => $this->_data['idcat']
 			));
 
 			if (Aitsu_Db :: fetchOne('' .
