@@ -48,7 +48,17 @@
 							waitMsg:'Sending data...'
 						});
 					}
-				}]
+				}],
+				keys: [{
+        			key: [10,13],
+        			fn: function(){
+        				login.getForm().submit({
+							method:'POST',
+							waitTitle:'Connecting',
+							waitMsg:'Sending data...'
+						});
+        			}
+    			}]
 			});
  
 			new Ext.Window({
