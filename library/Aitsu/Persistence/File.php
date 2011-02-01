@@ -168,7 +168,7 @@ class Aitsu_Persistence_File extends Aitsu_Persistence_Abstract {
 	}
 
 	public function setAsMainImage($unset = false) {
-trigger_error(var_export($unset, true));
+
 		if ($unset) {
 			Aitsu_Db :: query('' .
 			'update ' .

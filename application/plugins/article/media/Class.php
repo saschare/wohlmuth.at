@@ -190,7 +190,7 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$mediaid = $this->getRequest()->getParam('mediaid');
 		$set = $this->getRequest()->getParam('set');
-trigger_error(var_export($set, true));		
+		
 		Aitsu_Persistence_File :: factory($mediaid)->setAsMainImage($set == 0);
 
 		$this->_helper->json(array (

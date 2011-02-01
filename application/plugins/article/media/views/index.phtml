@@ -122,16 +122,25 @@ var media = new Ext.grid.GridPanel({
         }]
     }),
     columns: [
-    	{dataIndex: 'mediaid', header: '<?php echo Aitsu_Translate :: translate('Preview'); ?>', width: 40, menuDisabled: false, sortable: false, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-    		var extension = record.get('extension').toLowerCase();
-    		if (extension != 'jpg' && extension != 'gif' && extension != 'jpeg' && extension != 'png') {
-    			return '';
+    	{
+    		dataIndex: 'mediaid', 
+    		header: '<?php echo Aitsu_Translate :: translate('Preview'); ?>', 
+    		width: 60, 
+    		fixed: true,
+    		menuDisabled: false, 
+    		sortable: false, 
+    		renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+	    		var extension = record.get('extension').toLowerCase();
+	    		if (extension != 'jpg' && extension != 'gif' && extension != 'jpeg' && extension != 'png') {
+	    			return '';
+	    		}
+	    		return '<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 2), 'default'); ?>/id/' + record.get('mediaid') + '?dc=' + dc + '" width="32" height="32" alt="' + record.get('filename') + '" />';
     		}
-    		return '<img src="<?php echo $this->url(array('controller' => 'image', 'action' => 'media', 'width' => 32, 'height' => 32, 'boxed' => 2), 'default'); ?>/id/' + record.get('mediaid') + '?dc=' + dc + '" width="32" height="32" alt="' + record.get('filename') + '" />';
-    	}},
+    	},
     	{
     		xtype: 'actioncolumn',
-    		width: 15,
+    		width: 30,
+    		fixed: true,
     		menuDisabled: true, 
             sortable: false,
     		items: [{
