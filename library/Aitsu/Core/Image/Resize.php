@@ -261,7 +261,10 @@ class Aitsu_Core_Image_Resize {
 
 		imagecopyresampled($dst_im, $src_im, 0, 0, $x, $y, $targetWidth, $targetHeight, $width, $height);
 		imagedestroy($src_im);
-		imagejpeg($dst_im, $this->thumbDir . $targetName, 100);
+		
+		$quality = isset(Aitsu_Registry :: get()->config->image->quality) ? Aitsu_Registry :: get()->config->image->quality : 75;
+		
+		imagejpeg($dst_im, $this->thumbDir . $targetName, $quality);
 		imagedestroy($dst_im);
 
 		return $this->thumbDir . $targetName;
