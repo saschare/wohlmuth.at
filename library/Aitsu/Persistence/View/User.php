@@ -10,9 +10,11 @@
 
 class Aitsu_Persistence_View_User {
 
-	public static function auth($login, $password) {
+	public static function auth($login, $password, $hashed = false) {
 
-		$password = md5($password);
+		if (!$hashed) {
+			$password = md5($password);
+		}
 
 		$userid = Aitsu_Db :: fetchOne('' .
 		'select userid from _acl_user ' .

@@ -123,6 +123,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 		$frontController = Zend_Controller_Front :: getInstance();
 
+		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_HmacAuth());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Accesscontrol());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_BackendLocale());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Clientlang());

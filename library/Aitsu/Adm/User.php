@@ -44,9 +44,9 @@ class Aitsu_Adm_User {
 		return self :: $_instance;
 	}
 
-	public static function login($login, $password) {
+	public static function login($login, $password, $hashed = false) {
 
-		$user = Aitsu_Persistence_View_User :: auth($login, $password);
+		$user = Aitsu_Persistence_View_User :: auth($login, $password, $hashed);
 		if ($user !== false) {
 			self :: $_instance = new self($user->id);
 			return true;
