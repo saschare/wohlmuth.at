@@ -7,7 +7,7 @@
  */
 
 class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
-	
+
 	const ID = '4d4ae108-e148-4276-a9b5-0abf7f000101';
 
 	public function init() {
@@ -18,10 +18,22 @@ class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public static function register($idart) {
 
+		try {
+			if (Aitsu_Db :: fetchOne('' .
+				'select count(*) from _syndication_source ' .
+				'where idclient = :idclient', array (
+					':idclient' => Aitsu_Registry :: get()->session->currentClient
+				))) {
+				$enabled = true;
+			}
+		} catch (Exception $e) {
+			$enabled = false;
+		}
+
 		return (object) array (
 			'name' => 'syndication',
 			'tabname' => Aitsu_Registry :: get()->Zend_Translate->translate('Syndication'),
-			'enabled' => self :: getPosition($idart, 'syndication') && isset(Aitsu_Registry :: get()->config->syndication->sources),
+			'enabled' => self :: getPosition($idart, 'syndication') && $enabled,
 			'position' => self :: getPosition($idart, 'syndication'),
 			'id' => self :: ID
 		);

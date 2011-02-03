@@ -115,4 +115,49 @@ class SyndicationController extends Zend_Controller_Action {
 			'data' => $data
 		));
 	}
+
+	public function treeAction() {
+
+		$return = array ();
+		$id = $this->getRequest()->getParam('node');
+
+		if ($id == '0') {
+			/*
+			 * Root node. Show available sources.
+			 */
+			$sources = Aitsu_Db :: fetchAll('' .
+			'select ' .
+			'	sourceid, ' .
+			'	url ' .
+			'from _syndication_source ' .
+			'where idclient = :idclient ' .
+			'order by url asc ', array (
+				':idclient' => Aitsu_Registry :: get()->session->currentClient
+			));
+
+			if ($sources) {
+				foreach ($sources as $source) {
+					$return[] = array (
+						'id' => $source['sourceid'],
+						'text' => $source['url'],
+						'leaf' => false,
+						'iconCls' => 'treecat-online',
+						'type' => 'source'
+					);
+				}
+			}
+
+			$this->_helper->json($return);
+		}
+
+		preg_match('/(\\d*)(?:\\-([a-z]*)\\-(\\d*))?/', $id, $match);
+
+		$source = Aitsu_Db :: fetchRow('' .
+		'select * from _syndication_source ' .
+		'where sourceid = :sourceid', array (
+			':sourceid' => $match[1]
+		));
+
+		$this->_helper->json($return);
+	}
 }

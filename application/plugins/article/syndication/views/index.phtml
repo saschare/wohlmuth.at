@@ -7,7 +7,7 @@ var syndicationTree = new Ext.tree.TreePanel({
 	containerScroll: true,
 	border: false,
 	padding: '10px 0 10px 10px',
-	dataUrl: '<?php echo $this->url(array('controller' => 'data', 'action' => 'treesource'), 'default'); ?>?showpages=all',
+	dataUrl: '<?php echo $this->url(array('controller' => 'syndication', 'action' => 'tree'), 'default'); ?>?showpages=all',
 	rootVisible: false,
 	singleExpand: true,
 	stopRestoring: false,
@@ -19,7 +19,7 @@ var syndicationTree = new Ext.tree.TreePanel({
 	},
 	listeners: {
 		click: function(node, event) {
-			if (node.attributes.type == 'category') {
+			if (node.attributes.type == 'category' || node.attributes.type == 'source') {
 				node.expand();
 			} else if (node.attributes.type == 'page') {
             	Ext.Ajax.request({
