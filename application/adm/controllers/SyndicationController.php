@@ -22,7 +22,7 @@ class SyndicationController extends Zend_Controller_Action {
 
 		$this->_helper->layout->disableLayout();
 
-		Aitsu_Persistence_Clients :: factory($this->getRequest()->getParam('idclient'))->remove();
+		Aitsu_Persistence_SyndicationSource :: factory($this->getRequest()->getParam('sourceid'))->remove();
 
 		$this->_helper->json((object) array (
 			'success' => true
