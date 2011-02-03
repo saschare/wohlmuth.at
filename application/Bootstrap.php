@@ -167,6 +167,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			'action' => 'index',
 			'area' => 'none'
 		)));
+
+		Zend_Controller_Front :: getInstance()->getRouter()->addRoute('rest', new Zend_Controller_Router_Route('rest/:api/:method/*', array (
+			'controller' => 'rest',
+			'action' => 'index',
+			'api' => 'none',
+			'method' => 'index'
+		)));
 	}
 
 	protected function _initAppStatus() {

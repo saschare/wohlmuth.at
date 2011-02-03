@@ -36,6 +36,7 @@ class Aitsu_Adm_Controller_Plugin_HmacAuth extends Zend_Controller_Plugin_Abstra
 
 		if ($auth['hash'] != $checkHash) {
 			header('HTTP/1.1 401 Access Denied');
+echo $checkHash;			
 			exit;
 		}
 		
