@@ -1,0 +1,109 @@
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
+
+var tabs = new Ext.TabPanel({
+	resizeTabs: false,
+	minTabWidth: 115,
+	tabWidth:135,
+	enableTabScroll:true,
+	defaults: {
+		autoScroll:true
+	}
+});
+
+center.add(tabs);
+
+var syndicationsources = new Ext.grid.GridPanel({
+	id: 'syndication-sources-grid',
+	title: '<?php echo Aitsu_Translate :: translate('Sources'); ?>',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('controller' => 'syndication', 'action' => 'store'), 'default'); ?>',
+        remoteSort: false,
+        storeId: 'sourceStore',
+        idProperty: 'sourceid',
+        root: 'data',
+        fields: [{
+            name: 'sourceid'
+        }, {
+            name: 'url'
+        }, {
+            name: 'userid'
+        }]
+    }),
+    columns: [
+    	{dataIndex: 'sourceid', header: 'ID', menuDisabled: true, sortable: false, width: 20},
+    	{dataIndex: 'url', header: '<?php echo Aitsu_Translate :: translate('URL'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'userid', header: '<?php echo Aitsu_Translate :: translate('User'); ?>', menuDisabled: true, sortable: true}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new source'); ?>',
+	            iconCls: 'tb-add',
+	            handler: function(b, e) {
+	            	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'syndication', 'action' => 'edit'), 'default'); ?>']);
+	            }
+	        }
+	    ]
+	},
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+		rowclick: function(grid, rowIndex, event) {
+			var id = this.getStore().getAt(rowIndex).get('sourceid');
+			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'syndication', 'action' => 'edit'), 'default'); ?>'], null, {sourceid: id});
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+			
+			this.getSelectionModel().selectRow(rowIndex);
+			var record = this.getStore().getAt(rowIndex);
+			
+			var menu = new Ext.menu.Menu();
+			
+			menu.addItem({
+				text: '<?php echo $this->translate('Delete'); ?>',
+				iconCls: 'delete',
+				handler: function() {
+					 Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Delete source'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected source?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+					 		if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('controller' => 'syndication', 'action' => 'delete'), 'default'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+				            				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Source removed'); ?>', '<?php echo Aitsu_Translate :: translate('The selected source has been removed.'); ?>');
+					            			var store = grid.getStore().remove(record); 
+				            			}
+				            		},
+				            		params: { sourceid: record.get('sourceid') }
+				            	});					 			
+					 		}
+					 	}
+					 });
+				}
+			});
+			
+			menu.showAt(event.getXY());
+		}
+			
+	}
+});
+
+tabs.add(syndicationsources);
+
+tabs.setActiveTab(0);
+
+Ext.getCmp('viewport').doLayout();

@@ -9,6 +9,7 @@
 class Aitsu_Persistence_SyndicationSource extends Aitsu_Persistence_Abstract {
 
 	protected $_id = null;
+	protected $_data = null;
 
 	protected function __construct($id) {
 

@@ -93,6 +93,10 @@
     background-image: url(../images/icons/database_edit.png) !important; 
     background-repeat: no-repeat;
 }
+.tm-syndication {
+    background-image: url(../images/icons/server_connect.png) !important; 
+    background-repeat: no-repeat;
+}
 .treepage-online {
     background-image: url(../images/icons/page.png) !important; 
     background-repeat: no-repeat;

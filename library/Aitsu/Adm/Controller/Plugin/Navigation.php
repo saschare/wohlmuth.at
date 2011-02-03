@@ -111,6 +111,17 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'icon' => 'tm-configuration'
 						),
 						array (
+							'label' => $t->translate('Syndication'),
+							'id' => 'syndication',
+							'controller' => 'syndication',
+							'action' => 'index',
+							'route' => 'default',
+							'ac' => array (
+								'area' => 'syndication'
+							),
+							'icon' => 'tm-syndication'
+						),
+						array (
 							'label' => $t->translate('Translations'),
 							'id' => 'translation',
 							'controller' => 'translation',
