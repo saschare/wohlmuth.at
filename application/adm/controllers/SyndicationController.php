@@ -152,11 +152,37 @@ class SyndicationController extends Zend_Controller_Action {
 
 		preg_match('/(\\d*)(?:\\-([a-z]*)\\-(\\d*))?/', $id, $match);
 
+		$id = empty ($match[3]) ? 0 : $match[3];
+		$type = empty ($match[2]) ? 'unk' : $match[2];
+
 		$source = Aitsu_Db :: fetchRow('' .
 		'select * from _syndication_source ' .
 		'where sourceid = :sourceid', array (
 			':sourceid' => $match[1]
 		));
+
+		$locale = Aitsu_Db :: fetchOne('' .
+		'select locale from _lang where idlang = :idlang', array (
+			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+		));
+
+		$response = Aitsu_Http_Hmac_Sha1 :: factory($source['url'] . 'rest/syndication/tree/', $source['userid'], $source['secret'])->setParams(array (
+			'id' => $id,
+			'type' => $type,
+			'locale' => $locale
+		))->getResponse();
+
+		$response = json_decode($response);
+
+		foreach ($response as $entry) {
+			$return[] = array (
+				'id' => $source['sourceid'] . '-' . $entry->type . '-' . $entry->id,
+				'text' => $entry->name,
+				'leaf' => $entry->type == 'page',
+				'iconCls' => $entry->type == 'page' ? 'treepage-online' : 'treecat-online',
+				'type' => $entry->type
+			);
+		}
 
 		$this->_helper->json($return);
 	}

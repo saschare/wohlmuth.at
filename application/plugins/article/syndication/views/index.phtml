@@ -19,7 +19,7 @@ var syndicationTree = new Ext.tree.TreePanel({
 	},
 	listeners: {
 		click: function(node, event) {
-			if (node.attributes.type == 'category' || node.attributes.type == 'source') {
+			if (node.attributes.type == 'category' || node.attributes.type == 'source' || node.attributes.type == 'client') {
 				node.expand();
 			} else if (node.attributes.type == 'page') {
             	Ext.Ajax.request({

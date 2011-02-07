@@ -55,16 +55,22 @@ class Aitsu_Http_Hmac_Sha1 {
 	}
 
 	public function getResponse() {
-
-		$body = http_build_query($this->_params);
+		
+		$query = http_build_query($this->_params);
+		$uriPart = preg_replace('|[^/]*\\:/{2}[^/]*|', '', $this->_target);
 
 		$client = new Zend_Http_Client($this->_target, array (
 			'maxredirects' => 0,
 			'timeout' => 10
 		));
 
-		$client->setRawData($body);
-		$client->setHeaders('Authorization', 'HMAC-SHA1 ' . $this->_userid . ':' . hash_hmac('SHA1', $body, $this->_secret));
+		if ($this->_method == 'GET') {
+			$client->setUri($this->_target . '?' . $query);
+			$client->setHeaders('Authorization', 'HMAC-SHA1 ' . $this->_userid . ':' . hash_hmac('SHA1', $uriPart . '?' . $query, $this->_secret));
+		} else {
+			$client->setRawData($query);
+			$client->setHeaders('Authorization', 'HMAC-SHA1 ' . $this->_userid . ':' . hash_hmac('SHA1', $uriPart . $query, $this->_secret));
+		}
 
 		try {
 			return $client->request($this->_method)->getBody();
