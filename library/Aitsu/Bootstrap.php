@@ -118,7 +118,7 @@ class Aitsu_Bootstrap {
 			 * The client is determined by investigation of the 
 			 * parameter id, which represents the idartlang of the 
 			 * page to be edited.
-			 */			 
+			 */
 			Aitsu_Registry :: get()->config = Aitsu_Config_Ini :: getInstance('config');
 			$config = Aitsu_Db :: fetchOne('' .
 			'select ' .
@@ -238,17 +238,50 @@ class Aitsu_Bootstrap {
 		}
 	}
 
+	protected function _HmacAuthentication() {
+
+		$auth = Aitsu_Util_Request :: header('Authorization');
+
+		if (!$auth)
+			return;
+
+		if (!preg_match('/([^\\s]*)\\s([^\\:]*)\\:(.*)/', $auth, $match))
+			return;
+
+		$auth = array (
+			'type' => $match[1],
+			'userid' => $match[2],
+			'hash' => $match[3]
+		);
+
+		$uri = $_SERVER['REQUEST_URI'];
+		$body = $request->getRawBody();
+
+		$secret = Aitsu_Db :: fetchOne('' .
+		'select password from _acl_user where login = :userid', array (
+			':userid' => $auth['userid']
+		));
+
+		$checkHash = hash_hmac('sha1', $uri . $body, $secret);
+
+		if ($auth['hash'] != $checkHash) {
+			return;
+		}
+
+		Aitsu_Adm_User :: login($auth['userid'], $secret, true);
+		Aitsu_Registry :: get()->session->user = Aitsu_Adm_User :: getInstance();
+
+	}
+
 	protected function _AuthenticateUser() {
-		
-		if (isset($_REQUEST['logout'])) {
+
+		if (isset ($_REQUEST['logout'])) {
 			Aitsu_Registry :: get()->session->user = null;
 		}
 
 		if (isset ($_POST['username']) && isset ($_POST['password'])) {
 			if (Aitsu_Adm_User :: login($_POST['username'], $_POST['password'])) {
-				trigger_error('user logged in...');
 				Aitsu_Registry :: get()->session->user = Aitsu_Adm_User :: getInstance();
-				trigger_error(var_export(Aitsu_Registry :: get()->session->user, true));
 			}
 		}
 		elseif (isset (Aitsu_Registry :: get()->session->user)) {
@@ -264,6 +297,10 @@ class Aitsu_Bootstrap {
 			header('HTTP/1.1 401 Access Denied');
 			echo 'Access denied';
 			exit ();
+		}
+		
+		if ($user != null && isset($_GET['structured'])) {
+			Aitsu_Application_Status :: isStructured(true);
 		}
 
 		Aitsu_Registry :: isEdit(isset ($_GET['edit']));
@@ -298,7 +335,7 @@ class Aitsu_Bootstrap {
 
 	protected function _EvaluateRequest() {
 
-		if (!Aitsu_Registry :: isEdit() && !isset($_GET['id'])) {
+		if (!Aitsu_Registry :: isEdit() && !isset ($_GET['id'])) {
 			return Aitsu_Bootstrap_EvalRequest :: run();
 		}
 
@@ -368,7 +405,7 @@ class Aitsu_Bootstrap {
 			 */
 			return;
 		}
-		
+
 		if (Aitsu_Adm_User :: getInstance() != null) {
 			/*
 			 * Cache is disabled.

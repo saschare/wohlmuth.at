@@ -186,4 +186,10 @@ class SyndicationController extends Zend_Controller_Action {
 
 		$this->_helper->json($return);
 	}
+	
+	public function contentAction() {
+		
+		$idart = $this->getRequest()->getParam('idart');
+		$idlang = $this->getRequest()->getParam('idlang');
+	}
 }

@@ -14,6 +14,7 @@ class Aitsu_Application_Status {
 	protected $_environment = null;
 	protected $_edit = false;
 	protected $_locked = false;
+	protected $_structured = false;
 
 	static protected $_instance = null;
 
@@ -27,6 +28,17 @@ class Aitsu_Application_Status {
 		}
 
 		return self :: $_instance;
+	}
+	
+	public static function isStructured($set = null) {
+		
+		$instance = self :: _getInstance();
+		
+		if (!is_null($set)) {			
+			$instance->_structured = (boolean) $set;
+		}
+		
+		return $instance->_structured;
 	}
 
 	public static function isPreview($set = null) {
