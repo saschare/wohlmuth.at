@@ -22,7 +22,7 @@
 6. Click on the gear icon to start installation. This can take up to several
    minutes depending on the server's performance and the bandwidth available.
    
-7. After the installation has finished log out and log in gain, using 'admin' as
+7. After the installation has finished log out and log in again, using 'admin' as
    user name and the password you set on step 2.
    
 8. Change the admin password to a value known to you only and differing from what
