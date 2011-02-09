@@ -255,7 +255,7 @@ class Aitsu_Bootstrap {
 		);
 
 		$uri = $_SERVER['REQUEST_URI'];
-		$body = $request->getRawBody();
+		$body = file_get_contents('php://input');
 
 		$secret = Aitsu_Db :: fetchOne('' .
 		'select password from _acl_user where login = :userid', array (
@@ -265,12 +265,13 @@ class Aitsu_Bootstrap {
 		$checkHash = hash_hmac('sha1', $uri . $body, $secret);
 
 		if ($auth['hash'] != $checkHash) {
+// TODO: remove output.			
+echo $checkHash;exit;			
 			return;
 		}
 
 		Aitsu_Adm_User :: login($auth['userid'], $secret, true);
 		Aitsu_Registry :: get()->session->user = Aitsu_Adm_User :: getInstance();
-
 	}
 
 	protected function _AuthenticateUser() {

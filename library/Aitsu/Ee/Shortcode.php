@@ -45,7 +45,7 @@ class Aitsu_Ee_Shortcode {
 
 		$classFile0 = APPLICATION_PATH . "/skins/" . Aitsu_Registry :: get()->config->skin . "/module/{$method}/Class.php";
 		$classFile1 = realpath(APPLICATION_PATH . '/../library/Local/Module/' . $method . '/Class.php');
-		$classFile2 = realpath(APPLICATION_PATH . '/modules/' . str_replace('.', '/', $method) . '/Class.php');		
+		$classFile2 = realpath(APPLICATION_PATH . '/modules/' . str_replace('.', '/', $method) . '/Class.php');
 		$classFile3 = realpath(APPLICATION_PATH . '/../library/Aitsu/Ee/Module/' . $method . '/Class.php');
 
 		if (file_exists($classFile0)) {
@@ -99,9 +99,9 @@ class Aitsu_Ee_Shortcode {
 				return '<strong>' . sprintf(Aitsu_Registry :: translator()->translate('// The ShortCode \'%s\' does not exist. //'), $method) . '</strong>';
 			} else {
 				return '';
-			}			
-		}	
-	
+			}
+		}
+
 		if (is_object($returnValue)) {
 			$index = $returnValue->index;
 			$returnValue = $returnValue->out;
@@ -112,14 +112,19 @@ class Aitsu_Ee_Shortcode {
 		if (Aitsu_Registry :: isBoxModel() && !Aitsu_Content_Edit :: noEdit($method)) {
 			$returnValue = '<shortcode method="' . $method . '" index="' . $index . '">' . $returnValue . '</shortcode>';
 		} else
-			if (Aitsu_Registry :: isEdit() && !Aitsu_Content_Edit :: noEdit($method)) {
-				$isBlock = Aitsu_Content_Edit :: isBlock();
-				if ($isBlock === true) {
-					$returnValue = '<div id="' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '" class="aitsu_editable"><div class="aitsu_hover">' . $returnValue . '</div></div>';
-				} else {
-					$returnValue = '<span id="' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '" class="aitsu_editable" style="display:inline;"><span class="aitsu_hover">' . $returnValue . '</span></span>';
+			if (Aitsu_Application_Status :: isStructured()) {
+				$startmarker = '<!--fragement:start ' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '"-->';
+				$endmarker = '<!--fragement:end ' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '"-->';
+				$returnValue = $startmarker . $returnValue . $endmarker;
+			} else
+				if (Aitsu_Registry :: isEdit() && !Aitsu_Content_Edit :: noEdit($method)) {
+					$isBlock = Aitsu_Content_Edit :: isBlock();
+					if ($isBlock === true) {
+						$returnValue = '<div id="' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '" class="aitsu_editable"><div class="aitsu_hover">' . $returnValue . '</div></div>';
+					} else {
+						$returnValue = '<span id="' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '" class="aitsu_editable" style="display:inline;"><span class="aitsu_hover">' . $returnValue . '</span></span>';
+					}
 				}
-			}
 
 		return $returnValue;
 	}
