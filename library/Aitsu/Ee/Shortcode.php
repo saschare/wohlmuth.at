@@ -2,13 +2,8 @@
 
 
 /**
- * aitsu Shortcode evaluation.
- *
- * @version 1.0.0
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- *
- * {@id $Id: Shortcode.php 17827 2010-07-29 13:11:30Z akm $}
  */
 
 class Aitsu_Ee_Shortcode {
@@ -113,8 +108,8 @@ class Aitsu_Ee_Shortcode {
 			$returnValue = '<shortcode method="' . $method . '" index="' . $index . '">' . $returnValue . '</shortcode>';
 		} else
 			if (Aitsu_Application_Status :: isStructured()) {
-				$startmarker = '<!--fragement:start ' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '"-->';
-				$endmarker = '<!--fragement:end ' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '"-->';
+				$startmarker = '<!--fragment:start ' . $method . '-' . $index . '-->';
+				$endmarker = '<!--fragment:end ' . $method . '-' . $index . '-->';
 				$returnValue = $startmarker . $returnValue . $endmarker;
 			} else
 				if (Aitsu_Registry :: isEdit() && !Aitsu_Content_Edit :: noEdit($method)) {

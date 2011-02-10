@@ -19,6 +19,7 @@ RewriteRule ^skin/(.*) index.php?skinsource=$1 [QSA,L]
 
 RewriteRule ^.*\.(php|jpg|jpeg|gif|css|swf|doc|txt|xls|png|js|xml|pdf|ico).*$ - [L]
 
+RewriteRule ^id/(\d*).*$ index.php?id=$1 [QSA,L]
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 
 </IfModule>

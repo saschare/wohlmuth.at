@@ -486,6 +486,10 @@ echo $checkHash;exit;
 	}
 
 	public function getOutput() {
+		
+		if (Aitsu_Application_Status :: isStructured()) {
+			return Aitsu_Transformation_StructuredTo :: xml($this->pageContent);
+		}
 
 		return $this->pageContent;
 	}
