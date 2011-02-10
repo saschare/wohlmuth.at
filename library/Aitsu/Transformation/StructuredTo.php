@@ -13,7 +13,7 @@ class Aitsu_Transformation_StructuredTo {
 	protected function __construct() {
 	}
 
-	public static function xml($data) {
+	public static function xml($data, $reverse = false) {
 
 		if (empty ($data))
 			return null;
@@ -21,12 +21,40 @@ class Aitsu_Transformation_StructuredTo {
 		$instance = new self();
 		$instance->_data = $data;
 
+		if ($reverse) {
+			$dom = new DOMDocument();
+			$dom->loadXML($data);
+			return $instance->_transformXmlToStruct($dom);
+		}
+
 		$dom = new DOMDocument('1.0', 'utf-8');
 		$root = $dom->createElement('root');
 		$dom->appendChild($root);
 		$instance->_transformToXml($data, $root, $dom);
 
 		return $dom->saveXML();
+	}
+
+	protected function _transformXmlToStruct($node) {
+
+		$return = array ();
+
+		if ($node->hasChildNodes()) {
+			foreach ($node->childNodes as $childNode) {
+				$children = $this->_transformXmlToStruct($childNode);
+				if ($childNode->nodeName == 'root')
+					return $children;
+				if ($childNode->nodeName == 'node') {
+					$return[] = (object) array (
+						'id' => $childNode->attributes->getNamedItem('id')->nodeValue,
+						'content' => $childNode->textContent,
+						'children' => $children
+					);
+				}
+			}
+		}
+
+		return $return;
 	}
 
 	protected function _transformToXml($data, & $node, & $dom) {
@@ -42,27 +70,17 @@ class Aitsu_Transformation_StructuredTo {
 
 			$id = $module;
 			$id = empty ($index) ? $id : $id . '-' . $index;
-			
-			$childnode = $dom->createElement('node');
-			$node->appendChild($childnode);
-			
+
+			$childNode = $dom->createElement('node');
+			$node->appendChild($childNode);
+
 			$idAttr = $dom->createAttribute('id');
 			$idAttr->appendChild($dom->createTextNode($id));
-			$childnode->appendChild($idAttr);
-			
-			$contentNode = $dom->createElement('content');
-			$contentNode->appendChild($dom->createCDATASection(preg_replace('/<\\!\\-{2}fragment[^>]*>/', '', $content)));
-			$node->appendChild($contentNode);
-			
-			$this->_transformToXml($content, $childnode, $dom);
+			$childNode->appendChild($idAttr);
 
-			/*$children = $this->_transformToXml($content);
+			$childNode->appendChild($dom->createCDATASection(preg_replace('/<\\!\\-{2}fragment[^>]*>/', '', $content)));
 
-			$return[] = (object) array (
-				'id' => $id,
-				'content' => $content,
-				'children' => empty ($children) ? null : $children
-			);*/
+			$this->_transformToXml($content, $childNode, $dom);
 		}
 	}
 }
