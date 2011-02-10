@@ -46,17 +46,36 @@ class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function addAction() {
 
-		$idart = $this->getRequest()->getParam('idart');
 		$sourceIdartlang = $this->getRequest()->getParam('idartlang');
 		$sourceId = $this->getRequest()->getParam('sourceid');
-		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
+		$name = $this->getRequest()->getParam('name');
 
-		trigger_error(var_export(array (
-			$idart,
-			$sourceIdartlang,
+		$idart = $this->getRequest()->getParam('idart');
+		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
+		$idartlang = Aitsu_Db :: fetchOne('' .
+		'select idartlang from _art_lang ' .
+		'where ' .
+		'	idart = :idart ' .
+		'	and idlang = :idlang', array (
+			':idart' => $idart,
+			':idlang' => $idlang
+		));
+
+		$resource = Aitsu_Persistence_SyndicationResource :: factory(array (
 			$sourceId,
-			$idlang
-		), true));
+			$sourceIdartlang
+		))->addIdartlang($idartlang);
+		
+		/*
+		 * Set the resource's name.
+		 */
+		$name = substr(preg_replace('|/{2}|', '', $name), -255);
+		$resource->setResourceName($name);
+		
+		/*
+		 * Initially populate the resource with data or update the data.
+		 */
+		$resource->load(1);
 
 		$this->_helper->json((object) array (
 			'success' => true
@@ -66,12 +85,14 @@ class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
 	public function storeAction() {
 
 		$idart = $this->getRequest()->getParam('idart');
-		$links = Aitsu_Persistence_Article :: factory($idart)->load()->crosslinks;
+		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
+		
+		$resources = Aitsu_Persistence_SyndicationResource :: getResources($idart, $idlang);
 
 		$data = array ();
-		if ($links) {
-			foreach ($links as $link) {
-				$data[] = (object) $link;
+		if ($resources) {
+			foreach ($resources as $resource) {
+				$data[] = (object) $resource;
 			}
 		}
 

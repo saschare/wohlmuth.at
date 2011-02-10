@@ -5,6 +5,9 @@ RewriteEngine on
 
 RewriteBase /
 
+RewriteRule ^id/(\d*).*$ index.php?id=$1 [QSA,L]
+RewriteRule ^adm/id/(\d*).*$ index.php?id=$1 [QSA,L]
+
 RewriteRule ^adm/.*\.(jpg|jpeg|gif|css|swf|png|js|xml|pdf|ico|htc|eot|svg|ttf|woff).*$ - [L]
 RewriteRule ^adm/edit/(.*)$ index.php?edit=1&id=$1 [QSA,L]
 RewriteRule ^adm/preview/(.*)$ index.php?preview=1&id=$1 [QSA,L]
@@ -19,7 +22,6 @@ RewriteRule ^skin/(.*) index.php?skinsource=$1 [QSA,L]
 
 RewriteRule ^.*\.(php|jpg|jpeg|gif|css|swf|doc|txt|xls|png|js|xml|pdf|ico).*$ - [L]
 
-RewriteRule ^id/(\d*).*$ index.php?id=$1 [QSA,L]
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 
 </IfModule>

@@ -63,7 +63,7 @@ class Aitsu_Transformation_StructuredTo {
 			return;
 		}
 
-		for ($i = 0; count($matches[0][$i]); $i++) {
+		for ($i = 0; $i < count($matches[0]); $i++) {
 			$module = $matches[2][$i];
 			$index = $matches[3][$i];
 			$content = $matches[4][$i];

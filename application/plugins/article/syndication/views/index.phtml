@@ -25,12 +25,13 @@ var syndicationTree = new Ext.tree.TreePanel({
             	Ext.Ajax.request({
             		url: '<?php echo $this->url(array('plugin' => 'syndication', 'paction' => 'add'), 'aplugin'); ?>',
             		success: function(response, opts) {
-            			source.getStore().load();
+            			sources.getStore().load();
             		},
             		params: {
             			idart: <?php echo $this->idart; ?>,
             			sourceid: node.attributes.sourceid,
-            			idartlang: node.attributes.idartlang
+            			idartlang: node.attributes.idartlang,
+            			name: node.getPath('name')
             		}
             	});					 			
 			}
@@ -44,18 +45,16 @@ var sources = new Ext.grid.GridPanel({
         url: '<?php echo $this->url(array('plugin' => 'syndication', 'paction' => 'store'), 'aplugin'); ?>',
         remoteSort: false,
         storeId: 'syndicationStore',
-        idProperty: 'resourceid',
         root: 'data',
-        fields: ['idartlang', 'idart', 'title', 'pagetitle', 'idcat', 'category'],
+        fields: ['sourceid', 'sourceidartlang', 'name', 'url'],
         baseParams: {
         	idart: <?php echo $this->idart; ?>
         }
     }),
     columns: [
-    	{dataIndex: 'idart', header: 'ID', menuDisabled: true, sortable: true, width: 20},
-    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', menuDisabled: true, sortable: true},
-    	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Page title'); ?>', menuDisabled: true, sortable: true},
-    	{dataIndex: 'category', header: '<?php echo Aitsu_Translate :: translate('Category'); ?>', menuDisabled: true, sortable: true}
+    	{dataIndex: 'sourceidartlang', header: '<?php echo Aitsu_Translate :: translate('Resource ID'); ?>', menuDisabled: true, sortable: true, width: 100, fixed: true},
+    	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'url', header: '<?php echo Aitsu_Translate :: translate('Source'); ?>', menuDisabled: true, sortable: true}
 	],
 	viewConfig: {
 		forceFit: true,

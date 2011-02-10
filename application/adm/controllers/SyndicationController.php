@@ -140,6 +140,7 @@ class SyndicationController extends Zend_Controller_Action {
 					$return[] = array (
 						'id' => $source['sourceid'],
 						'text' => $source['url'],
+						'name' => '',
 						'leaf' => false,
 						'iconCls' => 'treecat-online',
 						'type' => 'source'
@@ -180,6 +181,7 @@ class SyndicationController extends Zend_Controller_Action {
 				'sourceid' => $source['sourceid'],
 				'idartlang' => $entry->id,
 				'text' => $entry->name,
+				'name' => $entry->name,
 				'leaf' => $entry->type == 'page',
 				'iconCls' => $entry->type == 'page' ? 'treepage-online' : 'treecat-online',
 				'type' => $entry->type
