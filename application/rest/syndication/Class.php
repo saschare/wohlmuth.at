@@ -151,7 +151,7 @@ class RestSyndicationController extends Aitsu_Adm_Plugin_Controller {
 					foreach ($pages as $page) {
 						$return[] = (object) array (
 							'name' => $page['title'],
-							'id' => $cat['idartlang'],
+							'id' => $page['idartlang'],
 							'type' => 'page'
 						);
 					}

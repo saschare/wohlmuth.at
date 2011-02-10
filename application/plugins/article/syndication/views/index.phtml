@@ -23,12 +23,13 @@ var syndicationTree = new Ext.tree.TreePanel({
 				node.expand();
 			} else if (node.attributes.type == 'page') {
             	Ext.Ajax.request({
-            		url: '<?php echo $this->url(array('plugin' => 'crosslinking', 'paction' => 'add'), 'aplugin'); ?>',
+            		url: '<?php echo $this->url(array('plugin' => 'syndication', 'paction' => 'add'), 'aplugin'); ?>',
             		success: function(response, opts) {
-            			crosslinks.getStore().load();
+            			source.getStore().load();
             		},
             		params: {
             			idart: <?php echo $this->idart; ?>,
+            			sourceid: node.attributes.sourceid,
             			idartlang: node.attributes.idartlang
             		}
             	});					 			
@@ -40,10 +41,10 @@ var syndicationTree = new Ext.tree.TreePanel({
 var sources = new Ext.grid.GridPanel({
 	store: new Ext.data.JsonStore({
         autoDestroy: true,
-        url: '<?php echo $this->url(array('plugin' => 'crosslinking', 'paction' => 'store'), 'aplugin'); ?>',
+        url: '<?php echo $this->url(array('plugin' => 'syndication', 'paction' => 'store'), 'aplugin'); ?>',
         remoteSort: false,
-        storeId: 'crosslinkStore',
-        idProperty: 'idartlang',
+        storeId: 'syndicationStore',
+        idProperty: 'resourceid',
         root: 'data',
         fields: ['idartlang', 'idart', 'title', 'pagetitle', 'idcat', 'category'],
         baseParams: {

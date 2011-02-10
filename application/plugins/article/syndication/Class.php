@@ -44,4 +44,39 @@ class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
 		$this->view->idart = $this->getRequest()->getParam('idart');
 	}
 
+	public function addAction() {
+
+		$idart = $this->getRequest()->getParam('idart');
+		$sourceIdartlang = $this->getRequest()->getParam('idartlang');
+		$sourceId = $this->getRequest()->getParam('sourceid');
+		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
+
+		trigger_error(var_export(array (
+			$idart,
+			$sourceIdartlang,
+			$sourceId,
+			$idlang
+		), true));
+
+		$this->_helper->json((object) array (
+			'success' => true
+		));
+	}
+
+	public function storeAction() {
+
+		$idart = $this->getRequest()->getParam('idart');
+		$links = Aitsu_Persistence_Article :: factory($idart)->load()->crosslinks;
+
+		$data = array ();
+		if ($links) {
+			foreach ($links as $link) {
+				$data[] = (object) $link;
+			}
+		}
+
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
 }

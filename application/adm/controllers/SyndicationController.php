@@ -177,6 +177,8 @@ class SyndicationController extends Zend_Controller_Action {
 		foreach ($response as $entry) {
 			$return[] = array (
 				'id' => $source['sourceid'] . '-' . $entry->type . '-' . $entry->id,
+				'sourceid' => $source['sourceid'],
+				'idartlang' => $entry->id,
 				'text' => $entry->name,
 				'leaf' => $entry->type == 'page',
 				'iconCls' => $entry->type == 'page' ? 'treepage-online' : 'treecat-online',
