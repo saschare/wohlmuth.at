@@ -616,4 +616,119 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
 	}
 
+	public function doAddTableSyndicationSource() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'syndication_source';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'CREATE TABLE IF NOT EXISTS _syndication_source (' .
+		'`sourceid` int(10) unsigned NOT NULL AUTO_INCREMENT,' .
+		'`idclient` int(10) unsigned NOT NULL,' .
+		'`url` varchar(255) NOT NULL,' .
+		'`userid` varchar(255) NOT NULL,' .
+		'`secret` varchar(255) NOT NULL,' .
+		'PRIMARY KEY (`sourceid`),' .
+		'KEY `idclient` (`idclient`)' .
+		') ENGINE=InnoDB  DEFAULT CHARSET=utf8');
+
+		Aitsu_Db :: query('' .
+		'ALTER TABLE _syndication_source ' .
+		'ADD CONSTRAINT `ait_syndication_source_ibfk_1` ' .
+		'FOREIGN KEY (`idclient`) ' .
+		'REFERENCES _clients (`idclient`) ' .
+		'ON DELETE CASCADE');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+
+	public function doAddTableSyndicationResource() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'syndication_resource';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'CREATE TABLE IF NOT EXISTS _syndication_resource (' .
+		'`sourceid` int(10) unsigned NOT NULL,' .
+		'`sourceidartlang` int(10) unsigned NOT NULL,' .
+		'`name` varchar(255) DEFAULT NULL,' .
+		'`content` longtext NOT NULL,' .
+		'`loaded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,' .
+		'PRIMARY KEY (`sourceid`,`sourceidartlang`)' .
+		') ENGINE=InnoDB DEFAULT CHARSET=utf8');
+
+		Aitsu_Db :: query('' .
+		'ALTER TABLE _syndication_resource ' .
+		'ADD CONSTRAINT `ait_syndication_resource_ibfk_1` ' .
+		'FOREIGN KEY (`sourceid`) REFERENCES _syndication_source (`sourceid`) ' .
+		'ON DELETE CASCADE');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+
+	public function doAddTableSyndicationResourceArt() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'syndication_resource_art';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+		Aitsu_Db :: query('' .
+		'CREATE TABLE IF NOT EXISTS _syndication_resource_art (' .
+		'`idartlang` int(10) unsigned NOT NULL,' .
+		'`sourceid` int(10) unsigned NOT NULL,' .
+		'`sourceidartlang` int(10) unsigned NOT NULL,' .
+		'PRIMARY KEY (`idartlang`,`sourceid`,`sourceidartlang`),' .
+		'KEY `sourceid` (`sourceid`)' .
+		') ENGINE=InnoDB DEFAULT CHARSET=utf8');
+
+		Aitsu_Db :: query('' .
+		'ALTER TABLE _syndication_resource_art ' .
+		'ADD CONSTRAINT `ait_syndication_resource_art_ibfk_1` ' .
+		'FOREIGN KEY (`idartlang`) ' .
+		'REFERENCES _art_lang (`idartlang`) ON DELETE CASCADE, ' .
+		'ADD CONSTRAINT `ait_syndication_resource_art_ibfk_2` ' .
+		'FOREIGN KEY (`sourceid`) ' .
+		'REFERENCES _syndication_source (`sourceid`) ON DELETE CASCADE');
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+
 }
