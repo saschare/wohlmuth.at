@@ -74,7 +74,7 @@ class Aitsu_Persistence_SyndicationResource extends Aitsu_Persistence_Abstract {
 			'(sourceid, sourceidartlang, content, name) ' .
 			'values ' .
 			'(:sourceid, :sourceidartlang, :content, :name) ' .
-			'on duplicate key update content = :content, name = :name', array (
+			'on duplicate key update content = :content', array (
 				':sourceid' => $this->_sourceid,
 				':sourceidartlang' => $this->_sourceidartlang,
 				':content' => serialize($this->_data),
@@ -98,6 +98,40 @@ class Aitsu_Persistence_SyndicationResource extends Aitsu_Persistence_Abstract {
 	public function __set($key, $value) {
 
 		// Method not implemented.
+	}
+
+	public function get($id) {
+
+		if (empty ($this->_data))
+			return '';
+
+		$return = null;
+		$this->_get($return, $this->_data, $id);
+
+		return $return;
+	}
+
+	protected function _get(& $return, & $data, $id) {
+
+		if (!is_null($return))
+			return;
+			
+		if (is_object($data) && $data->id == $id) {
+			$return = $data->content;
+			return;
+		}
+		
+		if (is_object($data)) {
+			foreach ($data->children as $entry) {
+				$this->_get($return, $entry, $id);
+			}
+		}
+		
+		if (is_array($data)) {
+			foreach ($data as $entry) {
+				$this->_get($return, $entry, $id);
+			}
+		}
 	}
 
 	public function setResourceName($name) {
