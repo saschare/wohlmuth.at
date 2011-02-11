@@ -266,7 +266,7 @@ class Aitsu_Bootstrap {
 
 		if ($auth['hash'] != $checkHash) {
 // TODO: remove output.			
-echo $checkHash;exit;			
+// echo $checkHash;exit;			
 			return;
 		}
 

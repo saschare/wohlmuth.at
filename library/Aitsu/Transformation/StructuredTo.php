@@ -47,7 +47,7 @@ class Aitsu_Transformation_StructuredTo {
 				if ($childNode->nodeName == 'node') {
 					$return[] = (object) array (
 						'id' => $childNode->attributes->getNamedItem('id')->nodeValue,
-						'content' => $childNode->textContent,
+						'content' => $childNode->getElementsByTagName('content')->item(0)->textContent,
 						'children' => $children
 					);
 				}
@@ -77,8 +77,10 @@ class Aitsu_Transformation_StructuredTo {
 			$idAttr = $dom->createAttribute('id');
 			$idAttr->appendChild($dom->createTextNode($id));
 			$childNode->appendChild($idAttr);
-
-			$childNode->appendChild($dom->createCDATASection(preg_replace('/<\\!\\-{2}fragment[^>]*>/', '', $content)));
+			
+			$contentNode = $dom->createElement('content');
+			$childNode->appendChild($contentNode);
+			$contentNode->appendChild($dom->createCDATASection(preg_replace('/<\\!\\-{2}fragment[^>]*>/', '', $content)));
 
 			$this->_transformToXml($content, $childNode, $dom);
 		}
