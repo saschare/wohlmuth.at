@@ -146,6 +146,8 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 		if (preg_match_all('/\\{ref:(idcat|idart)\\-(\\d+)\\}/s', $html, $matches) == 0) {
 			return $html;
 		}
+		
+		$baseUrl = (isset(Aitsu_Registry :: get()->env->sys->webpath) && Aitsu_Application_Status :: isStructured()) ? Aitsu_Registry :: get()->env->sys->webpath : '/';
 
 		$idarts = array ();
 		$idcats = array ();
@@ -180,7 +182,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			if ($results) {
 				foreach ($results as $row) {
 					foreach ($idarts[$row['idart']] as $placeHolder) {
-						$html = str_replace($placeHolder, '/' . $row['url'], $html);
+						$html = str_replace($placeHolder, $baseUrl . $row['url'], $html);
 					}
 				}
 			}
@@ -205,7 +207,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			if ($results) {
 				foreach ($results as $row) {
 					foreach ($idcats[$row['idcat']] as $placeHolder) {
-						$html = str_replace($placeHolder, '/' . $row['url'] . '/', $html);
+						$html = str_replace($placeHolder, $baseUrl . $row['url'] . '/', $html);
 					}
 				}
 			}
