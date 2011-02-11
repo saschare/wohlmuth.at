@@ -10,6 +10,9 @@
 		    	m = m < 10 ? '0' + m : m;
 		    	s = s < 10 ? '0' + s : s;
 		    	Ext.getCmp('session-clock').update('<?php echo Aitsu_Translate :: translate('Remaining session time'); ?>: ' + h + ' h ' + m + ' m ' + s + ' s');
+				if (remainingSessionPeriod <= 0) {
+					window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
+				}    	
 		    },
 		    interval: 1000
 		});
