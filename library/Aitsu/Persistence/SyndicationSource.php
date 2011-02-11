@@ -85,6 +85,10 @@ class Aitsu_Persistence_SyndicationSource extends Aitsu_Persistence_Abstract {
 		try {
 			Aitsu_Db :: startTransaction();
 
+			if (strlen($this->_data['secret']) != 32) {
+				$this->_data['secret'] = md5($this->_data['secret']);
+			}
+
 			$this->_data['sourceid'] = Aitsu_Db :: put('_syndication_source', 'sourceid', $this->_data);
 
 			Aitsu_Db :: commit();

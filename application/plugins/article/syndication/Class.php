@@ -65,13 +65,13 @@ class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
 			$sourceId,
 			$sourceIdartlang
 		))->addIdartlang($idartlang);
-		
+
 		/*
 		 * Set the resource's name.
 		 */
 		$name = substr(preg_replace('|/{2}|', '', $name), -255);
 		$resource->setResourceName($name);
-		
+
 		/*
 		 * Initially populate the resource with data or update the data.
 		 */
@@ -86,7 +86,7 @@ class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$idart = $this->getRequest()->getParam('idart');
 		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
-		
+
 		$resources = Aitsu_Persistence_SyndicationResource :: getResources($idart, $idlang);
 
 		$data = array ();
@@ -100,4 +100,29 @@ class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
 			'data' => $data
 		));
 	}
+
+	public function deleteAction() {
+
+		$sourceid = $this->getRequest()->getParam('sourceid');
+		$sourceidartlang = $this->getRequest()->getParam('sourceidartlang');
+
+		$idartlang = Aitsu_Db :: fetchOne('' .
+		'select idartlang from _art_lang ' .
+		'where ' .
+		'	idart = :idart ' .
+		'	and idlang = :idlang', array (
+			':idart' => $this->getRequest()->getParam('idart'),
+			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+		));
+
+		Aitsu_Persistence_SyndicationResource :: factory(array (
+			$sourceid,
+			$sourceidartlang
+		))->removeIdartlang($idartlang);
+
+		$this->_helper->json((object) array (
+			'success' => true
+		));
+	}
+
 }

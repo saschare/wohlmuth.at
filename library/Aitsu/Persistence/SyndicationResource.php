@@ -150,6 +150,9 @@ class Aitsu_Persistence_SyndicationResource extends Aitsu_Persistence_Abstract {
 
 	public function removeIdartlang($idartlang) {
 
+		/*
+		 * Remove the specified relation.
+		 */
 		Aitsu_Db :: query('' .
 		'delete from _syndication_resource_art ' .
 		'where ' .
@@ -160,6 +163,15 @@ class Aitsu_Persistence_SyndicationResource extends Aitsu_Persistence_Abstract {
 			':sourceidartlang' => $this->_sourceidartlang,
 			':idartlang' => $idartlang
 		));
+
+		/*
+		 * Remove unused resources.
+		 */
+		Aitsu_Db :: query('' .
+		'delete res ' .
+		'from _syndication_resource res ' .
+		'left join _syndication_resource_art art on res.sourceid = art.sourceid and res.sourceidartlang = art.sourceidartlang ' .
+		'where art.sourceid is null');
 
 		return $this;
 	}
