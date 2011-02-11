@@ -10,7 +10,7 @@ class Aitsu_Adm_Controller_Plugin_HmacAuth extends Zend_Controller_Plugin_Abstra
 
 	public function preDispatch(Zend_Controller_Request_Abstract $request) {
 
-		$auth = $request->getHeader('Authorization');
+		$auth = $request->getHeader('aitsuauth');
 
 		if (!$auth)
 			return;

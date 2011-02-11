@@ -66,10 +66,10 @@ class Aitsu_Http_Hmac_Sha1 {
 
 		if ($this->_method == 'GET') {
 			$client->setUri($this->_target . '?' . $query);
-			$client->setHeaders('Authorization', 'HMAC-SHA1 ' . $this->_userid . ':' . hash_hmac('SHA1', $uriPart . '?' . $query, $this->_secret));
+			$client->setHeaders('aitsuauth', 'HMAC-SHA1 ' . $this->_userid . ':' . hash_hmac('SHA1', $uriPart . '?' . $query, $this->_secret));
 		} else {
 			$client->setRawData($query);
-			$client->setHeaders('Authorization', 'HMAC-SHA1 ' . $this->_userid . ':' . hash_hmac('SHA1', $uriPart . $query, $this->_secret));
+			$client->setHeaders('aitsuauth', 'HMAC-SHA1 ' . $this->_userid . ':' . hash_hmac('SHA1', $uriPart . $query, $this->_secret));
 		}
 
 		try {

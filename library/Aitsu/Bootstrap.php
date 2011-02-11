@@ -240,7 +240,7 @@ class Aitsu_Bootstrap {
 
 	protected function _HmacAuthentication() {
 
-		$auth = Aitsu_Util_Request :: header('Authorization');
+		$auth = Aitsu_Util_Request :: header('aitsuauth');
 
 		if (!$auth)
 			return;
