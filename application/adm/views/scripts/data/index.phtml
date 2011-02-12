@@ -162,6 +162,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 					}
 				});
 				
+				<?php if (Aitsu_Adm_User :: getInstance()->isAllowed(array ('area' => 'category', 'action' => 'delete'))) : ?>
 				menu.addItem({
 					text: '<?php echo $this->translate('Delete'); ?>',
 					iconCls: 'cm-folder-delete',
@@ -188,9 +189,10 @@ var pagetree = 	new Ext.tree.TreePanel({
 						 });
 					}
 				});
+				<?php endif; ?>
 				
+				<?php if (Aitsu_Adm_User :: getInstance()->isAllowed(array ('area' => 'usermanagement', 'action' => 'crud'))) : ?>
 				menu.addItem('-');
-
 				menu.addItem({
 					text: '<?php echo $this->translate('Set as resource'); ?>',
 					iconCls: 'cm-link-to-acl',
@@ -206,6 +208,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 				        });					
 					}
 				});
+				<?php endif; ?>
 
 				menu.addItem('-');
 
