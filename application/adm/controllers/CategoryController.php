@@ -194,6 +194,18 @@ class CategoryController extends Zend_Controller_Action {
 	 */
 	public function movecatAction() {
 
+		if (!Aitsu_Adm_User :: getInstance()->isAllowed(array (
+				'client' => Aitsu_Registry :: get()->session->currentClient,
+				'language' => Aitsu_Registry :: get()->session->currentLanguage,
+				'area' => 'category',
+				'action' => 'move'
+			))) {
+			$this->_helper->json((object) array (
+				'success' => false
+			));
+			return;
+		}
+
 		$idcat = $this->getRequest()->getParam('idcat');
 		$parentid = $this->getRequest()->getParam('parentid');
 		$next = $this->getRequest()->getParam('next');
