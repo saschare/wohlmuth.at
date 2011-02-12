@@ -73,7 +73,8 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'action' => 'index',
 							'route' => 'default',
 							'ac' => array (
-								'area' => 'usermanagement'
+								'area' => 'usermanagement',
+								'action' => 'crud'
 							),
 							'icon' => 'tm-usermanagement'
 						),
