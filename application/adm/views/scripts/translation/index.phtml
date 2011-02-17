@@ -20,8 +20,8 @@ var translationGrid = new Ext.grid.GridPanel({
     }),
     columns: [
     	{dataIndex: 'translationid', header: 'ID', menuDisabled: false, sortable: false, width: 20},
-    	{dataIndex: 'tkey', header: '<? echo Aitsu_Translate :: translate('Key'); ?>', menuDisabled: false, sortable: true},
-    	{dataIndex: 'tvalue', header: '<? echo Aitsu_Translate :: translate('Value'); ?>', menuDisabled: false, sortable: true}
+    	{dataIndex: 'tkey', header: '<?php echo Aitsu_Translate :: translate('Key'); ?>', menuDisabled: false, sortable: true},
+    	{dataIndex: 'tvalue', header: '<?php echo Aitsu_Translate :: translate('Value'); ?>', menuDisabled: false, sortable: true}
 	],
 	viewConfig: {
 		forceFit: true,

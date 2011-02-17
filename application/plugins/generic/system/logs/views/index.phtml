@@ -34,8 +34,8 @@ if (typeof(Ext.getCmp('system-log')) == 'undefined') {
 	    columns: [
 	    	expander,
 	    	{dataIndex: 'time', header: '<?php echo Aitsu_Translate :: translate('Time'); ?>', menuDisabled: true, sortable: false, width: 10, renderer: Ext.util.Format.dateRenderer('H:i:s')},
-	    	{dataIndex: 'type', header: '<? echo Aitsu_Translate :: translate('Type'); ?>', menuDisabled: true, sortable: false, width: 10},
-	    	{dataIndex: 'entry', header: '<? echo Aitsu_Translate :: translate('Entry'); ?>', menuDisabled: true, sortable: false, width: 100}
+	    	{dataIndex: 'type', header: '<?php echo Aitsu_Translate :: translate('Type'); ?>', menuDisabled: true, sortable: false, width: 10},
+	    	{dataIndex: 'entry', header: '<?php echo Aitsu_Translate :: translate('Entry'); ?>', menuDisabled: true, sortable: false, width: 100}
 		],
 		viewConfig: {
 			forceFit: true,

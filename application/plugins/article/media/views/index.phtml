@@ -39,7 +39,7 @@ var uploader = new Ext.ux.PluploadPanel({
     runtimes: 'html5,gears,flash,silverlight,html4',
     multipart: true,
     multipart_params: {
-    	idart: <? echo $this->idart; ?>
+    	idart: <?php echo $this->idart; ?>
     },
     max_file_size: '100mb',
     flash_swf_url: '<?php echo $this->baseUrl('/js/plupload/js/plupload.flash.swf'); ?>',
