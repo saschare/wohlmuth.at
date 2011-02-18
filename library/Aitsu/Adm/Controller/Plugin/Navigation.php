@@ -22,7 +22,7 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 					'icon' => 'tm-dashboard'
 				),
 				array (
-					'label' => $t->translate('Articles'),
+					'label' => 'Content',
 					'id' => 'page',
 					'controller' => 'data',
 					'action' => 'index',
@@ -31,18 +31,6 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 						'area' => 'article'
 					),
 					'icon' => 'tm-page'
-				),
-				array (
-					'label' => $t->translate('Plugins'),
-					'id' => uniqid(),
-					'controller' => 'plugins',
-					'action' => 'index',
-					'route' => 'default',
-					'pages' => $this->_getPluginNav(),
-					'ac' => array (
-						'area' => 'plugins'
-					),
-					'icon' => 'tm-plugin'
 				),
 				array (
 					'label' => $t->translate('Management'),
@@ -145,6 +133,18 @@ class Aitsu_Adm_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abst
 							'icon' => 'tm-script'
 						)
 					)
+				),
+				array (
+					'label' => 'System',
+					'id' => uniqid(),
+					'controller' => 'plugins',
+					'action' => 'index',
+					'route' => 'default',
+					'pages' => $this->_getPluginNav(),
+					'ac' => array (
+						'area' => 'plugins'
+					),
+					'icon' => 'tm-plugin'
 				),
 				array (
 					'label' => $t->translate('Logout'),
