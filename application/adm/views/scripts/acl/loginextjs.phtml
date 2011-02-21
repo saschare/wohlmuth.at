@@ -1,82 +1,87 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		
-		<title>Login</title>
-		
-		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ext-all-notheme.css'); ?>" />
-        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ux-all.css'); ?>" />
-        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/xtheme-gray.css'); ?>" />
-        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/css/extjs-aitsu.css'); ?>" />
-              
-        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/adapter/ext/ext-base.js'); ?>"></script>
-        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-all.js'); ?>"></script>   
-        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all.js'); ?>"></script>
 
-	    <script type="text/javascript"> 
-		Ext.onReady(function(){
-    		
-    		Ext.QuickTips.init();
- 
-			var login = new Ext.FormPanel({
-				labelWidth:80,
-				url: window.location.href,
-				frame:true,
-				title:'Login', 
-        		defaultType:'textfield',
-				monitorValid:true,
-				standardSubmit: true,
-		        items:[{
-		        	fieldLabel:'Username',
-		        	name:'login',
-		        	allowBlank:false
-		        },{
-		        	fieldLabel:'Password', 
-					name:'password', 
-					inputType:'password', 
-					allowBlank:false 
-				}],
-				buttons:[{
-					text:'Login',
-					formBind: true,	 
-					handler: function() {
-						login.getForm().submit({
-							method:'POST',
-							waitTitle:'Connecting',
-							waitMsg:'Sending data...'
-						});
-					}
-				}],
-				keys: [{
-        			key: [10,13],
-        			fn: function(){
-        				login.getForm().submit({
-							method:'POST',
-							waitTitle:'Connecting',
-							waitMsg:'Sending data...'
-						});
-        			}
-    			}]
-			});
- 
-			new Ext.Window({
-				layout:'fit',
-				width:270,
-				height:150,
-				closable: false,
-				resizable: false,
-				plain: true,
-				border: false,
-				items: [login],
-				y: 100
-			}).show();
-		});
-	    </script> 
-	    
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+		<title>Login</title>
+
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ext-all-notheme.css'); ?>" />
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/ux-all.css'); ?>" />
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.3.1/resources/css/xtheme-gray.css'); ?>" />
+		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/css/extjs-aitsu.css'); ?>" />
+
+		<script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/adapter/ext/ext-base.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ext-all.js'); ?>"></script>   
+		<script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.3.1/ux-all.js'); ?>"></script>
+
+		<script type="text/javascript"> 
+Ext.onReady(function () {
+
+   Ext.QuickTips.init();
+
+   var login = new Ext.FormPanel({
+      //labelWidth: 80,
+      url: window.location.href,
+      frame: true,
+      title: 'Login',
+      defaultType: 'textfield',
+      defaults: {
+      	validateOnBlur: false,
+      },
+      //monitorValid: true,
+      standardSubmit: true,
+      items: [{
+         fieldLabel: 'Username',
+         name: 'login',
+         allowBlank: false
+      }, {
+         fieldLabel: 'Password',
+         name: 'password',
+         inputType: 'password',
+         allowBlank: false
+      }],
+      buttons: [{
+         text: 'Login',
+         formBind: true,
+         handler: function () {
+            if (login.getForm().isValid()) {
+               login.getForm().submit({
+                  method: 'POST',
+                  waitTitle: 'Connecting',
+                  waitMsg: 'Sending data...'
+               });
+            }
+         }
+      }],
+      keys: [{
+         key: [10, 13],
+         fn: function () {
+            if (login.getForm().isValid()) {
+               login.getForm().submit({
+                  method: 'POST',
+                  waitTitle: 'Connecting',
+                  waitMsg: 'Sending data...'
+               });
+            }
+         }
+      }]
+   });
+
+   new Ext.Window({
+      layout: 'fit',
+      width: 300,
+      height: 150,
+      closable: false,
+      resizable: false,
+      plain: true,
+      border: false,
+      items: [login],
+      y: 100
+   }).show();
+});
+		</script> 
 	</head> 
 
-<body> 
-</body> 
+<body></body> 
 </html>
