@@ -17,7 +17,7 @@ class Aitsu_Persistence_Profile extends Aitsu_Persistence_Abstract {
 		$this->_id = Aitsu_Registry :: get()->env->idartlang;
 	}
 
-	public function factory($id = null) {
+	public static function factory($id = null) {
 
 		static $instance = array ();
 

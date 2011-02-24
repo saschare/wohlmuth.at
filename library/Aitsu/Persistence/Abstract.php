@@ -8,7 +8,7 @@
  * {@id $Id: Abstract.php 18796 2010-09-16 20:15:26Z akm $}
  */
 
-abstract class Aitsu_Persistence_Abstract {
+abstract class Aitsu_Persistence_Abstract implements Aitsu_Persistence_Interface {
 
 	protected $_id = null;
 	protected $_data = array();
@@ -18,7 +18,7 @@ abstract class Aitsu_Persistence_Abstract {
 		$this->_id = $id;
 	}
 
-	abstract public function factory($id = null);
+	//abstract public static function factory($id = null);
 
 	abstract public function load();
 

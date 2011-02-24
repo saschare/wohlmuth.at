@@ -25,7 +25,7 @@ class Aitsu_Persistence_ArticleMeta extends Aitsu_Persistence_Abstract {
 		));
 	}
 
-	public function factory($id = null) {
+	public static function factory($id = null) {
 
 		static $instance = array ();
 

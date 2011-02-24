@@ -32,7 +32,7 @@ class Aitsu_Persistence_Comment extends Aitsu_Persistence_Abstract implements Ai
 		$this->_id = $id;
 	}
 
-	public function factory($id = null) {
+	public static function factory($id = null) {
 
 		static $instance = array ();
 

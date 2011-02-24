@@ -16,7 +16,7 @@ class Aitsu_Persistence_Tag extends Aitsu_Persistence_Abstract {
 		$this->_id = $id;
 	}
 
-	public function factory($id = null) {
+	public static function factory($id = null) {
 
 		static $instance = array ();
 
@@ -109,7 +109,7 @@ class Aitsu_Persistence_Tag extends Aitsu_Persistence_Abstract {
 	/**
 	 * @since 2.1.0 - 12.01.2011
 	 */
-	public function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
+	public static function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
 
 		return Aitsu_Db :: filter('select * from _tag', $limit, $offset, $filters, $orders);
 	}

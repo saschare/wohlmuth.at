@@ -20,7 +20,7 @@ class Aitsu_Persistence_CatFavorite extends Aitsu_Persistence_Abstract {
 		$this->_userid = Aitsu_Adm_User :: getInstance()->getId();
 	}
 
-	public function factory($id = null) {
+	public static function factory($id = null) {
 
 		static $instance = array ();
 

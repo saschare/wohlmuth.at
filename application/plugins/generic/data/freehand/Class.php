@@ -62,7 +62,7 @@ class FreehandPluginController extends Aitsu_Adm_Plugin_Controller {
 						'area' => 'data.table.' . $table,
 						'action' => 'crud'
 					))) {
-					$tables[] = Aitsu_Db :: getInstance()->prefix($table);
+					$tables[] = Aitsu_Db :: prefix($table);
 				}
 			}
 		}

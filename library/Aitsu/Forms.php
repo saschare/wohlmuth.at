@@ -32,7 +32,7 @@ class Aitsu_Forms {
 		}
 	}
 
-	public function factory($id, $ini = null) {
+	public static function factory($id, $ini = null) {
 
 		static $instance = array ();
 

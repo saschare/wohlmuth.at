@@ -16,7 +16,7 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 		$this->_id = $id;
 	}
 
-	public function factory($id = null) {
+	public static function factory($id = null) {
 
 		static $instance = array ();
 
@@ -666,7 +666,7 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 		$this->_data['configString'] = implode("\n", $out);
 	}
 
-	public function setValues($values) {
+	public function setValues(array $values) {
 
 		foreach ($values as $key => $value) {
 			$this->_data[$key] = $value;

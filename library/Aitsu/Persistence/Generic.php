@@ -22,7 +22,7 @@ class Aitsu_Persistence_Generic extends Aitsu_Persistence_Abstract {
 		$this->_id = $id;
 	}
 
-	public function factory($id = null, $table = null) {
+	public static function factory($id = null, $table = null) {
 
 		static $instance = array ();
 
@@ -45,7 +45,7 @@ class Aitsu_Persistence_Generic extends Aitsu_Persistence_Abstract {
 			throw new Exception('The paramter table must not be null.');
 		}
 
-		$instance[$instanceId]->_table = Aitsu_Db :: getInstance()->prefix($table);
+		$instance[$instanceId]->_table = Aitsu_Db :: prefix($table);
 
 		$instance[$instanceId]->_inspectTable();
 
