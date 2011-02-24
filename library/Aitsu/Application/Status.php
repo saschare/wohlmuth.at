@@ -157,6 +157,6 @@ class Aitsu_Application_Status {
 	
 	public static function version() {
 		
-		return '2.1.1.0';
+		return '2.1.1.1';
 	}
 }
