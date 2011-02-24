@@ -18,16 +18,16 @@ class Module_HTML_Content_Class extends Aitsu_Ee_Module_Abstract {
 			return $output;
 		}
 
-		$return = '';
+		$startTag = '';
+		$endTag = '';
 		if (Aitsu_Registry :: isEdit()) {
-			$return .= '<div style="padding-top:5px; padding-bottom:5px;">';
-		} else {
-			$return .= '<div>';
+			$startTag = '<div style="padding-top:5px; padding-bottom:5px;">';
+			$endTag = '</div>';
 		}
 
 		$output = Aitsu_Content_Html :: get($index);
 		$instance->_save($output, 'eternal');
 
-		return $return . $output . '</div>';
+		return $startTag . $output . $endTag;
 	}
 }
