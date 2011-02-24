@@ -207,7 +207,7 @@ class Aitsu_Db {
 	 * @param String Query.
 	 * @return String Query.
 	 */
-	public function prefix($query) {
+	public static function prefix($query) {
 
 		if (self :: $debugNext) {
 			trigger_error(var_export(Aitsu_Application_Status :: isPreview(), true));

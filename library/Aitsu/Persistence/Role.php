@@ -16,7 +16,7 @@ class Aitsu_Persistence_Role extends Aitsu_Persistence_Abstract {
 		$this->_id = $id;
 	}
 
-	public function factory($id = null) {
+	public static function factory($id = null) {
 
 		static $instance = array ();
 

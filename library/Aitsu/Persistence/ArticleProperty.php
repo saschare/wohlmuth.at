@@ -21,7 +21,7 @@ class Aitsu_Persistence_ArticleProperty extends Aitsu_Persistence_Abstract {
 		$this->_idlang = Aitsu_Registry :: get()->session->currentLanguage;
 	}
 
-	public function factory($id = null) {
+	public static function factory($id = null) {
 
 		static $instance = array ();
 

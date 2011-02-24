@@ -6,7 +6,7 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-abstract class Aitsu_Event_Abstract {
+abstract class Aitsu_Event_Abstract implements Aitsu_Event_Interface {
 
 	protected $_signature = null;
 	protected $_context = null;
@@ -19,7 +19,7 @@ abstract class Aitsu_Event_Abstract {
 		Aitsu_Event_Dispatcher :: getInstance()->raise($this);
 	}
 
-	abstract public static function raise($signature, $context);
+	//abstract public static function raise($signature, $context);
 
 	public final function getSignature() {
 

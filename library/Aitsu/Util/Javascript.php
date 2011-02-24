@@ -14,7 +14,7 @@ class Aitsu_Util_Javascript {
 	protected function __construct() {
 	}
 
-	protected function _getInstance() {
+	protected static function _getInstance() {
 
 		static $instance;
 

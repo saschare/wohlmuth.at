@@ -22,7 +22,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		$this->_idlang = Aitsu_Registry :: get()->session->currentLanguage;
 	}
 
-	public function factory($id = null, $idlang = null) {
+	public static function factory($id = null, $idlang = null) {
 
 		static $instance = array ();
 
@@ -792,7 +792,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				':pubtime' => $transactionTime
 			))->getLastInsertId();
 
-			$publishMap = new Zend_Config_Ini('application/configs/publishmap.ini');
+			$publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
 
 			foreach ($publishMap as $type => $tables) {
 				foreach ($tables->toArray() as $table) {

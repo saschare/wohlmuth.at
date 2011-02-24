@@ -29,7 +29,7 @@ class Aitsu_Content {
 		$this->_restore();
 	}
 
-	protected function getInstance($index, $type, $idart, $idlang) {
+	protected static function getInstance($index, $type, $idart, $idlang) {
 
 		static $instance = array ();
 

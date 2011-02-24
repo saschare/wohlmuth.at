@@ -22,7 +22,7 @@ class Aitsu_Translate {
 		$this->_readTranslationData();
 	}
 
-	protected function _getInstance() {
+	protected static function _getInstance() {
 
 		static $instance;
 
@@ -78,14 +78,19 @@ class Aitsu_Translate {
 			'php',
 			'phtml'
 		));
-		$files = array_merge($files, self :: _scanDir(APPLICATION_LIBPATH . '/Comm', array (
-			'php',
-			'phtml'
-		)));
-		$files = array_merge($files, self :: _scanDir(APPLICATION_LIBPATH . '/Local', array (
-			'php',
-			'phtml'
-		)));
+		
+		if (is_dir(APPLICATION_LIBPATH . '/Comm')) {
+			$files = array_merge($files, self :: _scanDir(APPLICATION_LIBPATH . '/Comm', array (
+				'php',
+				'phtml'
+			)));
+		}
+		if (is_dir(APPLICATION_LIBPATH . '/Local')) {
+			$files = array_merge($files, self :: _scanDir(APPLICATION_LIBPATH . '/Local', array (
+				'php',
+				'phtml'
+			)));
+		}
 		$files = array_merge($files, self :: _scanDir(APPLICATION_PATH . '/plugins', array (
 			'php',
 			'phtml'

@@ -24,7 +24,7 @@ class Aitsu_Content_Edit {
 	protected function __construct() {
 	}
 
-	protected function getInstance() {
+	protected static function getInstance() {
 
 		static $instance;
 

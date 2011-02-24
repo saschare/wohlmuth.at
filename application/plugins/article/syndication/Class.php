@@ -18,25 +18,32 @@ class SyndicationArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public static function register($idart) {
 
+		$enabled = false;
 		try {
-			if (Aitsu_Db :: fetchOne('' .
+			
+			$status = Aitsu_Db :: fetchOne('' .
 				'select count(*) from _syndication_source ' .
 				'where idclient = :idclient', array (
 					':idclient' => Aitsu_Registry :: get()->session->currentClient
-				))) {
+			));
+			
+			if ($status) {
 				$enabled = true;
 			}
+			
 		} catch (Exception $e) {
 			$enabled = false;
 		}
-
-		return (object) array (
+		
+		$returnValue = array (
 			'name' => 'syndication',
 			'tabname' => Aitsu_Registry :: get()->Zend_Translate->translate('Syndication'),
 			'enabled' => self :: getPosition($idart, 'syndication') && $enabled,
 			'position' => self :: getPosition($idart, 'syndication'),
-			'id' => self :: ID
+			'id' => self :: ID,
 		);
+
+		return (object) $returnValue;
 	}
 
 	public function indexAction() {
