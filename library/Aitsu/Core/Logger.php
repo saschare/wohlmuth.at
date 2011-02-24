@@ -54,32 +54,33 @@ class Aitsu_Core_Logger {
 		if ($errline == 164 && substr($errfile, -1 * strlen('Zend/Loader.php')) == 'Zend/Loader.php') {
 			return;
 		}
+		
+		$errorHandlerMap = array(
+			E_COMPILE_ERROR	  => Zend_Log::CRIT,
+			E_CORE_ERROR        => Zend_Log::CRIT,
+			E_RECOVERABLE_ERROR => Zend_Log::CRIT,			
+			E_WARNING           => Zend_Log::WARN,
+			E_CORE_WARNING      => Zend_Log::WARN,
+			E_COMPILE_WARNING   => Zend_Log::WARN,
+			E_USER_WARNING      => Zend_Log::WARN,
+			E_ERROR             => Zend_Log::ERR,
+			E_USER_ERROR        => Zend_Log::ERR,
+			E_STRICT            => Zend_Log::DEBUG,
+			E_NOTICE            => Zend_Log::NOTICE,
+			E_USER_NOTICE       => Zend_Log::NOTICE,			
+		);
+      
+      // PHP 5.3.0+
+		if (defined('E_DEPRECATED')) {
+			$errorHandlerMap['E_DEPRECATED'] = Zend_Log::DEBUG;
+		}
+		if (defined('E_USER_DEPRECATED')) {
+			$errorHandlerMap['E_USER_DEPRECATED'] = Zend_Log::DEBUG;
+		}	
+        
 
-		$level = Zend_Log :: INFO;
-		if (in_array($errno, array (
-				E_CORE_ERROR,
-				E_COMPILE_ERROR,
-				E_RECOVERABLE_ERROR
-			))) {
-			$level = Zend_Log :: CRIT;
-		}
-		elseif (in_array($errno, array (
-			E_WARNING,
-			E_CORE_WARNING,
-			E_COMPILE_WARNING,
-			E_USER_WARNING,
-			8192, // equals E_DEPRECATED in PHP 5.3.x
-			16384 // equals E_USER_DEPRECATED in PHP 5.3.x
-		))) {
-			$level = Zend_Log :: WARN;
-		}
-		elseif (in_array($errno, array (
-			E_NOTICE,
-			E_USER_NOTICE
-		))) {
-			$level = Zend_Log :: NOTICE;
-		}
-
+		$level = (in_array($errno, $errorHandlerMap)) ? $errorHandlerMap[$errno] : Zend_Log :: INFO;
+		
 		self :: log($errstr . ' in ' . $errfile . ' on line ' . $errline, $level);
 	}
 }
