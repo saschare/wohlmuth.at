@@ -116,11 +116,13 @@ class Aitsu_Persistence_View_Category {
 		));
 	}
 
-	public static function nav($idcat) {
+	public static function nav($idcat, $showInvisible = false) {
 
 		$currentLang = Aitsu_Registry :: get()->env->idlang;
 		$currentCat = Aitsu_Registry :: get()->env->idcat;
-
+		
+		$visiblityClause = $showInvisible ? '' : 'and catlang.visible = 1';
+		
 		$cats = Aitsu_Db :: fetchAll('' .
 		'select ' .
 		'	cat.idcat, ' .
@@ -139,7 +141,7 @@ class Aitsu_Persistence_View_Category {
 		'where ' .
 		'	root.idcat = :rootIdcat ' .
 		'	and catlang.idlang = :idlang ' .
-		'	and catlang.visible = 1 ' .
+		'	' . $visiblityClause . ' ' .
 		'order by ' .
 		'	cat.lft asc ', array (
 			':idcat' => $currentCat,
