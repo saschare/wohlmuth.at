@@ -301,7 +301,7 @@ class Aitsu_Core_File {
 			$this->subline,
 			$this->description
 		));
-		
+
 		Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/thumbs/' . $this->idart . '/' . $this->mediaid);
 	}
 
@@ -344,8 +344,16 @@ class Aitsu_Core_File {
 			header('Content-Disposition: attachment; filename="' . $fileName . '"');
 		}
 
-		if ($file['extension'] == 'png' || $file['extension'] == 'jpg' || $file['extension'] == 'jpeg' || $file['extension'] == 'gif') {
-			header('Content-type: imge/' . $file['extension']);
+		$mimeTypes = array (
+			'png' => 'image/png',
+			'jpg' => 'image/jpeg',
+			'jpeg' => 'image/jpeg',
+			'gif' => 'image/gif',
+			'ogg' => 'audio/ogg'
+		);
+
+		if (isset($mimeTypes[$file['extension']])) {
+			header('Content-type: ' . $mimeTypes[$file['extension']]);
 		} else {
 			header('Content-type: application/' . $file['extension']);
 		}
