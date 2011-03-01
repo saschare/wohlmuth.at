@@ -6,8 +6,6 @@
  * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Abstract.php 20001 2010-11-19 19:49:56Z akm $}
  */
 
 abstract class Aitsu_Cache_Abstract {
@@ -74,7 +72,7 @@ abstract class Aitsu_Cache_Abstract {
 
 	public function setLifetime($newLifetime) {
 
-		$this->lifetime = $newLifetime;
+		$this->_lifetime = $newLifetime;
 	}
 
 	public function remove() {

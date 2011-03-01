@@ -6,8 +6,6 @@
  * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Cache.php 19975 2010-11-19 12:44:06Z akm $}
  */
 
 class Aitsu_Cache {
