@@ -1,6 +1,4 @@
 <?php
-echo 'test';
-exit();
 
 /**
  * @author Andreas Kummer, w3concepts AG
