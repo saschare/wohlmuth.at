@@ -349,7 +349,8 @@ class Aitsu_Core_File {
 			'jpg' => 'image/jpeg',
 			'jpeg' => 'image/jpeg',
 			'gif' => 'image/gif',
-			'ogg' => 'audio/ogg'
+			'ogg' => 'audio/ogg',
+			'mp3' => 'audio/mpeg'
 		);
 
 		if (isset($mimeTypes[$file['extension']])) {
