@@ -3,6 +3,7 @@ center.removeAll();
 
 var mappingGrid = new Ext.grid.GridPanel({
 	title: '<?php echo Aitsu_Translate :: translate('Mapping'); ?>',
+	id: 'mappingGrid',
 	store: new Ext.data.JsonStore({
 		url: '<?php echo $this->url(array('action' => 'mappings')); ?>',
 		root: 'data',
