@@ -32,20 +32,20 @@ class Aitsu_Ee_Module_ResourceBundle_Class extends Aitsu_Ee_Module_Abstract {
 
 		$uri = Aitsu_Ee_MiniMe :: getUri($type, $resources);
 
-		$env = '';
+		$env = Aitsu_Registry :: get()->config->sys->mainDir;
 		if (isset (Aitsu_Registry :: get()->config->env) && Aitsu_Registry :: get()->config->env == 'admin') {
 			$env = '/admin';
 		}
 
 		if ($type == 'js') {
-			$output = '<script type="text/javascript" src="' . $env . '/js/' . $uri . '"></script>';
+			$output = '<script type="text/javascript" src="' . $env . 'js/' . $uri . '"></script>';
 		}
 
 		if ($type == 'css') {
 			if (isset ($params->media)) {
-				$output = '<link type="text/css" rel="stylesheet" href="' . $env . '/css/' . $uri . '" media="' . $params->media . '" /> ';
+				$output = '<link type="text/css" rel="stylesheet" href="' . $env . 'css/' . $uri . '" media="' . $params->media . '" /> ';
 			} else {
-				$output = '<link type="text/css" rel="stylesheet" href="' . $env . '/css/' . $uri . '" /> ';
+				$output = '<link type="text/css" rel="stylesheet" href="' . $env . 'css/' . $uri . '" /> ';
 			}
 		}
 
