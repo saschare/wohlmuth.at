@@ -2,6 +2,7 @@ var center = Ext.getCmp('viewport-center');
 center.removeAll();
 
 var translationGrid = new Ext.grid.GridPanel({
+        id: 'translationGrid',
 	title: '<?php echo Aitsu_Translate :: translate('Translatations'); ?>',
 	store: new Ext.data.JsonStore({
         autoDestroy: true,
