@@ -21,7 +21,7 @@ pageEditTabs.add({
 	bodyCfg: {
 		tag: 'iframe',
 		id: 'edit-iframe-<?php echo $this->idartlang; ?>',
-        src: '/adm/edit/<?php echo $this->idartlang; ?>',
+        src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>adm/edit/<?php echo $this->idartlang; ?>',
         style: {
 			border: '0px none'
         }
@@ -40,7 +40,7 @@ pageEditTabs.add({
 	            iconCls: 'tb-refresh',
 	            handler: function(b, e) {
 	            	Ext.get('edit-iframe-<?php echo $this->idartlang; ?>').set({
-	            		src: '/adm/edit/<?php echo $this->idartlang; ?>'
+	            		src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>adm/edit/<?php echo $this->idartlang; ?>'
 	            	});
 	            }
 	        },
@@ -81,7 +81,7 @@ pageEditTabs.add({
 	bodyCfg: {
 		tag: 'iframe',
 		id: 'edit-iframe-preview-<?php echo $this->idartlang; ?>',
-        src: '/adm/preview/<?php echo $this->idartlang; ?>',
+        src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>adm/preview/<?php echo $this->idartlang; ?>',
         style: {
 			border: '0px none'
         }
@@ -93,7 +93,7 @@ pageEditTabs.add({
 	            iconCls: 'tb-refresh',
 	            handler: function(b, e) {
 					Ext.get('edit-iframe-preview-<?php echo $this->idartlang; ?>').set({
-	            		src: '/adm/preview/<?php echo $this->idartlang; ?>'
+	            		src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>adm/preview/<?php echo $this->idartlang; ?>'
 	            	});
 	            }
 	        }
