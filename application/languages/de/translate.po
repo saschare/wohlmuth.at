@@ -331,7 +331,7 @@ msgstr "Zeilen %s bis %s ausgeführt."
 
 #: application/adm/scripts/Maintenance/Removecaturls.php:15
 msgid "Remove category URLs"
-msgstr "Katgorie-URLs entfernen"
+msgstr "Kategorie-URLs entfernen"
 
 #: application/adm/scripts/Maintenance/Removecaturls.php:25
 msgid "URLs removed."
