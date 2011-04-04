@@ -179,6 +179,8 @@ class DataController extends Zend_Controller_Action {
 		));
 		$plugins = array_reverse($plugins);
 
+                $this->view->hidePublishing = (Aitsu_Config::get('sys.usePublishing') ? false : true);
+
 		foreach ($plugins as $plugin) {
 			$this->_helper->actionStack('article', 'plugin', 'default', array (
 				'plugin' => $plugin->name,
