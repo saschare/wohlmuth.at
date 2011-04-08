@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Url rewrite history.
  * 
@@ -10,86 +9,102 @@
  * 
  * {@id $Id: History.php 18147 2010-08-16 15:55:44Z akm $}
  */
-
 class Aitsu_Ee_Rewrite_History {
 
-	protected $url;
+    protected $url;
 
-	protected function __construct() {
+    protected function __construct() {
 
-		$this->url = $_SERVER['REQUEST_URI'];
-	}
+        $this->url = strtok($_SERVER['REQUEST_URI'], '?');
 
-	public static function getInstance() {
+        $parameters = Aitsu_Config::get('rewrite.history.params');
 
-		static $instance;
+        if (is_object($parameters)) {
+            $query = null;
 
-		if (!isset ($instance)) {
-			$instance = new self();
-		}
+            foreach ($parameters as $parameter) {
+                if (!empty($_GET[$parameter])) {
+                    $query[$parameter] = $_GET[$parameter];
+                }
+            }
 
-		return $instance;
-	}
+            if (is_array($query)) {
+                $this->url = $this->url . '?' . http_build_query($query);
+            }
+        }
+    }
 
-	public function saveUrl() {
+    public static function getInstance() {
 
-		try {
-			$idartlang = Aitsu_Registry :: get()->env->idartlang;
-			
-			if (Aitsu_Registry :: get()->env->idart == Aitsu_Registry :: get()->config->sys->errorpage) {
-				return;
-			}
+        static $instance;
 
-			$count = Aitsu_Db :: fetchOne("" .
-			"select count(*) from _aitsu_rewrite_history " .
-			"where " .
-			"	url = ? " .
-			"	and idartlang = ? " .
-			"", array (
-				$this->url,
-				$idartlang
-			));
-	
-			if ($count > 0) {
-				return;
-			}
-	
-			Aitsu_Db :: query("" .
-			"replace into _aitsu_rewrite_history " .
-			"(url, idartlang, created) " .
-			"values " .
-			"(?, ?, now())" .
-			"", array (
-				$this->url,
-				$idartlang
-			));
-		} catch (Exception $e) {
-			return;
-		}
-	}
+        if (!isset($instance)) {
+            $instance = new self();
+        }
 
-	public function getAlternative() {
+        return $instance;
+    }
 
-		$url = Aitsu_Db :: fetchOne("" .
-		"select " .
-		"	current.url " .
-		"from _aitsu_rewrite_history as history " .
-		"left join _art_lang as artlang on history.idartlang = artlang.idartlang " .
-		"left join _aitsu_rewrite_history as current on artlang.idartlang = current.idartlang " .
-		"where " .
-		"	history.url = ? " .
-		"	and artlang.online = 1 " .
-		"order by " .
-		"	current.created desc " .
-		"limit 0, 1 " .
-		"", array (
-			$this->url
-		));
-		
-		if ($url) {
-			return $url;
-		}
-		
-		return false;
-	}
+    public function saveUrl() {
+
+        try {
+            $idartlang = Aitsu_Registry :: get()->env->idartlang;
+
+            if (Aitsu_Registry :: get()->env->idart == Aitsu_Registry :: get()->config->sys->errorpage) {
+                return;
+            }
+
+            $count = Aitsu_Db :: fetchOne("" .
+                            "select count(*) from _aitsu_rewrite_history " .
+                            "where " .
+                            "	url = ? " .
+                            "	and idartlang = ? " .
+                            "", array(
+                        $this->url,
+                        $idartlang
+                    ));
+
+            if ($count > 0) {
+                return;
+            }
+
+            Aitsu_Db :: query("" .
+                            "replace into _aitsu_rewrite_history " .
+                            "(url, idartlang, created) " .
+                            "values " .
+                            "(?, ?, now())" .
+                            "", array(
+                        $this->url,
+                        $idartlang
+                    ));
+        } catch (Exception $e) {
+            return;
+        }
+    }
+
+    public function getAlternative() {
+
+        $url = Aitsu_Db :: fetchOne("" .
+                        "select " .
+                        "	current.url " .
+                        "from _aitsu_rewrite_history as history " .
+                        "left join _art_lang as artlang on history.idartlang = artlang.idartlang " .
+                        "left join _aitsu_rewrite_history as current on artlang.idartlang = current.idartlang " .
+                        "where " .
+                        "	history.url = ? " .
+                        "	and artlang.online = 1 " .
+                        "order by " .
+                        "	current.created desc " .
+                        "limit 0, 1 " .
+                        "", array(
+                    $this->url
+                ));
+
+        if ($url) {
+            return $url;
+        }
+
+        return false;
+    }
+
 }
