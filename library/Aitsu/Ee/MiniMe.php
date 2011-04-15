@@ -317,7 +317,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 			if (substr($url, 0, 4) != 'http' && substr($url, 0, 1) != '/') {
 				if (substr($url, 0, 1) != '.' && substr($url, 0, 4) != 'http') {
 					// Link showing downwards.
-					$css = str_replace($matches[0][$i], "url({$quote}/skin/{$dir}/{$url}{$quote})", $css);
+					$css = str_replace($matches[0][$i], "url({$quote}" . Aitsu_Registry :: get()->config->sys->mainDir . "skin/{$dir}/{$url}{$quote})", $css);
 				} else {
 					// Link showing upwards.
 					$dirs = substr_count($url, '../');
@@ -327,7 +327,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 					}
 					$new = implode('/', $new);
 					$url = str_replace('../', '', $url);
-					$css = str_replace($matches[0][$i], "url({$quote}/skin/{$env}{$new}/{$url}{$quote})", $css);
+					$css = str_replace($matches[0][$i], "url({$quote}" . Aitsu_Registry :: get()->config->sys->mainDir . "skin/{$env}{$new}/{$url}{$quote})", $css);
 					$css = str_replace('//', '/', $css);
 				}
 			}
