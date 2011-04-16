@@ -5,6 +5,8 @@ var store = new Ext.data.JsonStore({
 		        url: '<?php echo $this->url(array('paction' => 'store')); ?>',
 		        root: 'data',
 		        fields: [{
+		            name: 'pagetitle'
+		        }, {
 		            name: 'title'
 		        }, {
 		            name: 'duedate'
@@ -23,7 +25,7 @@ var panel = new Ext.grid.GridPanel({
 		    		menuDisabled: false,
 		    		sortable: false,
 		    		renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-		    			return '<h3>' + record.data.title + '</h3><p style="white-space: normal;">' + record.data.duedate + '<br />' + record.data.description + '</p>';
+		    			return '<h3>' + record.data.pagetitle + ': ' + record.data.title + '</h3><p style="white-space: normal;">' + record.data.duedate + '<br />' + record.data.description + '</p>';
 		    		}
 		    	}],
 			viewConfig: {
