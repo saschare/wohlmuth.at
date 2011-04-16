@@ -1,0 +1,52 @@
+var dashboard = Ext.getCmp('dashboard');
+
+var store = new Ext.data.JsonStore({
+		        autoDestroy: true,
+		        url: '<?php echo $this->url(array('paction' => 'store')); ?>',
+		        root: 'data',
+		        fields: [{
+		            name: 'title'
+		        }, {
+		            name: 'duedate'
+		        }, {
+		            name: 'description'
+		        }]
+		    });
+
+var panel = new Ext.grid.GridPanel({
+			title: 'ToDo List',
+			store: store,
+                        hideHeaders: true,
+                        autoExpandColumn: 'topic',
+                        columns: [{
+		    		dataIndex: 'title',
+		    		menuDisabled: false,
+		    		sortable: false,
+		    		renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+		    			return '<h3>' + record.data.title + '</h3><p style="white-space: normal;">' + record.data.duedate + '<br />' + record.data.description + '</p>';
+		    		}
+		    	}],
+			viewConfig: {
+				forceFit: true,
+				autoFill: true
+			},
+			listeners: {
+				render: {
+					fn: function(){
+						this.getStore().load();
+					}
+				}
+			}
+});
+
+dashboard.add({
+	columnWidth: 1/3,
+	baseCls:'x-plain',
+	bodyStyle:'padding:6px 4px 0 4px',
+	items: {
+		unstyled: true,
+		height: 370,
+		layout: 'fit',
+		items: panel
+	}
+});
