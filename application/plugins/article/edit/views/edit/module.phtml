@@ -1,0 +1,121 @@
+    <?php
+        $selectedVals = $this->field->currentValue();
+        if (empty($selectedVals)) {
+                $selectedVals = array();
+        }
+
+        $modules = array ();
+        $counter = -1;
+        foreach ($this->field->keyValuePairs as $alias => $name) {
+            $counter++;
+            if (in_array($alias, $selectedVals)) {
+                $index = array_search($alias, $selectedVals);
+                $modules['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "['{$name}', '{$alias}', 1]";
+            } else {
+                $modules['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "['{$name}', '{$alias}', 0]";
+            }
+        }
+        ksort($modules);
+    ?>
+    {
+        title:'<?php echo $this->field->label; ?>',
+        layout: 'fit',
+        border: false,
+        items: new Ext.grid.GridPanel({
+            store: new Ext.data.ArrayStore({
+                autoDestroy: true,
+                    fields: [
+                        'name',
+                        'alias',
+                        'selected'
+                    ],
+                    data: [
+                        <?php echo implode(',', $modules); ?>
+                    ]
+            }),
+            hideHeaders: true,
+            loadMask: true,
+            ddGroup:'mygridDD',
+            enableDragDrop: true,
+            sm: new Ext.grid.RowSelectionModel({
+                singleSelect:true
+            }),
+            viewConfig: {
+                forceFit: true,
+                getRowClass: function(record, index) {
+                    var s = record.get('selected');
+                    if (s == 1) {
+                        return 'selectedRow';
+                    } else {
+                        return '';
+                    }
+                }
+            },
+            columns: [{
+                dataIndex: 'name',
+                header: '<?php echo Aitsu_Translate :: translate('Name'); ?>',
+                width: 30,
+                sortable: false,
+                renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+                    return record.get('name');
+                }
+            }, {
+                dataIndex: 'alias',
+                header: '<?php echo Aitsu_Translate :: translate('Module'); ?>',
+                sortable: false,
+                width: 70
+            }],
+            listeners: {
+                render: function(grid) {
+                    var ddrow = new Ext.dd.DropTarget(grid.container, {
+                        ddGroup : 'mygridDD',
+                        copy:false,
+                        notifyDrop : function(dd, e, data) {
+                            var ds = grid.store;
+                            var sm = grid.getSelectionModel();
+                            var rows = sm.getSelections();
+                            if(dd.getDragData(e)) {
+                                var cindex=dd.getDragData(e).rowIndex;
+                                if(typeof(cindex) != "undefined") {
+                                    for(i = 0; i <  rows.length; i++) {
+                                        ds.remove(ds.getById(rows[i].id));
+                                    }
+                                    ds.insert(cindex,data.selections);
+                                    sm.clearSelections();
+                                    var data = new Array();
+                                    grid.store.each(function(r) {
+                                        if (r.get('selected') == 1) {
+                                            data.push(r.get('alias'));
+                                        }
+                                    });
+                                    jsonParams.add('<?php echo $this->field->name; ?>', data);
+                                }
+                            }
+                        }
+                    });
+                    var data = new Array();
+                    grid.store.each(function(r) {
+                        if (r.get('selected') == 1) {
+                            data.push(r.get('alias'));
+                        }
+                    });
+                    jsonParams.add('<?php echo $this->field->name; ?>', data);
+                },
+                rowdblclick : function(grid, rowIndex, e) {
+                    if (grid.store.getAt(rowIndex).get('selected') == 1) {
+                        grid.store.getAt(rowIndex).set('selected', 0);
+                    } else {
+                        grid.store.getAt(rowIndex).set('selected', 1);
+                    }
+                    grid.getSelectionModel().clearSelections();
+                    var data = new Array();
+                    grid.store.each(function(r) {
+                        if (r.get('selected') == 1) {
+                            data.push(r.get('alias'));
+                        }
+                    });
+                    jsonParams.add('<?php echo $this->field->name; ?>', data);
+                }
+            }
+        })
+    }
