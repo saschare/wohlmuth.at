@@ -1,0 +1,7 @@
+<p>Ihre Suche nach <strong><?php echo $this->searchterm; ?></strong> ergab folgende Treffer:</p>
+<dl>
+    <?php foreach ($this->results as $pos => $result) : ?>
+        <dt><a href="{ref:idart-<?php echo $result->idart; ?>}"><?php echo $result->pagetitle; ?> (<?php echo bcmul($result->score, 100, 0); ?> %)</a></dt>
+        <dd><?php echo $result->summary; ?></dd>
+    <?php endforeach; ?>
+</dl>
