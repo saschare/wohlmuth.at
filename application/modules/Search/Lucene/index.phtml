@@ -1,4 +1,4 @@
-<p>Ihre Suche nach <strong><?php echo $this->searchterm; ?></strong> ergab folgende Treffer:</p>
+<p><?php Aitsu_Translate::_(printf("About %s results found for '%s'", count($this->results), $this->searchterm)); ?></p>
 <dl>
     <?php foreach ($this->results as $pos => $result) : ?>
         <dt><a href="{ref:idart-<?php echo $result->idart; ?>}"><?php echo $result->pagetitle; ?> (<?php echo bcmul($result->score, 100, 0); ?> %)</a></dt>
