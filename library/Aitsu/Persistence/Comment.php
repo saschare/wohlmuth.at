@@ -132,7 +132,7 @@ class Aitsu_Persistence_Comment extends Aitsu_Persistence_Abstract implements Ai
 			'	and column_name = :columnName ', array (
 				':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
 				':tableName' => Aitsu_Registry :: get()->config->database->params->tblprefix . 'comment',
-				':columnName' => 'properties'
+				':columnName' => 'title'
 			)) == 0) {
 			Aitsu_Db :: query('' .
 			'alter table _comment add title varchar(255) not null after ip');
