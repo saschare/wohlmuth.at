@@ -69,6 +69,11 @@ class Aitsu_Adm_User {
 		self :: $_instance = $instance;
 	}
 
+	public function getProperty($key) {
+
+		return Aitsu_Persistence_User :: factory($this->_id)->load()->getProperty($key);
+	}
+
 	public function getId() {
 
 		return $this->_id;
