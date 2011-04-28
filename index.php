@@ -21,7 +21,6 @@ require_once (realpath('./library/Aitsu/Bootstrap.php'));
 $content = Aitsu_Bootstrap :: run()->getOutput();
 $etag = hash('md4', $content);
 
-header("Pragma: public");
 header("ETag: {$etag}");
 
 if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && $etag === $_SERVER['HTTP_IF_NONE_MATCH']) {

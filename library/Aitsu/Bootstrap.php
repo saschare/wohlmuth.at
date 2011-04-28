@@ -489,8 +489,15 @@ class Aitsu_Bootstrap {
 
         $expire = Aitsu_Registry::getExpireTime();
 
-        header("Cache-Control: max-age=" . $expire);
-        header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expire) . ' GMT');
+        if (!empty($expire)) {
+            header("Cache-Control: max-age=" . $expire);
+            header("Pragma: public");
+            header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expire) . ' GMT');
+        } else {
+            header("Cache-Control: no-cache, must-revalidate");
+            header("Pragma: no-cache");
+            header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+        }
 
         return $this->pageContent;
     }
