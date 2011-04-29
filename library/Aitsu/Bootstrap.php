@@ -489,6 +489,10 @@ class Aitsu_Bootstrap {
 
         $expire = Aitsu_Registry::getExpireTime();
 
+        if (isset($_GET['edit']) && $_GET['edit'] == 1) {
+            $expire = 0;
+        }
+
         if (!empty($expire)) {
             header("Cache-Control: max-age=" . $expire);
             header("Pragma: public");
