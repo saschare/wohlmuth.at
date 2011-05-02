@@ -8,6 +8,7 @@ var formSubmit = function(formId) {
 		success: function() {
 			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have been saved.'); ?>');
 			Ext.getCmp('clients').getStore().reload();
+                        Ext.getCmp('languages').getStore().load();
 		}, 
 		failure: function() {
 			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been save due to errors.'); ?>');

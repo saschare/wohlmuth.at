@@ -1,0 +1,7 @@
+{
+	xtype: 'textarea',
+	fieldLabel: '<?php echo $this->field->label; ?>',
+	name: 'config-<?php echo $this->field->name; ?>',
+	value: '<?php echo str_replace("'", "\\'", str_replace("\r", '', str_replace("\n", '\n', $this->field->currentValue()))); ?>',
+	anchor: '100%'
+}

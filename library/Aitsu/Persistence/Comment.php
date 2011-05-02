@@ -3,24 +3,8 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Comment.php 18257 2010-08-23 08:42:55Z akm $}
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
-
-/*
-CREATE TABLE  `con_comment` (
-`commentid` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`idartlang` INT UNSIGNED NOT NULL ,
-`name` VARCHAR( 255 ) NOT NULL ,
-`email` VARCHAR( 255 ) NOT NULL ,
-`ip` VARCHAR( 100 ) NOT NULL ,
-`comment` TEXT NOT NULL ,
-`created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-`deleted` TIMESTAMP NULL ,
-INDEX (  `idartlang` )
-) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;
-*/
 
 class Aitsu_Persistence_Comment extends Aitsu_Persistence_Abstract implements Aitsu_Form_Processor_Interface {
 
@@ -124,9 +108,10 @@ class Aitsu_Persistence_Comment extends Aitsu_Persistence_Abstract implements Ai
 
 		$data = array (
 			'ip' => isset ($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
-			'email' => $_POST['email'],
+			'email' => $this->email == null ? $_POST['email'] : $this->email,
 			'comment' => $_POST['comment'],
-			'name' => $_POST['name'],
+			'title' => $_POST['title'],
+			'name' => $this->name == null ? $_POST['name'] : $this->name,
 			'idartlang' => Aitsu_Registry :: get()->env->idartlang
 		);
 
@@ -135,9 +120,23 @@ class Aitsu_Persistence_Comment extends Aitsu_Persistence_Abstract implements Ai
 			$data['comment'],
 			round(time() / 300)
 		)));
-		
+
 		Aitsu_Form_Validation :: factory()->omit();
-		unset($_POST['comment']);
+		unset ($_POST['comment']);
+		
+		if (Aitsu_Db :: fetchOne('' .
+			'select count(*) from information_schema.columns ' .
+			'where ' .
+			'	table_schema = :schema ' .
+			'	and table_name = :tableName ' .
+			'	and column_name = :columnName ', array (
+				':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+				':tableName' => Aitsu_Registry :: get()->config->database->params->tblprefix . 'comment',
+				':columnName' => 'title'
+			)) == 0) {
+			Aitsu_Db :: query('' .
+			'alter table _comment add title varchar(255) not null after ip');
+		}
 
 		Aitsu_Db :: put('_comment', 'commentid', $data);
 	}
