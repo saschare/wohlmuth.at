@@ -76,7 +76,7 @@ class Aitsu_Persistence_Clients extends Aitsu_Persistence_Abstract {
 			'	and table_name = :tableName ' .
 			'	and column_name = :columnName ', array (
 				':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
-				':tableName' => Aitsu_Registry :: get()->config->database->params->tblprefix . 'client',
+				':tableName' => Aitsu_Registry :: get()->config->database->params->tblprefix . 'clients',
 				':columnName' => 'url'
 			)) == 0) {
 			Aitsu_Db :: query('' .
