@@ -48,6 +48,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		'	artlang.*, ' .
 		'	catart.*, ' .
 		'	catlang.startidartlang, ' .
+		'	artlang.created created, ' .
 		'	if(pub.pubtime is null or pub.pubtime != artlang.lastmodified, 0, 1) as ispublished ' .
 		'from _art_lang as artlang ' .
 		'left join _art as art on artlang.idart = art.idart ' .
