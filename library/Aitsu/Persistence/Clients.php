@@ -69,6 +69,20 @@ class Aitsu_Persistence_Clients extends Aitsu_Persistence_Abstract {
 			return;
 		}
 
+		if (Aitsu_Db :: fetchOne('' .
+			'select count(*) from information_schema.columns ' .
+			'where ' .
+			'	table_schema = :schema ' .
+			'	and table_name = :tableName ' .
+			'	and column_name = :columnName ', array (
+				':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+				':tableName' => Aitsu_Registry :: get()->config->database->params->tblprefix . 'clients',
+				':columnName' => 'url'
+			)) == 0) {
+			Aitsu_Db :: query('' .
+			'alter table _clients add url varchar(255) not null after name');
+		}
+
 		$this->_data['lastmodified'] = date('Y-m-d H:i:s');
 
 		if ($this->_id == null) {
