@@ -20,6 +20,10 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 		$this->_id = $id;
 		$this->_idlang = Aitsu_Registry :: get()->session->currentLanguage;
+		
+		if (empty($this->_idlang)) {
+			$this->_idlang = Aitsu_Registry :: get()->env->idlang;
+		}
 	}
 
 	public static function factory($id = null, $idlang = null) {
