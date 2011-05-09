@@ -175,7 +175,8 @@ class Aitsu_Persistence_File extends Aitsu_Persistence_Abstract {
 			'	_art_lang artlang, ' .
 			'	_media media ' .
 			'set ' .
-			'	artlang.mainimage = null ' .
+			'	artlang.mainimage = null, ' .
+			'	artlang.lastmodified = now() ' .
 			'where ' .
 			'	artlang.idart = media.idart ' .
 			'	and artlang.idlang = :idlang ' .
@@ -191,7 +192,8 @@ class Aitsu_Persistence_File extends Aitsu_Persistence_Abstract {
 		'	_art_lang artlang, ' .
 		'	_media media ' .
 		'set ' .
-		'	artlang.mainimage = media.filename ' .
+		'	artlang.mainimage = media.filename, ' .
+		'	artlang.lastmodified = now() ' .
 		'where ' .
 		'	artlang.idart = media.idart ' .
 		'	and artlang.idlang = :idlang ' .
