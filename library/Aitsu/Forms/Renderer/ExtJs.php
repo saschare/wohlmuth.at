@@ -79,7 +79,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		if (!empty ($value['type'])) {
 			$configs[] = "xtype: '{$value['type']}'";
-			$configs[] = "title: '{$value['legend']}'";
+			$configs[] = "title: '" . Aitsu_Translate :: translate($value['legend']) . "'";
 
 			if (isset ($value['extjs'])) {
 				foreach ($value['extjs'] as $key => $val) {
@@ -198,9 +198,9 @@ class Aitsu_Forms_Renderer_ExtJs {
 			$option = (object) $option;
 			$value = is_numeric($option->value) ? $option->value : "'{$option->value}'";
 			if (isset ($field['value']) && ($field['value'] == $option->value || (is_array($field['value']) && in_array($option->value, $field['value'])))) {
-				$items[] = "{boxLabel: '{$option->name}', name: '{$key}[$counter]', inputValue: $value, checked: true}";
+				$items[] = "{boxLabel: '" . Aitsu_Translate :: translate($option->name) . "', name: '{$key}[$counter]', inputValue: $value, checked: true}";
 			} else {
-				$items[] = "{boxLabel: '{$option->name}', name: '{$key}[$counter]', inputValue: $value}";
+				$items[] = "{boxLabel: '" . Aitsu_Translate :: translate($option->name) . "', name: '{$key}[$counter]', inputValue: $value}";
 			}
 		}
 
@@ -261,7 +261,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		$option = array ();
 		foreach ($options as $value) {
 			$value = (object) $value;
-			$option[] = "['{$value->value}', '{$value->name}']";
+			$option[] = "['{$value->value}', '" . Aitsu_Translate :: translate($value->name) . "']";
 		}
 		$return .= 'data: [' . implode(', ', $option) . ']}),';
 		$return .= "valueField: 'dataValue', displayField: 'dataLabel'";
