@@ -25,7 +25,7 @@ var categories = new Ext.grid.GridPanel({
 	store: new Ext.data.JsonStore({
 		url: '<?php echo $this->url(array('paction' => 'articles')); ?>',
 		root: 'data',
-		fields: ['id', 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart'],
+		fields: [{name:'id',type:'int'}, 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart'],
 		autoLoad: {
 			params: {
 				idcat: <?php echo $this->idcat; ?>
