@@ -6,5 +6,16 @@
 			<dd><?php echo number_format($this->product->price, 2); ?></dd>
 		<dt>Currency</dt>
 			<dd><?php echo $this->product->currencycode; ?></dd>
+		<dt>Add link</dt>
+			<dd>
+				<form action="{ref:idart-<?php echo Aitsu_Registry :: get()->env->idart; ?>}" method="post" style="display:inline;">
+					<input type="hidden" name="updateorder[action]" value="add" />
+					<input type="hidden" name="updateorder[productid]" value="<?php echo $this->product->productid; ?>" />
+					<input type="hidden" name="updateorder[amount]" value="1" />
+					<input type="hidden" name="updateorder[price]" value="<?php echo $this->product->price; ?>" />
+					<input type="hidden" name="updateorder[additionalinfo]" value="" />
+					<input type="submit" value="add" />
+				</form>
+			</dd>
 	</dl>
 </div>
