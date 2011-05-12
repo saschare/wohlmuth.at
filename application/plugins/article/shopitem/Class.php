@@ -38,10 +38,10 @@ class ShopitemArticleController extends Aitsu_Adm_Plugin_Controller {
 			'paction' => 'index'
 		), 'aplugin');
 
-		/*$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
-		$data->robots = explode(', ', $data->robots);
-		$data->idart = $id;
-		$form->setValues($data->toArray());*/
+		$data = Wdrei_Shop_Persistence_Product :: factory($id)->load();
+		$form->setValues(array_merge($data->toArray(), array (
+			'idart' => $id
+		)));
 
 		$results = Aitsu_Db :: fetchAll('' .
 		'select ' .
@@ -81,10 +81,6 @@ class ShopitemArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		try {
 			if ($form->isValid()) {
-				Aitsu_Event :: raise('backend.article.edit.save.start', array (
-					'idart' => $id
-				));
-
 				/*
 				 * Persist the data.
 				 */

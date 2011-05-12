@@ -1,0 +1,10 @@
+<div id="product">
+	<dl>
+		<dt>Product name</dt>
+			<dd><?php echo $this->product->name; ?></dd>
+		<dt>Price</dt>
+			<dd><?php echo number_format($this->product->price, 2); ?></dd>
+		<dt>Currency</dt>
+			<dd><?php echo $this->product->currencycode; ?></dd>
+	</dl>
+</div>
