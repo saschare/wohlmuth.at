@@ -280,7 +280,7 @@ class Aitsu_Db {
 	 */
 	public function rowCount() {
 
-		return $this->rowCount();
+		return $this->rowCount;
 	}
 
 	public static function startTransaction() {
