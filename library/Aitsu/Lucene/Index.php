@@ -6,7 +6,7 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-class Aitsu_Lucene_Index {
+class Aitsu_Lucene_Index implements Aitsu_Event_Listener_Interface {
 
 	protected $indexName;
 	protected $uid;
@@ -14,6 +14,15 @@ class Aitsu_Lucene_Index {
 	protected $document;
 
 	protected static $doIndex = true;
+	
+	public static function notify(Aitsu_Event_Abstract $event) {
+		
+		if (!isset($event->bootstrap->pageContent)) {
+			return;
+		}
+		
+		Aitsu_Lucene_Index :: indexArticle($event->bootstrap->pageContent);
+	}
 
 	protected function __construct() {
 	}

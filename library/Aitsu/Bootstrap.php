@@ -415,9 +415,11 @@ class Aitsu_Bootstrap {
 		Aitsu_Ee_Cache_Page :: getInstance()->saveFs($this->pageContent);
 	}
 
-	protected function _CreateLuceneIndex() {
+	protected function _TriggerIndexing() {
 
-		Aitsu_Lucene_Index :: indexArticle($this->pageContent);
+		Aitsu_Event :: raise('frontend.indexing', array (
+			'bootstrap' => $this
+		));
 	}
 
 	protected function _ProfileExecution() {
