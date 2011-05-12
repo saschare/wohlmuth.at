@@ -334,7 +334,7 @@ class Aitsu_Bootstrap {
 
 	protected function _EvaluateRequest() {
 
-		if (!Aitsu_Registry :: isEdit() && !isset ($_GET['id'])) {
+		if (!isset($_GET['id'])) {
 			return Aitsu_Bootstrap_EvalRequest :: run();
 		}
 
