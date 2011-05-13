@@ -13,6 +13,11 @@ class Module_Shop_Product_Class extends Aitsu_Ee_Module_Abstract {
 		Aitsu_Content_Edit :: noEdit('Shop.Product', true);
 
 		$instance = new self();
+		
+		$output = '';
+		if ($instance->_get('ShopProduct' . $context['index'], $output)) {
+			return $output;
+		}
 
 		$index = empty ($context['index']) ? 'noindex' : $context['index'];
 		$params = Aitsu_Util :: parseSimpleIni($context['params']);

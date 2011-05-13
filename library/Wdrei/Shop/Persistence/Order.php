@@ -47,18 +47,26 @@ class Wdrei_Shop_Persistence_Order extends Aitsu_Persistence_Abstract {
 		'', array (
 			':orderid' => $this->_id
 		));
+		
 		$this->_data['items'] = array ();
-
 		$items = Aitsu_Db :: fetchAll('' .
 		'select ' .
 		'	product.*, ' .
-		'	item.* ' .
+		'	item.*, ' .
+		'	name.* ' .
 		'from _shop_item item ' .
 		'left join _shop_product product on item.productid = product.productid ' .
+		'left join _shop_product_name name on product.productid = name.productid and name.idlang = :idlang ' .
 		'where ' .
 		'	orderid = :orderid', array (
-			':orderid' => $this->_id
+			':orderid' => $this->_id,
+			':idlang' => Aitsu_Registry :: get()->env->idlang
 		));
+		if ($items) {
+			foreach ($items as $item) {
+				$this->_data['items'][] = (object) $item;
+			}
+		}
 
 		if (!is_array($this->_data)) {
 			$this->_data = array ();
@@ -155,14 +163,15 @@ class Wdrei_Shop_Persistence_Order extends Aitsu_Persistence_Abstract {
 				'	orderid = :orderid ' .
 				'	and productid = :productid', array (
 					':orderid' => $this->_id,
-					':productid' => $productid
+					':productid' => $productid,
+					':amount' => $amount
 				));
 			} else {
 				/*
 				 * There is no item of the specifed productid. Therefore an
 				 * insert has to be made.
 				 */
-				Aitsu_Db :: put('shop_item', 'itemid', array (
+				Aitsu_Db :: put('_shop_item', 'itemid', array (
 					'orderid' => $this->_id,
 					'productid' => (int) $productid,
 					'amount' => (float) $amount,

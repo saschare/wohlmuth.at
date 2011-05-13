@@ -37,15 +37,16 @@ class Module_Shop_Cart_Class extends Aitsu_Ee_Module_Abstract {
 			}
 			elseif ($_POST['updateorder']['action'] == 'update') {
 				/*
-				 * Update an item of the cart.
+				 * Update items of the cart.
 				 */
-				$view->order->updateItem($_POST['updateorder']['itemid'], $_POST['updateorder']['amount'], $_POST['updateorder']['price'], $_POST['updateorder']['additionalinfo']);
+				foreach ($_POST['updateorder']['item'] as $itemid => $item) {
+					$view->order->updateItem($itemid, $item['amount'], $item['price'], $item['additionalinfo']);
+				}
 			}
 			$view->order->load();
 		}
 
 		$output = $view->render($template . '.phtml');
-		$instance->_save($output, 'eternal');
 		return $output;
 	}
 }
