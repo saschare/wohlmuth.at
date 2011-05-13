@@ -1,15 +1,8 @@
 <?php
 
 /**
- * aitsu Registry.
- * 
- * The aitsu registry hold all data necessary during the process
- * of rendering the page.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Registry.php 16580 2010-05-26 07:23:38Z akm $}
  */
 class Aitsu_Registry {
 
@@ -109,6 +102,10 @@ class Aitsu_Registry {
     public static function setExpireTime($time) {
 
 		$reg = self :: getInstance();
+		
+		if (!isset($reg->registry['expireTime'])) {
+			$reg->registry['expireTime'] = $reg->config->cache->brower->expireTime;
+		}
 
 		$reg->registry['expireTime'] = min(array (
 			$reg->registry['expireTime'],
