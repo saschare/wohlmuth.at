@@ -113,15 +113,7 @@ class Aitsu_Registry {
 
     public static function getExpireTime() {
 
-        $expire = Aitsu_Registry::get()->config->cache->browser->expireTime;
-
-        if (empty($expire)) {
-            $expire = 3600;
-
-            Aitsu_Registry::get()->config->cache->browser->expireTime = $expire;
-        }
-
-        return $expire;
+        return empty(Aitsu_Registry::get()->config->cache->browser->expireTime) ? 3600 : Aitsu_Registry::get()->config->cache->browser->expireTime;
     }
 
 }
