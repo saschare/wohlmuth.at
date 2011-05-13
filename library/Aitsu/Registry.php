@@ -117,7 +117,7 @@ class Aitsu_Registry {
 		
 		$reg = self :: getInstance();
 		
-		return $reg->registry['expireTime'];
+		return isset($reg->registry['expireTime']) ? $reg->registry['expireTime'] : 0;
 	}
 
 }
