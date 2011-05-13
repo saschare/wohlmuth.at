@@ -1,119 +1,121 @@
 <?php
 
+
 /**
- * aitsu Registry.
- * 
- * The aitsu registry hold all data necessary during the process
- * of rendering the page.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Registry.php 16580 2010-05-26 07:23:38Z akm $}
  */
 class Aitsu_Registry {
 
-    protected $registry = array();
+	protected $_registry = array ();
 
-    protected function __construct() {
-        
-    }
+	protected function __construct() {
 
-    protected static function getInstance() {
+		$this->_registry['expiryTime'] = empty (Aitsu_Registry :: get()->config->cache->browser->expireTime) ? 0 : Aitsu_Registry :: get()->config->cache->browser->expireTime;
+	}
 
-        static $instance;
+	protected static function getInstance() {
 
-        if (!isset($instance)) {
-            $instance = new self();
-        }
+		static $instance;
 
-        return $instance;
-    }
+		if (!isset ($instance)) {
+			$instance = new self();
+		}
 
-    public static function get() {
-        return self :: getInstance();
-    }
+		return $instance;
+	}
 
-    public function __get($name) {
+	public static function get() {
+		return self :: getInstance();
+	}
 
-        if (!array_key_exists($name, $this->registry) || $this->registry[$name] === null) {
-            $this->registry[$name] = Aitsu_Registry_Entry :: factory();
-        }
+	public function __get($name) {
 
-        return $this->registry[$name];
-    }
+		if (!array_key_exists($name, $this->_registry) || $this->_registry[$name] === null) {
+			$this->_registry[$name] = Aitsu_Registry_Entry :: factory();
+		}
 
-    public function __isset($name) {
+		return $this->_registry[$name];
+	}
 
-        if (!array_key_exists($name, $this->registry) || $this->registry[$name] === null) {
-            return false;
-        }
+	public function __isset($name) {
 
-        return true;
-    }
+		if (!array_key_exists($name, $this->_registry) || $this->_registry[$name] === null) {
+			return false;
+		}
 
-    public function __set($name, $value) {
+		return true;
+	}
 
-        $this->registry[$name] = $value;
-    }
+	public function __set($name, $value) {
 
-    public static function isFront($set = null) {
+		$this->_registry[$name] = $value;
+	}
 
-        if ($set != null) {
-            Aitsu_Registry :: get()->env->front = (boolean) $set;
-        }
+	public static function isFront($set = null) {
 
-        return isset(Aitsu_Registry :: get()->env->front) && Aitsu_Registry :: get()->env->front == true;
-    }
+		if ($set != null) {
+			Aitsu_Registry :: get()->env->front = (boolean) $set;
+		}
 
-    public static function isEdit($set = null) {
+		return isset (Aitsu_Registry :: get()->env->front) && Aitsu_Registry :: get()->env->front == true;
+	}
 
-        if ($set != null) {
-            Aitsu_Registry :: get()->env->edit = (boolean) $set;
-        }
+	public static function isEdit($set = null) {
 
-        if (Aitsu_Registry :: isFront()) {
-            /*
-             * We are in frontend mode and therefore edit mode must
-             * be false.
-             */
-            return false;
-        }
+		if ($set != null) {
+			Aitsu_Registry :: get()->env->edit = (boolean) $set;
+		}
 
-        $user = Aitsu_Adm_User :: getInstance();
-        if ($user == null) {
-            return false;
-        }
+		if (Aitsu_Registry :: isFront()) {
+			/*
+			 * We are in frontend mode and therefore edit mode must
+			 * be false.
+			 */
+			return false;
+		}
 
-        return isset(Aitsu_Registry :: get()->env->edit) && Aitsu_Registry :: get()->env->edit == true;
-    }
+		$user = Aitsu_Adm_User :: getInstance();
+		if ($user == null) {
+			return false;
+		}
 
-    public static function isBoxModel($set = null) {
+		return isset (Aitsu_Registry :: get()->env->edit) && Aitsu_Registry :: get()->env->edit == true;
+	}
 
-        if ($set != null) {
-            Aitsu_Registry :: get()->env->boxModel = (boolean) $set;
-        }
+	public static function isBoxModel($set = null) {
 
-        return isset(Aitsu_Registry :: get()->env->boxModel) && Aitsu_Registry :: get()->env->boxModel == true;
-    }
+		if ($set != null) {
+			Aitsu_Registry :: get()->env->boxModel = (boolean) $set;
+		}
 
-    public static function translator($adapter = null) {
+		return isset (Aitsu_Registry :: get()->env->boxModel) && Aitsu_Registry :: get()->env->boxModel == true;
+	}
 
-        if ($adapter != null) {
-            Aitsu_Registry :: get()->Zend_Translate = $adapter;
-        }
+	public static function translator($adapter = null) {
 
-        return Aitsu_Registry :: get()->Zend_Translate;
-    }
+		if ($adapter != null) {
+			Aitsu_Registry :: get()->Zend_Translate = $adapter;
+		}
 
-    public static function setExpireTime($time) {
+		return Aitsu_Registry :: get()->Zend_Translate;
+	}
 
-        Aitsu_Registry::get()->expireTime = min(array(self::getExpireTime(), $time));
-    }
+	public static function setExpireTime($time) {
 
-    public static function getExpireTime() {
+		/*$reg = self :: getInstance();
 
-        return empty(Aitsu_Registry::get()->config->cache->browser->expireTime) ? 0 : Aitsu_Registry::get()->config->cache->browser->expireTime;
-    }
+		$reg->_registry['expireTime'] = min(array (
+			$reg->_registry['expireTime'],
+			$time
+		));*/
+	}
+
+	public static function getExpireTime() {
+		return 0;
+		/*$reg = self :: getInstance();
+		
+		return $reg->_registry['expireTime'];*/
+	}
 
 }
