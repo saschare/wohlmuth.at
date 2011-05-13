@@ -108,12 +108,19 @@ class Aitsu_Registry {
 
     public static function setExpireTime($time) {
 
-        Aitsu_Registry::get()->expireTime = min(array(self::getExpireTime(), $time));
-    }
+		$reg = self :: getInstance();
 
-    public static function getExpireTime() {
+		$reg->registry['expireTime'] = min(array (
+			$reg->registry['expireTime'],
+			$time
+		));
+	}
 
-        return empty(Aitsu_Registry::get()->config->cache->browser->expireTime) ? 0 : Aitsu_Registry::get()->config->cache->browser->expireTime;
-    }
+	public static function getExpireTime() {
+		
+		$reg = self :: getInstance();
+		
+		return $reg->registry['expireTime'];
+	}
 
 }
