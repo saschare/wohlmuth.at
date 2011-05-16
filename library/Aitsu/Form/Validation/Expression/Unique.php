@@ -2,7 +2,7 @@
 
 
 /**
- * @author jhartleb
+ * @author Jens Hartlep
  * @author Andreas Kummer, w3concepts AG
  */
 
