@@ -32,22 +32,37 @@ abstract class Aitsu_Adm_Plugin_Controller extends Zend_Controller_Action {
 
 	}
 
-	public static function getPosition($idart, $plugin) {
-		
-		if (!isset(Aitsu_Article_Config :: factory($idart)->plugin->article-> $plugin->position)) {
+	public static function getPosition($id, $plugin, $type = 'article') {
+
+		if ($type == 'category') {
+			return self :: getPositionCat($id, $plugin);
+		}
+
+		if (!isset (Aitsu_Article_Config :: factory($id)->plugin->article-> $plugin->position)) {
 			return 0;
 		}
 
-		$position = Aitsu_Article_Config :: factory($idart)->plugin->article-> $plugin->position;
+		$position = Aitsu_Article_Config :: factory($id)->plugin->article-> $plugin->position;
 
 		if (!isset ($position->ifindex)) {
 			return $position->default;
 		}
 
-		if (Aitsu_Persistence_Article :: factory($idart)->isIndex()) {
+		if (Aitsu_Persistence_Article :: factory($id)->isIndex()) {
 			return $position->ifindex;
 		}
 
 		return $position->default;
+	}
+
+	protected static function getPositionCat($idcat, $plugin) {
+
+		$config = Aitsu_Persistence_Category :: factory($idcat)->load();
+
+		if (!isset ($config->configs->plugin->category-> $plugin->position)) {
+			return 0;
+		}
+
+		return $config->configs->plugin->category-> $plugin->position;
 	}
 }
