@@ -1,0 +1,1 @@
+<a<?php echo $this->id . $this->class . $this->style . $this->target . $this->title; ?> href="<?php echo preg_match('/^(idcat|idart)\s[0-9]+$/', $this->href) ? '{ref:' . str_replace(' ', '-', $this->href) . '}' : $this->href; ?>"><?php echo $this->value; ?></a>

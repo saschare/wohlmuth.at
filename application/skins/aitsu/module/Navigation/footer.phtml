@@ -1,0 +1,10 @@
+<?php $i=1; foreach ($this->nav->children as $fullnavigation1) : ?>
+<a
+<?php if ($fullnavigation1->isparent || $fullnavigation1->iscurrent) : ?>
+	class="active" <?php endif; ?>
+	href="{ref:idcat-<?php echo $fullnavigation1->idcat; ?>}"
+	title="<?php echo $fullnavigation1->name; ?>"><?php echo $fullnavigation1->name; ?></a>
+<?php if ($i < count($this->nav->children)) : ?>
+|
+<?php endif; ?>
+<?php $i++; endforeach; ?>

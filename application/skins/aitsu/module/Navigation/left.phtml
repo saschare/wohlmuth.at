@@ -1,0 +1,90 @@
+<?php $i=0; foreach ($this->nav->children as $nav) : ?>
+<?php if ($nav->iscurrent || $nav->isparent) : ?>
+<ul class="vlist corner">
+<?php endif; ?>
+<?php endforeach;?>
+
+<?php $i=0; foreach ($this->nav->children as $nav) : ?>
+<?php if ($nav->iscurrent || $nav->isparent) : ?>
+	<li<?php if ($nav->iscurrent) : ?> class="active"<?php endif; ?><?php if($this->type == 'divider' || $nav->name == 'divider') : ?> class="divider"<?php endif; ?>>
+		<?php if($this->type == 'divider' || $nav->name == 'divider') : ?> 
+			&nbsp;
+		<?php else: ?>
+		<?php 
+			$class = NULL;
+			if($i==0) {
+				$class = "corner_first";
+			} elseif ($i+1== count($nav->children)) {
+				$class = "corner_last";
+			}
+		?>
+		<a<?php if ($nav->iscurrent) : ?> class="active<?php echo ' '.$class; ?>"<?php elseif($class) : ?> class="<?php echo $class; ?>"<?php endif; ?> href="{ref:idcat-<?php echo $nav->idcat; ?>}"><?php echo htmlspecialchars ($nav->name);?></a>
+		<?php endif; ?> 
+
+		<?php if(count($nav->children) > 0 && $i <= 0) : ?>
+		<ul>
+		<?php endif; ?>
+		<?php $j=1; foreach ($nav->children as $mainNav) : ?>
+			<li<?php if ($mainNav->iscurrent) : ?> class="active"<?php endif; ?><?php if($this->type == 'divider' || $mainNav->name == 'divider') : ?> class="divider"<?php endif; ?>>
+				<?php if($this->type == 'divider' || $mainNav->name == 'divider') : ?> 
+					&nbsp;
+				<?php else: ?>
+				<?php 
+					$class = NULL;
+					if($j==1) {
+						$class = "corner_first";
+					} elseif ($j== count($nav->children)) {
+						$class = "corner_last";
+					}
+				?>
+				<a<?php if ($mainNav->iscurrent) : ?> class="active<?php echo ' '.$class; ?>"<?php elseif($class) : ?> class="<?php echo $class; ?>"<?php endif; ?> href="{ref:idcat-<?php echo $mainNav->idcat; ?>}"><?php echo htmlspecialchars ($mainNav->name); ?></a>
+				<?php endif; ?> 
+
+				<?php if (count($mainNav->children) > 0 && ($mainNav->iscurrent || $mainNav->isparent)) : ?>
+				<ul>
+					<?php foreach ($mainNav->children as $subNav) : ?>
+					<li<?php if ($subNav->iscurrent || $subNav->isparent) : ?> class="active"<?php endif; ?><?php if($this->type == 'divider' || $subNav->name == 'divider') : ?> class="divider" <?php endif; ?>>
+						<?php if($this->type == 'divider' || $subNav->name == 'divider') : ?>
+							&nbsp;
+						<?php else: ?> 
+						<a<?php if ($subNav->iscurrent || $subNav->isparent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $subNav->idcat; ?>}"><?php echo htmlspecialchars ($subNav->name); ?></a>
+						<?php endif; ?> 
+		
+						<?php if (count($subNav->children) > 0 && ($subNav->iscurrent || $subNav->isparent)) : ?>
+						<ul>
+							<?php foreach ($subNav->children as $subSubNav) : ?>
+							<li<?php if ($subSubNav->iscurrent || $subSubNav->isparent) : ?> class="active"<?php endif; ?><?php if($this->type == 'divider' || $subSubNav->name == 'divider') : ?> class="divider" <?php endif; ?>>
+								<?php if($this->type == 'divider' || $subSubNav->name == 'divider') : ?>
+								
+								<?php else: ?> 
+								<a<?php if ($subSubNav->iscurrent || $subSubNav->isparent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $subSubNav->idcat; ?>}"><?php echo htmlspecialchars ($subSubNav->name); ?></a>
+								<?php endif; ?>
+							</li>
+							<?php endforeach; ?>
+						</ul>
+						<?php endif; ?>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+				<?php endif; ?>
+			</li>
+			<?php $j++; endforeach; ?>
+		<?php if(count($nav->children) > 0 && $i <= 0) : ?>
+		</ul>
+		<?php endif; ?>
+	</li>
+<?php endif; ?>
+<?php endforeach; ?>
+
+<?php $i=0; foreach ($this->nav->children as $nav) : ?>
+<?php if ($nav->iscurrent || $nav->isparent) : ?>
+</ul>
+<?php endif; ?>
+<?php endforeach;?>
+<?php if(Aitsu_Registry :: get()->env->idcat == 51) : ?>
+<div class="info corner">
+<script type="application/x-aitsu" src="ArticleList:Navi">
+	template=headline
+</script>
+</div>
+<?php endif; ?>

@@ -1,0 +1,35 @@
+jQuery(document).ready(function($) { 
+	var gallery = $('#thumbs').galleriffic({ 
+		delay: 5000, 
+		numThumbs: 40, 
+		preloadAhead: -1, 
+		enableTopPager: true, 
+		enableBottomPager: true,
+		maxPagesToShow: 7, 
+		imageContainerSel: '#slideshow', 
+		controlsContainerSel: '#controls',
+		captionContainerSel: '#caption', 
+		loadingContainerSel: '#loading', 
+		renderSSControls: true, 
+		renderNavControls: true, 
+		playLinkText: '<?php echo Aitsu_Translate :: _("Play"); ?>', 
+		pauseLinkText: '<?php echo Aitsu_Translate :: _("Pause"); ?>',
+		prevLinkText: '<?php echo Aitsu_Translate :: _("Previous"); ?>', 
+		nextLinkText: '<?php echo Aitsu_Translate :: _("Next"); ?>', 
+		nextPageLinkText: '<?php echo Aitsu_Translate :: _("Next page"); ?> &rsaquo;', 
+		prevPageLinkText: '&lsaquo; <?php echo Aitsu_Translate :: _("Previous page"); ?>', 
+		enableHistory: true, 
+		enableKeyboardNavigation: true, 
+		autoStart: true, 
+		syncTransitions: false, 
+		defaultTransitionDuration: 1000, 
+		onSlideChange: undefined, 
+		onTransitionOut: undefined, 
+		onTransitionIn: undefined, 
+		onPageTransitionOut: undefined, 
+		onPageTransitionIn: undefined, 
+		onImageAdded: undefined, 
+		onImageRemoved: undefined 
+	}); 
+	$('head').append('<' + 'link href="/skin/css/twocol.css" rel="stylesheet" type="text/css" />');
+});
