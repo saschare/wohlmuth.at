@@ -21,7 +21,7 @@ var reloadTree = function(id, tree) {
 var pagetree = Ext.getCmp('pageview-cattree');
 
 var categories = new Ext.grid.GridPanel({
-	title: '<?php echo addslashes($this->categoryname); ?>',
+	title: '<?php echo addslashes($this->categoryname); ?> (Blog)',
 	store: new Ext.data.JsonStore({
 		url: '<?php echo $this->url(array('paction' => 'articles')); ?>',
 		root: 'data',
@@ -129,33 +129,6 @@ var categories = new Ext.grid.GridPanel({
 	            		params: { idcat: '<?php echo $this->idcat; ?>' }
 	            	});
 	            }
-	        },
-	        {
-	        	tooltip: Ext.state.Manager.get('cut-page', null) != null ? 'Paste article (ID ' + Ext.state.Manager.get('cut-page').id + ')' : '',
-	        	iconCls: 'paste',
-	        	disabled: Ext.state.Manager.get('cut-page', null) == null,
-	        	handler: function(b, e) {
-	            	Ext.Ajax.request({
-	            		url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'movepage'), 'default'); ?>',
-	            		success: function(response, opts) {
-	            			var rsp = Ext.decode(response.responseText);
-	            			rsp = rsp.data;
-	            			rsp.id = rsp.idart;
-	            			var store = categories.getStore();
-	            			store.addSorted(new store.recordType(rsp));  
-	            			pagetree.getNodeById('idart-' + Ext.state.Manager.get('cut-page').id).remove(true);
-	            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
-						    pagetree.getLoader().load(node, function() {node.expand()});         			
-			        		b.disable();
-			        		b.setTooltip('');
-			        		Ext.state.Manager.clear('cut-page');
-	            		},
-	            		params: {
-	            			idcat: '<?php echo $this->idcat; ?>',
-	            			idart: Ext.state.Manager.get('cut-page').id
-	            		}
-	            	});
-	        	}
 	        }
 	    ]
 	},
