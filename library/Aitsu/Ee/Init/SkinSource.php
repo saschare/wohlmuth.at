@@ -6,7 +6,7 @@
  *
  * @author Christian Kehres, webtischlerei.de
  * @copyright Copyright &copy; 2010,webtischlerei.de
- * @author Frnak Ammari, Ammari & Ammari GbR
+ * @editor Frank Ammari, Ammari & Ammari GbR
  *
  * {@id $Id: SkinSource.php 19975 2010-11-19 12:44:06Z akm $}
  */
