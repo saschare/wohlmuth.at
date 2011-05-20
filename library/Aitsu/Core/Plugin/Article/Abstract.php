@@ -18,7 +18,10 @@ abstract class Aitsu_Core_Plugin_Article_Abstract implements Aitsu_Core_Plugin_A
 
 	abstract protected function __construct();
 
-	abstract public static function _getInstance();
+	public static function _getInstance() {
+		
+		return;
+	}
 
 	public final function allow($plugin, $id, $period) {
 		
