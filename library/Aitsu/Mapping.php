@@ -18,7 +18,7 @@ class Aitsu_Mapping {
 		$this->_evalMapping();
 	}
 
-	protected function _getInstance() {
+	protected static function _getInstance() {
 
 		static $instance;
 
