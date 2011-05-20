@@ -20,7 +20,15 @@ class Aitsu_Persistence_View_User {
 		'select userid from _acl_user ' .
 		'where ' .
 		'	login = :login ' .
-		'	and password = :password', array (
+		'	and password = :password ' .
+		'	and (' .
+		'		acfrom is null ' .
+		'		or acfrom < now() ' .
+		'	) ' .
+		'	and (' .
+		'		acuntil is null ' .
+		'		or acuntil > now() ' .
+		'	)', array (
 			':login' => $login,
 			':password' => $password
 		));
