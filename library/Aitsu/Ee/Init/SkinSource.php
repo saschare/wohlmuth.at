@@ -6,6 +6,7 @@
  *
  * @author Christian Kehres, webtischlerei.de
  * @copyright Copyright &copy; 2010,webtischlerei.de
+ * @author Frnak Ammari, Ammari & Ammari GbR
  *
  * {@id $Id: SkinSource.php 19975 2010-11-19 12:44:06Z akm $}
  */
@@ -98,7 +99,7 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 		}
 	}
 
-	private function setContentTypeHeader($file_extension) {
+	private static function setContentTypeHeader($file_extension) {
 
 		switch ($file_extension) {
 			case 'css' :
