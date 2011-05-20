@@ -26,7 +26,10 @@ abstract class Aitsu_Adm_Script_Abstract {
 		$this->_currentStep = $step -1;
 	}
 
-	abstract public static function getName();
+	public static function getName() {
+		
+		return;
+	}
 
 	public function exec() {
 
