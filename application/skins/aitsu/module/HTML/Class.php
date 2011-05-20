@@ -22,7 +22,7 @@ class Skin_Module_HTML_Class extends Aitsu_Ee_Module_Abstract {
 		$output = Aitsu_Content_Html :: get($index);
 		$instance->_save($output, 'eternal');
 
-		if (Aitsu_Registry :: isEdit()) {
+		if (Aitsu_Application_Status :: isEdit()) {
 			return $return . $output . '</div>';
 		} else {
 			return $return . $output . '';

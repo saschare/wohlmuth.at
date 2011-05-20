@@ -3,6 +3,7 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
+ * @author Frank Ammari, Ammari & Ammari GbR 
  */
 
 class Skin_Module_PagetitleAsHeadline_Class extends Aitsu_Ee_Module_Abstract {
@@ -30,7 +31,7 @@ class Skin_Module_PagetitleAsHeadline_Class extends Aitsu_Ee_Module_Abstract {
 			$output = '<' . $params->tag . '>' . $headline . '</' . $params->tag . '>';
 		}
 
-		if (Aitsu_Registry :: isEdit()) {
+		if (Aitsu_Application_Status :: isEdit()) {
 			$output = '<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' . $output;
 		}
 

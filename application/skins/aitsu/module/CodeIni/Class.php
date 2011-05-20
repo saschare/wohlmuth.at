@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @author Frank Ammari, meine experten GbR
- * @copyright Copyright &copy; 2010, meine experten GbR
+ * @author Frank Ammari, Ammari & Ammari GbR
+ * @copyright Copyright &copy; 2011, Ammari & Ammari GbR
  */
 
 class Skin_Module_CodeIni_Class extends Aitsu_Ee_Module_Abstract {
@@ -15,7 +15,7 @@ class Skin_Module_CodeIni_Class extends Aitsu_Ee_Module_Abstract {
 			'type' => 'Content',
 			'author' => (object) array (
 				'name' => 'Frank Ammari',
-				'copyright' => 'meine experten GbR'
+				'copyright' => 'Ammari & Ammari GbR'
 			),
 			'version' => '1.0.0',
 			'status' => 'stable',
@@ -36,7 +36,7 @@ class Skin_Module_CodeIni_Class extends Aitsu_Ee_Module_Abstract {
 
 		$text = Aitsu_Content_Text :: get($index, 0);
 
-		$text = (empty ($text) && Aitsu_Registry :: isEdit()) ? '#ini ....' : $text;
+		$text = (empty ($text) && Aitsu_Application_Status :: isEdit()) ? '#ini ....' : $text;
 
 		$output = '<script type="application/x-aitsu" src="Code.GeSHi:ini">' . $text . '</script>';
 		

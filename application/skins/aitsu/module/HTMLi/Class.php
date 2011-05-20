@@ -27,15 +27,15 @@ class Skin_Module_HTMLi_Class extends Aitsu_Ee_Module_Abstract {
 			$return .= '';
 		}
 
-		if ($show == 'no' && !Aitsu_Registry :: isEdit()) {
+		if ($show == 'no' && !Aitsu_Application_Status :: isEdit()) {
 			return '';
 		}
 
-		if ($show == 'no' && Aitsu_Registry :: isEdit()) {
-			return '<div><strong>Output suppressed. Click here to activate output.</strong></div>';
+		if ($show == 'no' && Aitsu_Application_Status :: isEdit()) {
+			return '<div class="padding:5px 0;">:: Subcolumn ' . $index . ' Output suppressed. Click here to activate output. ::</div>';
 		}
 
-		if (Aitsu_Registry :: isEdit()) {
+		if (Aitsu_Application_Status :: isEdit()) {
 			$return = $return . Aitsu_Content_Html :: getInherited($index) . '</div>';
 		} else {
 			$return = $return . Aitsu_Content_Html :: getInherited($index) . '';

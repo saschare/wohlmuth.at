@@ -1,12 +1,29 @@
 <?php
 
 /**
- * @author Frank Ammari, meine experten GbR
- * @copyright Copyright &copy; 2011, meine experten GbR
+ * @author Frank Ammari, Ammari & Ammari GbR
+ * @copyright Copyright &copy; 2011, Ammari & Ammari GbR
  */
 
 class Skin_Module_TagAImg_Class extends Aitsu_Ee_Module_Abstract {
 
+	public static function about() {
+
+		return (object) array (
+			'name' => 'TagAImg',
+			'description' => Aitsu_Translate :: translate('Inserts a link image'),
+			'type' => 'Tags',
+			'author' => (object) array (
+				'name' => 'Frank Ammari',
+				'copyright' => 'Ammari & Ammari GbR'
+			),
+			'version' => '1.0.0',
+			'status' => 'stable',
+			'url' => null,
+			'id' => '4db9401b-9370-4da0-96b7-0bf150431368'
+		);
+	}
+	
 	public static function init($context) {
 
 		$instance = new self();
@@ -64,8 +81,8 @@ class Skin_Module_TagAImg_Class extends Aitsu_Ee_Module_Abstract {
 			$view->style = empty($style) ? NULL : ' style="' . $style . '"';
 			
 			if (count($view->images) == 0 || !href) {
-				if (Aitsu_Registry :: isEdit()) {
-					$output = '// Link-Image ' . $index . ' //';
+				if (Aitsu_Application_Status :: isEdit()) {
+					$output = ':: TagAImg ' . $index . ' ::';
 				} else {
 					$output = '';
 				}

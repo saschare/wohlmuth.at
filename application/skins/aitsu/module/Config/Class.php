@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @author Frank Ammari, meine experten GbR
- * @copyright Copyright &copy; 2010, meine experten GbR
+ * @author Frank Ammari, Ammari & Ammari GbR
+ * @copyright Copyright &copy; 2011, Ammari & Ammari GbR
  * 
  * Example Configurations
  * 
@@ -18,7 +18,7 @@ class Skin_Module_Config_Class extends Aitsu_Ee_Module_Abstract {
 			'type' => 'Content',
 			'author' => (object) array (
 				'name' => 'Frank Ammari',
-				'copyright' => 'meine experten GbR'
+				'copyright' => 'Ammari & Ammari GbR'
 			),
 			'version' => '1.0.0',
 			'status' => 'stable',
@@ -81,7 +81,7 @@ class Skin_Module_Config_Class extends Aitsu_Ee_Module_Abstract {
 		$view->config = $config;
 		$view->environment = $environment;
 			
-		if (Aitsu_Registry :: isEdit()) {
+		if (Aitsu_Application_Status :: isEdit()) {
 			$output = '// Config ' . $index . ' //';
 		}
 

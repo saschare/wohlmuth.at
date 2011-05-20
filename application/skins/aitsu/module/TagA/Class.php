@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @author Frank Ammari, meine experten GbR
- * @copyright Copyright &copy; 2011, meine experten GbR
+ * @author Frank Ammari, Ammari & Ammari GbR
+ * @copyright Copyright &copy; 2011, Ammari & Ammari GbR
  */
 
 class Skin_Module_TagA_Class extends Aitsu_Ee_Module_Abstract {
@@ -15,7 +15,7 @@ class Skin_Module_TagA_Class extends Aitsu_Ee_Module_Abstract {
 			'type' => 'Content',
 			'author' => (object) array (
 				'name' => 'Frank Ammari',
-				'copyright' => 'meine experten GbR'
+				'copyright' => 'Ammari & Ammari GbR'
 			),
 			'version' => '1.0.0',
 			'status' => 'stable',
@@ -48,8 +48,8 @@ class Skin_Module_TagA_Class extends Aitsu_Ee_Module_Abstract {
         $style = Aitsu_Content_Config_Text :: set($index, 'TagAStyle', 'style', 'Additional link attributes');
 
 		if (!$href || !$value) {
-			if (Aitsu_Registry :: isEdit()) {
-		       	return '// TagA ' . $index . ' //';
+			if (Aitsu_Application_Status :: isEdit()) {
+		       	return ':: TagA ' . $index . ' ::';
     		} else {
    				return '';
    			}

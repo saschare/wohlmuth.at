@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @author Frank Ammari, meine experten GbR
- * @copyright Copyright &copy; 2011, meine experten GbR
+ * @author Frank Ammari, Ammari & Ammari GbR
+ * @copyright Copyright &copy; 2011, Ammari & Ammari GbR
  *
  */
 
@@ -16,7 +16,7 @@ class Skin_Module_Flash_Class extends Aitsu_Ee_Module_Abstract {
 			'type' => 'Content',
 			'author' => (object) array (
 				'name' => 'Frank Ammari',
-				'copyright' => 'meine experten GbR'
+				'copyright' => 'Ammari & Ammari GbR'
 			),
 			'version' => '1.0.0',
 			'status' => 'stable',
@@ -48,8 +48,8 @@ class Skin_Module_Flash_Class extends Aitsu_Ee_Module_Abstract {
 		$view->height = empty($height) ? 1280 : $height;
 
 		if (!$files) {
-			if (Aitsu_Registry :: get()->env->edit == '1') {
-				return '// Flash ' . $index . ' //';
+			if (Aitsu_Application_Status :: isEdit()) {
+				return ':: Flash ' . $index . ' ::';
 			} else {
 				return '';
 			}

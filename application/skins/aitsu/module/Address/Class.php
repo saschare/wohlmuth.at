@@ -1,13 +1,29 @@
 <?php
 
-
 /**
- * @author Frank Ammari, meine experten GbR
- * @copyright Copyright &copy; 2010, meine experten GbR
+ * @author Frank Ammari, Ammari & Ammari GbR
+ * @copyright Copyright &copy; 2011, Ammari & Ammari GbR
  */
 
 class Skin_Module_Address_Class extends Aitsu_Ee_Module_Abstract {
 
+	public static function about() {
+
+		return (object) array (
+			'name' => 'Address',
+			'description' => Aitsu_Translate :: translate('Inserts a microformat address'),
+			'type' => 'Microformat',
+			'author' => (object) array (
+				'name' => 'Frank Ammari',
+				'copyright' => 'Ammari & Ammari GbR'
+			),
+			'version' => '1.0.0',
+			'status' => 'stable',
+			'url' => null,
+			'id' => '4db9401b-9370-4da0-96b7-0bf150431368'
+		);
+	}
+		
 	public static function init($context) {
 
 		$index = $context['index'];
@@ -30,8 +46,8 @@ class Skin_Module_Address_Class extends Aitsu_Ee_Module_Abstract {
         $view->telephone = Aitsu_Content_Config_Text :: set($index, 'AddressTelephone', 'Telephone', 'Additional attributes');
 
 		if (!$view->webaddress) {
-			if (Aitsu_Registry :: get()->env->edit == '1') {
-				return '// Address ' . $index . ' //';
+			if (Aitsu_Application_Status :: isEdit()) {
+				return ':: Address ' . $index . ' ::';
 			} else {
 				return '';
 			}

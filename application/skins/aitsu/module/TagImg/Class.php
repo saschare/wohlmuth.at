@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Frank Ammari, Ammari & Ammari GbR
+ * @copyright Copyright &copy; 2011, Ammari & Ammari GbR
+ */
+
 class Skin_Module_TagImg_Class extends Aitsu_Ee_Module_Abstract {
 
 	public static function about() {
@@ -10,7 +15,7 @@ class Skin_Module_TagImg_Class extends Aitsu_Ee_Module_Abstract {
 			'type' => 'Content',
 			'author' => (object) array (
 				'name' => 'Frank Ammari',
-				'copyright' => 'meine experten GbR'
+				'copyright' => 'Ammari & Ammari GbR'
 			),
 			'version' => '1.0.0',
 			'status' => 'stable',
@@ -71,8 +76,8 @@ class Skin_Module_TagImg_Class extends Aitsu_Ee_Module_Abstract {
 			$view->style = empty($style) ? NULL : ' style="' . $style . '"';
 			
 			if (count($view->images) == 0) {
-				if (Aitsu_Registry :: isEdit()) {
-					$output = '// TagImg ' . $index . ' //';
+				if (Aitsu_Application_Status :: isEdit()) {
+					$output = ':: TagImg ' . $index . ' ::';
 				} else {
 					$output = '';
 				}
