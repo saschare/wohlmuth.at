@@ -21,7 +21,7 @@ var reloadTree = function(id, tree) {
 var pagetree = Ext.getCmp('pageview-cattree');
 
 var categories = new Ext.grid.GridPanel({
-	title: '<?php echo addslashes($this->categoryname); ?>',
+	title: '<?php echo Aitsu_Translate :: translate('Category'); ?>: <?php echo addslashes($this->categoryname); ?>',
 	store: new Ext.data.JsonStore({
 		url: '<?php echo $this->url(array('paction' => 'articles')); ?>',
 		root: 'data',
