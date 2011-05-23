@@ -18,7 +18,10 @@ abstract class Aitsu_Persistence_Abstract implements Aitsu_Persistence_Interface
 		$this->_id = $id;
 	}
 
-	//abstract public static function factory($id = null);
+	public static function factory($id = null) {
+		
+		return;
+	}
 
 	abstract public function load();
 

@@ -19,7 +19,10 @@ abstract class Aitsu_Event_Abstract implements Aitsu_Event_Interface {
 		Aitsu_Event_Dispatcher :: getInstance()->raise($this);
 	}
 
-	//abstract public static function raise($signature, $context);
+	public static function raise($signature, $context) {
+		
+		return;
+	}
 
 	public final function getSignature() {
 

@@ -12,7 +12,10 @@ abstract class Aitsu_Ee_Module_Abstract {
 	protected $type = null;
 	protected $_view = null;
 
-	abstract public static function init($context);
+	public static function init($context) {
+		
+		return;
+	}
 
 	/**
 	 * Overwrite this method accordingly if the module has

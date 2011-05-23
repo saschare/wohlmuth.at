@@ -3,12 +3,17 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
+ */
+ 
+/*
+ * The blog plugin is in development state and should not yet be
+ * used in production.
  */
 
-class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
+class BlogCategoryController extends Aitsu_Adm_Plugin_Controller {
 
-	const ID = '4cd2cac0-f2a0-4ecc-98b1-0ace7f000101';
+	const ID = '4dd4ec0b-6e40-454a-a3ab-0adb7f000101';
 
 	public function init() {
 
@@ -18,11 +23,11 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 
 	public static function register($idcat) {
 		
-		$pos = self :: getPosition($idcat, 'standard', 'category');
+		$pos = self :: getPosition($idcat, 'blog', 'category');
 
 		return (object) array (
-			'name' => 'standard',
-			'tabname' => Aitsu_Translate :: translate('Overview'),
+			'name' => 'blog',
+			'tabname' => Aitsu_Translate :: translate('Blog'),
 			'enabled' => $pos,
 			'position' => $pos,
 			'id' => self :: ID

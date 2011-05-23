@@ -19,7 +19,11 @@ abstract class Aitsu_Core_Source_File_List implements Iterator {
 	protected $numberOfFiles = 0;
 	protected $position = 0;
 
-	abstract public static function getInstance($path);
+	public static function getInstance($path) {
+		
+		return;
+	}
+	
 	abstract public function fetch($limit = NULL);
 
 	function getNumberOfFiles() {

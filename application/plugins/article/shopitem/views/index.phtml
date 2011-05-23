@@ -1,0 +1,35 @@
+<?php Aitsu_Translate :: _('normal'); ?>
+<?php Aitsu_Translate :: _('reduced'); ?>
+<?php Aitsu_Translate :: _('always'); ?>
+<?php Aitsu_Translate :: _('never'); ?>
+<?php Aitsu_Translate :: _('allowed'); ?>
+<?php Aitsu_Translate :: _('Name / Description'); ?>
+<?php Aitsu_Translate :: _('SKU'); ?>
+<?php Aitsu_Translate :: _('Price is variable'); ?>
+<?php Aitsu_Translate :: _('VAT included'); ?>
+<?php Aitsu_Translate :: _('Shipping charges'); ?>
+<?php Aitsu_Translate :: _('Additional info required'); ?>
+<?php Aitsu_Translate :: _('Price'); ?>
+<?php Aitsu_Translate :: _('Currency'); ?>
+<?php Aitsu_Translate :: _('VAT class'); ?>
+
+var shopitemHandler = function(formId) {
+	Ext.getCmp(formId).getForm().submit({
+		success: function(form, action) {
+			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Shop item data have been saved.'); ?>');
+			form.findField('urlname').setValue(action.result.data.urlname);
+			setUnpublished();
+		}, 
+		failure: function() {
+			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been saved due to errors.'); ?>');
+		}
+	});
+}
+
+Ext.getCmp('page-plugin-accordion').add({
+	id: 'article-plugin-shopitem',
+	title: '<?php echo Aitsu_Translate :: translate('Shop item'); ?>',
+	autoScroll: true,
+	items: <?php echo $this->form->render('ExtJs'); ?>
+});
+

@@ -8,7 +8,7 @@
 
 class SynchronizationCategoryController extends Aitsu_Adm_Plugin_Controller {
 
-	const ID = '';
+	const ID = '4dd4ec6a-3828-4a9c-95de-0adf7f000101';
 
 	public function init() {
 
@@ -18,17 +18,19 @@ class SynchronizationCategoryController extends Aitsu_Adm_Plugin_Controller {
 
 	public static function register($idcat) {
 
+		$pos = self :: getPosition($idcat, 'synchronization', 'category');
+
 		return (object) array (
 			'name' => 'synchronization',
 			'tabname' => Aitsu_Translate :: translate('Synchronization'),
-			'enabled' => true,
-			'position' => 1,
+			'enabled' => $pos,
+			'position' => $pos,
 			'id' => self :: ID
-		);		
+		);
 	}
 
 	public function indexAction() {
-		
+
 		$this->view->idcat = $this->getRequest()->getParam('idcat');
 	}
 }

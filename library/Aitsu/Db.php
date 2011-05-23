@@ -280,7 +280,7 @@ class Aitsu_Db {
 	 */
 	public function rowCount() {
 
-		return $this->rowCount();
+		return self :: fetchOne('select row_count()');
 	}
 
 	public static function startTransaction() {
