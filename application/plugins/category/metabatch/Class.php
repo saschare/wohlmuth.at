@@ -52,8 +52,8 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 		if ($arts) {
 			foreach ($arts as $art) {
 				$data[] = (object) array (
-					'id' => $art['idart'],
-					'title' => str_repeat( "&nbsp;", $indent*4+2) . '<img src="/adm/images/icons/bullet_green.png" /> ' . $art['title'],
+					'id' => 'idart:'.$art['idart'],
+					'title' => str_repeat( "&nbsp;", $indent*4+1) . '<img src="/adm/images/icons/bullet_green.png" /> ' . $art['title'],
 					'pagetitle' => $art['pagetitle'],
 					'urlname' => $art['urlname'],
 					'online' => $art['online'],
@@ -76,14 +76,14 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 		if( !empty( $nav->children ) ) {
 			foreach( $nav->children as $navc ) {
 				$data[] = (object) array (
-					'id' => $navc->idcat,
+					'id' => 'idcat:'.$navc->idcat,
 					'title' => str_repeat( "&nbsp;", $indent*4) . '<img src="/adm/images/icons/folder.png" /> ' . $navc->name,
 					'pagetitle' => $navc->name,
 					'urlname' => $navc->urlname,
 					'online' => 1,
 					'author' => 'elmar',
-					'published' => 1,
-					'isstart' => 1
+					'published' => -1,
+					'isstart' => -1
 				);
 				$artdata =	$this->articleForCat( $navc->idcat, $indent+1 );		
 				$data = array_merge( $data, $artdata );
@@ -99,12 +99,19 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 	}
 
 	
-	public function articlesAction() {
+	public function catarttreeAction() {
 
 		$nav = Aitsu_Persistence_View_Category :: nav( $this->getRequest()->getParam('idcat') );
 
 		$data = $this->categoriesInCat( $nav , 0 );
 		
+		$this->_helper->json((object) array (
+			'data' => $data
+		));
+	}
+	
+	public function savechangesAction() {
+		$data = array();
 		$this->_helper->json((object) array (
 			'data' => $data
 		));
