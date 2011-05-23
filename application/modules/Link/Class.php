@@ -7,7 +7,6 @@
 class Module_Link_Class extends Aitsu_Ee_Module_Abstract {
 
     public static function init($context) {
-        $instance = new self();
 
         Aitsu_Content_Edit::isBlock('Link', false);
 
@@ -20,7 +19,8 @@ class Module_Link_Class extends Aitsu_Ee_Module_Abstract {
         $targets = array(
             '_blank' => '_blank',
             '_top' => '_top',
-            '_self' => '_self'
+            '_self' => '_self',
+            '_parent' => '_parent'
         );
 
         $target = Aitsu_Content_Config_Select::set($index, 'target', 'Target', $targets, 'Link');
@@ -31,12 +31,12 @@ class Module_Link_Class extends Aitsu_Ee_Module_Abstract {
         }
 
         if (empty($link) && Aitsu_Registry::isEdit()) {
-            $link = '<a href="#">no link given</a>';
+            return '<a href="#">no link given</a>';
         } else {
-            $link = '<a href="' . $link . '" target="' . $target . '">' . $name . '</a>';
+            if (!empty($link)) {
+                return '<a href="' . $link . '" target="' . $target . '">' . $name . '</a>';
+            }
         }
-        
-        return $link;
     }
 
 }
