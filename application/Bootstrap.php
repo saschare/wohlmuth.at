@@ -108,6 +108,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Aitsu_Registry :: get()->session = new Zend_Session_Namespace('aitsu');
 	}
 
+	protected function _initBackendUserConfig() {
+
+		$userid = Aitsu_Registry :: get()->session->user->getId();
+		$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
+		Aitsu_Registry :: get()->config->user = $properties;
+	}
+
+
 	protected function _initRegisterPlugins() {
 
 		if (isset (Aitsu_Registry :: get()->config->setup->password) && substr($_SERVER['REQUEST_URI'], -1 * strlen('/setup/' . Aitsu_Registry :: get()->config->setup->password)) == '/setup/' . Aitsu_Registry :: get()->config->setup->password) {
