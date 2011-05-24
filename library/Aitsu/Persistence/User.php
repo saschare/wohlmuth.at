@@ -233,4 +233,10 @@ class Aitsu_Persistence_User extends Aitsu_Persistence_Abstract {
 		
 		return $this->_properties[$key];
 	}
+	
+	public function getProperties() {
+		// trigger population of prop array
+		$this->getProperty( 'dummy' );
+		return $this->_properties;
+	}
 }
