@@ -52,7 +52,7 @@ class Skin_Module_Subcolumn_Class extends Aitsu_Ee_Module_Abstract {
 			$view->style = empty($style) ? NULL : ' style="' . $style . '"';
 			
 			if (Aitsu_Registry :: isEdit()) {
-				$output .= '<div class="padding:5px 0;">:: Subcolumn ' . $index . ' ::';
+				$output .= '<div class="padding:5px 0;">| Subcolumn :: ' . $index . ' |';
 			} 
 
 			$output .= $view->render($template . '.phtml');

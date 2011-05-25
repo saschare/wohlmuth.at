@@ -32,7 +32,7 @@ class Skin_Module_HTMLi_Class extends Aitsu_Ee_Module_Abstract {
 		}
 
 		if ($show == 'no' && Aitsu_Application_Status :: isEdit()) {
-			return '<div class="padding:5px 0;">:: Subcolumn ' . $index . ' Output suppressed. Click here to activate output. ::</div>';
+			return '<div class="padding:5px 0;">| HTMLi :: ' . $index . ' Output suppressed. Click here to activate output. |</div>';
 		}
 
 		if (Aitsu_Application_Status :: isEdit()) {

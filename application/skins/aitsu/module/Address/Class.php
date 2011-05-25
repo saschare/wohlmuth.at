@@ -47,7 +47,7 @@ class Skin_Module_Address_Class extends Aitsu_Ee_Module_Abstract {
 
 		if (!$view->webaddress) {
 			if (Aitsu_Application_Status :: isEdit()) {
-				return ':: Address ' . $index . ' ::';
+				return '| Address :: ' . $index . ' |';
 			} else {
 				return '';
 			}

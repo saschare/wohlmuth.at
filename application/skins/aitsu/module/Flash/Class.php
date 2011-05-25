@@ -49,7 +49,7 @@ class Skin_Module_Flash_Class extends Aitsu_Ee_Module_Abstract {
 
 		if (!$files) {
 			if (Aitsu_Application_Status :: isEdit()) {
-				return ':: Flash ' . $index . ' ::';
+				return '| Flash :: ' . $index . ' |';
 			} else {
 				return '';
 			}

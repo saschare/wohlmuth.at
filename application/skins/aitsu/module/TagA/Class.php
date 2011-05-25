@@ -49,7 +49,7 @@ class Skin_Module_TagA_Class extends Aitsu_Ee_Module_Abstract {
 
 		if (!$href || !$value) {
 			if (Aitsu_Application_Status :: isEdit()) {
-		       	return ':: TagA ' . $index . ' ::';
+		       	return '| TagA :: ' . $index . ' |';
     		} else {
    				return '';
    			}

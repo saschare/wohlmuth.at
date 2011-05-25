@@ -82,7 +82,7 @@ class Skin_Module_Config_Class extends Aitsu_Ee_Module_Abstract {
 		$view->environment = $environment;
 			
 		if (Aitsu_Application_Status :: isEdit()) {
-			$output = '// Config ' . $index . ' //';
+			$output = '| Config :: ' . $index . ' |';
 		}
 
 		$output = $view->render('index.phtml');
