@@ -110,9 +110,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 	protected function _initBackendUserConfig() {
 
-		$userid = Aitsu_Registry :: get()->session->user->getId();
-		$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
-		Aitsu_Registry :: get()->config->user = $properties;
+		if( Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user ) {
+			$userid = Aitsu_Registry :: get()->session->user->getId();
+			$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
+			Aitsu_Registry :: get()->config->user = $properties;
+		}
 	}
 
 
