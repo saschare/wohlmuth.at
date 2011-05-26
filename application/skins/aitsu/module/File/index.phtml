@@ -1,0 +1,4 @@
+<?php foreach ($this->files as $file) : ?>
+<a<?php echo $this->id . $this->class . $this->style; ?> href="/file/<?php echo $file->idart; ?>/<?php echo $file->filename; ?>" title="<?php echo $file->name; ?>"><?php echo $this->value; ?></a>
+<pre><?php echo var_export($file,true); ?></pre>
+<?php endforeach; ?>
