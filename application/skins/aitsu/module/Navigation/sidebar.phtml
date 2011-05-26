@@ -10,7 +10,7 @@
 			$class = "corner_last";
 		}
 	?>
-		<a<?php if ($nav1->iscurrent) : ?> class="active<?php echo ' '.$class; ?>"<?php elseif($class) : ?> class="<?php echo $class; ?>"<?php endif; ?> href="{ref:idcat-<?php echo $nav1->idcat; ?>}"><?php echo $nav1->name; ?></a>
+		<a<?php if ($nav1->iscurrent) : ?> class="active<?php echo ' '.$class; ?>"<?php elseif($class) : ?> class="<?php echo $class; ?>"<?php endif; ?> href="{ref:idcat-<?php echo $nav1->idcat; ?>}"><?php echo $nav1->name; ?> &raquo;</a>
 
 	<?php if (count($nav1->children) > 0) : ?>
 
