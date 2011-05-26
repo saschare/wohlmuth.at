@@ -1,26 +1,26 @@
 <ul>
-<?php foreach ($this->nav->children as $fullnavigation1) : ?>
+<?php foreach ($this->nav->children as $nav1) : ?>
 	<li
-	<?php if ($fullnavigation1->isparent || $fullnavigation1->iscurrent) : ?>
+	<?php if ($nav1->isparent || $nav1->iscurrent) : ?>
 		class="active" <?php endif; ?>><a
-		<?php if ($fullnavigation1->isparent || $fullnavigation1->iscurrent) : ?>
+		<?php if ($nav1->isparent || $nav1->iscurrent) : ?>
 		class="active" <?php endif; ?>
-		href="{ref:idcat-<?php echo $fullnavigation1->idcat; ?>}"
-		title="<?php echo $fullnavigation1->name; ?>"><?php echo $fullnavigation1->name == 'Dokumentation' ? substr($fullnavigation1->name, 0,4).'.' : $fullnavigation1->name; ?></a>
-		<?php if (count($fullnavigation1->children) > 0) : ?>
+		href="{ref:idcat-<?php echo $nav1->idcat; ?>}"
+		title="<?php echo $nav1->name; ?>"><?php echo $nav1->name; ?></a>
+		<?php if (count($nav1->children) > 0) : ?>
 	<ul>
-	<?php $i=1; foreach ($fullnavigation1->children as $fullnavigation2) : ?>
+	<?php $i=1; foreach ($nav1->children as $nav2) : ?>
 	<?php if ($i<=3) : ?>
 		<li><a
-		<?php if ($fullnavigation2->isparent || $fullnavigation2->iscurrent) : ?>
+		<?php if ($nav2->isparent || $nav2->iscurrent) : ?>
 			class="active" <?php endif; ?>
-			href="{ref:idcat-<?php echo $fullnavigation2->idcat; ?>}"
-			title="<?php echo $fullnavigation2->name; ?>"><?php echo $fullnavigation2->name; ?></a>
+			href="{ref:idcat-<?php echo $nav2->idcat; ?>}"
+			title="<?php echo $nav2->name; ?>"><?php echo $nav2->name; ?></a>
 		</li>
 		<?php elseif ($i==4) : ?>
 		<li><a class="more"
-			href="{ref:idcat-<?php echo $fullnavigation1->idcat; ?>}"
-			title="mehr zum Thema <?php echo $fullnavigation1->name; ?>">mehr
+			href="{ref:idcat-<?php echo $nav1->idcat; ?>}"
+			title="mehr zum Thema <?php echo $nav1->name; ?>">mehr
 		&raquo;</a></li>
 		<?php endif; ?>
 		<?php $i++; endforeach; ?>
