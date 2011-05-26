@@ -1,9 +1,22 @@
+<?php
+$langId = Aitsu_Registry :: get()->env->idlang ? Aitsu_Registry :: get()->env->idlang : 1;
+switch($langId) {
+	case 1:
+		$language = 'de';
+		break;
+	case 2:
+		$language = 'en';
+		break;
+	default:
+		$language = 'de';
+}
+?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="content-language" content="de" />
+<meta http-equiv="content-language" content="<?php echo $language; ?>" />
 <script type="application/x-aitsu" src="HTML.Meta.BaseHref"></script>
 <script type="application/x-aitsu" src="HTML.Meta.PageTitle"></script>
-<script type="application/x-aitsu" src="HTML.Meta.CanonicalTag"></script>
-<script type="application/x-aitsu" src="HTML.Meta.Tags"></script>
+<script type="application/x-aitsu" src="CanonicalTag"></script>
+<script type="application/x-aitsu" src="MetaTags"></script>
 <script type="application/x-aitsu" src="HTML.Meta.ResourceBundle">
   type = css
   res.0 = /yaml/core/base.css
