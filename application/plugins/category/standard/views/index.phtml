@@ -121,10 +121,11 @@ var categories = new Ext.grid.GridPanel({
 	            		success: function(response, opts) {
 	            			var rsp = Ext.decode(response.responseText);
 	            			rsp.id = rsp.idart;
+                                        editPage(rsp.id);
 	            			var store = categories.getStore();
 	            			store.addSorted(new store.recordType(rsp));  
 	            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
-						    pagetree.getLoader().load(node, function() {node.expand()});          			
+					pagetree.getLoader().load(node, function() {node.expand()});  
 	            		},
 	            		params: { idcat: '<?php echo $this->idcat; ?>' }
 	            	});
