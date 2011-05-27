@@ -17,6 +17,18 @@ var panel = new Ext.TabPanel({
 
 center.add(panel);
 
+var reloadTreeByArt = function(id) {
+        var tree = Ext.getCmp('pageview-cattree'); 
+        
+	var node = tree.getNodeById("idart-" + id);
+        
+	tree.getLoader().load(node.parentNode, function(n) {
+		n.expand(false, false, function() {
+			tree.getNodeById(node.attributes.id).expand(false, false);
+		});
+	});
+}
+
 var setUnpublished = function() {
     var b = Ext.getCmp('publish-button');
     b.setIconClass('page-unpublished');
@@ -38,6 +50,7 @@ var onlineBtn = new Ext.Button({
                     b.setIconClass('page-offline');
                     b.setTooltip('<?php echo Aitsu_Translate :: translate('Set online'); ?>');
                 }
+                reloadTreeByArt(<?php echo $this->idart; ?>);
                 setUnpublished();
             },
             params: {
