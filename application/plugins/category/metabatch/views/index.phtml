@@ -2,7 +2,9 @@
 
 var pagetree = Ext.getCmp('pageview-cattree');
 
-var metabatch_title_e = new Ext.form.TextField();
+var metabatch_title_e = new Ext.form.TextField({
+	css: 'border: 1px solid red'
+});
 var metabatch_pagetitle_e = new Ext.form.TextField();
 var metabatch_urlname_e = new Ext.form.TextField();
 
@@ -12,7 +14,18 @@ var metabatchgrid = new Ext.grid.EditorGridPanel ({
 	store: new Ext.data.JsonStore({
 		url: '<?php echo $this->url(array('paction' => 'catarttree')); ?>',
 		root: 'data',
-		fields: [{name:'id',type2:'int'}, 'title', 'pagetitle', 'urlname', 'online', 'author', 'published', 'isstart'],
+		fields: [
+			'id',
+			{name:'level',type:'int'},
+			'type',
+			'title',
+			'pagetitle',
+			'urlname',
+			'online',
+			'author',
+			'published',
+			'isstart'
+		],
 		autoLoad: {
 			params: {
 				idcat: <?php echo $this->idcat; ?>
@@ -91,7 +104,18 @@ var metabatchgrid = new Ext.grid.EditorGridPanel ({
              ]
         },
     	{dataIndex: 'id', header: 'ID', menuDisabled: true, sortable: true, width: 30},
-    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', editor: metabatch_title_e, menuDisabled: false, sortable: true},
+    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', editor: metabatch_title_e, menuDisabled: false, sortable: true,
+			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+				if( record.data.type == 'art' ) {
+					metaData.attr = 'style="text-indent:12px; margin-left:'+((record.data.level+0.1)*1.5)+'em;background:url(/adm/images/icons/bullet_green.png) 0px 2px no-repeat;"';
+				}
+				else {
+					metaData.attr = 'style="text-indent:12px; margin-left:'+((record.data.level+0.1)*1.5)+'em;background:url(/adm/images/icons/folder.png) 0px 2px no-repeat;"';
+				}
+				// console.log( record.data.level );
+				return value;
+			}
+		},
     	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Page title'); ?>', editor: metabatch_pagetitle_e, menuDisabled: false, sortable: true},
     	{dataIndex: 'urlname', header: '<?php echo Aitsu_Translate :: translate('URL name'); ?>', editor: metabatch_urlname_e, menuDisabled: false, sortable: true},
     	{dataIndex: 'author', header: '<?php echo Aitsu_Translate :: translate('Author'); ?>', menuDisabled: false, sortable: true}
@@ -119,7 +143,7 @@ var metabatchgrid = new Ext.grid.EditorGridPanel ({
 					}
 					console.log( changes );
 					metabatchgrid.submitChanges( changes );
-					// metabatchgrid.store.commitChanges();
+					metabatchgrid.store.commitChanges();
 				}
 			},
 			{
@@ -131,59 +155,17 @@ var metabatchgrid = new Ext.grid.EditorGridPanel ({
 						metabatchgrid.store.rejectChanges();
 					}
 				}
-			},
- 			{
-	            tooltip: 'Add new article',
-	            iconCls: 'tb-add',
-	            handler: function(b, e) {
-	            	Ext.Ajax.request({
-	            		url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'newarticle'), 'default'); ?>',
-	            		success: function(response, opts) {
-	            			var rsp = Ext.decode(response.responseText);
-	            			rsp.id = rsp.idart;
-	            			var store = categories.getStore();
-	            			store.addSorted(new store.recordType(rsp));  
-	            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
-						    pagetree.getLoader().load(node, function() {node.expand()});          			
-	            		},
-	            		params: { idcat: '<?php echo $this->idcat; ?>' }
-	            	});
-	            }
-	        },
-	        {
-	        	tooltip: Ext.state.Manager.get('cut-page', null) != null ? 'Paste article (ID ' + Ext.state.Manager.get('cut-page').id + ')' : '',
-	        	iconCls: 'paste',
-	        	disabled: Ext.state.Manager.get('cut-page', null) == null,
-	        	handler: function(b, e) {
-	            	Ext.Ajax.request({
-	            		url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'movepage'), 'default'); ?>',
-	            		success: function(response, opts) {
-	            			var rsp = Ext.decode(response.responseText);
-	            			rsp = rsp.data;
-	            			rsp.id = rsp.idart;
-	            			var store = categories.getStore();
-	            			store.addSorted(new store.recordType(rsp));  
-	            			pagetree.getNodeById('idart-' + Ext.state.Manager.get('cut-page').id).remove(true);
-	            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
-						    pagetree.getLoader().load(node, function() {node.expand()});         			
-			        		b.disable();
-			        		b.setTooltip('');
-			        		Ext.state.Manager.clear('cut-page');
-	            		},
-	            		params: {
-	            			idcat: '<?php echo $this->idcat; ?>',
-	            			idart: Ext.state.Manager.get('cut-page').id
-	            		}
-	            	});
-	        	}
-	        }
+			}
 	    ] // toolbar items
 	}, // toolbar
 
 	submitChanges: function( data ) {
 		Ext.Ajax.request({
 			url:        '<?php echo $this->url(array('paction' => 'savechanges')); ?>',
-			success:    function() { store.reload() },
+			success:    function() {
+				metabatchgrid.store.reload();
+				Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Save Meta Data'); ?>', '<?php echo Aitsu_Translate :: translate('Your changes have been saved.'); ?>');
+			},				            				
 			params:     { changes: Ext.util.JSON.encode( data ) }
 		});
 	},

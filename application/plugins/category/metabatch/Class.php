@@ -53,7 +53,9 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 			foreach ($arts as $art) {
 				$data[] = (object) array (
 					'id' => 'idart:'.$art['idart'],
-					'title' => str_repeat( "&nbsp;", $indent*4+1) . '<img src="/adm/images/icons/bullet_green.png" /> ' . $art['title'],
+					'level' => $indent,
+					'type' => 'art',
+					'title' => $art['title'],
 					'pagetitle' => $art['pagetitle'],
 					'urlname' => $art['urlname'],
 					'online' => $art['online'],
@@ -77,7 +79,9 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 			foreach( $nav->children as $navc ) {
 				$data[] = (object) array (
 					'id' => 'idcat:'.$navc->idcat,
-					'title' => str_repeat( "&nbsp;", $indent*4) . '<img src="/adm/images/icons/folder.png" /> ' . $navc->name,
+					'level' => $indent,
+					'type' => 'cat',
+					'title' => $navc->name,
 					'pagetitle' => $navc->name,
 					'urlname' => $navc->urlname,
 					'online' => 1,
@@ -112,7 +116,33 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 	
 	public function savechangesAction() {
 		$data = array();
+		
+		$changes = json_decode( $this->getRequest()->getParam('changes') );
+		// print_r( $changes );
+		
+		foreach( $changes as $change ) {
+			// change->id
+			list( $type, $id ) = explode( ':', $change->id );
+
+			if( $type == 'idcat' ) {
+				try {
+					unset( $change->id );
+					$data = Aitsu_Persistence_Category :: factory($id)->load()->setValues(
+						$change
+					)->save()->getData();
+				} catch (Exception $e) {
+					$this->_helper->json((object) array (
+						'sucess' => false,
+						'status' => 'exception',
+						'message' => $e->getMessage()
+					));
+					return;
+				}
+			}
+		}
+
 		$this->_helper->json((object) array (
+			'sucess' => true,
 			'data' => $data
 		));
 	}
