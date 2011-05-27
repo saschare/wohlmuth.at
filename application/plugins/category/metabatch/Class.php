@@ -2,6 +2,14 @@
 
 
 /**
+ * Meta Data batch editing grid controller
+ *
+ * TODO: make category pagetitle synchronous with title
+ * TODO: add more meta data
+ * TODO: extend to cope with addtionals meta data added from 3rd party (e.g. OpenGraph)
+ * TODO: add localization
+ * TODO: update tree nodes (west) if on stage (or reload tree)
+ *
  * @author Andreas Kummer, w3concepts AG
  * @author Elmar Bransch, Minkenberg Medien GmbH
  * @copyright Copyright &copy; 2010, w3concepts AG
@@ -23,7 +31,7 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 
 		return (object) array (
 			'name' => 'metabatch',
-			'tabname' => Aitsu_Translate :: translate('Meta Data Editor (Testing)'),
+			'tabname' => Aitsu_Translate :: translate('Meta Data Editor (alpha)'),
 			'enabled' => $pos,
 			'position' => $pos,
 			'id' => self :: ID
@@ -35,7 +43,7 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 		$idcat = $this->getRequest()->getParam('idcat');
 		$cat = Aitsu_Persistence_Category :: factory($idcat)->load();
 
-		$this->view->title = Aitsu_Translate :: translate('Meta Data Editor (Testing)');
+		$this->view->title = Aitsu_Translate :: translate('Meta Data Editor (alpha)');
 		$this->view->usePublishing = isset (Aitsu_Registry :: get()->config->sys->usePublishing) && Aitsu_Registry :: get()->config->sys->usePublishing == true;
 		$this->view->idcat = $idcat;
 		$this->view->categoryname = $cat->name;
@@ -62,6 +70,8 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 					'author' => $art['author'],
 					'published' => $art['published'],
 					'isstart' => $art['isstart']
+					// find a way to add more properties dynamically
+					// pot. even from 3rd party (e.g. OpenGraph)
 				);
 			}
 		}
@@ -88,6 +98,7 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 					'author' => 'elmar',
 					'published' => -1,
 					'isstart' => -1
+					// find a way to add more properties dynamically
 				);
 				$artdata =	$this->articleForCat( $navc->idcat, $indent+1 );		
 				$data = array_merge( $data, $artdata );
@@ -114,28 +125,101 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 		));
 	}
 	
+	// pass the changed data to the category persistance layer
+	private function saveCategoryData( $id, $changeset ) {
+		try {
+			$data = Aitsu_Persistence_Category :: factory($id)->load()->setValues(
+				$changeset
+			)->save()->getData();
+			return $data;
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'sucess' => false,
+				'status' => 'exception',
+				'message' => $e->getMessage()
+			));
+			return false;
+		}
+	}
+
+	// pass the changed data to the article persistance layer
+	private function saveArticleData( $id, $changeset ) {
+
+		$changeset = (array)$changeset;
+
+		try {
+			$data = Aitsu_Persistence_Article :: factory($id)->load()->setValues(
+				$changeset
+			)->save()->getData();
+			return $data;
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'sucess' => false,
+				'status' => 'exception',
+				'message' => $e->getMessage()
+			));
+			return false;
+		}
+	}
+	
+	// re-map the grid columns to category columns
+	private function prepareCategoryChangeset( $changeset ) {
+
+		// in the grid we have mixed article and category data, so we need
+		// to map the grid columns (that are based on article data) to the
+		// corresponding category column names
+		static $mapCatMembers = Array(
+			'title'			=> 'name',
+			'urlname'		=> 'urlname',
+		);
+		
+		$changeset = (array)$changeset;
+		// prevent re-setting the primary id on update
+		unset( $changeset['id'] );
+
+		$catChange = Array();
+		// re-map category property names
+		foreach( $changeset as $ckey => $cval ) {
+			if( isset( $mapCatMembers[$ckey] ) ) {
+				$catChange[$mapCatMembers[$ckey]] = $cval;
+			} else {
+				$catChange[$ckey] = $cval;
+			}
+		}
+		
+		return $catChange;
+	}
+
+	
 	public function savechangesAction() {
 		$data = array();
 		
 		$changes = json_decode( $this->getRequest()->getParam('changes') );
 		// print_r( $changes );
 		
+		
 		foreach( $changes as $change ) {
 			// change->id
 			list( $type, $id ) = explode( ':', $change->id );
 
+			print "Updating $type = $id\n";
+			// print "Current data = \n";
+			// print_r( Aitsu_Persistence_Category :: factory($id)->getData() );
+
 			if( $type == 'idcat' ) {
-				try {
-					unset( $change->id );
-					$data = Aitsu_Persistence_Category :: factory($id)->load()->setValues(
-						$change
-					)->save()->getData();
-				} catch (Exception $e) {
-					$this->_helper->json((object) array (
-						'sucess' => false,
-						'status' => 'exception',
-						'message' => $e->getMessage()
-					));
+
+				$data = $this->saveCategoryData( $id, $this->prepareCategoryChangeset( $change ) );
+				if( $data === false ) {
+					// operation failed
+					return;
+				}
+			}
+
+			if( $type == 'idart' ) {
+
+				$data = $this->saveArticleData( $id, $change );
+				if( $data === false ) {
+					// operation failed
 					return;
 				}
 			}

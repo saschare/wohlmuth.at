@@ -3,9 +3,12 @@
 var pagetree = Ext.getCmp('pageview-cattree');
 
 var metabatch_title_e = new Ext.form.TextField({
-	css: 'border: 1px solid red'
+	css: 'border: 1px solid red',
+	allowBlank: false
 });
-var metabatch_pagetitle_e = new Ext.form.TextField();
+var metabatch_pagetitle_e = new Ext.form.TextField({
+	allowBlank: false
+});
 var metabatch_urlname_e = new Ext.form.TextField();
 
 
@@ -175,6 +178,17 @@ var metabatchgrid = new Ext.grid.EditorGridPanel ({
 
 		afteredit: function(e){
 			// e.record contains modified element
+			// e.field contains column name as defined in column model
+
+			// ensure title and pagetitle are in sync for categories
+			if( e.record.data.type == 'cat' ) {
+				if( e.field == 'title' ) {
+					e.record.set('pagetitle', e.record.data.title );
+				}
+				if( e.field == 'pagetitle' ) {
+					e.record.set('title', e.record.data.pagetitle );
+				}
+			}
 		},
 
 		rowcontextmenu: function(grid, rowIndex, event) {
