@@ -23,7 +23,7 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 
 		return (object) array (
 			'name' => 'metabatch',
-			'tabname' => Aitsu_Translate :: translate('Meta Data Editor'),
+			'tabname' => Aitsu_Translate :: translate('Meta Data Editor (Testing)'),
 			'enabled' => $pos,
 			'position' => $pos,
 			'id' => self :: ID
@@ -35,7 +35,7 @@ class MetaBatchCategoryController extends Aitsu_Adm_Plugin_Controller {
 		$idcat = $this->getRequest()->getParam('idcat');
 		$cat = Aitsu_Persistence_Category :: factory($idcat)->load();
 
-		$this->view->title = Aitsu_Translate :: translate('Meta Data Editor');
+		$this->view->title = Aitsu_Translate :: translate('Meta Data Editor (Testing)');
 		$this->view->usePublishing = isset (Aitsu_Registry :: get()->config->sys->usePublishing) && Aitsu_Registry :: get()->config->sys->usePublishing == true;
 		$this->view->idcat = $idcat;
 		$this->view->categoryname = $cat->name;
