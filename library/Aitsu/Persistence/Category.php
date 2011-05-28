@@ -89,7 +89,7 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 		$this->_data[$key] = $value;
 	}
 
-	public function save() {
+	public function save( $manualmoddate=false ) {
 
 		$this->_data['urlname'] = Aitsu_Util :: getAlias($this->_data['urlname']);
 		if (empty ($this->_data['urlname'])) {
@@ -112,6 +112,12 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 
 		if (empty ($this->_data['url'])) {
 			$this->_data['url'] = null;
+		}
+
+		// use current time as lastmodified, unless the flag
+		// manualmoddate is set to true
+		if( !$manualmoddate ) {
+			$this->_data['lastmodified'] = Date('Y-m-d H:i:s');
 		}
 
 		$this->_setConfigs();

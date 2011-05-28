@@ -126,7 +126,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		$this->_data[$key] = $value;
 	}
 
-	public function save() {
+	public function save( $manualmoddate=false ) {
 
 		if (empty ($this->_data)) {
 			return;
@@ -148,8 +148,12 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			$this->_data['configsetid'] = null;
 		}
 
-		$this->_data['lastmodified'] = date('Y-m-d H:i:s');
-
+		// use current time as lastmodified, unless the flag
+		// manualmoddate is set to true
+		if( !$manualmoddate ) {
+			$this->_data['lastmodified'] = date('Y-m-d H:i:s');
+		}
+			
 		if (empty ($this->_data['pubfrom'])) {
 			$this->_data['pubfrom'] = ""; //new Zend_Db_Expr('NULL');
 		}
