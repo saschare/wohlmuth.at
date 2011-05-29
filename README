@@ -13,16 +13,14 @@
 
 aitsu is reliable
 -----------------
-aitsu offers you an enormous amoount of functionality you can handle with ease. Togegether with fully tested core components that will be part of nearly any web site or application.
-aitsu is based on professional technologies, like PHP5, mySQL5 and the ZEND frameowrk.
+aitsu offers you an enormous amount of functionality you can handle with ease. Togegether with fully tested core components that will be part of nearly any web site or application. aitsu is based on professional technologies, like PHP5, mySQL5 and the ZEND frameowrk.
 This all makes it a really stable system.
 
 
 aitsu offers maxium flexibility
 --------------------------------
 aitsu will not be coded, aitsu will be configured. It is built in a way, that in most cases only the design template (view) needs
-to be adapted. There is neither Typoscript nor Smarty. aitsu
-is based on the ZEND framework and native PHP. It is sufficient most of the time to know about basic PHP structures and operators.
+to be adapted. There is neither Typoscript nor Smarty. aitsu is based on the ZEND framework and native PHP. It is sufficient most of the time to know about basic PHP structures and operators.
 
 
 aitsu offers outstanding performance
