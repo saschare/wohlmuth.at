@@ -18,7 +18,7 @@ class Skin_Module_GalleryGrouped_Class extends Aitsu_Ee_Module_Abstract {
 				'name' => 'Frank Ammari',
 				'copyright' => 'Ammari & Ammari GbR'
 			),
-			'version' => '1.0.0',
+			'version' => '1.0.1',
 			'status' => 'stable',
 			'url' => null,
 			'id' => '4ddea821-aabc-42ce-8f4a-1ff47f000001'
