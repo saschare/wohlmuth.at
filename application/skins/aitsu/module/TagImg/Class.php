@@ -17,7 +17,7 @@ class Skin_Module_TagImg_Class extends Aitsu_Ee_Module_Abstract {
 				'name' => 'Frank Ammari',
 				'copyright' => 'Ammari & Ammari GbR'
 			),
-			'version' => '1.0.0',
+			'version' => '1.0.1',
 			'status' => 'stable',
 			'url' => null,
 			'id' => '4db9401b-9370-4da0-96b7-0bf150431368'
@@ -60,20 +60,28 @@ class Skin_Module_TagImg_Class extends Aitsu_Ee_Module_Abstract {
 			$id = Aitsu_Content_Config_Text :: set($index, 'ImgId', 'id', 'Additional tag attributes');
 			$class = Aitsu_Content_Config_Text :: set($index, 'ImgClass', 'class', 'Additional tag attributes');
 			$style = Aitsu_Content_Config_Text :: set($index, 'ImgStyle', 'style', 'Additional tag attributes');
+
+			$thumbTransform = Aitsu_Content_Config_Radio :: set($index, 'ImgThumbTransform', 'Transform', array('Scale to fit' => '0', 'Cut to size' => '1', 'Cut to focus' => '2'), 'Choose thumb transformation');
+			$thumbWidth = Aitsu_Content_Config_Text :: set($index, 'ImgThumbWidth', 'width', 'Additional thumb attributes');
+			$thumbHeight = Aitsu_Content_Config_Text :: set($index, 'ImgThumbHeight', 'height', 'Additional thumb attributes');
 			
 			$view->index = $index;
 			$view->images = $images;
 
-			$view->transform = isset($transform) ? $transform : 0;
-			$view->width = isset($width) ? $width : 150;
-			$view->height = isset($height) ? $height : 100;
-
+			$view->transform = !empty($transform) ? $transform : 0;
+			$view->width = !empty($width) ? $width : 150;
+			$view->height = !empty($height) ? $height : 100;
+			
 			$view->alt = empty($alt) ? NULL : ' alt="' . $alt . '"';
 			$view->title = empty($title) ? NULL : ' title="' . $title . '"';
 
 			$view->id = empty($id) ? NULL : ' id="' . $id . '"';
 			$view->class = empty($class) ? NULL : ' class="' . $class . '"';
 			$view->style = empty($style) ? NULL : ' style="' . $style . '"';
+			
+			$view->thumbTransform = !empty($thumbTransform) ? $thumbTransform : 0;
+			$view->thumbWidth = !empty($thumbWidth) ? $thumbWidth : 30;
+			$view->thumbHeight = !empty($thumbHeight) ? $thumbHeight : 30;
 			
 			if (count($view->images) == 0) {
 				if (Aitsu_Application_Status :: isEdit()) {
