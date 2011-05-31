@@ -3,11 +3,7 @@
 	$total = count($this->images); 
 ?>
 <?php $i=0; foreach ($this->images as $image) : ?>
-	<?php if ($i%$m == 0) : ?>
-<div>
-	<?php endif; ?>
+<?php if ($i%$m == 0) : ?><div><?php endif; ?>
 <img<?php echo $this->id; ?><?php echo $this->class; ?><?php echo $this->style; ?> src="<?php echo Aitsu_Registry :: get()->config->sys->webpath; ?>image/100/100/0/<?php echo $this->images[$i]->idart; ?>/<?php echo $this->images[$i]->filename; ?>" <?php echo $this->title; ?> <?php if(isset($this->alt)) : ?><?php echo $this->alt; ?><?php else : ?> alt="<?php echo $this->images[$i]->medianame; ?>" /><?php endif; ?>
-	<?php if ($i%$m == ($m-1) || $i%$m == ($total-$i) || $total == ($i+1)) : ?>
-</div>
-	<?php endif; ?>
+<?php if ($i%$m == ($m-1) || ($i%$m == ($total-$i)  && $total%$m !== 0) || $total == ($i+1)) : ?></div><?php endif; ?>
 <?php $i++; endforeach; ?>
