@@ -13,7 +13,7 @@ class Skin_Module_File_Class extends Aitsu_Ee_Module_Abstract {
 		return (object) array (
 			'name' => 'File',
 			'description' => Aitsu_Translate :: translate('Inserts a link to a file'),
-			'type' => 'Content',
+			'type' => 'Files',
 			'author' => (object) array (
 				'name' => 'Frank Ammari',
 				'copyright' => 'Ammari & Ammari GbR'
