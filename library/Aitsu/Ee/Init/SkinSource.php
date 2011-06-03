@@ -120,6 +120,9 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 			case 'jpeg':
 				header('Content-type: image/jpeg');
 				break;
+                        case 'pdf':
+				header('Content-type: application/pdf');
+				break;
 			default :
 				break;
 		}

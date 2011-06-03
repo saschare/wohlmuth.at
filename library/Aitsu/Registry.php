@@ -104,7 +104,7 @@ class Aitsu_Registry {
 		$reg = self :: getInstance();
 		
 		if (!isset($reg->registry['expireTime'])) {
-			$reg->registry['expireTime'] = $reg->config->cache->brower->expireTime;
+			$reg->registry['expireTime'] = $reg->config->cache->browser->expireTime;
 		}
 
 		$reg->registry['expireTime'] = min(array (
@@ -118,7 +118,7 @@ class Aitsu_Registry {
 		$reg = self :: getInstance();
 		
 		if (!isset($reg->registry['expireTime'])) {
-			$reg->registry['expireTime'] = $reg->config->cache->brower->expireTime;
+			$reg->registry['expireTime'] = $reg->config->cache->browser->expireTime;
 		}
 
 		return isset($reg->registry['expireTime']) ? $reg->registry['expireTime'] : 0;

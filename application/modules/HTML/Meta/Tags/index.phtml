@@ -1,3 +1,5 @@
 <?php foreach ($this->meta as $key => $value) : ?>
-<meta name="<?php echo $key; ?>" content="<?php echo $value->value; ?>" /> 
+<?php if (!empty($value) && $key != 'idartlang') : ?>
+        <meta name="<?php echo $key; ?>" content="<?php echo $value; ?>" />
+<?php endif; ?>
 <?php endforeach; ?>
