@@ -1,41 +1,49 @@
 <?php
 
-
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
-
 class Module_HTML_Meta_Tags_Class extends Aitsu_Ee_Module_Abstract {
-	
-	public static function init($context) {
 
-		$instance = new self();
-		Aitsu_Content_Edit :: noEdit('HTML.Meta.Tags', true);
+    public static function init($context) {
 
-		$output = '';
-		if ($instance->_get('HTML.Meta.Tags', $output)) {
-			return $output;
-		}
+        $instance = new self();
+        Aitsu_Content_Edit :: noEdit('HTML.Meta.Tags', true);
 
-		$meta = Aitsu_Core_Article_Property :: factory()->getNamespace('MetaInfo');
+        $output = '';
+        if ($instance->_get('HTML.Meta.Tags', $output)) {
+            return $output;
+        }
 
-		if (isset (Aitsu_Registry :: get()->config->honeytrap->keyword)) {
-			$honeyTraps = array_flip(Aitsu_Registry :: get()->config->honeytrap->keyword->toArray());
-			if (count(array_intersect_key($honeyTraps, $_GET)) > 0) {
-				$meta['robots'] = (object) array (
-					'value' => 'noindex'
-				);
-			}
-		}
+        $meta = Aitsu_Db::fetchRow("
+                    SELECT
+                        *
+                    FROM
+                        `_art_meta`
+                    WHERE
+                        `idartlang` =:idartlang",
+                        array(
+                            ':idartlang' => Aitsu_Registry :: get()->env->idartlang
+                ));
 
-		$view = $instance->_getView();
-		$view->meta = $meta;
+        if (isset(Aitsu_Registry :: get()->config->honeytrap->keyword)) {
+            $honeyTraps = array_flip(Aitsu_Registry :: get()->config->honeytrap->keyword->toArray());
+            if (count(array_intersect_key($honeyTraps, $_GET)) > 0) {
+                $meta['robots'] = (object) array(
+                            'value' => 'noindex'
+                );
+            }
+        }
 
-		$output = $view->render('index.phtml');
+        $view = $instance->_getView();
+        $view->meta = $meta;
 
-		$instance->_save($output, 'eternal');
+        $output = $view->render('index.phtml');
 
-		return $output;
-	}
+        $instance->_save($output, 'eternal');
+
+        return $output;
+    }
+
 }

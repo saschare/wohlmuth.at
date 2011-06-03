@@ -1,8 +1,21 @@
+var reloadTree = function(id) {
+        var tree = Ext.getCmp('pageview-cattree'); 
+        
+	var node = tree.getNodeById(id);
+        
+	tree.getLoader().load(node, function(n) {
+		n.expand(false, false, function() {
+			tree.getNodeById(node.attributes.id).expand(false, false);
+		});
+	});
+}
+
 var pagePropertiesHandler = function(formId) {
 	Ext.getCmp(formId).getForm().submit({
 		success: function(form, action) {
 			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Page properties have been saved.'); ?>');
 			form.findField('urlname').setValue(action.result.data.urlname);
+                        reloadTree(action.result.data.idcat);
 			setUnpublished();
 		}, 
 		failure: function() {

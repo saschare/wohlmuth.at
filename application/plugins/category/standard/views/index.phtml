@@ -119,12 +119,15 @@ var categories = new Ext.grid.GridPanel({
 	            	Ext.Ajax.request({
 	            		url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'newarticle'), 'default'); ?>',
 	            		success: function(response, opts) {
+                                Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Created'); ?>', '<?php echo Aitsu_Translate :: translate('Article has been created.'); ?>');
 	            			var rsp = Ext.decode(response.responseText);
 	            			rsp.id = rsp.idart;
+                                        Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Loading'); ?>', '<?php echo Aitsu_Translate :: translate('Article is loading...'); ?>');
+                                        editPage(rsp.id);
 	            			var store = categories.getStore();
 	            			store.addSorted(new store.recordType(rsp));  
 	            			var node = pagetree.getNodeById('<?php echo $this->idcat; ?>');
-						    pagetree.getLoader().load(node, function() {node.expand()});          			
+					pagetree.getLoader().load(node, function() {node.expand()});  
 	            		},
 	            		params: { idcat: '<?php echo $this->idcat; ?>' }
 	            	});
