@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage Math
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BigInteger.php 22662 2010-07-24 17:37:36Z mabe $
+ * @version    $Id: BigInteger.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -38,7 +38,7 @@
  *
  * @category   Zend
  * @package    Zend_Crypt
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Crypt_Math_BigInteger
@@ -105,7 +105,7 @@ class Zend_Crypt_Math_BigInteger
         //} elseif($extension == 'bigint' && extension_loaded('big_int')) {
         //    require_once 'Zend/Crypt_Math/BigInteger/Bigint.php';
         //    $this->_math = new Zend_Crypt_Math_BigInteger_Bigint();
-        } elseif ($extension == 'bcmath') {
+        } elseif ($extension == 'bcmath' && extension_loaded('bcmath')) {
             require_once 'Zend/Crypt/Math/BigInteger/Bcmath.php';
             $this->_math = new Zend_Crypt_Math_BigInteger_Bcmath();
         } else {

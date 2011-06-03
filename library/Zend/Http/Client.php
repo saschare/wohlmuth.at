@@ -16,8 +16,8 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client
- * @version    $Id: Client.php 23073 2010-10-10 20:06:44Z padraic $
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Client.php 24081 2011-05-30 10:41:43Z ezimuel $
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -60,7 +60,7 @@ require_once 'Zend/Http/Response/Stream.php';
  * @package    Zend_Http
  * @subpackage Client
  * @throws     Zend_Http_Client_Exception
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Client
@@ -782,7 +782,8 @@ class Zend_Http_Client
         $this->paramsPost    = array();
         $this->files         = array();
         $this->raw_post_data = null;
-
+        $this->enctype       = null;
+        
         if($clearAll) {
             $this->headers = array();
             $this->last_request = null;
@@ -911,10 +912,10 @@ class Zend_Http_Client
                 require_once 'Zend/Http/Client/Exception.php';
                 throw new Zend_Http_Client_Exception("Could not open temp file {$this->_stream_name}");
         }
-        
+
         return $fp;
     }
-    
+
     /**
      * Send the HTTP request and return an HTTP response object
      *
@@ -1013,12 +1014,16 @@ class Zend_Http_Client
 
             // Load cookies into cookie jar
             if (isset($this->cookiejar)) {
-                $this->cookiejar->addCookiesFromResponse($response, $uri);
+                $this->cookiejar->addCookiesFromResponse($response, $uri, $this->config['encodecookies']);
             }
 
             // If we got redirected, look for the Location header
             if ($response->isRedirect() && ($location = $response->getHeader('location'))) {
 
+                // Avoid problems with buggy servers that add whitespace at the
+                // end of some headers (See ZF-11283)
+                $location = trim($location);
+                
                 // Check whether we send the exact same request again, or drop the parameters
                 // and send a GET request
                 if ($response->getStatus() == 303 ||
@@ -1030,7 +1035,7 @@ class Zend_Http_Client
                 }
 
                 // If we got a well formed absolute URI
-                if (Zend_Uri_Http::check($location)) {
+                if (($scheme = substr($location, 0, 6)) && ($scheme == 'http:/' || $scheme == 'https:')) {
                     $this->setHeaders('host', null);
                     $this->setUri($location);
 
@@ -1108,7 +1113,7 @@ class Zend_Http_Client
         }
 
         // Set the Content-Type header
-        if ($this->method == self::POST &&
+        if (($this->method == self::POST || $this->method == self::PUT) &&
            (! isset($this->headers[strtolower(self::CONTENT_TYPE)]) && isset($this->enctype))) {
 
             $headers[] = self::CONTENT_TYPE . ': ' . $this->enctype;
