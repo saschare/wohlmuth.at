@@ -13,6 +13,8 @@ var languages = new Ext.grid.GridPanel({
         }, {
             name: 'name'
         }, {
+            name: 'longname'
+        }, {
             name: 'client'
         }, {
             name: 'locale'
@@ -23,6 +25,7 @@ var languages = new Ext.grid.GridPanel({
     columns: [
     	{dataIndex: 'idlang', header: 'ID', menuDisabled: false, sortable: false, width: 20},
     	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: false, sortable: true},
+        {dataIndex: 'longname', header: '<?php echo Aitsu_Translate :: translate('Longname'); ?>', menuDisabled: false, sortable: true},
     	{dataIndex: 'client', header: '<?php echo Aitsu_Translate :: translate('Client'); ?>', menuDisabled: false, sortable: true},
     	{dataIndex: 'locale', header: '<?php echo Aitsu_Translate :: translate('Locale'); ?>', menuDisabled: false, sortable: true},
     	{dataIndex: 'encoding', header: '<?php echo Aitsu_Translate :: translate('Encoding'); ?>', menuDisabled: false, sortable: true}

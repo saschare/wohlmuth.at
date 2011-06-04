@@ -169,6 +169,7 @@ class Aitsu_Persistence_Language extends Aitsu_Persistence_Abstract {
 		'	select ' .
 		'		lang.idlang, ' .
 		'		lang.name, ' .
+                '		lang.longname, ' .
 		'		client.name as client, ' .
 		'		lang.locale, ' .
 		'		lang.encoding, ' .
