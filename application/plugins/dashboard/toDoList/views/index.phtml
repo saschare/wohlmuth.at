@@ -9,36 +9,46 @@ var store = new Ext.data.JsonStore({
 		        }, {
 		            name: 'title'
 		        }, {
-		            name: 'duedate'
+		            name: 'duedate',
+                            type: 'date',
+                            dateFormat: 'Y-m-d H:i:s'
 		        }, {
 		            name: 'description'
 		        }]
 		    });
+                    
+var todoExpander = new Ext.ux.grid.RowExpander({
+    tpl : new Ext.Template(
+        '<pre style="padding:10px;">{description}</pre>'
+    )
+});	
 
-var panel = new Ext.grid.GridPanel({
-			title: 'ToDo List',
-			store: store,
-                        hideHeaders: true,
-                        autoExpandColumn: 'topic',
-                        columns: [{
-		    		dataIndex: 'title',
-		    		menuDisabled: false,
-		    		sortable: false,
-		    		renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-		    			return '<h3>' + record.data.pagetitle + ': ' + record.data.title + '</h3><p style="white-space: normal;">' + record.data.duedate + '<br />' + record.data.description + '</p>';
-		    		}
-		    	}],
-			viewConfig: {
-				forceFit: true,
-				autoFill: true
-			},
-			listeners: {
-				render: {
-					fn: function(){
-						this.getStore().load();
-					}
-				}
+var todos = new Ext.grid.GridPanel({
+    id: 'todos',
+    title: 'To-do List',
+    store: store,
+    sortInfo: {
+        field: 'duedate',
+        direction: 'ASC'
+    },
+    columns: [
+    	todoExpander,
+    	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Pagetitle'); ?>', menuDisabled: true, sortable: true, width: 50},
+        {dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('To Do'); ?>', menuDisabled: true, sortable: true},
+    	{dataIndex: 'duedate', header: '<?php echo Aitsu_Translate :: translate('Due'); ?>', menuDisabled: true, sortable: true, width: 25, renderer: Ext.util.Format.dateRenderer('Y-m-d')}
+    ],
+    viewConfig: {
+        forceFit: true,
+        autoFill: true
+    },
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
 			}
+		}
+	},
+	plugins: todoExpander
 });
 
 dashboard.add({
@@ -49,6 +59,6 @@ dashboard.add({
 		unstyled: true,
 		height: 370,
 		layout: 'fit',
-		items: panel
+		items: todos
 	}
 });

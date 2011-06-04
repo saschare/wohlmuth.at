@@ -17,7 +17,7 @@ class toDoListDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         return (object) array(
             'name' => 'toDoList',
-            'tabname' => Aitsu_Translate :: _('ToDo List'),
+            'tabname' => Aitsu_Translate :: _('To-do-List'),
             'enabled' => true,
             'id' => self :: ID
         );
@@ -33,7 +33,7 @@ class toDoListDashboardController extends Aitsu_Adm_Plugin_Controller {
             SELECT
                 `todo`.`title`,
                 `todo`.`description`,
-                DATE_FORMAT(`todo`.`duedate`, '%d.%m.%Y') AS `duedate`,
+                `todo`.`duedate`,
                 `art`.`pagetitle`
             FROM
                 `_todo` AS `todo`
