@@ -201,9 +201,7 @@ class AclController extends Zend_Controller_Action {
 					 * New user.
 					 */
 					unset ($values['userid']);
-                                        
-                                        $values['idlang'] = 1;
-                                        
+                                                                                
 					Aitsu_Persistence_User :: factory()->setValues($values)->save();
 				} else {
 					/*
