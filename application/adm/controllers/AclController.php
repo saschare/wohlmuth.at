@@ -63,6 +63,20 @@ class AclController extends Zend_Controller_Action {
 		}
 		$form->setOptions('idlang', $langs);
 
+                $languages = Zend_Locale::getTranslationList('Language');
+                
+                asort($languages, SORT_LOCALE_STRING);
+                
+                $locales = array();
+                foreach ($languages as $value => $name) {
+                    $locales[] = (object) array(
+                        'value' => $value,
+                        'name' => $name . ' [' . $value . ']'
+                        );
+                }
+                                
+                $form->setOptions('locale', (object) $locales);
+                
 		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
 			header("Content-type: text/javascript");
