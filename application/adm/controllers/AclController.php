@@ -129,6 +129,29 @@ class AclController extends Zend_Controller_Action {
 			);
 		}
 		$form->setOptions('roles', $roles);
+                
+                $languages = Zend_Locale::getTranslationList('Language');
+                
+                asort($languages, SORT_LOCALE_STRING);
+                
+                $locales = array();
+                foreach ($languages as $value => $name) {
+                    $locales[] = (object) array(
+                        'value' => $value,
+                        'name' => $name . ' [' . $value . ']'
+                        );
+                }
+                                
+                $form->setOptions('locale', (object) $locales);
+                
+                $langs = array ();
+		foreach (Aitsu_Persistence_Language :: getAsArray() as $key => $value) {
+			$langs[] = (object) array (
+				'value' => $key,
+				'name' => $value
+			);
+		}
+		$form->setOptions('idlang', $langs);
 
 		if (!empty ($id)) {
 			$userData = Aitsu_Persistence_User :: factory($id)->load()->toArray();
@@ -178,6 +201,9 @@ class AclController extends Zend_Controller_Action {
 					 * New user.
 					 */
 					unset ($values['userid']);
+                                        
+                                        $values['idlang'] = 1;
+                                        
 					Aitsu_Persistence_User :: factory()->setValues($values)->save();
 				} else {
 					/*
