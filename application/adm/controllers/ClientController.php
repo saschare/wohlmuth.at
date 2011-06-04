@@ -139,7 +139,7 @@ class ClientController extends Zend_Controller_Action {
 		}
 		$form->setOptions('idclient', $clients);
                 
-                $languages = Zend_Locale::getTranslationList('Language', 'de');
+                $languages = Zend_Locale::getTranslationList('Language');
                 
                 asort($languages, SORT_LOCALE_STRING);
                 
