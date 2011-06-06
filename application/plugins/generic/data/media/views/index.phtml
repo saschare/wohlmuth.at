@@ -154,6 +154,7 @@ var media = new Ext.grid.GridPanel({
 			}]
     	},
     	{dataIndex: 'mediaid', header: 'ID', menuDisabled: false, sortable: true, width: 20},
+        {dataIndex: 'idart', header: 'idart', menuDisabled: false, sortable: true, width: 20},
     	{dataIndex: 'filename', header: '<?php echo Aitsu_Translate :: translate('File name'); ?>', menuDisabled: false, sortable: true},
     	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Media name'); ?>', menuDisabled: false, sortable: true},
     	{dataIndex: 'uploaded', header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: false, sortable: true, renderer: Ext.util.Format.dateRenderer('Y-m-d H:i:s')}
