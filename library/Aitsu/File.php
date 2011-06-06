@@ -199,9 +199,7 @@ class Aitsu_File {
         return $return;
     }
 
-    public static function getAllFiles($idlang, $pattern = '%', $sort = 'filename', $asc = true, $doCleanUp = false) {
-
-        $pattern = str_replace('*', '%', $pattern);
+    public static function getAllFiles($idlang, $sort = 'filename', $asc = true, $doCleanUp = false) {
 
         $sortCriteria = array(
             'filename' => 'media.filename',
