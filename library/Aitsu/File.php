@@ -194,6 +194,85 @@ class Aitsu_File {
 
         return $return;
     }
+    
+    public static function getAllFiles($idlang, $pattern = '%', $sort = 'filename', $asc = true, $doCleanUp = false) {
+
+        if ($idart == 0) {
+            $idart = null;
+        }
+
+        $pattern = str_replace('*', '%', $pattern);
+
+        $sortCriteria = array(
+            'filename' => 'media.filename',
+            'medianame' => 'description.name',
+            'date' => 'media.uploaded'
+        );
+        $sort = $sortCriteria[$sort] . ' ' . ($asc ? 'asc' : 'desc');
+
+        $files = Aitsu_Db :: fetchAll('' .
+                        'select ' .
+                        '	media.mediaid, ' .
+                        '	media.idart, ' .
+                        '	media.filename, ' .
+                        '	media.extension, ' .
+                        '	media2.size, ' .
+                        '	media2.xtl, ' .
+                        '	media2.ytl, ' .
+                        '	media2.xbr, ' .
+                        '	media2.ybr, ' .
+                        '	media.uploaded, ' .
+                        '	description.name, ' .
+                        '	description.subline, ' .
+                        '	description.description ' .
+                        'from ( ' .
+                        '	select ' .
+                        '		idart, ' .
+                        '		max(mediaid) as mediaid, ' .
+                        '		filename, ' .
+                        '		max(extension) as extension, ' .
+                        '		max(uploaded) as uploaded ' .
+                        '	from _media ' .
+                        '	where deleted is null ' .
+                        '	group by ' .
+                        '		filename, ' .
+                        '		idart ' .
+                        '	) as media ' .
+                        'left join _media_description as description on description.mediaid = media.mediaid and description.idlang = ' . $idlang . ' ' .
+                        'left join _media as media2 on media.mediaid = media2.mediaid ' .
+                        'order by ' .
+                        '	' . $sort);
+
+        if (!$files) {
+            return array();
+        }
+
+        $return = array();
+        foreach ($files as $key => $file) {
+            if ($file['idart'] == null) {
+                $file['idart'] = 0;
+            }
+
+            if ($doCleanUp && !file_exists(APPLICATION_PATH . '/data/media/' . $file['idart'] . '/' . $file['mediaid'] . '.' . $file['extension'])) {
+                if ($file['idart'] == 0) {
+                    $file['idart'] = null;
+                }
+
+                Aitsu_Db :: query('' .
+                        'delete from _media ' .
+                        'where ' .
+                        '	idart = ? ' .
+                        '	and filename = ? ', array(
+                    $file['idart'],
+                    $file['filename']
+                ));
+            } else {
+                $return[] = (object) $file;
+            }
+        }
+
+        return $return;
+    }
 
     public function getImages($idartlang, $pattern = '%', $sort = 'filename', $asc = true) {
 
