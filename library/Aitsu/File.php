@@ -28,7 +28,7 @@ class Aitsu_File {
         
     }
 
-    public static function factory($mediaid, $idlang = null) {
+    public static function factory($mediaid, $idlang) {
 
         $file = new self();
         $file->mediaid = $mediaid;
