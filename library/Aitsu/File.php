@@ -90,17 +90,13 @@ class Aitsu_File {
         move_uploaded_file($tmpFilename, APPLICATION_PATH . '/data/media/' . $idart . '/' . $file->mediaid . '.' . $file->extension);
     }
 
-    public static function delete($idart, $id) {
+    public static function delete($mediaid) {
 
         Aitsu_Db :: query('' .
-                'update _media as media, _media as filename, _art_lang as artlang ' .
+                'update _media as media ' .
                 'set media.deleted = now() ' .
-                'where ' .
-                '	media.filename = filename.filename ' .
-                '	and filename.mediaid = :id ' .
-                '	and media.idart = :idart', array(
-            ':id' => $id,
-            ':idart' => $idart
+                'where media.mediaid = :mediaid ', array(
+            ':mediaid' => $mediaid
         ));
     }
 
