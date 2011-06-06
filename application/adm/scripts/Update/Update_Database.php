@@ -754,4 +754,16 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
         return Aitsu_Adm_Script_Response::factory(sprintf(Aitsu_Translate::translate('Table %s altered.'), $table));
     }
 
+    public function doAlterTableMedia() {
+
+        $pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+        $table = $pf . 'media';
+
+        Aitsu_Db::query("ALTER TABLE `_media` DROP FOREIGN KEY `ait_media_ibfk_1`;");
+        Aitsu_Db::query("ALTER TABLE `_media` CHANGE `idart` `idart` INT( 10 ) UNSIGNED NULL;");
+        Aitsu_Db::query("ALTER TABLE `_media` ADD FOREIGN KEY ( `idart` ) REFERENCES `aitsu_aitsu`.`ait_art` (`idart`) ON DELETE CASCADE;");
+
+        return Aitsu_Adm_Script_Response::factory(sprintf(Aitsu_Translate::translate('Table %s altered.'), $table));
+    }
+
 }
