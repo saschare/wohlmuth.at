@@ -73,6 +73,10 @@ class Aitsu_File {
         $file->filesize = filesize($tmpFilename);
         $file->medianame = pathinfo($filename, PATHINFO_BASENAME);
 
+        if (empty($idart) || $idart == 0) {
+            $idart = 'null';
+        }
+
         if (!file_exists(APPLICATION_PATH . '/data/media/' . $idart)) {
             /*
              * The target directory does not yet exist and therefore needs to be created.
@@ -116,8 +120,8 @@ class Aitsu_File {
 
     public static function getFiles($idart, $idlang, $pattern = '%', $sort = 'filename', $asc = true, $doCleanUp = false) {
 
-        if ($idart == 0) {
-            $idart = null;
+        if (empty($idart) || $idart == 0) {
+            $idart = 'null';
         }
 
         $pattern = str_replace('*', '%', $pattern);
@@ -160,7 +164,7 @@ class Aitsu_File {
                         'left join _media_description as description on description.mediaid = media.mediaid and description.idlang = ' . $idlang . ' ' .
                         'left join _media as media2 on media.mediaid = media2.mediaid ' .
                         'where ' .
-                        '	media.idart ' . ($idart == null ? 'IS NULL ' : '= ' . $idart . '') . ' ' .
+                        '	media.idart ' . ($idart == 'null' ? 'IS NULL ' : '= ' . $idart . '') . ' ' .
                         'order by ' .
                         '	' . $sort);
 
@@ -175,8 +179,8 @@ class Aitsu_File {
             }
 
             if ($doCleanUp && !file_exists(APPLICATION_PATH . '/data/media/' . $file['idart'] . '/' . $file['mediaid'] . '.' . $file['extension'])) {
-                if ($file['idart'] == 0) {
-                    $file['idart'] = null;
+                if (empty($file['idart']) || $file['idart'] == 0) {
+                    $file['idart'] = 'null';
                 }
 
                 Aitsu_Db :: query('' .
@@ -194,12 +198,8 @@ class Aitsu_File {
 
         return $return;
     }
-    
-    public static function getAllFiles($idlang, $pattern = '%', $sort = 'filename', $asc = true, $doCleanUp = false) {
 
-        if ($idart == 0) {
-            $idart = null;
-        }
+    public static function getAllFiles($idlang, $pattern = '%', $sort = 'filename', $asc = true, $doCleanUp = false) {
 
         $pattern = str_replace('*', '%', $pattern);
 
@@ -249,15 +249,11 @@ class Aitsu_File {
 
         $return = array();
         foreach ($files as $key => $file) {
-            if ($file['idart'] == null) {
-                $file['idart'] = 0;
+            if (empty($file['idart']) || $file['idart'] == 0) {
+                $file['idart'] = 'null';
             }
 
             if ($doCleanUp && !file_exists(APPLICATION_PATH . '/data/media/' . $file['idart'] . '/' . $file['mediaid'] . '.' . $file['extension'])) {
-                if ($file['idart'] == 0) {
-                    $file['idart'] = null;
-                }
-
                 Aitsu_Db :: query('' .
                         'delete from _media ' .
                         'where ' .
