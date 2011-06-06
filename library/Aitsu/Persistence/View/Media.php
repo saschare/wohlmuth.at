@@ -23,14 +23,14 @@ class Aitsu_Persistence_View_Media {
 		'from _media media ' .
 		'left join _media_description description on media.mediaid = description.mediaid and description.idlang = :idlang ' .
 		'where ' .
-		'	media.idart = :idart ' .
+		'	(media.idart = :idart or media.idart is null)' .
 		'	and media.deleted is null ' .
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
 		'		from _media ' .
 		'		where ' .
-		'			idart = :idart ' .
+		'			(idart = :idart or idart is null)' .
 		'		group by' .
 		'			filename ' .
 		'	)', array (
@@ -38,7 +38,7 @@ class Aitsu_Persistence_View_Media {
 			':idlang' => Aitsu_Registry :: get()->env->idlang
 		));
 	}
-
+        
 	public static function byFileName($idart, $filenames) {
 		
 		if (empty($filenames)) {
@@ -60,14 +60,14 @@ class Aitsu_Persistence_View_Media {
 		'from _media media ' .
 		'left join _media_description description on media.mediaid = description.mediaid and description.idlang = :idlang ' .
 		'where ' .
-		'	media.idart = :idart ' .
+		'	(media.idart = :idart or media.idart is null)' .
 		'	and media.deleted is null ' .
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
 		'		from _media ' .
 		'		where ' .
-		'			idart = :idart ' .
+		'			(idart = :idart or idart is null)' .
 		'		group by' .
 		'			filename ' .
 		'	)', array (
