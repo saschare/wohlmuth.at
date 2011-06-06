@@ -24,6 +24,11 @@ class ImageController extends Zend_Controller_Action {
 		));
 		
 		$idart = $file['idart'];
+                
+                if ($idart == null) {
+                    $idart = 0;
+                }
+                
 		$filename = $file['filename'];
 		$width = $this->getRequest()->getParam('width');
 		$height = $this->getRequest()->getParam('height');
