@@ -111,10 +111,9 @@ class MediaPluginController extends Aitsu_Adm_Plugin_Controller {
 
     public function deleteAction() {
 
-        $idart = $this->getRequest()->getParam('idart');
-        $id = $this->getRequest()->getParam('mediaid');
+        $mediaid = $this->getRequest()->getParam('mediaid');
 
-        Aitsu_Core_File :: delete($idart, $id);
+        Aitsu_File::delete($mediaid);
 
         $this->_helper->json((object) array(
                     'success' => true
