@@ -19,21 +19,21 @@ class ImageController extends Zend_Controller_Action {
 	public function mediaAction() {
 
 		$file = Aitsu_Db :: fetchRow('' .
-		'select * from _media where mediaid = :mediaid', array (
+		'select idart, filename from _media where mediaid = :mediaid', array (
 			':mediaid' => $this->getRequest()->getParam('id')
 		));
 		
 		$idart = $file['idart'];
                 
-                if ($idart == null) {
-                    $idart = 0;
+                if (empty($idart)) {
+                    $idart = 'null';
                 }
                 
 		$filename = $file['filename'];
 		$width = $this->getRequest()->getParam('width');
 		$height = $this->getRequest()->getParam('height');
 		$boxed = $this->getRequest()->getParam('boxed');
-
+                
 		$imageSrc = Aitsu_Core_Image_Source :: getInstance();
 		$imageSrc->setThumbUrl("$width/$height/$boxed/$idart/$filename");
 
