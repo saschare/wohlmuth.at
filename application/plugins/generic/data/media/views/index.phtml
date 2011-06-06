@@ -35,7 +35,7 @@ var mediaPreview = function(record) {
 }
 
 var uploader = new Ext.ux.PluploadPanel({
-    url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>',
+    url: '<?php echo $this->url(array('paction' => 'upload')); ?>',
     runtimes: 'html5,gears,flash,silverlight,html4',
     multipart: true,
     multipart_params: {
@@ -67,7 +67,7 @@ var uploader = new Ext.ux.PluploadPanel({
     progressText: '{0}/{1} ({3} failed) ({5}/s)',
     listeners: {
         beforestart: function(uploadpanel) {
-            uploadpanel.uploader.settings.url = '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'upload'), 'aplugin'); ?>?_runtime=' + uploadpanel.runtime;
+            uploadpanel.uploader.settings.url = '<?php echo $this->url(array('paction' => 'upload')); ?>?_runtime=' + uploadpanel.runtime;
         },
         uploadcomplete: function(uploadpanel, success, failures) {
             if (success.length) {
@@ -84,7 +84,7 @@ var uploader = new Ext.ux.PluploadPanel({
 var media = new Ext.grid.GridPanel({
 	store: new Ext.data.JsonStore({
         autoDestroy: true,
-        url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'store'), 'aplugin'); ?>',
+        url: '<?php echo $this->url(array('paction' => 'store')); ?>',
         remoteSort: false,
         storeId: 'mediaStore',
         idProperty: 'mediaid',
@@ -209,29 +209,6 @@ var media = new Ext.grid.GridPanel({
                             var text = '<?php echo $this->translate('Set main image flag'); ?>';
                             var set = 1;
                         }
-
-                        menu.addItem({
-					text: text,
-					iconCls: 'mainimage-remove',
-					handler: function() {
-						Ext.Ajax.request({
-							url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'mainimage'), 'aplugin'); ?>',
-							success: function(response, opts) {
-								store.load({
-									params: {
-										idart: <?php echo $this->idart; ?>
-									}
-								});
-							},
-							params: {
-								mediaid: mediaid,
-								set: set
-							}
-						});
-					}
-			});
-			
-			menu.addItem('-');
 			
 			menu.addItem({
 				text: '<?php echo $this->translate('Delete'); ?>',
@@ -243,7 +220,7 @@ var media = new Ext.grid.GridPanel({
 					 	buttons: Ext.MessageBox.OKCANCEL,
 					 	fn: function() {
                                                             Ext.Ajax.request({
-                                                                    url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete'), 'aplugin'); ?>',
+                                                                    url: '<?php echo $this->url(array('paction' => 'delete')); ?>',
                                                                     success: function(response, opts) {
                                                                            store.load({
                                                                                         params: {
@@ -290,7 +267,7 @@ var mediaTagToken = new Ext.form.ComboBox({
   	emptyText: '<?php echo Aitsu_Translate :: translate('Choose tag'); ?>',
     store: new Ext.data.JsonStore({
     	autoDestroy: true,
-    	url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'atagstore'), 'aplugin'); ?>',
+    	url: '<?php echo $this->url(array('paction' => 'atagstore')); ?>',
     	storeId: 'tagsStore',
     	root: 'data',
     	idProperty: 'tagid',
@@ -313,7 +290,7 @@ var mediaTags = new Ext.grid.GridPanel({
 	id: 'media-tags-grid',
 	store: new Ext.data.JsonStore({
         autoDestroy: true,
-        url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'tagstore'), 'aplugin'); ?>',
+        url: '<?php echo $this->url(array('paction' => 'tagstore')); ?>',
         remoteSort: false,
         storeId: 'mediaTagStore',
         idProperty: 'mediatagid',
@@ -347,7 +324,7 @@ var mediaTags = new Ext.grid.GridPanel({
 	            	var token = mediaTagToken.getValue();
 	            	var value = mediaTagValue.getValue();
 	            	Ext.Ajax.request({
-	            		url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'addtag'), 'aplugin'); ?>',
+	            		url: '<?php echo $this->url(array('paction' => 'addtag')); ?>',
 	            		success: function(response, opts) {
 	            			mediaTags.getStore().load({
 	            				params: {
@@ -378,7 +355,7 @@ var mediaTags = new Ext.grid.GridPanel({
 				iconCls: 'delete',
 				handler: function() {
 	            	Ext.Ajax.request({
-	            		url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'removetag'), 'aplugin'); ?>',
+	            		url: '<?php echo $this->url(array('paction' => 'removetag')); ?>',
 	            		success: function(response, opts) {
 	            			grid.getStore().remove(record); 
 	            		},
@@ -395,7 +372,10 @@ var mediaTags = new Ext.grid.GridPanel({
 	}
 });
 
-Ext.getCmp('page-edit-tab').add({
+var center = Ext.getCmp('viewport-center');
+center.removeAll();
+
+center.add({
 	id: 'article-plugin-media',
 	title: '<?php echo Aitsu_Translate :: translate('Media'); ?>',
 	layout: 'border',
@@ -428,7 +408,7 @@ Ext.getCmp('page-edit-tab').add({
 							items: [
 								new Ext.FormPanel({
 									title: '<?php echo Aitsu_Translate :: translate('Meta data'); ?>',
-									url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'save'), 'aplugin'); ?>',
+									url: '<?php echo $this->url(array('paction' => 'save')); ?>',
 									labelAlign: 'left',
 									id: 'media-edit-form',
 									frame: true,
@@ -461,8 +441,8 @@ Ext.getCmp('page-edit-tab').add({
 											name: 'mediaid'
 										}, {
 											xtype: 'hidden',
-											name: 'idartlang',
-											value: <?php echo $this->idartlang; ?>
+											name: 'idart',
+											value: <?php echo $this->idart; ?>
 										}, {
 											xtype: 'hidden',
 											name: 'xtl'
@@ -521,3 +501,5 @@ Ext.getCmp('page-edit-tab').add({
 		}
 	]
 });
+
+Ext.getCmp('viewport').doLayout();
