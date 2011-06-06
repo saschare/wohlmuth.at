@@ -85,20 +85,37 @@ class Aitsu_Core_Image_Resize {
         $this->imagePath = $this->imageSrc->getImagePath();
 
         $imageSource = APPLICATION_PATH . '/data/media/' . $this->imagePath;
+
         if (!file_exists($imageSource)) {
             if (preg_match('@([^/]*)/([^/]*)\\.(.{1,5})$@', $this->imagePath, $match)) {
+
+                if (empty($match[1]) || $match[1] == null || $match[1] == 0) {
                 $mediaId = Aitsu_Db :: fetchOne('' .
                                 'select mediaid from _media ' .
                                 'where ' .
-                                '	idart = :idart ' .
+                                '	idart is null ' .
                                 '	and filename = :filename ' .
                                 '	and deleted is null ' .
                                 'order by ' .
                                 '	mediaid desc ' .
                                 'limit 0, 1 ', array(
-                            ':idart' => $match[1],
                             ':filename' => $match[2] . '.' . $match[3]
                         ));
+                } else {
+                    $mediaId = Aitsu_Db :: fetchOne('' .
+                                    'select mediaid from _media ' .
+                                    'where ' .
+                                    '	idart = :idart ' .
+                                    '	and filename = :filename ' .
+                                    '	and deleted is null ' .
+                                    'order by ' .
+                                    '	mediaid desc ' .
+                                    'limit 0, 1 ', array(
+                                ':idart' => $match[1],
+                                ':filename' => $match[2] . '.' . $match[3]
+                            ));
+                }
+
                 if ($mediaId) {
                     $this->imagePath = $match[1] . '/' . $mediaId . '.' . strtolower($match[3]);
                     $imageSource = APPLICATION_PATH . '/data/media/' . $this->imagePath;
