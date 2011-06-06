@@ -25,7 +25,6 @@ class MediaPluginController extends Aitsu_Adm_Plugin_Controller {
 
     public function storeAction() {
         
-        $idart = null;
         $idlang = Aitsu_Registry::get()->session->currentLanguage;
 
         $files = Aitsu_File::getAllFiles($idlang, '*', 'filename', true, true);
