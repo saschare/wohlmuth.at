@@ -25,7 +25,7 @@ class ImageController extends Zend_Controller_Action {
 		
 		$idart = $file['idart'];
                 
-                if (empty($idart)) {
+                if (empty($idart) || $idart == 0) {
                     $idart = 'null';
                 }
                 
