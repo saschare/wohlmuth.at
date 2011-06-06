@@ -26,7 +26,7 @@ class MediaPluginController extends Aitsu_Adm_Plugin_Controller {
     public function storeAction() {
         
         $idart = null;
-        $idlang = 1;
+        $idlang = Aitsu_Registry::get()->session->currentLanguage;
 
         $files = Aitsu_File::getFiles($idart, $idlang, '*', 'filename', true, true);
 
@@ -123,7 +123,7 @@ class MediaPluginController extends Aitsu_Adm_Plugin_Controller {
     public function saveAction() {
         
         $mediaid = $this->getRequest()->getParam('mediaid');
-        $idlang = 1;
+        $idlang = Aitsu_Registry::get()->session->currentLanguage;
 
         try {
             $file = Aitsu_File::factory($mediaid, $idlang);
