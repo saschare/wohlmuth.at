@@ -118,7 +118,7 @@ class Aitsu_Registry {
 		$reg = self :: getInstance();
 		
 		if (!isset($reg->registry['expireTime'])) {
-			$reg->registry['expireTime'] = $reg->config->cache->browser->expireTime;
+			$reg->registry['expireTime'] = isset($reg->config->cache->browser->expireTime) ? $reg->config->cache->browser->expireTime : 0;
 		}
 
 		return isset($reg->registry['expireTime']) ? $reg->registry['expireTime'] : 0;
