@@ -61,7 +61,7 @@ class Adm_Script_Setup extends Aitsu_Adm_Script_Abstract {
 			'update _acl_user set ' .
 			'password = :password, ' .
 			'acfrom = now(), ' .
-			'acuntil = date_add(now(), interval 1 day) ' .
+			'acuntil = date_add(now(), interval 1 year) ' .
 			'where login = :login', array (
 				':password' => md5(Aitsu_Registry :: get()->config->setup->password),
 				':login' => 'admin'
