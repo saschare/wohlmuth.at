@@ -40,6 +40,7 @@ class Aitsu_Ee_Shortcode {
         $files = array(
             'Skin_Module' => realpath(APPLICATION_PATH . "/skins/" . Aitsu_Registry :: get()->config->skin . "/module/" . str_replace('.', '/', $method) . "/Class.php"),
             'Local_Module' => realpath(APPLICATION_PATH . '/../library/Local/Module/' . str_replace('.', '/', $method) . '/Class.php'),
+            'Comm_Module' => realpath(APPLICATION_PATH . '/../library/Comm/Module/' . str_replace('.', '/', $method) . '/Class.php'),
             'Module' => realpath(APPLICATION_PATH . '/modules/' . str_replace('.', '/', $method) . '/Class.php'),
             'Aitsu_Ee_Module' => realpath(APPLICATION_PATH . '/../library/Aitsu/Ee/Module/' . str_replace('.', '/', $method) . '/Class.php')
         );
