@@ -35,18 +35,6 @@ var setUnpublished = function() {
     b.setDisabled(false);
 }
 
-var reloadPageTreeNode_Article = function(idart) {
-    var tree = Ext.getCmp('pageview-cattree');
-    
-    var node = tree.getNodeById('idart-' + idart);
-
-    tree.getLoader().load(node.parentNode, function(n) {
-        n.expand(false, false, function() {
-            tree.getNodeById(node.attributes.id).expand(false, false);
-        });
-    });
-}
-
 var onlineBtn = new Ext.Button({
     tooltip: '<?php echo ($this->art->online ? Aitsu_Translate :: translate('Set offline') : Aitsu_Translate :: translate('Set online')); ?>',
     iconCls: '<?php echo ($this->art->online ? 'page-online' : 'page-offline'); ?>',
@@ -55,7 +43,6 @@ var onlineBtn = new Ext.Button({
             url: '<?php echo $this->url(array('controller' => 'data', 'action' => 'toggleonline'), 'default'); ?>',
             success: function(response, opts) {
                 var rsp = Ext.decode(response.responseText);
-                reloadPageTreeNode_Article(<?php echo $this->idart; ?>);
                 if (rsp.online == 1) {
                     b.setIconClass('page-online');
                     b.setTooltip('<?php echo Aitsu_Translate :: translate('Set offline'); ?>');
