@@ -37,52 +37,32 @@ class Aitsu_Ee_Shortcode {
         $returnValue = '';
         Aitsu_Content_Edit :: isBlock(true);
 
-        $classFile0 = realpath(APPLICATION_PATH . "/skins/" . Aitsu_Registry :: get()->config->skin . "/module/" . str_replace('.', '/', $method) . "/Class.php");
-        $classFile1 = realpath(APPLICATION_LIBPATH . '/Local/Module/' . str_replace('.', '/', $method) . '/Class.php');
-        $classFile2 = realpath(APPLICATION_PATH . '/modules/' . str_replace('.', '/', $method) . '/Class.php');
-        $classFile3 = realpath(APPLICATION_LIBPATH . '/Aitsu/Ee/Module/' . str_replace('.', '/', $method) . '/Class.php');
+        $files = array(
+            'Skin_Module' => realpath(APPLICATION_PATH . "/skins/" . Aitsu_Registry :: get()->config->skin . "/module/" . str_replace('.', '/', $method) . "/Class.php"),
+            'Local_Module' => realpath(APPLICATION_PATH . '/../library/Local/Module/' . str_replace('.', '/', $method) . '/Class.php'),
+            'Module' => realpath(APPLICATION_PATH . '/modules/' . str_replace('.', '/', $method) . '/Class.php'),
+            'Aitsu_Ee_Module' => realpath(APPLICATION_PATH . '/../library/Aitsu/Ee/Module/' . str_replace('.', '/', $method) . '/Class.php')
+        );
 
-        if (file_exists($classFile0)) {
-            $profileDetails->source = 'Skin_Module_' . str_replace('.', '_', $method) . '_Class';
-            include_once $classFile0;
-            $returnValue = call_user_func(array(
-                $profileDetails->source,
-                'init'
-                    ), array(
-                'index' => $index,
-                'params' => $params
-                    ));
-        } elseif (file_exists($classFile1)) {
-            $profileDetails->source = 'Local_Module_' . str_replace('.', '_', $method) . '_Class';
-            include_once ($classFile1);
-            $returnValue = call_user_func(array(
-                $profileDetails->source,
-                'init'
-                    ), array(
-                'index' => $index,
-                'params' => $params
-                    ));
-        } elseif (file_exists($classFile2)) {
-            $profileDetails->source = 'Module_' . str_replace('.', '_', $method) . '_Class';
-            include_once ($classFile2);
-            $returnValue = call_user_func(array(
-                $profileDetails->source,
-                'init'
-                    ), array(
-                'index' => $index,
-                'params' => $params
-                    ));
-        } elseif (file_exists($classFile3)) {
-            $profileDetails->source = 'Aitsu_Ee_Module_' . str_replace('.', '_', $method) . '_Class';
-            include_once ($classFile3);
-            $returnValue = call_user_func(array(
-                $profileDetails->source,
-                'init'
-                    ), array(
-                'index' => $index,
-                'params' => $params
-                    ));
-        } else {
+        $exists = false;
+
+        foreach ($files as $prefix => $file) {
+            if (file_exists($file)) {
+                $exists = true;
+                $profileDetails->source = $prefix . '_' . str_replace('.', '_', $method) . '_Class';
+                include_once $file;
+                $returnValue = call_user_func(array(
+                    $profileDetails->source,
+                    'init'
+                        ), array(
+                    'index' => $index,
+                    'params' => $params
+                        ));
+                break;
+            }
+        }
+
+        if (!$exists) {
             Aitsu_Profiler :: profile($method . ':' . $index, (object) array(
                         'source' => 'not found'
             ));
