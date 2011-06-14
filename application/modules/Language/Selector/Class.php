@@ -17,7 +17,8 @@ class Module_Language_Selector_Class extends Aitsu_Ee_Module_Abstract {
         $languages = Aitsu_Db::fetchAll("
             SELECT
                 `idlang`,
-                `name`
+                `name`,
+                `longname`
             FROM
                 `_lang`
             WHERE
@@ -29,7 +30,7 @@ class Module_Language_Selector_Class extends Aitsu_Ee_Module_Abstract {
         
         foreach ($languages as $language) {
             $language = (object) $language;
-            Aitsu_Core_Navigation_Language::getInstance()->registerLang($language->idlang, $language->name);
+            Aitsu_Core_Navigation_Language::getInstance()->registerLang($language->idlang, $language->name, $language->longname);
         }
 
         $view->langs = Aitsu_Core_Navigation_Language::getInstance()->getLangs();

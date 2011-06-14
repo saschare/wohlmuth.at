@@ -34,9 +34,10 @@ class Aitsu_Core_Navigation_Language {
 		return $instance;
 	}
 
-	public function registerLang($idlang, $name) {
+	public function registerLang($idlang, $name, $longname = null) {
 
 		$this->langs[$idlang]['name'] = $name;
+                $this->langs[$idlang]['longname'] = $longname;
 		$this->langs[$idlang]['url'] = null;
 		$this->langs[$idlang]['active'] = false;
 		$this->langs[$idlang]['current'] = $idlang == $this->idlang;
