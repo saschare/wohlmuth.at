@@ -1,5 +1,5 @@
 <?php foreach ($this->langs as $lang) : ?>
-    <?php if ($lang->active) : ?>
+    <?php if ($lang->current) : ?>
         <a class="active" href="<?php echo $lang->url; ?>"><?php echo $lang->longname; ?></a>
     <?php else : ?>
         <a href="<?php echo $lang->url; ?>"><?php echo $lang->longname; ?></a>
