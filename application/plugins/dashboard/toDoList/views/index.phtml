@@ -13,6 +13,10 @@ var store = new Ext.data.JsonStore({
                             type: 'date',
                             dateFormat: 'Y-m-d H:i:s'
 		        }, {
+		            name: 'today',
+                            type: 'date',
+                            dateFormat: 'Y-m-d H:i:s'
+		        }, {
 		            name: 'description'
 		        }]
 		    });
@@ -21,7 +25,7 @@ var todoExpander = new Ext.ux.grid.RowExpander({
     tpl : new Ext.Template(
         '<pre style="padding:10px;">{description}</pre>'
     )
-});	
+});
 
 var todos = new Ext.grid.GridPanel({
     id: 'todos',
@@ -33,9 +37,16 @@ var todos = new Ext.grid.GridPanel({
     },
     columns: [
     	todoExpander,
-    	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Pagetitle'); ?>', menuDisabled: true, sortable: true, width: 50},
+    	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Pagetitle'); ?>', menuDisabled: true, sortable: true},
         {dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('To Do'); ?>', menuDisabled: true, sortable: true},
-    	{dataIndex: 'duedate', header: '<?php echo Aitsu_Translate :: translate('Due'); ?>', menuDisabled: true, sortable: true, width: 25, renderer: Ext.util.Format.dateRenderer('d.m.Y')}
+        {dataIndex: 'duedate', header: '<?php echo Aitsu_Translate :: translate('Due'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y')},
+        {dataIndex: 'status', header: '<?php echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+            if (record.get('duedate') < record.get('today')) {
+                return '<span style="color:red;"><?php echo Aitsu_Translate :: translate('caution'); ?></span>';
+            } else {
+    		return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('okay'); ?></span>';
+            }
+    	}}
     ],
     viewConfig: {
         forceFit: true,

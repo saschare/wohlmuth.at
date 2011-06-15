@@ -34,7 +34,8 @@ class toDoListDashboardController extends Aitsu_Adm_Plugin_Controller {
                 `todo`.`title`,
                 `todo`.`description`,
                 `todo`.`duedate`,
-                `art`.`pagetitle`
+                `art`.`pagetitle`,
+                NOW() AS `today`
             FROM
                 `_todo` AS `todo`
             INNER JOIN
