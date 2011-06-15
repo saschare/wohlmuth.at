@@ -5,6 +5,8 @@ var store = new Ext.data.JsonStore({
 		        url: '<?php echo $this->url(array('paction' => 'store')); ?>',
 		        root: 'data',
 		        fields: [{
+		            name: 'idart'
+		        }, {
 		            name: 'pagetitle'
 		        }, {
 		            name: 'title'
@@ -26,6 +28,14 @@ var todoExpander = new Ext.ux.grid.RowExpander({
         '<pre style="padding:10px;">{description}</pre>'
     )
 });
+
+var editPage = function(id) {
+	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>'], function() {
+		Ext.getCmp('viewport').doLayout();
+		Ext.getCmp('page-edit-tab').activate(0);
+		Ext.getCmp('rop').getStore().load();
+	}, {id: id});
+}
 
 var todos = new Ext.grid.GridPanel({
     id: 'todos',
@@ -57,6 +67,25 @@ var todos = new Ext.grid.GridPanel({
 			fn: function(){
 				this.getStore().load();
 			}
+		},
+                celldblclick: function(grid, rowIndex) {
+			editPage(this.getStore().getAt(rowIndex).get('idart'));
+		},
+		rowcontextmenu: function(grid, rowIndex, event) {
+                
+                    var record = this.getStore().getAt(rowIndex);
+                
+                    var menu = new Ext.menu.Menu();
+			
+                    menu.addItem({
+                        text: '<?php echo $this->translate('View article'); ?>',
+                        iconCls: 'edit',
+                        handler: function() {
+                            editPage(record.get('idart'));
+                        }
+                    });
+						
+                    menu.showAt(event.getXY());
 		}
 	},
 	plugins: todoExpander
