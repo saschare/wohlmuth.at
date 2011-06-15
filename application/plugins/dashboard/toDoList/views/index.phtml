@@ -35,7 +35,7 @@ var todos = new Ext.grid.GridPanel({
     	todoExpander,
     	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Pagetitle'); ?>', menuDisabled: true, sortable: true, width: 50},
         {dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('To Do'); ?>', menuDisabled: true, sortable: true},
-    	{dataIndex: 'duedate', header: '<?php echo Aitsu_Translate :: translate('Due'); ?>', menuDisabled: true, sortable: true, width: 25, renderer: Ext.util.Format.dateRenderer('Y-m-d')}
+    	{dataIndex: 'duedate', header: '<?php echo Aitsu_Translate :: translate('Due'); ?>', menuDisabled: true, sortable: true, width: 25, renderer: Ext.util.Format.dateRenderer('d.m.Y')}
     ],
     viewConfig: {
         forceFit: true,

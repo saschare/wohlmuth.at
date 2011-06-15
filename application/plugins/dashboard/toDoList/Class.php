@@ -44,9 +44,13 @@ class toDoListDashboardController extends Aitsu_Adm_Plugin_Controller {
                 OR
                 `todo`.`status` =0
             )
+            AND
+                `todo`.`userid` =:userid
             ORDER BY
                 `todo`.`duedate` ASC
-            ");
+            ", array(
+                ':userid' => Aitsu_Adm_User::getInstance()->userid
+            ));
 
         $this->_helper->json((object) array(
                     'data' => $data
