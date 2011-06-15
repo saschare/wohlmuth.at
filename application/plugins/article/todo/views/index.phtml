@@ -1,3 +1,9 @@
+var users = new Ext.data.JsonStore({
+    url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'users'), 'default'); ?>',
+    fields: ['userid', 'user'],
+    root: 'data'
+});
+
 var todoEditForm = new Ext.FormPanel({
 	url: '<?php echo $this->url(array('plugin' => 'todo', 'paction' => 'save'), 'aplugin'); ?>',
 	labelAlign: 'top',
@@ -8,19 +14,43 @@ var todoEditForm = new Ext.FormPanel({
 			xtype:'textfield',
 			fieldLabel: '<?php echo Aitsu_Translate :: translate('Title'); ?>',
 			name: 'title',
-			anchor: '100%'
+			anchor: '100%',
+                        allowBlank: false
 		}, {
 			xtype:'textarea',
 			fieldLabel: '<?php echo Aitsu_Translate :: translate('Description'); ?>',
 			name: 'description',
 			anchor: '100%',
-			height: 200
+			height: 200,
+                        allowBlank: false
 		}, {
 			xtype:'datefield',
 			fieldLabel: '<?php echo Aitsu_Translate :: translate('Due'); ?>',
 			name: 'duedate',
 			width: 150,
-			format: 'Y-m-d'
+			format: 'Y-m-d',
+                        allowBlank: false
+		}, {
+			xtype: 'combo',
+                        loadingText: "Loading...",
+                        emptyText: 'Select a user...',
+			fieldLabel: '<?php echo Aitsu_Translate :: translate('Assignment'); ?>',
+			hiddenName: 'userid',
+			anchor: '100%',
+			width: 150,
+                        store: users,
+                        mode: 'local',
+                        displayField: 'user',
+                        valueField: 'userid',
+                        allowBlank: false,
+                        editable: 'false',
+                        listeners: {
+                            render: {
+                                fn: function() {
+                                    this.getStore().load();
+                                }
+                            }
+                        }
 		}, {
 			xtype: 'hidden',
 			name: 'idartlang',
@@ -36,7 +66,7 @@ var todoEditWindow = new Ext.Window({
 	title: '<?php echo Aitsu_Translate :: translate('Todo'); ?>',
 	layout:'fit',
 	width:500,
-	height:410,
+	height:460,
 	plain: true,
 	modal: true,
 	items: todoEditForm,
@@ -85,6 +115,8 @@ var todos = new Ext.grid.GridPanel({
         }, {
             name: 'title'
         }, {
+            name: 'user'
+        }, {
             name: 'description'
         }, {
             name: 'duedate',
@@ -99,7 +131,8 @@ var todos = new Ext.grid.GridPanel({
     columns: [
     	todoExpander,
     	{dataIndex: 'todoid', header: '<?php echo Aitsu_Translate :: translate('ID'); ?>', menuDisabled: true, sortable: true, width: 5},
-    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('To Do'); ?>', menuDisabled: true, sortable: true, width: 75},
+    	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('To Do'); ?>', menuDisabled: true, sortable: true, width: 60},
+        {dataIndex: 'user', header: '<?php echo Aitsu_Translate :: translate('Assignment'); ?>', menuDisabled: true, sortable: true, width: 15},
     	{dataIndex: 'duedate', header: '<?php echo Aitsu_Translate :: translate('Due'); ?>', menuDisabled: true, sortable: true, width: 10, renderer: Ext.util.Format.dateRenderer('Y-m-d')},
     	{dataIndex: 'status', header: '<?php echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: true, sortable: true, width: 10, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
     		if (record.get('status') == '0') {

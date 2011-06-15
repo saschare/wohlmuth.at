@@ -88,6 +88,6 @@ class Aitsu_Persistence_Todo extends Aitsu_Persistence_Abstract {
 
 	public static function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
 
-		return Aitsu_Db :: filter('select * from _todo', $limit, $offset, $filters, $orders);
+		return Aitsu_Db :: filter('select todo.*, concat(user.lastname, ", ", user.firstname) as user from _todo as todo left join _acl_user as user on todo.userid = user.userid', $limit, $offset, $filters, $orders);
 	}
 }

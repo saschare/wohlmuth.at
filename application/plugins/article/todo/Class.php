@@ -57,6 +57,7 @@ class TodoArticleController extends Aitsu_Adm_Plugin_Controller {
 		$todo->description = $this->getRequest()->getParam('description');
 		$todo->duedate = $this->getRequest()->getParam('duedate');
 		$todo->idartlang = $this->getRequest()->getParam('idartlang');
+                $todo->userid = $this->getRequest()->getParam('userid');
 		$todo->save();
 
 		$this->_helper->json((object) array (
