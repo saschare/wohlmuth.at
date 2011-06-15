@@ -5,8 +5,9 @@
  * SkinSource.
  *
  * @author Christian Kehres, webtischlerei.de
+ * @author Frank Ammari, Ammari & Ammari GbR
  * @copyright Copyright &copy; 2010,webtischlerei.de
- * @editor Frank Ammari, Ammari & Ammari GbR
+ * @copyright Copyright &copy; 2011, w3concepts AG
  *
  * {@id $Id: SkinSource.php 19975 2010-11-19 12:44:06Z akm $}
  */

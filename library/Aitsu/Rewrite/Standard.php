@@ -4,8 +4,6 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- *
- * {@id $Id: Standard.php 19411 2010-10-20 10:42:12Z akm $}
  */
 
 class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
@@ -62,6 +60,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			));
 		}
 		elseif (Aitsu_Registry :: get()->config->rewrite->uselang && preg_match('@^\\w*/?$@', $url)) {
+			// TODO: idclient mitberücksichtigen
 			$result = Aitsu_Db :: fetchRow('' .
 			'select artlang.*, catlang.idcat, lang.idclient from _art_lang as artlang ' .
 			'left join _cat_lang as catlang on artlang.idartlang = catlang.startidartlang ' .
@@ -80,6 +79,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 				/*
 				 * ...using category only.
 				*/
+				// TODO: idclient mitberücksichtigen
 				$result = Aitsu_Db :: fetchRow('' .
 				'select artlang.*, catlang.idcat, cat.idclient from _art_lang as artlang ' .
 				'left join _cat_lang as catlang on artlang.idartlang = catlang.startidartlang ' .
@@ -91,6 +91,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 				/*
 				 * ...using category and page name.
 				*/
+				// TODO: idclient mitberücksichtigen
 				$result = Aitsu_Db :: fetchRow('' .
 				'select artlang.*, catlang.idcat, cat.idclient from _art_lang as artlang ' .
 				'left join _cat_art as catart on artlang.idart = catart.idart ' .
