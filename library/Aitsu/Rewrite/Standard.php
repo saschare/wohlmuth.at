@@ -3,7 +3,7 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
@@ -44,64 +44,96 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			$urlname = null;
 		}
 
+		$startCat = Aitsu_Registry :: get()->config->sys->startcat;
+		$language = Aitsu_Registry :: get()->config->sys->language;
+		$client = Aitsu_Registry :: get()->config->sys->client;
+
 		if (empty ($url)) {
 			/*
 			 * Empty URL. Resolution is made based on configured values.
-			*/
+			 * 
+			 * The start category as well as the language id are specific
+			 * for a particular client. So the clientid is not used in
+			 * the query.
+			 */
 			$result = Aitsu_Db :: fetchRow('' .
-			'select artlang.*, catlang.idcat, cat.idclient from _art_lang as artlang ' .
+			'select ' .
+			'	artlang.*, ' .
+			'	catlang.idcat, ' .
+			'	cat.idclient ' .
+			'from _art_lang as artlang ' .
 			'left join _cat_lang as catlang on artlang.idartlang = catlang.startidartlang ' .
 			'left join _cat as cat on catlang.idcat = cat.idcat ' .
 			'where ' .
 			'	catlang.idcat = :idcat ' .
 			'	and artlang.idlang = :idlang', array (
-				':idcat' => Aitsu_Registry :: get()->config->sys->startcat,
-				':idlang' => Aitsu_Registry :: get()->config->sys->language
+				':idcat' => $startCat,
+				':idlang' => $language
 			));
 		}
 		elseif (Aitsu_Registry :: get()->config->rewrite->uselang && preg_match('@^\\w*/?$@', $url)) {
-			// TODO: idclient mitberücksichtigen
+			/*
+			 * Use lang is set to true. The first segment of the URL is used to resolve
+			 * the language.
+			 */
 			$result = Aitsu_Db :: fetchRow('' .
-			'select artlang.*, catlang.idcat, lang.idclient from _art_lang as artlang ' .
+			'select ' .
+			'	artlang.*, ' .
+			'	catlang.idcat, ' .
+			'	lang.idclient ' .
+			'from _art_lang as artlang ' .
 			'left join _cat_lang as catlang on artlang.idartlang = catlang.startidartlang ' .
 			'left join _lang as lang on catlang.idlang = lang.idlang ' .
 			'where ' .
 			'	catlang.idcat = :idcat ' .
-			'	and lang.name = :langname', array (
-				':idcat' => Aitsu_Registry :: get()->config->sys->startcat,
-				':langname' => $url
+			'	and lang.name = :langname ' .
+			'	and lang.idclient = :client ', array (
+				':idcat' => $startCat,
+				':langname' => $url,
+				':client' => $client
 			));
 		} else {
 			/*
 			 * Normal URL resolution.
-			*/
+			 */
 			if ($urlname == null) {
 				/*
 				 * ...using category only.
-				*/
-				// TODO: idclient mitberücksichtigen
+				 */
 				$result = Aitsu_Db :: fetchRow('' .
-				'select artlang.*, catlang.idcat, cat.idclient from _art_lang as artlang ' .
+				'select ' .
+				'	artlang.*, ' .
+				'	catlang.idcat, ' .
+				'	cat.idclient ' .
+				'from _art_lang as artlang ' .
 				'left join _cat_lang as catlang on artlang.idartlang = catlang.startidartlang ' .
 				'left join _cat as cat on catlang.idcat = cat.idcat ' .
-				'where catlang.url = :url', array (
-					':url' => $url
+				'where ' .
+				'	catlang.url = :url ' .
+				'	and cat.idclient = :client ', array (
+					':url' => $url,
+					':client' => $client
 				));
 			} else {
 				/*
 				 * ...using category and page name.
-				*/
-				// TODO: idclient mitberücksichtigen
+				 */
 				$result = Aitsu_Db :: fetchRow('' .
-				'select artlang.*, catlang.idcat, cat.idclient from _art_lang as artlang ' .
+				'select ' .
+				'	artlang.*, ' .
+				'	catlang.idcat, ' .
+				'	cat.idclient ' .
+				'from _art_lang as artlang ' .
 				'left join _cat_art as catart on artlang.idart = catart.idart ' .
 				'left join _cat_lang as catlang on catart.idcat = catlang.idcat and artlang.idlang = catlang.idlang ' .
 				'left join _cat as cat on catlang.idcat = cat.idcat ' .
 				'where ' .
 				'	artlang.urlname = :urlname ' .
-				'	and catlang.url = :url', array (
+				'	and catlang.url = :url ' .
+				'	and cat.idclient = :client ', array (
 					':urlname' => $urlname,
-					':url' => $url
+					':url' => $url,
+					':client' => $client
 				));
 			}
 		}
@@ -147,8 +179,8 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 		if (preg_match_all('/\\{ref:(idcat|idart)\\-(\\d+)\\}/s', $html, $matches) == 0) {
 			return $html;
 		}
-		
-		$baseUrl = (isset(Aitsu_Registry :: get()->env->sys->webpath) && Aitsu_Application_Status :: isStructured()) ? Aitsu_Registry :: get()->env->sys->webpath : '/';
+
+		$baseUrl = (isset (Aitsu_Registry :: get()->env->sys->webpath) && Aitsu_Application_Status :: isStructured()) ? Aitsu_Registry :: get()->env->sys->webpath : '/';
 
 		$idarts = array ();
 		$idcats = array ();
