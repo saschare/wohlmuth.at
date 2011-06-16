@@ -108,16 +108,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Aitsu_Registry :: get()->session = new Zend_Session_Namespace('aitsu');
 	}
 
-	protected function _initBackendUserConfig() {
-
-		if( Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user ) {
-			$userid = Aitsu_Registry :: get()->session->user->getId();
-			$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
-			Aitsu_Registry :: get()->config->user = $properties;
-		}
-	}
-
-
 	protected function _initRegisterPlugins() {
 
 		if (isset (Aitsu_Registry :: get()->config->setup->password) && substr($_SERVER['REQUEST_URI'], -1 * strlen('/setup/' . Aitsu_Registry :: get()->config->setup->password)) == '/setup/' . Aitsu_Registry :: get()->config->setup->password) {
@@ -139,6 +129,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Clientlang());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Navigation());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Listeners());
+	}
+
+	protected function _initBackendUserConfig() {
+
+		if( Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user) {
+			$userid = Aitsu_Registry :: get()->session->user->getId();			
+			$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
+			Aitsu_Registry :: get()->config->user = $properties;
+		}
 	}
 
 	protected function _initRouter() {
