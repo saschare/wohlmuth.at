@@ -88,7 +88,7 @@ class Aitsu_Content {
 		'(?, ?, ?, now()) ', array (
 			$idartlang,
 			$index,
-			$content
+			str_replace("\\", "\\\\", $content)
 		));
 
 		Aitsu_Event :: raise('article.content.set.end', array (
