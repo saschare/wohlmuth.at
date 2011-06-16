@@ -8,6 +8,8 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
+	private $_setup = false;
+
 	protected function _initDisableMagicQuotes() {
 
 		if (get_magic_quotes_gpc()) {
@@ -108,16 +110,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		Aitsu_Registry :: get()->session = new Zend_Session_Namespace('aitsu');
 	}
 
-	protected function _initBackendUserConfig() {
-
-		if( Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user ) {
-			$userid = Aitsu_Registry :: get()->session->user->getId();
-			$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
-			Aitsu_Registry :: get()->config->user = $properties;
-		}
-	}
-
-
 	protected function _initRegisterPlugins() {
 
 		if (isset (Aitsu_Registry :: get()->config->setup->password) && substr($_SERVER['REQUEST_URI'], -1 * strlen('/setup/' . Aitsu_Registry :: get()->config->setup->password)) == '/setup/' . Aitsu_Registry :: get()->config->setup->password) {
@@ -125,6 +117,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			 * Setup has to be made. Plugin registration is skipped and
 			 * the user is redirected to the script controller.
 			 */
+
+			$this->_setup = true;
 
 			Aitsu_Registry :: get()->allowTempAccess = true;
 			Zend_Controller_Front :: getInstance()->registerPlugin(new Aitsu_Adm_Controller_Plugin_Installation());
@@ -139,6 +133,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Clientlang());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Navigation());
 		$frontController->registerPlugin(new Aitsu_Adm_Controller_Plugin_Listeners());
+	}
+
+	protected function _initBackendUserConfig() {
+
+		try {
+			if (Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user) {
+				$userid = Aitsu_Registry :: get()->session->user->getId();
+				$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
+				Aitsu_Registry :: get()->config->user = $properties;
+			}
+		} catch (Exception $e) {
+			/*
+			 * During the setup process an exception will occur.
+			 */
+		}
 	}
 
 	protected function _initRouter() {
@@ -197,7 +206,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	protected function _initDisableCaching() {
 
 		header("Cache-Control: no-cache, must-revalidate");
-                header("Pragma: no-cache");
+		header("Pragma: no-cache");
 		header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 	}
 }
