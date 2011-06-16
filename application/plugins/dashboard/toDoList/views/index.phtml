@@ -89,6 +89,17 @@ var todos = new Ext.grid.GridPanel({
                     menu.showAt(event.getXY());
 		}
 	},
+	tbar: {
+		items: [
+			{
+	            tooltip: '<?php echo Aitsu_Translate :: translate('Open todo list'); ?>',
+	            iconCls: 'tm-todo',
+	            handler: function(b, e) {
+	            	Ext.aitsu.load(['plugin/management/todo'], null, {ajax: 1});
+	            }
+	        }
+	    ]
+	},
 	plugins: todoExpander
 });
 
