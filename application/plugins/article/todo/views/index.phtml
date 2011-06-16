@@ -15,42 +15,42 @@ var todoEditForm = new Ext.FormPanel({
 			fieldLabel: '<?php echo Aitsu_Translate :: translate('Title'); ?>',
 			name: 'title',
 			anchor: '100%',
-                        allowBlank: false
+			allowBlank: false
 		}, {
 			xtype:'textarea',
 			fieldLabel: '<?php echo Aitsu_Translate :: translate('Description'); ?>',
 			name: 'description',
 			anchor: '100%',
 			height: 200,
-                        allowBlank: false
+			allowBlank: false
 		}, {
 			xtype:'datefield',
 			fieldLabel: '<?php echo Aitsu_Translate :: translate('Due'); ?>',
 			name: 'duedate',
 			width: 150,
 			format: 'Y-m-d',
-                        allowBlank: false
+			allowBlank: false
 		}, {
 			xtype: 'combo',
-                        loadingText: "Loading...",
-                        emptyText: 'Select a user...',
+			loadingText: "Loading...",
+			emptyText: 'Select a user...',
 			fieldLabel: '<?php echo Aitsu_Translate :: translate('Assignment'); ?>',
 			hiddenName: 'userid',
 			anchor: '100%',
 			width: 150,
-                        store: users,
-                        mode: 'local',
-                        displayField: 'user',
-                        valueField: 'userid',
-                        allowBlank: false,
-                        editable: 'false',
-                        listeners: {
-                            render: {
-                                fn: function() {
-                                    this.getStore().load();
-                                }
-                            }
-                        }
+			store: users,
+			mode: 'local',
+			displayField: 'user',
+			valueField: 'userid',
+			allowBlank: false,
+			editable: 'false',
+			listeners: {
+				render: {
+					fn: function() {
+						this.getStore().load();
+					}
+				}
+			}
 		}, {
 			xtype: 'hidden',
 			name: 'idartlang',
@@ -87,9 +87,9 @@ var todoEditWindow = new Ext.Window({
 							idartlang: <?php echo $this->idartlang; ?>
 						}
 					});
+					todoEditWindow.hide();
 				} 
 			});
-			todoEditWindow.hide();
 		}
 	}]
 });
