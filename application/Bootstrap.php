@@ -7,7 +7,7 @@
  */
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
-	
+
 	private $_setup = false;
 
 	protected function _initDisableMagicQuotes() {
@@ -117,7 +117,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			 * Setup has to be made. Plugin registration is skipped and
 			 * the user is redirected to the script controller.
 			 */
-			 
+
 			$this->_setup = true;
 
 			Aitsu_Registry :: get()->allowTempAccess = true;
@@ -136,19 +136,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	}
 
 	protected function _initBackendUserConfig() {
-		
-		if ($this->_setup) {
-			/*
-			 * Backend user configuration has to be skipped, as the setup
-			 * has not yet been done.
-			 */
-			return;
-		}
 
-		if( Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user) {
-			$userid = Aitsu_Registry :: get()->session->user->getId();			
-			$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
-			Aitsu_Registry :: get()->config->user = $properties;
+		try {
+			if (Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user) {
+				$userid = Aitsu_Registry :: get()->session->user->getId();
+				$properties = Aitsu_Persistence_User :: factory($userid)->load()->getProperties();
+				Aitsu_Registry :: get()->config->user = $properties;
+			}
+		} catch (Exception $e) {
+			/*
+			 * During the setup process an exception will occur.
+			 */
 		}
 	}
 
@@ -208,7 +206,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	protected function _initDisableCaching() {
 
 		header("Cache-Control: no-cache, must-revalidate");
-                header("Pragma: no-cache");
+		header("Pragma: no-cache");
 		header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 	}
 }
