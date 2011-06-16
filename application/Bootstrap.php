@@ -142,6 +142,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			 * Backend user configuration has to be skipped, as the setup
 			 * has not yet been done.
 			 */
+			return;
 		}
 
 		if( Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user) {
