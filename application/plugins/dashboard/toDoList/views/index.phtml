@@ -69,7 +69,7 @@ var todos = new Ext.grid.GridPanel({
 				this.getStore().load();
 			}
 		},
-                celldblclick: function(grid, rowIndex) {
+            celldblclick: function(grid, rowIndex) {
 			editPage(this.getStore().getAt(rowIndex).get('idart'));
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
