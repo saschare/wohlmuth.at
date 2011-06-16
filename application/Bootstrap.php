@@ -7,6 +7,8 @@
  */
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
+	
+	private $_setup = false;
 
 	protected function _initDisableMagicQuotes() {
 
@@ -115,6 +117,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			 * Setup has to be made. Plugin registration is skipped and
 			 * the user is redirected to the script controller.
 			 */
+			 
+			$this->_setup = true;
 
 			Aitsu_Registry :: get()->allowTempAccess = true;
 			Zend_Controller_Front :: getInstance()->registerPlugin(new Aitsu_Adm_Controller_Plugin_Installation());
@@ -132,6 +136,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 	}
 
 	protected function _initBackendUserConfig() {
+		
+		if ($this->_setup) {
+			/*
+			 * Backend user configuration has to be skipped, as the setup
+			 * has not yet been done.
+			 */
+		}
 
 		if( Aitsu_Registry :: get()->session && Aitsu_Registry :: get()->session->user) {
 			$userid = Aitsu_Registry :: get()->session->user->getId();			
