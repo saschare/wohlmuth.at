@@ -1,0 +1,122 @@
+var centerSouth = Ext.getCmp('center-south');
+centerSouth.setVisible(true);
+centerSouth.expand();
+
+if (typeof(Ext.getCmp('todo-list')) == 'undefined') {
+	var todoExpander = new Ext.ux.grid.RowExpander({
+	    tpl : new Ext.Template(
+	        '<pre style="padding:10px;">{description}</pre>'
+	    )
+	});
+	
+	var editPage = function(id) {
+		Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>'], function() {
+			Ext.getCmp('viewport').doLayout();
+			Ext.getCmp('page-edit-tab').activate(0);
+			Ext.getCmp('rop').getStore().load();
+		}, {id: id});
+	}	
+			
+	Ext.getCmp('center-south-tab').add(new Ext.grid.GridPanel({
+		id: 'todo-list',
+		title: '<?php echo Aitsu_Translate :: translate('Todo'); ?>',
+		closable: true,
+		store: new Ext.data.JsonStore({
+			autoDestroy: true,
+			url: '<?php echo $this->url(array('paction' => 'store')); ?>',
+			root: 'data',
+			fields: [{
+					name: 'idart'
+		        }, {
+		            name: 'pagetitle'
+		        }, {
+		            name: 'articletitle'
+		        }, {
+		            name: 'title'
+		        }, {
+		            name: 'url'
+		        }, {
+		            name: 'duedate',
+                            type: 'date',
+                            dateFormat: 'Y-m-d H:i:s'
+		        }, {
+		            name: 'today',
+                            type: 'date',
+                            dateFormat: 'Y-m-d H:i:s'
+		        }, {
+		            name: 'description'
+		        }]
+		    }),
+	    columns: [
+	    	todoExpander,
+	        {dataIndex: 'articletitle', header: '<?php echo Aitsu_Translate :: translate('Article title'); ?>', menuDisabled: true, sortable: true},
+	        {dataIndex: 'url', header: '<?php echo Aitsu_Translate :: translate('Category'); ?>', menuDisabled: true, sortable: true},
+	        {dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('To Do'); ?>', menuDisabled: true, sortable: true},
+	        {dataIndex: 'duedate', header: '<?php echo Aitsu_Translate :: translate('Due'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y')},
+	        {dataIndex: 'status', header: '<?php echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+	            if (record.get('duedate') < record.get('today')) {
+	                return '<span style="color:red;"><?php echo Aitsu_Translate :: translate('over due'); ?></span>';
+	            } else {
+	    			return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('pending'); ?></span>';
+	            }
+	    	}}
+	    ],
+		viewConfig: {
+			forceFit: true,
+			autoFill: true
+		},
+		border: false,
+		listeners: {
+			render: {
+				fn: function(){
+					this.getStore().load();
+				}
+			},
+	            celldblclick: function(grid, rowIndex) {
+				editPage(this.getStore().getAt(rowIndex).get('idart'));
+			},
+			rowcontextmenu: function(grid, rowIndex, event) {
+	                
+	                    var record = this.getStore().getAt(rowIndex);
+	                
+	                    var menu = new Ext.menu.Menu();
+				
+	                    menu.addItem({
+	                        text: '<?php echo $this->translate('Go to article'); ?>',
+	                        iconCls: 'edit',
+	                        handler: function() {
+	                            editPage(record.get('idart'));
+	                        }
+	                    });
+							
+	                    menu.showAt(event.getXY());
+			}
+		},
+		tbar: {
+			items: [
+				{
+		            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh list'); ?>',
+		            iconCls: 'tb-refresh',
+		            handler: function(b, e) {
+		            	Ext.getCmp('todo-list').getStore().load();
+		            }
+		        }
+		    ]
+		},
+		plugins: todoExpander
+	}));
+	
+	Ext.getCmp('viewport').doLayout();
+	
+	Ext.TaskMgr.start({
+	    run: function() {
+	    	var slog = Ext.getCmp('todo-list');
+	    	if (typeof(slog) != 'undefined') {
+	    		slog.getStore().load();
+	    	}
+	    },
+	    interval: 600000
+	});
+}
+
+Ext.getCmp('center-south-tab').activate('todo-list');

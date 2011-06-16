@@ -191,7 +191,7 @@ class Aitsu_Persistence_User extends Aitsu_Persistence_Abstract {
 	 */
 	public static function getStore($limit = null, $offset = null, $filters = null, $orders = null) {
 
-		return Aitsu_Db :: filter('select * from _acl_user', $limit, $offset, $filters, $orders);
+		return Aitsu_Db :: filter('select *, concat(lastname, ", ", firstname) as user from _acl_user', $limit, $offset, $filters, $orders);
 	}
 
 	public static function isLoginUnique($userid, $login) {
