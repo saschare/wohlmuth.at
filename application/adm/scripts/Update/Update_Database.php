@@ -770,14 +770,29 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
 	}
-        
-        public function doAlterTableToDo() {
+
+	public function doAlterTableToDo() {
 
 		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
 		$table = $pf . 'todo';
-                
+
 		try {
 			Aitsu_Db :: query("ALTER TABLE `_todo` ADD `userid` INT(10) UNSIGNED NOT NULL AFTER `idartlang`");
+		} catch (Exception $e) {
+			// Do nothing. An exception occurs too, if the foreign key does not exist.
+		}
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
+	}
+
+	public function doAlterTableAclUser() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'acl_user';
+
+		try {
+			Aitsu_Db :: query('' .
+			'ALTER TABLE  _acl_user CHANGE `password` `password` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL');
 		} catch (Exception $e) {
 			// Do nothing. An exception occurs too, if the foreign key does not exist.
 		}

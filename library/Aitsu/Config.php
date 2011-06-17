@@ -47,7 +47,7 @@ class Aitsu_Config {
 			$config = $config-> $parts[$i];
 		}
 		
-		$val = $config;
+		$val[$string] = $config;
 		
 		return $config;
 	}

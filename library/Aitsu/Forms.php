@@ -76,8 +76,8 @@ class Aitsu_Forms {
 		if (isset ($config->field)) {
 			foreach ($config->field as $key => $value) {
 				if (isset ($value->validator)) {
-					foreach ($value->validator as $validator) {
-						if (class_exists('Aitsu_Forms_Validator_' . ucfirst($validator->type))) {
+					foreach ($value->validator as $validator) {				
+						if (!empty($validator->type) && class_exists('Aitsu_Forms_Validator_' . ucfirst($validator->type))) {
 							$val = call_user_func(array (
 								'Aitsu_Forms_Validator_' . ucfirst($validator->type),
 								'factory'
