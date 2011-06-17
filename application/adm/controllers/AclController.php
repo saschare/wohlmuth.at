@@ -157,7 +157,7 @@ class AclController extends Zend_Controller_Action {
 			);
 		}
 
-		$form->setOptions('locale', (object) $locales);
+		$form->setOptions('locale', $locales);
 
 		$langs = array ();
 		foreach (Aitsu_Persistence_Language :: getAsArray() as $key => $value) {
