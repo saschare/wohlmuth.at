@@ -1,2 +1,2 @@
 <img<?php echo $this->id . $this->class . $this->style; ?> src="<?php echo Aitsu_Registry :: get()->config->sys->webpath; ?>image/<?php echo $this->width; ?>/<?php echo $this->height; ?>/<?php echo $this->transform; ?>/<?php echo $this->images[0]->idart; ?>/<?php echo $this->images[0]->filename; ?>" 
-<?php echo $this->title; ?> <?php if(isset($this->alt)) : ?><?php echo $this->alt; ?><?php else : ?> alt="<?php echo $this->images[0]->medianame; ?>" /><?php endif; ?>
+<?php echo $this->title; ?> <?php if(isset($this->alt)) : ?><?php echo $this->alt; ?><?php else : ?> alt="<?php echo $this->images[0]->name; ?>" /><?php endif; ?>
