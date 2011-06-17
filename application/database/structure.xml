@@ -1,942 +1,861 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
-    <field name="idclient" table="acl_clients" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="roleid" table="acl_clients" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="roleid" table="acl_languages" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idlang" table="acl_languages" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="privilegeid" table="acl_privilege" type="int(10) unsigned" default="null"
+<root><field name="idclient" table="acl_clients" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="roleid" table="acl_clients" engine="InnoDB" type="int(10) unsigned" default="null"
         nullable="no" key="pri" extra=""/>
-    <field name="identifier" table="acl_privilege" type="varchar(255)" default="null" nullable="no"
-        key="uni" extra=""/>
-    <field name="roleid" table="acl_privileges" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="privilegeid" table="acl_privileges" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="resourceid" table="acl_resource" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="name" table="acl_resource" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="resourcetype" table="acl_resource" type="enum('cat','art','other')" default="null"
+    <field name="roleid" table="acl_languages" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="idlang" table="acl_languages" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="privilegeid" table="acl_privilege" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="identifier" table="acl_privilege" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="uni" extra=""/>
+    <field name="roleid" table="acl_privileges" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="privilegeid" table="acl_privileges" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="resourceid" table="acl_resource" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="name" table="acl_resource" engine="InnoDB" type="varchar(255)" default="null"
         nullable="no" key="" extra=""/>
-    <field name="specifictype" table="acl_resource" type="varchar(255)" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="identifier" table="acl_resource" type="int(10) unsigned" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="removeable" table="acl_resource" type="tinyint(4)" default="1" nullable="no" key=""
-        extra=""/>
-    <field name="roleid" table="acl_resources" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="resourceid" table="acl_resources" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="roleid" table="acl_role" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="identifier" table="acl_role" type="varchar(255)" default="null" nullable="no"
-        key="uni" extra=""/>
-    <field name="roleid" table="acl_roles" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="userid" table="acl_roles" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="userid" table="acl_user" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="uuid" table="acl_user" type="varchar(64)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="lastname" table="acl_user" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="firstname" table="acl_user" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="login" table="acl_user" type="varchar(100)" default="null" nullable="no" key="uni"
-        extra=""/>
-    <field name="password" table="acl_user" type="varchar(255)" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="email" table="acl_user" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="idlang" table="acl_user" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="locale" table="acl_user" type="varchar(5)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="sessionperiod" table="acl_user" type="int(11)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="acfrom" table="acl_user" type="timestamp" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="acuntil" table="acl_user" type="timestamp" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="modified" table="acl_user" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="" extra=""/>
-    <field name="created" table="acl_user" type="timestamp" default="0000-00-00 00:00:00"
-        nullable="yes" key="" extra=""/>
-    <field name="properties" table="acl_user" type="longtext" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="propertyid" table="aitsu_article_property" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="idartlang" table="aitsu_article_property" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="textvalue" table="aitsu_article_property" type="text" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="floatvalue" table="aitsu_article_property" type="double" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="datevalue" table="aitsu_article_property" type="datetime" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="propertyid" table="aitsu_property" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="identifier" table="aitsu_property" type="varchar(255)" default="null" nullable="no"
-        key="uni" extra=""/>
-    <field name="type" table="aitsu_property" type="enum('text','float','date','serialized')"
+    <field name="resourcetype" table="acl_resource" engine="InnoDB" type="enum('cat','art','other')"
         default="null" nullable="no" key="" extra=""/>
-    <field name="url" table="aitsu_rewrite_history" type="varchar(255)" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idartlang" table="aitsu_rewrite_history" type="int(10) unsigned" default="null"
+    <field name="specifictype" table="acl_resource" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="identifier" table="acl_resource" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="removeable" table="acl_resource" engine="InnoDB" type="tinyint(4)" default="1"
+        nullable="no" key="" extra=""/>
+    <field name="roleid" table="acl_resources" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="resourceid" table="acl_resources" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="roleid" table="acl_role" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="identifier" table="acl_role" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="uni" extra=""/>
+    <field name="roleid" table="acl_roles" engine="InnoDB" type="int(10) unsigned" default="null"
         nullable="no" key="pri" extra=""/>
-    <field name="created" table="aitsu_rewrite_history" type="datetime" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="id" table="aitsu_session" type="char(32)" default="" nullable="no" key="pri"
-        extra=""/>
-    <field name="modified" table="aitsu_session" type="int(11)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="lifetime" table="aitsu_session" type="int(11)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="data" table="aitsu_session" type="longtext" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="idart" table="art" type="int(10) unsigned" default="null" nullable="no" key="pri"
-        extra=""/>
-    <field name="idclient" table="art" type="int(10) unsigned" default="0" nullable="no" key="mul"
-        extra=""/>
-    <field name="idartlang" table="article_content" type="int(10) unsigned" default="null"
+    <field name="userid" table="acl_roles" engine="InnoDB" type="int(10) unsigned" default="null"
         nullable="no" key="pri" extra=""/>
-    <field name="index" table="article_content" type="varchar(20)" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="value" table="article_content" type="longtext" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="modified" table="article_content" type="datetime" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="idartlang" table="art_lang" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idart" table="art_lang" type="int(10) unsigned" default="0" nullable="no" key="mul"
-        extra=""/>
-    <field name="idlang" table="art_lang" type="int(10) unsigned" default="0" nullable="no"
-        key="mul" extra=""/>
-    <field name="title" table="art_lang" type="varchar(255)" default="null" nullable="no" key="mul"
-        extra=""/>
-    <field name="urlname" table="art_lang" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="pagetitle" table="art_lang" type="varchar(255)" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="teasertitle" table="art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="summary" table="art_lang" type="text" default="null" nullable="yes" key="" extra=""/>
-    <field name="created" table="art_lang" type="datetime" default="0000-00-00 00:00:00"
+    <field name="userid" table="acl_user" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="uuid" table="acl_user" engine="InnoDB" type="varchar(64)" default="null"
         nullable="no" key="" extra=""/>
-    <field name="lastmodified" table="art_lang" type="datetime" default="0000-00-00 00:00:00"
+    <field name="lastname" table="acl_user" engine="InnoDB" type="varchar(255)" default="null"
         nullable="no" key="" extra=""/>
-    <field name="online" table="art_lang" type="tinyint(1)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="pubfrom" table="art_lang" type="timestamp" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="pubuntil" table="art_lang" type="timestamp" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="published" table="art_lang" type="tinyint(3) unsigned" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="redirect" table="art_lang" type="tinyint(4)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="redirect_url" table="art_lang" type="varchar(255)" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="artsort" table="art_lang" type="int(10)" default="0" nullable="no" key="" extra=""/>
-    <field name="locked" table="art_lang" type="int(1)" default="0" nullable="no" key="" extra=""/>
-    <field name="configsetid" table="art_lang" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="config" table="art_lang" type="text" default="null" nullable="yes" key="" extra=""/>
-    <field name="mainimage" table="art_lang" type="varchar(255)" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="idartlang" table="art_meta" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="description" table="art_meta" type="text" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="author" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="keywords" table="art_meta" type="text" default="null" nullable="no" key="" extra=""/>
-    <field name="date" table="art_meta" type="date" default="null" nullable="yes" key="" extra=""/>
-    <field name="expires" table="art_meta" type="date" default="null" nullable="yes" key="" extra=""/>
-    <field name="robots" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="dctitle" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="dccreator" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="dcsubject" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="dcpublisher" table="art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dccontributor" table="art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcdate" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="dctype" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="dcformat" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="dcidentifier" table="art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcsource" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="dclanguage" table="art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcrelation" table="art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="cdcoverage" table="art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcrights" table="art_meta" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="idcat" table="cat" type="int(10) unsigned" default="null" nullable="no" key="pri"
-        extra=""/>
-    <field name="idclient" table="cat" type="int(10)" default="0" nullable="no" key="mul" extra=""/>
-    <field name="parentid" table="cat" type="int(10)" default="0" nullable="no" key="mul" extra=""/>
-    <field name="preid" table="cat" type="int(10)" default="0" nullable="no" key="mul" extra=""/>
-    <field name="postid" table="cat" type="int(10)" default="0" nullable="no" key="mul" extra=""/>
-    <field name="lft" table="cat" type="int(10) unsigned" default="null" nullable="yes" key="mul"
-        extra=""/>
-    <field name="rgt" table="cat" type="int(10) unsigned" default="null" nullable="yes" key="mul"
-        extra=""/>
-    <field name="status" table="cat" type="int(10)" default="0" nullable="no" key="" extra=""/>
-    <field name="author" table="cat" type="varchar(32)" default="null" nullable="no" key="" extra=""/>
-    <field name="created" table="cat" type="datetime" default="0000-00-00 00:00:00" nullable="no"
-        key="" extra=""/>
-    <field name="lastmodified" table="cat" type="datetime" default="0000-00-00 00:00:00"
+    <field name="firstname" table="acl_user" engine="InnoDB" type="varchar(255)" default="null"
         nullable="no" key="" extra=""/>
-    <field name="idcat" table="cat_art" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idart" table="cat_art" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="created" table="cat_art" type="timestamp" default="CURRENT_TIMESTAMP" nullable="no"
-        key="" extra=""/>
-    <field name="lastmodified" table="cat_art" type="timestamp" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="idcat" table="cat_favorites" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="userid" table="cat_favorites" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idcatlang" table="cat_lang" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idcat" table="cat_lang" type="int(10) unsigned" default="0" nullable="no" key="mul"
-        extra=""/>
-    <field name="idlang" table="cat_lang" type="int(10) unsigned" default="0" nullable="no"
-        key="mul" extra=""/>
-    <field name="name" table="cat_lang" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="visible" table="cat_lang" type="tinyint(1)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="public" table="cat_lang" type="tinyint(1)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="status" table="cat_lang" type="int(10)" default="0" nullable="no" key="" extra=""/>
-    <field name="author" table="cat_lang" type="varchar(32)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="created" table="cat_lang" type="datetime" default="0000-00-00 00:00:00"
+    <field name="login" table="acl_user" engine="InnoDB" type="varchar(100)" default="null"
+        nullable="no" key="uni" extra=""/>
+    <field name="password" table="acl_user" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="email" table="acl_user" engine="InnoDB" type="varchar(255)" default="null"
         nullable="no" key="" extra=""/>
-    <field name="lastmodified" table="cat_lang" type="datetime" default="0000-00-00 00:00:00"
-        nullable="no" key="" extra=""/>
-    <field name="startidartlang" table="cat_lang" type="int(10) unsigned" default="null"
+    <field name="idlang" table="acl_user" engine="InnoDB" type="int(10) unsigned" default="null"
         nullable="yes" key="mul" extra=""/>
-    <field name="urlname" table="cat_lang" type="varchar(64)" default="null" nullable="no" key="mul"
-        extra=""/>
-    <field name="url" table="cat_lang" type="varchar(255)" default="null" nullable="yes" key="mul"
-        extra=""/>
-    <field name="configsetid" table="cat_lang" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="config" table="cat_lang" type="text" default="null" nullable="yes" key="" extra=""/>
-    <field name="idclient" table="clients" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="name" table="clients" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="url" table="clients" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="config" table="clients" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="created" table="clients" type="datetime" default="0000-00-00 00:00:00"
+    <field name="locale" table="acl_user" engine="InnoDB" type="varchar(5)" default="null"
         nullable="no" key="" extra=""/>
-    <field name="lastmodified" table="clients" type="datetime" default="0000-00-00 00:00:00"
-        nullable="no" key="" extra=""/>
-    <field name="commentid" table="comment" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idartlang" table="comment" type="int(10) unsigned" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="name" table="comment" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="email" table="comment" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="ip" table="comment" type="varchar(100)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="title" table="comment" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="comment" table="comment" type="text" default="null" nullable="no" key="" extra=""/>
-    <field name="created" table="comment" type="timestamp" default="CURRENT_TIMESTAMP" nullable="no"
-        key="" extra=""/>
-    <field name="approved" table="comment" type="timestamp" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="deleted" table="comment" type="timestamp" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="configsetid" table="configset" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="identifier" table="configset" type="varchar(255)" default="null" nullable="no"
-        key="uni" extra=""/>
-    <field name="config" table="configset" type="text" default="null" nullable="no" key="" extra=""/>
-    <field name="conftokenid" table="conf_token" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="token" table="conf_token" type="varchar(255)" default="null" nullable="no"
-        key="uni" extra=""/>
-    <field name="idartlang" table="content_index" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="content" table="content_index" type="text" default="null" nullable="no" key="mul"
-        extra=""/>
-    <field name="created" table="content_index" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="" extra=""/>
-    <field name="idartlanglow" table="crosslink" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="idartlanghigh" table="crosslink" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="created" table="crosslink" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="" extra=""/>
-    <field name="assetid" table="dam_asset" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="typeid" table="dam_asset" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="identifier" table="dam_asset" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="abstract" table="dam_asset" type="text" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="copyright" table="dam_asset" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="credit" table="dam_asset" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="licenseid" table="dam_asset" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="created" table="dam_asset" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="" extra=""/>
-    <field name="modified" table="dam_asset" type="timestamp" default="0000-00-00 00:00:00"
-        nullable="no" key="" extra=""/>
-    <field name="validfrom" table="dam_asset" type="datetime" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="validuntil" table="dam_asset" type="datetime" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="replaces" table="dam_asset" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="licenseid" table="dam_license" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="identifier" table="dam_license" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="description" table="dam_license" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="url" table="dam_license" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="locationid" table="dam_location" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="countryid" table="dam_location" type="int(10) unsigned" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="city" table="dam_location" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="assetid" table="dam_locations" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="locationid" table="dam_locations" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="description" table="dam_locations" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="assetid" table="dam_referencedby" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="reference" table="dam_referencedby" type="varchar(255)" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="created" table="dam_referencedby" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="" extra=""/>
-    <field name="parentid" table="dam_rel" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="childid" table="dam_rel" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="subtypeid" table="dam_subtype" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="typeid" table="dam_subtype" type="int(10) unsigned" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="identifier" table="dam_subtype" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="tagid" table="dam_tag" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="tag" table="dam_tag" type="varchar(255)" default="null" nullable="no" key="mul"
-        extra=""/>
-    <field name="assetid" table="dam_tags" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="tagid" table="dam_tags" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="tagvalue" table="dam_tags" type="varchar(255)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="created" table="dam_tags" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="" extra=""/>
-    <field name="typeid" table="dam_type" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="identifier" table="dam_type" type="varchar(255)" default="null" nullable="no"
-        key="uni" extra=""/>
-    <field name="useid" table="dam_use" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="use" table="dam_use" type="varchar(255)" default="null" nullable="no" key="uni"
-        extra=""/>
-    <field name="description" table="dam_use" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="assetid" table="dam_uses" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="useid" table="dam_uses" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="created" table="dam_uses" type="timestamp" default="CURRENT_TIMESTAMP"
+    <field name="sessionperiod" table="acl_user" engine="InnoDB" type="int(11)" default="null"
         nullable="yes" key="" extra=""/>
-    <field name="cityid" table="geo_city" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="countryid" table="geo_city" type="int(10) unsigned" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="zip" table="geo_city" type="varchar(20)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="city" table="geo_city" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="countryid" table="geo_country" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="iso2" table="geo_country" type="varchar(2)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="iso3" table="geo_country" type="varchar(3)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="isod" table="geo_country" type="int(11)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="en" table="geo_country" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="locationid" table="geo_location" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="cityid" table="geo_location" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="street" table="geo_location" type="int(11)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="latitude" table="geo_location" type="float" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="longitude" table="geo_location" type="float" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="idartlang" table="hit" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="d" table="hit" type="date" default="null" nullable="no" key="pri" extra=""/>
-    <field name="h" table="hit" type="smallint(6)" default="null" nullable="no" key="pri" extra=""/>
-    <field name="hits" table="hit" type="int(11)" default="1" nullable="no" key="" extra=""/>
-    <field name="trapid" table="honeytrap" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="ip" table="honeytrap" type="varchar(15)" default="null" nullable="no" key="mul"
-        extra=""/>
-    <field name="created" table="honeytrap" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="mul" extra=""/>
-    <field name="idlang" table="lang" type="int(10) unsigned" default="null" nullable="no" key="pri"
-        extra=""/>
-    <field name="idclient" table="lang" type="int(10) unsigned" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="name" table="lang" type="varchar(255)" default="null" nullable="no" key="" extra=""/>
-    <field name="longname" table="lang" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="active" table="lang" type="tinyint(1)" default="0" nullable="no" key="" extra=""/>
-    <field name="created" table="lang" type="datetime" default="0000-00-00 00:00:00" nullable="no"
-        key="" extra=""/>
-    <field name="lastmodified" table="lang" type="datetime" default="0000-00-00 00:00:00"
+    <field name="acfrom" table="acl_user" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="acuntil" table="acl_user" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="modified" table="acl_user" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="created" table="acl_user" engine="InnoDB" type="timestamp"
+        default="0000-00-00 00:00:00" nullable="yes" key="" extra=""/>
+    <field name="properties" table="acl_user" engine="InnoDB" type="longtext" default="null"
         nullable="no" key="" extra=""/>
-    <field name="encoding" table="lang" type="varchar(32)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="direction" table="lang" type="char(3)" default="ltr" nullable="no" key="" extra=""/>
-    <field name="locale" table="lang" type="varchar(5)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="idart" table="lastopened" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idlang" table="lastopened" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="userid" table="lastopened" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="time" table="lastopened" type="timestamp" default="0000-00-00 00:00:00"
-        nullable="no" key="" extra=""/>
-    <field name="localeid" table="locale" type="int(11)" default="null" nullable="no" key="pri"
-        extra=""/>
-    <field name="fullname" table="locale" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="locale" table="locale" type="varchar(5)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="uid" table="lucene_index" type="varchar(255)" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idart" table="lucene_index" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="idlang" table="lucene_index" type="int(10) unsigned" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="path" table="lucene_index" type="varchar(255)" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="lastindexed" table="lucene_index" type="datetime" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="mediaid" table="media" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="idart" table="media" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="filename" table="media" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="size" table="media" type="bigint(20)" default="null" nullable="no" key="" extra=""/>
-    <field name="extension" table="media" type="varchar(10)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="xtl" table="media" type="float" default="0" nullable="no" key="" extra=""/>
-    <field name="ytl" table="media" type="float" default="0" nullable="no" key="" extra=""/>
-    <field name="xbr" table="media" type="float" default="1" nullable="no" key="" extra=""/>
-    <field name="ybr" table="media" type="float" default="1" nullable="no" key="" extra=""/>
-    <field name="uploaded" table="media" type="datetime" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="deleted" table="media" type="datetime" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="mediaid" table="media_description" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="idlang" table="media_description" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="name" table="media_description" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="subline" table="media_description" type="text" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="description" table="media_description" type="text" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="mediatagid" table="media_tag" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="tag" table="media_tag" type="varchar(255)" default="null" nullable="no" key="mul"
-        extra=""/>
-    <field name="mediatagid" table="media_tags" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="mediaid" table="media_tags" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="val" table="media_tags" type="varchar(255)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="idartlang" table="performance_profile" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="obsdate" table="performance_profile" type="date" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="tsum" table="performance_profile" type="double" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="tssum" table="performance_profile" type="double" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="fastest" table="performance_profile" type="double" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="slowest" table="performance_profile" type="double" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="n" table="performance_profile" type="int(11)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="pubid" table="pub" type="int(10) unsigned" default="null" nullable="no" key="pri"
-        extra=""/>
-    <field name="idartlang" table="pub" type="int(10) unsigned" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="userid" table="pub" type="int(10) unsigned" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="pubtime" table="pub" type="datetime" default="null" nullable="no" key="" extra=""/>
-    <field name="status" table="pub" type="tinyint(4)" default="1" nullable="no" key="" extra=""/>
-    <field name="propertyid" table="pubv_aitsu_article_property" type="int(10) unsigned"
+    <field name="propertyid" table="aitsu_article_property" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="idartlang" table="aitsu_article_property" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="textvalue" table="aitsu_article_property" engine="InnoDB" type="text"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="floatvalue" table="aitsu_article_property" engine="InnoDB" type="double"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="datevalue" table="aitsu_article_property" engine="InnoDB" type="datetime"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="propertyid" table="aitsu_property" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="identifier" table="aitsu_property" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="uni" extra=""/>
+    <field name="type" table="aitsu_property" engine="InnoDB"
+        type="enum('text','float','date','serialized')" default="null" nullable="no" key="" extra=""/>
+    <field name="url" table="aitsu_rewrite_history" engine="MyISAM" type="varchar(255)"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="idartlang" table="aitsu_rewrite_history" engine="MyISAM" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="created" table="aitsu_rewrite_history" engine="MyISAM" type="datetime"
         default="null" nullable="no" key="" extra=""/>
-    <field name="idartlang" table="pubv_aitsu_article_property" type="int(10) unsigned"
+    <field name="id" table="aitsu_session" engine="MyISAM" type="char(32)" default="" nullable="no"
+        key="pri" extra=""/>
+    <field name="modified" table="aitsu_session" engine="MyISAM" type="int(11)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="lifetime" table="aitsu_session" engine="MyISAM" type="int(11)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="data" table="aitsu_session" engine="MyISAM" type="longtext" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="idart" table="art" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idclient" table="art" engine="InnoDB" type="int(10) unsigned" default="0"
+        nullable="no" key="mul" extra=""/>
+    <field name="idartlang" table="article_content" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="index" table="article_content" engine="InnoDB" type="varchar(20)" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="value" table="article_content" engine="InnoDB" type="longtext" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="modified" table="article_content" engine="InnoDB" type="datetime" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="idartlang" table="art_lang" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idart" table="art_lang" engine="InnoDB" type="int(10) unsigned" default="0"
+        nullable="no" key="mul" extra=""/>
+    <field name="idlang" table="art_lang" engine="InnoDB" type="int(10) unsigned" default="0"
+        nullable="no" key="mul" extra=""/>
+    <field name="title" table="art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="urlname" table="art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="pagetitle" table="art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="teasertitle" table="art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="summary" table="art_lang" engine="InnoDB" type="text" default="null" nullable="yes"
+        key="" extra=""/>
+    <field name="created" table="art_lang" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="lastmodified" table="art_lang" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="online" table="art_lang" engine="InnoDB" type="tinyint(1)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="pubfrom" table="art_lang" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="pubuntil" table="art_lang" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="published" table="art_lang" engine="InnoDB" type="tinyint(3) unsigned"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="redirect" table="art_lang" engine="InnoDB" type="tinyint(4)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="redirect_url" table="art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="artsort" table="art_lang" engine="InnoDB" type="int(10)" default="0" nullable="no"
+        key="" extra=""/>
+    <field name="locked" table="art_lang" engine="InnoDB" type="int(1)" default="0" nullable="no"
+        key="" extra=""/>
+    <field name="configsetid" table="art_lang" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="yes" key="mul" extra=""/>
+    <field name="config" table="art_lang" engine="InnoDB" type="text" default="null" nullable="yes"
+        key="" extra=""/>
+    <field name="mainimage" table="art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="idartlang" table="art_meta" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="description" table="art_meta" engine="InnoDB" type="text" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="author" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="keywords" table="art_meta" engine="InnoDB" type="text" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="date" table="art_meta" engine="InnoDB" type="date" default="null" nullable="yes"
+        key="" extra=""/>
+    <field name="expires" table="art_meta" engine="InnoDB" type="date" default="null" nullable="yes"
+        key="" extra=""/>
+    <field name="robots" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dctitle" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dccreator" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcsubject" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcpublisher" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dccontributor" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcdate" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dctype" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcformat" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcidentifier" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcsource" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dclanguage" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcrelation" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="cdcoverage" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcrights" table="art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="idcat" table="cat" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idclient" table="cat" engine="InnoDB" type="int(10)" default="0" nullable="no"
+        key="mul" extra=""/>
+    <field name="parentid" table="cat" engine="InnoDB" type="int(10)" default="0" nullable="no"
+        key="mul" extra=""/>
+    <field name="preid" table="cat" engine="InnoDB" type="int(10)" default="0" nullable="no"
+        key="mul" extra=""/>
+    <field name="postid" table="cat" engine="InnoDB" type="int(10)" default="0" nullable="no"
+        key="mul" extra=""/>
+    <field name="lft" table="cat" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="rgt" table="cat" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="status" table="cat" engine="InnoDB" type="int(10)" default="0" nullable="no" key=""
+        extra=""/>
+    <field name="author" table="cat" engine="InnoDB" type="varchar(32)" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="created" table="cat" engine="InnoDB" type="datetime" default="0000-00-00 00:00:00"
+        nullable="no" key="" extra=""/>
+    <field name="lastmodified" table="cat" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="idcat" table="cat_art" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="idart" table="cat_art" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="created" table="cat_art" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="lastmodified" table="cat_art" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="idcat" table="cat_favorites" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="userid" table="cat_favorites" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="idcatlang" table="cat_lang" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idcat" table="cat_lang" engine="InnoDB" type="int(10) unsigned" default="0"
+        nullable="no" key="mul" extra=""/>
+    <field name="idlang" table="cat_lang" engine="InnoDB" type="int(10) unsigned" default="0"
+        nullable="no" key="mul" extra=""/>
+    <field name="name" table="cat_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="visible" table="cat_lang" engine="InnoDB" type="tinyint(1)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="public" table="cat_lang" engine="InnoDB" type="tinyint(1)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="status" table="cat_lang" engine="InnoDB" type="int(10)" default="0" nullable="no"
+        key="" extra=""/>
+    <field name="author" table="cat_lang" engine="InnoDB" type="varchar(32)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="created" table="cat_lang" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="lastmodified" table="cat_lang" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="startidartlang" table="cat_lang" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="yes" key="mul" extra=""/>
+    <field name="urlname" table="cat_lang" engine="InnoDB" type="varchar(64)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="url" table="cat_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="configsetid" table="cat_lang" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="yes" key="mul" extra=""/>
+    <field name="config" table="cat_lang" engine="InnoDB" type="text" default="null" nullable="yes"
+        key="" extra=""/>
+    <field name="idclient" table="clients" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="name" table="clients" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="url" table="clients" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="config" table="clients" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="created" table="clients" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="lastmodified" table="clients" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="commentid" table="comment" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idartlang" table="comment" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="name" table="comment" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="email" table="comment" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="ip" table="comment" engine="InnoDB" type="varchar(100)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="title" table="comment" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="comment" table="comment" engine="InnoDB" type="text" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="created" table="comment" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra=""/>
+    <field name="approved" table="comment" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="deleted" table="comment" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="configsetid" table="configset" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="identifier" table="configset" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="uni" extra=""/>
+    <field name="config" table="configset" engine="InnoDB" type="text" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="conftokenid" table="conf_token" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="token" table="conf_token" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="uni" extra=""/>
+    <field name="idartlang" table="content_index" engine="MyISAM" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="content" table="content_index" engine="MyISAM" type="text" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="created" table="content_index" engine="MyISAM" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="idartlanglow" table="crosslink" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="idartlanghigh" table="crosslink" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="created" table="crosslink" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="assetid" table="dam_asset" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="typeid" table="dam_asset" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="identifier" table="dam_asset" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="abstract" table="dam_asset" engine="InnoDB" type="text" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="copyright" table="dam_asset" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="credit" table="dam_asset" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="licenseid" table="dam_asset" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="created" table="dam_asset" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="modified" table="dam_asset" engine="InnoDB" type="timestamp"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="validfrom" table="dam_asset" engine="InnoDB" type="datetime" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="validuntil" table="dam_asset" engine="InnoDB" type="datetime" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="replaces" table="dam_asset" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="licenseid" table="dam_license" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="identifier" table="dam_license" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="description" table="dam_license" engine="InnoDB" type="text" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="url" table="dam_license" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="locationid" table="dam_location" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="countryid" table="dam_location" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="city" table="dam_location" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="assetid" table="dam_locations" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="locationid" table="dam_locations" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="description" table="dam_locations" engine="InnoDB" type="text" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="assetid" table="dam_referencedby" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="reference" table="dam_referencedby" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="created" table="dam_referencedby" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="parentid" table="dam_rel" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="childid" table="dam_rel" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="subtypeid" table="dam_subtype" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="typeid" table="dam_subtype" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="identifier" table="dam_subtype" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="tagid" table="dam_tag" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="tag" table="dam_tag" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="assetid" table="dam_tags" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="tagid" table="dam_tags" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="tagvalue" table="dam_tags" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="created" table="dam_tags" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="typeid" table="dam_type" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="identifier" table="dam_type" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="uni" extra=""/>
+    <field name="useid" table="dam_use" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="use" table="dam_use" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="uni" extra=""/>
+    <field name="description" table="dam_use" engine="InnoDB" type="text" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="assetid" table="dam_uses" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="useid" table="dam_uses" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="created" table="dam_uses" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="yes" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="cityid" table="geo_city" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="countryid" table="geo_city" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="zip" table="geo_city" engine="InnoDB" type="varchar(20)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="city" table="geo_city" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="countryid" table="geo_country" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="iso2" table="geo_country" engine="InnoDB" type="varchar(2)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="iso3" table="geo_country" engine="InnoDB" type="varchar(3)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="isod" table="geo_country" engine="InnoDB" type="int(11)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="en" table="geo_country" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="locationid" table="geo_location" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="cityid" table="geo_location" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="street" table="geo_location" engine="InnoDB" type="int(11)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="latitude" table="geo_location" engine="InnoDB" type="float" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="longitude" table="geo_location" engine="InnoDB" type="float" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="idartlang" table="hit" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="d" table="hit" engine="InnoDB" type="date" default="null" nullable="no" key="pri"
+        extra=""/>
+    <field name="h" table="hit" engine="InnoDB" type="smallint(6)" default="null" nullable="no"
+        key="pri" extra=""/>
+    <field name="hits" table="hit" engine="InnoDB" type="int(11)" default="1" nullable="no" key=""
+        extra=""/>
+    <field name="trapid" table="honeytrap" engine="MyISAM" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="ip" table="honeytrap" engine="MyISAM" type="varchar(15)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="created" table="honeytrap" engine="MyISAM" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="mul" extra=""/>
+    <field name="idlang" table="lang" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idclient" table="lang" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="name" table="lang" engine="InnoDB" type="varchar(255)" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="longname" table="lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="active" table="lang" engine="InnoDB" type="tinyint(1)" default="0" nullable="no"
+        key="" extra=""/>
+    <field name="created" table="lang" engine="InnoDB" type="datetime" default="0000-00-00 00:00:00"
+        nullable="no" key="" extra=""/>
+    <field name="lastmodified" table="lang" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="encoding" table="lang" engine="InnoDB" type="varchar(32)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="direction" table="lang" engine="InnoDB" type="char(3)" default="ltr" nullable="no"
+        key="" extra=""/>
+    <field name="locale" table="lang" engine="InnoDB" type="varchar(5)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="idart" table="lastopened" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="idlang" table="lastopened" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="userid" table="lastopened" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="time" table="lastopened" engine="InnoDB" type="timestamp"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="localeid" table="locale" engine="InnoDB" type="int(11)" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="fullname" table="locale" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="locale" table="locale" engine="InnoDB" type="varchar(5)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="uid" table="lucene_index" engine="MyISAM" type="varchar(255)" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="idart" table="lucene_index" engine="MyISAM" type="int(10) unsigned" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="idlang" table="lucene_index" engine="MyISAM" type="int(10) unsigned" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="path" table="lucene_index" engine="MyISAM" type="varchar(255)" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="lastindexed" table="lucene_index" engine="MyISAM" type="datetime" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="mediaid" table="media" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idart" table="media" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="yes" key="mul" extra=""/>
+    <field name="filename" table="media" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="size" table="media" engine="InnoDB" type="bigint(20)" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="extension" table="media" engine="InnoDB" type="varchar(10)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="xtl" table="media" engine="InnoDB" type="float" default="0" nullable="no" key=""
+        extra=""/>
+    <field name="ytl" table="media" engine="InnoDB" type="float" default="0" nullable="no" key=""
+        extra=""/>
+    <field name="xbr" table="media" engine="InnoDB" type="float" default="1" nullable="no" key=""
+        extra=""/>
+    <field name="ybr" table="media" engine="InnoDB" type="float" default="1" nullable="no" key=""
+        extra=""/>
+    <field name="uploaded" table="media" engine="InnoDB" type="datetime" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="deleted" table="media" engine="InnoDB" type="datetime" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="mediaid" table="media_description" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="idlang" table="media_description" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="name" table="media_description" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="subline" table="media_description" engine="InnoDB" type="text" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="description" table="media_description" engine="InnoDB" type="text" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="mediatagid" table="media_tag" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="tag" table="media_tag" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="mediatagid" table="media_tags" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="mediaid" table="media_tags" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="val" table="media_tags" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="idartlang" table="performance_profile" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="obsdate" table="performance_profile" engine="InnoDB" type="date" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="tsum" table="performance_profile" engine="InnoDB" type="double" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="tssum" table="performance_profile" engine="InnoDB" type="double" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="fastest" table="performance_profile" engine="InnoDB" type="double" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="slowest" table="performance_profile" engine="InnoDB" type="double" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="n" table="performance_profile" engine="InnoDB" type="int(11)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="pubid" table="pub" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idartlang" table="pub" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="userid" table="pub" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="pubtime" table="pub" engine="InnoDB" type="datetime" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="status" table="pub" engine="InnoDB" type="tinyint(4)" default="1" nullable="no"
+        key="" extra=""/> NULL <field name="propertyid" table="pub_aitsu_article_property"
+        engine="InnoDB" type="int(10) unsigned" default="null" nullable="no" key="pri" extra=""/>
+    <field name="idartlang" table="pub_aitsu_article_property" engine="InnoDB"
+        type="int(10) unsigned" default="null" nullable="no" key="pri" extra=""/>
+    <field name="textvalue" table="pub_aitsu_article_property" engine="InnoDB" type="text"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="floatvalue" table="pub_aitsu_article_property" engine="InnoDB" type="double"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="datevalue" table="pub_aitsu_article_property" engine="InnoDB" type="datetime"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="pubid" table="pub_aitsu_article_property" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="status" table="pub_aitsu_article_property" engine="InnoDB" type="tinyint(4)"
         default="null" nullable="no" key="" extra=""/>
-    <field name="textvalue" table="pubv_aitsu_article_property" type="text" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="floatvalue" table="pubv_aitsu_article_property" type="double" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="datevalue" table="pubv_aitsu_article_property" type="datetime" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="pubid" table="pubv_aitsu_article_property" type="int(10) unsigned" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="status" table="pubv_aitsu_article_property" type="tinyint(4)" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="idartlang" table="pubv_article_content" type="int(10) unsigned" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="index" table="pubv_article_content" type="varchar(20)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="value" table="pubv_article_content" type="longtext" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="modified" table="pubv_article_content" type="datetime" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="pubid" table="pubv_article_content" type="int(10) unsigned" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="status" table="pubv_article_content" type="tinyint(4)" default="1" nullable="no"
-        key="" extra=""/>
-    <field name="idartlang" table="pubv_art_lang" type="int(10) unsigned" default="0" nullable="no"
-        key="" extra=""/>
-    <field name="idart" table="pubv_art_lang" type="int(10) unsigned" default="0" nullable="no"
-        key="" extra=""/>
-    <field name="idlang" table="pubv_art_lang" type="int(10) unsigned" default="0" nullable="no"
-        key="" extra=""/>
-    <field name="title" table="pubv_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="urlname" table="pubv_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="pagetitle" table="pubv_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="teasertitle" table="pubv_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="summary" table="pubv_art_lang" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="created" table="pubv_art_lang" type="datetime" default="0000-00-00 00:00:00"
-        nullable="no" key="" extra=""/>
-    <field name="lastmodified" table="pubv_art_lang" type="datetime" default="0000-00-00 00:00:00"
-        nullable="no" key="" extra=""/>
-    <field name="online" table="pubv_art_lang" type="tinyint(1)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="pubfrom" table="pubv_art_lang" type="timestamp" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="pubuntil" table="pubv_art_lang" type="timestamp" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="published" table="pubv_art_lang" type="tinyint(3) unsigned" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="redirect" table="pubv_art_lang" type="tinyint(4)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="redirect_url" table="pubv_art_lang" type="varchar(255)" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="artsort" table="pubv_art_lang" type="int(10)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="locked" table="pubv_art_lang" type="int(1)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="configsetid" table="pubv_art_lang" type="int(10) unsigned" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="config" table="pubv_art_lang" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="pubid" table="pubv_art_lang" type="int(10) unsigned" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="status" table="pubv_art_lang" type="tinyint(4)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="mainimage" table="pubv_art_lang" type="varchar(255)" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="idartlang" table="pubv_art_meta" type="int(10) unsigned" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="description" table="pubv_art_meta" type="text" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="author" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="keywords" table="pubv_art_meta" type="text" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="date" table="pubv_art_meta" type="date" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="expires" table="pubv_art_meta" type="date" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="robots" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dctitle" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dccreator" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcsubject" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcpublisher" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dccontributor" table="pubv_art_meta" type="varchar(255)" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="dcdate" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dctype" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcformat" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcidentifier" table="pubv_art_meta" type="varchar(255)" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="dcsource" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dclanguage" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcrelation" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="cdcoverage" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcrights" table="pubv_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="pubid" table="pubv_art_meta" type="int(10) unsigned" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="status" table="pubv_art_meta" type="tinyint(4)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="propertyid" table="pub_aitsu_article_property" type="int(10) unsigned"
+    <field name="idartlang" table="pub_article_content" engine="InnoDB" type="int(10) unsigned"
         default="null" nullable="no" key="pri" extra=""/>
-    <field name="idartlang" table="pub_aitsu_article_property" type="int(10) unsigned"
+    <field name="index" table="pub_article_content" engine="InnoDB" type="varchar(20)"
         default="null" nullable="no" key="pri" extra=""/>
-    <field name="textvalue" table="pub_aitsu_article_property" type="text" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="floatvalue" table="pub_aitsu_article_property" type="double" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="datevalue" table="pub_aitsu_article_property" type="datetime" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="pubid" table="pub_aitsu_article_property" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="status" table="pub_aitsu_article_property" type="tinyint(4)" default="null"
+    <field name="value" table="pub_article_content" engine="InnoDB" type="longtext" default="null"
         nullable="no" key="" extra=""/>
-    <field name="idartlang" table="pub_article_content" type="int(10) unsigned" default="null"
+    <field name="modified" table="pub_article_content" engine="InnoDB" type="datetime"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="pubid" table="pub_article_content" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="status" table="pub_article_content" engine="InnoDB" type="tinyint(4)" default="1"
+        nullable="no" key="" extra=""/>
+    <field name="idartlang" table="pub_art_lang" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idart" table="pub_art_lang" engine="InnoDB" type="int(10) unsigned" default="0"
+        nullable="no" key="mul" extra=""/>
+    <field name="idlang" table="pub_art_lang" engine="InnoDB" type="int(10) unsigned" default="0"
+        nullable="no" key="mul" extra=""/>
+    <field name="title" table="pub_art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="urlname" table="pub_art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="pagetitle" table="pub_art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="teasertitle" table="pub_art_lang" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="summary" table="pub_art_lang" engine="InnoDB" type="text" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="created" table="pub_art_lang" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="lastmodified" table="pub_art_lang" engine="InnoDB" type="datetime"
+        default="0000-00-00 00:00:00" nullable="no" key="" extra=""/>
+    <field name="online" table="pub_art_lang" engine="InnoDB" type="tinyint(1)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="pubfrom" table="pub_art_lang" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="pubuntil" table="pub_art_lang" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="published" table="pub_art_lang" engine="InnoDB" type="tinyint(3) unsigned"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="redirect" table="pub_art_lang" engine="InnoDB" type="tinyint(4)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="redirect_url" table="pub_art_lang" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="artsort" table="pub_art_lang" engine="InnoDB" type="int(10)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="locked" table="pub_art_lang" engine="InnoDB" type="int(1)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="configsetid" table="pub_art_lang" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="yes" key="mul" extra=""/>
+    <field name="config" table="pub_art_lang" engine="InnoDB" type="text" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="pubid" table="pub_art_lang" engine="InnoDB" type="int(10) unsigned" default="null"
         nullable="no" key="pri" extra=""/>
-    <field name="index" table="pub_article_content" type="varchar(20)" default="null" nullable="no"
+    <field name="status" table="pub_art_lang" engine="InnoDB" type="tinyint(4)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="mainimage" table="pub_art_lang" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="idartlang" table="pub_art_meta" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="description" table="pub_art_meta" engine="InnoDB" type="text" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="author" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="keywords" table="pub_art_meta" engine="InnoDB" type="text" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="date" table="pub_art_meta" engine="InnoDB" type="date" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="expires" table="pub_art_meta" engine="InnoDB" type="date" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="robots" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dctitle" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dccreator" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcsubject" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcpublisher" table="pub_art_meta" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="dccontributor" table="pub_art_meta" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="dcdate" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dctype" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcformat" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcidentifier" table="pub_art_meta" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="dcsource" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dclanguage" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcrelation" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="cdcoverage" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="dcrights" table="pub_art_meta" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="pubid" table="pub_art_meta" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="status" table="pub_art_meta" engine="InnoDB" type="tinyint(4)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="idartlang" table="rating" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="rating" table="rating" engine="InnoDB" type="float" default="null" nullable="no"
+        key="mul" extra=""/>
+    <field name="votes" table="rating" engine="InnoDB" type="int(11)" default="1" nullable="no"
+        key="" extra=""/>
+    <field name="idartlang" table="ratings" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="rated" table="ratings" engine="InnoDB" type="timestamp" default="CURRENT_TIMESTAMP"
+        nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="ip" table="ratings" engine="InnoDB" type="varchar(20)" default="null" nullable="no"
         key="pri" extra=""/>
-    <field name="value" table="pub_article_content" type="longtext" default="null" nullable="no"
+    <field name="rate" table="ratings" engine="InnoDB" type="float" default="null" nullable="no"
         key="" extra=""/>
-    <field name="modified" table="pub_article_content" type="datetime" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="pubid" table="pub_article_content" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="status" table="pub_article_content" type="tinyint(4)" default="1" nullable="no"
-        key="" extra=""/>
-    <field name="idartlang" table="pub_art_lang" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="idart" table="pub_art_lang" type="int(10) unsigned" default="0" nullable="no"
-        key="mul" extra=""/>
-    <field name="idlang" table="pub_art_lang" type="int(10) unsigned" default="0" nullable="no"
-        key="mul" extra=""/>
-    <field name="title" table="pub_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="urlname" table="pub_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="pagetitle" table="pub_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="teasertitle" table="pub_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="summary" table="pub_art_lang" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="created" table="pub_art_lang" type="datetime" default="0000-00-00 00:00:00"
-        nullable="no" key="" extra=""/>
-    <field name="lastmodified" table="pub_art_lang" type="datetime" default="0000-00-00 00:00:00"
-        nullable="no" key="" extra=""/>
-    <field name="online" table="pub_art_lang" type="tinyint(1)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="pubfrom" table="pub_art_lang" type="timestamp" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="pubuntil" table="pub_art_lang" type="timestamp" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="published" table="pub_art_lang" type="tinyint(3) unsigned" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="redirect" table="pub_art_lang" type="tinyint(4)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="redirect_url" table="pub_art_lang" type="varchar(255)" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="artsort" table="pub_art_lang" type="int(10)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="locked" table="pub_art_lang" type="int(1)" default="0" nullable="no" key=""
-        extra=""/>
-    <field name="configsetid" table="pub_art_lang" type="int(10) unsigned" default="null"
+    <field name="revisionid" table="revision" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="userid" table="revision" engine="InnoDB" type="int(10) unsigned" default="null"
         nullable="yes" key="mul" extra=""/>
-    <field name="config" table="pub_art_lang" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="pubid" table="pub_art_lang" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="status" table="pub_art_lang" type="tinyint(4)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="mainimage" table="pub_art_lang" type="varchar(255)" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="idartlang" table="pub_art_meta" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="description" table="pub_art_meta" type="text" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="author" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="keywords" table="pub_art_meta" type="text" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="date" table="pub_art_meta" type="date" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="expires" table="pub_art_meta" type="date" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="robots" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dctitle" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dccreator" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcsubject" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcpublisher" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dccontributor" table="pub_art_meta" type="varchar(255)" default="null"
+    <field name="revtime" table="revision" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra=""/>
+    <field name="revisionid" table="revision_art_lang" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="revisionhash" table="revision_art_lang" engine="InnoDB" type="binary(16)"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="idartlang" table="revision_art_lang" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="title" table="revision_art_lang" engine="InnoDB" type="varchar(255)" default="null"
         nullable="no" key="" extra=""/>
-    <field name="dcdate" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dctype" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcformat" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcidentifier" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcsource" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dclanguage" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcrelation" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="cdcoverage" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="dcrights" table="pub_art_meta" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="pubid" table="pub_art_meta" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="status" table="pub_art_meta" type="tinyint(4)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="idartlang" table="rating" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="rating" table="rating" type="float" default="null" nullable="no" key="mul" extra=""/>
-    <field name="votes" table="rating" type="int(11)" default="1" nullable="no" key="" extra=""/>
-    <field name="idartlang" table="ratings" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="rated" table="ratings" type="timestamp" default="CURRENT_TIMESTAMP" nullable="no"
-        key="" extra=""/>
-    <field name="ip" table="ratings" type="varchar(20)" default="null" nullable="no" key="pri"
-        extra=""/>
-    <field name="rate" table="ratings" type="float" default="null" nullable="no" key="" extra=""/>
-    <field name="revisionid" table="revision" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="userid" table="revision" type="int(10) unsigned" default="null" nullable="yes"
-        key="mul" extra=""/>
-    <field name="revtime" table="revision" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="" extra=""/>
-    <field name="revisionid" table="revision_art_lang" type="int(10) unsigned" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="revisionhash" table="revision_art_lang" type="binary(16)" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="idartlang" table="revision_art_lang" type="int(10) unsigned" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="title" table="revision_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="urlname" table="revision_art_lang" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="pagetitle" table="revision_art_lang" type="varchar(255)" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="teasertitle" table="revision_art_lang" type="varchar(255)" default="null"
-        nullable="no" key="" extra=""/>
-    <field name="summary" table="revision_art_lang" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="online" table="revision_art_lang" type="tinyint(1)" default="0" nullable="no"
-        key="" extra=""/>
-    <field name="pubfrom" table="revision_art_lang" type="timestamp" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="pubuntil" table="revision_art_lang" type="timestamp" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="published" table="revision_art_lang" type="tinyint(3) unsigned" default="null"
+    <field name="urlname" table="revision_art_lang" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="pagetitle" table="revision_art_lang" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="teasertitle" table="revision_art_lang" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="summary" table="revision_art_lang" engine="InnoDB" type="text" default="null"
         nullable="yes" key="" extra=""/>
-    <field name="redirect" table="revision_art_lang" type="tinyint(4)" default="0" nullable="no"
-        key="" extra=""/>
-    <field name="redirect_url" table="revision_art_lang" type="varchar(255)" default="null"
+    <field name="online" table="revision_art_lang" engine="InnoDB" type="tinyint(1)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="pubfrom" table="revision_art_lang" engine="InnoDB" type="timestamp" default="null"
         nullable="yes" key="" extra=""/>
-    <field name="configsetid" table="revision_art_lang" type="int(10) unsigned" default="null"
-        nullable="yes" key="mul" extra=""/>
-    <field name="config" table="revision_art_lang" type="text" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="revisionid" table="revision_content" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="revisionhash" table="revision_content" type="binary(16)" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="idartlang" table="revision_content" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="index" table="revision_content" type="varchar(20)" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="value" table="revision_content" type="longtext" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="revisionid" table="revision_property" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="revisionhash" table="revision_property" type="binary(16)" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="propertyid" table="revision_property" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="idartlang" table="revision_property" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="textvalue" table="revision_property" type="text" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="floatvalue" table="revision_property" type="double" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="datevalue" table="revision_property" type="datetime" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="scheduleid" table="schedule" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="relation" table="schedule" type="varchar(255)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="period" table="schedule" type="varchar(255)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="executiontime" table="schedule" type="datetime" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="active" table="schedule" type="tinyint(4)" default="1" nullable="no" key=""
-        extra=""/>
-    <field name="class" table="schedule" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="params" table="schedule" type="text" default="null" nullable="no" key="" extra=""/>
-    <field name="lastexecution" table="schedule" type="timestamp" default="null" nullable="yes"
-        key="" extra=""/>
-    <field name="sourceid" table="syndication_resource" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="sourceidartlang" table="syndication_resource" type="int(10) unsigned"
+    <field name="pubuntil" table="revision_art_lang" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="published" table="revision_art_lang" engine="InnoDB" type="tinyint(3) unsigned"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="redirect" table="revision_art_lang" engine="InnoDB" type="tinyint(4)" default="0"
+        nullable="no" key="" extra=""/>
+    <field name="redirect_url" table="revision_art_lang" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="configsetid" table="revision_art_lang" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="yes" key="mul" extra=""/>
+    <field name="config" table="revision_art_lang" engine="InnoDB" type="text" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="revisionid" table="revision_content" engine="InnoDB" type="int(10) unsigned"
         default="null" nullable="no" key="pri" extra=""/>
-    <field name="name" table="syndication_resource" type="varchar(255)" default="null"
-        nullable="yes" key="" extra=""/>
-    <field name="content" table="syndication_resource" type="longtext" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="loaded" table="syndication_resource" type="timestamp" default="CURRENT_TIMESTAMP"
-        nullable="no" key="" extra=""/>
-    <field name="idartlang" table="syndication_resource_art" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="sourceid" table="syndication_resource_art" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="sourceidartlang" table="syndication_resource_art" type="int(10) unsigned"
+    <field name="revisionhash" table="revision_content" engine="InnoDB" type="binary(16)"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="idartlang" table="revision_content" engine="InnoDB" type="int(10) unsigned"
         default="null" nullable="no" key="pri" extra=""/>
-    <field name="sourceid" table="syndication_source" type="int(10) unsigned" default="null"
+    <field name="index" table="revision_content" engine="InnoDB" type="varchar(20)" default="null"
         nullable="no" key="pri" extra=""/>
-    <field name="idclient" table="syndication_source" type="int(10) unsigned" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="url" table="syndication_source" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="userid" table="syndication_source" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="secret" table="syndication_source" type="varchar(255)" default="null" nullable="no"
-        key="" extra=""/>
-    <field name="tagid" table="tag" type="int(10) unsigned" default="null" nullable="no" key="pri"
-        extra=""/>
-    <field name="tag" table="tag" type="varchar(255)" default="null" nullable="no" key="uni"
-        extra=""/>
-    <field name="idart" table="tag_art" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="tagid" table="tag_art" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="val" table="tag_art" type="varchar(255)" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="todoid" table="todo" type="int(10) unsigned" default="null" nullable="no" key="pri"
-        extra=""/>
-    <field name="idartlang" table="todo" type="int(10) unsigned" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="userid" table="todo" type="int(10) unsigned" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="status" table="todo" type="tinyint(4)" default="0" nullable="no" key="" extra=""/>
-    <field name="title" table="todo" type="varchar(255)" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="description" table="todo" type="text" default="null" nullable="no" key="" extra=""/>
-    <field name="duedate" table="todo" type="datetime" default="null" nullable="yes" key="" extra=""/>
-    <field name="modified" table="todo" type="timestamp" default="CURRENT_TIMESTAMP" nullable="no"
-        key="" extra=""/>
-    <field name="customerid" table="tracking_customer" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="identifier" table="tracking_customer" type="varchar(255)" default="null"
+    <field name="value" table="revision_content" engine="InnoDB" type="longtext" default="null"
         nullable="no" key="" extra=""/>
-    <field name="active" table="tracking_customer" type="tinyint(4)" default="1" nullable="no"
-        key="" extra=""/>
-    <field name="projectid" table="tracking_project" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="customerid" table="tracking_project" type="int(10) unsigned" default="null"
-        nullable="no" key="mul" extra=""/>
-    <field name="identifier" table="tracking_project" type="varchar(255)" default="null"
+    <field name="revisionid" table="revision_property" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="revisionhash" table="revision_property" engine="InnoDB" type="binary(16)"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="propertyid" table="revision_property" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="idartlang" table="revision_property" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="textvalue" table="revision_property" engine="InnoDB" type="text" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="floatvalue" table="revision_property" engine="InnoDB" type="double" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="datevalue" table="revision_property" engine="InnoDB" type="datetime" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="scheduleid" table="schedule" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="relation" table="schedule" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="period" table="schedule" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="executiontime" table="schedule" engine="InnoDB" type="datetime" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="active" table="schedule" engine="InnoDB" type="tinyint(4)" default="1"
         nullable="no" key="" extra=""/>
-    <field name="startdate" table="tracking_project" type="date" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="enddate" table="tracking_project" type="date" default="null" nullable="yes" key=""
-        extra=""/>
-    <field name="trackid" table="tracking_track" type="int(10) unsigned" default="null"
+    <field name="class" table="schedule" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="params" table="schedule" engine="InnoDB" type="text" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="lastexecution" table="schedule" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="sourceid" table="syndication_resource" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="sourceidartlang" table="syndication_resource" engine="InnoDB"
+        type="int(10) unsigned" default="null" nullable="no" key="pri" extra=""/>
+    <field name="name" table="syndication_resource" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="yes" key="" extra=""/>
+    <field name="content" table="syndication_resource" engine="InnoDB" type="longtext"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="loaded" table="syndication_resource" engine="InnoDB" type="timestamp"
+        default="CURRENT_TIMESTAMP" nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="idartlang" table="syndication_resource_art" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="sourceid" table="syndication_resource_art" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra=""/>
+    <field name="sourceidartlang" table="syndication_resource_art" engine="InnoDB"
+        type="int(10) unsigned" default="null" nullable="no" key="pri" extra=""/>
+    <field name="sourceid" table="syndication_source" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idclient" table="syndication_source" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="url" table="syndication_source" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="userid" table="syndication_source" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="secret" table="syndication_source" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="tagid" table="tag" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="tag" table="tag" engine="InnoDB" type="varchar(255)" default="null" nullable="no"
+        key="uni" extra=""/>
+    <field name="idart" table="tag_art" engine="InnoDB" type="int(10) unsigned" default="null"
         nullable="no" key="pri" extra=""/>
-    <field name="projectid" table="tracking_track" type="int(10) unsigned" default="null"
+    <field name="tagid" table="tag_art" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra=""/>
+    <field name="val" table="tag_art" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="todoid" table="todo" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idartlang" table="todo" engine="InnoDB" type="int(10) unsigned" default="null"
         nullable="no" key="mul" extra=""/>
-    <field name="typeid" table="tracking_track" type="int(10) unsigned" default="null"
-        nullable="yes" key="mul" extra=""/>
-    <field name="userid" table="tracking_track" type="int(10) unsigned" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="title" table="tracking_track" type="varchar(255)" default="null" nullable="no"
+    <field name="userid" table="todo" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="status" table="todo" engine="InnoDB" type="tinyint(4)" default="0" nullable="no"
         key="" extra=""/>
-    <field name="description" table="tracking_track" type="text" default="null" nullable="no" key=""
-        extra=""/>
-    <field name="closed" table="tracking_track" type="timestamp" default="null" nullable="yes"
+    <field name="title" table="todo" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="description" table="todo" engine="InnoDB" type="text" default="null" nullable="no"
         key="" extra=""/>
-    <field name="typeid" table="tracking_type" type="int(10) unsigned" default="null" nullable="no"
-        key="pri" extra=""/>
-    <field name="identifier" table="tracking_type" type="varchar(255)" default="null" nullable="no"
+    <field name="duedate" table="todo" engine="InnoDB" type="datetime" default="null" nullable="yes"
         key="" extra=""/>
-    <field name="translationid" table="translate" type="int(10) unsigned" default="null"
-        nullable="no" key="pri" extra=""/>
-    <field name="idlang" table="translate" type="int(10) unsigned" default="null" nullable="no"
-        key="mul" extra=""/>
-    <field name="tkey" table="translate" type="text" default="null" nullable="no" key="" extra=""/>
-    <field name="tvalue" table="translate" type="text" default="null" nullable="yes" key="" extra=""/>
-    <field name="obsolete" table="translate" type="datetime" default="null" nullable="yes" key=""
-        extra=""/>
+    <field name="modified" table="todo" engine="InnoDB" type="timestamp" default="CURRENT_TIMESTAMP"
+        nullable="no" key="" extra="on update CURRENT_TIMESTAMP"/>
+    <field name="customerid" table="tracking_customer" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="identifier" table="tracking_customer" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="active" table="tracking_customer" engine="InnoDB" type="tinyint(4)" default="1"
+        nullable="no" key="" extra=""/>
+    <field name="projectid" table="tracking_project" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="customerid" table="tracking_project" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="identifier" table="tracking_project" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="startdate" table="tracking_project" engine="InnoDB" type="date" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="enddate" table="tracking_project" engine="InnoDB" type="date" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="trackid" table="tracking_track" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="projectid" table="tracking_track" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="typeid" table="tracking_track" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="yes" key="mul" extra=""/>
+    <field name="userid" table="tracking_track" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="mul" extra=""/>
+    <field name="title" table="tracking_track" engine="InnoDB" type="varchar(255)" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="description" table="tracking_track" engine="InnoDB" type="text" default="null"
+        nullable="no" key="" extra=""/>
+    <field name="closed" table="tracking_track" engine="InnoDB" type="timestamp" default="null"
+        nullable="yes" key="" extra=""/>
+    <field name="typeid" table="tracking_type" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="identifier" table="tracking_type" engine="InnoDB" type="varchar(255)"
+        default="null" nullable="no" key="" extra=""/>
+    <field name="translationid" table="translate" engine="InnoDB" type="int(10) unsigned"
+        default="null" nullable="no" key="pri" extra="auto_increment"/>
+    <field name="idlang" table="translate" engine="InnoDB" type="int(10) unsigned" default="null"
+        nullable="no" key="mul" extra=""/>
+    <field name="tkey" table="translate" engine="InnoDB" type="text" default="null" nullable="no"
+        key="" extra=""/>
+    <field name="tvalue" table="translate" engine="InnoDB" type="text" default="null" nullable="yes"
+        key="" extra=""/>
+    <field name="obsolete" table="translate" engine="InnoDB" type="datetime" default="null"
+        nullable="yes" key="" extra=""/>
 </root>

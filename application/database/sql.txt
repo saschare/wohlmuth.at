@@ -1,26 +1,30 @@
 set session group_concat_max_len = 10000;
 
-select
+select distinct
 	concat(
 		'<field name="', 
-		column_name, 
+		col.column_name, 
 		'" table="',
-		lower(substr(table_name from 5)),
+		lower(substr(col.table_name from 5)),
+		'" engine="',
+		tab.engine,
 		'" type="',
-		lower(column_type),
+		lower(col.column_type),
 		'" default="', 
-		if(column_default is null, 'null', column_default), 
+		if(col.column_default is null, 'null', col.column_default), 
 		'" nullable="',
-		lower(is_nullable),
+		lower(col.is_nullable),
 		'" key="',
-		lower(column_key),
+		lower(col.column_key),
 		'" extra="',
+		col.extra,
 		'" />'
 		) field
-from information_schema.columns
+from information_schema.columns col
+left join information_schema.tables tab on col.table_name = tab.table_name
 where
-	table_schema = 'dev.aitsu.local'
-	and table_name like 'ait_%'
+	col.table_schema = 'dev.aitsu.local'
+	and col.table_name like 'ait_%'
 order by
-	table_name asc,
-	ordinal_position asc;
+	col.table_name asc,
+	col.ordinal_position asc;
