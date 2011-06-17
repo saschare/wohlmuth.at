@@ -37,7 +37,7 @@ class Aitsu_Persistence_View_User {
 			/*
 			 * Password has been given as plain text.
 			 */
-			 
+
 			$user = Aitsu_Db :: fetchRow('' .
 			'select userid, password from _acl_user ' .
 			'where ' .
@@ -52,10 +52,19 @@ class Aitsu_Persistence_View_User {
 			'	) ', array (
 				':login' => $login
 			));
-			
+
 			$hasher = new Openwall_PasswordHash(8, FALSE);
-			if ($user && $hasher->checkPassword($password, $user['password'])) {
-				$userid = $user['userid'];
+			if ($user) {
+				if ($hasher->checkPassword($password, $user['password'])) {
+					$userid = $user['userid'];
+				} elseif (md5($password) == $user['password']) {
+					/*
+					 * For backward compatiblity reasons, we have to check
+					 * whether or not the hash could be a primitive md5 one
+					 * and to accept this result as a valid result.
+					 */
+					$userid = $user['userid'];
+				}
 			}
 		}
 
