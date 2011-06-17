@@ -1,0 +1,26 @@
+set session group_concat_max_len = 10000;
+
+select
+	concat(
+		'<field name="', 
+		column_name, 
+		'" table="',
+		lower(substr(table_name from 5)),
+		'" type="',
+		lower(column_type),
+		'" default="', 
+		if(column_default is null, 'null', column_default), 
+		'" nullable="',
+		lower(is_nullable),
+		'" key="',
+		lower(column_key),
+		'" extra="',
+		'" />'
+		) field
+from information_schema.columns
+where
+	table_schema = 'dev.aitsu.local'
+	and table_name like 'ait_%'
+order by
+	table_name asc,
+	ordinal_position asc;
