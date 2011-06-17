@@ -1,0 +1,5 @@
+<div id="servicenavigation">
+<?php foreach ($this->nav->children as $sNav) : ?>
+	<a<?php if ($sNav->isparent || $sNav->iscurrent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $sNav->idcat; ?>}" title="<?php echo $sNav->name; ?>"><?php echo $sNav->name; ?></a>
+<?php endforeach; ?>
+</div>

@@ -1,9 +1,64 @@
-<ul class="vlist">
-	<?php foreach ($this->nav->children as $nav) : ?>
-		<?php if ($nav->isvisible) : ?>	
-			<li<?php if($nav->iscurrent) : ?> class="active"<?php endif; ?>>
-				<a<?php if($nav->iscurrent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $nav->idcat; ?>}"><?php echo $nav->name; ?></a>
+<ul class="vlist corner">
+<?php $i=0; foreach ($this->nav->children as $nav1) : ?>
+	<li<?php if ($nav1->iscurrent) : ?> class="active"<?php endif; ?>>
+
+	<?php 
+		$class = NULL;
+		if($i==0) {
+			$class = "corner_first";
+		} elseif ($i+1== count($nav1->children)) {
+			$class = "corner_last";
+		}
+	?>
+		<a<?php if ($nav1->iscurrent) : ?> class="active<?php echo ' '.$class; ?>"<?php elseif($class) : ?> class="<?php echo $class; ?>"<?php endif; ?> href="{ref:idcat-<?php echo $nav1->idcat; ?>}"><?php echo $nav1->name; ?> &raquo;</a>
+
+	<?php if (count($nav1->children) > 0) : ?>
+
+		<ul>
+		<?php foreach ($nav1->children as $nav2) : ?>
+			<li<?php if ($nav2->iscurrent) : ?> class="active"<?php endif; ?>>
+
+			<?php if($nav2->name == 'divider') : ?>
+
+			<?php else: ?>
+				<a<?php if ($nav2->iscurrent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $nav2->idcat; ?>}"><?php echo $nav2->name; ?></a>
+			<?php endif; ?>
+			<?php if (count($nav2->children) > 0 && ($nav2->iscurrent || $nav2->isparent)) : ?>
+
+				<ul>
+				<?php foreach ($nav2->children as $nav3) : ?>
+					<li<?php if ($nav3->iscurrent) : ?> class="active"<?php endif; ?>>
+		
+					<?php if($nav3->name == 'divider') : ?>
+		
+					<?php else: ?>
+						<a<?php if ($nav3->iscurrent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $nav3->idcat; ?>}"><?php echo $nav3->name; ?></a>
+					<?php endif; ?>
+					<?php if (count($nav3->children) > 0) : ?>
+	
+						<ul>
+						<?php foreach ($nav3->children as $nav4) : ?>
+							<li<?php if ($nav4->iscurrent) : ?> class="active"<?php endif; ?>>
+				
+							<?php if($nav3->name == 'divider') : ?>
+				
+							<?php else: ?>
+								<a<?php if ($nav4->iscurrent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $nav4->idcat; ?>}"><?php echo $nav4->name; ?></a>
+							<?php endif; ?>
+							</li>
+						<?php endforeach; ?>
+						</ul>
+						
+					<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+				
+			<?php endif; ?>
 			</li>
-		<?php endif; ?>
-	<?php endforeach; ?>
+		<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+	</li>
+<?php $i++; endforeach; ?>
 </ul>

@@ -1,0 +1,57 @@
+<form class="yform full" action="<?php echo Aitsu_Util :: getCurrentUrl(); ?>" method="post">
+	<fieldset>
+		<legend><?php echo $this->subject; ?></legend>
+
+		<?php $passed = Aitsu_Form_Validation :: isValid('name', $name); ?>
+		<div class="type-text<?php echo $passed ? '' : ' error'; ?>">
+			<?php if (!$passed) : ?>
+			<strong class="message"><?php echo Aitsu_Translate :: _('Please provide your name') ;?></strong>
+			<?php endif; ?>
+			<label for="name"><?php echo Aitsu_Translate :: _('First/Lastname');?></label> 
+			<input id="name" name="name" value="<?php echo $name ;?>" />
+		</div>
+
+		<?php $passed = Aitsu_Form_Validation :: isValid('company', $company); ?>
+		<div class="type-text<?php echo $passed ? '' : ' error'; ?>">
+			<?php if (!$passed) : ?>
+			<strong class="message"><?php echo Aitsu_Translate :: _('Please provide your company') ;?></strong>
+			<?php endif; ?>
+			<label for="company"><?php echo Aitsu_Translate :: _('Company');?></label> 
+			<input id="company" name="company" value="<?php echo $company ;?>" />
+		</div>
+
+		<?php $passed = Aitsu_Form_Validation :: isValid('telephone', $telephone); ?>
+		<div class="type-text<?php echo $passed ? '' : ' error'; ?>">
+			<?php if (!$passed) : ?>
+			<strong class="message"><?php echo Aitsu_Translate :: _('Please provide a valid telephone number') ;?></strong>
+			<?php endif; ?>
+			<label for="telephone"><?php echo Aitsu_Translate :: _('Telephone');?></label> 
+			<input id="telephone" name="telephone" value="<?php echo $telephone ;?>" />
+		</div>
+
+		<?php $passed = Aitsu_Form_Validation :: isValid('email', $email); ?>
+		<div class="type-text<?php echo $passed ? '' : ' error'; ?>">
+			<?php if (!$passed) : ?>
+			<strong class="message"><?php echo Aitsu_Translate :: _('Please provide a valid e-mail-address') ;?></strong>
+			<?php endif; ?>
+			<label for="email"><?php echo Aitsu_Translate :: _('E-Mail');?></label> 
+			<input id="email" name="email" value="<?php echo $email ;?>" />
+		</div>
+
+		<?php $passed = Aitsu_Form_Validation :: isValid('message', $message); ?>
+		<div class="type-text<?php echo $passed ? '' : ' error'; ?>">
+			<?php if (!$passed) : ?>
+			<strong class="message"><?php echo Aitsu_Translate :: _('Please provide your message') ;?></strong>
+			<?php endif; ?>
+			<label for="message"><?php echo Aitsu_Translate :: _('Message');?></label> 
+			<textarea id="message" name="message" rows="3" cols="30">
+			<?php echo $message ;?>
+			</textarea>
+		</div>
+
+		<div class="type-button">
+			<input type="submit" title="submit" value="<?php echo Aitsu_Translate :: _('Submit'); ?>" />
+		</div>
+
+	</fieldset>
+</form>

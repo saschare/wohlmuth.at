@@ -4,6 +4,7 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
+ * @author Frank Ammari, Ammari & Ammari GbR
  */
 
 class Aitsu_Persistence_View_Media {
@@ -84,6 +85,53 @@ class Aitsu_Persistence_View_Media {
 		}
 		
 		ksort($return);
+		
+		return $return;
+	}
+	
+	public static function byFileExtension($idart, $fileextension) {
+		
+		if (empty($fileextension)) {
+			return array();
+		}
+
+		$idlang = Aitsu_Registry :: get()->env->idlang;
+
+		$images = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	media.mediaid, ' .
+		'	media.idart, ' .
+		'	media.filename, ' .
+		'	media.size, ' .
+		'	media.extension, ' .
+		'	description.name, ' .
+		'	description.subline, ' .
+		'	description.description ' .
+		'from _media media ' .
+		'left join _media_description description on media.mediaid = description.mediaid and description.idlang = :idlang ' .
+		'where ' .
+		'	media.idart = :idart ' .
+		'	and media.deleted is null ' .
+		'	and media.extension = :fileextension ' .
+		'	and media.mediaid in (' .
+		'		select ' .
+		'			max(media.mediaid) ' .
+		'		from _media ' .
+		'		where ' .
+		'			idart = :idart ' .
+		'		group by' .
+		'			filename ' .
+		'	)', array (
+			':idart' => $idart,
+			':idlang' => $idlang,
+			':fileextension' => $fileextension
+		));
+		
+		$return = array();
+		
+		foreach ($images as $image) {
+			$return[] = (object) $image;
+		}
 		
 		return $return;
 	}
