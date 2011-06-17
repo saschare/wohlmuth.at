@@ -43,8 +43,8 @@ class Adm_Script_Setup extends Aitsu_Adm_Script_Abstract {
 		}
 
 		$line = 0;
-		$this->_from = ($step -1) * 50 + 1;
-		$this->_to = $step * 50;
+		$this->_from = ($step -1) * 100 + 1;
+		$this->_to = $step * 100;
 		while (!feof($handle)) {
 			$line++;
 			$buffer = fgets($handle, 50000);
