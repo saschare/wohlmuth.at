@@ -4,34 +4,60 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: User.php 18768 2010-09-14 18:33:34Z akm $}
  */
 
 class Aitsu_Persistence_View_User {
 
 	public static function auth($login, $password, $hashed = false) {
 
-		if (!$hashed) {
-			$password = md5($password);
-		}
+		$userid = null;
 
-		$userid = Aitsu_Db :: fetchOne('' .
-		'select userid from _acl_user ' .
-		'where ' .
-		'	login = :login ' .
-		'	and password = :password ' .
-		'	and (' .
-		'		acfrom is null ' .
-		'		or acfrom < now() ' .
-		'	) ' .
-		'	and (' .
-		'		acuntil is null ' .
-		'		or acuntil > now() ' .
-		'	)', array (
-			':login' => $login,
-			':password' => $password
-		));
+		if ($hashed) {
+			/*
+			 * Password hash has been used to authenticate
+			 * instead of the plain text password.
+			 */
+			$userid = Aitsu_Db :: fetchOne('' .
+			'select userid from _acl_user ' .
+			'where ' .
+			'	login = :login ' .
+			'	and password = :password ' .
+			'	and (' .
+			'		acfrom is null ' .
+			'		or acfrom < now() ' .
+			'	) ' .
+			'	and (' .
+			'		acuntil is null ' .
+			'		or acuntil > now() ' .
+			'	)', array (
+				':login' => $login,
+				':password' => $password
+			));
+		} else {
+			/*
+			 * Password has been given as plain text.
+			 */
+			 
+			$user = Aitsu_Db :: fetchRow('' .
+			'select userid, password from _acl_user ' .
+			'where ' .
+			'	login = :login ' .
+			'	and (' .
+			'		acfrom is null ' .
+			'		or acfrom < now() ' .
+			'	) ' .
+			'	and (' .
+			'		acuntil is null ' .
+			'		or acuntil > now() ' .
+			'	) ', array (
+				':login' => $login
+			));
+			
+			$hasher = new Openwall_PasswordHash(8, FALSE);
+			if ($user && $hasher->checkPassword($password, $user['password'])) {
+				$userid = $user['userid'];
+			}
+		}
 
 		return self :: _getUserData($userid);
 	}
