@@ -799,5 +799,46 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
 	}
+        
+        public function doAddPlaceholderTable() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'placeholder';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+                Aitsu_Db::query("
+                    CREATE TABLE IF NOT EXISTS `_placeholder` (
+                        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                        `idlang` int(10) unsigned NOT NULL,
+                        `placeholder` varchar(255) NOT NULL,
+                        `value` text NOT NULL,
+                        PRIMARY KEY (`id`),
+                        UNIQUE KEY `unique` (`idlang`,`placeholder`),
+                        KEY `idlang` (`idlang`)
+                    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8
+                ");
+                
+                Aitsu_Db::query("
+                    ALTER TABLE `_placeholder`
+                    ADD FOREIGN KEY ( `idlang` )
+                    REFERENCES `_lang`
+                    (`idlang`) ON DELETE CASCADE ON UPDATE NO ACTION
+                ");
+                
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
 
 }
