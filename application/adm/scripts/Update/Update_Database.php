@@ -824,14 +824,16 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
                     `identifier` VARCHAR( 255 ) NOT NULL
                     ) ENGINE = InnoDB;
                 ");
-                                
+                
+                Aitsu_Db::query("ALTER TABLE `_placeholder` ADD UNIQUE (`identifier`)");
+                                              
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
 	}
         
         public function doAddPlaceholderValuesTable() {
 
 		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
-		$table = $pf . 'placeholder';
+		$table = $pf . 'placeholder_values';
 
 		$exists = Aitsu_Db :: fetchOne('' .
 		'select count(*) from information_schema.tables ' .
@@ -863,7 +865,14 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
                     ALTER TABLE `_placeholder_values` ADD FOREIGN KEY ( `placeholderid` )
                     REFERENCES `_placeholder` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION ;
                 ");
-                                
+                
+                Aitsu_Db::query("ALTER TABLE `_placeholder_values` ADD INDEX (`idlang`)");
+                   
+                Aitsu_Db::query("
+                    ALTER TABLE `_placeholder_values` ADD FOREIGN KEY (`idlang`) REFERENCES `_lang`
+                    (`idlang`) ON DELETE CASCADE ON UPDATE NO ACTION
+                ");
+
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
 	}
         

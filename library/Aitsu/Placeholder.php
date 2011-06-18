@@ -6,7 +6,7 @@
  */
 class Aitsu_Placeholder {
 
-    public static function get($placeholder) {
+    public static function get($identifier) {
 
         if (Aitsu_Registry::isFront()) {
             $idlang = Aitsu_Registry::get()->env->idlang;
@@ -14,46 +14,66 @@ class Aitsu_Placeholder {
             $idlang = Aitsu_Registry::get()->session->currentLanguage;
         }
 
-        $value = Aitsu_Db::fetchOne("
+        if (!is_numeric($identifier)) {
+            $value = Aitsu_Db::fetchOne("
             SELECT
-                `value`
+                `value`.`value`
+            FROM
+                `_placeholder` AS `placeholder`
+            INNER JOIN
+                `_placeholder_values` AS `value` ON (
+                    `value`.`placeholderid` = `placeholder`.`id`
+                 AND
+                    `value`.`idlang` =:idlang
+                )
+            WHERE
+                `placeholder`.`identifier` = :identifier
+            ", array(
+                        ':identifier' => $identifier,
+                        ':idlang' => $idlang
+                    ));
+        } else {
+            $value = Aitsu_Db::fetchOne("
+            SELECT
+                `identifier`
             FROM
                 `_placeholder`
             WHERE
-                `placeholder` =:placeholder
-            AND
-                `idlang` =:idlang
-       ", array(
-           ':placeholder' => $placeholder,
-           ':idlang' => $idlang
-       ));
-
-        if (empty($value)) {
-            $value = 'Placeholder: ' . $placeholder;
+                `id` =:identifier
+            ", array(
+                        ':identifier' => $identifier
+                    ));
         }
 
         return $value;
     }
 
-    public static function set($placeholder, $value, $edit = null) {
+    public static function set($identifier, $value, $id = null) {
 
-        if (Aitsu_Registry::isFront()) {
-            $idlang = Aitsu_Registry::get()->env->idlang;
-        } else {
-            $idlang = Aitsu_Registry::get()->session->currentLanguage;
+        if (!empty($id)) {
+            $data['id'] = $id;
         }
 
-        $data = array(
-            'placeholder' => $placeholder,
-            'value' => $value,
-            'idlang' => $idlang
-        );
+        $data['identifier'] = $identifier;
 
-        if (!empty($edit)) {
-            $data['id'] = $edit;
+        $placeholderid = Aitsu_Db::put('_placeholder', 'id', $data);
+
+        unset($data);
+
+        $id = Aitsu_Db::fetchOne("SELECT `id` FROM `_placeholder_values` WHERE `idlang` =:idlang AND `placeholderid` =:placeholderid", array(
+                    ':placeholderid' => $placeholderid,
+                    ':idlang' => Aitsu_Registry::get()->session->currentLanguage
+                ));
+
+        if (!empty($id)) {
+            $data['id'] = $id;
         }
 
-        Aitsu_Db::put(`_placeholder`, 'id', $data);
+        $data['placeholderid'] = $placeholderid;
+        $data['idlang'] = Aitsu_Registry::get()->session->currentLanguage;
+        $data['value'] = $value;
+
+        Aitsu_Db::put('_placeholder_values', 'id', $data);
     }
 
 }

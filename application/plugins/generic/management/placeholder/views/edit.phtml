@@ -1,0 +1,25 @@
+var east = Ext.getCmp('viewport-east');
+east.removeAll();
+east.setVisible(true);
+east.setWidth(350);
+
+var formSubmit = function(formId) {
+	Ext.getCmp(formId).getForm().submit({
+		success: function() {
+			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have been saved.'); ?>');
+			Ext.getCmp('placeholderGrid').getStore().load();
+		}, 
+		failure: function() {
+			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been save due to errors.'); ?>');
+		}
+	});
+}
+
+var form = <?php echo $this->form->render('ExtJs'); ?>;
+
+east.setAutoScroll(true);
+east.add(form);
+
+east.expand(false);
+
+Ext.getCmp('viewport').doLayout();
