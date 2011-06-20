@@ -20,8 +20,8 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 		$this->_id = $id;
 		$this->_idlang = Aitsu_Registry :: get()->session->currentLanguage;
-		
-		if (empty($this->_idlang)) {
+
+		if (empty ($this->_idlang)) {
 			$this->_idlang = Aitsu_Registry :: get()->env->idlang;
 		}
 	}
@@ -111,7 +111,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 		return stripslashes($this->_data[$key]);
 	}
-	
+
 	public function getData() {
 
 		return $this->_data;
@@ -126,7 +126,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		$this->_data[$key] = $value;
 	}
 
-	public function save( $manualmoddate=false ) {
+	public function save($manualmoddate = false) {
 
 		if (empty ($this->_data)) {
 			return;
@@ -150,10 +150,10 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 		// use current time as lastmodified, unless the flag
 		// manualmoddate is set to true
-		if( !$manualmoddate ) {
+		if (!$manualmoddate) {
 			$this->_data['lastmodified'] = date('Y-m-d H:i:s');
 		}
-			
+
 		if (empty ($this->_data['pubfrom'])) {
 			$this->_data['pubfrom'] = ""; //new Zend_Db_Expr('NULL');
 		}
@@ -573,14 +573,14 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			':idart' => $this->_id,
 			':idlang' => $this->_idlang
 		));
-		
+
 		if (!$configData) {
 			$this->_config = $config;
 		}
-		
-		if (empty($configData[0]['artconfigset'])) {
+
+		if (empty ($configData[0]['artconfigset'])) {
 			foreach ($configData as $conf) {
-				if (!empty($conf['catconfigset'])) {
+				if (!empty ($conf['catconfigset'])) {
 					$config = Aitsu_Util :: parseSimpleIni($conf['catconfigset'], $config);
 					break 1;
 				}
@@ -588,19 +588,19 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		} else {
 			$config = Aitsu_Util :: parseSimpleIni($configData[0]['artconfigset'], $config);
 		}
-		
+
 		$configData = array_reverse($configData);
-		
+
 		foreach ($configData as $conf) {
-			if (!empty($conf['catconfig'])) {
+			if (!empty ($conf['catconfig'])) {
 				$config = Aitsu_Util :: parseSimpleIni($conf['catconfig'], $config);
 			}
 		}
-		
-		if (!empty($configData[0]['artconfig'])) {
+
+		if (!empty ($configData[0]['artconfig'])) {
 			$config = Aitsu_Util :: parseSimpleIni($configData[0]['artconfig'], $config);
 		}
-		
+
 		$this->_config = $config;
 	}
 
@@ -772,11 +772,16 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			Aitsu_Db :: rollback();
 			throw $e;
 		}
-		
+
 		return $this;
 	}
 
-	public function publish() {
+	public function revise() {
+
+		return $this->publish(false);
+	}
+
+	public function publish($publish = true) {
 
 		Aitsu_Db :: startTransaction();
 
@@ -786,10 +791,12 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 			$transactionTime = date('Y-m-d H:i:s');
 
-			Aitsu_Db :: query('' .
-			'update _pub set status = 0 where idartlang = :idartlang', array (
-				':idartlang' => $this->idartlang
-			));
+			if ($publish) {
+				Aitsu_Db :: query('' .
+				'update _pub set status = 0 where idartlang = :idartlang', array (
+					':idartlang' => $this->idartlang
+				));
+			}
 
 			$pubid = Aitsu_Db :: query('' .
 			'insert into _pub ' .
@@ -807,12 +814,14 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				foreach ($tables->toArray() as $table) {
 					$marker = $table['marker'];
 
-					Aitsu_Db :: query('' .
-					'update ' . $table['target'] . ' set ' .
-					'status = 0 ' .
-					'where ' . $marker . ' = :marker', array (
-						':marker' => $this-> $marker
-					));
+					if ($publish) {
+						Aitsu_Db :: query('' .
+						'update ' . $table['target'] . ' set ' .
+						'status = 0 ' .
+						'where ' . $marker . ' = :marker', array (
+							':marker' => $this-> $marker
+						));
+					}
 
 					$source = Aitsu_Db :: fetchAll('' .
 					'select * from ' . $table['source'] . ' ' .
@@ -824,7 +833,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 						foreach ($source as $src) {
 							Aitsu_Db :: put($table['target'], null, array_merge($src, array (
 								'pubid' => $pubid,
-								'status' => 1
+								'status' => $publish ? 1 : 0
 							)));
 						}
 					}
