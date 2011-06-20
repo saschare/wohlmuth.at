@@ -59,11 +59,6 @@
                 renderer: function(value, metaData, record, rowIndex, colIndex, store) {
                     return record.get('name');
                 }
-            }, {
-                dataIndex: 'alias',
-                header: '<?php echo Aitsu_Translate :: translate('Module'); ?>',
-                sortable: false,
-                width: 70
             }],
             listeners: {
                 render: function(grid) {
