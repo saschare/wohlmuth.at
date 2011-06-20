@@ -105,11 +105,6 @@ pageEditTabs.activate(0);
 
 Ext.getCmp('page-edit-tab').add(pageEditTabs);
 
-/*
-Replaces the previously edited area.
-$(document).trigger('doReplace', [p.type, p.container, p.idartlang, '<div><div class="aitsu_hover"><div id="PagetitleAsHeadline--440" class="aitsu_editable"><div class="aitsu_hover"><code class="aitsu_params" style="display:none;"> tag = h1 </code><h1>test</h1></div></div></div></div>']);
-*/
-
 var doEditHandler = function(p) {
 	Ext.aitsu.load(['<?php echo $this->url(array('plugin' => 'edit', 'paction' => 'editcontent'), 'aplugin'); ?>'], null, {
 		type: p.type,
