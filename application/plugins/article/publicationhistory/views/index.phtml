@@ -1,0 +1,136 @@
+Ext.ux.IFrameComponent = Ext.extend(Ext.BoxComponent, {
+     onRender : function(ct, position){
+          this.el = ct.createChild({tag: 'iframe', id: this.id, frameBorder: 0, src: this.url});
+     }
+});
+
+current_publication_iframe = new Ext.ux.IFrameComponent({id: 'preview-iframe-current', url: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>id/<?php echo $this->idartlang; ?>'});
+
+choosen_publication_iframe = new Ext.ux.IFrameComponent({id: 'preview-iframe-choosen', url: null});
+            
+var publications = new Ext.grid.GridPanel({
+    id: 'publications',
+	store: new Ext.data.JsonStore({
+        autoDestroy: true,
+        url: '<?php echo $this->url(array('plugin' => 'publicationhistory', 'paction' => 'store'), 'aplugin'); ?>',
+        remoteSort: false,
+        storeId: 'publicationsStore',
+        idProperty: 'pubid',
+        root: 'data',
+        fields: [{name: 'pubid', type: 'int'}, {name: 'idartlang', type: 'int'}, 'user', {name: 'pubtime', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'status'],
+        baseParams: {
+        	idart: <?php echo $this->idart; ?>
+        }
+    }),
+    columns: [
+        {dataIndex: 'pubtime', header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')},
+        {dataIndex: 'user', header: '<?php echo Aitsu_Translate :: translate('User'); ?>', menuDisabled: true, sortable: true},
+        {dataIndex: 'status', header: '<?php echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+            if (record.get('status') != 1) {
+                return '<span style="color:red;"><?php echo Aitsu_Translate :: translate('inactive'); ?></span>';
+	    } else {
+                return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('active'); ?></span>';
+	    }
+	}}
+	],
+	viewConfig: {
+		forceFit: true,
+		autoFill: true
+	},
+	border: false,
+	listeners: {
+		render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
+                rowclick : function(grid,rowIndex,e) {               
+                    var pubid = grid.getStore().getAt(rowIndex).get('pubid');
+                
+                    Ext.get('preview-iframe-choosen').set({
+                        src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>id/' + <?php echo $this->idartlang; ?> + '/' + pubid
+	            });
+		}
+	}
+});
+
+var publicationView = {
+    layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    defaults: {
+        frame: false
+    },
+    border: false,
+    items: [{
+        title: 'current Publication',
+        flex: 1,
+        xtype: 'panel',
+        layout: 'fit',
+        items: [current_publication_iframe]
+    }, {
+        title: 'choosen Publication',
+        flex: 2,
+        xtype: 'panel',
+        layout:'fit',
+        items: [choosen_publication_iframe],
+        tbar: {
+            items: [{
+                tooltip: '<?php echo Aitsu_Translate :: translate('Activate'); ?>',
+	        iconCls: 'tm-tag-green',
+	        handler: function(b, e) {
+                    Ext.MessageBox.show({
+					 	title: '<?php echo $this->translate('Activate publication'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to activate the selected publication?'); ?>',
+					 	buttons: Ext.MessageBox.OKCANCEL,
+					 	fn: function(result) {
+                                                
+                                                var pubid = Ext.getCmp('publications').selModel.getSelected().data.pubid;
+            
+					 	if (result == 'ok') {
+				            	Ext.Ajax.request({
+				            		url: '<?php echo $this->url(array('plugin' => 'publicationhistory', 'paction' => 'activate'), 'aplugin'); ?>',
+				            		success: function(response, opts) {
+				            			var rsp = Ext.decode(response.responseText);
+				            			if (rsp.success) {
+					            			Ext.getCmp('publications').getStore().reload();
+                                                                        
+                                                                        Ext.get('preview-iframe-current').set({
+                                                                            src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>id/<?php echo $this->idartlang; ?>'
+                                                                        });
+				            			}
+				            		},
+				            		params: { 
+                                                                pubid: pubid,
+                                                                idartlang: <?php echo $this->idartlang; ?>
+				            		}
+				            	});					 			
+					 		}
+					 	}
+					 });
+	        }
+            }]
+	}
+    }]
+};
+
+Ext.getCmp('page-edit-tab').add({
+    id: 'article-plugin-publicationhistory',
+    title: '<?php echo Aitsu_Translate :: translate('Publication History'); ?>',
+    layout: 'border',
+    items: [{
+        title: 'Publications',
+	region: 'west',
+	width: 400,
+	layout: 'fit',
+	split: true,
+	items: publications
+    }, {
+	region: 'center',
+	layout: 'fit',
+	split: true,
+	items: publicationView
+    }]
+});
