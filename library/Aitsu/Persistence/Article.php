@@ -778,7 +778,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
         public function rebuild($pubid) {
             
-                $isPublished = $this->revise($pubid);
+                $this->revise($pubid);
             
                 Aitsu_Db :: startTransaction();
 
@@ -817,10 +817,6 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				}
 			}
                         
-                        if (!$isPublished) {
-                           self::touch($this->idartlang); 
-                        }
-                        
                         Aitsu_Db :: commit();
                 } catch (Exception $e) {
 			Aitsu_Db :: rollback();
@@ -833,19 +829,18 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 	public function revise($pubid) {
             
                 $isPublished = Aitsu_Db :: fetchOne('' .
-                'select if (pub.pubtime = lang.lastmodified, 1, 0) as published ' . 
-                'from _pub as pub ' .
-                'inner join _art_lang as lang on lang.idartlang = pub.idartlang ' . 
-                'where pub.pubid = :pubid ' . 
-                'order by pubid desc', array(
-                    ':pubid' => $pubid
-                ));
+                'select count(*) ' . 
+                'from _art_lang as artlang, _pub as pub ' .
+                'where artlang.modified = pub.idartlang' . 
+                'and artlang.lastmodified = pub.pubtime');
 
-                if (!$isPublished) {
+                if ($isPublished > 0) {
                     $this->publish(false);
+                    
+                    return true;
                 }
                 
-                return $isPublished;
+                return false;
 	}
 
 	public function publish($publish = true) {
