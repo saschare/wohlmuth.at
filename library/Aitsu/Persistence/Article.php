@@ -792,7 +792,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
                     }
                     
                     $publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
-
+                    
 			foreach ($publishMap as $type => $tables) {
 				foreach ($tables->toArray() as $table) {
                                     
@@ -804,7 +804,8 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 						':pubid' => $pubid
 					));
                                     
-                                    $test[$table['target'] . ' _ ' . $pubid] = print_r($source, true);
+                                    $test[$table['target'] . ' _ ' . $pubid]['data'] = print_r($source, true);
+                                    $test[$table['target'] . ' _ ' . $pubid]['query'] = 'select * from ' . $table['target'] . ' where pubid = ' . $pubid;
                                     
                                     Aitsu_Db :: query('' .
                                                 'delete from ' . $table['source'] . ' ' .
