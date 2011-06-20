@@ -1066,4 +1066,185 @@
     <index table="tracking_type" name="PRIMARY" columns="typeid" type="BTREE" unique="true"/>
     <index table="translate" name="idlang" columns="idlang" type="BTREE" unique="false"/>
     <index table="translate" name="PRIMARY" columns="translationid" type="BTREE" unique="true"/>
+    <constraint name="aait_shop_item_ibfk_2" table="_shop_item" column="orderid"
+        reftable="_shop_order" refcolumn="orderid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="aait_shop_item_ibfk_1" table="_shop_item" column="productid"
+        reftable="_shop_product" refcolumn="productid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="aait_shop_product_ibfk_2" table="_shop_product" column="currencyid"
+        reftable="_shop_currency" refcolumn="currencyid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="aait_shop_product_name_ibfk_1" table="_shop_product_name" column="productid"
+        reftable="_shop_product" refcolumn="productid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="aait_shop_tax_rate_ibfk_1" table="_shop_tax_rate" column="classid"
+        reftable="_shop_tax_class" refcolumn="classid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_clients_ibfk_2" table="acl_clients" column="roleid"
+        reftable="acl_role" refcolumn="roleid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_clients_ibfk_1" table="acl_clients" column="idclient"
+        reftable="clients" refcolumn="idclient" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_languages_ibfk_1" table="acl_languages" column="roleid"
+        reftable="acl_role" refcolumn="roleid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_languages_ibfk_2" table="acl_languages" column="idlang"
+        reftable="lang" refcolumn="idlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_privileges_ibfk_2" table="acl_privileges" column="privilegeid"
+        reftable="acl_privilege" refcolumn="privilegeid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_privileges_ibfk_1" table="acl_privileges" column="roleid"
+        reftable="acl_role" refcolumn="roleid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_resources_ibfk_2" table="acl_resources" column="resourceid"
+        reftable="acl_resource" refcolumn="resourceid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_resources_ibfk_1" table="acl_resources" column="roleid"
+        reftable="acl_role" refcolumn="roleid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_roles_ibfk_1" table="acl_roles" column="roleid" reftable="acl_role"
+        refcolumn="roleid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_roles_ibfk_2" table="acl_roles" column="userid" reftable="acl_user"
+        refcolumn="userid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_acl_user_ibfk_1" table="acl_user" column="idlang" reftable="lang"
+        refcolumn="idlang" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_aitsu_article_property_ibfk_1" table="aitsu_article_property"
+        column="propertyid" reftable="aitsu_property" refcolumn="propertyid" onupdate="restrict"
+        ondelete="cascade"/>
+    <constraint name="ait_aitsu_article_property_ibfk_2" table="aitsu_article_property"
+        column="idartlang" reftable="art_lang" refcolumn="idartlang" onupdate="restrict"
+        ondelete="cascade"/>
+    <constraint name="ait_art_ibfk_1" table="art" column="idclient" reftable="clients"
+        refcolumn="idclient" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_article_content_ibfk_1" table="article_content" column="idartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_art_lang_ibfk_1" table="art_lang" column="idart" reftable="art"
+        refcolumn="idart" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_art_lang_ibfk_3" table="art_lang" column="configsetid"
+        reftable="configset" refcolumn="configsetid" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_art_lang_ibfk_2" table="art_lang" column="idlang" reftable="lang"
+        refcolumn="idlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_art_meta_ibfk_1" table="art_meta" column="idartlang" reftable="art_lang"
+        refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_cat_art_ibfk_2" table="cat_art" column="idart" reftable="art"
+        refcolumn="idart" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_cat_art_ibfk_1" table="cat_art" column="idcat" reftable="cat"
+        refcolumn="idcat" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_cat_favorites_ibfk_2" table="cat_favorites" column="userid"
+        reftable="acl_roles" refcolumn="userid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_cat_favorites_ibfk_1" table="cat_favorites" column="idcat" reftable="cat"
+        refcolumn="idcat" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_cat_lang_ibfk_3" table="cat_lang" column="startidartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_cat_lang_ibfk_1" table="cat_lang" column="idcat" reftable="cat"
+        refcolumn="idcat" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_cat_lang_ibfk_4" table="cat_lang" column="configsetid"
+        reftable="configset" refcolumn="configsetid" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_cat_lang_ibfk_2" table="cat_lang" column="idlang" reftable="lang"
+        refcolumn="idlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_comment_ibfk_1" table="comment" column="idartlang" reftable="art_lang"
+        refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_crosslink_ibfk_1" table="crosslink" column="idartlanglow"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_crosslink_ibfk_2" table="crosslink" column="idartlanghigh"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_geo_city_ibfk_1" table="geo_city" column="countryid"
+        reftable="geo_country" refcolumn="countryid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_geo_location_ibfk_1" table="geo_location" column="cityid"
+        reftable="geo_city" refcolumn="cityid" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_hit_ibfk_1" table="hit" column="idartlang" reftable="art_lang"
+        refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_lang_ibfk_1" table="lang" column="idclient" reftable="clients"
+        refcolumn="idclient" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_lastopened_ibfk_3" table="lastopened" column="userid" reftable="acl_user"
+        refcolumn="userid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_lastopened_ibfk_1" table="lastopened" column="idart" reftable="art"
+        refcolumn="idart" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_lastopened_ibfk_2" table="lastopened" column="idlang" reftable="lang"
+        refcolumn="idlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_description_ibfk_1" table="media_description" column="mediaid"
+        reftable="media" refcolumn="mediaid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_description_ibfk_2" table="media_description" column="mediaid"
+        reftable="media" refcolumn="mediaid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_description_ibfk_3" table="media_description" column="mediaid"
+        reftable="media" refcolumn="mediaid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_tags_ibfk_2" table="media_tags" column="mediaid" reftable="media"
+        refcolumn="mediaid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_tags_ibfk_4" table="media_tags" column="mediaid" reftable="media"
+        refcolumn="mediaid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_tags_ibfk_6" table="media_tags" column="mediaid" reftable="media"
+        refcolumn="mediaid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_tags_ibfk_1" table="media_tags" column="mediatagid"
+        reftable="media_tag" refcolumn="mediatagid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_tags_ibfk_3" table="media_tags" column="mediatagid"
+        reftable="media_tag" refcolumn="mediatagid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_media_tags_ibfk_5" table="media_tags" column="mediatagid"
+        reftable="media_tag" refcolumn="mediatagid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_performance_profile_ibfk_1" table="performance_profile" column="idartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_ibfk_1" table="pub" column="idartlang" reftable="art_lang"
+        refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_aitsu_article_property_ibfk_1" table="pub_aitsu_article_property"
+        column="propertyid" reftable="aitsu_property" refcolumn="propertyid" onupdate="restrict"
+        ondelete="cascade"/>
+    <constraint name="ait_pub_aitsu_article_property_ibfk_2" table="pub_aitsu_article_property"
+        column="idartlang" reftable="art_lang" refcolumn="idartlang" onupdate="restrict"
+        ondelete="cascade"/>
+    <constraint name="ait_pub_aitsu_article_property_ibfk_3" table="pub_aitsu_article_property"
+        column="pubid" reftable="pub" refcolumn="pubid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_article_content_ibfk_1" table="pub_article_content" column="idartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_article_content_ibfk_2" table="pub_article_content" column="pubid"
+        reftable="pub" refcolumn="pubid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_art_lang_ibfk_4" table="pub_art_lang" column="idart" reftable="art"
+        refcolumn="idart" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_art_lang_ibfk_1" table="pub_art_lang" column="idartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_art_lang_ibfk_2" table="pub_art_lang" column="configsetid"
+        reftable="configset" refcolumn="configsetid" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_pub_art_lang_ibfk_5" table="pub_art_lang" column="idlang" reftable="lang"
+        refcolumn="idlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_art_lang_ibfk_3" table="pub_art_lang" column="pubid" reftable="pub"
+        refcolumn="pubid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_art_meta_ibfk_1" table="pub_art_meta" column="idartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_pub_art_meta_ibfk_2" table="pub_art_meta" column="pubid" reftable="pub"
+        refcolumn="pubid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_rating_ibfk_1" table="rating" column="idartlang" reftable="art_lang"
+        refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_ratings_ibfk_1" table="ratings" column="idartlang" reftable="art_lang"
+        refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_revision_ibfk_1" table="revision" column="userid" reftable="acl_user"
+        refcolumn="userid" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_revision_art_lang_ibfk_2" table="revision_art_lang" column="idartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_revision_art_lang_ibfk_5" table="revision_art_lang" column="configsetid"
+        reftable="configset" refcolumn="configsetid" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_revision_art_lang_ibfk_1" table="revision_art_lang" column="revisionid"
+        reftable="revision" refcolumn="revisionid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_revision_content_ibfk_2" table="revision_content" column="idartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_revision_content_ibfk_1" table="revision_content" column="revisionid"
+        reftable="revision" refcolumn="revisionid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_revision_property_ibfk_2" table="revision_property" column="propertyid"
+        reftable="aitsu_property" refcolumn="propertyid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_revision_property_ibfk_3" table="revision_property" column="idartlang"
+        reftable="art_lang" refcolumn="idartlang" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_revision_property_ibfk_1" table="revision_property" column="revisionid"
+        reftable="revision" refcolumn="revisionid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_syndication_resource_ibfk_1" table="syndication_resource"
+        column="sourceid" reftable="syndication_source" refcolumn="sourceid" onupdate="restrict"
+        ondelete="cascade"/>
+    <constraint name="ait_syndication_resource_art_ibfk_1" table="syndication_resource_art"
+        column="idartlang" reftable="art_lang" refcolumn="idartlang" onupdate="restrict"
+        ondelete="cascade"/>
+    <constraint name="ait_syndication_resource_art_ibfk_2" table="syndication_resource_art"
+        column="sourceid" reftable="syndication_source" refcolumn="sourceid" onupdate="restrict"
+        ondelete="cascade"/>
+    <constraint name="ait_syndication_source_ibfk_1" table="syndication_source" column="idclient"
+        reftable="clients" refcolumn="idclient" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_tag_art_ibfk_1" table="tag_art" column="idart" reftable="art"
+        refcolumn="idart" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_tag_art_ibfk_2" table="tag_art" column="tagid" reftable="tag"
+        refcolumn="tagid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_tracking_project_ibfk_1" table="tracking_project" column="customerid"
+        reftable="tracking_customer" refcolumn="customerid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_tracking_track_ibfk_2" table="tracking_track" column="userid"
+        reftable="acl_user" refcolumn="userid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_tracking_track_ibfk_1" table="tracking_track" column="projectid"
+        reftable="tracking_project" refcolumn="projectid" onupdate="restrict" ondelete="cascade"/>
+    <constraint name="ait_tracking_track_ibfk_3" table="tracking_track" column="typeid"
+        reftable="tracking_type" refcolumn="typeid" onupdate="restrict" ondelete="set null"/>
+    <constraint name="ait_translate_ibfk_1" table="translate" column="idlang" reftable="lang"
+        refcolumn="idlang" onupdate="restrict" ondelete="cascade"/>
 </root>
