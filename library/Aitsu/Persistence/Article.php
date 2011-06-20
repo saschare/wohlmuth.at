@@ -776,20 +776,15 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		return $this;
 	}
 
-	public function revise($pubid) {
-
+        public function rebuild($pubid) {
+            
+                $this->revise();
+            
                 Aitsu_Db :: startTransaction();
 
                 try {
                     
                     $this->load();
-                    
-                    // alles veränderte geht aktuell noch verloren
-                    $isPublished = true;
-
-                    if (!$isPublished) {
-                        $this->publish(false);
-                    }
                     
                     $publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
                     
@@ -802,18 +797,18 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 					'select * from ' . $table['target'] . ' ' .
 					'where pubid = :pubid', array (
 						':pubid' => $pubid
-					), false, true);
-                                    
-                                    echo $pubid;
-                                    
-                                    print_r($source);
-                                    
-                                    Aitsu_Db :: query('' .
+					));
+                                   
+                                        if ($table['delete']) {
+                                                Aitsu_Db :: query('' .
                                                 'delete from ' . $table['source'] . ' ' .
                                                 'where ' . $marker . ' = :marker', array (
-                                                ':marker' => $this-> $marker
-                                            ), false, true);
-
+                                                    ':marker' => $this-> $marker
+                                                        ));
+                                        
+                                                $marker = null;
+                                        }
+                                    
                                         if ($source) {
 						foreach ($source as $src) {  
                                                         Aitsu_Db :: put($table['source'], $marker, $src);
@@ -826,7 +821,16 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			throw $e;
 		}
 
-		return $test;
+		return $this;
+	}
+        
+	public function revise() {
+            
+                $isPublished = true;
+
+                if (!$isPublished) {
+                    $this->publish(false);
+                }
 	}
 
 	public function publish($publish = true) {

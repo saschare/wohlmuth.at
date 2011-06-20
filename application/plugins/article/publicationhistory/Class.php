@@ -55,7 +55,7 @@ class PublicationhistoryArticleController extends Aitsu_Adm_Plugin_Controller {
             $idart = $this->getRequest()->getParam('idart');
             $pubid = $this->getRequest()->getParam('pubid');
 
-            $test = Aitsu_Persistence_Article::factory($idart)->revise($pubid);
+            Aitsu_Persistence_Article::factory($idart)->rebuild($pubid);
         } catch (Exception $e) {
             $this->_helper->json((object) array(
                         'success' => false
@@ -63,8 +63,7 @@ class PublicationhistoryArticleController extends Aitsu_Adm_Plugin_Controller {
         }
 
         $this->_helper->json((object) array(
-                    'success' => true,
-            'test' => $test
+                    'success' => true
         ));
     }
 
