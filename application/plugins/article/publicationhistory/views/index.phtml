@@ -53,7 +53,9 @@ var publications = new Ext.grid.GridPanel({
                             if (rsp.success) {
                                 Ext.getCmp('publications').getStore().reload();
                                        
-                                // Edit bereich muss noch neu geladen werden
+                                Ext.get('edit-iframe-<?php echo $this->idartlang; ?>').set({
+                                        src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>adm/edit/<?php echo $this->idartlang; ?>'
+                                });
                                 
                                 Ext.get('preview-iframe-choosen').set({
                                     src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>adm/preview/<?php echo $this->idartlang; ?>'
