@@ -152,6 +152,13 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 
 			$output = '';
 			$resources = explode('-', $_GET['minify']);
+			
+			/*
+			 * We have to remove the first segment, as this segment's solely
+			 * intention is to make the css uri unique.
+			 */
+			array_shift($resources);
+			
 			foreach ($resources as $res) {
 				$output .= $instance->_makeAbsolute(file_get_contents($instance->resources['css'][0][$res]), $instance->resources['css'][0][$res]);
 			}
@@ -248,7 +255,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 			$addedResources[] = $instance->resources[$type][1][$res];
 		}
 
-		return implode('-', $addedResources) . '.minime.' . $type;
+		return uniqid() . '-' . implode('-', $addedResources) . '.minime.' . $type;
 	}
 
 	protected function _mapResources() {
