@@ -34,7 +34,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		);
 	}
 
-	public function factory() {
+	public static function factory() {
 
 		$instance = new self();
 		return $instance;
