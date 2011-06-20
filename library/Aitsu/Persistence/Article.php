@@ -776,9 +776,55 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		return $this;
 	}
 
-	public function revise() {
+	public function revise($pubid) {
 
-		return $this->publish(false);
+                Aitsu_Db :: startTransaction();
+
+                try {
+                    
+                    $this->load();
+                    
+                    // alles veränderte geht aktuell noch verloren
+                    $isPublished = true;
+
+                    if (!$isPublished) {
+                        $this->publish(false);
+                    }
+                    
+                    $publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
+
+			foreach ($publishMap as $type => $tables) {
+				foreach ($tables->toArray() as $table) {
+                                    
+                                    $marker = $table['marker'];
+                                        
+                                    $source = Aitsu_Db :: fetchAll('' .
+					'select * from ' . $table['target'] . ' ' .
+					'where pubid = :pubid', array (
+						':pubid' => $pubid
+					));
+                                    
+                                    $test[$table['target'] . ' _ ' . $pubid] = print_r($source, true);
+                                    
+                                    Aitsu_Db :: query('' .
+                                                'delete from ' . $table['source'] . ' ' .
+                                                'where ' . $marker . ' = :marker', array (
+                                                ':marker' => $this-> $marker
+                                            ), false, true);
+
+                                        if ($source) {
+						foreach ($source as $src) {  
+                                                        Aitsu_Db :: put($table['source'], $marker, $src);
+						}
+					}
+				}
+			}
+                } catch (Exception $e) {
+			Aitsu_Db :: rollback();
+			throw $e;
+		}
+
+		return $test;
 	}
 
 	public function publish($publish = true) {
@@ -800,12 +846,13 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 			$pubid = Aitsu_Db :: query('' .
 			'insert into _pub ' .
-			'(idartlang, userid, pubtime) ' .
+			'(idartlang, userid, pubtime, status) ' .
 			'values ' .
-			'(:idartlang, :userid, :pubtime)', array (
+			'(:idartlang, :userid, :pubtime, :status)', array (
 				':idartlang' => $this->idartlang,
 				':userid' => Aitsu_Adm_User :: getInstance()->getId(),
-				':pubtime' => $transactionTime
+				':pubtime' => $transactionTime,
+                                'status' => $publish ? 1 : 0
 			))->getLastInsertId();
 
 			$publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');

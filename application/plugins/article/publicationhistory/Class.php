@@ -51,6 +51,25 @@ class PublicationhistoryArticleController extends Aitsu_Adm_Plugin_Controller {
 
     public function activateAction() {
 
+        try {
+            $idart = $this->getRequest()->getParam('idart');
+            $pubid = $this->getRequest()->getParam('pubid');
+
+            $test = Aitsu_Persistence_Article::factory($idart)->revise($pubid);
+        } catch (Exception $e) {
+            $this->_helper->json((object) array(
+                        'success' => false
+            ));
+        }
+
+        $this->_helper->json((object) array(
+                    'success' => true,
+            'test' => $test
+        ));
+    }
+
+    public function publishAction() {
+
         $this->idartlang = $this->getRequest()->getParam('idartlang');
         $pubid = $this->getRequest()->getParam('pubid');
 
