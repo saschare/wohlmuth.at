@@ -403,5 +403,16 @@ class Aitsu_Util {
 			':idlang' => $idlang
 		));
 	}
+        
+        public static function getIdArt($idartlang = null) {
+
+		if (empty ($idartlang)) {
+			$idartlang = Aitsu_Registry :: get()->env->idartlang;
+		}
+
+		return Aitsu_Db :: fetchOne("SELECT `idart` FROM `_art_lang` WHERE `idartlang` =:idartlang", array (
+			':idartlang' => $idartlang
+		));
+	}
 
 }
