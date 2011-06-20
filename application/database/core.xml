@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="schema.xsd">
     <table name="acl_clients" engine="InnoDB">
         <field name="idclient" type="int(10) unsigned" default="null" primary="true">
             <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
