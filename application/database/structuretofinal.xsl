@@ -20,15 +20,26 @@
                             <xsl:if test="@key = 'pri'">
                                 <xsl:attribute name="primary">true</xsl:attribute>
                             </xsl:if>
+                            <xsl:for-each
+                                select="//constraint[@table = current()/@table and @column = current()/@name]">
+                                <constraint>
+                                    <xsl:attribute name="table" select="@reftable"/>
+                                    <xsl:attribute name="column" select="@refcolumn"/>
+                                    <xsl:attribute name="onupdate" select="@onupdate"/>
+                                    <xsl:attribute name="ondelete" select="@ondelete"/>
+                                </constraint>
+                            </xsl:for-each>
                         </field>
                     </xsl:for-each>
-                    <xsl:for-each-group select="index" group-by="@table">
-                        <xsl:for-each select="current-group()">
+                    <xsl:for-each select="//index[@table = current()/@table]">
+                        <xsl:if test="@name != 'PRIMARY'">
                             <index>
                                 <xsl:attribute name="name" select="@name"/>
+                                <xsl:attribute name="columns" select="@columns"/>
+                                <xsl:attribute name="unique" select="@unique"/>
                             </index>
-                        </xsl:for-each>
-                    </xsl:for-each-group>
+                        </xsl:if>
+                    </xsl:for-each>
                 </table>
             </xsl:for-each-group>
         </database>
