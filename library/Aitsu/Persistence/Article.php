@@ -802,10 +802,11 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 					'select * from ' . $table['target'] . ' ' .
 					'where pubid = :pubid', array (
 						':pubid' => $pubid
-					));
+					), false, true);
                                     
-                                    $test[$table['target'] . ' _ ' . $pubid]['data'] = print_r($source, true);
-                                    $test[$table['target'] . ' _ ' . $pubid]['query'] = 'select * from ' . $table['target'] . ' where pubid = ' . $pubid;
+                                    echo $pubid;
+                                    
+                                    print_r($source);
                                     
                                     Aitsu_Db :: query('' .
                                                 'delete from ' . $table['source'] . ' ' .
