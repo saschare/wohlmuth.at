@@ -858,181 +858,212 @@
         key="" extra=""/>
     <field name="obsolete" table="translate" engine="InnoDB" type="datetime" default="null"
         nullable="yes" key="" extra=""/>
-    <index table="acl_clients" name="roleid" columns="roleid" type="BTREE"/>
-    <index table="acl_clients" name="PRIMARY" columns="idclient,roleid" type="BTREE"/>
-    <index table="acl_languages" name="idlang" columns="idlang" type="BTREE"/>
-    <index table="acl_languages" name="PRIMARY" columns="roleid,idlang" type="BTREE"/>
-    <index table="acl_privilege" name="PRIMARY" columns="privilegeid" type="BTREE"/>
-    <index table="acl_privilege" name="identifier" columns="identifier" type="BTREE"/>
-    <index table="acl_privileges" name="PRIMARY" columns="roleid,privilegeid" type="BTREE"/>
-    <index table="acl_privileges" name="privilegeid" columns="privilegeid" type="BTREE"/>
-    <index table="acl_resource" name="specifictype" columns="specifictype" type="BTREE"/>
-    <index table="acl_resource" name="id" columns="identifier" type="BTREE"/>
-    <index table="acl_resource" name="identifier" columns="identifier" type="BTREE"/>
-    <index table="acl_resource" name="PRIMARY" columns="resourceid" type="BTREE"/>
-    <index table="acl_resources" name="resourceid" columns="resourceid" type="BTREE"/>
-    <index table="acl_resources" name="PRIMARY" columns="roleid,resourceid" type="BTREE"/>
-    <index table="acl_role" name="identifier" columns="identifier" type="BTREE"/>
-    <index table="acl_role" name="PRIMARY" columns="roleid" type="BTREE"/>
-    <index table="acl_roles" name="userid" columns="userid" type="BTREE"/>
-    <index table="acl_roles" name="PRIMARY" columns="roleid,userid" type="BTREE"/>
-    <index table="acl_user" name="PRIMARY" columns="userid" type="BTREE"/>
-    <index table="acl_user" name="idlang" columns="idlang" type="BTREE"/>
-    <index table="acl_user" name="login" columns="login" type="BTREE"/>
-    <index table="acl_user" name="password" columns="password" type="BTREE"/>
-    <index table="aitsu_article_property" name="idartlang" columns="idartlang" type="BTREE"/>
-    <index table="aitsu_article_property" name="PRIMARY" columns="propertyid,idartlang" type="BTREE"/>
-    <index table="aitsu_property" name="PRIMARY" columns="propertyid" type="BTREE"/>
-    <index table="aitsu_property" name="identifier" columns="identifier" type="BTREE"/>
-    <index table="aitsu_rewrite_history" name="PRIMARY" columns="url,idartlang" type="BTREE"/>
-    <index table="aitsu_session" name="PRIMARY" columns="id" type="BTREE"/>
-    <index table="art" name="PRIMARY" columns="idart" type="BTREE"/>
-    <index table="art" name="idclient" columns="idclient" type="BTREE"/>
-    <index table="article_content" name="idartlang" columns="idartlang" type="BTREE"/>
-    <index table="article_content" name="PRIMARY" columns="idartlang,index" type="BTREE"/>
-    <index table="art_lang" name="idart" columns="idart,idlang" type="BTREE"/>
-    <index table="art_lang" name="PRIMARY" columns="idartlang" type="BTREE"/>
-    <index table="art_lang" name="title" columns="title" type="BTREE"/>
-    <index table="art_lang" name="pagetitle" columns="pagetitle" type="BTREE"/>
-    <index table="art_lang" name="configsetid" columns="configsetid" type="BTREE"/>
-    <index table="art_lang" name="idlang" columns="idlang" type="BTREE"/>
-    <index table="art_meta" name="PRIMARY" columns="idartlang" type="BTREE"/>
-    <index table="art_rel" name="grade" columns="grade" type="BTREE"/>
-    <index table="art_rel" name="PRIMARY" columns="sidart,tidart" type="BTREE"/>
-    <index table="cat" name="parentid" columns="parentid" type="BTREE"/>
-    <index table="cat" name="idclient" columns="idclient" type="BTREE"/>
-    <index table="cat" name="PRIMARY" columns="idcat" type="BTREE"/>
-    <index table="cat" name="rgt" columns="rgt" type="BTREE"/>
-    <index table="cat" name="preid" columns="preid" type="BTREE"/>
-    <index table="cat" name="lft" columns="lft" type="BTREE"/>
-    <index table="cat" name="postid" columns="postid" type="BTREE"/>
-    <index table="cat_art" name="PRIMARY" columns="idcat,idart" type="BTREE"/>
-    <index table="cat_art" name="idart" columns="idart" type="BTREE"/>
-    <index table="cat_favorites" name="userid" columns="userid" type="BTREE"/>
-    <index table="cat_favorites" name="PRIMARY" columns="idcat,userid" type="BTREE"/>
-    <index table="cat_lang" name="urlname" columns="urlname" type="BTREE"/>
-    <index table="cat_lang" name="PRIMARY" columns="idcatlang" type="BTREE"/>
-    <index table="cat_lang" name="configsetid" columns="configsetid" type="BTREE"/>
-    <index table="cat_lang" name="url" columns="url" type="BTREE"/>
-    <index table="cat_lang" name="idlang" columns="idlang" type="BTREE"/>
-    <index table="cat_lang" name="idcat" columns="idcat" type="BTREE"/>
-    <index table="cat_lang" name="startidartlang" columns="startidartlang" type="BTREE"/>
-    <index table="clients" name="PRIMARY" columns="idclient" type="BTREE"/>
-    <index table="comment" name="idartlang" columns="idartlang" type="BTREE"/>
-    <index table="comment" name="PRIMARY" columns="commentid" type="BTREE"/>
-    <index table="configset" name="PRIMARY" columns="configsetid" type="BTREE"/>
-    <index table="configset" name="identifier" columns="identifier" type="BTREE"/>
-    <index table="conf_token" name="token" columns="token" type="BTREE"/>
-    <index table="conf_token" name="PRIMARY" columns="conftokenid" type="BTREE"/>
-    <index table="content_index" name="content" columns="content" type="FULLTEXT"/>
-    <index table="content_index" name="PRIMARY" columns="idartlang" type="BTREE"/>
-    <index table="crosslink" name="PRIMARY" columns="idartlanglow,idartlanghigh" type="BTREE"/>
-    <index table="crosslink" name="idartlanghigh" columns="idartlanghigh" type="BTREE"/>
-    <index table="dam_asset" name="licenseid" columns="licenseid" type="BTREE"/>
-    <index table="dam_asset" name="replaces" columns="replaces" type="BTREE"/>
-    <index table="dam_asset" name="typeid" columns="typeid" type="BTREE"/>
-    <index table="dam_asset" name="PRIMARY" columns="assetid" type="BTREE"/>
-    <index table="dam_license" name="PRIMARY" columns="licenseid" type="BTREE"/>
-    <index table="dam_location" name="countryid" columns="countryid" type="BTREE"/>
-    <index table="dam_location" name="PRIMARY" columns="locationid" type="BTREE"/>
-    <index table="dam_locations" name="PRIMARY" columns="assetid,locationid" type="BTREE"/>
-    <index table="dam_locations" name="locationid" columns="locationid" type="BTREE"/>
-    <index table="dam_referencedby" name="PRIMARY" columns="assetid,reference" type="BTREE"/>
-    <index table="dam_rel" name="childid" columns="childid" type="BTREE"/>
-    <index table="dam_rel" name="PRIMARY" columns="parentid,childid" type="BTREE"/>
-    <index table="dam_subtype" name="typeid" columns="typeid" type="BTREE"/>
-    <index table="dam_subtype" name="PRIMARY" columns="subtypeid" type="BTREE"/>
-    <index table="dam_tag" name="PRIMARY" columns="tagid" type="BTREE"/>
-    <index table="dam_tag" name="tag" columns="tag" type="BTREE"/>
-    <index table="dam_tags" name="tagid" columns="tagid" type="BTREE"/>
-    <index table="dam_tags" name="PRIMARY" columns="assetid,tagid" type="BTREE"/>
-    <index table="dam_type" name="identifier" columns="identifier" type="BTREE"/>
-    <index table="dam_type" name="PRIMARY" columns="typeid" type="BTREE"/>
-    <index table="dam_use" name="use" columns="use" type="BTREE"/>
-    <index table="dam_use" name="PRIMARY" columns="useid" type="BTREE"/>
-    <index table="dam_uses" name="useid" columns="useid" type="BTREE"/>
-    <index table="dam_uses" name="PRIMARY" columns="assetid,useid" type="BTREE"/>
-    <index table="geo_city" name="PRIMARY" columns="cityid" type="BTREE"/>
-    <index table="geo_city" name="countryid" columns="countryid" type="BTREE"/>
-    <index table="geo_country" name="PRIMARY" columns="countryid" type="BTREE"/>
-    <index table="geo_location" name="cityid" columns="cityid" type="BTREE"/>
-    <index table="geo_location" name="PRIMARY" columns="locationid" type="BTREE"/>
-    <index table="hit" name="PRIMARY" columns="idartlang,d,h" type="BTREE"/>
-    <index table="honeytrap" name="ip" columns="ip" type="BTREE"/>
-    <index table="honeytrap" name="created" columns="created" type="BTREE"/>
-    <index table="honeytrap" name="PRIMARY" columns="trapid" type="BTREE"/>
-    <index table="lang" name="PRIMARY" columns="idlang" type="BTREE"/>
-    <index table="lang" name="idclient" columns="idclient" type="BTREE"/>
-    <index table="lastopened" name="idlang" columns="idlang" type="BTREE"/>
-    <index table="lastopened" name="userid" columns="userid" type="BTREE"/>
-    <index table="lastopened" name="PRIMARY" columns="idart,idlang,userid" type="BTREE"/>
-    <index table="locale" name="PRIMARY" columns="localeid" type="BTREE"/>
-    <index table="lucene_index" name="PRIMARY" columns="uid" type="BTREE"/>
-    <index table="lucene_index" name="idart" columns="idart,idlang" type="BTREE"/>
-    <index table="lucene_index" name="path" columns="path" type="BTREE"/>
-    <index table="media" name="PRIMARY" columns="mediaid" type="BTREE"/>
-    <index table="media" name="idart" columns="idart" type="BTREE"/>
-    <index table="media_description" name="PRIMARY" columns="mediaid,idlang" type="BTREE"/>
-    <index table="media_tag" name="PRIMARY" columns="mediatagid" type="BTREE"/>
-    <index table="media_tag" name="tag" columns="tag" type="BTREE"/>
-    <index table="media_tags" name="mediaid" columns="mediaid" type="BTREE"/>
-    <index table="media_tags" name="PRIMARY" columns="mediatagid,mediaid" type="BTREE"/>
-    <index table="performance_profile" name="PRIMARY" columns="idartlang,obsdate" type="BTREE"/>
-    <index table="pub" name="idartlang" columns="idartlang" type="BTREE"/>
-    <index table="pub" name="PRIMARY" columns="pubid" type="BTREE"/>
-    <index table="pub_aitsu_article_property" name="pubid" columns="pubid" type="BTREE"/>
+    <index table="acl_clients" name="roleid" columns="roleid" type="BTREE" unique="false"/>
+    <index table="acl_clients" name="PRIMARY" columns="idclient,roleid" type="BTREE" unique="true"/>
+    <index table="acl_languages" name="idlang" columns="idlang" type="BTREE" unique="false"/>
+    <index table="acl_languages" name="PRIMARY" columns="roleid,idlang" type="BTREE" unique="true"/>
+    <index table="acl_privilege" name="identifier" columns="identifier" type="BTREE" unique="true"/>
+    <index table="acl_privilege" name="PRIMARY" columns="privilegeid" type="BTREE" unique="true"/>
+    <index table="acl_privileges" name="PRIMARY" columns="roleid,privilegeid" type="BTREE"
+        unique="true"/>
+    <index table="acl_privileges" name="privilegeid" columns="privilegeid" type="BTREE"
+        unique="false"/>
+    <index table="acl_resource" name="id" columns="identifier" type="BTREE" unique="false"/>
+    <index table="acl_resource" name="PRIMARY" columns="resourceid" type="BTREE" unique="true"/>
+    <index table="acl_resource" name="identifier" columns="identifier" type="BTREE" unique="false"/>
+    <index table="acl_resource" name="specifictype" columns="specifictype" type="BTREE"
+        unique="false"/>
+    <index table="acl_resources" name="resourceid" columns="resourceid" type="BTREE" unique="false"/>
+    <index table="acl_resources" name="PRIMARY" columns="roleid,resourceid" type="BTREE"
+        unique="true"/>
+    <index table="acl_role" name="PRIMARY" columns="roleid" type="BTREE" unique="true"/>
+    <index table="acl_role" name="identifier" columns="identifier" type="BTREE" unique="true"/>
+    <index table="acl_roles" name="userid" columns="userid" type="BTREE" unique="false"/>
+    <index table="acl_roles" name="PRIMARY" columns="roleid,userid" type="BTREE" unique="true"/>
+    <index table="acl_user" name="password" columns="password" type="BTREE" unique="false"/>
+    <index table="acl_user" name="PRIMARY" columns="userid" type="BTREE" unique="true"/>
+    <index table="acl_user" name="login" columns="login" type="BTREE" unique="true"/>
+    <index table="acl_user" name="idlang" columns="idlang" type="BTREE" unique="false"/>
+    <index table="aitsu_article_property" name="PRIMARY" columns="propertyid,idartlang" type="BTREE"
+        unique="true"/>
+    <index table="aitsu_article_property" name="idartlang" columns="idartlang" type="BTREE"
+        unique="false"/>
+    <index table="aitsu_property" name="identifier" columns="identifier" type="BTREE" unique="true"/>
+    <index table="aitsu_property" name="PRIMARY" columns="propertyid" type="BTREE" unique="true"/>
+    <index table="aitsu_rewrite_history" name="PRIMARY" columns="url,idartlang" type="BTREE"
+        unique="true"/>
+    <index table="aitsu_session" name="PRIMARY" columns="id" type="BTREE" unique="true"/>
+    <index table="art" name="idclient" columns="idclient" type="BTREE" unique="false"/>
+    <index table="art" name="PRIMARY" columns="idart" type="BTREE" unique="true"/>
+    <index table="article_content" name="idartlang" columns="idartlang" type="BTREE" unique="false"/>
+    <index table="article_content" name="PRIMARY" columns="idartlang,index" type="BTREE"
+        unique="true"/>
+    <index table="art_lang" name="configsetid" columns="configsetid" type="BTREE" unique="false"/>
+    <index table="art_lang" name="pagetitle" columns="pagetitle" type="BTREE" unique="false"/>
+    <index table="art_lang" name="PRIMARY" columns="idartlang" type="BTREE" unique="true"/>
+    <index table="art_lang" name="idlang" columns="idlang" type="BTREE" unique="false"/>
+    <index table="art_lang" name="title" columns="title" type="BTREE" unique="false"/>
+    <index table="art_lang" name="idart" columns="idart,idlang" type="BTREE" unique="true"/>
+    <index table="art_meta" name="PRIMARY" columns="idartlang" type="BTREE" unique="true"/>
+    <index table="art_rel" name="grade" columns="grade" type="BTREE" unique="false"/>
+    <index table="art_rel" name="PRIMARY" columns="sidart,tidart" type="BTREE" unique="true"/>
+    <index table="cat" name="preid" columns="preid" type="BTREE" unique="false"/>
+    <index table="cat" name="PRIMARY" columns="idcat" type="BTREE" unique="true"/>
+    <index table="cat" name="parentid" columns="parentid" type="BTREE" unique="false"/>
+    <index table="cat" name="postid" columns="postid" type="BTREE" unique="false"/>
+    <index table="cat" name="lft" columns="lft" type="BTREE" unique="false"/>
+    <index table="cat" name="rgt" columns="rgt" type="BTREE" unique="false"/>
+    <index table="cat" name="idclient" columns="idclient" type="BTREE" unique="false"/>
+    <index table="cat_art" name="PRIMARY" columns="idcat,idart" type="BTREE" unique="true"/>
+    <index table="cat_art" name="idart" columns="idart" type="BTREE" unique="false"/>
+    <index table="cat_favorites" name="userid" columns="userid" type="BTREE" unique="false"/>
+    <index table="cat_favorites" name="PRIMARY" columns="idcat,userid" type="BTREE" unique="true"/>
+    <index table="cat_lang" name="idlang" columns="idlang" type="BTREE" unique="false"/>
+    <index table="cat_lang" name="PRIMARY" columns="idcatlang" type="BTREE" unique="true"/>
+    <index table="cat_lang" name="urlname" columns="urlname" type="BTREE" unique="false"/>
+    <index table="cat_lang" name="startidartlang" columns="startidartlang" type="BTREE"
+        unique="false"/>
+    <index table="cat_lang" name="idcat" columns="idcat" type="BTREE" unique="false"/>
+    <index table="cat_lang" name="configsetid" columns="configsetid" type="BTREE" unique="false"/>
+    <index table="cat_lang" name="url" columns="url" type="BTREE" unique="false"/>
+    <index table="clients" name="PRIMARY" columns="idclient" type="BTREE" unique="true"/>
+    <index table="comment" name="PRIMARY" columns="commentid" type="BTREE" unique="true"/>
+    <index table="comment" name="idartlang" columns="idartlang" type="BTREE" unique="false"/>
+    <index table="configset" name="PRIMARY" columns="configsetid" type="BTREE" unique="true"/>
+    <index table="configset" name="identifier" columns="identifier" type="BTREE" unique="true"/>
+    <index table="conf_token" name="token" columns="token" type="BTREE" unique="true"/>
+    <index table="conf_token" name="PRIMARY" columns="conftokenid" type="BTREE" unique="true"/>
+    <index table="content_index" name="content" columns="content" type="FULLTEXT" unique="false"/>
+    <index table="content_index" name="PRIMARY" columns="idartlang" type="BTREE" unique="true"/>
+    <index table="crosslink" name="PRIMARY" columns="idartlanglow,idartlanghigh" type="BTREE"
+        unique="true"/>
+    <index table="crosslink" name="idartlanghigh" columns="idartlanghigh" type="BTREE"
+        unique="false"/>
+    <index table="dam_asset" name="PRIMARY" columns="assetid" type="BTREE" unique="true"/>
+    <index table="dam_asset" name="replaces" columns="replaces" type="BTREE" unique="false"/>
+    <index table="dam_asset" name="licenseid" columns="licenseid" type="BTREE" unique="false"/>
+    <index table="dam_asset" name="typeid" columns="typeid" type="BTREE" unique="false"/>
+    <index table="dam_license" name="PRIMARY" columns="licenseid" type="BTREE" unique="true"/>
+    <index table="dam_location" name="PRIMARY" columns="locationid" type="BTREE" unique="true"/>
+    <index table="dam_location" name="countryid" columns="countryid" type="BTREE" unique="false"/>
+    <index table="dam_locations" name="locationid" columns="locationid" type="BTREE" unique="false"/>
+    <index table="dam_locations" name="PRIMARY" columns="assetid,locationid" type="BTREE"
+        unique="true"/>
+    <index table="dam_referencedby" name="PRIMARY" columns="assetid,reference" type="BTREE"
+        unique="true"/>
+    <index table="dam_rel" name="PRIMARY" columns="parentid,childid" type="BTREE" unique="true"/>
+    <index table="dam_rel" name="childid" columns="childid" type="BTREE" unique="false"/>
+    <index table="dam_subtype" name="PRIMARY" columns="subtypeid" type="BTREE" unique="true"/>
+    <index table="dam_subtype" name="typeid" columns="typeid" type="BTREE" unique="false"/>
+    <index table="dam_tag" name="PRIMARY" columns="tagid" type="BTREE" unique="true"/>
+    <index table="dam_tag" name="tag" columns="tag" type="BTREE" unique="false"/>
+    <index table="dam_tags" name="tagid" columns="tagid" type="BTREE" unique="false"/>
+    <index table="dam_tags" name="PRIMARY" columns="assetid,tagid" type="BTREE" unique="true"/>
+    <index table="dam_type" name="PRIMARY" columns="typeid" type="BTREE" unique="true"/>
+    <index table="dam_type" name="identifier" columns="identifier" type="BTREE" unique="true"/>
+    <index table="dam_use" name="PRIMARY" columns="useid" type="BTREE" unique="true"/>
+    <index table="dam_use" name="use" columns="use" type="BTREE" unique="true"/>
+    <index table="dam_uses" name="PRIMARY" columns="assetid,useid" type="BTREE" unique="true"/>
+    <index table="dam_uses" name="useid" columns="useid" type="BTREE" unique="false"/>
+    <index table="geo_city" name="PRIMARY" columns="cityid" type="BTREE" unique="true"/>
+    <index table="geo_city" name="countryid" columns="countryid" type="BTREE" unique="false"/>
+    <index table="geo_country" name="PRIMARY" columns="countryid" type="BTREE" unique="true"/>
+    <index table="geo_location" name="cityid" columns="cityid" type="BTREE" unique="false"/>
+    <index table="geo_location" name="PRIMARY" columns="locationid" type="BTREE" unique="true"/>
+    <index table="hit" name="PRIMARY" columns="idartlang,d,h" type="BTREE" unique="true"/>
+    <index table="honeytrap" name="PRIMARY" columns="trapid" type="BTREE" unique="true"/>
+    <index table="honeytrap" name="created" columns="created" type="BTREE" unique="false"/>
+    <index table="honeytrap" name="ip" columns="ip" type="BTREE" unique="false"/>
+    <index table="lang" name="idclient" columns="idclient" type="BTREE" unique="false"/>
+    <index table="lang" name="PRIMARY" columns="idlang" type="BTREE" unique="true"/>
+    <index table="lastopened" name="userid" columns="userid" type="BTREE" unique="false"/>
+    <index table="lastopened" name="PRIMARY" columns="idart,idlang,userid" type="BTREE"
+        unique="true"/>
+    <index table="lastopened" name="idlang" columns="idlang" type="BTREE" unique="false"/>
+    <index table="locale" name="PRIMARY" columns="localeid" type="BTREE" unique="true"/>
+    <index table="lucene_index" name="idart" columns="idart,idlang" type="BTREE" unique="false"/>
+    <index table="lucene_index" name="path" columns="path" type="BTREE" unique="false"/>
+    <index table="lucene_index" name="PRIMARY" columns="uid" type="BTREE" unique="true"/>
+    <index table="media" name="idart" columns="idart" type="BTREE" unique="false"/>
+    <index table="media" name="PRIMARY" columns="mediaid" type="BTREE" unique="true"/>
+    <index table="media_description" name="PRIMARY" columns="mediaid,idlang" type="BTREE"
+        unique="true"/>
+    <index table="media_tag" name="PRIMARY" columns="mediatagid" type="BTREE" unique="true"/>
+    <index table="media_tag" name="tag" columns="tag" type="BTREE" unique="false"/>
+    <index table="media_tags" name="mediaid" columns="mediaid" type="BTREE" unique="false"/>
+    <index table="media_tags" name="PRIMARY" columns="mediatagid,mediaid" type="BTREE" unique="true"/>
+    <index table="performance_profile" name="PRIMARY" columns="idartlang,obsdate" type="BTREE"
+        unique="true"/>
+    <index table="pub" name="PRIMARY" columns="pubid" type="BTREE" unique="true"/>
+    <index table="pub" name="idartlang" columns="idartlang" type="BTREE" unique="false"/>
+    <index table="pub_aitsu_article_property" name="idartlang" columns="idartlang" type="BTREE"
+        unique="false"/>
     <index table="pub_aitsu_article_property" name="PRIMARY" columns="propertyid,idartlang,pubid"
-        type="BTREE"/>
-    <index table="pub_aitsu_article_property" name="idartlang" columns="idartlang" type="BTREE"/>
-    <index table="pub_article_content" name="PRIMARY" columns="idartlang,index,pubid" type="BTREE"/>
-    <index table="pub_article_content" name="pubid" columns="pubid" type="BTREE"/>
-    <index table="pub_art_lang" name="configsetid" columns="configsetid" type="BTREE"/>
-    <index table="pub_art_lang" name="title" columns="title" type="BTREE"/>
-    <index table="pub_art_lang" name="pagetitle" columns="pagetitle" type="BTREE"/>
-    <index table="pub_art_lang" name="idart" columns="idart" type="BTREE"/>
-    <index table="pub_art_lang" name="pubid" columns="pubid" type="BTREE"/>
-    <index table="pub_art_lang" name="idlang" columns="idlang" type="BTREE"/>
-    <index table="pub_art_lang" name="PRIMARY" columns="idartlang,pubid" type="BTREE"/>
-    <index table="pub_art_meta" name="pubid" columns="pubid" type="BTREE"/>
-    <index table="pub_art_meta" name="PRIMARY" columns="idartlang,pubid" type="BTREE"/>
-    <index table="rating" name="PRIMARY" columns="idartlang" type="BTREE"/>
-    <index table="rating" name="rating" columns="rating" type="BTREE"/>
-    <index table="ratings" name="PRIMARY" columns="idartlang,ip" type="BTREE"/>
-    <index table="revision" name="PRIMARY" columns="revisionid" type="BTREE"/>
-    <index table="revision" name="userid" columns="userid" type="BTREE"/>
-    <index table="revision_art_lang" name="idartlang" columns="idartlang" type="BTREE"/>
-    <index table="revision_art_lang" name="revisionid" columns="revisionid" type="BTREE"/>
-    <index table="revision_art_lang" name="configsetid" columns="configsetid" type="BTREE"/>
-    <index table="revision_art_lang" name="revisionhash" columns="revisionhash" type="BTREE"/>
-    <index table="revision_content" name="revisionid" columns="revisionid" type="BTREE"/>
-    <index table="revision_content" name="revisionhash" columns="revisionhash" type="BTREE"/>
-    <index table="revision_content" name="PRIMARY" columns="idartlang,index,revisionid" type="BTREE"/>
+        type="BTREE" unique="true"/>
+    <index table="pub_aitsu_article_property" name="pubid" columns="pubid" type="BTREE"
+        unique="false"/>
+    <index table="pub_article_content" name="PRIMARY" columns="idartlang,index,pubid" type="BTREE"
+        unique="true"/>
+    <index table="pub_article_content" name="pubid" columns="pubid" type="BTREE" unique="false"/>
+    <index table="pub_art_lang" name="PRIMARY" columns="idartlang,pubid" type="BTREE" unique="true"/>
+    <index table="pub_art_lang" name="pubid" columns="pubid" type="BTREE" unique="false"/>
+    <index table="pub_art_lang" name="title" columns="title" type="BTREE" unique="false"/>
+    <index table="pub_art_lang" name="configsetid" columns="configsetid" type="BTREE" unique="false"/>
+    <index table="pub_art_lang" name="idlang" columns="idlang" type="BTREE" unique="false"/>
+    <index table="pub_art_lang" name="idart" columns="idart" type="BTREE" unique="false"/>
+    <index table="pub_art_lang" name="pagetitle" columns="pagetitle" type="BTREE" unique="false"/>
+    <index table="pub_art_meta" name="PRIMARY" columns="idartlang,pubid" type="BTREE" unique="true"/>
+    <index table="pub_art_meta" name="pubid" columns="pubid" type="BTREE" unique="false"/>
+    <index table="rating" name="PRIMARY" columns="idartlang" type="BTREE" unique="true"/>
+    <index table="rating" name="rating" columns="rating" type="BTREE" unique="false"/>
+    <index table="ratings" name="PRIMARY" columns="idartlang,ip" type="BTREE" unique="true"/>
+    <index table="revision" name="userid" columns="userid" type="BTREE" unique="false"/>
+    <index table="revision" name="PRIMARY" columns="revisionid" type="BTREE" unique="true"/>
+    <index table="revision_art_lang" name="configsetid" columns="configsetid" type="BTREE"
+        unique="false"/>
+    <index table="revision_art_lang" name="revisionhash" columns="revisionhash" type="BTREE"
+        unique="false"/>
+    <index table="revision_art_lang" name="revisionid" columns="revisionid" type="BTREE"
+        unique="false"/>
+    <index table="revision_art_lang" name="idartlang" columns="idartlang" type="BTREE"
+        unique="false"/>
+    <index table="revision_content" name="revisionhash" columns="revisionhash" type="BTREE"
+        unique="false"/>
+    <index table="revision_content" name="revisionid" columns="revisionid" type="BTREE"
+        unique="false"/>
+    <index table="revision_content" name="PRIMARY" columns="idartlang,index,revisionid" type="BTREE"
+        unique="true"/>
+    <index table="revision_property" name="revisionhash" columns="revisionhash" type="BTREE"
+        unique="false"/>
+    <index table="revision_property" name="revisionid" columns="revisionid" type="BTREE"
+        unique="false"/>
     <index table="revision_property" name="PRIMARY" columns="propertyid,idartlang,revisionid"
-        type="BTREE"/>
-    <index table="revision_property" name="revisionid" columns="revisionid" type="BTREE"/>
-    <index table="revision_property" name="idartlang" columns="idartlang" type="BTREE"/>
-    <index table="revision_property" name="revisionhash" columns="revisionhash" type="BTREE"/>
+        type="BTREE" unique="true"/>
+    <index table="revision_property" name="idartlang" columns="idartlang" type="BTREE"
+        unique="false"/>
     <index table="syndication_resource" name="PRIMARY" columns="sourceid,sourceidartlang"
-        type="BTREE"/>
-    <index table="syndication_resource_art" name="sourceid" columns="sourceid" type="BTREE"/>
+        type="BTREE" unique="true"/>
+    <index table="syndication_resource_art" name="sourceid" columns="sourceid" type="BTREE"
+        unique="false"/>
     <index table="syndication_resource_art" name="PRIMARY"
-        columns="idartlang,sourceid,sourceidartlang" type="BTREE"/>
-    <index table="syndication_source" name="idclient" columns="idclient" type="BTREE"/>
-    <index table="syndication_source" name="PRIMARY" columns="sourceid" type="BTREE"/>
-    <index table="tag" name="PRIMARY" columns="tagid" type="BTREE"/>
-    <index table="tag" name="tag" columns="tag" type="BTREE"/>
-    <index table="tag_art" name="tagid" columns="tagid" type="BTREE"/>
-    <index table="tag_art" name="PRIMARY" columns="idart,tagid" type="BTREE"/>
-    <index table="todo" name="PRIMARY" columns="todoid" type="BTREE"/>
-    <index table="todo" name="idartlang" columns="idartlang" type="BTREE"/>
-    <index table="tracking_customer" name="PRIMARY" columns="customerid" type="BTREE"/>
-    <index table="tracking_project" name="customerid" columns="customerid" type="BTREE"/>
-    <index table="tracking_project" name="PRIMARY" columns="projectid" type="BTREE"/>
-    <index table="tracking_track" name="PRIMARY" columns="trackid" type="BTREE"/>
-    <index table="tracking_track" name="userid" columns="userid" type="BTREE"/>
-    <index table="tracking_track" name="projectid" columns="projectid" type="BTREE"/>
-    <index table="tracking_track" name="typeid" columns="typeid" type="BTREE"/>
-    <index table="tracking_type" name="PRIMARY" columns="typeid" type="BTREE"/>
-    <index table="translate" name="idlang" columns="idlang" type="BTREE"/>
-    <index table="translate" name="PRIMARY" columns="translationid" type="BTREE"/>
+        columns="idartlang,sourceid,sourceidartlang" type="BTREE" unique="true"/>
+    <index table="syndication_source" name="idclient" columns="idclient" type="BTREE" unique="false"/>
+    <index table="syndication_source" name="PRIMARY" columns="sourceid" type="BTREE" unique="true"/>
+    <index table="tag" name="PRIMARY" columns="tagid" type="BTREE" unique="true"/>
+    <index table="tag" name="tag" columns="tag" type="BTREE" unique="true"/>
+    <index table="tag_art" name="tagid" columns="tagid" type="BTREE" unique="false"/>
+    <index table="tag_art" name="PRIMARY" columns="idart,tagid" type="BTREE" unique="true"/>
+    <index table="todo" name="idartlang" columns="idartlang" type="BTREE" unique="false"/>
+    <index table="todo" name="PRIMARY" columns="todoid" type="BTREE" unique="true"/>
+    <index table="tracking_customer" name="PRIMARY" columns="customerid" type="BTREE" unique="true"/>
+    <index table="tracking_project" name="PRIMARY" columns="projectid" type="BTREE" unique="true"/>
+    <index table="tracking_project" name="customerid" columns="customerid" type="BTREE"
+        unique="false"/>
+    <index table="tracking_track" name="typeid" columns="typeid" type="BTREE" unique="false"/>
+    <index table="tracking_track" name="projectid" columns="projectid" type="BTREE" unique="false"/>
+    <index table="tracking_track" name="userid" columns="userid" type="BTREE" unique="false"/>
+    <index table="tracking_track" name="PRIMARY" columns="trackid" type="BTREE" unique="true"/>
+    <index table="tracking_type" name="PRIMARY" columns="typeid" type="BTREE" unique="true"/>
+    <index table="translate" name="idlang" columns="idlang" type="BTREE" unique="false"/>
+    <index table="translate" name="PRIMARY" columns="translationid" type="BTREE" unique="true"/>
 </root>
