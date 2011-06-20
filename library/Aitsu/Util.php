@@ -390,11 +390,11 @@ class Aitsu_Util {
 
 	public static function getIdArtLang($idart = null, $idlang = null) {
 
-		if (empty($idart)) {
+		if (empty ($idart)) {
 			$idart = Aitsu_Registry :: get()->env->idart;
 		}
 
-		if (empty($idlang)) {
+		if (empty ($idlang)) {
 			$idlang = Aitsu_Registry :: get()->env->idlang;
 		}
 
@@ -403,10 +403,10 @@ class Aitsu_Util {
 			':idlang' => $idlang
 		));
 	}
-        
-        public static function getIdArt($idartlang = null) {
 
-		if (empty($idartlang)) {
+	public static function getIdArt($idartlang = null) {
+
+		if (empty ($idartlang)) {
 			$idartlang = Aitsu_Registry :: get()->env->idartlang;
 		}
 
@@ -414,27 +414,27 @@ class Aitsu_Util {
 			':idartlang' => $idartlang
 		));
 	}
-        
-        public static function getIdCatByIdArt($idart = null) {
 
-		if (empty($idart)) {
+	public static function getIdCatByIdArt($idart = null) {
+
+		if (empty ($idart)) {
 			$idart = Aitsu_Registry :: get()->env->idart;
 		}
-                
+
 		return Aitsu_Db :: fetchOne("SELECT `idcat` FROM `_cat_art` WHERE `idart` =:idart", array (
 			':idart' => $idart
 		));
 	}
-        
-        public static function getIdCatByIdArtlang($idartlang = null) {
 
-		if (empty($idartlang)) {
+	public static function getIdCatByIdArtlang($idartlang = null) {
+
+		if (empty ($idartlang)) {
 			$idartlang = Aitsu_Registry :: get()->env->idartlang;
 		}
 
-                $idart = self::getIdArt($idartlang);
-                
-                return self::getIdCatByIdArt($idart);
+		$idart = self :: getIdArt($idartlang);
+
+		return self :: getIdCatByIdArt($idart);
 	}
 
 }
