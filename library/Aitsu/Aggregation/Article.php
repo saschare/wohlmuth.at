@@ -248,17 +248,19 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 
 		$results = Aitsu_Db :: fetchAll("" .
 		"select straight_join distinct " .
-		"	artlang.idart as idart, " .
-		"	artlang.idartlang as idartlang, " .
-		"	artlang.title as articletitle, " .
-		"	artlang.pagetitle as pagetitle, " .
-		"	artlang.teasertitle as teasertitle, " .
-		"	artlang.summary as summary, " .
-		"	artlang.created as created, " .
-		"	unix_timestamp(artlang.created) as ts_created, " .
-		"	artlang.lastmodified as modified," .
-		"	artlang.artsort as artsort, " .
-		"	artlang.mainimage " .
+		"	artlang.idart idart, " .
+		"	artlang.idartlang idartlang, " .
+		"	artlang.title articletitle, " .
+		"	artlang.pagetitle pagetitle, " .
+		"	artlang.teasertitle teasertitle, " .
+		"	artlang.summary summary, " .
+		"	artlang.created created, " .
+		"	unix_timestamp(artlang.created) ts_created, " .
+		"	artlang.lastmodified modified," .
+		"	artlang.artsort artsort, " .
+		"	artlang.mainimage, " .
+		"	artlang.pubfrom pubfrom, " .
+		"	artlang.pubuntil pubuntil, " .
 		"	{$selects} " .
 		"from _art_lang as artlang " .
 		"{$joins} " .

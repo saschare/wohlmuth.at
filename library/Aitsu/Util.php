@@ -404,4 +404,37 @@ class Aitsu_Util {
 		));
 	}
 
+	public static function getIdArt($idartlang = null) {
+
+		if (empty ($idartlang)) {
+			$idartlang = Aitsu_Registry :: get()->env->idartlang;
+		}
+
+		return Aitsu_Db :: fetchOne("SELECT `idart` FROM `_art_lang` WHERE `idartlang` =:idartlang", array (
+			':idartlang' => $idartlang
+		));
+	}
+
+	public static function getIdCatByIdArt($idart = null) {
+
+		if (empty ($idart)) {
+			$idart = Aitsu_Registry :: get()->env->idart;
+		}
+
+		return Aitsu_Db :: fetchOne("SELECT `idcat` FROM `_cat_art` WHERE `idart` =:idart", array (
+			':idart' => $idart
+		));
+	}
+
+	public static function getIdCatByIdArtlang($idartlang = null) {
+
+		if (empty ($idartlang)) {
+			$idartlang = Aitsu_Registry :: get()->env->idartlang;
+		}
+
+		$idart = self :: getIdArt($idartlang);
+
+		return self :: getIdCatByIdArt($idart);
+	}
+
 }

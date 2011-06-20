@@ -1,9 +1,30 @@
 <ul>
-	<?php foreach ($this->nav->children as $nav) : ?>
-		<?php if ($nav->isvisible) : ?>
-			<li<?php if($nav->iscurrent) : ?> class="active"<?php endif; ?>>
-				<a<?php if($nav->iscurrent) : ?> class="active"<?php endif; ?> href="{ref:idcat-<?php echo $nav->idcat; ?>}"><?php echo $nav->name; ?></a>
-			</li>
+<?php foreach ($this->nav->children as $nav1) : ?>
+	<li
+	<?php if ($nav1->isparent || $nav1->iscurrent) : ?>
+		class="active" <?php endif; ?>><a
+		<?php if ($nav1->isparent || $nav1->iscurrent) : ?>
+		class="active" <?php endif; ?>
+		href="{ref:idcat-<?php echo $nav1->idcat; ?>}"
+		title="<?php echo $nav1->name; ?>"><?php echo $nav1->name; ?></a>
+		<?php if (count($nav1->children) > 0) : ?>
+	<ul>
+	<?php $i=1; foreach ($nav1->children as $nav2) : ?>
+	<?php if ($i<=3) : ?>
+		<li><a
+		<?php if ($nav2->isparent || $nav2->iscurrent) : ?>
+			class="active" <?php endif; ?>
+			href="{ref:idcat-<?php echo $nav2->idcat; ?>}"
+			title="<?php echo $nav2->name; ?>"><?php echo $nav2->name; ?></a>
+		</li>
+		<?php elseif ($i==4) : ?>
+		<li><a class="more"
+			href="{ref:idcat-<?php echo $nav1->idcat; ?>}"
+			title="mehr zum Thema <?php echo $nav1->name; ?>">mehr
+		&raquo;</a></li>
 		<?php endif; ?>
+		<?php $i++; endforeach; ?>
+	</ul>
+	<?php endif; ?></li>
 	<?php endforeach; ?>
 </ul>

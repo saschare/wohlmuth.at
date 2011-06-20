@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /**
  * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
  *
@@ -10,9 +9,9 @@
  *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
  * @link            http://www.yaml.de
  * @package         yaml
- * @version         3.2.1
- * @revision        $Revision: 443 $
- * @lastmodified    $Date: 2009-12-31 18:05:05 +0100 (Do, 31. Dez 2009) $
+ * @version         3.3
+ * @revision        $Revision:426 $
+ * @lastmodified    $Date: 2010-09-14 21:19:30 +0200 (Di, 14 Sep 2010) $
  */
 
 @media screen, projection
@@ -27,7 +26,7 @@
    * @valid CSS3
    */
 
-  body { overflow-y: scroll; }
+  body { overflow-y:scroll; }
 
   /*------------------------------------------------------------------------------------------------------*/
   
@@ -38,42 +37,54 @@
 
   /* (en) Marginal areas & page background */
   /* (de) Randbereiche & Seitenhintergrund */
-  body { background: #4d87c7 url("../../images/bg_blue.png") repeat-x top left fixed; padding: 10px 0; }
+  body { background:#4d87c7 url("../../images/bg_blue.png") repeat-x top left fixed; padding:10px 0; }
 
   /* (en) Centering layout in old IE-versions */
   /* (de) Zentrierung des Layouts in alten IE-versionen */
-  body { text-align: center; }
-  .page_margins { text-align:left; margin: 0 auto; }
+  body { text-align:center; }
+  .page_margins { text-align:left; margin:0 auto; }
 
-  /* (en) Layout: width, background, borders */
-  /* (de) Layout: Breite, Hintergrund, Rahmen */
-  .page_margins { min-width: 740px; max-width: 80em; background: #fff; }
-  .page { padding: 10px; }
-
-  /* (en) Designing main layout elements */
-  /* (de) Gestaltung der Hauptelemente des Layouts */
+  /* (en) Layout:width, background, borders */
+  /* (de) Layout:Breite, Hintergrund, Rahmen */
+  .page_margins { min-width:740px; max-width:80em; background:#fff; }
+  .page { padding:10px; }
 
   #header {
-    color: #000;
-    background: #fff repeat-x top left;
-    padding: 45px 2em 1em 20px;
+    color:#000;
+    background:#fff repeat-x top left;
+    padding:45px 2em 1em 20px;
+	position:relative;
   }
 
-  #topnav { color: #aaa; background: transparent; }
+  /* (en) #topnav gets absolute positioning within #header */
+  /* (de) #topnav wird innerhalb von #header absolut positioniert */
+  #topnav { 
+	background:transparent; 
+  	color:#aaa; 
+	
+    position:absolute;
+    top:10px;
+    right:10px; /* LTR */
+	text-align:right; /* LTR */
+  }
 
   /* (en) adjustment of main navigation */
   /* (de) Anpassung der Hauptnavigation */
-  #nav ul { margin-left: 20px; }
+  #nav ul { margin-left:20px; }
 
-  #main { background: #fff;padding:10px 0; }
+  #main { background:#fff;padding:10px 0; }
 
   #footer {
     color:#666;
-    background: #f9f9f9;
-    padding: 10px 20px;
-    border-top: 5px #efefef solid;
-    line-height: 1.5em;
+    background:#f9f9f9;
+    padding:10px 20px;
+    border-top:5px #efefef solid;
+    line-height:1.5em;
   }
+
+  /* (en) Backup for correct positioning */
+  /* (de) Absicherung korrekte Positionierung */
+  #header, #nav, #main, #footer { clear:both; }
 
   /*------------------------------------------------------------------------------------------------------*/
 
@@ -92,21 +103,21 @@
    */
 
 
-  #col1 { width: 25%; }
-  #col1_content { padding: 10px 10px 10px 20px; }
+  #col1 { width:25%; }
+  #col1_content { padding:10px 10px 10px 20px; }
 
-  #col2 { width: 25%; }
-  #col2_content { padding: 10px 20px 10px 10px; }
+  #col2 { width:25%; }
+  #col2_content { padding:10px 20px 10px 10px; }
 
-  #col3 { margin: 0 25%; }
-  #col3_content { padding: 10px; }
+  #col3 { margin:0 25%; }
+  #col3_content { padding:10px; }
 
-  /*------------------------------------------------------------------------------------------------------*/
-
-  /**
-   * (en) Styling of layout specific elements
-   * (de) Gestaltung layoutabhängiger Elemente
-   */
+ /**
+  * ------------------------------------------------------------------------------------------------- #
+  *
+  * (en) Styling of layout specific elements
+  * (de) Gestaltung layoutabhängiger Elemente
+  */
 
   #header h1 {
     font-weight:bold;
@@ -118,15 +129,15 @@
 
   #header span { color:#999; }
 
-  #topnav a { color: #999; font-weight: normal; background:transparent; text-decoration:none; }
+  #topnav a { color:#999; font-weight:normal; background:transparent; text-decoration:none; }
   #topnav a:focus,
   #topnav a:hover,
-  #topnav a:active { text-decoration:underline; background-color: transparent; }
+  #topnav a:active { text-decoration:underline; background-color:transparent; }
 
-  #footer a { color: #999; background:transparent; font-weight: bold; }
+  #footer a { color:#999; background:transparent; font-weight:bold; }
   #footer a:focus,
   #footer a:hover,
-  #footer a:active {color: #4D87C7; background-color: transparent; text-decoration:underline; }
+  #footer a:active {color:#4D87C7; background-color:transparent; text-decoration:underline; }
 
  /**
   * ------------------------------------------------------------------------------------------------- #
@@ -141,10 +152,10 @@
   
   #skiplinks a.skip:focus,
   #skiplinks a.skip:active { 
-	color: #fff; 
-	background: #333; 
-	border-bottom: 1px #000 solid;
-	padding: 10px 0;
+	color:#fff; 
+	background:#333; 
+	border-bottom:1px #000 solid;
+	padding:10px 0;
 	text-decoration:none;
   }
 }

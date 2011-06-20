@@ -21,7 +21,7 @@ class ShopitemArticleController extends Aitsu_Adm_Plugin_Controller {
 		return (object) array (
 			'name' => 'shopitem',
 			'tabname' => Aitsu_Registry :: get()->Zend_Translate->translate('Shop item'),
-			'enabled' => self :: getPosition($idart, 'shopitem'),
+			'enabled' => false, //self :: getPosition($idart, 'shopitem'),
 			'position' => self :: getPosition($idart, 'shopitem'),
 			'id' => self :: ID
 		);

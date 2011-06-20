@@ -25,6 +25,14 @@ class Module_Navigation_Class extends Aitsu_Ee_Module_Abstract {
 		if ($user == null && $instance->_get('Navigation_' . $template . preg_replace('/[^a-zA-Z_0-9]/', '', $index), $output)) {
 			return $output;
 		}
+		
+		/*
+		 * if $params->idcat is not numeric, we have to assume that the string
+		 * represents a configuration value available.
+		 */
+		if (!is_numeric($params->idcat)) {
+			$params->idcat = Aitsu_Config :: get($params->idcat);
+		}
 
 		$view = $instance->_getView();
 		$view->nav = Aitsu_Persistence_View_Category :: nav($params->idcat);
