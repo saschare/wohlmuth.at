@@ -16,8 +16,6 @@
  * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: MiniMe.php 18345 2010-08-25 19:43:14Z akm $}
  */
 
 class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
