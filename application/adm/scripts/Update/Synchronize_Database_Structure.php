@@ -88,22 +88,40 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			'alter table `' . $constraint['TABLE_NAME'] . '` drop foreign key `' . $constraint['CONSTRAINT_NAME'] . '`');
 		}
 
-		return 'constraints removed';
+		return Aitsu_Translate :: translate('Constraints have been removed.');
 	}
 
 	protected function _removeIndexes() {
 
-		return 'indexes removed';
+		$indexes = Aitsu_Db :: fetchAll('' .
+		'select distinct ' .
+		'	table_name, ' .
+		'	index_name ' .
+		'from information_schema.statistics ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name like :prefix ' .
+		'	and index_name != \'PRIMARY\' ', array (
+			':schema' => Aitsu_Config :: get('database.params.dbname'),
+			':prefix' => Aitsu_Config :: get('database.params.tblprefix') . '%'
+		));
+
+		foreach ($indexes as $index) {
+			Aitsu_Db :: query('' .
+			'alter table `' . $index['table_name'] . '` drop index `' . $index['index_name'] . '`');
+		}
+
+		return Aitsu_Translate :: translate('Indexes have been removed.');
 	}
 
 	protected function _removeViews() {
 
-		return 'views removed';
+		return Aitsu_Translate :: translate('Views have been removed.');
 	}
 
 	protected function _removeEmptyTables() {
 
-		return 'empty tables removed';
+		return Aitsu_Translate :: translate('Empty tables have been removed.');
 	}
 
 	protected function _restoreTables() {
@@ -111,24 +129,24 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		$currentIndex = $this->_currentStep - 4;
 		$table = $this->_xml->getElementsByTagName('table')->item($currentIndex);
 
-		return $table->attributes->getNamedItem('name')->nodeValue . ' restored';
+		return $table->attributes->getNamedItem('name')->nodeValue . ' restored.';
 	}
 
 	protected function _restoreIndexes() {
 
-		return 'indexes restored';
+		return Aitsu_Translate :: translate('Indexes have been restored.');
 	}
 
 	protected function _restoreConstraints() {
 
-		return 'constraints restored';
+		return Aitsu_Translate :: translate('Constraints have been restored.');
 	}
 
 	protected function _restoreViews() {
 
 		trigger_error(var_export($this->_xml->saveXML(), true));
 
-		return 'views restored';
+		return Aitsu_Translate :: translate('Views have been restored.');
 	}
 
 }
