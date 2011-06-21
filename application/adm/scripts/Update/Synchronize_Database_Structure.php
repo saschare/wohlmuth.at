@@ -73,6 +73,21 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 	protected function _removeConstraints() {
 
+		$constraints = Aitsu_Db :: fetchAll('' .
+		'select * from information_schema.table_constraints ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name like :prefix ' .
+		'	and constraint_type = \'FOREIGN KEY\' ', array (
+			':schema' => Aitsu_Config :: get('database.params.dbname'),
+			':prefix' => Aitsu_Config :: get('database.params.tblprefix') . '%'
+		));
+
+		foreach ($constraints as $constraint) {
+			Aitsu_Db :: query('' .
+			'alter table `' . $constraint['TABLE_NAME'] . '` drop foreign key `' . $constraint['CONSTRAINT_NAME'] . '`');
+		}
+
 		return 'constraints removed';
 	}
 
