@@ -831,10 +831,10 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
                 $isPublished = Aitsu_Db :: fetchOne('' .
                 'select count(*) ' . 
                 'from _art_lang as artlang, _pub as pub ' .
-                'where artlang.lastmodified = pub.idartlang ' . 
+                'where artlang.idartlang = pub.idartlang ' . 
                 'and artlang.lastmodified = pub.pubtime');
 
-                if ($isPublished > 0) {
+                if ($isPublished < 1) {
                     $this->publish(false);
                     
                     return true;

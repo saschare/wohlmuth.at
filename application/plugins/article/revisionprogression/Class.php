@@ -33,13 +33,28 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
 
         $idart = $this->getRequest()->getParam('idart');
 
-        $publications = Aitsu_Db::fetchAll("SELECT `pub`.*, concat(`user`.`lastname`, ', ', `user`.`firstname`) AS `user` FROM `_pub` as `pub` LEFT JOIN `_acl_user` AS `user` ON `pub`.`userid` = `user`.`userid` WHERE `pub`.`idartlang` =:idartlang ORDER BY `pub`.`pubid` DESC", array(
+        $publications = Aitsu_Db::fetchAll("
+            SELECT
+                `pub`.`pubid`,
+                `pub`.`idartlang`,
+                `pub`.`pubtime`,
+                `pub`.`status` AS `isPublished`,
+                concat(`user`.`lastname`, ', ', `user`.`firstname`) AS `user`
+            FROM
+                `_pub` as `pub`
+            RIGHT JOIN
+                `_acl_user` AS `user` ON `pub`.`userid` = `user`.`userid`
+            WHERE
+                `pub`.`idartlang` =:idartlang
+            ORDER BY
+                `pub`.`pubid` DESC", array(
                     ':idartlang' => Aitsu_Util::getIdArtLang($idart, Aitsu_Registry::get()->session->currentLanguage)
                 ));
 
         $data = array();
         if ($publications) {
             foreach ($publications as $publication) {
+                $publication['isEdit'] = self::isEdit($publication['idartlang'], $publication['pubid']);
                 $data[] = (object) $publication;
             }
         }
@@ -47,6 +62,51 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
         $this->_helper->json((object) array(
                     'data' => $data
         ));
+    }
+
+    public static function isEdit($idartlang, $pubid) {
+
+        $idart = Aitsu_Util::getIdArt($idartlang);
+
+        $article = Aitsu_Persistence_Article::factory($idart)->load();
+
+        $publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
+
+        $isEdit = true;
+
+        foreach ($publishMap as $type => $tables) {
+            foreach ($tables->toArray() as $table) {
+                $marker = $table['marker'];
+
+                $edit = Aitsu_Db :: fetchAll('' .
+                                'select * ' .
+                                'from ' . $table['source'] . ' ' .
+                                'where ' . $marker . ' = :marker', array(
+                            ':marker' => $article->$marker
+                        ));
+
+                $pub = Aitsu_Db :: fetchAll('' .
+                                'select * ' .
+                                'from ' . $table['target'] . ' ' .
+                                'where pubid = :pubid', array(
+                            ':pubid' => $pubid
+                        ));
+
+                foreach ($pub as $key => $value) {
+                    unset($pub[$key]['pubid']);
+                    unset($pub[$key]['status']);
+                }
+
+                $edit_ser = serialize($edit);
+                $pub_ser = serialize($pub);
+                
+                if ($edit_ser != $pub_ser) {
+                    $isEdit = false;
+                }
+            }
+        }
+
+        return $isEdit;
     }
 
     public function activateAction() {

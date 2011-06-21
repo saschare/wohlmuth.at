@@ -15,15 +15,20 @@ var revisions = new Ext.grid.GridPanel({
         storeId: 'revisionsStore',
         idProperty: 'pubid',
         root: 'data',
-        fields: [{name: 'pubid', type: 'int'}, 'user', {name: 'pubtime', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'status'],
+        fields: [{name: 'pubid', type: 'int'}, 'user', {name: 'pubtime', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'isPublished', 'isEdit'],
         baseParams: {
         	idart: <?php echo $this->idart; ?>
         }
     }),
     columns: [
-        {dataIndex: 'status', header: '<?php echo Aitsu_Translate :: translate('Status'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-            if (record.get('status') == 1) {
+        {dataIndex: 'isPublished', header: '<?php echo Aitsu_Translate :: translate('Published'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+            if (record.get('isPublished') == 1) {
                 return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('published'); ?></span>';
+	    }
+	}},
+        {dataIndex: 'isEdit', header: '<?php echo Aitsu_Translate :: translate('Edit'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+            if (record.get('isEdit') == 1) {
+                return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('edit'); ?></span>';
 	    }
 	}},
         {dataIndex: 'pubtime', header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')},
