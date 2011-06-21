@@ -5,7 +5,7 @@ Ext.ux.IFrameComponent = Ext.extend(Ext.BoxComponent, {
 });
 
 choosen_revision_iframe = new Ext.ux.IFrameComponent({id: 'preview-iframe-choosen', url: null});
-            
+     
 var revisions = new Ext.grid.GridPanel({
     id: 'revisions',
 	store: new Ext.data.JsonStore({
@@ -15,27 +15,41 @@ var revisions = new Ext.grid.GridPanel({
         storeId: 'revisionsStore',
         idProperty: 'pubid',
         root: 'data',
-        fields: [{name: 'pubid', type: 'int'}, 'user', {name: 'pubtime', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'isPublished', 'isEdit'],
+        fields: [{name: 'pubid', type: 'int'}, {name: 'pubtime', type: 'date', dateFormat: 'Y-m-d H:i:s'}, 'isPublished', 'isEdit'],
         baseParams: {
         	idart: <?php echo $this->idart; ?>
         }
     }),
-    columns: [
-        {dataIndex: 'isPublished', header: '<?php echo Aitsu_Translate :: translate('Published'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-            if (record.get('isPublished') == 1) {
-                return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('published'); ?></span>';
-	    }
-            if (record.get('isPublished') == -1) {
-                return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('revision'); ?></span>';
-	    }
-	}},
-        {dataIndex: 'isEdit', header: '<?php echo Aitsu_Translate :: translate('Edit'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-            if (record.get('isEdit') == 1) {
-                return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('edit'); ?></span>';
-	    }
-	}},
-        {dataIndex: 'pubtime', header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')},
-        {dataIndex: 'user', header: '<?php echo Aitsu_Translate :: translate('User'); ?>', menuDisabled: true, sortable: true}
+    columns: [{
+    		xtype: 'actioncolumn',
+    		width: 10,
+    		fixed: true,
+    		menuDisabled: true, 
+                sortable: false,
+    		items: [{
+    			getClass: function(v, meta, rec) {
+					if (rec.get('isPublished') == 0) {
+						return 'page-unpublished';
+					}
+                                        
+                                        if (rec.get('isPublished') == 1) {
+						return 'page-published';
+					}
+                                        
+                                        if (rec.get('isPublished') == -1) {
+						return 'page-indexpage';
+					}
+				}
+			}, {
+    			getClass: function(v, meta, rec) {
+					if (rec.get('isEdit') == 1) {
+						return 'page-online';
+					}
+				}
+			}]
+    	},
+        {width: 10, fixed: true, dataIndex: 'pubid', header: 'pubid', menuDisabled: true, sortable: true},
+        {fixed: true, dataIndex: 'pubtime', header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')}     
 	],
 	viewConfig: {
 		forceFit: true,
@@ -43,11 +57,6 @@ var revisions = new Ext.grid.GridPanel({
 	},
 	border: false,
 	listeners: {
-		render: {
-			fn: function(){
-				this.getStore().load();
-			}
-		},
                 rowclick : function(grid,rowIndex,e) {               
                                                                
                     var pubid = Ext.getCmp('revisions').selModel.getSelected().data.pubid;
@@ -139,10 +148,19 @@ Ext.getCmp('page-edit-tab').add({
     id: 'article-plugin-revisionprogression',
     title: '<?php echo Aitsu_Translate :: translate('Revision Progression'); ?>',
     layout: 'border',
+    listeners: {
+        activate: function() {
+            Ext.getCmp('revisions').getStore().reload();
+            
+            Ext.get('preview-iframe-choosen').set({
+                src: '<?php echo Aitsu_Registry :: get()->config->sys->mainDir; ?>adm/preview/<?php echo $this->idartlang; ?>'
+            });
+	}
+    },
     items: [{
         title: 'Revisions',
 	region: 'west',
-	width: 400,
+	width: 300,
 	layout: 'fit',
 	split: true,
 	items: revisions
