@@ -4,6 +4,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="1" maxOccurs="unbounded" ref="table"/>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="view"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -14,6 +15,11 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
       </xs:sequence>
       <xs:attribute name="engine" use="required" type="engine"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="view">
+    <xs:complexType mixed="true">
       <xs:attribute name="name" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
