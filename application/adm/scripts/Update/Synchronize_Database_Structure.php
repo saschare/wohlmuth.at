@@ -93,9 +93,10 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 	protected function _restoreTables() {
 
-		$this->_currentStep = 100000 - 1;
+		$currentIndex = $this->_currentStep - 4;
+		$table = $this->_xml->getElementsByTagName('table')->item($currentIndex);
 
-		return 'tables restored';
+		return $table->attributes->getNamedItem('name')->nodeValue . ' restored';
 	}
 
 	protected function _restoreIndexes() {
