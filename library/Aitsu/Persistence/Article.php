@@ -817,6 +817,15 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				}
 			}
                         
+                        Aitsu_Db :: query('' . 
+                        'update _art_lang as artlang, _pub as pub ' .
+                        'set artlang.lastmodified = pub.pubtime ' . 
+                        'where pub.pubid = :pubid ' . 
+                        'and artlang.idartlang = :idartlang', array(
+                            ':pubid' => $pubid,
+                            ':idartlang' => $this->idartlang
+                        ));
+                        
                         Aitsu_Db :: commit();
                 } catch (Exception $e) {
 			Aitsu_Db :: rollback();
@@ -875,14 +884,6 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			))->getLastInsertId();
 
 			$publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
-
-                        Aitsu_Db :: query('' .
-			'update _art_lang set ' .
-			'	lastmodified = :transactiontime ' .
-			'where idartlang = :idartlang', array (
-				':idartlang' => $this->idartlang,
-				':transactiontime' => $transactionTime
-			));
                         
 			foreach ($publishMap as $type => $tables) {
 				foreach ($tables->toArray() as $table) {
@@ -913,6 +914,14 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 					}
 				}
 			}
+                        
+                        Aitsu_Db :: query('' .
+			'update _art_lang set ' .
+			'	lastmodified = :transactiontime ' .
+			'where idartlang = :idartlang', array (
+				':idartlang' => $this->idartlang,
+				':transactiontime' => $transactionTime
+			));
 
 			/*
 			 * Clean article cache.

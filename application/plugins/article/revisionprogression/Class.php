@@ -66,47 +66,22 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
 
     public static function isEdit($idartlang, $pubid) {
 
-        $idart = Aitsu_Util::getIdArt($idartlang);
+        $isPublished = Aitsu_Db :: fetchOne('' .
+                        'select count(*) ' .
+                        'from _art_lang as artlang, _pub as pub ' .
+                        'where artlang.idartlang = pub.idartlang ' .
+                        'and artlang.lastmodified = pub.pubtime ' .
+                        'and pub.pubid = :pubid ' .
+                        'and artlang.idartlang = :idartlang', array(
+                    ':pubid' => $pubid,
+                    ':idartlang' => $idartlang
+                ));
 
-        $article = Aitsu_Persistence_Article::factory($idart)->load();
-
-        $publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
-
-        $isEdit = true;
-
-        foreach ($publishMap as $type => $tables) {
-            foreach ($tables->toArray() as $table) {
-                $marker = $table['marker'];
-
-                $edit = Aitsu_Db :: fetchAll('' .
-                                'select * ' .
-                                'from ' . $table['source'] . ' ' .
-                                'where ' . $marker . ' = :marker', array(
-                            ':marker' => $article->$marker
-                        ));
-
-                $pub = Aitsu_Db :: fetchAll('' .
-                                'select * ' .
-                                'from ' . $table['target'] . ' ' .
-                                'where pubid = :pubid', array(
-                            ':pubid' => $pubid
-                        ));
-
-                foreach ($pub as $key => $value) {
-                    unset($pub[$key]['pubid']);
-                    unset($pub[$key]['status']);
-                }
-
-                $edit_ser = serialize($edit);
-                $pub_ser = serialize($pub);
-
-                if ($edit_ser != $pub_ser) {
-                    $isEdit = false;
-                }
-            }
+        if ($isPublished > 0) {
+            return true;
         }
 
-        return $isEdit;
+        return false;
     }
 
     public function activateAction() {
@@ -133,13 +108,13 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
         $pubid = $this->getRequest()->getParam('pubid');
 
         $idart = Aitsu_Util::getIdArt($idartlang);
-        
+
         Aitsu_Db :: startTransaction();
 
         try {
-            
-            $article = Aitsu_Persistence_Article::factory($idart)->load(); 
-            
+
+            $article = Aitsu_Persistence_Article::factory($idart)->load();
+
             Aitsu_Db :: query('' .
                     'update _pub set status = 0 where idartlang = :idartlang', array(
                 ':idartlang' => $idartlang
