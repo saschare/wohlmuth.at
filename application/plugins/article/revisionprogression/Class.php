@@ -134,7 +134,7 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
                     Aitsu_Db :: query('' .
                             'update ' . $table['target'] . ' set ' .
                             'status = 0 ' .
-                            'where ' . $marker . ' = :marker ' . 
+                            'where ' . $marker . ' = :marker ' .
                             'and status = 1', array(
                         ':marker' => $article->$marker
                     ));
@@ -152,6 +152,34 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
                 'art_' . $article->idart
             ));
 
+            Aitsu_Db :: commit();
+        } catch (Exception $e) {
+            Aitsu_Db :: rollback();
+            $this->_helper->json((object) array(
+                        'success' => false
+            ));
+        }
+
+        $this->_helper->json((object) array(
+                    'success' => true
+        ));
+    }
+
+    public function deleterevisionsAction() {
+
+        $idartlang = $this->getRequest()->getParam('idartlang');
+
+        Aitsu_Db :: startTransaction();
+
+        try {
+
+            Aitsu_Db :: query('' .
+                    'delete from _pub ' .
+                    'where status = -1 ' . 
+                    'and idartlang = :idartlang', array(
+                        ':idartlang' => $idartlang
+                    ));
+            
             Aitsu_Db :: commit();
         } catch (Exception $e) {
             Aitsu_Db :: rollback();
