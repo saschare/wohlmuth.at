@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-16 14:07+0100\n"
-"PO-Revision-Date: 2011-06-16 14:10+0100\n"
+"POT-Creation-Date: 2011-06-21 15:10+0100\n"
+"PO-Revision-Date: 2011-06-21 15:11+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,23 +41,23 @@ msgstr "Quelle editieren"
 msgid "User profile"
 msgstr "Benutzerprofil"
 
-#: application/adm/controllers/AclController.php:135
+#: application/adm/controllers/AclController.php:136
 msgid "Edit user"
 msgstr "Benutzer aktualisieren"
 
-#: application/adm/controllers/AclController.php:196
+#: application/adm/controllers/AclController.php:197
 msgid "The login is already in use."
 msgstr "Der Benutzername ist bereits in Gebrauch."
 
-#: application/adm/controllers/AclController.php:285
+#: application/adm/controllers/AclController.php:287
 msgid "Edit role"
 msgstr "Rolle editieren"
 
-#: application/adm/controllers/AclController.php:398
+#: application/adm/controllers/AclController.php:400
 msgid "Edit privilege"
 msgstr "Privileg aktualisieren"
 
-#: application/adm/controllers/AclController.php:490
+#: application/adm/controllers/AclController.php:492
 msgid "Edit resource"
 msgstr "Ressource editieren"
 
@@ -259,6 +259,8 @@ msgstr "Datenbankstruktur aktualisieren"
 #: application/adm/scripts/Update/Update_Database.php:633
 #: application/adm/scripts/Update/Update_Database.php:672
 #: application/adm/scripts/Update/Update_Database.php:709
+#: application/adm/scripts/Update/Update_Database.php:818
+#: application/adm/scripts/Update/Update_Database.php:848
 #, php-format
 msgid "Table %s already exists."
 msgstr "Die Tabelle %s existiert bereits."
@@ -276,6 +278,8 @@ msgstr "Die Tabelle %s existiert bereits."
 #: application/adm/scripts/Update/Update_Database.php:654
 #: application/adm/scripts/Update/Update_Database.php:691
 #: application/adm/scripts/Update/Update_Database.php:730
+#: application/adm/scripts/Update/Update_Database.php:830
+#: application/adm/scripts/Update/Update_Database.php:876
 #: application/adm/scripts/Maintenance/ActualizeRelations.php:29
 #, php-format
 msgid "Table %s added."
@@ -305,9 +309,30 @@ msgstr "Die Tabelle %s ist bereits auf dem aktuellen Stand."
 #: application/adm/scripts/Update/Update_Database.php:755
 #: application/adm/scripts/Update/Update_Database.php:771
 #: application/adm/scripts/Update/Update_Database.php:785
+#: application/adm/scripts/Update/Update_Database.php:800
 #, php-format
 msgid "Table %s altered."
 msgstr "Die Tabelle %s wurde aktualisiert."
+
+#: application/adm/scripts/Update/Update_Database.php:893
+#, php-format
+msgid "Privilege %s already exists."
+msgstr "Das Recht %s existiert bereits."
+
+#: application/adm/scripts/Update/Update_Database.php:904
+#, php-format
+msgid "Privilege %s added."
+msgstr "Das Recht %s wurde angelegt."
+
+#: application/adm/scripts/Update/Update_Database.php:935
+#, php-format
+msgid "Privilege %s already assigned to role %s."
+msgstr "Das Recht %s ist bereits der Rolle %s zugewiesen."
+
+#: application/adm/scripts/Update/Update_Database.php:946
+#, php-format
+msgid "Privilege %s assigned to %s."
+msgstr "Das Recht %s ist %s zugewiesen."
 
 #: application/adm/scripts/Installation/Setup.php:26
 #, php-format
@@ -473,6 +498,10 @@ msgstr "Medien"
 msgid "Tags"
 msgstr "Tags"
 
+#: application/plugins/article/revisionprogression/Class.php:22
+msgid "Revision Progression"
+msgstr "Revisionsverlauf"
+
 #: application/plugins/article/dc/Class.php:23
 msgid "Dublin core (DC)"
 msgstr "Dublin core (DC)"
@@ -539,6 +568,70 @@ msgstr "Synchronisation"
 #: application/plugins/category/standard/Class.php:25
 msgid "Overview"
 msgstr "Übersicht"
+
+#: application/skins/default/module/Contact/Class.php:14
+msgid "Returns a simple contact form"
+msgstr "Gibt ein einfaches Kontaktformular zurück"
+
+#: application/skins/default/module/Contact/Class.php:45
+msgid "Direct contact"
+msgstr "Direktkontakt"
+
+#: application/skins/default/module/Flash/Class.php:15
+msgid "Inserts a flash movie"
+msgstr "Fügt ein Flash-Movie ein"
+
+#: application/skins/default/module/Address/Class.php:14
+msgid "Inserts a microformat address"
+msgstr "Fügt eine Microformat-Adresse ein"
+
+#: application/skins/default/module/Subcolumn/Class.php:14
+msgid "Inserts a subcolumn"
+msgstr "Fügt eine Subcolumn ein"
+
+#: application/skins/default/module/Facebook/Class.php:14
+msgid "Inserts a Facebook plugin"
+msgstr "Fügt ein Facebook-Plugin ein"
+
+#: application/skins/default/module/CodePhp/Class.php:14
+msgid "Styles PHP Code"
+msgstr "Formatiert PHP-Code"
+
+#: application/skins/default/module/CodeHtml/Class.php:14
+msgid "Styles HTML Code"
+msgstr "Formatiert HTML-Code"
+
+#: application/skins/default/module/Twitter/Class.php:14
+msgid "Inserts a Twitter button"
+msgstr "Fügt einen Twitter-Button ein"
+
+#: application/skins/default/module/CodeIni/Class.php:14
+msgid "Styles INI Code"
+msgstr "Formatiert INI-Code"
+
+#: application/skins/default/module/TagA/Class.php:14
+msgid "Inserts a html anchor tag"
+msgstr "Fügt ein HTML-Anchor ein"
+
+#: application/skins/default/module/Config/Class.php:17
+msgid "Show a set of example module configurations"
+msgstr "Zeit ein Beispielset von Modulkonfigurationen"
+
+#: application/skins/default/module/Pdf/Class.php:15
+msgid "Returns PDF files"
+msgstr "Gibt PDF-Dateien zurück"
+
+#: application/skins/default/module/File/Class.php:15
+msgid "Inserts a link to a file"
+msgstr "Fügt einen Link zu einer Datei ein"
+
+#: application/skins/default/module/GalleryGrouped/Class.php:15
+msgid "Returns a grouped image gallery"
+msgstr "Gibt eine gruppierte Bildergalerie zurück"
+
+#: application/skins/default/module/TagAImg/Class.php:14
+msgid "Inserts a link image"
+msgstr "Fügt einen Bildlink ein"
 
 #: library/Aitsu/Forms/Validator.php:22
 msgid "The submission of a value is mandatory."
@@ -674,6 +767,8 @@ msgid "Config sets"
 msgstr "Konfigurationen"
 
 #: application/adm/views/scripts/config/index.phtml:22
+#: application/adm/views/scripts/client/clientlist.phtml:19
+#: application/adm/views/scripts/client/languagelist.phtml:27
 msgid "Identifier"
 msgstr "Bezeichner"
 
@@ -683,6 +778,9 @@ msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/index.phtml:58
 #: application/adm/views/scripts/data/index.phtml:163
+#: application/adm/views/scripts/mapping/index.phtml:48
+#: application/adm/views/scripts/client/clientlist.phtml:55
+#: application/adm/views/scripts/client/languagelist.phtml:67
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1061,6 +1159,7 @@ msgid "Set online / offline"
 msgstr "On- und offline stellen"
 
 #: application/adm/views/scripts/dialog/setcategoryonline.phtml:4
+#: application/adm/views/scripts/dialog/setcategorylocked.phtml:4
 msgid "Include the sub-categories?"
 msgstr "Unterkategorien einschliessen?"
 
@@ -1284,6 +1383,7 @@ msgstr "Menge"
 #: application/modules/Shop/Cart/index.phtml:7
 #: application/plugins/generic/data/media/views/index.phtml:436
 #: application/plugins/generic/data/dates/views/index.phtml:49
+#: application/plugins/generic/system/modules/views/detail.phtml:29
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -1315,6 +1415,7 @@ msgstr "Medienname"
 
 #: application/plugins/generic/data/media/views/index.phtml:160
 #: application/plugins/generic/data/dates/views/index.phtml:38
+#: application/plugins/generic/data/dam/views/inbox/content.phtml:6
 msgid "Date"
 msgstr "Datum"
 
@@ -1421,25 +1522,33 @@ msgstr "Grösse"
 msgid "Add new asset entry based on the selected file? Or delete the selected resource?"
 msgstr "Neues Asset auf Basis der selektierten Datei erstellen? Oder die selektierte Datei löschen?"
 
-#: application/plugins/generic/management/todo/views/index.phtml:42
+#: application/plugins/generic/management/todo/views/index.phtml:52
 msgid "Article title"
 msgstr "Artikeltitel"
 
-#: application/plugins/generic/management/todo/views/index.phtml:43
+#: application/plugins/generic/management/todo/views/index.phtml:53
+msgid "Category"
+msgstr "Kategorie"
+
+#: application/plugins/generic/management/todo/views/index.phtml:54
 msgid "To Do"
 msgstr "Pendenzen"
 
-#: application/plugins/generic/management/todo/views/index.phtml:44
+#: application/plugins/generic/management/todo/views/index.phtml:55
 msgid "Due"
 msgstr "Termin"
 
-#: application/plugins/generic/management/todo/views/index.phtml:47
+#: application/plugins/generic/management/todo/views/index.phtml:58
 msgid "over due"
 msgstr "überfällig"
 
-#: application/plugins/generic/management/todo/views/index.phtml:49
+#: application/plugins/generic/management/todo/views/index.phtml:60
 msgid "pending"
 msgstr "ausstehend"
+
+#: application/plugins/generic/management/todo/views/index.phtml:85
+msgid "Go to article"
+msgstr "Zum Artikel gehen"
 
 #: application/plugins/generic/layout/skin/views/index.phtml:4
 msgid "Edit skin files"
@@ -1522,10 +1631,12 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1538,6 +1649,8 @@ msgid "Add new customer"
 msgstr "Neuen Kunden aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/customerlist.phtml:5
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:5
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:5
 msgid "Filter"
 msgstr "Filtern"
 
@@ -1638,9 +1751,9 @@ msgstr "Langsamste Seite"
 msgid "Page title"
 msgstr "Seitentitel"
 
-#: application/plugins/dashboard/toDoList/views/index.phtml:82
-msgid "Go to article"
-msgstr "Zum Artikel gehen"
+#: application/plugins/dashboard/toDoList/views/index.phtml:95
+msgid "Open todo list"
+msgstr "Pendenzenliste öffnen"
 
 #: application/plugins/article/config/views/index.phtml:4
 msgid "Configuration has been saved."
@@ -1650,6 +1763,30 @@ msgstr "Die Konfiguration wurde gespeichert."
 #: application/plugins/article/dc/views/index.phtml:8
 msgid "Form data have not been saved due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
+
+#: application/plugins/article/revisionprogression/views/index.phtml:98
+msgid "Delete revisions"
+msgstr "Revisionen löschen"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:102
+msgid "Delete unused revisions"
+msgstr "Nicht verwendete Revisionen löschen"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:103
+msgid "Are you sure to delete the revisions?"
+msgstr "Sind Sie sicher, dass Sie die Revisionen löschen möchten?"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:138
+msgid "Current revision"
+msgstr "Aktuelle Revision"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:150
+msgid "Are you sure to publish the current revision?"
+msgstr "Sind Sie sicher, dass die aktuelle Revision publiziert werden soll?"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:194
+msgid "Revisions"
+msgstr "Revisionen"
 
 #: application/plugins/article/dc/views/index.phtml:4
 msgid "DC meta data have been saved."
@@ -1671,10 +1808,6 @@ msgstr "Subtemplates anzeigen/ausblenden"
 #: application/plugins/article/edit/views/index.phtml:60
 msgid "Box model"
 msgstr "Boxmodel"
-
-#: application/plugins/article/edit/views/edit/module.phtml:64
-msgid "Module"
-msgstr "Modul"
 
 #: application/plugins/article/todo/views/index.phtml:37
 #: application/plugins/article/todo/views/index.phtml:135
@@ -1724,11 +1857,6 @@ msgstr "Ressourcen-ID"
 #: application/plugins/article/syndication/views/index.phtml:83
 msgid "Are you sure to remove the selected resource?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Ressource entfernen möchten?"
-
-#: application/plugins/article/crosslinking/views/index.phtml:57
-#: application/plugins/category/standard/views/index.phtml:24
-msgid "Category"
-msgstr "Kategorie"
 
 #: application/plugins/article/crosslinking/views/index.phtml:82
 msgid "Delete link"
@@ -1796,55 +1924,46 @@ msgstr "Die Shop-Artikel-Daten wurden gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:106
 #: application/plugins/category/metabatch/views/index.phtml:123
-#: application/plugins/category/standard/views/index.phtml:106
 msgid "URL name"
 msgstr "URL-Name"
 
 #: application/plugins/category/blog/views/index.phtml:146
 #: application/plugins/category/metabatch/views/index.phtml:201
-#: application/plugins/category/standard/views/index.phtml:176
 msgid "Set as index"
 msgstr "Als Index setzen"
 
 #: application/plugins/category/blog/views/index.phtml:219
 #: application/plugins/category/metabatch/views/index.phtml:274
-#: application/plugins/category/standard/views/index.phtml:249
 msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
-#: application/plugins/category/standard/views/index.phtml:253
 msgid "Page cut"
 msgstr "Seite ausgeschnitten"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
-#: application/plugins/category/standard/views/index.phtml:253
 msgid "The selected page has been put to the clipboard."
 msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:232
 #: application/plugins/category/metabatch/views/index.phtml:287
-#: application/plugins/category/standard/views/index.phtml:262
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: application/plugins/category/blog/views/index.phtml:233
 #: application/plugins/category/metabatch/views/index.phtml:288
-#: application/plugins/category/standard/views/index.phtml:263
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
-#: application/plugins/category/standard/views/index.phtml:272
 msgid "Page deleted"
 msgstr "Seite gelöscht"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
-#: application/plugins/category/standard/views/index.phtml:272
 msgid "The selected page has been removed."
 msgstr "Die selektierte Seite wurde gelöscht."
 
@@ -1876,6 +1995,54 @@ msgstr "Laden"
 msgid "Article is loading..."
 msgstr "Der Artikel wird geladen..."
 
+#: application/skins/default/module/Contact/index.phtml:8
+msgid "Please provide your name"
+msgstr "Bitte geben Sie Ihren Namen an"
+
+#: application/skins/default/module/Contact/index.phtml:10
+msgid "First/Lastname"
+msgstr "Vor-/Nachname"
+
+#: application/skins/default/module/Contact/index.phtml:17
+msgid "Please provide your company"
+msgstr "Bitte geben Sie Ihre Firma an"
+
+#: application/skins/default/module/Contact/index.phtml:19
+msgid "Company"
+msgstr "Firma"
+
+#: application/skins/default/module/Contact/index.phtml:26
+msgid "Please provide a valid telephone number"
+msgstr "Bitte geben Sie eine gültige Telefonnummer an"
+
+#: application/skins/default/module/Contact/index.phtml:28
+msgid "Telephone"
+msgstr "Telefon"
+
+#: application/skins/default/module/Contact/index.phtml:35
+msgid "Please provide a valid e-mail-address"
+msgstr "Bitte geben Sie eine gültige Email-Adresse an"
+
+#: application/skins/default/module/Contact/index.phtml:37
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: application/skins/default/module/Contact/index.phtml:44
+msgid "Please provide your message"
+msgstr "Bitte geben Sie eine Nachricht ein"
+
+#: application/skins/default/module/Contact/index.phtml:46
+msgid "Message"
+msgstr "Nachricht"
+
+#: application/skins/default/module/Contact/index.phtml:53
+msgid "Submit"
+msgstr "Absenden"
+
+#: application/skins/default/module/Twitter/index.phtml:1
+msgid "Follow"
+msgstr "Folgen"
+
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:5
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:28
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:39
@@ -1888,10 +2055,6 @@ msgstr "Der Artikel wird geladen..."
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:128
 msgid "The given pattern is not allowed or the field is mandatory. Please change it accordingly."
 msgstr "Das Muster ist nicht zulässig oder das Feld ist ein Pflichtfeld. Bitte ergänzen Sie die Angabe entsprechend."
-
-#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:32
-msgid "Company"
-msgstr "Firma"
 
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:43
 msgid "Division"
@@ -1925,14 +2088,15 @@ msgstr "Fax"
 msgid "Email"
 msgstr "Email"
 
-#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:132
-msgid "Message"
-msgstr "Nachricht"
-
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:137
 msgid "send"
 msgstr "senden"
 
+#, fuzzy
+#~ msgid "Aktuelle Revision"
+#~ msgstr "Revisionen löschen"
+#~ msgid "Module"
+#~ msgstr "Modul"
 #~ msgid "Articles"
 #~ msgstr "Artikel"
 #~ msgid "Plugins"
@@ -2010,8 +2174,6 @@ msgstr "senden"
 #~ "sollte - den Seitentitel der aktuellen Seite."
 #~ msgid "Returns the specified HTML tag with the given content."
 #~ msgstr "Gibt das spezifiierte HTML-Tag mit dem bezeichneten Inhalt zurück."
-#~ msgid "Configurable contact form"
-#~ msgstr "Konfigurierbares Kontaktformular."
 #~ msgid ""
 #~ "Outputs the output of the specified module of the specified page, while "
 #~ "still allowing to edit its content in the edit mode."
@@ -2130,8 +2292,6 @@ msgstr "senden"
 #~ msgstr "Selektierte Termine löschen"
 #~ msgid "The current module has no content nor configuration to be made."
 #~ msgstr "Das gewählte Modul weist keinen Inhalt und keine Konfiguration auf."
-#~ msgid "Module configuration"
-#~ msgstr "Modulkonfiguration"
 #~ msgid "Full view"
 #~ msgstr "Vollansicht"
 #~ msgid "Return to normal view"
