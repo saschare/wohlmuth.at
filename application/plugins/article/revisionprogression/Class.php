@@ -4,7 +4,7 @@
  * @author Christian Kehres
  * @copyright Copyright &copy; 2011, webtischlerei
  */
-class RevisionprogessionArticleController extends Aitsu_Adm_Plugin_Controller {
+class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
     const ID = '4df8d3e8-f820-4dde-8a41-129a7f000101';
 
     public function init() {
@@ -33,7 +33,7 @@ class RevisionprogessionArticleController extends Aitsu_Adm_Plugin_Controller {
 
         $idart = $this->getRequest()->getParam('idart');
 
-        $publications = Aitsu_Db::fetchAll("SELECT `pub`.*, concat(`user`.`lastname`, ', ', `user`.`firstname`) AS `user` FROM `_pub` as `pub` LEFT JOIN `_acl_user` AS `user` ON `pub`.`userid` = `user`.`userid` WHERE `pub`.`idartlang` =:idartlang ORDER BY `pub`.`id` DESC", array(
+        $publications = Aitsu_Db::fetchAll("SELECT `pub`.*, concat(`user`.`lastname`, ', ', `user`.`firstname`) AS `user` FROM `_pub` as `pub` LEFT JOIN `_acl_user` AS `user` ON `pub`.`userid` = `user`.`userid` WHERE `pub`.`idartlang` =:idartlang ORDER BY `pub`.`pubid` DESC", array(
                     ':idartlang' => Aitsu_Util::getIdArtLang($idart, Aitsu_Registry::get()->session->currentLanguage)
                 ));
 
