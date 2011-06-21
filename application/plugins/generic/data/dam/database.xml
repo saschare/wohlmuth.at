@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="schema.xsd">
+    <table name="dam_asset" engine="InnoDB">
+        <field name="assetid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="typeid" type="int(10) unsigned" default="null"/>
+        <field name="identifier" type="varchar(255)" default="null"/>
+        <field name="abstract" type="text" default="null"/>
+        <field name="copyright" type="varchar(255)" default="null"/>
+        <field name="credit" type="varchar(255)" default="null"/>
+        <field name="licenseid" type="int(10) unsigned" default="null"/>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <field name="modified" type="timestamp" default="0000-00-00 00:00:00"/>
+        <field name="validfrom" type="datetime" default="null"/>
+        <field name="validuntil" type="datetime" default="null"/>
+        <field name="replaces" type="int(10) unsigned" default="null"/>
+        <index name="replaces" columns="replaces" unique="false"/>
+        <index name="licenseid" columns="licenseid" unique="false"/>
+        <index name="typeid" columns="typeid" unique="false"/>
+    </table>
+    <table name="dam_license" engine="InnoDB">
+        <field name="licenseid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="identifier" type="varchar(255)" default="null"/>
+        <field name="description" type="text" default="null"/>
+        <field name="url" type="varchar(255)" default="null"/>
+    </table>
+    <table name="dam_location" engine="InnoDB">
+        <field name="locationid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="countryid" type="int(10) unsigned" default="null"/>
+        <field name="city" type="varchar(255)" default="null"/>
+        <index name="countryid" columns="countryid" unique="false"/>
+    </table>
+    <table name="dam_locations" engine="InnoDB">
+        <field name="assetid" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="locationid" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="description" type="text" default="null"/>
+        <index name="locationid" columns="locationid" unique="false"/>
+    </table>
+    <table name="dam_referencedby" engine="InnoDB">
+        <field name="assetid" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="reference" type="varchar(255)" default="null" primary="true"/>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+    </table>
+    <table name="dam_rel" engine="InnoDB">
+        <field name="parentid" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="childid" type="int(10) unsigned" default="null" primary="true"/>
+        <index name="childid" columns="childid" unique="false"/>
+    </table>
+    <table name="dam_subtype" engine="InnoDB">
+        <field name="subtypeid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="typeid" type="int(10) unsigned" default="null"/>
+        <field name="identifier" type="varchar(255)" default="null"/>
+        <index name="typeid" columns="typeid" unique="false"/>
+    </table>
+    <table name="dam_tag" engine="InnoDB">
+        <field name="tagid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="tag" type="varchar(255)" default="null"/>
+        <index name="tag" columns="tag" unique="false"/>
+    </table>
+    <table name="dam_tags" engine="InnoDB">
+        <field name="assetid" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="tagid" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="tagvalue" type="varchar(255)" default="null"/>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <index name="tagid" columns="tagid" unique="false"/>
+    </table>
+    <table name="dam_type" engine="InnoDB">
+        <field name="typeid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="identifier" type="varchar(255)" default="null"/>
+        <index name="identifier" columns="identifier" unique="true"/>
+    </table>
+    <table name="dam_use" engine="InnoDB">
+        <field name="useid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="use" type="varchar(255)" default="null"/>
+        <field name="description" type="text" default="null"/>
+        <index name="use" columns="use" unique="true"/>
+    </table>
+    <table name="dam_uses" engine="InnoDB">
+        <field name="assetid" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="useid" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <index name="useid" columns="useid" unique="false"/>
+    </table>
+</database>
