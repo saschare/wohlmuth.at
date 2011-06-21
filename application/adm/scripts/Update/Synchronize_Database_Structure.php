@@ -9,6 +9,7 @@
 class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstract {
 
 	protected $_methodMap = array ();
+	protected $_xml = null;
 
 	public static function getName() {
 
@@ -18,20 +19,36 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 	protected function _init() {
 
 		$this->_methodMap = array (
-			0 => '_removeConstraints',
-			1 => '_removeIndexes',
-			2 => '_removeViews',
-			3 => '_removeEmptyTables',
-			4 => '_restoreTables',
-			100000 => '_restoreIndexes',
-			100001 => '_restoreConstraints',
-			100002 => '_restoreViews'
+			'_removeConstraints',
+			'_removeIndexes',
+			'_removeViews',
+			'_removeEmptyTables'
 		);
+
+		$this->_xml = DOMDocument :: loadXML('<database></database>');
+		$xmls = Aitsu_Util_Dir :: scan(APPLICATION_PATH, 'database.xml');
+		foreach ($xmls as $xml) {
+			$dom = DOMDocument :: load($xml)->documentElement;
+			foreach ($dom->childNodes as $node) {
+				$node = $this->_xml->importNode($node, true);
+				$this->_xml->documentElement->appendChild($node);
+			}
+		}
+
+		$tables = $this->_xml->getElementsByTagName('table');
+
+		for ($i = 0; $i < $tables->length; $i++) {
+			$this->_methodMap[] = '_restoreTables';
+		}
+
+		$this->_methodMap[] = '_restoreIndexes';
+		$this->_methodMap[] = '_restoreConstraints';
+		$this->_methodMap[] = '_restoreViews';
 	}
 
 	protected function _hasNext() {
 
-		if ($this->_currentStep < 8) {
+		if ($this->_currentStep < count($this->_methodMap)) {
 			return true;
 		}
 
@@ -55,44 +72,46 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 	}
 
 	protected function _removeConstraints() {
-		
+
 		return 'constraints removed';
 	}
 
 	protected function _removeIndexes() {
-		
+
 		return 'indexes removed';
 	}
 
 	protected function _removeViews() {
-		
+
 		return 'views removed';
 	}
 
 	protected function _removeEmptyTables() {
-		
+
 		return 'empty tables removed';
 	}
 
 	protected function _restoreTables() {
 
 		$this->_currentStep = 100000 - 1;
-		
+
 		return 'tables restored';
 	}
 
 	protected function _restoreIndexes() {
-		
+
 		return 'indexes restored';
 	}
 
 	protected function _restoreConstraints() {
-		
+
 		return 'constraints restored';
 	}
 
 	protected function _restoreViews() {
-		
+
+		trigger_error(var_export($this->_xml->saveXML(), true));
+
 		return 'views restored';
 	}
 
