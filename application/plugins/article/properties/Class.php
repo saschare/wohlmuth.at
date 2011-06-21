@@ -39,6 +39,7 @@ class PropertiesArticleController extends Aitsu_Adm_Plugin_Controller {
 		), 'aplugin');
 
 		$data = Aitsu_Persistence_Article :: factory($id)->load();
+		$data->pagetitle = str_replace("'", "\\'", $data->pagetitle);
 		$form->setValues($data->toArray());
 
 		if ($this->getRequest()->getParam('loader')) {

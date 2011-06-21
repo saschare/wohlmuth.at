@@ -34,7 +34,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		);
 	}
 
-	public function factory() {
+	public static function factory() {
 
 		$instance = new self();
 		return $instance;
@@ -260,7 +260,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		"	artlang.artsort artsort, " .
 		"	artlang.mainimage, " .
 		"	artlang.pubfrom pubfrom, " .
-		"	artlang.pubuntil pubuntil, " .
+		"	artlang.pubuntil pubuntil " .
 		"	{$selects} " .
 		"from _art_lang as artlang " .
 		"{$joins} " .
