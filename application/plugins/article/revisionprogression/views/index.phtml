@@ -50,6 +50,11 @@ var revisions = new Ext.grid.GridPanel({
 	},
 	border: false,
 	listeners: {
+                render: {
+			fn: function() {
+                            Ext.getCmp('revisions').selModel.selectRow(2);
+			}
+                },
                 rowclick : function(grid,rowIndex,e) {               
                                                                
                     var pubid = Ext.getCmp('revisions').selModel.getSelected().data.pubid;
