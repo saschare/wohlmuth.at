@@ -11,7 +11,7 @@
                             <xsl:attribute name="name" select="@name"/>
                             <xsl:attribute name="type" select="@type"/>
                             <xsl:attribute name="default" select="@default"/>
-                            <xsl:if test="nullable = 'yes'">
+                            <xsl:if test="@nullable != 'no'">
                                 <xsl:attribute name="nullable">true</xsl:attribute>
                             </xsl:if>
                             <xsl:if test="@extra = 'auto_increment'">

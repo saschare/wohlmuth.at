@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="schema.xsd">
+<database>
     <table name="acl_clients" engine="InnoDB">
         <field name="idclient" type="int(10) unsigned" default="null" primary="true">
             <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
@@ -81,15 +80,15 @@
         <field name="login" type="varchar(100)" default="null"/>
         <field name="password" type="varchar(255)" default="null"/>
         <field name="email" type="varchar(255)" default="null"/>
-        <field name="idlang" type="int(10) unsigned" default="null">
+        <field name="idlang" type="int(10) unsigned" default="null" nullable="true">
             <constraint table="lang" column="idlang" onupdate="restrict" ondelete="set null"/>
         </field>
         <field name="locale" type="varchar(5)" default="null"/>
-        <field name="sessionperiod" type="int(11)" default="null"/>
-        <field name="acfrom" type="timestamp" default="null"/>
-        <field name="acuntil" type="timestamp" default="null"/>
+        <field name="sessionperiod" type="int(11)" default="null" nullable="true"/>
+        <field name="acfrom" type="timestamp" default="null" nullable="true"/>
+        <field name="acuntil" type="timestamp" default="null" nullable="true"/>
         <field name="modified" type="timestamp" default="CURRENT_TIMESTAMP"/>
-        <field name="created" type="timestamp" default="0000-00-00 00:00:00"/>
+        <field name="created" type="timestamp" default="0000-00-00 00:00:00" nullable="true"/>
         <field name="properties" type="longtext" default="null"/>
         <index name="password" columns="password" unique="false"/>
         <index name="login" columns="login" unique="true"/>
@@ -103,9 +102,9 @@
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
             <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="textvalue" type="text" default="null"/>
-        <field name="floatvalue" type="double" default="null"/>
-        <field name="datevalue" type="datetime" default="null"/>
+        <field name="textvalue" type="text" default="null" nullable="true"/>
+        <field name="floatvalue" type="double" default="null" nullable="true"/>
+        <field name="datevalue" type="datetime" default="null" nullable="true"/>
         <index name="idartlang" columns="idartlang" unique="false"/>
     </table>
     <table name="aitsu_property" engine="InnoDB">
@@ -122,9 +121,9 @@
     </table>
     <table name="aitsu_session" engine="MyISAM">
         <field name="id" type="char(32)" default="" primary="true"/>
-        <field name="modified" type="int(11)" default="null"/>
-        <field name="lifetime" type="int(11)" default="null"/>
-        <field name="data" type="longtext" default="null"/>
+        <field name="modified" type="int(11)" default="null" nullable="true"/>
+        <field name="lifetime" type="int(11)" default="null" nullable="true"/>
+        <field name="data" type="longtext" default="null" nullable="true"/>
     </table>
     <table name="art" engine="InnoDB">
         <field name="idart" type="int(10) unsigned" default="null" autoincrement="true"
@@ -156,23 +155,23 @@
         <field name="urlname" type="varchar(255)" default="null"/>
         <field name="pagetitle" type="varchar(255)" default="null"/>
         <field name="teasertitle" type="varchar(255)" default="null"/>
-        <field name="summary" type="text" default="null"/>
+        <field name="summary" type="text" default="null" nullable="true"/>
         <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="online" type="tinyint(1)" default="0"/>
-        <field name="pubfrom" type="timestamp" default="null"/>
-        <field name="pubuntil" type="timestamp" default="null"/>
-        <field name="published" type="tinyint(3) unsigned" default="null"/>
+        <field name="pubfrom" type="timestamp" default="null" nullable="true"/>
+        <field name="pubuntil" type="timestamp" default="null" nullable="true"/>
+        <field name="published" type="tinyint(3) unsigned" default="null" nullable="true"/>
         <field name="redirect" type="tinyint(4)" default="0"/>
-        <field name="redirect_url" type="varchar(255)" default="null"/>
+        <field name="redirect_url" type="varchar(255)" default="null" nullable="true"/>
         <field name="artsort" type="int(10)" default="0"/>
         <field name="locked" type="int(1)" default="0"/>
-        <field name="configsetid" type="int(10) unsigned" default="null">
+        <field name="configsetid" type="int(10) unsigned" default="null" nullable="true">
             <constraint table="configset" column="configsetid" onupdate="restrict"
                 ondelete="set null"/>
         </field>
-        <field name="config" type="text" default="null"/>
-        <field name="mainimage" type="varchar(255)" default="null"/>
+        <field name="config" type="text" default="null" nullable="true"/>
+        <field name="mainimage" type="varchar(255)" default="null" nullable="true"/>
         <index name="configsetid" columns="configsetid" unique="false"/>
         <index name="pagetitle" columns="pagetitle" unique="false"/>
         <index name="idlang" columns="idlang" unique="false"/>
@@ -186,8 +185,8 @@
         <field name="description" type="text" default="null"/>
         <field name="author" type="varchar(255)" default="null"/>
         <field name="keywords" type="text" default="null"/>
-        <field name="date" type="date" default="null"/>
-        <field name="expires" type="date" default="null"/>
+        <field name="date" type="date" default="null" nullable="true"/>
+        <field name="expires" type="date" default="null" nullable="true"/>
         <field name="robots" type="varchar(255)" default="null"/>
         <field name="dctitle" type="varchar(255)" default="null"/>
         <field name="dccreator" type="varchar(255)" default="null"/>
@@ -211,8 +210,8 @@
         <field name="parentid" type="int(10)" default="0"/>
         <field name="preid" type="int(10)" default="0"/>
         <field name="postid" type="int(10)" default="0"/>
-        <field name="lft" type="int(10) unsigned" default="null"/>
-        <field name="rgt" type="int(10) unsigned" default="null"/>
+        <field name="lft" type="int(10) unsigned" default="null" nullable="true"/>
+        <field name="rgt" type="int(10) unsigned" default="null" nullable="true"/>
         <field name="status" type="int(10)" default="0"/>
         <field name="author" type="varchar(32)" default="null"/>
         <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
@@ -232,7 +231,7 @@
             <constraint table="art" column="idart" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
-        <field name="lastmodified" type="timestamp" default="null"/>
+        <field name="lastmodified" type="timestamp" default="null" nullable="true"/>
         <index name="idart" columns="idart" unique="false"/>
     </table>
     <table name="cat_favorites" engine="InnoDB">
@@ -260,17 +259,17 @@
         <field name="author" type="varchar(32)" default="null"/>
         <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
-        <field name="startidartlang" type="int(10) unsigned" default="null">
+        <field name="startidartlang" type="int(10) unsigned" default="null" nullable="true">
             <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="set null"
             />
         </field>
         <field name="urlname" type="varchar(64)" default="null"/>
-        <field name="url" type="varchar(255)" default="null"/>
-        <field name="configsetid" type="int(10) unsigned" default="null">
+        <field name="url" type="varchar(255)" default="null" nullable="true"/>
+        <field name="configsetid" type="int(10) unsigned" default="null" nullable="true">
             <constraint table="configset" column="configsetid" onupdate="restrict"
                 ondelete="set null"/>
         </field>
-        <field name="config" type="text" default="null"/>
+        <field name="config" type="text" default="null" nullable="true"/>
         <index name="idlang" columns="idlang" unique="false"/>
         <index name="urlname" columns="urlname" unique="false"/>
         <index name="startidartlang" columns="startidartlang" unique="false"/>
@@ -299,8 +298,8 @@
         <field name="title" type="varchar(255)" default="null"/>
         <field name="comment" type="text" default="null"/>
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
-        <field name="approved" type="timestamp" default="null"/>
-        <field name="deleted" type="timestamp" default="null"/>
+        <field name="approved" type="timestamp" default="null" nullable="true"/>
+        <field name="deleted" type="timestamp" default="null" nullable="true"/>
         <index name="idartlang" columns="idartlang" unique="false"/>
     </table>
     <table name="configset" engine="InnoDB">
@@ -332,6 +331,18 @@
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
         <index name="idartlanghigh" columns="idartlanghigh" unique="false"/>
     </table>
+
+
+
+
+
+
+
+
+
+
+
+
     <table name="geo_city" engine="InnoDB">
         <field name="cityid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
@@ -354,7 +365,7 @@
     <table name="geo_location" engine="InnoDB">
         <field name="locationid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="cityid" type="int(10) unsigned" default="null">
+        <field name="cityid" type="int(10) unsigned" default="null" nullable="true">
             <constraint table="geo_city" column="cityid" onupdate="restrict" ondelete="set null"/>
         </field>
         <field name="street" type="int(11)" default="null"/>
@@ -391,7 +402,7 @@
         <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="encoding" type="varchar(32)" default="null"/>
         <field name="direction" type="char(3)" default="ltr"/>
-        <field name="locale" type="varchar(5)" default="null"/>
+        <field name="locale" type="varchar(5)" default="null" nullable="true"/>
         <index name="idclient" columns="idclient" unique="false"/>
     </table>
     <table name="lastopened" engine="InnoDB">
@@ -415,9 +426,9 @@
     </table>
     <table name="lucene_index" engine="MyISAM">
         <field name="uid" type="varchar(255)" default="null" primary="true"/>
-        <field name="idart" type="int(10) unsigned" default="null"/>
-        <field name="idlang" type="int(10) unsigned" default="null"/>
-        <field name="path" type="varchar(255)" default="null"/>
+        <field name="idart" type="int(10) unsigned" default="null" nullable="true"/>
+        <field name="idlang" type="int(10) unsigned" default="null" nullable="true"/>
+        <field name="path" type="varchar(255)" default="null" nullable="true"/>
         <field name="lastindexed" type="datetime" default="null"/>
         <index name="idart" columns="idart,idlang" unique="false"/>
         <index name="path" columns="path" unique="false"/>
@@ -425,7 +436,7 @@
     <table name="media" engine="InnoDB">
         <field name="mediaid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="idart" type="int(10) unsigned" default="null"/>
+        <field name="idart" type="int(10) unsigned" default="null" nullable="true"/>
         <field name="filename" type="varchar(255)" default="null"/>
         <field name="size" type="bigint(20)" default="null"/>
         <field name="extension" type="varchar(10)" default="null"/>
@@ -434,7 +445,7 @@
         <field name="xbr" type="float" default="1"/>
         <field name="ybr" type="float" default="1"/>
         <field name="uploaded" type="datetime" default="null"/>
-        <field name="deleted" type="datetime" default="null"/>
+        <field name="deleted" type="datetime" default="null" nullable="true"/>
         <index name="idart" columns="idart" unique="false"/>
     </table>
     <table name="media_description" engine="InnoDB">
@@ -466,7 +477,7 @@
             <constraint table="media" column="mediaid" onupdate="restrict" ondelete="cascade"/>
             <constraint table="media" column="mediaid" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="val" type="varchar(255)" default="null"/>
+        <field name="val" type="varchar(255)" default="null" nullable="true"/>
         <index name="mediaid" columns="mediaid" unique="false"/>
     </table>
     <table name="performance_profile" engine="InnoDB">
@@ -499,9 +510,9 @@
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
             <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="textvalue" type="text" default="null"/>
-        <field name="floatvalue" type="double" default="null"/>
-        <field name="datevalue" type="datetime" default="null"/>
+        <field name="textvalue" type="text" default="null" nullable="true"/>
+        <field name="floatvalue" type="double" default="null" nullable="true"/>
+        <field name="datevalue" type="datetime" default="null" nullable="true"/>
         <field name="pubid" type="int(10) unsigned" default="null" primary="true">
             <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
         </field>
@@ -537,27 +548,27 @@
         <field name="urlname" type="varchar(255)" default="null"/>
         <field name="pagetitle" type="varchar(255)" default="null"/>
         <field name="teasertitle" type="varchar(255)" default="null"/>
-        <field name="summary" type="text" default="null"/>
+        <field name="summary" type="text" default="null" nullable="true"/>
         <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="online" type="tinyint(1)" default="0"/>
-        <field name="pubfrom" type="timestamp" default="null"/>
-        <field name="pubuntil" type="timestamp" default="null"/>
-        <field name="published" type="tinyint(3) unsigned" default="null"/>
+        <field name="pubfrom" type="timestamp" default="null" nullable="true"/>
+        <field name="pubuntil" type="timestamp" default="null" nullable="true"/>
+        <field name="published" type="tinyint(3) unsigned" default="null" nullable="true"/>
         <field name="redirect" type="tinyint(4)" default="0"/>
-        <field name="redirect_url" type="varchar(255)" default="null"/>
+        <field name="redirect_url" type="varchar(255)" default="null" nullable="true"/>
         <field name="artsort" type="int(10)" default="0"/>
         <field name="locked" type="int(1)" default="0"/>
-        <field name="configsetid" type="int(10) unsigned" default="null">
+        <field name="configsetid" type="int(10) unsigned" default="null" nullable="true">
             <constraint table="configset" column="configsetid" onupdate="restrict"
                 ondelete="set null"/>
         </field>
-        <field name="config" type="text" default="null"/>
+        <field name="config" type="text" default="null" nullable="true"/>
         <field name="pubid" type="int(10) unsigned" default="null" primary="true">
             <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="status" type="tinyint(4)" default="null"/>
-        <field name="mainimage" type="varchar(255)" default="null"/>
+        <field name="mainimage" type="varchar(255)" default="null" nullable="true"/>
         <index name="pubid" columns="pubid" unique="false"/>
         <index name="title" columns="title" unique="false"/>
         <index name="configsetid" columns="configsetid" unique="false"/>
@@ -572,8 +583,8 @@
         <field name="description" type="text" default="null"/>
         <field name="author" type="varchar(255)" default="null"/>
         <field name="keywords" type="text" default="null"/>
-        <field name="date" type="date" default="null"/>
-        <field name="expires" type="date" default="null"/>
+        <field name="date" type="date" default="null" nullable="true"/>
+        <field name="expires" type="date" default="null" nullable="true"/>
         <field name="robots" type="varchar(255)" default="null"/>
         <field name="dctitle" type="varchar(255)" default="null"/>
         <field name="dccreator" type="varchar(255)" default="null"/>
@@ -614,7 +625,7 @@
     <table name="revision" engine="InnoDB">
         <field name="revisionid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="userid" type="int(10) unsigned" default="null">
+        <field name="userid" type="int(10) unsigned" default="null" nullable="true">
             <constraint table="acl_user" column="userid" onupdate="restrict" ondelete="set null"/>
         </field>
         <field name="revtime" type="timestamp" default="CURRENT_TIMESTAMP"/>
@@ -633,18 +644,18 @@
         <field name="urlname" type="varchar(255)" default="null"/>
         <field name="pagetitle" type="varchar(255)" default="null"/>
         <field name="teasertitle" type="varchar(255)" default="null"/>
-        <field name="summary" type="text" default="null"/>
+        <field name="summary" type="text" default="null" nullable="true"/>
         <field name="online" type="tinyint(1)" default="0"/>
-        <field name="pubfrom" type="timestamp" default="null"/>
-        <field name="pubuntil" type="timestamp" default="null"/>
-        <field name="published" type="tinyint(3) unsigned" default="null"/>
+        <field name="pubfrom" type="timestamp" default="null" nullable="true"/>
+        <field name="pubuntil" type="timestamp" default="null" nullable="true"/>
+        <field name="published" type="tinyint(3) unsigned" default="null" nullable="true"/>
         <field name="redirect" type="tinyint(4)" default="0"/>
-        <field name="redirect_url" type="varchar(255)" default="null"/>
-        <field name="configsetid" type="int(10) unsigned" default="null">
+        <field name="redirect_url" type="varchar(255)" default="null" nullable="true"/>
+        <field name="configsetid" type="int(10) unsigned" default="null" nullable="true">
             <constraint table="configset" column="configsetid" onupdate="restrict"
                 ondelete="set null"/>
         </field>
-        <field name="config" type="text" default="null"/>
+        <field name="config" type="text" default="null" nullable="true"/>
         <index name="configsetid" columns="configsetid" unique="false"/>
         <index name="revisionhash" columns="revisionhash" unique="false"/>
         <index name="revisionid" columns="revisionid" unique="false"/>
@@ -677,9 +688,9 @@
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
             <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="textvalue" type="text" default="null"/>
-        <field name="floatvalue" type="double" default="null"/>
-        <field name="datevalue" type="datetime" default="null"/>
+        <field name="textvalue" type="text" default="null" nullable="true"/>
+        <field name="floatvalue" type="double" default="null" nullable="true"/>
+        <field name="datevalue" type="datetime" default="null" nullable="true"/>
         <index name="revisionhash" columns="revisionhash" unique="false"/>
         <index name="revisionid" columns="revisionid" unique="false"/>
         <index name="idartlang" columns="idartlang" unique="false"/>
@@ -687,13 +698,13 @@
     <table name="schedule" engine="InnoDB">
         <field name="scheduleid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="relation" type="varchar(255)" default="null"/>
-        <field name="period" type="varchar(255)" default="null"/>
-        <field name="executiontime" type="datetime" default="null"/>
+        <field name="relation" type="varchar(255)" default="null" nullable="true"/>
+        <field name="period" type="varchar(255)" default="null" nullable="true"/>
+        <field name="executiontime" type="datetime" default="null" nullable="true"/>
         <field name="active" type="tinyint(4)" default="1"/>
         <field name="class" type="varchar(255)" default="null"/>
         <field name="params" type="text" default="null"/>
-        <field name="lastexecution" type="timestamp" default="null"/>
+        <field name="lastexecution" type="timestamp" default="null" nullable="true"/>
     </table>
     <table name="syndication_resource" engine="InnoDB">
         <field name="sourceid" type="int(10) unsigned" default="null" primary="true">
@@ -701,7 +712,7 @@
                 ondelete="cascade"/>
         </field>
         <field name="sourceidartlang" type="int(10) unsigned" default="null" primary="true"/>
-        <field name="name" type="varchar(255)" default="null"/>
+        <field name="name" type="varchar(255)" default="null" nullable="true"/>
         <field name="content" type="longtext" default="null"/>
         <field name="loaded" type="timestamp" default="CURRENT_TIMESTAMP"/>
     </table>
@@ -740,7 +751,7 @@
         <field name="tagid" type="int(10) unsigned" default="null" primary="true">
             <constraint table="tag" column="tagid" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="val" type="varchar(255)" default="null"/>
+        <field name="val" type="varchar(255)" default="null" nullable="true"/>
         <index name="tagid" columns="tagid" unique="false"/>
     </table>
     <table name="todo" engine="InnoDB">
@@ -751,7 +762,7 @@
         <field name="status" type="tinyint(4)" default="0"/>
         <field name="title" type="varchar(255)" default="null"/>
         <field name="description" type="text" default="null"/>
-        <field name="duedate" type="datetime" default="null"/>
+        <field name="duedate" type="datetime" default="null" nullable="true"/>
         <field name="modified" type="timestamp" default="CURRENT_TIMESTAMP"/>
         <index name="idartlang" columns="idartlang" unique="false"/>
     </table>
@@ -762,20 +773,8 @@
             <constraint table="lang" column="idlang" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="tkey" type="text" default="null"/>
-        <field name="tvalue" type="text" default="null"/>
-        <field name="obsolete" type="datetime" default="null"/>
+        <field name="tvalue" type="text" default="null" nullable="true"/>
+        <field name="obsolete" type="datetime" default="null" nullable="true"/>
         <index name="idlang" columns="idlang" unique="false"/>
     </table>
-    <view name="pubv_article_content">
-        <![CDATA[CREATE VIEW _pubv_article_content AS select `_pub_article_content`.`idartlang` AS `idartlang`,`_pub_article_content`.`index` AS `index`,`_pub_article_content`.`value` AS `value`,`_pub_article_content`.`modified` AS `modified`,`_pub_article_content`.`pubid` AS `pubid`,`_pub_article_content`.`status` AS `status` from `_pub_article_content` where (`_pub_article_content`.`status` = 1)]]>
-    </view>
-    <view name="pubv_art_lang">
-        <![CDATA[CREATE VIEW _pubv_art_lang AS select `ait_pub_art_lang`.`idartlang` AS `idartlang`,`ait_pub_art_lang`.`idart` AS `idart`,`ait_pub_art_lang`.`idlang` AS `idlang`,`ait_pub_art_lang`.`title` AS `title`,`ait_pub_art_lang`.`urlname` AS `urlname`,`ait_pub_art_lang`.`pagetitle` AS `pagetitle`,`ait_pub_art_lang`.`teasertitle` AS `teasertitle`,`ait_pub_art_lang`.`summary` AS `summary`,`ait_pub_art_lang`.`created` AS `created`,`ait_pub_art_lang`.`lastmodified` AS `lastmodified`,`ait_pub_art_lang`.`online` AS `online`,`ait_pub_art_lang`.`pubfrom` AS `pubfrom`,`ait_pub_art_lang`.`pubuntil` AS `pubuntil`,`ait_pub_art_lang`.`published` AS `published`,`ait_pub_art_lang`.`redirect` AS `redirect`,`ait_pub_art_lang`.`redirect_url` AS `redirect_url`,`ait_pub_art_lang`.`artsort` AS `artsort`,`ait_pub_art_lang`.`locked` AS `locked`,`ait_pub_art_lang`.`configsetid` AS `configsetid`,`ait_pub_art_lang`.`config` AS `config`,`ait_pub_art_lang`.`pubid` AS `pubid`,`ait_pub_art_lang`.`status` AS `status`,`ait_pub_art_lang`.`mainimage` AS `mainimage` from `ait_pub_art_lang` where (`ait_pub_art_lang`.`status` = 1)]]>
-    </view>
-    <view name="pubv_art_meta">
-        <![CDATA[CREATE VIEW _pubv_art_meta AS select `ait_pub_art_meta`.`idartlang` AS `idartlang`,`ait_pub_art_meta`.`description` AS `description`,`ait_pub_art_meta`.`author` AS `author`,`ait_pub_art_meta`.`keywords` AS `keywords`,`ait_pub_art_meta`.`date` AS `date`,`ait_pub_art_meta`.`expires` AS `expires`,`ait_pub_art_meta`.`robots` AS `robots`,`ait_pub_art_meta`.`dctitle` AS `dctitle`,`ait_pub_art_meta`.`dccreator` AS `dccreator`,`ait_pub_art_meta`.`dcsubject` AS `dcsubject`,`ait_pub_art_meta`.`dcpublisher` AS `dcpublisher`,`ait_pub_art_meta`.`dccontributor` AS `dccontributor`,`ait_pub_art_meta`.`dcdate` AS `dcdate`,`ait_pub_art_meta`.`dctype` AS `dctype`,`ait_pub_art_meta`.`dcformat` AS `dcformat`,`ait_pub_art_meta`.`dcidentifier` AS `dcidentifier`,`ait_pub_art_meta`.`dcsource` AS `dcsource`,`ait_pub_art_meta`.`dclanguage` AS `dclanguage`,`ait_pub_art_meta`.`dcrelation` AS `dcrelation`,`ait_pub_art_meta`.`cdcoverage` AS `cdcoverage`,`ait_pub_art_meta`.`dcrights` AS `dcrights`,`ait_pub_art_meta`.`pubid` AS `pubid`,`ait_pub_art_meta`.`status` AS `status` from `ait_pub_art_meta` where (`ait_pub_art_meta`.`status` = 1)]]>
-    </view>
-    <view name="ait_pubv_aitsu_article_property">
-        <![CDATA[CREATE VIEW _pubv_aitsu_article_property AS select `ait_pub_aitsu_article_property`.`propertyid` AS `propertyid`,`ait_pub_aitsu_article_property`.`idartlang` AS `idartlang`,`ait_pub_aitsu_article_property`.`textvalue` AS `textvalue`,`ait_pub_aitsu_article_property`.`floatvalue` AS `floatvalue`,`ait_pub_aitsu_article_property`.`datevalue` AS `datevalue`,`ait_pub_aitsu_article_property`.`pubid` AS `pubid`,`ait_pub_aitsu_article_property`.`status` AS `status` from `ait_pub_aitsu_article_property` where (`ait_pub_aitsu_article_property`.`status` = 1)]]>
-    </view>
 </database>
