@@ -799,5 +799,151 @@ class Adm_Script_Update_Database extends Aitsu_Adm_Script_Abstract {
 
 		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s altered.'), $table));
 	}
+        
+        public function doAddPlaceholderTable() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'placeholder';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+                Aitsu_Db::query("
+                    CREATE TABLE `_placeholder` (
+                    `id` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+                    `identifier` VARCHAR( 255 ) NOT NULL
+                    ) ENGINE = InnoDB;
+                ");
+                
+                Aitsu_Db::query("ALTER TABLE `_placeholder` ADD UNIQUE (`identifier`)");
+                                              
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+        
+        public function doAddPlaceholderValuesTable() {
+
+		$pf = Aitsu_Registry :: get()->config->database->params->tblprefix;
+		$table = $pf . 'placeholder_values';
+
+		$exists = Aitsu_Db :: fetchOne('' .
+		'select count(*) from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name = :tableName', array (
+			':schema' => Aitsu_Registry :: get()->config->database->params->dbname,
+			':tableName' => $table
+		));
+
+		if ($exists == 1) {
+			return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s already exists.'), $table));
+		}
+
+                Aitsu_Db::query("
+                    CREATE TABLE `_placeholder_values` (
+                    `id` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+                    `placeholderid` INT( 10 ) UNSIGNED NOT NULL ,
+                    `idlang` INT( 10 ) UNSIGNED NOT NULL ,
+                    `value` VARCHAR( 255 ) NOT NULL
+                    ) ENGINE = InnoDB;
+                ");
+                
+                Aitsu_Db::query("
+                    ALTER TABLE `_placeholder_values` ADD UNIQUE `unique` ( `placeholderid` , `idlang` ) 
+                ");
+                
+                Aitsu_Db::query("
+                    ALTER TABLE `_placeholder_values` ADD FOREIGN KEY ( `placeholderid` )
+                    REFERENCES `_placeholder` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION ;
+                ");
+                
+                Aitsu_Db::query("ALTER TABLE `_placeholder_values` ADD INDEX (`idlang`)");
+                   
+                Aitsu_Db::query("
+                    ALTER TABLE `_placeholder_values` ADD FOREIGN KEY (`idlang`) REFERENCES `_lang`
+                    (`idlang`) ON DELETE CASCADE ON UPDATE NO ACTION
+                ");
+
+		return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Table %s added.'), $table));
+	}
+        
+        public function doAddPlaceholderPrivilege() {
+
+            $privilege = 'plugin.management.placeholder';
+            
+            $privilege_exists = Aitsu_Db::fetchOne("
+                SELECT
+                    `privilegeid`
+                FROM
+                    `_acl_privilege`
+                WHERE 
+                    `identifier` = :privilege
+            ", array(':privilege' => $privilege));
+                
+            if ($privilege_exists) {
+                return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Privilege %s already exists.'), $privilege));
+            } 
+                
+            Aitsu_Db::query("
+                INSERT INTO
+                    `_acl_privilege`
+                    (`identifier`)
+                VALUES
+                    (:privilege)
+            ", array(':privilege' => $privilege));
+                
+            return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Privilege %s added.'), $privilege));
+	}
+        
+        public function doAddPlaceholderRolePrivilege() {
+            
+            $role = 'admin';
+            $privilege = 'plugin.management.placeholder';
+
+            $roleid = Aitsu_Db::fetchOne("
+                SELECT
+                    `roleid`
+                FROM
+                    `_acl_role`
+                WHERE
+                    `identifier` = :role
+            ", array(':role' => $role));
+            
+            $privilegeid = Aitsu_Db::fetchOne("
+                SELECT
+                    `privilegeid`
+                FROM
+                    `_acl_privilege`
+                WHERE
+                    `identifier` = :privilege
+            ", array(':privilege' => $privilege));           
+                   
+            $role_privilege_exists = Aitsu_Db::fetchOne("
+                SELECT * FROM `_acl_privileges` WHERE `roleid` =:roleid AND `privilegeid` =:privilegeid
+            ", array('roleid' => $roleid, 'privilegeid' => $privilegeid));
+                
+            if ($role_privilege_exists) {
+                return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Privilege %s already assigned to role %s.'), $privilege, $role));
+            }
+            
+            Aitsu_Db::query("
+                INSERT INTO
+                    `_acl_privileges`
+                    (`roleid`, `privilegeid`)
+                VALUES
+                    (:roleid, :privilegeid)
+            ", array('roleid' => $roleid, 'privilegeid' => $privilegeid));
+                
+            return Aitsu_Adm_Script_Response :: factory(sprintf(Aitsu_Translate :: translate('Privilege %s assigned to %s.'), $privilege, $role));
+	}
 
 }
