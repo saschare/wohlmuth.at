@@ -25,6 +25,9 @@ var revisions = new Ext.grid.GridPanel({
             if (record.get('isPublished') == 1) {
                 return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('published'); ?></span>';
 	    }
+            if (record.get('isPublished') == -1) {
+                return '<span style="color:green;"><?php echo Aitsu_Translate :: translate('revision'); ?></span>';
+	    }
 	}},
         {dataIndex: 'isEdit', header: '<?php echo Aitsu_Translate :: translate('Edit'); ?>', menuDisabled: true, sortable: true, renderer: function(value, metaData, record, rowIndex, colIndex, store) {
             if (record.get('isEdit') == 1) {

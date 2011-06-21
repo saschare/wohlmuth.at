@@ -880,7 +880,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				':idartlang' => $this->idartlang,
 				':userid' => Aitsu_Adm_User :: getInstance()->getId(),
 				':pubtime' => $transactionTime,
-                                'status' => $publish ? 1 : 0
+                                'status' => $publish ? 1 : -1
 			))->getLastInsertId();
 
 			$publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
@@ -908,7 +908,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 						foreach ($source as $src) {
 							Aitsu_Db :: put($table['target'], null, array_merge($src, array (
 								'pubid' => $pubid,
-								'status' => $publish ? 1 : 0
+								'status' => $publish ? 1 : -1
 							)));
 						}
 					}
