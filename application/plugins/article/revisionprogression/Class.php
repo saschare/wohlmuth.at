@@ -99,7 +99,7 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
 
                 $edit_ser = serialize($edit);
                 $pub_ser = serialize($pub);
-                
+
                 if ($edit_ser != $pub_ser) {
                     $isEdit = false;
                 }
@@ -129,15 +129,20 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
 
     public function publishAction() {
 
-        $this->idartlang = $this->getRequest()->getParam('idartlang');
+        $idartlang = $this->getRequest()->getParam('idartlang');
         $pubid = $this->getRequest()->getParam('pubid');
 
+        $idart = Aitsu_Util::getIdArt($idartlang);
+        
         Aitsu_Db :: startTransaction();
 
         try {
+            
+            $article = Aitsu_Persistence_Article::factory($idart)->load(); 
+            
             Aitsu_Db :: query('' .
                     'update _pub set status = 0 where idartlang = :idartlang', array(
-                ':idartlang' => $this->idartlang
+                ':idartlang' => $idartlang
             ));
 
             Aitsu_Db :: query('' .
@@ -155,7 +160,7 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
                             'update ' . $table['target'] . ' set ' .
                             'status = 0 ' .
                             'where ' . $marker . ' = :marker', array(
-                        ':marker' => $this->$marker
+                        ':marker' => $article->$marker
                     ));
 
                     Aitsu_Db :: query('' .
@@ -168,7 +173,7 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
             }
 
             Aitsu_Cache :: getInstance()->clean(array(
-                'art_' . $this->idart
+                'art_' . $article->idart
             ));
 
             Aitsu_Db :: commit();
