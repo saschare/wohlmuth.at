@@ -14,6 +14,11 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		
 		return Aitsu_Translate :: translate('Synchronize database structure');
 	}
+	
+	protected function _init() {
+		
+		
+	}
 
 	protected function _hasNext() {
 
