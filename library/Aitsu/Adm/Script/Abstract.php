@@ -12,6 +12,8 @@ abstract class Aitsu_Adm_Script_Abstract {
 	protected $_currentStep;
 
 	public function __construct($step) {
+		
+		$this->_init();
 
 		$methods = get_class_methods($this);
 
