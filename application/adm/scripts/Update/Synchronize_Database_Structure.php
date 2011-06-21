@@ -116,10 +116,41 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 	protected function _removeViews() {
 
+		$views = Aitsu_Db :: fetchAll('' .
+		'select * from information_schema.views ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name like :prefix ', array (
+			':schema' => Aitsu_Config :: get('database.params.dbname'),
+			':prefix' => Aitsu_Config :: get('database.params.tblprefix') . '%'
+		));
+
+		foreach ($views as $view) {
+			Aitsu_Db :: query('' .
+			'drop view `' . $view['TABLE_NAME'] . '`');
+		}
+
 		return Aitsu_Translate :: translate('Views have been removed.');
 	}
 
 	protected function _removeEmptyTables() {
+
+		$tables = Aitsu_Db :: fetchAll('' .
+		'select * from information_schema.tables ' .
+		'where ' .
+		'	table_schema = :schema ' .
+		'	and table_name like :prefix ', array (
+			':schema' => Aitsu_Config :: get('database.params.dbname'),
+			':prefix' => Aitsu_Config :: get('database.params.tblprefix') . '%'
+		));
+
+		foreach ($tables as $table) {
+			if (Aitsu_Db :: fetchOne('' .
+				'select count(*) from ' . $table['TABLE_NAME']) == 0) {
+				Aitsu_Db :: query('' .
+				'drop table `' . $table['TABLE_NAME'] . '`');
+			}
+		}
 
 		return Aitsu_Translate :: translate('Empty tables have been removed.');
 	}
@@ -128,6 +159,19 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$currentIndex = $this->_currentStep - 4;
 		$table = $this->_xml->getElementsByTagName('table')->item($currentIndex);
+
+		if (Aitsu_Db :: fetchOne('' .
+			'select count(*) from information_schema.tables ' .
+			'where ' .
+			'	table_schema = :schema ' .
+			'	and table_name = :tablename', array (
+				':schema' => Aitsu_Config :: get('database.params.dbname'),
+				':tablename' => Aitsu_Config :: get('database.params.tblprefix') . $table->attributes->getNamedItem('name')->nodeValue
+			)) == 0) {
+			$this->_createTable($table);
+		} else {
+			$this->_checkTableFields($table);
+		}
 
 		return $table->attributes->getNamedItem('name')->nodeValue . ' restored.';
 	}
@@ -144,9 +188,50 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 	protected function _restoreViews() {
 
-		trigger_error(var_export($this->_xml->saveXML(), true));
+		// trigger_error(var_export($this->_xml->saveXML(), true));
 
 		return Aitsu_Translate :: translate('Views have been restored.');
 	}
 
+	protected function _createTable($node) {
+
+		$statement = 'CREATE TABLE `' . Aitsu_Config :: get('database.params.tblprefix') . $node->attributes->getNamedItem('name')->nodeValue . '` (';
+
+		$primaryKeys = array ();
+		$fields = array ();
+		foreach ($node->getElementsByTagName('field') as $field) {
+			$name = $field->getAttribute('name');
+			$type = $field->getAttribute('type');
+			$null = $field->hasAttribute('nullable') && $field->getAttribute('nullable') == 'true' ? 'null' : 'not null';
+			$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";
+			$autoincrement = $field->hasAttribute('autoincrement') && $field->getAttribute('autoincrement') == 'true' ? 'auto_increment' : '';
+			
+			
+			$tmp = "`$name` $type $null $default $autoincrement";
+			
+			$tmp = str_replace("'CURRENT_TIMESTAMP'", 'current_timestamp', $tmp);
+			
+			$fields[] = $tmp;
+
+			if ($field->hasAttribute('primary') && $field->getAttribute('primary') == 'true') {
+				$primaryKeys[] = $name;
+			}
+		}
+
+		$statement .= implode(',', $fields);
+
+		if (count($primaryKeys) > 0) {
+			$statement .= ', PRIMARY KEY (`' . implode('`,`', $primaryKeys) . '`)';
+		}
+
+		$statement .= ') ENGINE=' . $node->attributes->getNamedItem('engine')->nodeValue;
+
+		trigger_error($statement);
+		Aitsu_Db :: query($statement);
+	}
+
+	protected function _checkTableFields($node) {
+
+		// trigger_error('check table ' . $node->attributes->getNamedItem('name')->nodeValue);
+	}
 }
