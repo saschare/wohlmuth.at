@@ -3,9 +3,7 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Abstract.php 18690 2010-09-10 10:51:38Z akm $}
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 abstract class Aitsu_Adm_Script_Abstract {
@@ -24,6 +22,14 @@ abstract class Aitsu_Adm_Script_Abstract {
 		}
 
 		$this->_currentStep = $step -1;
+	}
+	
+	protected function _init() {
+		
+		/*
+		 * Overwrite this method to do initialization of
+		 * the script if necessary.
+		 */
 	}
 
 	public static function getName() {
