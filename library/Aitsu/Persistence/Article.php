@@ -778,13 +778,13 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
         public function rebuild($pubid) {
             
-                $this->revise($pubid);
-            
                 Aitsu_Db :: startTransaction();
+                
+                $this->load();
+                
+                $this->revise($this->idartlang);
 
                 try {
-                    
-                    $this->load();
                     
                     $publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
                     
@@ -826,21 +826,24 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		return $this;
 	}
         
-	public function revise($pubid) {
+	public function revise($idartlang) {
             
                 $isPublished = Aitsu_Db :: fetchOne('' .
                 'select count(*) ' . 
                 'from _art_lang as artlang, _pub as pub ' .
                 'where artlang.idartlang = pub.idartlang ' . 
-                'and artlang.lastmodified = pub.pubtime');
-
-                if ($isPublished < 1) {
-                    $this->publish(false);
-                    
-                    return true;
-                }
+                'and artlang.lastmodified = pub.pubtime ' . 
+                'and artlang.idartlang = :idartlang', array(
+                    ':idartlang' => $idartlang
+                ));
                 
-                return false;
+                if ($isPublished > 0) {
+                    return false;
+                }
+                                
+                $this->publish(false);
+                    
+                return true;
 	}
 
 	public function publish($publish = true) {
@@ -873,6 +876,14 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 			$publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
 
+                        Aitsu_Db :: query('' .
+			'update _art_lang set ' .
+			'	lastmodified = :transactiontime ' .
+			'where idartlang = :idartlang', array (
+				':idartlang' => $this->idartlang,
+				':transactiontime' => $transactionTime
+			));
+                        
 			foreach ($publishMap as $type => $tables) {
 				foreach ($tables->toArray() as $table) {
 					$marker = $table['marker'];
@@ -902,14 +913,6 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 					}
 				}
 			}
-
-			Aitsu_Db :: query('' .
-			'update _art_lang set ' .
-			'	lastmodified = :transactiontime ' .
-			'where idartlang = :idartlang', array (
-				':idartlang' => $this->idartlang,
-				':transactiontime' => $transactionTime
-			));
 
 			/*
 			 * Clean article cache.
