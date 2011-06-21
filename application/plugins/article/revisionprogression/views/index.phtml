@@ -7,6 +7,9 @@ Ext.ux.IFrameComponent = Ext.extend(Ext.BoxComponent, {
 choosen_revision_iframe = new Ext.ux.IFrameComponent({id: 'preview-iframe-choosen', url: null});
      
 var revisions = new Ext.grid.GridPanel({
+    sm: new Ext.grid.RowSelectionModel({
+        singleSelect: true
+    }),
     id: 'revisions',
 	store: new Ext.data.JsonStore({
         autoDestroy: true,
@@ -35,21 +38,11 @@ var revisions = new Ext.grid.GridPanel({
                                         if (rec.get('isPublished') == 1) {
 						return 'page-published';
 					}
-                                        
-                                        if (rec.get('isPublished') == -1) {
-						return 'page-indexpage';
-					}
-				}
-			}, {
-    			getClass: function(v, meta, rec) {
-					if (rec.get('isEdit') == 1) {
-						return 'page-online';
-					}
 				}
 			}]
     	},
-        {width: 10, fixed: true, dataIndex: 'pubid', header: 'pubid', menuDisabled: true, sortable: true},
-        {fixed: true, dataIndex: 'pubtime', header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')}     
+        {dataIndex: 'pubid', width: 10, fixed: true, header: 'id', menuDisabled: true, sortable: true},
+        {dataIndex: 'pubtime', fixed: true, header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')}     
 	],
 	viewConfig: {
 		forceFit: true,

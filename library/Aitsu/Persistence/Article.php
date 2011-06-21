@@ -867,7 +867,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 
 			if ($publish) {
 				Aitsu_Db :: query('' .
-				'update _pub set status = 0 where idartlang = :idartlang', array (
+				'update _pub set status = 0 where idartlang = :idartlang and status = 1', array (
 					':idartlang' => $this->idartlang
 				));
 			}
@@ -893,7 +893,8 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 						Aitsu_Db :: query('' .
 						'update ' . $table['target'] . ' set ' .
 						'status = 0 ' .
-						'where ' . $marker . ' = :marker', array (
+						'where ' . $marker . ' = :marker ' . 
+                                                'and status = 1', array (
 							':marker' => $this-> $marker
 						));
 					}

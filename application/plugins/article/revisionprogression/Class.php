@@ -116,7 +116,7 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
             $article = Aitsu_Persistence_Article::factory($idart)->load();
 
             Aitsu_Db :: query('' .
-                    'update _pub set status = 0 where idartlang = :idartlang', array(
+                    'update _pub set status = 0 where idartlang = :idartlang and status = 1', array(
                 ':idartlang' => $idartlang
             ));
 
@@ -134,7 +134,8 @@ class RevisionprogressionArticleController extends Aitsu_Adm_Plugin_Controller {
                     Aitsu_Db :: query('' .
                             'update ' . $table['target'] . ' set ' .
                             'status = 0 ' .
-                            'where ' . $marker . ' = :marker', array(
+                            'where ' . $marker . ' = :marker ' . 
+                            'and status = 1', array(
                         ':marker' => $article->$marker
                     ));
 
