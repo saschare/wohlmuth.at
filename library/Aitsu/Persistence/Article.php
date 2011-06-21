@@ -776,83 +776,83 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		return $this;
 	}
 
-        public function rebuild($pubid) {
-            
-                Aitsu_Db :: startTransaction();
-                
-                $this->load();
-                
-                $this->revise($this->idartlang);
+	public function rebuild($pubid) {
 
-                try {
-                    
-                    $publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
-                    
+		Aitsu_Db :: startTransaction();
+
+		$this->load();
+
+		$this->revise($this->idartlang);
+
+		try {
+
+			$publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
+
 			foreach ($publishMap as $type => $tables) {
 				foreach ($tables->toArray() as $table) {
-                                    
-                                    $marker = $table['marker'];
-                                        
-                                    $source = Aitsu_Db :: fetchAll('' .
+
+					$marker = $table['marker'];
+
+					$source = Aitsu_Db :: fetchAll('' .
 					'select * from ' . $table['target'] . ' ' .
 					'where pubid = :pubid', array (
 						':pubid' => $pubid
 					));
-                                   
-                                        if ($table['delete']) {
-                                                Aitsu_Db :: query('' .
-                                                'delete from ' . $table['source'] . ' ' .
-                                                'where ' . $marker . ' = :marker', array (
-                                                    ':marker' => $this-> $marker
-                                                        ));
-                                        
-                                                $marker = null;
-                                        }
-                                    
-                                        if ($source) {
-						foreach ($source as $src) {  
-                                                        Aitsu_Db :: put($table['source'], $marker, $src);
+
+					if ($table['delete']) {
+						Aitsu_Db :: query('' .
+						'delete from ' . $table['source'] . ' ' .
+						'where ' . $marker . ' = :marker', array (
+							':marker' => $this-> $marker
+						));
+
+						$marker = null;
+					}
+
+					if ($source) {
+						foreach ($source as $src) {
+							Aitsu_Db :: put($table['source'], $marker, $src);
 						}
 					}
 				}
 			}
-                        
-                        Aitsu_Db :: query('' . 
-                        'update _art_lang as artlang, _pub as pub ' .
-                        'set artlang.lastmodified = pub.pubtime ' . 
-                        'where pub.pubid = :pubid ' . 
-                        'and artlang.idartlang = :idartlang', array(
-                            ':pubid' => $pubid,
-                            ':idartlang' => $this->idartlang
-                        ));
-                        
-                        Aitsu_Db :: commit();
-                } catch (Exception $e) {
+
+			Aitsu_Db :: query('' .
+			'update _art_lang as artlang, _pub as pub ' .
+			'set artlang.lastmodified = pub.pubtime ' .
+			'where pub.pubid = :pubid ' .
+			'and artlang.idartlang = :idartlang', array (
+				':pubid' => $pubid,
+				':idartlang' => $this->idartlang
+			));
+
+			Aitsu_Db :: commit();
+		} catch (Exception $e) {
 			Aitsu_Db :: rollback();
 			throw $e;
 		}
 
 		return $this;
 	}
-        
+
 	public function revise($idartlang) {
-            
-                $isPublished = Aitsu_Db :: fetchOne('' .
-                'select count(*) ' . 
-                'from _art_lang as artlang, _pub as pub ' .
-                'where artlang.idartlang = pub.idartlang ' . 
-                'and artlang.lastmodified = pub.pubtime ' . 
-                'and artlang.idartlang = :idartlang', array(
-                    ':idartlang' => $idartlang
-                ));
-                
-                if ($isPublished > 0) {
-                    return false;
-                }
-                                
-                $this->publish(false);
-                    
-                return true;
+
+		$isPublished = Aitsu_Db :: fetchOne('' .
+		'select count(*) ' .
+		'from _art_lang as artlang, _pub as pub ' .
+		'where artlang.idartlang = pub.idartlang ' .
+		'and artlang.lastmodified = pub.pubtime ' .
+		'and artlang.idartlang = :idartlang', array (
+			':idartlang' => $idartlang
+		));
+
+		if ($isPublished > 0) {
+			return false;
+		}
+
+		$this->publish(false);
+
+		return true;
 	}
 
 	public function publish($publish = true) {
@@ -880,11 +880,11 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				':idartlang' => $this->idartlang,
 				':userid' => Aitsu_Adm_User :: getInstance()->getId(),
 				':pubtime' => $transactionTime,
-                                'status' => $publish ? 1 : -1
+				'status' => $publish ? 1 : -1
 			))->getLastInsertId();
 
 			$publishMap = new Zend_Config_Ini(APPLICATION_PATH . '/configs/publishmap.ini');
-                        
+
 			foreach ($publishMap as $type => $tables) {
 				foreach ($tables->toArray() as $table) {
 					$marker = $table['marker'];
@@ -893,8 +893,8 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 						Aitsu_Db :: query('' .
 						'update ' . $table['target'] . ' set ' .
 						'status = 0 ' .
-						'where ' . $marker . ' = :marker ' . 
-                                                'and status = 1', array (
+						'where ' . $marker . ' = :marker ' .
+						'and status = 1', array (
 							':marker' => $this-> $marker
 						));
 					}
@@ -915,8 +915,8 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 					}
 				}
 			}
-                        
-                        Aitsu_Db :: query('' .
+
+			Aitsu_Db :: query('' .
 			'update _art_lang set ' .
 			'	lastmodified = :transactiontime ' .
 			'where idartlang = :idartlang', array (

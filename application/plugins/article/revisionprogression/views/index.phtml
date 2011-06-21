@@ -95,12 +95,12 @@ var revisions = new Ext.grid.GridPanel({
 		}
 	}, tbar: {
             items: [{
-                tooltip: '<?php echo Aitsu_Translate :: translate('delete Revisions'); ?>',
+                tooltip: '<?php echo Aitsu_Translate :: translate('Delete revisions'); ?>',
 	        iconCls: 'delete',
 	        handler: function(b, e) {
                     Ext.MessageBox.show({
-					 	title: '<?php echo $this->translate('delete unused Revisions'); ?>',
-					 	msg: '<?php echo $this->translate('Are you sure to delete all unused revisions?'); ?>',
+					 	title: '<?php echo $this->translate('Delete unused revisions'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the revisions?'); ?>',
 					 	buttons: Ext.MessageBox.OKCANCEL,
 					 	fn: function(result) {
                                                 if (result == 'ok') {
@@ -135,7 +135,7 @@ var revisionView = {
     },
     border: false,
     items: [{
-        title: 'current Edit',
+        title: '<?php echo Aitsu_Translate :: translate('Current revision'); ?>',
         flex: 1,
         xtype: 'panel',
         layout:'fit',
@@ -147,7 +147,7 @@ var revisionView = {
 	        handler: function(b, e) {
                     Ext.MessageBox.show({
 					 	title: '<?php echo $this->translate('Publish'); ?>',
-					 	msg: '<?php echo $this->translate('Are you sure to publish the selected revision?'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to publish the current revision?'); ?>',
 					 	buttons: Ext.MessageBox.OKCANCEL,
 					 	fn: function(result) {
                                                 
@@ -191,7 +191,7 @@ Ext.getCmp('page-edit-tab').add({
 	}
     },
     items: [{
-        title: 'Revisions',
+        title: '<?php echo Aitsu_Translate :: translate('Revisions'); ?>',
 	region: 'west',
 	width: 300,
 	layout: 'fit',
