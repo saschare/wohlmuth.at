@@ -331,18 +331,6 @@
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
         <index name="idartlanghigh" columns="idartlanghigh" unique="false"/>
     </table>
-
-
-
-
-
-
-
-
-
-
-
-
     <table name="geo_city" engine="InnoDB">
         <field name="cityid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>

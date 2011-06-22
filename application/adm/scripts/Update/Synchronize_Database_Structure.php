@@ -41,7 +41,6 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			$this->_methodMap[] = '_restoreTables';
 		}
 
-		$this->_methodMap[] = '_restoreIndexes';
 		$this->_methodMap[] = '_restoreConstraints';
 		$this->_methodMap[] = '_restoreViews';
 	}
@@ -173,12 +172,9 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			$this->_checkTableFields($table);
 		}
 
+		$this->_restoreIndexes($table);
+
 		return $table->attributes->getNamedItem('name')->nodeValue . ' restored.';
-	}
-
-	protected function _restoreIndexes() {
-
-		return Aitsu_Translate :: translate('Indexes have been restored.');
 	}
 
 	protected function _restoreConstraints() {
@@ -205,12 +201,11 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			$null = $field->hasAttribute('nullable') && $field->getAttribute('nullable') == 'true' ? 'null' : 'not null';
 			$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";
 			$autoincrement = $field->hasAttribute('autoincrement') && $field->getAttribute('autoincrement') == 'true' ? 'auto_increment' : '';
-			
-			
+
 			$tmp = "`$name` $type $null $default $autoincrement";
-			
+
 			$tmp = str_replace("'CURRENT_TIMESTAMP'", 'current_timestamp', $tmp);
-			
+
 			$fields[] = $tmp;
 
 			if ($field->hasAttribute('primary') && $field->getAttribute('primary') == 'true') {
@@ -233,5 +228,21 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 	protected function _checkTableFields($node) {
 
 		// trigger_error('check table ' . $node->attributes->getNamedItem('name')->nodeValue);
+	}
+
+	protected function _restoreIndexes($table) {
+
+		// ALTER TABLE  `test.aitsu.local`.`ait_art_lang` ADD INDEX (  `urlname` ,  `pubfrom` )
+		// ALTER TABLE  `test.aitsu.local`.`ait_art_lang` ADD UNIQUE  `test` (  `idartlang` ,  `created` )
+		// ALTER TABLE  `test.aitsu.local`.`ait_art_lang` ADD FULLTEXT (`summary`)
+		
+		$tableName = Aitsu_Config :: get('database.params.tblprefix') . $table->getAttribute('name');
+
+		foreach ($table->getElementsByTagName('index') as $index) {
+			$type = $index->getAttribute('unique') == 'true' ? 'unique' : 'index';
+			$name = $index->hasAttribute('name') ? '`' . $index->getAttribute('name') . '`' : '';
+			$columns = $index->getAttribute('columns');
+			Aitsu_Db :: query("alter table $tableName add $type $name ($columns)");
+		}
 	}
 }
