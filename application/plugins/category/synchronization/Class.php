@@ -18,8 +18,12 @@ class SynchronizationCategoryController extends Aitsu_Adm_Plugin_Controller {
 
 	public static function register($idcat) {
 
-		$pos = self :: getPosition($idcat, 'synchronization', 'category');
-
+                if (empty($idcat)) {
+                    $pos = 1;
+                } else {
+                    $pos = self :: getPosition($idcat, 'synchronization', 'category');
+                }
+                
 		return (object) array (
 			'name' => 'synchronization',
 			'tabname' => Aitsu_Translate :: translate('Synchronization'),
