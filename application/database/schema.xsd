@@ -3,8 +3,8 @@
   <xs:element name="database">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="1" maxOccurs="unbounded" ref="table"/>
-        <xs:element minOccurs="1" maxOccurs="unbounded" ref="view"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="table"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="view"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -33,6 +33,7 @@
       <xs:attribute name="name" use="required" type="xs:string"/>
       <xs:attribute name="primary" type="xs:boolean"/>
       <xs:attribute name="type" use="required" type="xs:string"/>
+      <xs:attribute name="nullable" use="optional" type="xs:boolean"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="constraint">
@@ -47,7 +48,7 @@
     <xs:complexType>
       <xs:attribute name="columns" use="required" type="xs:string"/>
       <xs:attribute name="name" use="required" type="xs:string"/>
-      <xs:attribute name="unique" use="required" type="xs:boolean"/>
+      <xs:attribute name="type" use="required" type="indextype"/>
     </xs:complexType>
   </xs:element>
   <xs:simpleType name="engine">
@@ -62,6 +63,13 @@
       <xs:enumeration value="set null"/>
       <xs:enumeration value="no action"/>
       <xs:enumeration value="restrict"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="indextype">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="index"/>
+      <xs:enumeration value="unique"/>
+      <xs:enumeration value="fulltext"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="schema.xsd">
     <table name="acl_clients" engine="InnoDB">
         <field name="idclient" type="int(10) unsigned" default="null" primary="true">
             <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
@@ -7,7 +8,7 @@
         <field name="roleid" type="int(10) unsigned" default="null" primary="true">
             <constraint table="acl_role" column="roleid" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <index name="roleid" columns="roleid" unique="false"/>
+        <index name="roleid" columns="roleid" type="index"/>
     </table>
     <table name="acl_languages" engine="InnoDB">
         <field name="roleid" type="int(10) unsigned" default="null" primary="true">
@@ -16,13 +17,13 @@
         <field name="idlang" type="int(10) unsigned" default="null" primary="true">
             <constraint table="lang" column="idlang" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <index name="idlang" columns="idlang" unique="false"/>
+        <index name="idlang" columns="idlang" type="index"/>
     </table>
     <table name="acl_privilege" engine="InnoDB">
         <field name="privilegeid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
         <field name="identifier" type="varchar(255)" default="null"/>
-        <index name="identifier" columns="identifier" unique="true"/>
+        <index name="identifier" columns="identifier" type="unique"/>
     </table>
     <table name="acl_privileges" engine="InnoDB">
         <field name="roleid" type="int(10) unsigned" default="null" primary="true">
@@ -32,7 +33,7 @@
             <constraint table="acl_privilege" column="privilegeid" onupdate="restrict"
                 ondelete="cascade"/>
         </field>
-        <index name="privilegeid" columns="privilegeid" unique="false"/>
+        <index name="privilegeid" columns="privilegeid" type="index"/>
     </table>
     <table name="acl_resource" engine="InnoDB">
         <field name="resourceid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -42,9 +43,9 @@
         <field name="specifictype" type="varchar(255)" default="null"/>
         <field name="identifier" type="int(10) unsigned" default="null"/>
         <field name="removeable" type="tinyint(4)" default="1"/>
-        <index name="id" columns="identifier" unique="false"/>
-        <index name="identifier" columns="identifier" unique="false"/>
-        <index name="specifictype" columns="specifictype" unique="false"/>
+        <index name="id" columns="identifier" type="index"/>
+        <index name="identifier" columns="identifier" type="index"/>
+        <index name="specifictype" columns="specifictype" type="index"/>
     </table>
     <table name="acl_resources" engine="InnoDB">
         <field name="roleid" type="int(10) unsigned" default="null" primary="true">
@@ -54,13 +55,13 @@
             <constraint table="acl_resource" column="resourceid" onupdate="restrict"
                 ondelete="cascade"/>
         </field>
-        <index name="resourceid" columns="resourceid" unique="false"/>
+        <index name="resourceid" columns="resourceid" type="index"/>
     </table>
     <table name="acl_role" engine="InnoDB">
         <field name="roleid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
         <field name="identifier" type="varchar(255)" default="null"/>
-        <index name="identifier" columns="identifier" unique="true"/>
+        <index name="identifier" columns="identifier" type="unique"/>
     </table>
     <table name="acl_roles" engine="InnoDB">
         <field name="roleid" type="int(10) unsigned" default="null" primary="true">
@@ -69,7 +70,7 @@
         <field name="userid" type="int(10) unsigned" default="null" primary="true">
             <constraint table="acl_user" column="userid" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <index name="userid" columns="userid" unique="false"/>
+        <index name="userid" columns="userid" type="index"/>
     </table>
     <table name="acl_user" engine="InnoDB">
         <field name="userid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -90,9 +91,9 @@
         <field name="modified" type="timestamp" default="CURRENT_TIMESTAMP"/>
         <field name="created" type="timestamp" default="0000-00-00 00:00:00" nullable="true"/>
         <field name="properties" type="longtext" default="null"/>
-        <index name="password" columns="password" unique="false"/>
-        <index name="login" columns="login" unique="true"/>
-        <index name="idlang" columns="idlang" unique="false"/>
+        <index name="password" columns="password" type="index"/>
+        <index name="login" columns="login" type="unique"/>
+        <index name="idlang" columns="idlang" type="index"/>
     </table>
     <table name="aitsu_article_property" engine="InnoDB">
         <field name="propertyid" type="int(10) unsigned" default="null" primary="true">
@@ -105,14 +106,14 @@
         <field name="textvalue" type="text" default="null" nullable="true"/>
         <field name="floatvalue" type="double" default="null" nullable="true"/>
         <field name="datevalue" type="datetime" default="null" nullable="true"/>
-        <index name="idartlang" columns="idartlang" unique="false"/>
+        <index name="idartlang" columns="idartlang" type="index"/>
     </table>
     <table name="aitsu_property" engine="InnoDB">
         <field name="propertyid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
         <field name="identifier" type="varchar(255)" default="null"/>
         <field name="type" type="enum('text','float','date','serialized')" default="null"/>
-        <index name="identifier" columns="identifier" unique="true"/>
+        <index name="identifier" columns="identifier" type="unique"/>
     </table>
     <table name="aitsu_rewrite_history" engine="MyISAM">
         <field name="url" type="varchar(255)" default="null" primary="true"/>
@@ -131,7 +132,7 @@
         <field name="idclient" type="int(10) unsigned" default="0">
             <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <index name="idclient" columns="idclient" unique="false"/>
+        <index name="idclient" columns="idclient" type="index"/>
     </table>
     <table name="article_content" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
@@ -140,7 +141,7 @@
         <field name="index" type="varchar(20)" default="null" primary="true"/>
         <field name="value" type="longtext" default="null"/>
         <field name="modified" type="datetime" default="null"/>
-        <index name="idartlang" columns="idartlang" unique="false"/>
+        <index name="idartlang" columns="idartlang" type="index"/>
     </table>
     <table name="art_lang" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" autoincrement="true"
@@ -172,11 +173,11 @@
         </field>
         <field name="config" type="text" default="null" nullable="true"/>
         <field name="mainimage" type="varchar(255)" default="null" nullable="true"/>
-        <index name="configsetid" columns="configsetid" unique="false"/>
-        <index name="pagetitle" columns="pagetitle" unique="false"/>
-        <index name="idlang" columns="idlang" unique="false"/>
-        <index name="title" columns="title" unique="false"/>
-        <index name="idart" columns="idart,idlang" unique="true"/>
+        <index name="configsetid" columns="configsetid" type="index"/>
+        <index name="pagetitle" columns="pagetitle" type="index"/>
+        <index name="idlang" columns="idlang" type="index"/>
+        <index name="title" columns="title" type="index"/>
+        <index name="idart" columns="idart,idlang" type="unique"/>
     </table>
     <table name="art_meta" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
@@ -216,12 +217,12 @@
         <field name="author" type="varchar(32)" default="null"/>
         <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
-        <index name="preid" columns="preid" unique="false"/>
-        <index name="parentid" columns="parentid" unique="false"/>
-        <index name="postid" columns="postid" unique="false"/>
-        <index name="lft" columns="lft" unique="false"/>
-        <index name="rgt" columns="rgt" unique="false"/>
-        <index name="idclient" columns="idclient" unique="false"/>
+        <index name="preid" columns="preid" type="index"/>
+        <index name="parentid" columns="parentid" type="index"/>
+        <index name="postid" columns="postid" type="index"/>
+        <index name="lft" columns="lft" type="index"/>
+        <index name="rgt" columns="rgt" type="index"/>
+        <index name="idclient" columns="idclient" type="index"/>
     </table>
     <table name="cat_art" engine="InnoDB">
         <field name="idcat" type="int(10) unsigned" default="null" primary="true">
@@ -232,7 +233,7 @@
         </field>
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
         <field name="lastmodified" type="timestamp" default="null" nullable="true"/>
-        <index name="idart" columns="idart" unique="false"/>
+        <index name="idart" columns="idart" type="index"/>
     </table>
     <table name="cat_favorites" engine="InnoDB">
         <field name="idcat" type="int(10) unsigned" default="null" primary="true">
@@ -241,7 +242,7 @@
         <field name="userid" type="int(10) unsigned" default="null" primary="true">
             <constraint table="acl_roles" column="userid" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <index name="userid" columns="userid" unique="false"/>
+        <index name="userid" columns="userid" type="index"/>
     </table>
     <table name="cat_lang" engine="InnoDB">
         <field name="idcatlang" type="int(10) unsigned" default="null" autoincrement="true"
@@ -270,12 +271,12 @@
                 ondelete="set null"/>
         </field>
         <field name="config" type="text" default="null" nullable="true"/>
-        <index name="idlang" columns="idlang" unique="false"/>
-        <index name="urlname" columns="urlname" unique="false"/>
-        <index name="startidartlang" columns="startidartlang" unique="false"/>
-        <index name="idcat" columns="idcat" unique="false"/>
-        <index name="configsetid" columns="configsetid" unique="false"/>
-        <index name="url" columns="url" unique="false"/>
+        <index name="idlang" columns="idlang" type="index"/>
+        <index name="urlname" columns="urlname" type="index"/>
+        <index name="startidartlang" columns="startidartlang" type="index"/>
+        <index name="idcat" columns="idcat" type="index"/>
+        <index name="configsetid" columns="configsetid" type="index"/>
+        <index name="url" columns="url" type="index"/>
     </table>
     <table name="clients" engine="InnoDB">
         <field name="idclient" type="int(10) unsigned" default="null" autoincrement="true"
@@ -300,26 +301,26 @@
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
         <field name="approved" type="timestamp" default="null" nullable="true"/>
         <field name="deleted" type="timestamp" default="null" nullable="true"/>
-        <index name="idartlang" columns="idartlang" unique="false"/>
+        <index name="idartlang" columns="idartlang" type="index"/>
     </table>
     <table name="configset" engine="InnoDB">
         <field name="configsetid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
         <field name="identifier" type="varchar(255)" default="null"/>
         <field name="config" type="text" default="null"/>
-        <index name="identifier" columns="identifier" unique="true"/>
+        <index name="identifier" columns="identifier" type="unique"/>
     </table>
     <table name="conf_token" engine="InnoDB">
         <field name="conftokenid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
         <field name="token" type="varchar(255)" default="null"/>
-        <index name="token" columns="token" unique="true"/>
+        <index name="token" columns="token" type="unique"/>
     </table>
     <table name="content_index" engine="MyISAM">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true"/>
         <field name="content" type="text" default="null"/>
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
-        <index name="content" columns="content" unique="false"/>
+        <index name="content" columns="content" type="fulltext"/>
     </table>
     <table name="crosslink" engine="InnoDB">
         <field name="idartlanglow" type="int(10) unsigned" default="null" primary="true">
@@ -329,7 +330,7 @@
             <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
-        <index name="idartlanghigh" columns="idartlanghigh" unique="false"/>
+        <index name="idartlanghigh" columns="idartlanghigh" type="index"/>
     </table>
     <table name="geo_city" engine="InnoDB">
         <field name="cityid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -340,7 +341,7 @@
         </field>
         <field name="zip" type="varchar(20)" default="null"/>
         <field name="city" type="varchar(255)" default="null"/>
-        <index name="countryid" columns="countryid" unique="false"/>
+        <index name="countryid" columns="countryid" type="index"/>
     </table>
     <table name="geo_country" engine="InnoDB">
         <field name="countryid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -359,7 +360,7 @@
         <field name="street" type="int(11)" default="null"/>
         <field name="latitude" type="float" default="null"/>
         <field name="longitude" type="float" default="null"/>
-        <index name="cityid" columns="cityid" unique="false"/>
+        <index name="cityid" columns="cityid" type="index"/>
     </table>
     <table name="hit" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
@@ -374,8 +375,8 @@
             primary="true"/>
         <field name="ip" type="varchar(15)" default="null"/>
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
-        <index name="created" columns="created" unique="false"/>
-        <index name="ip" columns="ip" unique="false"/>
+        <index name="created" columns="created" type="index"/>
+        <index name="ip" columns="ip" type="index"/>
     </table>
     <table name="lang" engine="InnoDB">
         <field name="idlang" type="int(10) unsigned" default="null" autoincrement="true"
@@ -391,7 +392,7 @@
         <field name="encoding" type="varchar(32)" default="null"/>
         <field name="direction" type="char(3)" default="ltr"/>
         <field name="locale" type="varchar(5)" default="null" nullable="true"/>
-        <index name="idclient" columns="idclient" unique="false"/>
+        <index name="idclient" columns="idclient" type="index"/>
     </table>
     <table name="lastopened" engine="InnoDB">
         <field name="idart" type="int(10) unsigned" default="null" primary="true">
@@ -404,8 +405,8 @@
             <constraint table="acl_user" column="userid" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="time" type="timestamp" default="0000-00-00 00:00:00"/>
-        <index name="userid" columns="userid" unique="false"/>
-        <index name="idlang" columns="idlang" unique="false"/>
+        <index name="userid" columns="userid" type="index"/>
+        <index name="idlang" columns="idlang" type="index"/>
     </table>
     <table name="locale" engine="InnoDB">
         <field name="localeid" type="int(11)" default="null" autoincrement="true" primary="true"/>
@@ -418,8 +419,8 @@
         <field name="idlang" type="int(10) unsigned" default="null" nullable="true"/>
         <field name="path" type="varchar(255)" default="null" nullable="true"/>
         <field name="lastindexed" type="datetime" default="null"/>
-        <index name="idart" columns="idart,idlang" unique="false"/>
-        <index name="path" columns="path" unique="false"/>
+        <index name="idart" columns="idart,idlang" type="index"/>
+        <index name="path" columns="path" type="index"/>
     </table>
     <table name="media" engine="InnoDB">
         <field name="mediaid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -434,7 +435,7 @@
         <field name="ybr" type="float" default="1"/>
         <field name="uploaded" type="datetime" default="null"/>
         <field name="deleted" type="datetime" default="null" nullable="true"/>
-        <index name="idart" columns="idart" unique="false"/>
+        <index name="idart" columns="idart" type="index"/>
     </table>
     <table name="media_description" engine="InnoDB">
         <field name="mediaid" type="int(10) unsigned" default="null" primary="true">
@@ -451,7 +452,7 @@
         <field name="mediatagid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
         <field name="tag" type="varchar(255)" default="null"/>
-        <index name="tag" columns="tag" unique="false"/>
+        <index name="tag" columns="tag" type="index"/>
     </table>
     <table name="media_tags" engine="InnoDB">
         <field name="mediatagid" type="int(10) unsigned" default="null" primary="true">
@@ -466,7 +467,7 @@
             <constraint table="media" column="mediaid" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="val" type="varchar(255)" default="null" nullable="true"/>
-        <index name="mediaid" columns="mediaid" unique="false"/>
+        <index name="mediaid" columns="mediaid" type="index"/>
     </table>
     <table name="performance_profile" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
@@ -488,7 +489,7 @@
         <field name="userid" type="int(10) unsigned" default="null"/>
         <field name="pubtime" type="datetime" default="null"/>
         <field name="status" type="tinyint(4)" default="1"/>
-        <index name="idartlang" columns="idartlang" unique="false"/>
+        <index name="idartlang" columns="idartlang" type="index"/>
     </table>
     <table name="pub_aitsu_article_property" engine="InnoDB">
         <field name="propertyid" type="int(10) unsigned" default="null" primary="true">
@@ -505,8 +506,8 @@
             <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="status" type="tinyint(4)" default="null"/>
-        <index name="idartlang" columns="idartlang" unique="false"/>
-        <index name="pubid" columns="pubid" unique="false"/>
+        <index name="idartlang" columns="idartlang" type="index"/>
+        <index name="pubid" columns="pubid" type="index"/>
     </table>
     <table name="pub_article_content" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
@@ -519,7 +520,7 @@
             <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="status" type="tinyint(4)" default="1"/>
-        <index name="pubid" columns="pubid" unique="false"/>
+        <index name="pubid" columns="pubid" type="index"/>
     </table>
     <table name="pub_art_lang" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" autoincrement="true"
@@ -557,12 +558,12 @@
         </field>
         <field name="status" type="tinyint(4)" default="null"/>
         <field name="mainimage" type="varchar(255)" default="null" nullable="true"/>
-        <index name="pubid" columns="pubid" unique="false"/>
-        <index name="title" columns="title" unique="false"/>
-        <index name="configsetid" columns="configsetid" unique="false"/>
-        <index name="idlang" columns="idlang" unique="false"/>
-        <index name="idart" columns="idart" unique="false"/>
-        <index name="pagetitle" columns="pagetitle" unique="false"/>
+        <index name="pubid" columns="pubid" type="index"/>
+        <index name="title" columns="title" type="index"/>
+        <index name="configsetid" columns="configsetid" type="index"/>
+        <index name="idlang" columns="idlang" type="index"/>
+        <index name="idart" columns="idart" type="index"/>
+        <index name="pagetitle" columns="pagetitle" type="index"/>
     </table>
     <table name="pub_art_meta" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
@@ -592,7 +593,7 @@
             <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="status" type="tinyint(4)" default="null"/>
-        <index name="pubid" columns="pubid" unique="false"/>
+        <index name="pubid" columns="pubid" type="index"/>
     </table>
     <table name="rating" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
@@ -600,7 +601,7 @@
         </field>
         <field name="rating" type="float" default="null"/>
         <field name="votes" type="int(11)" default="1"/>
-        <index name="rating" columns="rating" unique="false"/>
+        <index name="rating" columns="rating" type="index"/>
     </table>
     <table name="ratings" engine="InnoDB">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
@@ -617,7 +618,7 @@
             <constraint table="acl_user" column="userid" onupdate="restrict" ondelete="set null"/>
         </field>
         <field name="revtime" type="timestamp" default="CURRENT_TIMESTAMP"/>
-        <index name="userid" columns="userid" unique="false"/>
+        <index name="userid" columns="userid" type="index"/>
     </table>
     <table name="revision_art_lang" engine="InnoDB">
         <field name="revisionid" type="int(10) unsigned" default="null">
@@ -644,10 +645,10 @@
                 ondelete="set null"/>
         </field>
         <field name="config" type="text" default="null" nullable="true"/>
-        <index name="configsetid" columns="configsetid" unique="false"/>
-        <index name="revisionhash" columns="revisionhash" unique="false"/>
-        <index name="revisionid" columns="revisionid" unique="false"/>
-        <index name="idartlang" columns="idartlang" unique="false"/>
+        <index name="configsetid" columns="configsetid" type="index"/>
+        <index name="revisionhash" columns="revisionhash" type="index"/>
+        <index name="revisionid" columns="revisionid" type="index"/>
+        <index name="idartlang" columns="idartlang" type="index"/>
     </table>
     <table name="revision_content" engine="InnoDB">
         <field name="revisionid" type="int(10) unsigned" default="null" primary="true">
@@ -660,8 +661,8 @@
         </field>
         <field name="index" type="varchar(20)" default="null" primary="true"/>
         <field name="value" type="longtext" default="null"/>
-        <index name="revisionhash" columns="revisionhash" unique="false"/>
-        <index name="revisionid" columns="revisionid" unique="false"/>
+        <index name="revisionhash" columns="revisionhash" type="index"/>
+        <index name="revisionid" columns="revisionid" type="index"/>
     </table>
     <table name="revision_property" engine="InnoDB">
         <field name="revisionid" type="int(10) unsigned" default="null" primary="true">
@@ -679,9 +680,9 @@
         <field name="textvalue" type="text" default="null" nullable="true"/>
         <field name="floatvalue" type="double" default="null" nullable="true"/>
         <field name="datevalue" type="datetime" default="null" nullable="true"/>
-        <index name="revisionhash" columns="revisionhash" unique="false"/>
-        <index name="revisionid" columns="revisionid" unique="false"/>
-        <index name="idartlang" columns="idartlang" unique="false"/>
+        <index name="revisionhash" columns="revisionhash" type="index"/>
+        <index name="revisionid" columns="revisionid" type="index"/>
+        <index name="idartlang" columns="idartlang" type="index"/>
     </table>
     <table name="schedule" engine="InnoDB">
         <field name="scheduleid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -713,7 +714,7 @@
                 ondelete="cascade"/>
         </field>
         <field name="sourceidartlang" type="int(10) unsigned" default="null" primary="true"/>
-        <index name="sourceid" columns="sourceid" unique="false"/>
+        <index name="sourceid" columns="sourceid" type="index"/>
     </table>
     <table name="syndication_source" engine="InnoDB">
         <field name="sourceid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -724,13 +725,13 @@
         <field name="url" type="varchar(255)" default="null"/>
         <field name="userid" type="varchar(255)" default="null"/>
         <field name="secret" type="varchar(255)" default="null"/>
-        <index name="idclient" columns="idclient" unique="false"/>
+        <index name="idclient" columns="idclient" type="index"/>
     </table>
     <table name="tag" engine="InnoDB">
         <field name="tagid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
         <field name="tag" type="varchar(255)" default="null"/>
-        <index name="tag" columns="tag" unique="true"/>
+        <index name="tag" columns="tag" type="unique"/>
     </table>
     <table name="tag_art" engine="InnoDB">
         <field name="idart" type="int(10) unsigned" default="null" primary="true">
@@ -740,7 +741,7 @@
             <constraint table="tag" column="tagid" onupdate="restrict" ondelete="cascade"/>
         </field>
         <field name="val" type="varchar(255)" default="null" nullable="true"/>
-        <index name="tagid" columns="tagid" unique="false"/>
+        <index name="tagid" columns="tagid" type="index"/>
     </table>
     <table name="todo" engine="InnoDB">
         <field name="todoid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -752,7 +753,7 @@
         <field name="description" type="text" default="null"/>
         <field name="duedate" type="datetime" default="null" nullable="true"/>
         <field name="modified" type="timestamp" default="CURRENT_TIMESTAMP"/>
-        <index name="idartlang" columns="idartlang" unique="false"/>
+        <index name="idartlang" columns="idartlang" type="index"/>
     </table>
     <table name="translate" engine="InnoDB">
         <field name="translationid" type="int(10) unsigned" default="null" autoincrement="true"
@@ -763,6 +764,6 @@
         <field name="tkey" type="text" default="null"/>
         <field name="tvalue" type="text" default="null" nullable="true"/>
         <field name="obsolete" type="datetime" default="null" nullable="true"/>
-        <index name="idlang" columns="idlang" unique="false"/>
+        <index name="idlang" columns="idlang" type="index"/>
     </table>
 </database>

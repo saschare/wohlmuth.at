@@ -232,14 +232,10 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 	protected function _restoreIndexes($table) {
 
-		// ALTER TABLE  `test.aitsu.local`.`ait_art_lang` ADD INDEX (  `urlname` ,  `pubfrom` )
-		// ALTER TABLE  `test.aitsu.local`.`ait_art_lang` ADD UNIQUE  `test` (  `idartlang` ,  `created` )
-		// ALTER TABLE  `test.aitsu.local`.`ait_art_lang` ADD FULLTEXT (`summary`)
-		
 		$tableName = Aitsu_Config :: get('database.params.tblprefix') . $table->getAttribute('name');
 
 		foreach ($table->getElementsByTagName('index') as $index) {
-			$type = $index->getAttribute('unique') == 'true' ? 'unique' : 'index';
+			$type = $index->hasAttribute('type') ? $index->getAttribute('type') : 'index';
 			$name = $index->hasAttribute('name') ? '`' . $index->getAttribute('name') . '`' : '';
 			$columns = $index->getAttribute('columns');
 			Aitsu_Db :: query("alter table $tableName add $type $name ($columns)");
