@@ -1,4 +1,8 @@
-Current version: 2.2.0.1
+Current version: 2.2.0.2
+
+== Lastest changes ==
+
+* HTML.Meta.CanonicalTag outputs an absolute URL, if sys.webpath is specified in the configuration.
 
 == Revision progression (since 2.2.0) ==
 
