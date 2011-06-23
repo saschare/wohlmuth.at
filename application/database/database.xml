@@ -311,16 +311,18 @@
             <constraint table="configset" column="configsetid" onupdate="restrict"
                 ondelete="set null"/>
         </field>
-        <field name="config" type="text" default="null" nullable="true"/>
+        <field name="config" type="text" default="null" nullable="true"
+            comment="Category specific configuration."/>
         <index name="urlname" columns="urlname" type="index"/>
         <index name="url" columns="url" type="index"/>
     </table>
     <table name="clients" engine="InnoDB" since="2.2.1.0">
         <field name="idclient" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="name" type="varchar(255)" default="null"/>
-        <field name="url" type="varchar(255)" default="null"/>
-        <field name="config" type="varchar(255)" default="null"/>
+        <field name="name" type="varchar(255)" default="null" comment="Client name."/>
+        <field name="url" type="varchar(255)" default="null" comment="URL to the client."/>
+        <field name="config" type="varchar(255)" default="null"
+            comment="Unused. Will be removed in the future."/>
         <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
     </table>
@@ -330,20 +332,23 @@
         <field name="idartlang" type="int(10) unsigned" default="null">
             <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="name" type="varchar(255)" default="null"/>
-        <field name="email" type="varchar(255)" default="null"/>
-        <field name="ip" type="varchar(100)" default="null"/>
-        <field name="title" type="varchar(255)" default="null"/>
-        <field name="comment" type="text" default="null"/>
+        <field name="name" type="varchar(255)" default="null"
+            comment="Name of the author of the comment."/>
+        <field name="email" type="varchar(255)" default="null" comment="Email."/>
+        <field name="ip" type="varchar(100)" default="null" comment="IP address."/>
+        <field name="title" type="varchar(255)" default="null" comment="Title."/>
+        <field name="comment" type="text" default="null" comment="The comment itself."/>
         <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
         <field name="approved" type="timestamp" default="null" nullable="true"/>
-        <field name="deleted" type="timestamp" default="null" nullable="true"/>
+        <field name="deleted" type="timestamp" default="null" nullable="true"
+            comment="If a value is set, the comment is assumed to be deleted."/>
     </table>
     <table name="configset" engine="InnoDB" since="2.2.1.0">
         <field name="configsetid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="identifier" type="varchar(255)" default="null"/>
-        <field name="config" type="text" default="null"/>
+        <field name="identifier" type="varchar(255)" default="null"
+            comment="Name of the config set."/>
+        <field name="config" type="text" default="null" comment="The configuration in INI style."/>
         <index name="identifier" columns="identifier" type="unique"/>
     </table>
     <table name="conf_token" engine="InnoDB" since="2.2.1.0">
@@ -370,61 +375,71 @@
     <table name="geo_city" engine="InnoDB" since="2.2.1.0">
         <field name="cityid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="countryid" type="int(10) unsigned" default="null">
+        <field name="countryid" type="int(10) unsigned" default="null"
+            comment="The country, the city belongs to.">
             <constraint table="geo_country" column="countryid" onupdate="restrict"
                 ondelete="cascade"/>
         </field>
-        <field name="zip" type="varchar(20)" default="null"/>
-        <field name="city" type="varchar(255)" default="null"/>
+        <field name="zip" type="varchar(20)" default="null" comment="ZIP code."/>
+        <field name="city" type="varchar(255)" default="null" comment="City name."/>
     </table>
     <table name="geo_country" engine="InnoDB" since="2.2.1.0">
         <field name="countryid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="iso2" type="varchar(2)" default="null"/>
-        <field name="iso3" type="varchar(3)" default="null"/>
-        <field name="isod" type="int(11)" default="null"/>
-        <field name="en" type="varchar(255)" default="null"/>
+        <field name="iso2" type="varchar(2)" default="null" comment="ISO code 2 digits."/>
+        <field name="iso3" type="varchar(3)" default="null" comment="ISO code 3 digits."/>
+        <field name="isod" type="int(11)" default="null" comment="ISO code decimal."/>
+        <field name="en" type="varchar(255)" default="null" comment="English name of the country."/>
     </table>
     <table name="geo_location" engine="InnoDB" since="2.2.1.0">
         <field name="locationid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="cityid" type="int(10) unsigned" default="null" nullable="true">
+        <field name="cityid" type="int(10) unsigned" default="null" nullable="true"
+            comment="City, the location belongs to.">
             <constraint table="geo_city" column="cityid" onupdate="restrict" ondelete="set null"/>
         </field>
-        <field name="street" type="int(11)" default="null"/>
-        <field name="latitude" type="float" default="null"/>
-        <field name="longitude" type="float" default="null"/>
+        <field name="street" type="int(11)" default="null" comment="Street."/>
+        <field name="latitude" type="float" default="null" comment="Latitude."/>
+        <field name="longitude" type="float" default="null" comment="Longitude."/>
     </table>
     <table name="hit" engine="InnoDB" since="2.2.1.0">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
             <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="d" type="date" default="null" primary="true"/>
-        <field name="h" type="smallint(6)" default="null" primary="true"/>
-        <field name="hits" type="int(11)" default="1"/>
+        <field name="d" type="date" default="null" primary="true"
+            comment="Hour the impression was made."/>
+        <field name="h" type="smallint(6)" default="null" primary="true"
+            comment="Minute the impression was made."/>
+        <field name="hits" type="int(11)" default="1" comment="Number of impressions."/>
     </table>
     <table name="honeytrap" engine="MyISAM" since="2.2.1.0">
         <field name="trapid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="ip" type="varchar(15)" default="null"/>
-        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <field name="ip" type="varchar(15)" default="null" comment="IP address."/>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"
+            comment="Time of trappement."/>
         <index name="created" columns="created" type="index"/>
         <index name="ip" columns="ip" type="index"/>
     </table>
     <table name="lang" engine="InnoDB" since="2.2.1.0">
         <field name="idlang" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="idclient" type="int(10) unsigned" default="null">
+        <field name="idclient" type="int(10) unsigned" default="null"
+            comment="Client, the language belongs to.">
             <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="name" type="varchar(255)" default="null"/>
-        <field name="longname" type="varchar(255)" default="null"/>
-        <field name="active" type="tinyint(1)" default="0"/>
+        <field name="name" type="varchar(255)" default="null" comment="Short name of the language."/>
+        <field name="longname" type="varchar(255)" default="null"
+            comment="Long name of the language."/>
+        <field name="active" type="tinyint(1)" default="0"
+            comment="Indicates whether or not the language is active."/>
         <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
         <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
-        <field name="encoding" type="varchar(32)" default="null"/>
-        <field name="direction" type="char(3)" default="ltr"/>
-        <field name="locale" type="varchar(5)" default="null" nullable="true"/>
+        <field name="encoding" type="varchar(32)" default="null"
+            comment="Encoding used in this particular language."/>
+        <field name="direction" type="char(3)" default="ltr" comment="Read direction. ltr or rtl."/>
+        <field name="locale" type="varchar(5)" default="null" nullable="true"
+            comment="Locale of the language."/>
     </table>
     <table name="lastopened" engine="InnoDB" since="2.2.1.0">
         <field name="idart" type="int(10) unsigned" default="null" primary="true">
@@ -440,8 +455,9 @@
     </table>
     <table name="locale" engine="InnoDB" since="2.2.1.0">
         <field name="localeid" type="int(11)" default="null" autoincrement="true" primary="true"/>
-        <field name="fullname" type="varchar(255)" default="null"/>
-        <field name="locale" type="varchar(5)" default="null"/>
+        <field name="fullname" type="varchar(255)" default="null" comment="Full name of the locale."/>
+        <field name="locale" type="varchar(5)" default="null" comment="Standard locale identifier."
+        />
     </table>
     <table name="lucene_index" engine="MyISAM" since="2.2.1.0">
         <field name="uid" type="varchar(255)" default="null" primary="true"/>
@@ -455,30 +471,41 @@
     <table name="media" engine="InnoDB" since="2.2.1.0">
         <field name="mediaid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="idart" type="int(10) unsigned" default="null" nullable="true"/>
-        <field name="filename" type="varchar(255)" default="null"/>
-        <field name="size" type="bigint(20)" default="null"/>
-        <field name="extension" type="varchar(10)" default="null"/>
-        <field name="xtl" type="float" default="0"/>
-        <field name="ytl" type="float" default="0"/>
-        <field name="xbr" type="float" default="1"/>
-        <field name="ybr" type="float" default="1"/>
-        <field name="uploaded" type="datetime" default="null"/>
-        <field name="deleted" type="datetime" default="null" nullable="true"/>
+        <field name="idart" type="int(10) unsigned" default="null" nullable="true"
+            comment="Article the file belongs to.">
+            <constraint column="idart" ondelete="cascade" onupdate="no action" table="art"/>
+        </field>
+        <field name="filename" type="varchar(255)" default="null" comment="Filename."/>
+        <field name="size" type="bigint(20)" default="null" comment="File size."/>
+        <field name="extension" type="varchar(10)" default="null" comment="Extension of the file."/>
+        <field name="xtl" type="float" default="0"
+            comment="X coordinate of top left corner of the area of interest."/>
+        <field name="ytl" type="float" default="0"
+            comment="Y coordinate of the top left corner of the area of interest."/>
+        <field name="xbr" type="float" default="1"
+            comment="X coordinate of the bottom right corner of the AOI."/>
+        <field name="ybr" type="float" default="1"
+            comment="Y coordinate of the bottom right corner of the AOI."/>
+        <field name="uploaded" type="datetime" default="null"
+            comment="Time the upload has been made."/>
+        <field name="deleted" type="datetime" default="null" nullable="true"
+            comment="If not null, the file is assumed to be deleted."/>
     </table>
     <table name="media_description" engine="InnoDB" since="2.2.1.0">
         <field name="mediaid" type="int(10) unsigned" default="null" primary="true">
             <constraint table="media" column="mediaid" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="idlang" type="int(10) unsigned" default="null" primary="true"/>
-        <field name="name" type="varchar(255)" default="null"/>
-        <field name="subline" type="text" default="null"/>
-        <field name="description" type="text" default="null"/>
+        <field name="idlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint column="idlang" ondelete="cascade" onupdate="no action" table="lang"/>
+        </field>
+        <field name="name" type="varchar(255)" default="null" comment="Media name."/>
+        <field name="subline" type="text" default="null" comment="Short description."/>
+        <field name="description" type="text" default="null" comment="Media description."/>
     </table>
     <table name="media_tag" engine="InnoDB" since="2.2.1.0">
         <field name="mediatagid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="tag" type="varchar(255)" default="null"/>
+        <field name="tag" type="varchar(255)" default="null" comment="Media tag."/>
         <index name="tag" columns="tag" type="index"/>
     </table>
     <table name="media_tags" engine="InnoDB" since="2.2.1.0">
@@ -489,7 +516,8 @@
         <field name="mediaid" type="int(10) unsigned" default="null" primary="true">
             <constraint table="media" column="mediaid" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="val" type="varchar(255)" default="null" nullable="true"/>
+        <field name="val" type="varchar(255)" default="null" nullable="true"
+            comment="Value assigned to the tag. Usually NULL."/>
     </table>
     <table name="performance_profile" engine="InnoDB" since="2.2.1.0">
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true"

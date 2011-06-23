@@ -204,7 +204,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$this->_restoreIndexes($table);
 
-		return 'Table ' . $table->attributes->getNamedItem('name')->nodeValue . ' has been restored.';
+		return sprintf(Aitsu_Translate :: translate('Table %s has been restored.'), $table->attributes->getNamedItem('name')->nodeValue);
 	}
 
 	protected function _restoreConstraints() {
@@ -260,8 +260,8 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 				"on update $onUpdate");
 			}
 		}
-
-		return Aitsu_Translate :: translate('Constraints on ' . $tableName . ' have been restored.');
+		
+		return sprintf(Aitsu_Translate :: translate('Constraints on %s have been restored.'), $tableName);
 	}
 
 	protected function _restoreViews() {

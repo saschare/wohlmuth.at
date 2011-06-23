@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-21 15:10+0100\n"
-"PO-Revision-Date: 2011-06-21 15:11+0100\n"
+"POT-Creation-Date: 2011-06-23 15:41+0100\n"
+"PO-Revision-Date: 2011-06-23 15:45+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -242,97 +242,55 @@ msgstr "Kopiere table %s."
 msgid "Table %s copied."
 msgstr "Die Tabelle %s wurde kopiert."
 
-#: application/adm/scripts/Update/Update_Database.php:12
-msgid "Actualize database structure"
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:19
+msgid "Synchronize database structure"
 msgstr "Datenbankstruktur aktualisieren"
 
-#: application/adm/scripts/Update/Update_Database.php:30
-#: application/adm/scripts/Update/Update_Database.php:64
-#: application/adm/scripts/Update/Update_Database.php:105
-#: application/adm/scripts/Update/Update_Database.php:165
-#: application/adm/scripts/Update/Update_Database.php:217
-#: application/adm/scripts/Update/Update_Database.php:352
-#: application/adm/scripts/Update/Update_Database.php:388
-#: application/adm/scripts/Update/Update_Database.php:425
-#: application/adm/scripts/Update/Update_Database.php:459
-#: application/adm/scripts/Update/Update_Database.php:597
-#: application/adm/scripts/Update/Update_Database.php:633
-#: application/adm/scripts/Update/Update_Database.php:672
-#: application/adm/scripts/Update/Update_Database.php:709
-#: application/adm/scripts/Update/Update_Database.php:818
-#: application/adm/scripts/Update/Update_Database.php:848
-#, php-format
-msgid "Table %s already exists."
-msgstr "Die Tabelle %s existiert bereits."
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:60
+msgid "Removing constraints. This may take quite a while. Please be patient to allow to remove the constraints."
+msgstr "Constraints werden entfernt. Das kann einen Moment dauern."
 
-#: application/adm/scripts/Update/Update_Database.php:46
-#: application/adm/scripts/Update/Update_Database.php:87
-#: application/adm/scripts/Update/Update_Database.php:147
-#: application/adm/scripts/Update/Update_Database.php:199
-#: application/adm/scripts/Update/Update_Database.php:234
-#: application/adm/scripts/Update/Update_Database.php:371
-#: application/adm/scripts/Update/Update_Database.php:407
-#: application/adm/scripts/Update/Update_Database.php:441
-#: application/adm/scripts/Update/Update_Database.php:472
-#: application/adm/scripts/Update/Update_Database.php:615
-#: application/adm/scripts/Update/Update_Database.php:654
-#: application/adm/scripts/Update/Update_Database.php:691
-#: application/adm/scripts/Update/Update_Database.php:730
-#: application/adm/scripts/Update/Update_Database.php:830
-#: application/adm/scripts/Update/Update_Database.php:876
-#: application/adm/scripts/Maintenance/ActualizeRelations.php:29
-#, php-format
-msgid "Table %s added."
-msgstr "Die Tabelle %s wurde angelegt."
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:65
+msgid "Removing indexes. This may take quite a while. Please be patient to allow to remove the indexes."
+msgstr "Indizes werden entfernt. Das kann einen Moment dauern."
 
-#: application/adm/scripts/Update/Update_Database.php:332
-msgid "Views restored."
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:114
+msgid "Constraints have been removed."
+msgstr "Die Constraints wurden entfernt."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:137
+msgid "Indexes have been removed."
+msgstr "Die Indizes wurden entfernt."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:158
+msgid "Views have not been dropped due to insufficient privileges. If they are unchanged, they still might work properly. However, it is recommended to drop and recreate them using mysql command line interface."
+msgstr "Die Views konnten aufgrund fehlender Rechte nicht entfernt werden. Sofern sie nicht verändert worden sind, funktionieren sie weiter. Es wird jedoch empfohlen, diese über das MySQL Command Line Interface wiederherzustellen."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:162
+msgid "Views have been removed."
+msgstr "Die Views wurden entfernt."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:184
+msgid "Empty tables have been removed."
+msgstr "Leere Tabellen wurden entfernt."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:207
+#, php-format
+msgid "Table %s has been restored."
+msgstr "Die Tabelle %s wurde wiederhergestellt."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:264
+#, php-format
+msgid "Constraints on %s have been restored."
+msgstr "Die Constraints der Tabelle %s wurden wiederhergestellt."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:279
+msgid "Views have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface."
+msgstr "Die Views konnten aufgrund fehlender Rechte nicht wiederhergestellt werden. Sie müssen diese über das MySQL Command Line Interface manuell wiederherstellen."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:283
+msgid "Views have been restored."
 msgstr "Die Views wurden wiederhergestellt."
-
-#: application/adm/scripts/Update/Update_Database.php:334
-msgid "Views have not been restored. Please create view with a tool of your choice."
-msgstr "Die Views wurden nicht wiederhergestellt. Bitte verwenden Sie dazu ein Instrument Ihrer Wahl."
-
-#: application/adm/scripts/Update/Update_Database.php:492
-#: application/adm/scripts/Update/Update_Database.php:521
-#: application/adm/scripts/Update/Update_Database.php:547
-#: application/adm/scripts/Update/Update_Database.php:573
-#: application/adm/scripts/Update/Update_Database.php:750
-#, php-format
-msgid "Table %s is already up to date."
-msgstr "Die Tabelle %s ist bereits auf dem aktuellen Stand."
-
-#: application/adm/scripts/Update/Update_Database.php:501
-#: application/adm/scripts/Update/Update_Database.php:527
-#: application/adm/scripts/Update/Update_Database.php:553
-#: application/adm/scripts/Update/Update_Database.php:579
-#: application/adm/scripts/Update/Update_Database.php:755
-#: application/adm/scripts/Update/Update_Database.php:771
-#: application/adm/scripts/Update/Update_Database.php:785
-#: application/adm/scripts/Update/Update_Database.php:800
-#, php-format
-msgid "Table %s altered."
-msgstr "Die Tabelle %s wurde aktualisiert."
-
-#: application/adm/scripts/Update/Update_Database.php:893
-#, php-format
-msgid "Privilege %s already exists."
-msgstr "Das Recht %s existiert bereits."
-
-#: application/adm/scripts/Update/Update_Database.php:904
-#, php-format
-msgid "Privilege %s added."
-msgstr "Das Recht %s wurde angelegt."
-
-#: application/adm/scripts/Update/Update_Database.php:935
-#, php-format
-msgid "Privilege %s already assigned to role %s."
-msgstr "Das Recht %s ist bereits der Rolle %s zugewiesen."
-
-#: application/adm/scripts/Update/Update_Database.php:946
-#, php-format
-msgid "Privilege %s assigned to %s."
-msgstr "Das Recht %s ist %s zugewiesen."
 
 #: application/adm/scripts/Installation/Setup.php:26
 #, php-format
@@ -392,6 +350,11 @@ msgstr "Die Seite mit der ID %s wurde publiziert."
 #: application/adm/scripts/Maintenance/ActualizeRelations.php:15
 msgid "Actualize relations based on tags"
 msgstr "Aktualisierung der Artikelrelationen"
+
+#: application/adm/scripts/Maintenance/ActualizeRelations.php:29
+#, php-format
+msgid "Table %s added."
+msgstr "Die Tabelle %s wurde angelegt."
 
 #: application/adm/scripts/Maintenance/ActualizeRelations.php:49
 msgid "Article relations have been actualized."
@@ -561,7 +524,7 @@ msgstr "Blog"
 msgid "Meta Data Editor (alpha)"
 msgstr "Meta Data Editor (alpha)"
 
-#: application/plugins/category/synchronization/Class.php:25
+#: application/plugins/category/synchronization/Class.php:29
 msgid "Synchronization"
 msgstr "Synchronisation"
 
@@ -694,11 +657,11 @@ msgstr "Kopie von"
 msgid "Exception occured with message: %s"
 msgstr "Ausnahme aufgetreten mit der Nachricht: %s"
 
-#: library/Aitsu/Adm/Script/Abstract.php:39
+#: library/Aitsu/Adm/Script/Abstract.php:47
 msgid "Script end reached"
 msgstr "Das Ende des Skriptes wurde erreicht"
 
-#: library/Aitsu/Adm/Script/Abstract.php:49
+#: library/Aitsu/Adm/Script/Abstract.php:57
 msgid "Uncaught exception"
 msgstr "Unbehandelte Ausnahme"
 
@@ -1110,18 +1073,6 @@ msgstr "Übersetzung entfernt"
 msgid "The selected translation has been removed."
 msgstr "Die selektierte Übersetzung wurde entfernt."
 
-#: application/adm/views/scripts/script/executionwindow.phtml:23
-msgid "Please choose the script to be executed from the list on the left hand side."
-msgstr "Bitte wählen Sie ein Script aus der Liste aus, die Sie auf der linken Seite finden können."
-
-#: application/adm/views/scripts/script/executionwindow.phtml:51
-msgid "Script terminated."
-msgstr "Das Skript wurde beendet."
-
-#: application/adm/views/scripts/script/executionwindow.phtml:59
-msgid "Script starts..."
-msgstr "Skript startet..."
-
 #: application/adm/views/scripts/syndication/index.phtml:18
 msgid "Sources"
 msgstr "Quellen"
@@ -1381,9 +1332,6 @@ msgid "Quantity"
 msgstr "Menge"
 
 #: application/modules/Shop/Cart/index.phtml:7
-#: application/plugins/generic/data/media/views/index.phtml:436
-#: application/plugins/generic/data/dates/views/index.phtml:49
-#: application/plugins/generic/system/modules/views/detail.phtml:29
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -2091,6 +2039,37 @@ msgstr "Email"
 #: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:137
 msgid "send"
 msgstr "senden"
+
+#~ msgid "Table %s already exists."
+#~ msgstr "Die Tabelle %s existiert bereits."
+#~ msgid ""
+#~ "Views have not been restored. Please create view with a tool of your "
+#~ "choice."
+#~ msgstr ""
+#~ "Die Views wurden nicht wiederhergestellt. Bitte verwenden Sie dazu ein "
+#~ "Instrument Ihrer Wahl."
+#~ msgid "Table %s is already up to date."
+#~ msgstr "Die Tabelle %s ist bereits auf dem aktuellen Stand."
+#~ msgid "Table %s altered."
+#~ msgstr "Die Tabelle %s wurde aktualisiert."
+#~ msgid "Privilege %s already exists."
+#~ msgstr "Das Recht %s existiert bereits."
+#~ msgid "Privilege %s added."
+#~ msgstr "Das Recht %s wurde angelegt."
+#~ msgid "Privilege %s already assigned to role %s."
+#~ msgstr "Das Recht %s ist bereits der Rolle %s zugewiesen."
+#~ msgid "Privilege %s assigned to %s."
+#~ msgstr "Das Recht %s ist %s zugewiesen."
+#~ msgid ""
+#~ "Please choose the script to be executed from the list on the left hand "
+#~ "side."
+#~ msgstr ""
+#~ "Bitte wählen Sie ein Script aus der Liste aus, die Sie auf der linken "
+#~ "Seite finden können."
+#~ msgid "Script terminated."
+#~ msgstr "Das Skript wurde beendet."
+#~ msgid "Script starts..."
+#~ msgstr "Skript startet..."
 
 #, fuzzy
 #~ msgid "Aktuelle Revision"
