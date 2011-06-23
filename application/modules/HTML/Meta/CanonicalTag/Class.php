@@ -20,11 +20,12 @@ class Module_HTML_Meta_CanonicalTag_Class extends Aitsu_Ee_Module_Abstract {
 		}
 		
 		$art = Aitsu_Persistence_Article :: factory(Aitsu_Registry :: get()->env->idart, Aitsu_Registry :: get()->env->idlang)->load();
+		$base = substr(Aitsu_Config :: get('sys.webpath'), 0, -1);
 		
 		if ($art->startidartlang == $art->idartlang) {
-			$output = '<link rel="canonical" href="{ref:idcat-' . $art->idcat . '}" />';
+			$output = '<link rel="canonical" href="' . $base . '{ref:idcat-' . $art->idcat . '}" />';
 		} else {
-			$output = '<link rel="canonical" href="{ref:idart-' . $art->idart . '}" />';
+			$output = '<link rel="canonical" href="' . $base . '{ref:idart-' . $art->idart . '}" />';
 		}
 		
 		$instance->_save($output, 'eternal');
