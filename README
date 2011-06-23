@@ -1,1 +1,7 @@
 aitsu, Version 2.2.0
+
+To be able to use the new feature 'Revision progression' you have to add follwing line to the default config set:
+
+plugin.article.revisionprogression.position.default = 1000
+
+This line will be added to the next version of the full installation dump.
