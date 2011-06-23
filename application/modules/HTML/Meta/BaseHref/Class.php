@@ -12,6 +12,6 @@ class Module_HTML_Meta_BaseHref_Class extends Aitsu_Ee_Module_Abstract {
 
 		Aitsu_Content_Edit :: noEdit('HTML.Meta.BaseHref', true);
 
-		return '<base href="' . Aitsu_Registry :: get()->config->sys->webpath . '" />';
+		return '<base href="' . Aitsu_Config :: get('sys.webpath') . '" />';
 	}
 }
