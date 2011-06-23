@@ -2,6 +2,7 @@ Current version: 2.2.0.2
 
 == Lastest changes ==
 
+* HTML.Meta.CanonicalTag uses sys.canonicalpath, if set in the configuration. Else it uses sys.webpath.
 * HTML.Meta.CanonicalTag outputs an absolute URL, if sys.webpath is specified in the configuration.
 
 == Revision progression (since 2.2.0) ==
