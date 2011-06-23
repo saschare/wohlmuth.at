@@ -16,6 +16,7 @@
       </xs:sequence>
       <xs:attribute name="engine" use="required" type="engine"/>
       <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="since" use="required" type="comment"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="view">
@@ -34,6 +35,7 @@
       <xs:attribute name="primary" type="xs:boolean"/>
       <xs:attribute name="type" use="required" type="xs:string"/>
       <xs:attribute name="nullable" use="optional" type="xs:boolean"/>
+      <xs:attribute name="comment" use="optional" type="comment"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="constraint">
@@ -70,6 +72,12 @@
       <xs:enumeration value="index"/>
       <xs:enumeration value="unique"/>
       <xs:enumeration value="fulltext"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="comment">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="60"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

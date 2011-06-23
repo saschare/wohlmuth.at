@@ -11,6 +11,9 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 	protected $_methodMap = array ();
 	protected $_xml = null;
 
+	protected $_tableRestoreOffset = null;
+	protected $_constraintRestoreOffset = null;
+
 	public static function getName() {
 
 		return Aitsu_Translate :: translate('Synchronize database structure');
@@ -19,7 +22,9 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 	protected function _init() {
 
 		$this->_methodMap = array (
+			'_beforeRemoveConstraints',
 			'_removeConstraints',
+			'_beforeRemoveIndexes',
 			'_removeIndexes',
 			'_removeViews',
 			'_removeEmptyTables'
@@ -37,12 +42,27 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$tables = $this->_xml->getElementsByTagName('table');
 
+		$this->_tableRestoreOffset = 6;
 		for ($i = 0; $i < $tables->length; $i++) {
 			$this->_methodMap[] = '_restoreTables';
 		}
 
-		$this->_methodMap[] = '_restoreConstraints';
+		$this->_constraintRestoreOffset = $this->_tableRestoreOffset + $tables->length;
+		for ($i = 0; $i < $tables->length; $i++) {
+			$this->_methodMap[] = '_restoreConstraints';
+		}
+
 		$this->_methodMap[] = '_restoreViews';
+	}
+	
+	protected function _beforeRemoveConstraints() {
+		
+		return Aitsu_Translate :: translate('Removing constraints. This may take quite a while. Please be patient to allow to remove the constraints.');
+	}
+
+	protected function _beforeRemoveIndexes() {
+		
+		return Aitsu_Translate :: translate('Removing indexes. This may take quite a while. Please be patient to allow to remove the indexes.');
 	}
 
 	protected function _hasNext() {
@@ -66,6 +86,10 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			$this,
 			$method
 		), array ());
+
+		if (is_object($response)) {
+			return Aitsu_Adm_Script_Response :: factory($response->message, 'warning');
+		}
 
 		return Aitsu_Adm_Script_Response :: factory($response);
 	}
@@ -124,9 +148,15 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			':prefix' => Aitsu_Config :: get('database.params.tblprefix') . '%'
 		));
 
-		foreach ($views as $view) {
-			Aitsu_Db :: query('' .
-			'drop view `' . $view['TABLE_NAME'] . '`');
+		try {
+			foreach ($views as $view) {
+				Aitsu_Db :: query('' .
+				'drop view `' . $view['TABLE_NAME'] . '`');
+			}
+		} catch (Exception $e) {
+			return (object) array (
+				'message' => Aitsu_Translate :: translate('Views have not been dropped due to insufficient privileges. If they are unchanged, they still might work properly. However, it is recommended to drop and recreate them using mysql command line interface.')
+			);
 		}
 
 		return Aitsu_Translate :: translate('Views have been removed.');
@@ -156,7 +186,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 	protected function _restoreTables() {
 
-		$currentIndex = $this->_currentStep - 4;
+		$currentIndex = $this->_currentStep - $this->_tableRestoreOffset;
 		$table = $this->_xml->getElementsByTagName('table')->item($currentIndex);
 
 		if (Aitsu_Db :: fetchOne('' .
@@ -169,22 +199,86 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			)) == 0) {
 			$this->_createTable($table);
 		} else {
-			$this->_checkTableFields($table);
+			$this->_reconstructTable($table);
 		}
 
 		$this->_restoreIndexes($table);
 
-		return $table->attributes->getNamedItem('name')->nodeValue . ' restored.';
+		return 'Table ' . $table->attributes->getNamedItem('name')->nodeValue . ' has been restored.';
 	}
 
 	protected function _restoreConstraints() {
 
-		return Aitsu_Translate :: translate('Constraints have been restored.');
+		$currentIndex = $this->_currentStep - $this->_constraintRestoreOffset;
+		$table = $this->_xml->getElementsByTagName('table')->item($currentIndex);
+
+		$prefix = Aitsu_Config :: get('database.params.tblprefix');
+
+		$tableName = $prefix . $table->getAttribute('name');
+		foreach ($table->getElementsByTagName('field') as $field) {
+			$columnName = $field->getAttribute('name');
+			foreach ($field->getElementsByTagName('constraint') as $constraint) {
+				$refTable = $prefix . $constraint->getAttribute('table');
+				$refColumn = $constraint->getAttribute('column');
+				$onUpdate = $constraint->hasAttribute('onupdate') ? $constraint->getAttribute('onupdate') : 'no action';
+				$onDelete = $constraint->hasAttribute('ondelete') ? $constraint->getAttribute('ondelete') : 'no action';
+				$indexName = 'fk_' . $columnName . '_' . $refColumn;
+
+				/*
+				 * Add an index for the specified column.
+				 */
+				Aitsu_Db :: query("alter table $tableName add index `$indexName` (`$columnName`)");
+
+				if ($constraint->hasAttribute('ondelete') && $constraint->getAttribute('ondelete') == 'set null') {
+					/*
+					 * Set values to null that would case a referential integrity violation.
+					 */
+					Aitsu_Db :: query("" .
+					"update `$tableName` src " .
+					"set src.$columnName = null " .
+					"where src.$columnName not in (" .
+					"	select tgt.$refColumn from `$refTable` tgt" .
+					")");
+				} else {
+					/*
+					 * Remove entries that would cause a referential integrity violation.
+					 */
+					Aitsu_Db :: query("" .
+					"delete src.* from `$tableName` src " .
+					"where src.$columnName not in (" .
+					"	select tgt.$refColumn from `$refTable` tgt" .
+					")");
+				}
+
+				/*
+				 * Add the constraint.
+				 */
+				Aitsu_Db :: query("" .
+				"alter table `$tableName` add foreign key (`$columnName`) " .
+				"references `$refTable` (`$refColumn`) " .
+				"on delete $onDelete " .
+				"on update $onUpdate");
+			}
+		}
+
+		return Aitsu_Translate :: translate('Constraints on ' . $tableName . ' have been restored.');
 	}
 
 	protected function _restoreViews() {
 
-		// trigger_error(var_export($this->_xml->saveXML(), true));
+		$prefix = Aitsu_Config :: get('database.params.tblprefix');
+
+		try {
+			foreach ($this->_xml->getElementsByTagName('view') as $view) {
+				$viewName = $prefix . $view->getAttribute('name');
+				$viewSelect = $view->nodeValue;
+				Aitsu_Db :: query("create view `$viewName` as $viewSelect");
+			}
+		} catch (Exception $e) {
+			return (object) array (
+				'message' => Aitsu_Translate :: translate('Views have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface.')
+			);
+		}
 
 		return Aitsu_Translate :: translate('Views have been restored.');
 	}
@@ -201,8 +295,9 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			$null = $field->hasAttribute('nullable') && $field->getAttribute('nullable') == 'true' ? 'null' : 'not null';
 			$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";
 			$autoincrement = $field->hasAttribute('autoincrement') && $field->getAttribute('autoincrement') == 'true' ? 'auto_increment' : '';
+			$comment = $field->hasAttribute('comment') ? "comment '" . str_replace("'", "''", $field->getAttribute('comment')) . "'" : '';
 
-			$tmp = "`$name` $type $null $default $autoincrement";
+			$tmp = "`$name` $type $null $default $autoincrement $comment";
 
 			$tmp = str_replace("'CURRENT_TIMESTAMP'", 'current_timestamp', $tmp);
 
@@ -221,13 +316,9 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$statement .= ') ENGINE=' . $node->attributes->getNamedItem('engine')->nodeValue;
 
-		trigger_error($statement);
+		$statement .= ' COMMENT=\'Since ' . $node->getAttribute('since') . '\'';
+
 		Aitsu_Db :: query($statement);
-	}
-
-	protected function _checkTableFields($node) {
-
-		// trigger_error('check table ' . $node->attributes->getNamedItem('name')->nodeValue);
 	}
 
 	protected function _restoreIndexes($table) {
@@ -241,4 +332,43 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			Aitsu_Db :: query("alter table $tableName add $type $name ($columns)");
 		}
 	}
+
+	protected function _reconstructTable($table) {
+
+		$schema = Aitsu_Config :: get('database.params.dbname');
+		$backupTable = Aitsu_Config :: get('database.params.tblprefix') . 'backup_table';
+		$tableName = Aitsu_Config :: get('database.params.tblprefix') . $table->getAttribute('name');
+
+		Aitsu_Db :: query('drop table if exists ' . $backupTable);
+		Aitsu_Db :: query('rename table ' . $tableName . ' to ' . $backupTable);
+		$this->_createTable($table);
+
+		/*
+		 * Identify the field intersection to be used to move data to the new structure.
+		 */
+		$intersection = Aitsu_Db :: fetchCol('' .
+		'select ' .
+		'	concat(\'`\', newtable.column_name, \'`\') ' .
+		'from information_schema.columns newtable, information_schema.columns oldtable ' .
+		'where ' .
+		'	newtable.table_schema = oldtable.table_schema ' .
+		'	and newtable.column_name = oldtable.column_name ' .
+		'	and newtable.table_schema = :schema ' .
+		'	and newtable.table_name = :newtable ' .
+		'	and oldtable.table_name = :oldtable ', array (
+			':schema' => $schema,
+			':newtable' => $tableName,
+			':oldtable' => $backupTable
+		));
+
+		/*
+		 * Move data from backup table to the new structure.
+		 */
+		Aitsu_Db :: query("" .
+		"insert into $tableName (" . implode(', ', $intersection) . ") " .
+		"select " . implode(', ', $intersection) . " from $backupTable ");
+
+		Aitsu_Db :: query('drop table ' . $backupTable);
+	}
+
 }
