@@ -130,6 +130,8 @@
             comment="Full URL of the article with the specified idartlang."/>
         <field name="idartlang" type="int(10) unsigned" default="null" primary="true"
             comment="The page the entity belongs to."/>
+        <field default="0" name="manualentry" type="tinyint(4) unsigned"
+            comment="1 indicates a manual entry made with the plugin."/>
         <field name="created" type="datetime" default="null"/>
     </table>
     <table name="aitsu_session" engine="MyISAM" since="2.2.1.0">
