@@ -1,4 +1,3 @@
 Version 2.2.1.0-dev
 
-Automatische Aktualisierung der Datenbankstruktur auf Basis der
-XML-Datei unter /application/database/database.xml.
+Automatische Aktualisierung der Datenbankstruktur auf Basis der XML-Datei unter /application/database/database.xml.
