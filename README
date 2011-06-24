@@ -1,14 +1,5 @@
-Current version: 2.2.0.2
+Version 2.2.1.0-dev
 
-== Lastest changes ==
+Automatische Aktualisierung der Datenbankstruktur auf Basis der XML-Datei unter /application/database/database.xml.
 
-* HTML.Meta.CanonicalTag uses sys.canonicalpath, if set in the configuration. Else it uses sys.webpath.
-* HTML.Meta.CanonicalTag outputs an absolute URL, if sys.webpath is specified in the configuration.
-
-== Revision progression (since 2.2.0) ==
-
-In the article view there is a new tab allowing you to switch between published versions of the current article. To be able to use the new feature you have to add follwing line to the default config set:
-
-plugin.article.revisionprogression.position.default = 1000
-
-The number after the equal symbol represents the relative position of the tab. You may change the value to something not lower than 1, which repositions the tab within the article view.
+Sobald die Tests erfolgreich abgeschlossen sind, erfolgt die Integration in den Master und die Publikation als Version 2.2.1.

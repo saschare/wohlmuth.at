@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="schema.xsd">
+    <table name="acl_clients" engine="InnoDB" since="2.2.1.0">
+        <field name="idclient" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="roleid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_role" column="roleid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+    </table>
+    <table name="acl_languages" engine="InnoDB" since="2.2.1.0">
+        <field name="roleid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_role" column="roleid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idlang" type="int(10) unsigned" default="null" primary="true"
+            comment="Foreign key.">
+            <constraint table="lang" column="idlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+    </table>
+    <table name="acl_privilege" engine="InnoDB" since="2.2.1.0">
+        <field name="privilegeid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="identifier" type="varchar(255)" default="null" comment="Privilege name."/>
+        <index name="identifier" columns="identifier" type="unique"/>
+    </table>
+    <table name="acl_privileges" engine="InnoDB" since="2.2.1.0">
+        <field name="roleid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_role" column="roleid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="privilegeid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_privilege" column="privilegeid" onupdate="restrict"
+                ondelete="cascade"/>
+        </field>
+    </table>
+    <table name="acl_resource" engine="InnoDB" since="2.2.1.0">
+        <field name="resourceid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="name" type="varchar(255)" default="null" comment="Name of the resource."/>
+        <field name="resourcetype" type="enum('cat','art','other')" default="null"
+            comment="Type. Either cat, art or other."/>
+        <field name="specifictype" type="varchar(255)" default="null"
+            comment="Holds the type identifier, if other is set on type."/>
+        <field name="identifier" type="int(10) unsigned" default="null"
+            comment="ID of the resource. I.e. idart or idcat."/>
+        <field name="removeable" type="tinyint(4)" default="1"
+            comment="Indicates whether or not the entity might be deleted."/>
+        <index name="id" columns="identifier" type="index"/>
+        <index name="identifier" columns="identifier" type="index"/>
+        <index name="specifictype" columns="specifictype" type="index"/>
+    </table>
+    <table name="acl_resources" engine="InnoDB" since="2.2.1.0">
+        <field name="roleid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_role" column="roleid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="resourceid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_resource" column="resourceid" onupdate="restrict"
+                ondelete="cascade"/>
+        </field>
+    </table>
+    <table name="acl_role" engine="InnoDB" since="2.2.1.0">
+        <field name="roleid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="identifier" type="varchar(255)" default="null" comment="Name of the role."/>
+        <index name="identifier" columns="identifier" type="unique"/>
+    </table>
+    <table name="acl_roles" engine="InnoDB" since="2.2.1.0">
+        <field name="roleid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_role" column="roleid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="userid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_user" column="userid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+    </table>
+    <table name="acl_user" engine="InnoDB" since="2.2.1.0">
+        <field name="userid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="uuid" type="varchar(64)" default="null"
+            comment="The users UUID. Might be used instead of login."/>
+        <field name="lastname" type="varchar(255)" default="null" comment="Lastname."/>
+        <field name="firstname" type="varchar(255)" default="null" comment="Firstname."/>
+        <field name="login" type="varchar(100)" default="null" comment="Username / Login."/>
+        <field name="password" type="varchar(255)" default="null"
+            comment="Hashed password. Use MD5 to reset the value."/>
+        <field name="email" type="varchar(255)" default="null" comment="Email."/>
+        <field name="idlang" type="int(10) unsigned" default="null" nullable="true"
+            comment="The pre-selected client/language in the backend.">
+            <constraint table="lang" column="idlang" onupdate="restrict" ondelete="set null"/>
+        </field>
+        <field name="locale" type="varchar(5)" default="null" comment="Locale used in the backend."/>
+        <field name="sessionperiod" type="int(11)" default="null" nullable="true"
+            comment="Maximum session period in seconds."/>
+        <field name="acfrom" type="timestamp" default="null" nullable="true"
+            comment="First moment the user has access. Or null."/>
+        <field name="acuntil" type="timestamp" default="null" nullable="true"
+            comment="Last moment the user has access. Or null."/>
+        <field name="modified" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <field name="created" type="timestamp" default="0000-00-00 00:00:00" nullable="true"/>
+        <field name="properties" type="longtext" default="null" comment="User properties."/>
+        <index name="password" columns="password" type="index"/>
+        <index name="login" columns="login" type="unique"/>
+    </table>
+    <table name="aitsu_article_property" engine="InnoDB" since="2.2.1.0">
+        <field name="propertyid" type="int(10) unsigned" default="null" primary="true"
+            comment="Property.">
+            <constraint table="aitsu_property" column="propertyid" onupdate="restrict"
+                ondelete="cascade"/>
+        </field>
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true"
+            comment="Idart the value belongs to.">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="textvalue" type="text" default="null" nullable="true"
+            comment="Holds a text representation of the value."/>
+        <field name="floatvalue" type="double" default="null" nullable="true"
+            comment="Null, if type is not a number."/>
+        <field name="datevalue" type="datetime" default="null" nullable="true"
+            comment="Null, if type is not a date."/>
+    </table>
+    <table name="aitsu_property" engine="InnoDB" since="2.2.1.0">
+        <field name="propertyid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="identifier" type="varchar(255)" default="null" comment="Name of the property."/>
+        <field name="type" type="enum('text','float','date','serialized')" default="null"
+            comment="Value type of the property."/>
+        <index name="identifier" columns="identifier" type="unique"/>
+    </table>
+    <table name="aitsu_rewrite_history" engine="MyISAM" since="2.2.1.0">
+        <field name="url" type="varchar(255)" default="null" primary="true"
+            comment="Full URL of the article with the specified idartlang."/>
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true"
+            comment="The page the entity belongs to."/>
+        <field default="0" name="manualentry" type="tinyint(4) unsigned"
+            comment="1 indicates a manual entry made with the plugin."/>
+        <field name="created" type="datetime" default="null"/>
+    </table>
+    <table name="aitsu_session" engine="MyISAM" since="2.2.1.0">
+        <field name="id" type="char(32)" default="" primary="true"/>
+        <field name="modified" type="int(11)" default="null" nullable="true"/>
+        <field name="lifetime" type="int(11)" default="null" nullable="true"/>
+        <field name="data" type="longtext" default="null" nullable="true"/>
+    </table>
+    <table name="art" engine="InnoDB" since="2.2.1.0">
+        <field name="idart" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idclient" type="int(10) unsigned" default="0"
+            comment="Client, the article belongs to.">
+            <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
+        </field>
+    </table>
+    <table name="article_content" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="index" type="varchar(20)" default="null" primary="true"
+            comment="Index to identify the content within the page context."/>
+        <field name="value" type="longtext" default="null" comment="The content itself."/>
+        <field name="modified" type="datetime" default="null" comment="Modification time."/>
+    </table>
+    <table name="art_lang" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idart" type="int(10) unsigned" default="0">
+            <constraint table="art" column="idart" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idlang" type="int(10) unsigned" default="0">
+            <constraint table="lang" column="idlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="title" type="varchar(255)" default="null"
+            comment="Name of the article. Seen only in the backend."/>
+        <field name="urlname" type="varchar(255)" default="null"
+            comment="Identifier used in the URL building process."/>
+        <field name="pagetitle" type="varchar(255)" default="null"
+            comment="Title to be used as title tag in the HTML."/>
+        <field name="teasertitle" type="varchar(255)" default="null"
+            comment="Title to be used in teasers."/>
+        <field name="summary" type="text" default="null" nullable="true"
+            comment="Summary or description of the page's content."/>
+        <field name="created" type="datetime" default="0000-00-00 00:00:00"
+            comment="Time, the page has been created."/>
+        <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"
+            comment="Modification time."/>
+        <field name="online" type="tinyint(1)" default="0"
+            comment="Indicates whether or not the page is visible."/>
+        <field name="pubfrom" type="timestamp" default="null" nullable="true"
+            comment="Optionally used in aggregations."/>
+        <field name="pubuntil" type="timestamp" default="null" nullable="true"
+            comment="Optionally used in aggregation."/>
+        <field name="published" type="tinyint(3) unsigned" default="null" nullable="true"
+            comment="Indicates whether or not the page is published."/>
+        <field name="redirect" type="tinyint(4)" default="0"
+            comment="Indicates whether or not the page is a redirector."/>
+        <field name="redirect_url" type="varchar(255)" default="null" nullable="true"
+            comment="URL to redirect to."/>
+        <field name="artsort" type="int(10)" default="0"
+            comment="Value used to sort in aggregations."/>
+        <field name="locked" type="int(1)" default="0"
+            comment="Not used. Will be removed in the future."/>
+        <field name="configsetid" type="int(10) unsigned" default="null" nullable="true"
+            comment="Config set assigned to the article.">
+            <constraint table="configset" column="configsetid" onupdate="restrict"
+                ondelete="set null"/>
+        </field>
+        <field name="config" type="text" default="null" nullable="true"
+            comment="Additional specific configuration."/>
+        <field name="mainimage" type="varchar(255)" default="null" nullable="true"
+            comment="Filename of a representative image."/>
+        <index name="pagetitle" columns="pagetitle" type="index"/>
+        <index name="title" columns="title" type="index"/>
+        <index name="un_idart_idlang" columns="idart,idlang" type="unique"/>
+    </table>
+    <table name="art_meta" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="description" type="text" default="null" comment="Description."/>
+        <field name="author" type="varchar(255)" default="null" comment="Author."/>
+        <field name="keywords" type="text" default="null" comment="Keywords."/>
+        <field name="date" type="date" default="null" nullable="true" comment="Date."/>
+        <field name="expires" type="date" default="null" nullable="true" comment="Expires."/>
+        <field name="robots" type="varchar(255)" default="null" comment="Robots."/>
+        <field name="dctitle" type="varchar(255)" default="null" comment="DC.Title."/>
+        <field name="dccreator" type="varchar(255)" default="null" comment="DC.Creator."/>
+        <field name="dcsubject" type="varchar(255)" default="null" comment="DC.Subject."/>
+        <field name="dcpublisher" type="varchar(255)" default="null" comment="DC.Publisher."/>
+        <field name="dccontributor" type="varchar(255)" default="null" comment="DC.Contributor."/>
+        <field name="dcdate" type="varchar(255)" default="null" comment="DC.Date."/>
+        <field name="dctype" type="varchar(255)" default="null" comment="DC.Type."/>
+        <field name="dcformat" type="varchar(255)" default="null" comment="DC.Format."/>
+        <field name="dcidentifier" type="varchar(255)" default="null" comment="DC.Identifier."/>
+        <field name="dcsource" type="varchar(255)" default="null" comment="DC.Source."/>
+        <field name="dclanguage" type="varchar(255)" default="null" comment="DC.Language."/>
+        <field name="dcrelation" type="varchar(255)" default="null" comment="DC.Relation."/>
+        <field name="cdcoverage" type="varchar(255)" default="null" comment="DC.Coverage."/>
+        <field name="dcrights" type="varchar(255)" default="null" comment="DC.Rights."/>
+    </table>
+    <table name="cat" engine="InnoDB" since="2.2.1.0">
+        <field name="idcat" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idclient" type="int(10) unsigned" default="0"
+            comment="Client, the category belongs to.">
+            <constraint column="idclient" ondelete="cascade" onupdate="no action" table="clients"/>
+        </field>
+        <field name="parentid" type="int(10)" default="0"
+            comment="Category, the category belongs to."/>
+        <field name="preid" type="int(10)" default="0"
+            comment="Unused. Will be removed in the future."/>
+        <field name="postid" type="int(10)" default="0"
+            comment="Unused. Will be removed in the future."/>
+        <field name="lft" type="int(10) unsigned" default="null" nullable="true"
+            comment="Left value of the nested set."/>
+        <field name="rgt" type="int(10) unsigned" default="null" nullable="true"
+            comment="Right value of the nested set."/>
+        <field name="status" type="int(10)" default="0"/>
+        <field name="author" type="varchar(32)" default="null"
+            comment="Unused. Will be removed in the future."/>
+        <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
+        <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
+        <index name="preid" columns="preid" type="index"/>
+        <index name="parentid" columns="parentid" type="index"/>
+        <index name="postid" columns="postid" type="index"/>
+        <index name="lft" columns="lft" type="index"/>
+        <index name="rgt" columns="rgt" type="index"/>
+    </table>
+    <table name="cat_art" engine="InnoDB" since="2.2.1.0">
+        <field name="idcat" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="cat" column="idcat" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idart" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art" column="idart" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <field name="lastmodified" type="timestamp" default="null" nullable="true"/>
+    </table>
+    <table name="cat_favorites" engine="InnoDB" since="2.2.1.0">
+        <field name="idcat" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="cat" column="idcat" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="userid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_roles" column="userid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+    </table>
+    <table name="cat_lang" engine="InnoDB" since="2.2.1.0">
+        <field name="idcatlang" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idcat" type="int(10) unsigned" default="0">
+            <constraint table="cat" column="idcat" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idlang" type="int(10) unsigned" default="0">
+            <constraint table="lang" column="idlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="name" type="varchar(255)" default="null" comment="Name of the category."/>
+        <field name="visible" type="tinyint(1)" default="0"
+            comment="Visibility of the category in the navigation."/>
+        <field name="public" type="tinyint(1)" default="0"
+            comment="1 indicates that the category is publicly available."/>
+        <field name="status" type="int(10)" default="0"/>
+        <field name="author" type="varchar(32)" default="null"
+            comment="Unused. Will be removed in the future."/>
+        <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
+        <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
+        <field name="startidartlang" type="int(10) unsigned" default="null" nullable="true"
+            comment="The page that is used as the index page.">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="set null"
+            />
+        </field>
+        <field name="urlname" type="varchar(64)" default="null"
+            comment="Category name used in the URL building process."/>
+        <field name="url" type="varchar(255)" default="null" nullable="true"
+            comment="URL to the category."/>
+        <field name="configsetid" type="int(10) unsigned" default="null" nullable="true"
+            comment="The config set assigned to the category.">
+            <constraint table="configset" column="configsetid" onupdate="restrict"
+                ondelete="set null"/>
+        </field>
+        <field name="config" type="text" default="null" nullable="true"
+            comment="Category specific configuration."/>
+        <index name="urlname" columns="urlname" type="index"/>
+        <index name="url" columns="url" type="index"/>
+    </table>
+    <table name="clients" engine="InnoDB" since="2.2.1.0">
+        <field name="idclient" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="name" type="varchar(255)" default="null" comment="Client name."/>
+        <field name="url" type="varchar(255)" default="null" comment="URL to the client."/>
+        <field name="config" type="varchar(255)" default="null"
+            comment="Unused. Will be removed in the future."/>
+        <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
+        <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
+    </table>
+    <table name="comment" engine="InnoDB" since="2.2.1.0">
+        <field name="commentid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idartlang" type="int(10) unsigned" default="null">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="name" type="varchar(255)" default="null"
+            comment="Name of the author of the comment."/>
+        <field name="email" type="varchar(255)" default="null" comment="Email."/>
+        <field name="ip" type="varchar(100)" default="null" comment="IP address."/>
+        <field name="title" type="varchar(255)" default="null" comment="Title."/>
+        <field name="comment" type="text" default="null" comment="The comment itself."/>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <field name="approved" type="timestamp" default="null" nullable="true"/>
+        <field name="deleted" type="timestamp" default="null" nullable="true"
+            comment="If a value is set, the comment is assumed to be deleted."/>
+    </table>
+    <table name="configset" engine="InnoDB" since="2.2.1.0">
+        <field name="configsetid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="identifier" type="varchar(255)" default="null"
+            comment="Name of the config set."/>
+        <field name="config" type="text" default="null" comment="The configuration in INI style."/>
+        <index name="identifier" columns="identifier" type="unique"/>
+    </table>
+    <table name="conf_token" engine="InnoDB" since="2.2.1.0">
+        <field name="conftokenid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="token" type="varchar(255)" default="null"/>
+        <index name="token" columns="token" type="unique"/>
+    </table>
+    <table name="content_index" engine="MyISAM" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="content" type="text" default="null"/>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <index name="content" columns="content" type="fulltext"/>
+    </table>
+    <table name="crosslink" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlanglow" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idartlanghigh" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"/>
+    </table>
+    <table name="geo_city" engine="InnoDB" since="2.2.1.0">
+        <field name="cityid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="countryid" type="int(10) unsigned" default="null"
+            comment="The country, the city belongs to.">
+            <constraint table="geo_country" column="countryid" onupdate="restrict"
+                ondelete="cascade"/>
+        </field>
+        <field name="zip" type="varchar(20)" default="null" comment="ZIP code."/>
+        <field name="city" type="varchar(255)" default="null" comment="City name."/>
+    </table>
+    <table name="geo_country" engine="InnoDB" since="2.2.1.0">
+        <field name="countryid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="iso2" type="varchar(2)" default="null" comment="ISO code 2 digits."/>
+        <field name="iso3" type="varchar(3)" default="null" comment="ISO code 3 digits."/>
+        <field name="isod" type="int(11)" default="null" comment="ISO code decimal."/>
+        <field name="en" type="varchar(255)" default="null" comment="English name of the country."/>
+    </table>
+    <table name="geo_location" engine="InnoDB" since="2.2.1.0">
+        <field name="locationid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="cityid" type="int(10) unsigned" default="null" nullable="true"
+            comment="City, the location belongs to.">
+            <constraint table="geo_city" column="cityid" onupdate="restrict" ondelete="set null"/>
+        </field>
+        <field name="street" type="int(11)" default="null" comment="Street."/>
+        <field name="latitude" type="float" default="null" comment="Latitude."/>
+        <field name="longitude" type="float" default="null" comment="Longitude."/>
+    </table>
+    <table name="hit" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="d" type="date" default="null" primary="true"
+            comment="Hour the impression was made."/>
+        <field name="h" type="smallint(6)" default="null" primary="true"
+            comment="Minute the impression was made."/>
+        <field name="hits" type="int(11)" default="1" comment="Number of impressions."/>
+    </table>
+    <table name="honeytrap" engine="MyISAM" since="2.2.1.0">
+        <field name="trapid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="ip" type="varchar(15)" default="null" comment="IP address."/>
+        <field name="created" type="timestamp" default="CURRENT_TIMESTAMP"
+            comment="Time of trappement."/>
+        <index name="created" columns="created" type="index"/>
+        <index name="ip" columns="ip" type="index"/>
+    </table>
+    <table name="lang" engine="InnoDB" since="2.2.1.0">
+        <field name="idlang" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idclient" type="int(10) unsigned" default="null"
+            comment="Client, the language belongs to.">
+            <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="name" type="varchar(255)" default="null" comment="Short name of the language."/>
+        <field name="longname" type="varchar(255)" default="null"
+            comment="Long name of the language."/>
+        <field name="active" type="tinyint(1)" default="0"
+            comment="Indicates whether or not the language is active."/>
+        <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
+        <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
+        <field name="encoding" type="varchar(32)" default="null"
+            comment="Encoding used in this particular language."/>
+        <field name="direction" type="char(3)" default="ltr" comment="Read direction. ltr or rtl."/>
+        <field name="locale" type="varchar(5)" default="null" nullable="true"
+            comment="Locale of the language."/>
+    </table>
+    <table name="lastopened" engine="InnoDB" since="2.2.1.0">
+        <field name="idart" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art" column="idart" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="lang" column="idlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="userid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="acl_user" column="userid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="time" type="timestamp" default="0000-00-00 00:00:00"/>
+    </table>
+    <table name="locale" engine="InnoDB" since="2.2.1.0">
+        <field name="localeid" type="int(11)" default="null" autoincrement="true" primary="true"/>
+        <field name="fullname" type="varchar(255)" default="null" comment="Full name of the locale."/>
+        <field name="locale" type="varchar(5)" default="null" comment="Standard locale identifier."
+        />
+    </table>
+    <table name="lucene_index" engine="MyISAM" since="2.2.1.0">
+        <field name="uid" type="varchar(255)" default="null" primary="true"/>
+        <field name="idart" type="int(10) unsigned" default="null" nullable="true"/>
+        <field name="idlang" type="int(10) unsigned" default="null" nullable="true"/>
+        <field name="path" type="varchar(255)" default="null" nullable="true"/>
+        <field name="lastindexed" type="datetime" default="null"/>
+        <index name="un_idart_idlang" columns="idart,idlang" type="index"/>
+        <index name="path" columns="path" type="index"/>
+    </table>
+    <table name="media" engine="InnoDB" since="2.2.1.0">
+        <field name="mediaid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idart" type="int(10) unsigned" default="null" nullable="true"
+            comment="Article the file belongs to.">
+            <constraint column="idart" ondelete="cascade" onupdate="no action" table="art"/>
+        </field>
+        <field name="filename" type="varchar(255)" default="null" comment="Filename."/>
+        <field name="size" type="bigint(20)" default="null" comment="File size."/>
+        <field name="extension" type="varchar(10)" default="null" comment="Extension of the file."/>
+        <field name="xtl" type="float" default="0"
+            comment="X coordinate of top left corner of the area of interest."/>
+        <field name="ytl" type="float" default="0"
+            comment="Y coordinate of the top left corner of the area of interest."/>
+        <field name="xbr" type="float" default="1"
+            comment="X coordinate of the bottom right corner of the AOI."/>
+        <field name="ybr" type="float" default="1"
+            comment="Y coordinate of the bottom right corner of the AOI."/>
+        <field name="uploaded" type="datetime" default="null"
+            comment="Time the upload has been made."/>
+        <field name="deleted" type="datetime" default="null" nullable="true"
+            comment="If not null, the file is assumed to be deleted."/>
+    </table>
+    <table name="media_description" engine="InnoDB" since="2.2.1.0">
+        <field name="mediaid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="media" column="mediaid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint column="idlang" ondelete="cascade" onupdate="no action" table="lang"/>
+        </field>
+        <field name="name" type="varchar(255)" default="null" comment="Media name."/>
+        <field name="subline" type="text" default="null" comment="Short description."/>
+        <field name="description" type="text" default="null" comment="Media description."/>
+    </table>
+    <table name="media_tag" engine="InnoDB" since="2.2.1.0">
+        <field name="mediatagid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="tag" type="varchar(255)" default="null" comment="Media tag."/>
+        <index name="tag" columns="tag" type="index"/>
+    </table>
+    <table name="media_tags" engine="InnoDB" since="2.2.1.0">
+        <field name="mediatagid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="media_tag" column="mediatagid" onupdate="restrict" ondelete="cascade"
+            />
+        </field>
+        <field name="mediaid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="media" column="mediaid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="val" type="varchar(255)" default="null" nullable="true"
+            comment="Value assigned to the tag. Usually NULL."/>
+    </table>
+    <table name="performance_profile" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true"
+            nullable="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="obsdate" type="date" default="null" primary="true"/>
+        <field name="tsum" type="double" default="null"/>
+        <field name="tssum" type="double" default="null"/>
+        <field name="fastest" type="double" default="null"/>
+        <field name="slowest" type="double" default="null"/>
+        <field name="n" type="int(11)" default="0"/>
+    </table>
+    <table name="pub" engine="InnoDB" since="2.2.1.0">
+        <field name="pubid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idartlang" type="int(10) unsigned" default="null">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="userid" type="int(10) unsigned" default="null"/>
+        <field name="pubtime" type="datetime" default="null"/>
+        <field name="status" type="tinyint(4)" default="1"/>
+    </table>
+    <table name="pub_aitsu_article_property" engine="InnoDB" since="2.2.1.0">
+        <field name="propertyid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="aitsu_property" column="propertyid" onupdate="restrict"
+                ondelete="cascade"/>
+        </field>
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="textvalue" type="text" default="null" nullable="true"/>
+        <field name="floatvalue" type="double" default="null" nullable="true"/>
+        <field name="datevalue" type="datetime" default="null" nullable="true"/>
+        <field name="pubid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="status" type="tinyint(4)" default="null"/>
+    </table>
+    <table name="pub_article_content" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="index" type="varchar(20)" default="null" primary="true"/>
+        <field name="value" type="longtext" default="null"/>
+        <field name="modified" type="datetime" default="null"/>
+        <field name="pubid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="status" type="tinyint(4)" default="1"/>
+    </table>
+    <table name="pub_art_lang" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idart" type="int(10) unsigned" default="0">
+            <constraint table="art" column="idart" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="idlang" type="int(10) unsigned" default="0">
+            <constraint table="lang" column="idlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="title" type="varchar(255)" default="null"/>
+        <field name="urlname" type="varchar(255)" default="null"/>
+        <field name="pagetitle" type="varchar(255)" default="null"/>
+        <field name="teasertitle" type="varchar(255)" default="null"/>
+        <field name="summary" type="text" default="null" nullable="true"/>
+        <field name="created" type="datetime" default="0000-00-00 00:00:00"/>
+        <field name="lastmodified" type="datetime" default="0000-00-00 00:00:00"/>
+        <field name="online" type="tinyint(1)" default="0"/>
+        <field name="pubfrom" type="timestamp" default="null" nullable="true"/>
+        <field name="pubuntil" type="timestamp" default="null" nullable="true"/>
+        <field name="published" type="tinyint(3) unsigned" default="null" nullable="true"/>
+        <field name="redirect" type="tinyint(4)" default="0"/>
+        <field name="redirect_url" type="varchar(255)" default="null" nullable="true"/>
+        <field name="artsort" type="int(10)" default="0"/>
+        <field name="locked" type="int(1)" default="0"/>
+        <field name="configsetid" type="int(10) unsigned" default="null" nullable="true">
+            <constraint table="configset" column="configsetid" onupdate="restrict"
+                ondelete="set null"/>
+        </field>
+        <field name="config" type="text" default="null" nullable="true"/>
+        <field name="pubid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="status" type="tinyint(4)" default="null"/>
+        <field name="mainimage" type="varchar(255)" default="null" nullable="true"/>
+        <index name="title" columns="title" type="index"/>
+        <index name="pagetitle" columns="pagetitle" type="index"/>
+    </table>
+    <table name="pub_art_meta" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="description" type="text" default="null"/>
+        <field name="author" type="varchar(255)" default="null"/>
+        <field name="keywords" type="text" default="null"/>
+        <field name="date" type="date" default="null" nullable="true"/>
+        <field name="expires" type="date" default="null" nullable="true"/>
+        <field name="robots" type="varchar(255)" default="null"/>
+        <field name="dctitle" type="varchar(255)" default="null"/>
+        <field name="dccreator" type="varchar(255)" default="null"/>
+        <field name="dcsubject" type="varchar(255)" default="null"/>
+        <field name="dcpublisher" type="varchar(255)" default="null"/>
+        <field name="dccontributor" type="varchar(255)" default="null"/>
+        <field name="dcdate" type="varchar(255)" default="null"/>
+        <field name="dctype" type="varchar(255)" default="null"/>
+        <field name="dcformat" type="varchar(255)" default="null"/>
+        <field name="dcidentifier" type="varchar(255)" default="null"/>
+        <field name="dcsource" type="varchar(255)" default="null"/>
+        <field name="dclanguage" type="varchar(255)" default="null"/>
+        <field name="dcrelation" type="varchar(255)" default="null"/>
+        <field name="cdcoverage" type="varchar(255)" default="null"/>
+        <field name="dcrights" type="varchar(255)" default="null"/>
+        <field name="pubid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="pub" column="pubid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="status" type="tinyint(4)" default="null"/>
+    </table>
+    <table name="rating" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="rating" type="float" default="null"/>
+        <field name="votes" type="int(11)" default="1"/>
+        <index name="rating" columns="rating" type="index"/>
+    </table>
+    <table name="ratings" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="rated" type="timestamp" default="CURRENT_TIMESTAMP"/>
+        <field name="ip" type="varchar(20)" default="null" primary="true"/>
+        <field name="rate" type="float" default="null"/>
+    </table>
+    <table name="revision" engine="InnoDB" since="2.2.1.0">
+        <field name="revisionid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="userid" type="int(10) unsigned" default="null" nullable="true">
+            <constraint table="acl_user" column="userid" onupdate="restrict" ondelete="set null"/>
+        </field>
+        <field name="revtime" type="timestamp" default="CURRENT_TIMESTAMP"/>
+    </table>
+    <table name="revision_art_lang" engine="InnoDB" since="2.2.1.0">
+        <field name="revisionid" type="int(10) unsigned" default="null">
+            <constraint table="revision" column="revisionid" onupdate="restrict" ondelete="cascade"
+            />
+        </field>
+        <field name="revisionhash" type="binary(16)" default="null"/>
+        <field name="idartlang" type="int(10) unsigned" default="null">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="title" type="varchar(255)" default="null"/>
+        <field name="urlname" type="varchar(255)" default="null"/>
+        <field name="pagetitle" type="varchar(255)" default="null"/>
+        <field name="teasertitle" type="varchar(255)" default="null"/>
+        <field name="summary" type="text" default="null" nullable="true"/>
+        <field name="online" type="tinyint(1)" default="0"/>
+        <field name="pubfrom" type="timestamp" default="null" nullable="true"/>
+        <field name="pubuntil" type="timestamp" default="null" nullable="true"/>
+        <field name="published" type="tinyint(3) unsigned" default="null" nullable="true"/>
+        <field name="redirect" type="tinyint(4)" default="0"/>
+        <field name="redirect_url" type="varchar(255)" default="null" nullable="true"/>
+        <field name="configsetid" type="int(10) unsigned" default="null" nullable="true">
+            <constraint table="configset" column="configsetid" onupdate="restrict"
+                ondelete="set null"/>
+        </field>
+        <field name="config" type="text" default="null" nullable="true"/>
+        <index name="revisionhash" columns="revisionhash" type="index"/>
+    </table>
+    <table name="revision_content" engine="InnoDB" since="2.2.1.0">
+        <field name="revisionid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="revision" column="revisionid" onupdate="restrict" ondelete="cascade"
+            />
+        </field>
+        <field name="revisionhash" type="binary(16)" default="null"/>
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="index" type="varchar(20)" default="null" primary="true"/>
+        <field name="value" type="longtext" default="null"/>
+        <index name="revisionhash" columns="revisionhash" type="index"/>
+    </table>
+    <table name="revision_property" engine="InnoDB" since="2.2.1.0">
+        <field name="revisionid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="revision" column="revisionid" onupdate="restrict" ondelete="cascade"
+            />
+        </field>
+        <field name="revisionhash" type="binary(16)" default="null"/>
+        <field name="propertyid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="aitsu_property" column="propertyid" onupdate="restrict"
+                ondelete="cascade"/>
+        </field>
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="textvalue" type="text" default="null" nullable="true"/>
+        <field name="floatvalue" type="double" default="null" nullable="true"/>
+        <field name="datevalue" type="datetime" default="null" nullable="true"/>
+        <index name="revisionhash" columns="revisionhash" type="index"/>
+    </table>
+    <table name="schedule" engine="InnoDB" since="2.2.1.0">
+        <field name="scheduleid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="relation" type="varchar(255)" default="null" nullable="true"/>
+        <field name="period" type="varchar(255)" default="null" nullable="true"/>
+        <field name="executiontime" type="datetime" default="null" nullable="true"/>
+        <field name="active" type="tinyint(4)" default="1"/>
+        <field name="class" type="varchar(255)" default="null"/>
+        <field name="params" type="text" default="null"/>
+        <field name="lastexecution" type="timestamp" default="null" nullable="true"/>
+    </table>
+    <table name="syndication_resource" engine="InnoDB" since="2.2.1.0">
+        <field name="sourceid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="syndication_source" column="sourceid" onupdate="restrict"
+                ondelete="cascade"/>
+        </field>
+        <field name="sourceidartlang" type="int(10) unsigned" default="null" primary="true"/>
+        <field name="name" type="varchar(255)" default="null" nullable="true"/>
+        <field name="content" type="longtext" default="null"/>
+        <field name="loaded" type="timestamp" default="CURRENT_TIMESTAMP"/>
+    </table>
+    <table name="syndication_resource_art" engine="InnoDB" since="2.2.1.0">
+        <field name="idartlang" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="sourceid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="syndication_source" column="sourceid" onupdate="restrict"
+                ondelete="cascade"/>
+        </field>
+        <field name="sourceidartlang" type="int(10) unsigned" default="null" primary="true"/>
+    </table>
+    <table name="syndication_source" engine="InnoDB" since="2.2.1.0">
+        <field name="sourceid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idclient" type="int(10) unsigned" default="null">
+            <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="url" type="varchar(255)" default="null"/>
+        <field name="userid" type="varchar(255)" default="null"/>
+        <field name="secret" type="varchar(255)" default="null"/>
+    </table>
+    <table name="tag" engine="InnoDB" since="2.2.1.0">
+        <field name="tagid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="tag" type="varchar(255)" default="null"/>
+        <index name="un_tag" columns="tag" type="unique"/>
+    </table>
+    <table name="tag_art" engine="InnoDB" since="2.2.1.0">
+        <field name="idart" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="art" column="idart" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="tagid" type="int(10) unsigned" default="null" primary="true">
+            <constraint table="tag" column="tagid" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="val" type="varchar(255)" default="null" nullable="true"/>
+    </table>
+    <table name="todo" engine="InnoDB" since="2.2.1.0">
+        <field name="todoid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idartlang" type="int(10) unsigned" default="null"/>
+        <field name="userid" type="int(10) unsigned" default="null"/>
+        <field name="status" type="tinyint(4)" default="0"/>
+        <field name="title" type="varchar(255)" default="null"/>
+        <field name="description" type="text" default="null"/>
+        <field name="duedate" type="datetime" default="null" nullable="true"/>
+        <field name="modified" type="timestamp" default="CURRENT_TIMESTAMP"/>
+    </table>
+    <table name="translate" engine="InnoDB" since="2.2.1.0">
+        <field name="translationid" type="int(10) unsigned" default="null" autoincrement="true"
+            primary="true"/>
+        <field name="idlang" type="int(10) unsigned" default="null">
+            <constraint table="lang" column="idlang" onupdate="restrict" ondelete="cascade"/>
+        </field>
+        <field name="tkey" type="text" default="null"/>
+        <field name="tvalue" type="text" default="null" nullable="true"/>
+        <field name="obsolete" type="datetime" default="null" nullable="true"/>
+    </table>
+    <view name="pubv_article_content"><![CDATA[
+        select 
+            idartlang, `index`, `value`, modified, pubid, `status` 
+            from _pub_article_content 
+            where 
+                `status` = 1]]></view>
+    <view name="pubv_art_lang"><![CDATA[
+        select 
+            idartlang, idart, idlang, title, urlname, pagetitle, teasertitle,
+            summary, created, lastmodified, online, pubfrom, pubuntil, published,
+            redirect, redirect_url, artsort, locked, configsetid, config, pubid, 
+            `status`, mainimage 
+            from _pub_art_lang 
+            where 
+                `status` = 1]]></view>
+    <view name="pubv_art_meta"><![CDATA[
+        select 
+            idartlang, description, author, keywords, `date`, expires, robots,
+            dctitle, dccreator, dcsubject, dcpublisher, dccontributor, dcdate,
+            dctype, dcformat, dcidentifier, dcsource, dclanguage, dcrelation,
+            cdcoverage, dcrights, pubid, `status` 
+            from _pub_art_meta 
+            where 
+                `status` = 1]]></view>
+    <view name="pubv_aitsu_article_property"><![CDATA[
+        select 
+            propertyid, idartlang, textvalue, floatvalue, datevalue, pubid, `status` 
+            from _pub_aitsu_article_property 
+            where 
+                `status` = 1]]></view>
+</database>
