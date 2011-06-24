@@ -88,7 +88,14 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                             ));
                 }
 
-                Aitsu_Db :: put('_aitsu_rewrite_history', 'id', $data);
+                $primarykey = null;
+                
+                if (!empty($data['id'])) {
+                    $primarykey = 'id';
+                }
+                
+                Aitsu_Db :: put('_aitsu_rewrite_history', $primarykey, $data); 
+                
 
                 $this->_helper->json((object) array(
                             'success' => true,
