@@ -166,30 +166,22 @@ class Aitsu_Bootstrap {
 
 	protected function _InitializeSession() {
 
-		if (isset (Aitsu_Registry :: get()->config->memcached->enable) && Aitsu_Registry :: get()->config->memcached->enable) {
-			$saveHandler = new Aitsu_Session_MemcachedHandler();
-		} else {
-			Zend_Db_Table_Abstract :: setDefaultAdapter(Aitsu_Db :: getDb());
-			$saveHandler = new Zend_Session_SaveHandler_DbTable(array (
-				'name' => Aitsu_Db :: prefix('_aitsu_session'),
-				'primary' => 'id',
-				'modifiedColumn' => 'modified',
-				'dataColumn' => 'data',
-				'lifetimeColumn' => 'lifetime'
-			));
-
-			try {
-				Aitsu_Db :: fetchOne('select idartlang from _art_lang limit 0, 1');
-			} catch (Exception $e) {
-				if (Aitsu_Registry :: get()->config->admin->allowdiagnosewithoutlogin) {
-					header('Location: ' . Aitsu_Registry :: get()->config->adminRoot . 'admin/index.php/diagnose');
-				} else {
-					echo 'database connection failed.';
-				}
+		if (!Aitsu_Config :: get('session.usefilesystem')) {
+			if (Aitsu_Config :: get('memcached.enable')) {
+				$saveHandler = new Aitsu_Session_MemcachedHandler();
+			} else {
+				Zend_Db_Table_Abstract :: setDefaultAdapter(Aitsu_Db :: getDb());
+				$saveHandler = new Zend_Session_SaveHandler_DbTable(array (
+					'name' => Aitsu_Db :: prefix('_aitsu_session'),
+					'primary' => 'id',
+					'modifiedColumn' => 'modified',
+					'dataColumn' => 'data',
+					'lifetimeColumn' => 'lifetime'
+				));
 			}
-		}
 
-		Zend_Session :: setSaveHandler($saveHandler);
+			Zend_Session :: setSaveHandler($saveHandler);
+		}
 
 		Zend_Session :: setOptions(array (
 			'use_only_cookies' => 'off',
@@ -334,11 +326,11 @@ class Aitsu_Bootstrap {
 
 	protected function _EvaluateRequest() {
 
-		if (!isset($_GET['id'])) {
+		if (!isset ($_GET['id'])) {
 			return Aitsu_Bootstrap_EvalRequest :: run();
 		}
 
-		$data = Aitsu_Db :: fetchRow('' .
+		$data = Aitsu_Db :: fetchRowC(60 * 60, '' .
 		'select ' .
 		'	artlang.idart, ' .
 		'	catart.idcat, ' .

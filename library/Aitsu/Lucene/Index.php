@@ -105,7 +105,7 @@ class Aitsu_Lucene_Index implements Aitsu_Event_Listener_Interface {
 		$idart = Aitsu_Registry :: get()->env->idart;
 		$interval = Aitsu_Registry :: get()->config->search->lucene->refreshRate;
 
-		if (Aitsu_Db :: fetchOne('' .
+		if (Aitsu_Db :: fetchOneC(4 * 60 * 60, '' .
 			'select count(*) ' .
 			'from _art_lang as artlang ' .
 			'left join _lucene_index as lucene on lucene.idart = artlang.idart and lucene.idlang = artlang.idlang ' .

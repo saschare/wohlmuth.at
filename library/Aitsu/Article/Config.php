@@ -4,9 +4,7 @@
 /**
  * @author Christian Kehres, webtischlerei
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Config.php 19471 2010-10-21 13:30:53Z akm $}
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class Aitsu_Article_Config {
@@ -15,12 +13,12 @@ class Aitsu_Article_Config {
 
 	protected function __construct($idart, $idlang) {
 
-		$defaultConfig = Aitsu_Db :: fetchOne('' .
+		$defaultConfig = Aitsu_Db :: fetchOneC('eternal', '' .
 		'select config from _configset where configsetid = 1');
 
 		$defaultConfig = Aitsu_Util :: parseSimpleIni($defaultConfig);
 
-		$config = Aitsu_Db :: fetchOne('' .
+		$config = Aitsu_Db :: fetchOneC('eternal', '' .
 		'select configset.config ' .
 		'from _configset as configset ' .
 		'left join _art_lang as artlang on configset.configsetid = artlang.configsetid ' .
@@ -33,7 +31,7 @@ class Aitsu_Article_Config {
 		));
 
 		if (!$config) {
-			$config = Aitsu_Db :: fetchOne('' .
+			$config = Aitsu_Db :: fetchOneC('eternal', '' .
 			'select configset.config ' .
 			'from _art_lang as artlang ' .
 			'left join _cat_art as catart on artlang.idart = catart.idart ' .

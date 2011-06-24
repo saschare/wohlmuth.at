@@ -34,21 +34,18 @@
 				border-left:1px solid black;
 			}
 			th.phase, td.phase {
-				width:400px;
+				width:300px;
 			}
 			th.period.absolute, td.period.absolute {
-				width:90px;
+				width:80px;
 				text-align:right;
 			}
 			th.period.relative, td.period.relative {
-				width:90px;
+				width:80px;
 				text-align:right;
 			}
 			th.details, td.details {
-				width:500px;
-			}
-			td.details dl {
-				display:none;
+				width:520px;
 			}
 			tr.even td {
 				background-color:#EEE;
@@ -62,10 +59,10 @@
 		</style>
 	</head>
 	
-	<body>
+	<body>	
 		<div id="content">
 		<?php foreach ($this->profiles as $type => $profiles) : ?>
-			<h2><?php echo strtoupper($type); ?></h2>
+			<h2><?php echo strtoupper($type); ?></h2>			
 			
 			<table cellpadding="0" cellspacing="0">
 				<tr>
@@ -82,16 +79,20 @@
 						<?php echo number_format($profile->period * 100 / $this->profiles['type.sum']['totalResponse']->period, 2); ?>
 					</td>
 					<td class="details">
-						<?php if (isset($profile->data)) : $line = ''; ?>
-						<?php foreach ($profile->data as $key => $value) {$line .= ' ' . $value;} ?>
-						<span class="preview"><?php echo substr($line, 0, 70); ?></span>
 						<dl>
 						<?php foreach ($profile->data as $key => $value) : ?>
 							<dt><?php echo $key; ?></dt>
+								<?php if (is_array($value)) : ?>
+									<ol>
+									<?php foreach ($value as $track) : ?>
+										<li><?php echo (empty($track['class']) ? '' : ($track['class'] . ' :: ')) . $track['function']; ?></li>
+									<?php endforeach; ?>
+									</ol>
+								<?php else : ?>
 								<dd><?php echo $value; ?></dd>
+								<?php endif; ?>
 						<?php endforeach; ?>
 						</dl>
-						<?php endif; ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>

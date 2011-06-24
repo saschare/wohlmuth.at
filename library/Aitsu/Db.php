@@ -55,7 +55,26 @@ class Aitsu_Db {
 	 * @param Boolean Whether or not to suppress the table prefix replacement.
 	 * @return Mixed Returns whatever zend API is returning.
 	 */
-	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery) {
+	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod) {
+
+		if (!is_null($cachingPeriod)) {
+			/*
+			 * Caching has to be used.
+			 */
+			$cacheId = hash('md4', var_export(array (
+				$method,
+				$query,
+				$vars,
+				$suppressTablePrefix
+			), true));
+			$cache = Aitsu_Cache :: getInstance($cacheId);
+			if (Aitsu_Registry :: isEdit()) {
+				$cache->remove();
+			}
+			if ($cache->isValid()) {
+				return unserialize($cache->load());
+			}
+		}
 
 		if (strlen(trim($query)) == 0) {
 			return false;
@@ -95,8 +114,16 @@ class Aitsu_Db {
 		}
 
 		Aitsu_Profiler :: profile($profileId, (object) array (
-			'query' => $fQuery
+			'query' => $fQuery,
+			'trace' => debug_backtrace()
 		), 'db.query');
+
+		if (!is_null($cachingPeriod)) {
+			$cache->setLifetime($cachingPeriod == 'eternal' ? 365 * 24 * 60 * 60 : $cachingPeriod);
+			$cache->save(serialize($returnValue), array (
+				'db'
+			));
+		}
 
 		return $returnValue;
 	}
@@ -109,9 +136,14 @@ class Aitsu_Db {
 	 * @param Boolean Whether or not the table prefix replacement has to be suppressed.
 	 * @return Array Indexed associative array containing the result of the query.
 	 */
-	public static function fetchAll($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
+	public static function fetchAll($query, $vars = null, $suppressTablePrefix = false, $showQuery = false, $cachingPeriod = null) {
 
-		return self :: getInstance()->_query('fetchAll', $query, $vars, $suppressTablePrefix, $showQuery);
+		return self :: getInstance()->_query('fetchAll', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
+	}
+
+	public static function fetchAllC($period, $query, $vars) {
+
+		return self :: getInstance()->_query('fetchAll', $query, $vars, false, false, $period);
 	}
 
 	public static function filter($baseQuery, $limit = null, $offset = null, $filters = null, $orders = null) {
@@ -122,7 +154,7 @@ class Aitsu_Db {
 		$orders = is_array($orders) ? $orders : array ();
 
 		$filterClause = array ();
-		$filterValues = array();
+		$filterValues = array ();
 		for ($i = 0; $i < count($filters); $i++) {
 			$filterClause[] = $filters[$i]->clause . ' :value' . $i;
 			$filterValues[':value' . $i] = $filters[$i]->value;
@@ -136,15 +168,15 @@ class Aitsu_Db {
 		' ' . $where .
 		' ' . $orderBy .
 		'limit ' . $offset . ', ' . $limit, $filterValues);
-		
-		$return = array();
-		
+
+		$return = array ();
+
 		if ($results) {
 			foreach ($results as $result) {
 				$return[] = (object) $result;
 			}
 		}
-		
+
 		return $return;
 	}
 
@@ -156,9 +188,14 @@ class Aitsu_Db {
 	 * @param Boolean Whether or not the table prefix replacement has to be suppressed.
 	 * @return String Field value returned by the query.
 	 */
-	public static function fetchOne($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
+	public static function fetchOne($query, $vars = null, $suppressTablePrefix = false, $showQuery = false, $cachingPeriod = null) {
 
-		return self :: getInstance()->_query('fetchOne', $query, $vars, $suppressTablePrefix, $showQuery);
+		return self :: getInstance()->_query('fetchOne', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
+	}
+
+	public static function fetchOneC($period, $query, $vars) {
+
+		return self :: getInstance()->_query('fetchOne', $query, $vars, false, false, $period);
 	}
 
 	/**
@@ -169,14 +206,24 @@ class Aitsu_Db {
 	 * @param Boolean Whether or not the table prefix replacement has to be suppressed.
 	 * @return Array Associative array containing a single record.
 	 */
-	public static function fetchRow($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
+	public static function fetchRow($query, $vars = null, $suppressTablePrefix = false, $showQuery = false, $cachingPeriod = null) {
 
-		return self :: getInstance()->_query('fetchRow', $query, $vars, $suppressTablePrefix, $showQuery);
+		return self :: getInstance()->_query('fetchRow', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchCol($query, $vars = null, $suppressTablePrefix = false, $showQuery = false) {
+	public static function fetchRowC($period, $query, $vars) {
 
-		return self :: getInstance()->_query('fetchCol', $query, $vars, $suppressTablePrefix, $showQuery);
+		return self :: getInstance()->_query('fetchRow', $query, $vars, false, false, $period);
+	}
+
+	public static function fetchCol($query, $vars = null, $suppressTablePrefix = false, $showQuery = false, $cachingPeriod = null) {
+
+		return self :: getInstance()->_query('fetchCol', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
+	}
+
+	public static function fetchColC($period, $query, $vars) {
+
+		return self :: getInstance()->_query('fetchCol', $query, $vars, false, false, $period);
 	}
 
 	/**

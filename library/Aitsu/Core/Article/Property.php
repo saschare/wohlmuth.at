@@ -2,13 +2,8 @@
 
 
 /**
- * Article properties.
- * 
- * @version 1.0.0
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Property.php 18139 2010-08-16 15:34:53Z akm $}
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class Aitsu_Core_Article_Property {
@@ -38,7 +33,7 @@ class Aitsu_Core_Article_Property {
 
 	protected function _read() {
 
-		$properties = Aitsu_Db :: fetchAll('' .
+		$properties = Aitsu_Db :: fetchAllC(60 * 60, '' .
 		'select distinct ' .
 		'	ptype.identifier, ' .
 		'	ptype.type, ' .

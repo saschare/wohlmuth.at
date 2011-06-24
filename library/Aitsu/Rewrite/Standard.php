@@ -56,7 +56,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			 * for a particular client. So the clientid is not used in
 			 * the query.
 			 */
-			$result = Aitsu_Db :: fetchRow('' .
+			$result = Aitsu_Db :: fetchRowC(60 * 60, '' .
 			'select ' .
 			'	artlang.*, ' .
 			'	catlang.idcat, ' .
@@ -76,7 +76,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			 * Use lang is set to true. The first segment of the URL is used to resolve
 			 * the language.
 			 */
-			$result = Aitsu_Db :: fetchRow('' .
+			$result = Aitsu_Db :: fetchRowC(60 * 60, '' .
 			'select ' .
 			'	artlang.*, ' .
 			'	catlang.idcat, ' .
@@ -100,7 +100,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 				/*
 				 * ...using category only.
 				 */
-				$result = Aitsu_Db :: fetchRow('' .
+				$result = Aitsu_Db :: fetchRowC(60 * 60, '' .
 				'select ' .
 				'	artlang.*, ' .
 				'	catlang.idcat, ' .
@@ -118,7 +118,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 				/*
 				 * ...using category and page name.
 				 */
-				$result = Aitsu_Db :: fetchRow('' .
+				$result = Aitsu_Db :: fetchRowC(60 * 60, '' .
 				'select ' .
 				'	artlang.*, ' .
 				'	catlang.idcat, ' .
@@ -199,7 +199,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			 * Replace links based on idart.
 			*/
 			$inClause = implode(',', array_keys($idarts));
-			$results = Aitsu_Db :: fetchAll('' .
+			$results = Aitsu_Db :: fetchAllC(60 * 60, '' .
 			'select ' .
 			'	artlang.idart as idart, ' .
 			'	concat(catlang.url, \'/\', artlang.urlname, \'.html\') as url ' .
@@ -226,7 +226,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			 * Replace links based on idcat.
 			*/
 			$inClause = implode(',', array_keys($idcats));
-			$results = Aitsu_Db :: fetchAll('' .
+			$results = Aitsu_Db :: fetchAllC(60 * 60, '' .
 			'select ' .
 			'	catlang.idcat as idcat, ' .
 			'	catlang.url as url ' .
@@ -262,7 +262,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 
 		$idlang = Aitsu_Registry :: get()->env->idlang;
 
-		if (Aitsu_Db :: fetchOne('' .
+		if (Aitsu_Db :: fetchOneC('eternal', '' .
 			'select count(idcat) from _cat_lang ' .
 			'where url is null and idlang = :idlang', array (
 				':idlang' => $idlang

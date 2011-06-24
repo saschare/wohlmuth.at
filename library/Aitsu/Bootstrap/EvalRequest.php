@@ -2,12 +2,8 @@
 
 
 /**
- * Evaluate request.
- * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: EvalRequest.php 17855 2010-07-30 17:27:13Z akm $}
  */
 
 class Aitsu_Bootstrap_EvalRequest {
@@ -113,8 +109,9 @@ class Aitsu_Bootstrap_EvalRequest {
 		 * locale is specified.
 		 */
 		try {
-			$locale = Aitsu_Db :: fetchOne('select locale from _lang where idlang = ?', array (
-				Aitsu_Registry :: get()->env->idlang
+			$locale = Aitsu_Db :: fetchOneC('eternal', '' .
+			'select locale from _lang where idlang = :idlang', array (
+				':idlang' => Aitsu_Registry :: get()->env->idlang
 			));
 		} catch (Exception $e) {
 			$locale = 'de';
@@ -176,7 +173,7 @@ class Aitsu_Bootstrap_EvalRequest {
 		$reg = Aitsu_Registry :: get();
 
 		if ($idart != null) {
-			$results = Aitsu_Db :: fetchAll('' .
+			$results = Aitsu_Db :: fetchAllC('eternal', '' .
 			'select ' .
 			'	artlang.idartlang as idartlang, ' .
 			'	catart.idcat as idcat, ' .
@@ -203,7 +200,7 @@ class Aitsu_Bootstrap_EvalRequest {
 			return;
 		}
 
-		$results = Aitsu_Db :: fetchAll('' .
+		$results = Aitsu_Db :: fetchAllC(60 * 60, '' .
 		'select ' .
 		'	catlang.startidartlang as idartlang, ' .
 		'	artlang.idart as idart, ' .
@@ -244,15 +241,15 @@ class Aitsu_Bootstrap_EvalRequest {
 
 		$this->redirectStep++;
 
-		$url = Aitsu_Db :: fetchOne("" .
+		$url = Aitsu_Db :: fetchOneC(60 * 60, "" .
 		"select " .
 		"	redirect_url " .
 		"from _art_lang " .
 		"where " .
-		"	idartlang = ? " .
+		"	idartlang = :idlang " .
 		"	and redirect = 1 " .
 		"", array (
-			Aitsu_Registry :: get()->env->idartlang
+			':idlang' => Aitsu_Registry :: get()->env->idartlang
 		));
 
 		if (!$url) {
@@ -316,7 +313,7 @@ class Aitsu_Bootstrap_EvalRequest {
 
 	protected function _checkUserPermissions() {
 
-		if (isset(Aitsu_Registry :: get()->env->ispublic) && Aitsu_Registry :: get()->env->ispublic == 1) {
+		if (isset (Aitsu_Registry :: get()->env->ispublic) && Aitsu_Registry :: get()->env->ispublic == 1) {
 			/*
 			 * No permission check necessary. Return.
 			 */
