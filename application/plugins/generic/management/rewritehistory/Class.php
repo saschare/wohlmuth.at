@@ -16,13 +16,13 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
 
     public function storeAction() {
 
-        $rules = Aitsu_Db::fetchAll("
+        $data = Aitsu_Db::fetchAll("
             SELECT
                 `history`.`id`,
                 `history`.`url`,
-                `history`.`target`
+                `history`.`idartlang`
             FROM
-                `_rewrite_history` AS `history`
+                `_aitsu_rewrite_history` AS `history`
             WHERE
                 `history`.`manualentry` = :manualentry
             AND
@@ -31,12 +31,6 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                     ':manualentry' => 1,
                     ':idclient' => Aitsu_Registry::get()->session->currentClient
                 ));
-
-        $data = array();
-        foreach ($rules as $rule) {
-            $rule['target'] = Aitsu_Rewrite_Standard::getInstance()->rewriteOutput('{ref:' . str_replace(' ', '-', $rule['target']) . '}');
-            $data[] = $rule;
-        }
         
         $this->_helper->json((object) array(
                     'data' => $data
@@ -57,9 +51,9 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
             SELECT
                 `history`.`id`,
                 `history`.`url`,
-                `history`.`target`
+                `history`.`idartlang`
             FROM
-                `_rewrite_history` AS `history`
+                `_aitsu_rewrite_history` AS `history`
             WHERE
                 `history`.`id` = :id
         ", array(
