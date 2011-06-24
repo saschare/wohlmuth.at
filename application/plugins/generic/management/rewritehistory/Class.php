@@ -20,9 +20,16 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
             SELECT
                 `history`.`id`,
                 `history`.`url`,
-                `history`.`idartlang`
+                CONCAT(`catlang`.`urlname`, '/', `artlang`.`urlname`, '.html') AS `target`
             FROM
-                `_aitsu_rewrite_history` AS `history`");
+                `_aitsu_rewrite_history` AS `history`
+            LEFT JOIN
+                `_art_lang` AS `artlang` ON `artlang`.`idartlang` = `history`.`idartlang`
+            LEFT JOIN
+                `_cat_art` AS `catart` ON `catart`.`idart` = `artlang`.`idart`
+            LEFT JOIN
+                `_cat_lang` AS `catlang` ON (`catlang`.`idcat` = `catart`.`idcat` AND `catlang`.`idlang` = `artlang`.`idlang`)
+            ");
 
         $this->_helper->json((object) array(
                     'data' => $data
