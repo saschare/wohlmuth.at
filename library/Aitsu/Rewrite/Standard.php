@@ -262,63 +262,88 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 
 		$idlang = Aitsu_Registry :: get()->env->idlang;
 
-		$results = Aitsu_Db :: fetchCol('' .
-		'select idcat from _cat_lang where url is null and idlang = :idlang', array (
-			':idlang' => $idlang
-		));
-
-		if (!$results) {
+		if (Aitsu_Db :: fetchOne('' .
+			'select count(idcat) from _cat_lang ' .
+			'where url is null and idlang = :idlang', array (
+				':idlang' => $idlang
+			)) == 0) {
 			/*
 			 * There are no categories without an url in the current language.
-			*/
+			 */
 			return;
 		}
 
 		Aitsu_Db :: startTransaction();
 
 		try {
-			$urlBase = '';
-
-			if (isset (Aitsu_Registry :: get()->config->rewrite->uselang) && Aitsu_Registry :: get()->config->rewrite->uselang) {
-				$langName = Aitsu_Db :: fetchOne('' .
-				'select name from _lang where idlang = :idlang', array (
+			if (Aitsu_Config :: get('rewrite.omitfirst')) {
+				/*
+				 * Omit first evaluates to true. This is the normal case.
+				 */
+				Aitsu_Db :: query('' .
+				'update ' .
+				'	_cat_lang catlang, ' .
+				'	( ' .
+				'		select ' .
+				'			child.idcat idcat, ' .
+				'			group_concat(catlang.urlname order by parent.lft asc separator \'/\') url ' .
+				'		from _cat as child ' .
+				'		left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
+				'		left join _cat_lang as catlang on parent.idcat = catlang.idcat and parent.parentid > 0 ' .
+				'		where catlang.idlang = :idlang ' .
+				'		group by child.idcat ' .
+				'	) url ' .
+				'set catlang.url = url.url ' .
+				'where ' .
+				'	catlang.idcat = url.idcat ' .
+				'	and catlang.idlang = :idlang', array (
 					':idlang' => $idlang
 				));
-				$urlBase .= $langName . '/';
+			} else {
+				/*
+				 * First level must remain. Unusual, but allowed.
+				 */
+				Aitsu_Db :: query('' .
+				'update ' .
+				'	_cat_lang catlang, ' .
+				'	( ' .
+				'		select ' .
+				'			child.idcat idcat, ' .
+				'			group_concat(catlang.urlname order by parent.lft asc separator \'/\') url ' .
+				'		from _cat as child ' .
+				'		left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
+				'		left join _cat_lang as catlang on parent.idcat = catlang.idcat ' .
+				'		where catlang.idlang = :idlang ' .
+				'		group by child.idcat ' .
+				'	) url ' .
+				'set catlang.url = url.url ' .
+				'where ' .
+				'	catlang.idcat = url.idcat ' .
+				'	and catlang.idlang = :idlang', array (
+					':idlang' => $idlang
+				));
 			}
 
-			foreach ($results as $idcat) {
-				$url = Aitsu_Db :: fetchOne('' .
-				'select group_concat(catlang.urlname order by parent.lft asc separator \'/\') as url ' .
-				'from _cat as child ' .
-				'left join _cat as parent on child.lft between parent.lft and parent.rgt ' .
-				'left join _cat_lang as catlang on parent.idcat = catlang.idcat ' .
-				'where ' .
-				'	child.idcat = :idcat ' .
-				'	and catlang.idlang = :idlang ' .
-				'group by child.idcat', array (
-					':idcat' => $idcat,
+			/*
+			 * If there are categories with null as url value, they are on top level
+			 * and therefore will get an empty url.
+			 */
+			Aitsu_Db :: query('' .
+			'update _cat_lang set url = \'\' where idlang = :idlang and url is null', array (
+				':idlang' => $idlang
+			));
+
+			if (Aitsu_Config :: get('rewrite.uselang')) {
+				/*
+				 * Uselang evaluates to true. We therefore have to add the language
+				 * code in front of each resulting url.
+				 */
+				Aitsu_Db :: query('' .
+				'update _cat_lang catlang, _lang lang ' .
+				'set catlang.url = concat(lang.name, \'/\', catlang.url) ' .
+				'where catlang.idlang = :idlang', array (
 					':idlang' => $idlang
 				));
-
-				if ($url) {
-					if (isset (Aitsu_Registry :: get()->config->rewrite->omitfirst) && Aitsu_Registry :: get()->config->rewrite->omitfirst) {
-						$index = strpos($url, '/');
-						if ($index) {
-							$url = substr($url, $index +1);
-						}
-					}
-
-					Aitsu_Db :: query('' .
-					'update _cat_lang set url = :url ' .
-					'where ' .
-					'	idcat = :idcat ' .
-					'	and idlang = :idlang', array (
-						':url' => $urlBase . $url,
-						':idcat' => $idcat,
-						':idlang' => $idlang
-					));
-				}
 			}
 
 			Aitsu_Db :: commit();
