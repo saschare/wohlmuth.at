@@ -20,7 +20,7 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
             SELECT
                 `history`.`id`,
                 `history`.`url`,
-                CONCAT(`catlang`.`urlname`, '/', `artlang`.`urlname`, '.html') AS `target`
+                CONCAT(`catlang`.`url`, '/', `artlang`.`urlname`, '.html') AS `target`
             FROM
                 `_aitsu_rewrite_history` AS `history`
             LEFT JOIN
