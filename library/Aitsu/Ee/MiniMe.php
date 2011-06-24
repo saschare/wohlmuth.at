@@ -15,7 +15,7 @@
  * change their content), you have to clear the cache by (domain.tld/?clearcache=minifier).
  * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
@@ -29,13 +29,13 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 	protected $resources;
 
 	protected $addedResources = array ();
-	
+
 	public static function notify(Aitsu_Event_Abstract $event) {
-		
-		if (!isset($_GET['minify'])) {
+
+		if (!isset ($_GET['minify'])) {
 			return;
 		}
-		
+
 		self :: init();
 	}
 
@@ -69,7 +69,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 		if (isset ($_GET['type']) && $_GET['type'] == 'js') {
 			header("Content-Type: text/javascript; charset=UTF-8");
 
-			$cache = Aitsu_Cache :: getInstance('MiniMe_JS_' . (isset($_SERVER['HTTP_IF_NONE_MATCH']) ? $_SERVER['HTTP_IF_NONE_MATCH'] : uniqid()));
+			$cache = Aitsu_Cache :: getInstance('MiniMe_JS_' . (isset ($_SERVER['HTTP_IF_NONE_MATCH']) ? $_SERVER['HTTP_IF_NONE_MATCH'] : uniqid()));
 			if ($cache->isValid()) {
 				header("HTTP/1.1 304 Not Modified");
 				header("Connection: Close");
@@ -85,7 +85,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 				if (Aitsu_Registry :: get()->config->output->gzhandler) {
 					$output = gzencode($output);
 					header('Content-Encoding: gzip');
-				}			
+				}
 				echo $output;
 				exit ();
 			}
@@ -95,7 +95,9 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 			$output = '';
 			$resources = explode('-', $_GET['minify']);
 			foreach ($resources as $res) {
-				$output .= file_get_contents($instance->resources['js'][0][$res]);
+				if (isset ($instance->resources['js'][0][$res])) {
+					$output .= file_get_contents($instance->resources['js'][0][$res]);
+				}
 			}
 
 			$instance->_minifyJs($output);
@@ -117,7 +119,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 				$output = gzencode($output);
 				header('Content-Encoding: gzip');
 			}
-			
+
 			echo $output;
 			exit ();
 		}
@@ -125,7 +127,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 		if (isset ($_GET['type']) && $_GET['type'] == 'css') {
 			header("Content-Type: text/css; charset=UTF-8");
 
-			$cache = Aitsu_Cache :: getInstance('MiniMe_CSS_' . (isset($_SERVER['HTTP_IF_NONE_MATCH']) ? $_SERVER['HTTP_IF_NONE_MATCH'] : uniqid()));
+			$cache = Aitsu_Cache :: getInstance('MiniMe_CSS_' . (isset ($_SERVER['HTTP_IF_NONE_MATCH']) ? $_SERVER['HTTP_IF_NONE_MATCH'] : uniqid()));
 			if ($cache->isValid()) {
 				header("HTTP/1.1 304 Not Modified");
 				header("Connection: Close");
@@ -150,13 +152,13 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 
 			$output = '';
 			$resources = explode('-', $_GET['minify']);
-			
+
 			/*
 			 * We have to remove the first segment, as this segment's solely
 			 * intention is to make the css uri unique.
 			 */
 			array_shift($resources);
-			
+
 			foreach ($resources as $res) {
 				$output .= $instance->_makeAbsolute(file_get_contents($instance->resources['css'][0][$res]), $instance->resources['css'][0][$res]);
 			}
@@ -309,9 +311,9 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 		if (preg_match_all('/url\\((["\']?)?([^\\1\\)]*)\\1\\)/', $css, $matches) == 0) {
 			return $css;
 		}
-		
+
 		$env = '';
-		if (isset(Aitsu_Registry :: get()->config->env) && Aitsu_Registry :: get()->config->env == 'admin') {
+		if (isset (Aitsu_Registry :: get()->config->env) && Aitsu_Registry :: get()->config->env == 'admin') {
 			$env = 'admin/';
 		}
 
