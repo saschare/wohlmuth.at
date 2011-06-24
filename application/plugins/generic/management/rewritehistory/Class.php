@@ -31,7 +31,7 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                     ':manualentry' => 1,
                     ':idclient' => Aitsu_Registry::get()->session->currentClient
                 ));
-        
+
         $this->_helper->json((object) array(
                     'data' => $data
         ));
@@ -75,7 +75,24 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                 $data['idclient'] = Aitsu_Registry::get()->session->currentClient;
                 $data['manualentry'] = 1;
 
-                Aitsu_Db :: put('_rewrite_history', 'id', $data);
+                $idlang = Aitsu_Registry::get()->session->currentLanguage;
+
+                if (strpos($data['idartlang'], 'idart') !== false) {
+                    $idart = substr($data['idartlang'], 6);
+                } elseif (strpos($data['target'], 'idcat') !== false) {
+                    $idart = Aitsu_Db :: fetchOne('' .
+                                    'select startidartlang ' .
+                                    'from _cat_lang ' .
+                                    'where idcat = :idcat ' .
+                                    'and idlang = :idlang', array(
+                                ':idcat' => substr($data['idartlang'], 6),
+                                ':idlang' => $idlang
+                            ));
+                }
+
+                $data['idartlang'] = Aitsu_Util::getIdArtLang($idart, $idlang);
+
+                Aitsu_Db :: put('_aitsu_rewrite_history', 'id', $data);
 
                 $this->_helper->json((object) array(
                             'success' => true,
