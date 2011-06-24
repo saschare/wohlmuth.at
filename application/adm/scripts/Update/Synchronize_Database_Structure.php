@@ -30,10 +30,12 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			'_removeEmptyTables'
 		);
 
-		$this->_xml = DOMDocument :: loadXML('<database></database>');
+		$this->_xml = new DOMDocument();
+		$this->_xml->loadXML('<database></database>');
 		$xmls = Aitsu_Util_Dir :: scan(APPLICATION_PATH, 'database.xml');
 		foreach ($xmls as $xml) {
-			$dom = DOMDocument :: load($xml)->documentElement;
+			$dom = new DOMDocument();
+			$dom->load($xml)->documentElement;
 			foreach ($dom->childNodes as $node) {
 				$node = $this->_xml->importNode($node, true);
 				$this->_xml->documentElement->appendChild($node);

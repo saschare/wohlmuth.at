@@ -55,7 +55,7 @@ class Aitsu_Db {
 	 * @param Boolean Whether or not to suppress the table prefix replacement.
 	 * @return Mixed Returns whatever zend API is returning.
 	 */
-	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod) {
+	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod = null) {
 
 		if (!is_null($cachingPeriod)) {
 			/*
