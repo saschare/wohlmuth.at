@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-23 15:41+0100\n"
-"PO-Revision-Date: 2011-06-23 15:45+0100\n"
+"POT-Creation-Date: 2011-06-24 17:48+0100\n"
+"PO-Revision-Date: 2011-06-24 17:49+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -246,49 +246,54 @@ msgstr "Die Tabelle %s wurde kopiert."
 msgid "Synchronize database structure"
 msgstr "Datenbankstruktur aktualisieren"
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:60
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:62
 msgid "Removing constraints. This may take quite a while. Please be patient to allow to remove the constraints."
 msgstr "Constraints werden entfernt. Das kann einen Moment dauern."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:65
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:67
 msgid "Removing indexes. This may take quite a while. Please be patient to allow to remove the indexes."
 msgstr "Indizes werden entfernt. Das kann einen Moment dauern."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:114
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:117
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:145
+msgid "Removement takes very long. The current step needs to be resumed."
+msgstr "Die Löschung dauert sehr lange. Der aktuelle Schritt muss fortgesetzt werden."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:121
 msgid "Constraints have been removed."
 msgstr "Die Constraints wurden entfernt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:137
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:149
 msgid "Indexes have been removed."
 msgstr "Die Indizes wurden entfernt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:158
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:170
 msgid "Views have not been dropped due to insufficient privileges. If they are unchanged, they still might work properly. However, it is recommended to drop and recreate them using mysql command line interface."
 msgstr "Die Views konnten aufgrund fehlender Rechte nicht entfernt werden. Sofern sie nicht verändert worden sind, funktionieren sie weiter. Es wird jedoch empfohlen, diese über das MySQL Command Line Interface wiederherzustellen."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:162
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:174
 msgid "Views have been removed."
 msgstr "Die Views wurden entfernt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:184
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:196
 msgid "Empty tables have been removed."
 msgstr "Leere Tabellen wurden entfernt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:207
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:219
 #, php-format
 msgid "Table %s has been restored."
 msgstr "Die Tabelle %s wurde wiederhergestellt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:264
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:276
 #, php-format
 msgid "Constraints on %s have been restored."
 msgstr "Die Constraints der Tabelle %s wurden wiederhergestellt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:279
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:291
 msgid "Views have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface."
 msgstr "Die Views konnten aufgrund fehlender Rechte nicht wiederhergestellt werden. Sie müssen diese über das MySQL Command Line Interface manuell wiederherstellen."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:283
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:295
 msgid "Views have been restored."
 msgstr "Die Views wurden wiederhergestellt."
 
@@ -657,11 +662,11 @@ msgstr "Kopie von"
 msgid "Exception occured with message: %s"
 msgstr "Ausnahme aufgetreten mit der Nachricht: %s"
 
-#: library/Aitsu/Adm/Script/Abstract.php:47
+#: library/Aitsu/Adm/Script/Abstract.php:46
 msgid "Script end reached"
 msgstr "Das Ende des Skriptes wurde erreicht"
 
-#: library/Aitsu/Adm/Script/Abstract.php:57
+#: library/Aitsu/Adm/Script/Abstract.php:58
 msgid "Uncaught exception"
 msgstr "Unbehandelte Ausnahme"
 
@@ -710,18 +715,22 @@ msgid "Select"
 msgstr "Auswählen"
 
 #: application/adm/views/scripts/config/edit.phtml:9
+#: application/adm/views/scripts/mapping/edit.phtml:9
 msgid "Saved"
 msgstr "Gespeichert"
 
 #: application/adm/views/scripts/config/edit.phtml:9
+#: application/adm/views/scripts/mapping/edit.phtml:9
 msgid "Form data have been saved."
 msgstr "Die Formulardaten wurden gespeichert."
 
 #: application/adm/views/scripts/config/edit.phtml:13
+#: application/adm/views/scripts/mapping/edit.phtml:13
 msgid "Form failure"
 msgstr "Formularfehler"
 
 #: application/adm/views/scripts/config/edit.phtml:13
+#: application/adm/views/scripts/mapping/edit.phtml:13
 msgid "Form data have not been save due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
@@ -731,7 +740,6 @@ msgstr "Konfigurationen"
 
 #: application/adm/views/scripts/config/index.phtml:22
 #: application/adm/views/scripts/client/clientlist.phtml:19
-#: application/adm/views/scripts/client/languagelist.phtml:27
 msgid "Identifier"
 msgstr "Bezeichner"
 
@@ -743,7 +751,6 @@ msgstr "Neue Konfiguration aufnehmen"
 #: application/adm/views/scripts/data/index.phtml:163
 #: application/adm/views/scripts/mapping/index.phtml:48
 #: application/adm/views/scripts/client/clientlist.phtml:55
-#: application/adm/views/scripts/client/languagelist.phtml:67
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1332,6 +1339,9 @@ msgid "Quantity"
 msgstr "Menge"
 
 #: application/modules/Shop/Cart/index.phtml:7
+#: application/plugins/generic/data/media/views/index.phtml:436
+#: application/plugins/generic/data/dates/views/index.phtml:49
+#: application/plugins/generic/system/modules/views/detail.phtml:29
 msgid "Description"
 msgstr "Beschreibung"
 

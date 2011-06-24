@@ -66,7 +66,7 @@ class Aitsu_Ee_Rewrite_History {
 			}
 
 			Aitsu_Db :: query('' .
-			'replace into _aitsu_rewrite_history ' .
+			'insert into _aitsu_rewrite_history ' .
 			'(url, idartlang, created) ' .
 			'values ' .
 			'(:url, :idartlang, now())' .
@@ -80,6 +80,8 @@ class Aitsu_Ee_Rewrite_History {
 	}
 
 	public function getAlternative() {
+		
+		// TODO: refactor the query.
 
 		$url = Aitsu_Db :: fetchOne('' .
 		'select ' .

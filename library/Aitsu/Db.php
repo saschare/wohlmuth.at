@@ -55,7 +55,7 @@ class Aitsu_Db {
 	 * @param Boolean Whether or not to suppress the table prefix replacement.
 	 * @return Mixed Returns whatever zend API is returning.
 	 */
-	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod) {
+	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod = null) {
 
 		if (!is_null($cachingPeriod)) {
 			/*
@@ -141,7 +141,7 @@ class Aitsu_Db {
 		return self :: getInstance()->_query('fetchAll', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchAllC($period, $query, $vars) {
+	public static function fetchAllC($period, $query, $vars = null) {
 
 		return self :: getInstance()->_query('fetchAll', $query, $vars, false, false, $period);
 	}
@@ -193,7 +193,7 @@ class Aitsu_Db {
 		return self :: getInstance()->_query('fetchOne', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchOneC($period, $query, $vars) {
+	public static function fetchOneC($period, $query, $vars = null) {
 
 		return self :: getInstance()->_query('fetchOne', $query, $vars, false, false, $period);
 	}
@@ -211,7 +211,7 @@ class Aitsu_Db {
 		return self :: getInstance()->_query('fetchRow', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchRowC($period, $query, $vars) {
+	public static function fetchRowC($period, $query, $vars = null) {
 
 		return self :: getInstance()->_query('fetchRow', $query, $vars, false, false, $period);
 	}
@@ -221,7 +221,7 @@ class Aitsu_Db {
 		return self :: getInstance()->_query('fetchCol', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchColC($period, $query, $vars) {
+	public static function fetchColC($period, $query, $vars = null) {
 
 		return self :: getInstance()->_query('fetchCol', $query, $vars, false, false, $period);
 	}

@@ -30,10 +30,12 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			'_removeEmptyTables'
 		);
 
-		$this->_xml = DOMDocument :: loadXML('<database></database>');
+		$this->_xml = new DOMDocument();
+		$this->_xml->loadXML('<database></database>');
 		$xmls = Aitsu_Util_Dir :: scan(APPLICATION_PATH, 'database.xml');
 		foreach ($xmls as $xml) {
-			$dom = DOMDocument :: load($xml)->documentElement;
+			$dom = new DOMDocument();
+			$dom->load($xml)->documentElement;
 			foreach ($dom->childNodes as $node) {
 				$node = $this->_xml->importNode($node, true);
 				$this->_xml->documentElement->appendChild($node);
@@ -54,14 +56,14 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$this->_methodMap[] = '_restoreViews';
 	}
-	
+
 	protected function _beforeRemoveConstraints() {
-		
+
 		return Aitsu_Translate :: translate('Removing constraints. This may take quite a while. Please be patient to allow to remove the constraints.');
 	}
 
 	protected function _beforeRemoveIndexes() {
-		
+
 		return Aitsu_Translate :: translate('Removing indexes. This may take quite a while. Please be patient to allow to remove the indexes.');
 	}
 
@@ -106,9 +108,14 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			':prefix' => Aitsu_Config :: get('database.params.tblprefix') . '%'
 		));
 
+		$startTime = time();
 		foreach ($constraints as $constraint) {
 			Aitsu_Db :: query('' .
 			'alter table `' . $constraint['TABLE_NAME'] . '` drop foreign key `' . $constraint['CONSTRAINT_NAME'] . '`');
+
+			if (time() - $startTime > 15) {
+				throw new Aitsu_Adm_Script_Resume_Exception(Aitsu_Translate :: translate('Removement takes very long. The current step needs to be resumed.'));
+			}
 		}
 
 		return Aitsu_Translate :: translate('Constraints have been removed.');
@@ -129,9 +136,14 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			':prefix' => Aitsu_Config :: get('database.params.tblprefix') . '%'
 		));
 
+		$startTime = time();
 		foreach ($indexes as $index) {
 			Aitsu_Db :: query('' .
 			'alter table `' . $index['table_name'] . '` drop index `' . $index['index_name'] . '`');
+
+			if (time() - $startTime > 15) {
+				throw new Aitsu_Adm_Script_Resume_Exception(Aitsu_Translate :: translate('Removement takes very long. The current step needs to be resumed.'));
+			}
 		}
 
 		return Aitsu_Translate :: translate('Indexes have been removed.');
@@ -260,7 +272,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 				"on update $onUpdate");
 			}
 		}
-		
+
 		return sprintf(Aitsu_Translate :: translate('Constraints on %s have been restored.'), $tableName);
 	}
 

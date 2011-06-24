@@ -126,13 +126,15 @@
         <index name="identifier" columns="identifier" type="unique"/>
     </table>
     <table name="aitsu_rewrite_history" engine="MyISAM" since="2.2.1.0">
-        <field name="url" type="varchar(255)" default="null" primary="true"
+        <field default="null" name="id" type="int(10) unsigned" autoincrement="true" primary="true"/>
+        <field name="url" type="varchar(255)" default="null"
             comment="Full URL of the article with the specified idartlang."/>
-        <field name="idartlang" type="int(10) unsigned" default="null" primary="true"
+        <field name="idartlang" type="int(10) unsigned" default="null"
             comment="The page the entity belongs to."/>
         <field default="0" name="manualentry" type="tinyint(4) unsigned"
             comment="1 indicates a manual entry made with the plugin."/>
         <field name="created" type="datetime" default="null"/>
+        <index columns="url,idartlang" name="un_url_idartlang" type="unique"/>
     </table>
     <table name="aitsu_session" engine="MyISAM" since="2.2.1.0">
         <field name="id" type="char(32)" default="" primary="true"/>

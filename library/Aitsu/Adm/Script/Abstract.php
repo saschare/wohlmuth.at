@@ -42,17 +42,18 @@ abstract class Aitsu_Adm_Script_Abstract {
 	public function exec() {
 
 		try {
-
 			if (!$this->_hasNext()) {
 				return Aitsu_Adm_Script_Response :: factory(Aitsu_Translate :: translate('Script end reached'), null, null, true);
 			}
 
 			$response = $this->_executeStep();
-
+			
 			$response->setNextStep($this->_next());
-
 			return $response;
-
+		} catch (Aitsu_Adm_Script_Resume_Exception $e) {
+			$response = Aitsu_Adm_Script_Response :: factory($e->getMessage(), 'resuming');
+			$response->setNextStep('RESUME');
+			return $response;
 		} catch (Exception $e) {
 			return Aitsu_Adm_Script_Response :: factory(Aitsu_Translate :: translate('Uncaught exception'), 'failure', $e, true);
 		}
