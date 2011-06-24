@@ -60,7 +60,9 @@ var executeScriptRecursive = function(id, step) {
 				full: obj.message,
 				status: obj.status
 			}));
-			if (obj.nextStep != '') {
+			if (obj.nextStep == 'RESUME') {
+				executeScriptRecursive(id, step);
+			} else if (obj.nextStep != '') {
 				step++;
 				executeScriptRecursive(id, step);
 			}
