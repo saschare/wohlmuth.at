@@ -22,15 +22,7 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                 `history`.`url`,
                 `history`.`idartlang`
             FROM
-                `_aitsu_rewrite_history` AS `history`
-            WHERE
-                `history`.`manualentry` = :manualentry
-            AND
-                `history`.`idclient` = :idclient
-        ", array(
-                    ':manualentry' => 1,
-                    ':idclient' => Aitsu_Registry::get()->session->currentClient
-                ));
+                `_aitsu_rewrite_history` AS `history`");
 
         $this->_helper->json((object) array(
                     'data' => $data
@@ -72,15 +64,14 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
             if ($form->isValid()) {
 
                 $data = $form->getValues();
-                $data['idclient'] = Aitsu_Registry::get()->session->currentClient;
                 $data['manualentry'] = 1;
 
                 $idlang = Aitsu_Registry::get()->session->currentLanguage;
 
                 if (strpos($data['idartlang'], 'idart') !== false) {
-                    $idart = substr($data['idartlang'], 6);
-                } elseif (strpos($data['target'], 'idcat') !== false) {
-                    $idart = Aitsu_Db :: fetchOne('' .
+                    $data['idartlang'] = Aitsu_Util::getIdArtLang(substr($data['idartlang'], 6), $idlang);
+                } elseif (strpos($data['idartlang'], 'idcat') !== false) {
+                    $data['idartlang'] = Aitsu_Db :: fetchOne('' .
                                     'select startidartlang ' .
                                     'from _cat_lang ' .
                                     'where idcat = :idcat ' .
@@ -89,8 +80,6 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                                 ':idlang' => $idlang
                             ));
                 }
-
-                $data['idartlang'] = Aitsu_Util::getIdArtLang($idart, $idlang);
 
                 Aitsu_Db :: put('_aitsu_rewrite_history', 'id', $data);
 
