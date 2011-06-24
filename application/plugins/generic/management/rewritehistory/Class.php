@@ -122,7 +122,7 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
 
         $this->_helper->layout->disableLayout();
 
-        Aitsu_Db::query("DELETE FROM `_rewrite_history` WHERE `id` =:id", array(':id' => $id));
+        Aitsu_Db::query("DELETE FROM `_aitsu_rewrite_history` WHERE `id` =:id", array(':id' => $id));
 
         $this->_helper->json((object) array(
                     'success' => true,
