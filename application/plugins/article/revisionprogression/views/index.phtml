@@ -37,7 +37,7 @@ var revisions = new Ext.grid.GridPanel({
     }),
     columns: [{
     		xtype: 'actioncolumn',
-    		width: 10,
+    		width: 60,
     		fixed: true,
     		menuDisabled: true, 
                 sortable: false,
@@ -53,8 +53,8 @@ var revisions = new Ext.grid.GridPanel({
 				}
 			}]
     	},
-        {dataIndex: 'pubid', width: 10, fixed: true, header: 'id', menuDisabled: true, sortable: true},
-        {dataIndex: 'pubtime', fixed: true, header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')}     
+        {dataIndex: 'pubid', width: 60, fixed: true, header: 'id', menuDisabled: true, sortable: true},
+        {dataIndex: 'pubtime', width: 170, fixed: true, header: '<?php echo Aitsu_Translate :: translate('Date'); ?>', menuDisabled: true, sortable: true, renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')}     
 	],
 	viewConfig: {
 		forceFit: true,
