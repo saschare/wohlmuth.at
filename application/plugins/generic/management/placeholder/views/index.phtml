@@ -11,7 +11,8 @@ var placeholderGrid = new Ext.grid.GridPanel({
 		autoLoad: true
 	}),
     columns: [
-    	{dataIndex: 'identifier', header: '<?php echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: true},
+    	{dataIndex: 'id', type: 'int', width: 60, fixed: true, header: '<?php echo Aitsu_Translate :: translate('Value'); ?>', menuDisabled: true},
+        {dataIndex: 'identifier', header: '<?php echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: true},
     	{dataIndex: 'value', header: '<?php echo Aitsu_Translate :: translate('Value'); ?>', menuDisabled: true}
 	],
 	viewConfig: {
