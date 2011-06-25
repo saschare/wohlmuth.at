@@ -36,18 +36,15 @@ class RewritehistoryArticleController extends Aitsu_Adm_Plugin_Controller {
         $data = Aitsu_Db::fetchAll("
             SELECT
                 `history`.`id`,
-                `history`.`url`,
-                CONCAT(`catlang`.`url`, '/', `artlang`.`urlname`, '.html') AS `target`
+                `history`.`url`
             FROM
                 `_aitsu_rewrite_history` AS `history`
             LEFT JOIN
                 `_art_lang` AS `artlang` ON `artlang`.`idartlang` = `history`.`idartlang`
-            LEFT JOIN
-                `_cat_art` AS `catart` ON `catart`.`idart` = `artlang`.`idart`
-            LEFT JOIN
-                `_cat_lang` AS `catlang` ON (`catlang`.`idcat` = `catart`.`idcat` AND `catlang`.`idlang` = `artlang`.`idlang`)
             WHERE
                 `artlang`.`idart` = :idart
+            ORDER BY
+                `history`.`id` DESC
             ", array(
                     ':idart' => $idart
                 ));

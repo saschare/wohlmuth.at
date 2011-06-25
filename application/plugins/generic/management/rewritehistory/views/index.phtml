@@ -11,6 +11,7 @@ var rewritehistoryGrid = new Ext.grid.GridPanel({
 		autoLoad: true
 	}),
     columns: [
+        {dataIndex: 'id', width: 60, fixed: true, header: 'id', menuDisabled: true},
     	{dataIndex: 'url', header: '<?php echo Aitsu_Translate :: translate('url'); ?>', menuDisabled: true},
     	{dataIndex: 'target', header: '<?php echo Aitsu_Translate :: translate('target'); ?>', menuDisabled: true}
 	],
