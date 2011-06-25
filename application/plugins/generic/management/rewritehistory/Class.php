@@ -87,8 +87,6 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                                 ':idlang' => $idlang
                             ));
                 }
-
-                $primarykey = null;
                 
                 if (empty($data['id'])) {
                     unset($data['id']);
