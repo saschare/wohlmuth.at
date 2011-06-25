@@ -57,10 +57,26 @@ class RewritehistoryArticleController extends Aitsu_Adm_Plugin_Controller {
         ));
     }
 
-    public function editAction() {
+    public function addAction() {
 
-        $id = $this->getRequest()->getParam('id');
         $idart = $this->getRequest()->getParam('idart');
+        $value = $this->getRequest()->getParam('value');
+
+        if (!empty($value)) {
+            $idlang = Aitsu_Registry::get()->session->currentLanguage;
+
+            $data['idartlang'] = Aitsu_Util::getIdArtLang($idart, $idlang);
+
+            $data['url'] = $value;
+
+            $data['manualentry'] = 1;
+
+            Aitsu_Db :: put('_aitsu_rewrite_history', 'id', $data);
+        }
+
+        $this->_helper->json((object) array(
+                    'success' => true
+        ));
 
         $this->_helper->layout->disableLayout();
 
@@ -96,7 +112,7 @@ class RewritehistoryArticleController extends Aitsu_Adm_Plugin_Controller {
                 $data['manualentry'] = 1;
 
                 $idlang = Aitsu_Registry::get()->session->currentLanguage;
-                
+
                 $data['idartlang'] = Aitsu_Util::getIdArtLang($idart, $idlang);
 
                 $primarykey = null;
