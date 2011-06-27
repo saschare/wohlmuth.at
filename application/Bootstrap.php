@@ -78,31 +78,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 	protected function _initSession() {
 
-		if (!isset ($_COOKIE['PHPSESSID']) && isset ($_POST['PHPSESSID'])) {
-			$_GET['PHPSESSID'] = $_POST['PHPSESSID'];
+		if (!Aitsu_Config :: get('session.usefilesystem')) {
+			if (!isset ($_COOKIE['PHPSESSID']) && isset ($_POST['PHPSESSID'])) {
+				$_GET['PHPSESSID'] = $_POST['PHPSESSID'];
+			}
+
+			Aitsu_Db :: query('' .
+			'create table if not exists _aitsu_session (' .
+			'	id char(32), ' .
+			'	modified int, ' .
+			'	lifetime int, ' .
+			'	data longtext, ' .
+			'	primary key (id)' .
+			')');
+
+			Zend_Db_Table_Abstract :: setDefaultAdapter(Aitsu_Db :: getDb());
+			Zend_Session :: setOptions(array (
+				'use_only_cookies' => 'off',
+				'use_cookies' => 'on'
+			));
+			Zend_Session :: setSaveHandler(new Zend_Session_SaveHandler_DbTable(array (
+				'name' => Aitsu_Db :: prefix('_aitsu_session'),
+				'primary' => 'id',
+				'modifiedColumn' => 'modified',
+				'dataColumn' => 'data',
+				'lifetimeColumn' => 'lifetime'
+			)));
 		}
-
-		Aitsu_Db :: query('' .
-		'create table if not exists _aitsu_session (' .
-		'	id char(32), ' .
-		'	modified int, ' .
-		'	lifetime int, ' .
-		'	data longtext, ' .
-		'	primary key (id)' .
-		')');
-
-		Zend_Db_Table_Abstract :: setDefaultAdapter(Aitsu_Db :: getDb());
-		Zend_Session :: setOptions(array (
-			'use_only_cookies' => 'off',
-			'use_cookies' => 'on'
-		));
-		Zend_Session :: setSaveHandler(new Zend_Session_SaveHandler_DbTable(array (
-			'name' => Aitsu_Db :: prefix('_aitsu_session'),
-			'primary' => 'id',
-			'modifiedColumn' => 'modified',
-			'dataColumn' => 'data',
-			'lifetimeColumn' => 'lifetime'
-		)));
+		
 		Zend_Session :: start(array (
 			'name' => 'AITSU'
 		));
