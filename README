@@ -14,5 +14,3 @@ Der bestehende Bug bei der Erstellung der URLs von Kategorien ist korrigiert.
 
 == Automatische Aktualisierung der Datenbankstruktur ==
 Automatische Aktualisierung der Datenbankstruktur auf Basis der XML-Datei unter /application/database/database.xml.
-
-Sobald die Tests erfolgreich abgeschlossen sind, erfolgt die Integration in den Master und die Publikation als Version 2.2.1.
