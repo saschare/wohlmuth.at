@@ -1,5 +1,8 @@
 Version 2.2.1.1-dev
 
+== Korrektur Bug in der Rewrite-History ==
+Christian hat in der Rewrite-History im Rahmen der Entwicklung eines Plugins auch gleich einen Bug korrigiert. Diesen habe ich bereits in den dev aufgenommen. Das Plugin folgt dann auch nach eingehender Prüfung.
+
 == Sessionmanagement im Dateisystem ==
 Eine massgebliche Verbesserung der Leistung lässt sich erzielen, wenn das Sessionmanagement im Dateisystem erfolgt. Dazu kann in der config.ini der Parameter session.usefilesystem auf true gestellt werden.
 
