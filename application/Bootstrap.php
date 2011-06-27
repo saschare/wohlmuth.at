@@ -93,10 +93,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			')');
 
 			Zend_Db_Table_Abstract :: setDefaultAdapter(Aitsu_Db :: getDb());
-			Zend_Session :: setOptions(array (
-				'use_only_cookies' => 'off',
-				'use_cookies' => 'on'
-			));
+
 			Zend_Session :: setSaveHandler(new Zend_Session_SaveHandler_DbTable(array (
 				'name' => Aitsu_Db :: prefix('_aitsu_session'),
 				'primary' => 'id',
@@ -105,7 +102,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 				'lifetimeColumn' => 'lifetime'
 			)));
 		}
-		
+
+		Zend_Session :: setOptions(array (
+			'use_only_cookies' => 'off',
+			'use_cookies' => 'on'
+		));
+
 		Zend_Session :: start(array (
 			'name' => 'AITSU'
 		));
