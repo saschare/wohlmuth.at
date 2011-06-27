@@ -92,7 +92,7 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 		exit (0);
 	}
 
-	private function _cache($etag, $content = null, array $tags = null) {
+	private static function _cache($etag, $content = null, array $tags = null) {
 		if (isset ($content)) {
 			Aitsu_Cache :: getInstance($etag)->save($content, $tags);
 		} else {
