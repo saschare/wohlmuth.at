@@ -80,17 +80,19 @@ class Aitsu_Ee_Rewrite_History {
 	}
 
 	public function getAlternative() {
-		
+
 		$url = Aitsu_Db :: fetchOne('' .
 		'select ' .
 		'	concat(\'/\', catlang.url, \'/\', artlang.urlname, \'.html\') as target ' .
 		'from _aitsu_rewrite_history as history ' .
 		'left join _art_lang as artlang on artlang.idartlang = history.idartlang ' .
 		'left join _cat_art as catart on catart.idart = artlang.idart ' .
-                'left join _cat_lang as catlang on (catlang.idcat = catart.idcat and catlang.idlang = artlang.idlang) ' .
+		'left join _cat_lang as catlang on (catlang.idcat = catart.idcat and catlang.idlang = artlang.idlang) ' .
 		'where ' .
 		'	history.url = :url ' .
 		'	and artlang.online = 1 ' .
+		'order by ' .
+		'	history.created desc ' .
 		'limit 0, 1 ' .
 		'', array (
 			':url' => $this->url
