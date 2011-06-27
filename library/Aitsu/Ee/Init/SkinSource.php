@@ -9,14 +9,12 @@
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010,webtischlerei.de
  * @copyright Copyright &copy; 2011, w3concepts AG
- *
- * {@id $Id: SkinSource.php 19975 2010-11-19 12:44:06Z akm $}
  */
 class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 
 	public static function notify(Aitsu_Event_Abstract $event) {
-		
-		if (!isset($_GET['skinsource'])) {
+
+		if (!isset ($_GET['skinsource'])) {
 			return;
 		}
 
@@ -24,10 +22,10 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 			ob_end_clean();
 		}
 
-		if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+		if (isset ($_SERVER['HTTP_IF_NONE_MATCH'])) {
 			$etag = $_SERVER['HTTP_IF_NONE_MATCH'];
 		}
-		
+
 		$source = $_GET['skinsource'];
 		if (substr($source, 0, 6) == 'admin/') {
 			$source = substr($source, 6);
@@ -49,7 +47,7 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 			$content = self :: _cache($etag);
 		}
 
-		if (isset($content) && $content) {
+		if (isset ($content) && $content) {
 			header("HTTP/1.1 304 Not Modified");
 			header("Connection: Close");
 		} else {
@@ -94,7 +92,7 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 	}
 
 	private static function _cache($etag, $content = null, array $tags = null) {
-		
+
 		if (isset ($content)) {
 			Aitsu_Cache :: getInstance($etag)->save($content, $tags);
 		} else {
@@ -111,19 +109,19 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 			case 'js' :
 				header('Content-type: application/javascript');
 				break;
-			case 'png':
+			case 'png' :
 				header('Content-type: image/png');
 				break;
-			case 'gif':
+			case 'gif' :
 				header('Content-type: image/gif');
 				break;
-			case 'jpg':
+			case 'jpg' :
 				header('Content-type: image/jpeg');
 				break;
-			case 'jpeg':
+			case 'jpeg' :
 				header('Content-type: image/jpeg');
 				break;
-                        case 'pdf':
+			case 'pdf' :
 				header('Content-type: application/pdf');
 				break;
 			default :
