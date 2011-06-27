@@ -1,41 +1,63 @@
-var center = Ext.getCmp('viewport-center');
-center.removeAll();
+var urlValue = new Ext.form.TextField({
+	id: 'urlvalue',
+	width: 150,
+	style: {
+		margin: '0 5px 0 5px'
+	}
+});
 
 var rewritehistoryGrid = new Ext.grid.GridPanel({
-	title: '<?php echo Aitsu_Translate :: translate('Rewrite History'); ?>',
 	id: 'rewritehistoryGrid',
 	store: new Ext.data.JsonStore({
-		url: '<?php echo $this->url(array('paction' => 'store')); ?>',
+		url: '<?php echo $this->url(array('plugin' => 'rewritehistory', 'paction' => 'store'), 'aplugin'); ?>',
 		root: 'data',
-		fields: ['id', 'url', 'target'],
-		autoLoad: true
+		fields: ['id', 'url'],
+                baseParams: {
+                        idart: <?php echo $this->idart; ?>
+                }
 	}),
     columns: [
-        {dataIndex: 'id', width: 60, fixed: true, header: 'id', menuDisabled: true},
-    	{dataIndex: 'url', header: '<?php echo Aitsu_Translate :: translate('url'); ?>', menuDisabled: true},
-    	{dataIndex: 'target', header: '<?php echo Aitsu_Translate :: translate('target'); ?>', menuDisabled: true}
+    	{dataIndex: 'id', width: 60, fixed: true, header: 'id', menuDisabled: true},
+        {dataIndex: 'url', header: '<?php echo Aitsu_Translate :: translate('url'); ?>', menuDisabled: true}
 	],
 	viewConfig: {
 		forceFit: true,
 		autoFill: true
 	},
+        hideHeaders: true,
+	border: false,
 	tbar: {
 		items: [
+		urlValue,
 			{
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Add new Rewrite Rule'); ?>',
 	            iconCls: 'tb-add',
 	            handler: function(b, e) {
-	            	Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'edit')); ?>']);
+	            	var value = urlValue.getValue();
+	            	Ext.Ajax.request({
+	            		url: '<?php echo $this->url(array('plugin' => 'rewritehistory', 'paction' => 'add'), 'aplugin'); ?>',
+	            		success: function(response, opts) {
+	            			rewritehistoryGrid.getStore().load();
+	            			urlValue.setValue('');
+	            		},
+	            		params: {
+	            			idart: <?php echo $this->idart; ?>,
+	            			value: value
+	            		}
+	            	});
 	            }
 	        }
 	    ]
 	},
 	listeners: {
+                render: {
+			fn: function(){
+				this.getStore().load();
+			}
+		},
 		rowclick: function(grid, rowIndex, event) {
-			var rec = grid.getStore().getAt(rowIndex);
-			Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'edit')); ?>'], null, {
-				id: rec.get('id')
-			});
+			var record = this.getStore().getAt(rowIndex);
+			// put values to form.
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			
@@ -55,7 +77,7 @@ var rewritehistoryGrid = new Ext.grid.GridPanel({
 					 	fn: function(result) {
 					 		if (result == 'ok') {
 				            	Ext.Ajax.request({
-				            		url: '<?php echo $this->url(array('paction' => 'delete')); ?>',
+				            		url: '<?php echo $this->url(array('plugin' => 'rewritehistory', 'paction' => 'delete'), 'aplugin'); ?>',
 				            		success: function(response, opts) {
 				            			var rsp = Ext.decode(response.responseText);
 				            			if (rsp.success) {
@@ -76,6 +98,9 @@ var rewritehistoryGrid = new Ext.grid.GridPanel({
 	}
 });
 
-center.add(rewritehistoryGrid);
-
-Ext.getCmp('viewport').doLayout();
+Ext.getCmp('page-plugin-accordion').add({
+	id: 'article-plugin-rewrite-history',
+	title: '<?php echo Aitsu_Translate :: translate('Rewrite History'); ?>',
+	layout: 'fit',
+	items: rewritehistoryGrid
+});

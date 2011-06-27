@@ -4,55 +4,87 @@
  * @author Christian Kehres
  * @copyright Copyright &copy; 2011, webtischlerei
  */
-class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
+class RewritehistoryArticleController extends Aitsu_Adm_Plugin_Controller {
+    const ID = '4cbd68e4-6b4c-487c-9fd7-13237f000201';
 
     public function init() {
+
+        header("Content-type: text/javascript");
         $this->_helper->layout->disableLayout();
     }
 
+    public static function register($idart) {
+
+        return (object) array(
+            'name' => 'rewritehistory',
+            'tabname' => Aitsu_Registry :: get()->Zend_Translate->translate('Rewrite History'),
+            'enabled' => self :: getPosition($idart, 'rewritehistory'),
+            'position' => self :: getPosition($idart, 'rewritehistory'),
+            'id' => self :: ID
+        );
+    }
+
     public function indexAction() {
-        header("Content-type: text/javascript");
+
+        $this->view->idart = $this->getRequest()->getParam('idart');
     }
 
     public function storeAction() {
 
+        $idart = $this->getRequest()->getParam('idart');
+
         $data = Aitsu_Db::fetchAll("
             SELECT
                 `history`.`id`,
-                `history`.`url`,
-                CONCAT('/', `catlang`.`url`, '/', `artlang`.`urlname`, '.html') AS `target`
+                `history`.`url`
             FROM
                 `_aitsu_rewrite_history` AS `history`
             LEFT JOIN
                 `_art_lang` AS `artlang` ON `artlang`.`idartlang` = `history`.`idartlang`
-            LEFT JOIN
-                `_cat_art` AS `catart` ON `catart`.`idart` = `artlang`.`idart`
-            LEFT JOIN
-                `_cat_lang` AS `catlang` ON (`catlang`.`idcat` = `catart`.`idcat` AND `catlang`.`idlang` = `artlang`.`idlang`)
+            WHERE
+                `artlang`.`idart` = :idart
             ORDER BY
                 `history`.`id` DESC
-            ");
+            ", array(
+                    ':idart' => $idart
+                ));
 
         $this->_helper->json((object) array(
                     'data' => $data
         ));
     }
 
-    public function editAction() {
+    public function addAction() {
 
-        $id = $this->getRequest()->getParam('id');
+        $idart = $this->getRequest()->getParam('idart');
+        $value = $this->getRequest()->getParam('value');
+
+        if (!empty($value)) {
+            $idlang = Aitsu_Registry::get()->session->currentLanguage;
+
+            $data['idartlang'] = Aitsu_Util::getIdArtLang($idart, $idlang);
+
+            $data['url'] = $value;
+
+            $data['manualentry'] = 1;
+
+            Aitsu_Db :: put('_aitsu_rewrite_history', 'id', $data);
+        }
+
+        $this->_helper->json((object) array(
+                    'success' => true
+        ));
 
         $this->_helper->layout->disableLayout();
 
-        $form = Aitsu_Forms::factory('entry', APPLICATION_PATH . '/plugins/generic/management/rewritehistory/forms/edit.ini');
+        $form = Aitsu_Forms::factory('entry', APPLICATION_PATH . '/plugins/article/rewritehistory/forms/edit.ini');
         $form->title = Aitsu_Translate :: translate('Edit rewrite Rule');
-        $form->url = $this->view->url(array('paction' => 'edit'), 'plugin');
+        $form->url = $this->view->url(array('plugin' => 'rewritehistory', 'paction' => 'edit'), 'aplugin');
 
         $data = Aitsu_Db::fetchRow("
             SELECT
                 `history`.`id`,
-                `history`.`url`,
-                `history`.`idartlang`
+                `history`.`url`
             FROM
                 `_aitsu_rewrite_history` AS `history`
             WHERE
@@ -61,6 +93,7 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                     ':id' => $id
                 ));
 
+        $data['idart'] = $idart;
         $form->setValues($data);
 
         if ($this->getRequest()->getParam('loader')) {
@@ -77,25 +110,16 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
 
                 $idlang = Aitsu_Registry::get()->session->currentLanguage;
 
-                if (strpos($data['idartlang'], 'idart') !== false) {
-                    $data['idartlang'] = Aitsu_Util::getIdArtLang(substr($data['idartlang'], 6), $idlang);
-                } elseif (strpos($data['idartlang'], 'idcat') !== false) {
-                    $data['idartlang'] = Aitsu_Db :: fetchOne('' .
-                                    'select startidartlang ' .
-                                    'from _cat_lang ' .
-                                    'where idcat = :idcat ' .
-                                    'and idlang = :idlang', array(
-                                ':idcat' => substr($data['idartlang'], 6),
-                                ':idlang' => $idlang
-                            ));
-                }
-                
+                $data['idartlang'] = Aitsu_Util::getIdArtLang($idart, $idlang);
+
+                $primarykey = null;
+
                 if (empty($data['id'])) {
                     unset($data['id']);
                 }
-                
-                Aitsu_Db :: put('_aitsu_rewrite_history', 'id', $data); 
-                
+
+                Aitsu_Db :: put('_aitsu_rewrite_history', 'id', $data);
+
 
                 $this->_helper->json((object) array(
                             'success' => true,
