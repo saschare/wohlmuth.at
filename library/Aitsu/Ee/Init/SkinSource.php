@@ -6,6 +6,7 @@
  *
  * @author Christian Kehres, webtischlerei.de
  * @author Frank Ammari, Ammari & Ammari GbR
+ * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010,webtischlerei.de
  * @copyright Copyright &copy; 2011, w3concepts AG
  *
@@ -93,6 +94,7 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 	}
 
 	private static function _cache($etag, $content = null, array $tags = null) {
+		
 		if (isset ($content)) {
 			Aitsu_Cache :: getInstance($etag)->save($content, $tags);
 		} else {
