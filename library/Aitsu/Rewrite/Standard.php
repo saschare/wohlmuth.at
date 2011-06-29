@@ -60,11 +60,8 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			
 			if ($channelId) {
 				Aitsu_Application_Status :: setChannel($channelId);
-				trigger_error('channel set to ' . $channelId);
 			}
 		}
-
-		trigger_error(var_export(Aitsu_Application_Status :: getChannel(), true));
 
 		if (empty ($url)) {
 			/*
