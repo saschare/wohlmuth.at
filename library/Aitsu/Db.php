@@ -65,7 +65,8 @@ class Aitsu_Db {
 				$method,
 				$query,
 				$vars,
-				$suppressTablePrefix
+				$suppressTablePrefix,
+				Aitsu_Application_Status :: getChannel()
 			), true));
 			$cache = Aitsu_Cache :: getInstance($cacheId);
 			if (Aitsu_Registry :: isEdit()) {
@@ -264,6 +265,10 @@ class Aitsu_Db {
 			$query = self :: getInstance()->_productionQuery($query);
 		}
 
+		if (Aitsu_Application_Status :: getChannel() != null) {
+			$query = self :: getInstance()->_channeledQuery($query);
+		}
+
 		$prefix = self :: getInstance()->prefix;
 
 		return preg_replace('/([^a-zA-Z0-9\\.]|^)_/', "$1{$prefix}", $query);
@@ -294,6 +299,29 @@ class Aitsu_Db {
 		}
 
 		return $query;
+	}
+
+	protected function _channeledQuery($query) {
+
+		if (in_array(substr($query, 0, 6), array (
+				'insert',
+				'update',
+				'delete',
+				'create'
+			))) {
+			/*
+			 * No rewriting is done, if it is a crud statement.
+			 */
+			return $query;
+		}
+
+		return str_replace(array (
+			'_art_lang',
+			'_pubv_art_lang'
+		), array (
+			'_art_lang_channeled',
+			'_pubv_art_lang_channeled'
+		), $query);
 	}
 
 	/**
