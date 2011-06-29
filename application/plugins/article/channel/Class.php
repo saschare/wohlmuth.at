@@ -18,10 +18,15 @@ class ChannelArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public static function register($idart) {
 
+		$enabled = Aitsu_Db :: fetchOne('' .
+		'select count(*) from _channel where idclient = :client', array (
+			':client' => Aitsu_Registry :: get()->session->currentClient
+		));
+
 		return (object) array (
 			'name' => 'channel',
 			'tabname' => Aitsu_Registry :: get()->Zend_Translate->translate('Channel'),
-			'enabled' => self :: getPosition($idart, 'channel'),
+			'enabled' => $enabled,
 			'position' => self :: getPosition($idart, 'channel'),
 			'id' => self :: ID
 		);
@@ -30,6 +35,14 @@ class ChannelArticleController extends Aitsu_Adm_Plugin_Controller {
 	public function indexAction() {
 
 		$id = $this->getRequest()->getParam('idart');
+		$idartlang = Aitsu_Db :: fetchOne('' .
+		'select idartlang from _art_lang ' .
+		'where ' .
+		'	idart = :idart ' .
+		'	and idlang = :idlang', array (
+			':idart' => $id,
+			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+		));
 
 		$form = Aitsu_Forms :: factory('channels', APPLICATION_PATH . '/plugins/article/channel/forms/channel.ini');
 		$form->title = Aitsu_Translate :: translate('Channels');
@@ -38,9 +51,41 @@ class ChannelArticleController extends Aitsu_Adm_Plugin_Controller {
 			'paction' => 'index'
 		), 'aplugin');
 
-		/*$data = Aitsu_Persistence_Article :: factory($id)->load();
-		$data->pagetitle = str_replace("'", "\\'", $data->pagetitle);
-		$form->setValues($data->toArray());*/
+		$channels = array ();
+		$results = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	channelid, ' .
+		'	name ' .
+		'from _channel ' .
+		'where ' .
+		'	idclient = :client', array (
+			':client' => Aitsu_Registry :: get()->session->currentClient
+		));
+		if ($results) {
+			foreach ($results as $row) {
+				$channels[] = (object) array (
+					'value' => $row['channelid'],
+					'name' => $row['name']
+				);
+			}
+		}
+		$form->setOptions('channels', $channels);
+
+		$activeChannels = Aitsu_Db :: fetchCol('' .
+		'select ' .
+		'	channel.channelid ' .
+		'from _channel_art_lang channel ' .
+		'left join _art_lang artlang on channel.idartlang = artlang.idartlang ' .
+		'where ' .
+		'	idart = :idart ' .
+		'	and idlang = :idlang', array (
+			':idart' => $id,
+			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+		));
+		$form->setValues(array (
+			'channels' => $activeChannels,
+			'idart' => $id
+		));
 
 		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
@@ -57,13 +102,26 @@ class ChannelArticleController extends Aitsu_Adm_Plugin_Controller {
 				/*
 				 * Persist the data.
 				 */
-				/*$data->setValues($form->getValues());
-				$data->redirect = 1;
-				$data->save();*/
+				Aitsu_Db :: startTransaction();
+
+				Aitsu_Db :: query('' .
+				'delete from _channel_art_lang where idartlang = :idartlang', array (
+					':idartlang' => $idartlang
+				));
+
+				$formData = $form->getValues();
+				foreach ($formData['channels'] as $channel) {
+					Aitsu_Db :: query('' .
+					'insert into _channel_art_lang (idartlang, channelid) values (:idartlang, :channelid)', array (
+						':idartlang' => $idartlang,
+						'channelid' => $channel
+					));
+				}
+
+				Aitsu_Db :: commit();
 
 				$this->_helper->json((object) array (
-					'success' => true,
-					'data' => (object) $data->toArray()
+					'success' => true
 				));
 			} else {
 				$this->_helper->json((object) array (
