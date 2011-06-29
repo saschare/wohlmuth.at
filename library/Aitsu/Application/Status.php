@@ -2,10 +2,8 @@
 
 
 /**
- * Rules and informs about the current application status.
- * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3conceps AG
+ * @copyright Copyright &copy; 2011, w3conceps AG
  */
 
 class Aitsu_Application_Status {
@@ -101,7 +99,7 @@ class Aitsu_Application_Status {
 	public static function getChannel() {
 		
 		$instance = self :: _getInstance();		
-		$instance->_channel;
+		return $instance->_channel;
 	}
 
 	public static function setChannel($channel) {

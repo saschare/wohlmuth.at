@@ -57,6 +57,15 @@ class Aitsu_Db {
 	 */
 	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod = null) {
 
+		static $issetChannel = false;
+
+		if (!$issetChannel && Aitsu_Application_Status :: getChannel() != null) {
+			$this->db->query('set @aitsuchannel = :channel', array (
+				':channel' => Aitsu_Application_Status :: getChannel()
+			));
+			$issetChannel = true;
+		}
+
 		if (!is_null($cachingPeriod)) {
 			/*
 			 * Caching has to be used.
@@ -315,13 +324,10 @@ class Aitsu_Db {
 			return $query;
 		}
 
-		return str_replace(array (
-			'_art_lang',
-			'_pubv_art_lang'
-		), array (
-			'_art_lang_channeled',
-			'_pubv_art_lang_channeled'
-		), $query);
+		$query = str_replace(' _art_lang', ' _art_lang_channeled', $query);
+		$query = str_replace(' _pubv_art_lang', ' _pubv_art_lang_channeled', $query);
+		
+		return $query;
 	}
 
 	/**
