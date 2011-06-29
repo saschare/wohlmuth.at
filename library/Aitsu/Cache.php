@@ -2,10 +2,8 @@
 
 
 /**
- * Caching based on Zend's cache.
- * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class Aitsu_Cache {
@@ -20,6 +18,15 @@ class Aitsu_Cache {
 
 		$sid = is_null($id) ? $sid : $id;
 		$sid = is_null($sid) ? 'app' : $sid;
+
+		/*
+		 * If chanelling is active, the id has to be prefixed
+		 * with the channel's id.
+		 */
+		$channel = Aitsu_Application_Status :: getChannel();
+		if (!is_null($channel)) {
+			$sid = 'ch' . $channel . '_';
+		}
 
 		if (!isset ($instance)) {
 			if (isset (Aitsu_Registry :: get()->config->memcached->enable) && Aitsu_Registry :: get()->config->memcached->enable) {
