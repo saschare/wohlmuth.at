@@ -803,6 +803,10 @@
     <table engine="InnoDB" name="channel" since="2.3.0">
         <field default="null" name="channelid" type="int(10) unsigned" autoincrement="true"
             nullable="false" primary="true" comment="Primary key."/>
+        <field default="null" name="idclient" type="int(10) unsigned" nullable="false"
+            comment="Reference to clients.">
+            <constraint column="idclient" ondelete="cascade" onupdate="no action" table="clients"/>
+        </field>
         <field default="null" name="name" type="varchar(255)" nullable="false"
             comment="Name of the channel."/>
         <field default="null" name="description" type="text" nullable="true"
