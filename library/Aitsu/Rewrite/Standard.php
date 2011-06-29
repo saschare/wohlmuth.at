@@ -170,7 +170,6 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			 * of channeling. We therefore redirect the user to the same
 			 * url with channeling disabled.
 			 */
-			ob_end_clean();
 			header("Location: /" . $_GET['url']);
 			exit(0);
 		}
