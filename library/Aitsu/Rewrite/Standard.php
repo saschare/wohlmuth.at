@@ -163,6 +163,17 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 		} else {
 			Aitsu_Registry :: get()->env->idlang = Aitsu_Registry :: get()->config->sys->language;
 		}
+		
+		if (Aitsu_Application_Status :: getChannel() != null) {
+			/*
+			 * The url cannot be resolved. One possible reason is the use
+			 * of channeling. We therefore redirect the user to the same
+			 * url with channeling disabled.
+			 */
+			ob_end_clean();
+			header("Location: /" . $_GET['url']);
+			exit(0);
+		}
 
 		if (Aitsu_Registry :: get()->config->rewrite->uselang) {
 			/*
