@@ -823,17 +823,6 @@
             <constraint column="channelid" ondelete="cascade" onupdate="no action" table="channel"/>
         </field>
     </table>
-    <table engine="InnoDB" name="channel_cat_lang" since="2.3.0">
-        <field default="null" name="idcatlang" type="int(10) unsigned" nullable="false"
-            primary="true" comment="Reference to cat_lang.">
-            <constraint column="idcatlang" ondelete="cascade" onupdate="no action" table="cat_lang"
-            />
-        </field>
-        <field default="null" name="channelid" type="int(10) unsigned" nullable="false"
-            primary="true" comment="Reference to channel.">
-            <constraint column="channelid" ondelete="cascade" onupdate="no action" table="channel"/>
-        </field>
-    </table>
     <function name="getchannel"><![CDATA[
         create function getchannel() returns varchar(255)
         begin
@@ -846,15 +835,6 @@
         left join _channel_art_lang channel on artlang.idartlang = channel.idartlang
         where
             channel.idartlang is null 
-            or channel.channelid = getchannel()
-            or getchannel() is null]]></view>
-    <view name="cat_lang_channeled"><![CDATA[
-        select distinct
-            catlang.*
-        from _cat_lang catlang
-        left join _channel_cat_lang channel on catlang.idcatlang = channel.idcatlang
-        where
-            channel.idcatlang is null 
             or channel.channelid = getchannel()
             or getchannel() is null]]></view>
     <view name="pubv_article_content"><![CDATA[
