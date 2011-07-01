@@ -108,6 +108,13 @@ class Aitsu_Adm_User {
 
 	public function isAllowed(array $res) {
 
+		/*
+		 * Lots of clients and languages results in an excessive use of ressources
+		 * down to an out of memory exception. The process have to be changed to
+		 * avoid that. A change is on the agend and will be made as soon as possible.
+		 */
+		// TODO: improve.
+
 		if (isset ($res['client']) && !isset ($this->_privs['client'][$res['client']])) {
 			return false;
 		}
