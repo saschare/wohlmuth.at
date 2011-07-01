@@ -59,7 +59,8 @@ class Aitsu_Ee_Shortcode {
 					'init'
 				), array (
 					'index' => $index,
-					'params' => $params
+					'params' => $params,
+					'className' => $profileDetails->source
 				));
 				break;
 			}
