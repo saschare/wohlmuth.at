@@ -380,6 +380,8 @@ class Aitsu_Db {
 	}
 
 	public static function put($table, $primarykey, array $data) {
+		
+		static $columns = array();
 
 		$fields = array ();
 		$values = array ();
