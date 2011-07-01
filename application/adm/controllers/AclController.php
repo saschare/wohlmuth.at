@@ -3,7 +3,7 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class AclController extends Zend_Controller_Action {
@@ -11,6 +11,14 @@ class AclController extends Zend_Controller_Action {
 	public function init() {
 
 		if ($this->getRequest()->getActionName() == 'login' || $this->getRequest()->getActionName() == 'logout') {
+			return;
+		}
+		
+		if ($this->getRequest()->getActionName() == 'refreshsession') {
+			/*
+			 * Allow the action refreshsession regardless whether or not
+			 * the current user is explicitly allowed to do so.
+			 */
 			return;
 		}
 
