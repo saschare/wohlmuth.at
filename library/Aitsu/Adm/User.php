@@ -29,7 +29,6 @@ class Aitsu_Adm_User {
 		}
 
 		$this->_data = Aitsu_Persistence_User :: factory($id)->load()->getData();
-		$this->_loadRoles();
 	}
 
 	public static function getInstance() {
@@ -79,39 +78,35 @@ class Aitsu_Adm_User {
 		return $this->_id;
 	}
 
-	protected function _loadRoles() {
-
-		$privileges = Aitsu_Persistence_View_User :: privileges($this->_id);
-
-		if (!$privileges) {
-			return;
-		}
-
-		foreach ($privileges as $priv) {
-			$privileg = (object) array (
-				'client' => $priv['idclient'],
-				'language' => $priv['idlang'],
-				'area' => trim(strtok($priv['privileg'], ':')),
-				'action' => trim(strtok("\n")),
-				'resource' => (object) array (
-					'type' => $priv['resourcetype'],
-					'id' => $priv['resourceid'],
-					'left' => $priv['resourceleft'],
-					'right' => $priv['resourceright']
-				)
-			);
-			$this->_privs['client'][$privileg->client]['language'][$privileg->language][$privileg->area][$privileg->action][] = $privileg;
-			$this->_privs['language'][$privileg->language][$privileg->area][$privileg->action][] = $privileg;
-			$this->_privs['area'][$privileg->area][$privileg->action][] = $privileg;
-		}
-	}
-
 	public function isAllowed(array $res) {
+		
+		/*
+		 * First, we build a hash representing the resource to enable
+		 * temporary persistence.
+		 */
+		$index = hash('md4', var_export($res, true));
+		
+		/*
+		 * Then we gather the details for the where clause and the
+		 * data to be bound to the statement.
+		 */
+		if (isset($res['client'])) {
+			$clause[] = ' and client.idclient = :client';
+			$data[':client'] = $res['client'];
+		}
+		if (isset($res['language'])) {
+			$clause[] = ' and language.idlang = :language';
+			$data[':language'] = $res['language'];
+		}
+		if (isset($res['area'])) {
+			$clause[] = ' and language.idlang = :language';
+			$data[':language'] = $res['language'];
+		}
 
 		/*
 		 * Lots of clients and languages results in an excessive use of ressources
 		 * down to an out of memory exception. The process have to be changed to
-		 * avoid that. A change is on the agend and will be made as soon as possible.
+		 * avoid that. A change is on the agenda and will be made as soon as possible.
 		 */
 		// TODO: improve.
 
