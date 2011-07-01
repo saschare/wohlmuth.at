@@ -1,14 +1,13 @@
 <?php
 
-class Skin_Module_HTML_Class extends Aitsu_Ee_Module_Abstract {
+class Skin_Module_HTML_Class extends Aitsu_Module_Abstract {
 
-	public static function init($context) {
+	protected function _init() {
 
-		$instance = new self();
-		$index = str_replace('_', ' ', $context['index']);
+		$index = str_replace('_', ' ', $this->_index);
 
 		$output = '';
-		if ($instance->_get('HTML_' . $context['index'], $output)) {
+		if ($this->_get('HTML', $output)) {
 			return $output;
 		}
 
@@ -20,7 +19,8 @@ class Skin_Module_HTML_Class extends Aitsu_Ee_Module_Abstract {
 		}
 
 		$output = Aitsu_Content_Html :: get($index);
-		$instance->_save($output, 'eternal');
+
+		$this->_save($output, 'eternal');
 
 		if (Aitsu_Application_Status :: isEdit()) {
 			return $return . $output . '</div>';
