@@ -305,8 +305,8 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		try {
 			foreach ($this->_xml->getElementsByTagName('function') as $function) {
-				Aitsu_Db :: query('drop function ' . $function->getAttribute('name'));
-				Aitsu_Db :: query($function->nodeValue);
+				Aitsu_Db :: getDb()->getConnection()->query('drop function if exists ' . $function->getAttribute('name')); 
+				Aitsu_Db :: getDb()->getConnection()->query($function->nodeValue); 
 			}
 		} catch (Exception $e) {
 			return (object) array (
