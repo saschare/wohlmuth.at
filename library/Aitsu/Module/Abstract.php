@@ -3,26 +3,37 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * @deprecated 2.3.0.1 - 2011-06-30
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-abstract class Aitsu_Ee_Module_Abstract {
+abstract class Aitsu_Module_Abstract {
 
-	protected $id;
-	protected $type = null;
+	protected $_id;
+	protected $_type = null;
 	protected $_view = null;
-
-	public function __construct() {
-
-		if (Aitsu_Application_Status :: isEdit() && Aitsu_Config :: get('debug.deprecated')) {
-			$trace = debug_backtrace();
-			trigger_error('Aitsu_Ee_Module_Abstract is deprecated; used in ' . $trace[1]['class']);
-		}
-	}
+	protected $_context = null;
+	protected $_index = null;
+	protected $_params = null;
 
 	public static function init($context) {
+
+		$instance = new $context['className'] ();
+
+		$instance->_context = $context;
+
+		$instance->_context['index'] = preg_replace('/[^a-zA-Z_0-9]/', '', $instance->_context['index']);
+		$instance->_context['index'] = str_replace('.', '_', $instance->_context['index']);
+
+		$instance->_index = empty ($instance->_context['index']) ? 'noindex' : $instance->_context['index'];
+
+		if (!empty ($instance->_context['params'])) {
+			$instance->_params = Aitsu_Util :: parseSimpleIni($instance->_context['params']);
+		}
+
+		return $instance->_init();
+	}
+
+	protected function _init() {
 
 		return;
 	}
@@ -99,9 +110,8 @@ abstract class Aitsu_Ee_Module_Abstract {
 
 	protected function _get($id, & $output, $overwriteDisable = false) {
 
-		$id = str_replace('.', '_', $id);
-		$this->id = $id . '_' . Aitsu_Registry :: get()->env->idartlang;
-		$cache = Aitsu_Cache :: getInstance($this->id, $overwriteDisable);
+		$this->_id = $id . '_' . Aitsu_Registry :: get()->env->idartlang . '_' . $this->_index;
+		$cache = Aitsu_Cache :: getInstance($this->_id, $overwriteDisable);
 
 		if (Aitsu_Registry :: isEdit()) {
 			$cache->remove();
@@ -119,10 +129,10 @@ abstract class Aitsu_Ee_Module_Abstract {
 	protected function _remove($id = null) {
 
 		if ($id != null) {
-			$this->id = $id . '_' . Aitsu_Registry :: get()->env->idartlang;
+			$this->_id = $id . '_' . Aitsu_Registry :: get()->env->idartlang;
 		}
 
-		Aitsu_Cache :: getInstance($this->id)->remove();
+		Aitsu_Cache :: getInstance($this->_id)->remove();
 	}
 
 	protected function _save($data, $lifeTime = null) {
@@ -135,14 +145,14 @@ abstract class Aitsu_Ee_Module_Abstract {
 			throw new Exception('non-string data to be cached in ' . get_class($this));
 		}
 
-		$cache = Aitsu_Cache :: getInstance($this->id);
+		$cache = Aitsu_Cache :: getInstance($this->_id);
 
 		if (Aitsu_Registry :: isEdit()) {
 			return false;
 		}
 
-		if (!empty ($this->type)) {
-			$tags[] = 'type_' . $this->type;
+		if (!empty ($this->_type)) {
+			$tags[] = 'type_' . $this->_type;
 		}
 		$tags[] = 'cat_' . Aitsu_Registry :: get()->env->idcat;
 		$tags[] = 'art_' . Aitsu_Registry :: get()->env->idart;

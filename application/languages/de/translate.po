@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-24 17:48+0100\n"
-"PO-Revision-Date: 2011-06-24 17:49+0100\n"
+"POT-Creation-Date: 2011-06-29 15:35+0100\n"
+"PO-Revision-Date: 2011-06-29 15:36+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -247,8 +247,8 @@ msgid "Synchronize database structure"
 msgstr "Datenbankstruktur aktualisieren"
 
 #: application/adm/scripts/Update/Synchronize_Database_Structure.php:62
-msgid "Removing constraints. This may take quite a while. Please be patient to allow to remove the constraints."
-msgstr "Constraints werden entfernt. Das kann einen Moment dauern."
+msgid "The process may take quite a while. Please be patient."
+msgstr "Dieser Prozess kann eine Weile dauern. Wir bitten Sie um Geduld."
 
 #: application/adm/scripts/Update/Synchronize_Database_Structure.php:67
 msgid "Removing indexes. This may take quite a while. Please be patient to allow to remove the indexes."
@@ -289,13 +289,21 @@ msgstr "Die Tabelle %s wurde wiederhergestellt."
 msgid "Constraints on %s have been restored."
 msgstr "Die Constraints der Tabelle %s wurden wiederhergestellt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:291
-msgid "Views have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface."
-msgstr "Die Views konnten aufgrund fehlender Rechte nicht wiederhergestellt werden. Sie müssen diese über das MySQL Command Line Interface manuell wiederherstellen."
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:297
+msgid "Views have not been completely restored due to insufficient privilegies or missing function. You have to add them using the mysql command line interface."
+msgstr "Die Views konnten aufgrund fehlender Rechte oder nicht vorhandener Funktionen nicht wiederhergestellt werden. Sie müssen diese über das MySQL Command Line Interface manuell wiederherstellen."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:295
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:301
 msgid "Views have been restored."
 msgstr "Die Views wurden wiederhergestellt."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:313
+msgid "Functions have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface."
+msgstr "Die Funktionen konnten aufgrund fehlender Rechte nicht wiederhergestellt werden. Sie müssen diese über das MySQL Command Line Interface manuell wiederherstellen."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:317
+msgid "Functions have been restored."
+msgstr "Die Funktionen wurden wiederhergestellt."
 
 #: application/adm/scripts/Installation/Setup.php:26
 #, php-format
@@ -498,6 +506,14 @@ msgstr "Meta"
 #: application/plugins/article/meta/Class.php:35
 msgid "Meta data"
 msgstr "Metadaten"
+
+#: application/plugins/article/channel/Class.php:28
+msgid "Channel"
+msgstr "Kanal"
+
+#: application/plugins/article/channel/Class.php:48
+msgid "Channels"
+msgstr "Kanäle"
 
 #: application/plugins/article/redirector/Class.php:23
 msgid "Redirect"
@@ -739,7 +755,6 @@ msgid "Config sets"
 msgstr "Konfigurationen"
 
 #: application/adm/views/scripts/config/index.phtml:22
-#: application/adm/views/scripts/client/clientlist.phtml:19
 msgid "Identifier"
 msgstr "Bezeichner"
 
@@ -750,7 +765,6 @@ msgstr "Neue Konfiguration aufnehmen"
 #: application/adm/views/scripts/config/index.phtml:58
 #: application/adm/views/scripts/data/index.phtml:163
 #: application/adm/views/scripts/mapping/index.phtml:48
-#: application/adm/views/scripts/client/clientlist.phtml:55
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1341,7 +1355,6 @@ msgstr "Menge"
 #: application/modules/Shop/Cart/index.phtml:7
 #: application/plugins/generic/data/media/views/index.phtml:436
 #: application/plugins/generic/data/dates/views/index.phtml:49
-#: application/plugins/generic/system/modules/views/detail.phtml:29
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -1804,6 +1817,10 @@ msgstr "Seiteneigenschaften wurden gespeichert."
 msgid "Meta data have been saved."
 msgstr "Die Metadaten wurden gespeichert."
 
+#: application/plugins/article/channel/views/index.phtml:4
+msgid "Channels have been saved."
+msgstr "Die Kanäle wurden gespeichert."
+
 #: application/plugins/article/redirector/views/index.phtml:4
 msgid "Redirection been saved."
 msgstr "Die Weiterleitung wurde gespeichert."
@@ -1882,46 +1899,55 @@ msgstr "Die Shop-Artikel-Daten wurden gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:106
 #: application/plugins/category/metabatch/views/index.phtml:123
+#: application/plugins/category/standard/views/index.phtml:106
 msgid "URL name"
 msgstr "URL-Name"
 
 #: application/plugins/category/blog/views/index.phtml:146
 #: application/plugins/category/metabatch/views/index.phtml:201
+#: application/plugins/category/standard/views/index.phtml:176
 msgid "Set as index"
 msgstr "Als Index setzen"
 
 #: application/plugins/category/blog/views/index.phtml:219
 #: application/plugins/category/metabatch/views/index.phtml:274
+#: application/plugins/category/standard/views/index.phtml:249
 msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:253
 msgid "Page cut"
 msgstr "Seite ausgeschnitten"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:253
 msgid "The selected page has been put to the clipboard."
 msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:232
 #: application/plugins/category/metabatch/views/index.phtml:287
+#: application/plugins/category/standard/views/index.phtml:262
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: application/plugins/category/blog/views/index.phtml:233
 #: application/plugins/category/metabatch/views/index.phtml:288
+#: application/plugins/category/standard/views/index.phtml:263
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:272
 msgid "Page deleted"
 msgstr "Seite gelöscht"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:272
 msgid "The selected page has been removed."
 msgstr "Die selektierte Seite wurde gelöscht."
 
@@ -2050,6 +2076,10 @@ msgstr "Email"
 msgid "send"
 msgstr "senden"
 
+#~ msgid ""
+#~ "Removing constraints. This may take quite a while. Please be patient to "
+#~ "allow to remove the constraints."
+#~ msgstr "Constraints werden entfernt. Das kann einen Moment dauern."
 #~ msgid "Table %s already exists."
 #~ msgstr "Die Tabelle %s existiert bereits."
 #~ msgid ""

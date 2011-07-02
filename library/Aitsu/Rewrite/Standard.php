@@ -48,6 +48,21 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 		$language = Aitsu_Registry :: get()->config->sys->language;
 		$client = Aitsu_Registry :: get()->config->sys->client;
 
+		if (isset ($_GET['channel'])) {
+			$channelId = Aitsu_Db :: fetchOne('' .
+			'select channelid from _channel ' .
+			'where ' .
+			'	name = :name ' .
+			'	and idclient = :client', array (
+				':name' => $_GET['channel'],
+				':client' => $client
+			));
+			
+			if ($channelId) {
+				Aitsu_Application_Status :: setChannel($channelId);
+			}
+		}
+
 		if (empty ($url)) {
 			/*
 			 * Empty URL. Resolution is made based on configured values.
@@ -148,6 +163,16 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 		} else {
 			Aitsu_Registry :: get()->env->idlang = Aitsu_Registry :: get()->config->sys->language;
 		}
+		
+		if (Aitsu_Application_Status :: getChannel() != null) {
+			/*
+			 * The url cannot be resolved. One possible reason is the use
+			 * of channeling. We therefore redirect the user to the same
+			 * url with channeling disabled.
+			 */
+			header("Location: /" . $_GET['url']);
+			exit(0);
+		}
 
 		if (Aitsu_Registry :: get()->config->rewrite->uselang) {
 			/*
@@ -193,6 +218,11 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 				$idcats[$matches[2][$i]][] = $matches[0][$i];
 			}
 		}
+		
+		$channel = '';
+		if (Aitsu_Application_Status :: getChannel() != null) {
+			$channel = ':' . $_GET['channel'];
+		}
 
 		if (!empty ($idarts)) {
 			/*
@@ -215,7 +245,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			if ($results) {
 				foreach ($results as $row) {
 					foreach ($idarts[$row['idart']] as $placeHolder) {
-						$html = str_replace($placeHolder, $baseUrl . $row['url'], $html);
+						$html = str_replace($placeHolder, $baseUrl . $row['url'] . $channel, $html);
 					}
 				}
 			}
@@ -240,7 +270,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			if ($results) {
 				foreach ($results as $row) {
 					foreach ($idcats[$row['idcat']] as $placeHolder) {
-						$html = str_replace($placeHolder, $baseUrl . $row['url'] . '/', $html);
+						$html = str_replace($placeHolder, $baseUrl . $row['url'] . '/' . $channel, $html);
 					}
 				}
 			}

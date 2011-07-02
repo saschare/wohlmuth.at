@@ -800,34 +800,74 @@
         <field name="tvalue" type="text" default="null" nullable="true"/>
         <field name="obsolete" type="datetime" default="null" nullable="true"/>
     </table>
+    <table engine="InnoDB" name="channel" since="2.3.0">
+        <field default="null" name="channelid" type="int(10) unsigned" autoincrement="true"
+            nullable="false" primary="true" comment="Primary key."/>
+        <field default="null" name="idclient" type="int(10) unsigned" nullable="false"
+            comment="Reference to clients.">
+            <constraint column="idclient" ondelete="cascade" onupdate="no action" table="clients"/>
+        </field>
+        <field default="null" name="name" type="varchar(255)" nullable="false"
+            comment="Name of the channel."/>
+        <field default="null" name="description" type="text" nullable="true"
+            comment="Description of the channel."/>
+    </table>
+    <table engine="InnoDB" name="channel_art_lang" since="2.3.0">
+        <field default="null" name="idartlang" type="int(10) unsigned" nullable="false"
+            primary="true" comment="Reference to art_lang.">
+            <constraint column="idartlang" ondelete="cascade" onupdate="no action" table="art_lang"
+            />
+        </field>
+        <field default="null" name="channelid" type="int(10) unsigned" nullable="false"
+            primary="true" comment="Refernce to channel.">
+            <constraint column="channelid" ondelete="cascade" onupdate="no action" table="channel"/>
+        </field>
+    </table>
+    <function name="getchannel"><![CDATA[
+        create function getchannel() returns varchar(255)
+        begin
+            return @aitsuchannel;
+        end]]></function>
+    <view name="art_lang_channeled"><![CDATA[
+        select distinct
+            artlang.*
+        from _art_lang artlang
+        left join _channel_art_lang channel on artlang.idartlang = channel.idartlang
+        where
+            channel.idartlang is null 
+            or channel.channelid = getchannel()
+            or getchannel() is null]]></view>
     <view name="pubv_article_content"><![CDATA[
         select 
-            idartlang, `index`, `value`, modified, pubid, `status` 
-            from _pub_article_content 
-            where 
-                `status` = 1]]></view>
+            *
+        from _pub_article_content 
+        where 
+            `status` = 1]]></view>
     <view name="pubv_art_lang"><![CDATA[
         select 
-            idartlang, idart, idlang, title, urlname, pagetitle, teasertitle,
-            summary, created, lastmodified, online, pubfrom, pubuntil, published,
-            redirect, redirect_url, artsort, locked, configsetid, config, pubid, 
-            `status`, mainimage 
-            from _pub_art_lang 
-            where 
-                `status` = 1]]></view>
+            *
+        from _pub_art_lang 
+        where 
+            `status` = 1]]></view>
+    <view name="pubv_art_lang_channeled"><![CDATA[
+        select distinct
+            artlang.*
+        from _pubv_art_lang artlang
+        left join _channel_art_lang channel on artlang.idartlang = channel.idartlang
+        where
+            channel.idartlang is null 
+            or channel.channelid = getchannel()
+            or getchannel() is null]]></view>
     <view name="pubv_art_meta"><![CDATA[
         select 
-            idartlang, description, author, keywords, `date`, expires, robots,
-            dctitle, dccreator, dcsubject, dcpublisher, dccontributor, dcdate,
-            dctype, dcformat, dcidentifier, dcsource, dclanguage, dcrelation,
-            cdcoverage, dcrights, pubid, `status` 
-            from _pub_art_meta 
-            where 
-                `status` = 1]]></view>
+            * 
+        from _pub_art_meta 
+        where 
+            `status` = 1]]></view>
     <view name="pubv_aitsu_article_property"><![CDATA[
         select 
-            propertyid, idartlang, textvalue, floatvalue, datevalue, pubid, `status` 
-            from _pub_aitsu_article_property 
-            where 
-                `status` = 1]]></view>
+            * 
+        from _pub_aitsu_article_property 
+        where 
+            `status` = 1]]></view>
 </database>

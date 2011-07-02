@@ -2,10 +2,8 @@
 
 
 /**
- * Rules and informs about the current application status.
- * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3conceps AG
+ * @copyright Copyright &copy; 2011, w3conceps AG
  */
 
 class Aitsu_Application_Status {
@@ -15,6 +13,7 @@ class Aitsu_Application_Status {
 	protected $_edit = false;
 	protected $_locked = false;
 	protected $_structured = false;
+	protected $_channel = null;
 
 	static protected $_instance = null;
 
@@ -96,6 +95,18 @@ class Aitsu_Application_Status {
 
 		return $instance->_edit;
 	}
+	
+	public static function getChannel() {
+		
+		$instance = self :: _getInstance();		
+		return $instance->_channel;
+	}
+
+	public static function setChannel($channel) {
+		
+		$instance = self :: _getInstance();		
+		$instance->_channel = $channel;
+	}
 
 	public static function setEnv($env) {
 
@@ -157,6 +168,6 @@ class Aitsu_Application_Status {
 	
 	public static function version() {
 		
-		return '2.2.1.1-dev';
+		return '2.3.0.1-dev';
 	}
 }
