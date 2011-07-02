@@ -6,15 +6,14 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-class Module_HTML_Content_Class extends Aitsu_Ee_Module_Abstract {
+class Module_HTML_Content_Class extends Aitsu_Module_Abstract {
 	
-	public static function init($context) {
+	protected function _init() {
 
-		$instance = new self();
-		$index = str_replace('_', ' ', $context['index']);
+		$index = str_replace('_', ' ', $this->_index);
 
 		$output = '';
-		if ($instance->_get('HTML_' . $context['index'], $output)) {
+		if ($instance->_get('HTML_' . $index, $output)) {
 			return $output;
 		}
 
@@ -26,7 +25,7 @@ class Module_HTML_Content_Class extends Aitsu_Ee_Module_Abstract {
 		}
 
 		$output = Aitsu_Content_Html :: get($index);
-		$instance->_save($output, 'eternal');
+		$this->_save($output, 'eternal');
 
 		return $startTag . $output . $endTag;
 	}

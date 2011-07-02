@@ -3,36 +3,30 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright © 2010, w3concepts AG
+ * @copyright Copyright © 2011, w3concepts AG
  */
 
-class Module_HTML_Meta_ResourceBundle_Class extends Aitsu_Ee_Module_Abstract {
+class Module_HTML_Meta_ResourceBundle_Class extends Aitsu_Module_Abstract {
 
-	public static function init($context) {
+	protected function _init() {
 
 		Aitsu_Content_Edit :: noEdit('HTML.Meta.ResourceBundle', true);
 
-		$instance = new self();
-
-		$params = Aitsu_Util :: parseSimpleIni($context['params']);
-		$type = $params->type;
+		$type = $this->_params->type;
 
 		$output = '';
-		if ($instance->_get('ResourceBundle_' . $type, $output)) {
+		if ($this->_get('ResourceBundle_' . $type, $output)) {
 			return $output;
 		}
 
 		$resources = array ();
-		foreach ($params->res as $key => $resource) {
+		foreach ($this->_params->res as $key => $resource) {
 			$resources[] = $resource;
 		}
 
 		$uri = Aitsu_Ee_MiniMe :: getUri($type, $resources);
 
-		$env = '';
-		if (isset (Aitsu_Registry :: get()->config->env) && Aitsu_Registry :: get()->config->env == 'admin') {
-			$env = '/admin';
-		}
+		$env = Aitsu_Config :: get('env') == null ? '' : Aitsu_Config :: get('env');
 
 		if ($type == 'js') {
 			$output = '<script type="text/javascript" src="' . $env . '/js/' . $uri . '"></script>';
@@ -46,7 +40,7 @@ class Module_HTML_Meta_ResourceBundle_Class extends Aitsu_Ee_Module_Abstract {
 			}
 		}
 
-		$instance->_save($output, 'eternal');
+		$this->_save($output, 'eternal');
 
 		return $output;
 	}

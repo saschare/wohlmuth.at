@@ -6,21 +6,18 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-class Module_HTML_Content_Static_Class extends Aitsu_Ee_Module_Abstract {
+class Module_HTML_Content_Static_Class extends Aitsu_Module_Abstract {
 	
 	public static function init($context) {
 		
-		$instance = new self();
-		$index = str_replace('_', ' ', $context['index']);
-
 		$output = '';
-		if ($instance->_get('HtmlStatic_' . $context['index'], $output)) {
+		if ($instance->_get('HtmlStatic_' . $this->_index, $output)) {
 			return $output;
 		}
 		
 		$view = $instance->_getView();
 		
-		$template = Aitsu_Content_Config_Radio :: set($index, 'HtmlStaticTemplate', '', $instance->_getTemplates(), 'Template');
+		$template = Aitsu_Content_Config_Radio :: set($this->_index, 'HtmlStaticTemplate', '', $instance->_getTemplates(), 'Template');
 		
 		if (empty($template)) {
 			$template = 'index';
@@ -34,7 +31,7 @@ class Module_HTML_Content_Static_Class extends Aitsu_Ee_Module_Abstract {
 		}
 
 		$output = preg_replace('/<\\!-{2}.*?\\-{2}>\\s*/s', '', $view->render($template . '.phtml'));
-		$instance->_save($output, 'eternal');
+		$this->_save($output, 'eternal');
 		
 		return $startTag . $output . $endTag;
 	}

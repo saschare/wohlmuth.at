@@ -109,6 +109,8 @@ abstract class Aitsu_Module_Abstract {
 	}
 
 	protected function _get($id, & $output, $overwriteDisable = false) {
+		
+		$id = $this->_normalizeIndex($id);
 
 		$this->_id = $id . '_' . Aitsu_Registry :: get()->env->idartlang . '_' . $this->_index;
 		$cache = Aitsu_Cache :: getInstance($this->_id, $overwriteDisable);
@@ -127,6 +129,8 @@ abstract class Aitsu_Module_Abstract {
 	}
 
 	protected function _remove($id = null) {
+		
+		$id = $this->_normalizeIndex($id);
 
 		if ($id != null) {
 			$this->_id = $id . '_' . Aitsu_Registry :: get()->env->idartlang;
@@ -189,6 +193,11 @@ abstract class Aitsu_Module_Abstract {
 		}
 
 		return $return;
+	}
+	
+	private function _normalizeIndex($id) {
+		
+		return preg_replace('/[^a-zA-Z_0-9]/', '', $id);
 	}
 }
 ?>

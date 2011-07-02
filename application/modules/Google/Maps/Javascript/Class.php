@@ -5,27 +5,24 @@
  * Google Maps Javascript API implementation.
  * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Google_Maps_Javascript_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Google_Maps_Javascript_Class extends Aitsu_Module_Abstract {
 
-	public static function init($context) {
+	protected function _init() {
 
-		$instance = new self();
-
-		$view = $instance->_getView();
-
+		$view = $this->_getView();
 		$view->id = uniqid('GoogleMap');
 
-		$address = Aitsu_Content_Config_Text :: set($context['index'], 'GoogleMapJavascript.Address', Aitsu_Translate :: translate('Address'), Aitsu_Translate :: translate('Location'));
-		$width = Aitsu_Content_Config_Text :: set($context['index'], 'GoogleMapJavascript.Width', Aitsu_Translate :: translate('Width'), Aitsu_Translate :: translate('Style'));
-		$height = Aitsu_Content_Config_Text :: set($context['index'], 'GoogleMapJavascript.Height', Aitsu_Translate :: translate('Height'), Aitsu_Translate :: translate('Style'));
-		$zoom = Aitsu_Content_Config_Text :: set($context['index'], 'GoogleMapJavascript.Zoom', Aitsu_Translate :: translate('Zoom'), Aitsu_Translate :: translate('View'));
+		$address = Aitsu_Content_Config_Text :: set($this->_index, 'GoogleMapJavascript.Address', Aitsu_Translate :: translate('Address'), Aitsu_Translate :: translate('Location'));
+		$width = Aitsu_Content_Config_Text :: set($this->_index, 'GoogleMapJavascript.Width', Aitsu_Translate :: translate('Width'), Aitsu_Translate :: translate('Style'));
+		$height = Aitsu_Content_Config_Text :: set($this->_index, 'GoogleMapJavascript.Height', Aitsu_Translate :: translate('Height'), Aitsu_Translate :: translate('Style'));
+		$zoom = Aitsu_Content_Config_Text :: set($this->_index, 'GoogleMapJavascript.Zoom', Aitsu_Translate :: translate('Zoom'), Aitsu_Translate :: translate('View'));
 
-		$view->className = Aitsu_Content_Config_Text :: set($context['index'], 'GoogleMapJavascript.Class', Aitsu_Translate :: translate('Class'), Aitsu_Translate :: translate('Style'));
-		$view->name = Aitsu_Content_Config_Text :: set($context['index'], 'GoogleMapJavascript.Name', Aitsu_Translate :: translate('Name'), Aitsu_Translate :: translate('Location'));
-		$type = Aitsu_Content_Config_Radio :: set($context['index'], 'GoogleMapJavascript.Type', Aitsu_Translate :: translate('Type'), array (
+		$view->className = Aitsu_Content_Config_Text :: set($this->_index, 'GoogleMapJavascript.Class', Aitsu_Translate :: translate('Class'), Aitsu_Translate :: translate('Style'));
+		$view->name = Aitsu_Content_Config_Text :: set($this->_index, 'GoogleMapJavascript.Name', Aitsu_Translate :: translate('Name'), Aitsu_Translate :: translate('Location'));
+		$type = Aitsu_Content_Config_Radio :: set($this->_index, 'GoogleMapJavascript.Type', Aitsu_Translate :: translate('Type'), array (
 			'Roadmap' => 'ROADMAP',
 			'Satelite' => 'SATELLITE',
 			'Hybrid' => 'HYBRID',

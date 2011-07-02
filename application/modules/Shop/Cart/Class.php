@@ -3,23 +3,18 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Shop_Cart_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Shop_Cart_Class extends Aitsu_Module_Abstract {
 
-	public static function init($context) {
+	protected function _init() {
 
 		Aitsu_Content_Edit :: noEdit('Shop.Cart', true);
 
-		$instance = new self();
+		$template = empty ($this->_params->template) ? 'index' : $this->_params->template;
 
-		$index = empty ($context['index']) ? 'noindex' : $context['index'];
-		$params = Aitsu_Util :: parseSimpleIni($context['params']);
-
-		$template = empty ($params->template) ? 'index' : $params->template;
-
-		$view = $instance->_getView();
+		$view = $this->_getView();
 		$view->order = Wdrei_Shop_Persistence_Order :: factory()->load();
 
 		if (isset ($_POST['updateorder'])) {
@@ -47,6 +42,7 @@ class Module_Shop_Cart_Class extends Aitsu_Ee_Module_Abstract {
 		}
 
 		$output = $view->render($template . '.phtml');
+
 		return $output;
 	}
 }
