@@ -22,9 +22,9 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 	protected function _init() {
 
 		$this->_methodMap = array (
-			'_beforeRemoveConstraints',
+			'_beforeStart',
+			'_restoreFunctions',
 			'_removeConstraints',
-			'_beforeRemoveIndexes',
 			'_removeIndexes',
 			'_removeViews',
 			'_removeEmptyTables'
@@ -35,7 +35,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		$xmls = Aitsu_Util_Dir :: scan(APPLICATION_PATH, 'database.xml');
 		foreach ($xmls as $xml) {
 			$dom = new DOMDocument();
-			$dom->load($xml)->documentElement;
+			$dom->load($xml);
 			foreach ($dom->childNodes as $node) {
 				$node = $this->_xml->importNode($node, true);
 				$this->_xml->documentElement->appendChild($node);
@@ -44,7 +44,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$tables = $this->_xml->getElementsByTagName('table');
 
-		$this->_tableRestoreOffset = 6;
+		$this->_tableRestoreOffset = count($this->_methodMap);
 		for ($i = 0; $i < $tables->length; $i++) {
 			$this->_methodMap[] = '_restoreTables';
 		}
@@ -57,9 +57,9 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		$this->_methodMap[] = '_restoreViews';
 	}
 
-	protected function _beforeRemoveConstraints() {
+	protected function _beforeStart() {
 
-		return Aitsu_Translate :: translate('Removing constraints. This may take quite a while. Please be patient to allow to remove the constraints.');
+		return Aitsu_Translate :: translate('The process may take quite a while. Please be patient.');
 	}
 
 	protected function _beforeRemoveIndexes() {
@@ -278,21 +278,43 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 	protected function _restoreViews() {
 
+		$failures = false;
+
 		$prefix = Aitsu_Config :: get('database.params.tblprefix');
 
-		try {
-			foreach ($this->_xml->getElementsByTagName('view') as $view) {
-				$viewName = $prefix . $view->getAttribute('name');
-				$viewSelect = $view->nodeValue;
+		foreach ($this->_xml->getElementsByTagName('view') as $view) {
+			$viewName = $prefix . $view->getAttribute('name');
+			$viewSelect = $view->nodeValue;
+			try {
 				Aitsu_Db :: query("create view `$viewName` as $viewSelect");
+			} catch (Exception $e) {
+				$failures = true;
 			}
-		} catch (Exception $e) {
+		}
+
+		if ($failures) {
 			return (object) array (
-				'message' => Aitsu_Translate :: translate('Views have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface.')
+				'message' => Aitsu_Translate :: translate('Views have not been completely restored due to insufficient privilegies or missing function. You have to add them using the mysql command line interface.')
 			);
 		}
 
 		return Aitsu_Translate :: translate('Views have been restored.');
+	}
+
+	protected function _restoreFunctions() {
+
+		try {
+			foreach ($this->_xml->getElementsByTagName('function') as $function) {
+				Aitsu_Db :: getDb()->getConnection()->query('drop function if exists ' . $function->getAttribute('name')); 
+				Aitsu_Db :: getDb()->getConnection()->query($function->nodeValue); 
+			}
+		} catch (Exception $e) {
+			return (object) array (
+				'message' => Aitsu_Translate :: translate('Functions have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface.')
+			);
+		}
+
+		return Aitsu_Translate :: translate('Functions have been restored.');
 	}
 
 	protected function _createTable($node) {

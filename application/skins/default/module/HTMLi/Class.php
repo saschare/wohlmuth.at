@@ -1,19 +1,17 @@
 <?php
 
-class Skin_Module_HTMLi_Class extends Aitsu_Ee_Module_Abstract {
+class Skin_Module_HTMLi_Class extends Aitsu_Module_Abstract {
 
-	public static function init($context) {
-
-		$instance = new self();
+	protected function _init() {
 
 		$output = '';
-		if ($instance->_get('HTMLi_' . $context['index'], $output)) {
+		if ($this->_get('HTMLi', $output)) {
 			return $output;
 		}
+		
+		$index = str_replace('_', ' ', $this->_index);
 
-		$index = str_replace('_', ' ', $context['index']);
-
-		$show = Aitsu_Ee_Config_Radio :: set($context['index'], 'Show', '', array (
+		$show = Aitsu_Ee_Config_Radio :: set($this->_index, 'Show', '', array (
 			'Yes' => 'yes',
 			'No' => 'no'
 		), 'Show content');
@@ -41,7 +39,7 @@ class Skin_Module_HTMLi_Class extends Aitsu_Ee_Module_Abstract {
 			$return = $return . Aitsu_Content_Html :: getInherited($index) . '';
 		}
 
-		$instance->_save($return, 'eternal');
+		$this->_save($return, 'eternal');
 
 		return $return;
 	}

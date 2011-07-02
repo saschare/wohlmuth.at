@@ -216,6 +216,10 @@ class Aitsu_Persistence_User extends Aitsu_Persistence_Abstract {
 	
 	public function getProperty($key) {
 		
+		if (!isset($this->_data['properties'])) {
+			return null;
+		}
+		
 		if ($this->_properties == null) {
 			$this->_properties = array();
 			preg_match_all('/^(.*?)\\:(.*)/m', $this->_data['properties'], $matches);

@@ -11,7 +11,7 @@ class Aitsu_Adm_User {
 	static $_instance = null;
 	protected $_id;
 	protected $_data;
-	protected $_privs = array (); // privileges
+	protected $_allowedRes = array();
 
 	protected function __construct($id) {
 
@@ -29,7 +29,6 @@ class Aitsu_Adm_User {
 		}
 
 		$this->_data = Aitsu_Persistence_User :: factory($id)->load()->getData();
-		$this->_loadRoles();
 	}
 
 	public static function getInstance() {
@@ -79,140 +78,81 @@ class Aitsu_Adm_User {
 		return $this->_id;
 	}
 
-	protected function _loadRoles() {
-
-		$privileges = Aitsu_Persistence_View_User :: privileges($this->_id);
-
-		if (!$privileges) {
-			return;
-		}
-
-		foreach ($privileges as $priv) {
-			$privileg = (object) array (
-				'client' => $priv['idclient'],
-				'language' => $priv['idlang'],
-				'area' => trim(strtok($priv['privileg'], ':')),
-				'action' => trim(strtok("\n")),
-				'resource' => (object) array (
-					'type' => $priv['resourcetype'],
-					'id' => $priv['resourceid'],
-					'left' => $priv['resourceleft'],
-					'right' => $priv['resourceright']
-				)
-			);
-			$this->_privs['client'][$privileg->client]['language'][$privileg->language][$privileg->area][$privileg->action][] = $privileg;
-			$this->_privs['language'][$privileg->language][$privileg->area][$privileg->action][] = $privileg;
-			$this->_privs['area'][$privileg->area][$privileg->action][] = $privileg;
-		}
-	}
-
 	public function isAllowed(array $res) {
 
-		if (isset ($res['client']) && !isset ($this->_privs['client'][$res['client']])) {
-			return false;
+		/*
+		 * First, we build a hash representing the resource to enable
+		 * temporary persistence.
+		 */
+		$index = hash('md4', var_export($res, true));
+		
+		/*
+		 * Return the result if already available.
+		 */
+		if (isset($this->_allowedRes[$index])) {
+			return $this->_allowedRes[$index];
 		}
 
-		if (isset ($res['language']) && !isset ($this->_privs['language'][$res['language']])) {
-			return false;
+		/*
+		 * Then we gather the details for the where clause and the
+		 * data to be bound to the statement.
+		 */
+		$clause = array (
+			'roles.userid = :id'
+		);
+		$data = array (
+			':id' => $this->_id
+		);
+		if (isset ($res['client'])) {
+			$clause[] = "client.idclient = :client";
+			$data[':client'] = $res['client'];
 		}
-
-		if (!isset ($res['area']) && !isset ($res['resource'])) {
-			/*
-			 * No further tests necessary.
-			 */
-			return true;
-		}
-
-		if (isset ($res['area']) && !isset ($this->_privs['area'][$res['area']])) {
-			return false;
-		}
-
-		if (!isset ($res['action'])) {
-			/*
-			 * No further tests necessary.
-			 */
-			return true;
-		}
-
 		if (isset ($res['language'])) {
-			$privileges = $this->_privs['language'][$res['language']];
-		} else {
-			$privileges = $this->_privs['area'];
+			$clause[] = "language.idlang = :language";
+			$data[':language'] = $res['language'];
+		}
+		if (isset ($res['area'])) {
+			$clause[] = "trim(substring_index(privileg.identifier, ':', 1)) = :area";
+			$data[':area'] = $res['area'];
+		}
+		if (isset ($res['action'])) {
+			$clause[] = "trim(substring_index(privileg.identifier, ':', -1)) = :action";
+			$data[':action'] = $res['action'];
 		}
 
-		if (empty ($privileges)) {
-			/*
-			 * The current user has no specific rights.
-			 */
-			return false;
-		}
+		/*
+		 * Query the database layer for the count of matches.
+		 */
+		$part1 = Aitsu_Db :: prefix('' .
+		'select count(*) ' .
+		'from _acl_roles as roles ' .
+		'left join _acl_privileges as privileges on roles.roleid = privileges.roleid ' .
+		'left join _acl_privilege as privileg on privileges.privilegeid = privileg.privilegeid ' .
+		'left join _acl_clients as client on roles.roleid = client.roleid ' .
+		'left join _acl_languages as language on roles.roleid = language.roleid ' .
+		'left join _acl_resources as res on roles.roleid = res.roleid ' .
+		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
+		'left join _cat as cat on resource.resourcetype = \'cat\' and cat.idcat = resource.identifier ' .
+		'where ' . implode(' and ', $clause));
 
-		foreach ($privileges as $privs) {
-			if (isset ($privs[$res['action']])) {
-				foreach ($privs[$res['action']] as $priv) {
-					if ($this->_hasAccess($res, $priv)) {
-						return true;
-					}
-				}
-			}
-		}
-
-		return false;
-	}
-
-	protected function _hasAccess($res, $privilege) {
-
-		if ($privilege == null) {
-			return false;
-		}
-
-		if (isset ($res['client']) && (!isset ($privilege->client) || $privilege->client != $res['client'])) {
-			return false;
-		}
-
-		if (isset ($res['language']) && (!isset ($privilege->language) || $privilege->language != $res['language'])) {
-			return false;
-		}
-
-		if (isset ($res['area']) && (!isset ($privilege->area) || $privilege->area != $res['area'])) {
-			return false;
-		}
-
-		if (isset ($res['action']) && (!isset ($privilege->action) || $privilege->action != $res['action'])) {
-			return false;
-		}
-
-		if (isset ($res['resource'])) {
-			if (!isset ($privilege->resource)) {
-				return false;
-			}
-			if ($res['resource']['type'] != $privilege->resource->type) {
-				return false;
-			}
-			if ($res['resource']['id'] == $privilege->resource->id) {
-				return true;
-			}
-			if ($res['resource']['type'] == 'cat') {
-				if ($privilege->resource->id == 0) {
-					return true;
-				}
-				if (!isset ($res['resource']['left'])) {
-					/*
-					 * No lft value given. This has to be determined by a
-					 * db access.
-					 */
-					$res['resource']['lft'] = Aitsu_Db :: fetchOne('' .
-					'select lft from _cat where idcat = :idcat', array (
-						':idcat' => $res['resource']['id']
-					));
-				}
-				if ($res['resource']['lft'] < $privilege->resource->left || $res['resource']['lft'] > $privilege->resource->right) {
-					return false;
-				}
-			}
-		}
-
-		return true;
+		$allowed = Aitsu_Db :: fetchOne('' .
+		'select count(*) ' .
+		'from _acl_roles as roles ' .
+		'left join _acl_privileges as privileges on roles.roleid = privileges.roleid ' .
+		'left join _acl_privilege as privileg on privileges.privilegeid = privileg.privilegeid ' .
+		'left join _acl_clients as client on roles.roleid = client.roleid ' .
+		'left join _acl_languages as language on roles.roleid = language.roleid ' .
+		'left join _acl_resources as res on roles.roleid = res.roleid ' .
+		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
+		'left join _cat as cat on resource.resourcetype = \'cat\' and cat.idcat = resource.identifier ' .
+		'where ' . implode(' and ', $clause), $data);
+		
+		/*
+		 * Hold the result for further use during the same request.
+		 */
+		$this->_allowedRes[$index] = (boolean) $allowed;
+		
+		return (boolean) $allowed;
 	}
 
 }

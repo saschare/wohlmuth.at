@@ -16,6 +16,7 @@
 
 		<ul>
 		<?php foreach ($nav1->children as $nav2) : ?>
+			<?php if ($nav2->isvisible) : ?>
 			<li<?php if ($nav2->iscurrent) : ?> class="active"<?php endif; ?>>
 
 			<?php if($nav2->name == 'divider') : ?>
@@ -27,6 +28,7 @@
 
 				<ul>
 				<?php foreach ($nav2->children as $nav3) : ?>
+					<?php if ($nav3->isvisible) : ?>
 					<li<?php if ($nav3->iscurrent) : ?> class="active"<?php endif; ?>>
 		
 					<?php if($nav3->name == 'divider') : ?>
@@ -51,11 +53,13 @@
 						
 					<?php endif; ?>
 					</li>
+					<?php endif; ?>
 				<?php endforeach; ?>
 				</ul>
 				
 			<?php endif; ?>
 			</li>
+			<?php endif; ?>
 		<?php endforeach; ?>
 		</ul>
 	<?php endif; ?>
