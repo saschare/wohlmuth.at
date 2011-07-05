@@ -13,6 +13,10 @@ class ScriptController extends Zend_Controller_Action {
 	 */
 	public function init() {
 
+		if (Aitsu_Adm_User :: getInstance()->getId() == 'setup') {
+			return;
+		} 
+
 		if (!Aitsu_Adm_User :: getInstance()->isAllowed(array (
 				'area' => 'script',
 				'action' => 'execute'

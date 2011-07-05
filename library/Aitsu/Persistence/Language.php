@@ -169,7 +169,7 @@ class Aitsu_Persistence_Language extends Aitsu_Persistence_Abstract {
 		'	select ' .
 		'		lang.idlang, ' .
 		'		lang.name, ' .
-                '		lang.longname, ' .
+		'		lang.longname, ' .
 		'		client.name as client, ' .
 		'		lang.locale, ' .
 		'		lang.encoding, ' .
@@ -181,13 +181,17 @@ class Aitsu_Persistence_Language extends Aitsu_Persistence_Abstract {
 
 	public static function getCurrentLangName() {
 
-		return Aitsu_Db :: fetchOne('' .
-		'select concat(client.name, \' / \', lang.name) ' .
-		'from _lang lang ' .
-		'left join _clients client on lang.idclient = client.idclient ' .
-		'where lang.idlang = :idlang', array (
-			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
-		));
+		try {
+			return Aitsu_Db :: fetchOne('' .
+			'select concat(client.name, \' / \', lang.name) ' .
+			'from _lang lang ' .
+			'left join _clients client on lang.idclient = client.idclient ' .
+			'where lang.idlang = :idlang', array (
+				':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+			));
+		} catch (Exception $e) {
+			return '';
+		}
 	}
 
 }

@@ -80,6 +80,10 @@ class Aitsu_Adm_User {
 
 	public function isAllowed(array $res) {
 
+		if ($this->_id == 'setup') {
+			return false;
+		}
+
 		/*
 		 * First, we build a hash representing the resource to enable
 		 * temporary persistence.
