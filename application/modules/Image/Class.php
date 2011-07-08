@@ -16,7 +16,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
 
 		$images = Aitsu_Content_Config_Media :: set($this->_index, 'media', 'Media');
 
-		$view = $instance->_getView();
+		$view = $this->_getView();
 		$view->images = Aitsu_Persistence_View_Media :: byFileName(Aitsu_Registry :: get()->env->idart, $images);
 
 		$output = $view->render($template . '.phtml');
