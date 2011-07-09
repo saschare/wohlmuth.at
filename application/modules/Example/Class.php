@@ -62,6 +62,10 @@ class Module_Example_Class extends Aitsu_Module_Abstract {
 		return $view->render('index.phtml');
 	}
 
+	/**
+	 * If you omit this method, no caching is made. Specifiy the caching
+	 * period in seconds. 0 means no caching.
+	 */
 	protected function _cachingPeriod() {
 
 		return 20;
