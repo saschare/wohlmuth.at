@@ -82,7 +82,7 @@ class Adm_Script_Setup extends Aitsu_Adm_Script_Abstract {
 
 		Aitsu_Db :: query('set foreign_key_checks = 0', null, true);
 		foreach ($this->_lines as $line) {
-			if (preg_match_all("/'(.*?)(?<!\\\\)'/", $line, $matches) > 0) {
+			if (substr($line, 0, 6) != 'CREATE'&& preg_match_all("/'(.*?)(?<!\\\\)'/", $line, $matches) > 0) {
 				$params = array ();
 				for ($i = 0; $i < count($matches[0]); $i++) {
 					$line = str_replace($matches[0][$i], '?', $line);
