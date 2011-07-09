@@ -1,16 +1,18 @@
-Version 2.2.1.1-dev
+Current version: 2.3.0.0
 
-== Korrektur Bug in der Rewrite-History ==
-Christian hat in der Rewrite-History im Rahmen der Entwicklung eines Plugins auch gleich einen Bug korrigiert. Diesen habe ich bereits in den dev aufgenommen. Das Plugin folgt dann auch nach eingehender Prüfung.
+== Lastest changes ==
 
-== Sessionmanagement im Dateisystem ==
-Eine massgebliche Verbesserung der Leistung lässt sich erzielen, wenn das Sessionmanagement im Dateisystem erfolgt. Dazu kann in der config.ini der Parameter session.usefilesystem auf true gestellt werden.
+* Automatic update script for the database structure.
+* Refactoring of the module evaluation.
+* Allow session management to be made in the file system instead of the database.
+* Optimization of the performance.
+* HTML.Meta.CanonicalTag uses sys.canonicalpath, if set in the configuration. Else it uses sys.webpath.
+* HTML.Meta.CanonicalTag outputs an absolute URL, if sys.webpath is specified in the configuration.
 
-== Leistungsoptimierung ==
-Die Datenbankklasse wurde um Methoden ergänzt, welche die Resultate von Abfragen im Dateisystem cachen. An verschiedenen Stellen wurden Anpassungen vorgenommen, die nun im Regelfall dazu führen, dass keine DB-Abfrage vorgenommen wird.
+== Revision progression (since 2.2.0) ==
 
-== Korrektur der URL-Erstellung ==
-Der bestehende Bug bei der Erstellung der URLs von Kategorien ist korrigiert.
+In the article view there is a new tab allowing you to switch between published versions of the current article. To be able to use the new feature you have to add follwing line to the default config set:
 
-== Automatische Aktualisierung der Datenbankstruktur ==
-Automatische Aktualisierung der Datenbankstruktur auf Basis der XML-Datei unter /application/database/database.xml.
+plugin.article.revisionprogression.position.default = 1000
+
+The number after the equal symbol represents the relative position of the tab. You may change the value to something not lower than 1, which repositions the tab within the article view.
