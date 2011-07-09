@@ -8,6 +8,8 @@
 
 abstract class Aitsu_Module_Abstract {
 
+	protected $_allowEdit = true;
+
 	protected $_id;
 	protected $_type = null;
 	protected $_view = null;
@@ -17,7 +19,19 @@ abstract class Aitsu_Module_Abstract {
 
 	public static function init($context) {
 
+		$output = '';
+
 		$instance = new $context['className'] ();
+
+		/*
+		 * Suppress edit option, if _allowEdit is set to false.
+		 */
+		if (!$instance->_allowEdit) {
+			$className = str_replace('_', '.', $context['className']);
+			$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
+			$className = preg_replace('/\\.Class$/', "", $className);
+			Aitsu_Content_Edit :: noEdit($className, true);
+		}
 
 		$instance->_context = $context;
 
@@ -30,12 +44,34 @@ abstract class Aitsu_Module_Abstract {
 			$instance->_params = Aitsu_Util :: parseSimpleIni($instance->_context['params']);
 		}
 
-		return $instance->_init();
+		if ($instance->_cachingPeriod() > 0) {
+			if ($instance->_get($context['className'], $output)) {
+				return $output;
+			}
+		}
+
+		$output = $instance->_init();
+
+		if ($instance->_cachingPeriod() > 0) {
+			$instance->_save($output, $instance->_cachingPeriod());
+		}
+
+		return $output;
 	}
 
 	protected function _init() {
 
-		return;
+		return $this->_main();
+	}
+
+	protected function _main() {
+
+		return '';
+	}
+
+	protected function _cachingPeriod() {
+
+		return 0;
 	}
 
 	/**
@@ -109,7 +145,7 @@ abstract class Aitsu_Module_Abstract {
 	}
 
 	protected function _get($id, & $output, $overwriteDisable = false) {
-		
+
 		$id = $this->_normalizeIndex($id);
 
 		$this->_id = $id . '_' . Aitsu_Registry :: get()->env->idartlang . '_' . $this->_index;
@@ -129,7 +165,7 @@ abstract class Aitsu_Module_Abstract {
 	}
 
 	protected function _remove($id = null) {
-		
+
 		$id = $this->_normalizeIndex($id);
 
 		if ($id != null) {
@@ -194,10 +230,11 @@ abstract class Aitsu_Module_Abstract {
 
 		return $return;
 	}
-	
+
 	private function _normalizeIndex($id) {
-		
+
 		return preg_replace('/[^a-zA-Z_0-9]/', '', $id);
 	}
+
 }
 ?>
