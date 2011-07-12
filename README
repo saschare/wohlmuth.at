@@ -2,6 +2,8 @@ Current version: 2.3.0.1-dev
 
 == Development ==
 
+* Volatile flag in the class Aitsu_Module_Abstract to add the volatile tag in case of caching.
+
 == Lastest changes ==
 
 * Automatic update script for the database structure.
