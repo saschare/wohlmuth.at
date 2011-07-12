@@ -16,6 +16,15 @@ abstract class Aitsu_Module_Abstract {
 	protected $_context = null;
 	protected $_index = null;
 	protected $_params = null;
+	
+	/*
+	 * _isVolatile flags the cached output to be volatile in the
+	 * sense that each and every single publish event should result
+	 * in a loss of the cached data. _isVolatile should be set to
+	 * true, if the output is dependend on data outside the scope of
+	 * the current article (page).
+	 */
+	protected $_isVolatile = false;
 
 	public static function init($context) {
 
@@ -196,6 +205,15 @@ abstract class Aitsu_Module_Abstract {
 		}
 		$tags[] = 'cat_' . Aitsu_Registry :: get()->env->idcat;
 		$tags[] = 'art_' . Aitsu_Registry :: get()->env->idart;
+		
+		if ($this->_isVolatile) {
+			/*
+			 * The volatile tag is set to make sure the cached output
+			 * is deleted on every publish event. Refer to the comment
+			 * on the class member _isVolatile for details.
+			 */
+			$tags[] = 'volatile';
+		}
 
 		if (!empty ($lifeTime)) {
 			if ($lifeTime == 'eternal') {
