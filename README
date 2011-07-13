@@ -1,13 +1,11 @@
-Current version: 2.3.0.1-dev
-
-== Development ==
-
-* Volatile flag in the class Aitsu_Module_Abstract to add the volatile tag in case of caching.
-* _init method will always be executed in the modules class, even caching is done.
-* New module Movie.Projekktor.
+Current version: 2.3.0.1
 
 == Lastest changes ==
 
+* Fixed ckeditor configuration.
+* Volatile flag in the class Aitsu_Module_Abstract to add the volatile tag in case of caching.
+* _init method will always be executed in the modules class, even caching is done.
+* New module Movie.Projekktor.
 * Automatic update script for the database structure.
 * Refactoring of the module evaluation.
 * Allow session management to be made in the file system instead of the database.
