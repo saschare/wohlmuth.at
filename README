@@ -3,6 +3,8 @@ Current version: 2.3.0.1-dev
 == Development ==
 
 * Volatile flag in the class Aitsu_Module_Abstract to add the volatile tag in case of caching.
+* _init method will always be executed in the modules class, even caching is done.
+* New module Movie.Projekktor.
 
 == Lastest changes ==
 
