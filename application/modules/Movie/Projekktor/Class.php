@@ -34,4 +34,10 @@ class Module_Movie_Projekktor_Class extends Aitsu_Module_Abstract {
 		return $view->render('index.phtml');
 	}
 
+	public static function help() {
+		
+		$instance = new Module_Movie_Projekktor_Class();
+		
+		return $instance->_getView()->render('help.phtml');
+	}
 }

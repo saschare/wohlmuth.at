@@ -97,4 +97,34 @@ class Aitsu_Core_Module {
 
 		return $return;
 	}
+
+	public function getHelp() {
+
+		$files = array (
+			'Skin_Module' => APPLICATION_PATH . "/skins/" . Aitsu_Registry :: get()->config->skin . "/module/" . str_replace('.', '/', $this->shortCode) . "/Class.php",
+			'Local_Module' => realpath(APPLICATION_PATH . '/../library/Local/Module/' . str_replace('.', '/', $this->shortCode) . '/Class.php'),
+			'Comm_Module' => realpath(APPLICATION_PATH . '/../library/Comm/Module/' . str_replace('.', '/', $this->shortCode) . '/Class.php'),
+			'Module' => APPLICATION_PATH . '/modules/' . str_replace('.', '/', $this->shortCode) . '/Class.php',
+			'Aitsu_Ee_Module' => realpath(APPLICATION_PATH . '/../library/Aitsu/Ee/Module/' . str_replace('.', '/', $this->shortCode) . '/Class.php')
+		);
+
+		$exists = false;
+
+		foreach ($files as $prefix => $file) {
+			if (file_exists($file)) {
+				$exists = true;
+				$profileDetails->source = $prefix . '_' . str_replace('.', '_', $this->shortCode) . '_Class';
+				include_once $file;
+				if (method_exists($profileDetails->source, 'help')) {
+					return call_user_func(array (
+						$profileDetails->source,
+						'help'
+					));
+				}
+				break;
+			}
+		}
+
+		return null;
+	}
 }

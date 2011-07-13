@@ -1,4 +1,8 @@
-Current version: 2.3.0.1
+Current version: 2.3.0.2-dev
+
+== Current development ==
+
+* Added the possiblity to add help to modules (refer to Movie_Projekktor as an example).
 
 == Lastest changes ==
 

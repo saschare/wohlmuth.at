@@ -11,7 +11,9 @@
 ?>
 
 <?php if (Aitsu_Application_Status :: isEdit()) : ?>
-<img src="<?php echo $this->dir . 'res/custom/movies/' . $this->file; ?>/movie.jpg" width="<?php echo $this->width; ?>" height="<?php echo $this->height; ?>" />
+<div>
+	<img src="<?php echo $this->dir . 'res/custom/movies/' . $this->file; ?>/movie.jpg" width="<?php echo $this->width - 20; ?>" height="<?php echo $this->height - 20; ?>" />
+</div>
 <?php endif; ?>
 <video id="player_a" class="projekktor" poster="<?php echo $this->dir . 'res/custom/movies/' . $this->file; ?>/movie.jpg" title="<?php echo $this->title; ?>" width="<?php echo $this->width; ?>" height="<?php echo $this->height; ?>" controls>
 	<source src="<?php echo $this->dir . 'res/custom/movies/' . $this->file; ?>/movie.ogv" type="video/ogg" />
