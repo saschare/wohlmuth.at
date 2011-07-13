@@ -9,6 +9,10 @@
 class Module_Movie_Projekktor_Class extends Aitsu_Module_Abstract {
 
 	protected function _init() {
+		
+		if (Aitsu_Application_Status :: isEdit()) {
+			return;
+		}
 
 		$mainDir = Aitsu_Config :: get('sys.mainDir');
 		Aitsu_Util_Javascript :: addReference($mainDir . 'res/jQuery/1.6.2/jquery.min.js');
