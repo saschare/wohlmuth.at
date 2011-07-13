@@ -1,0 +1,16 @@
+<?php
+
+
+/*
+ * As the movies are usually heavy and a data conversion is necessary
+ * we do not use the article centric media management to specify the
+ * video files in the standard implementation of the module.
+ * 
+ * Feel free to extend the module to fit your needs.
+ */
+?>
+<video id="player_a" class="projekktor" poster="<?php echo $this->dir . 'res/custom/movies/' . $this->file; ?>/movie.jpg" title="<?php echo $this->title; ?>" width="<?php echo $this->width; ?>" height="<?php echo $this->height; ?>" controls>
+	<source src="<?php echo $this->dir . 'res/custom/movies/' . $this->file; ?>/movie.ogv" type="video/ogg" />
+	<source src="<?php echo $this->dir . 'res/custom/movies/' . $this->file; ?>/movie.mp4" type="video/mp4" />
+	<source src="<?php echo $this->dir . 'res/custom/movies/' . $this->file; ?>/movie.webm" type="video/mp4" />
+</video>
