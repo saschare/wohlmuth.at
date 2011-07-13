@@ -52,6 +52,12 @@ abstract class Aitsu_Module_Abstract {
 		if (!empty ($instance->_context['params'])) {
 			$instance->_params = Aitsu_Util :: parseSimpleIni($instance->_context['params']);
 		}
+		
+		/*
+		 * Execution of the _init method is done, even a 
+		 * valid cache is available.
+		 */
+		$output = $instance->_init();
 
 		if ($instance->_cachingPeriod() > 0) {
 			if ($instance->_get($context['className'], $output)) {
@@ -59,7 +65,11 @@ abstract class Aitsu_Module_Abstract {
 			}
 		}
 
-		$output = $instance->_init();
+		/*
+		 * Execution of the _main method is only done, if caching
+		 * is disabled or there is no valid cache.
+		 */
+		$output .= $instance->_main();
 
 		if ($instance->_cachingPeriod() > 0) {
 			$instance->_save($output, $instance->_cachingPeriod());
@@ -70,7 +80,7 @@ abstract class Aitsu_Module_Abstract {
 
 	protected function _init() {
 
-		return $this->_main();
+		return '';
 	}
 
 	protected function _main() {

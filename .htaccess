@@ -5,6 +5,8 @@ RewriteEngine on
 
 RewriteBase /
 
+RewriteRule ^res/.*$ - [L]
+
 RewriteRule ^id/(.*)$ index.php?id=$1 [QSA,L]
 RewriteRule ^adm/id/(\d*).*$ index.php?id=$1 [QSA,L]
 
