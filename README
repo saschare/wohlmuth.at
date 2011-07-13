@@ -1,11 +1,8 @@
-Current version: 2.3.0.2-dev
-
-== Current development ==
-
-* Added the possiblity to add help to modules (refer to Movie_Projekktor as an example).
+Current version: 2.3.0.2
 
 == Lastest changes ==
 
+* Added the possiblity to add help to modules (refer to Movie_Projekktor as an example).
 * Fixed ckeditor configuration.
 * Volatile flag in the class Aitsu_Module_Abstract to add the volatile tag in case of caching.
 * _init method will always be executed in the modules class, even caching is done.
