@@ -95,11 +95,6 @@ class Aitsu_Bootstrap_EvalRequest {
 		$instance->_resolveRedirects();
 
 		/*
-		 * Is the current user allowed to view the requested url?
-		 */
-		$instance->_checkUserPermissions();
-
-		/*
 		 * Save URL / idartlang combination for seo purposes.
 		 */
 		Aitsu_Ee_Rewrite_History :: getInstance()->saveUrl();
