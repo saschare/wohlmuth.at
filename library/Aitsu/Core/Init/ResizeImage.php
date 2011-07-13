@@ -18,7 +18,7 @@ class Aitsu_Core_Init_ResizeImage implements Aitsu_Event_Listener_Interface {
 		if (!isset($_GET['imageurl'])) {
 			return;
 		}
-
+return;
 		$imageSrc = Aitsu_Core_Image_Source :: getInstance();
 		$imageSrc->setThumbUrl($_GET['imageurl']);
 
