@@ -13,7 +13,7 @@ class Module_HTML_Content_Class extends Aitsu_Module_Abstract {
 		$index = str_replace('_', ' ', $this->_index);
 
 		$output = '';
-		if ($instance->_get('HTML_' . $index, $output)) {
+		if ($this->_get('HTML_' . $index, $output)) {
 			return $output;
 		}
 
