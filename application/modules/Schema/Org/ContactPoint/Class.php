@@ -5,8 +5,10 @@
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
+ 
+include_once (APPLICATION_PATH . '/modules/Schema/Org/StructuredValue/Class.php');
 
-class Module_Schema_Org_ContactPoint_Class extends Aitsu_Module_SchemaOrg_Abstract {
+class Module_Schema_Org_ContactPoint_Class extends Module_Schema_Org_StructuredValue_Class {
 
 	protected function _init() {
 	}

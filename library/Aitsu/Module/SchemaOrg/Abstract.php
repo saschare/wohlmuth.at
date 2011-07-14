@@ -14,11 +14,14 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 
 		if (Aitsu_Application_Status :: isEdit()) {
 			preg_match('/Module_Schema_Org_(.*?)_Class$/', $context['className'], $match);
+			
+			$maxLength = 60;
+			$index = strlen($context['index']) > $maxLength ? substr($context['index'], 0, $maxLength) . '...' : $context['index'];
 
 			return '' .
 			'<div style="border:1px dashed #CCC; padding:2px 2px 0 2px;">' .
 			'	<div style="height:15px; background-color: #CCC; color: white; font-size: 11px; padding:2px 5px 0 5px;">' .
-			'		<span style="font-weight:bold; float:left;">' . $context['index'] . '</span><span style="float:right;">schema.org <span style="font-weight:bold;">' . $match[1] . '</span></span>' .
+			'		<span style="font-weight:bold; float:left;">' . $index . '</span><span style="float:right;">schema.org <span style="font-weight:bold;">' . $match[1] . '</span></span>' .
 			'	</div>' .
 			'	<div style="padding:5px 3px 5px 3px;">' .
 			'		' . $output . '' .
@@ -65,13 +68,6 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 
 		$view->name = Aitsu_Content_Config_Text :: set($this->_index, 'schema.org.Thing.Name', 'Name', 'Thing');
 		$view->url = Aitsu_Content_Config_Text :: set($this->_index, 'schema.org.Thing.URL', 'URL', 'Thing');
-
-		if (Aitsu_Application_Status :: isEdit()) {
-			$view->description = empty ($view->description) ? 'DESCRIPTION' : $view->description;
-			$view->images = empty ($view->images) ? 'IMAGES' : $view->images;
-			$view->name = empty ($view->name) ? 'NAME' : $view->name;
-			$view->url = empty ($view->url) ? 'URL' : $view->url;
-		}
 
 		return $view;
 	}

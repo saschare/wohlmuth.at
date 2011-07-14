@@ -1,0 +1,8 @@
+<div itemscope itemtype="http://schema.org/NutritionInformation" class="SchemaOrg NutritionInformation">
+	<meta itemprop="name" content="<?php echo $this->name; ?>" />
+	<link itemprop="url" href="<?php echo $this->url; ?>" />
+	<?php if (!empty($this->image)) : ?>
+		<img itemprop="image" src="<?php echo Aitsu_Config :: get('sys.mainDir'); ?>image/100/100/2/<?php echo $this->idart; ?>/<?php echo $this->image; ?>" width="100" height="100" />
+	<?php endif; ?>
+	<div itemprop="description"><?php echo htmlentities($this->description, ENT_COMPAT, 'UTF-8'); ?></div>
+</div>
