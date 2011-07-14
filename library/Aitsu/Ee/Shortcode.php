@@ -32,6 +32,8 @@ class Aitsu_Ee_Shortcode {
 	}
 
 	public function evalModule($method, $params, $client, $index, $current = true) {
+		
+		$index = preg_replace('/[^a-zA-Z_0-9]/', '', $index);
 
 		$profileDetails = new stdClass();
 		Aitsu_Profiler :: profile($method . ':' . $index);

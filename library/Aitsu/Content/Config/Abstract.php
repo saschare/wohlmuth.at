@@ -13,6 +13,10 @@ abstract class Aitsu_Content_Config_Abstract {
 
 	protected function __construct($index, $name, $idartlang = null, $suppressRegistration = false) {
 		
+		if (strlen($name) > 127) {
+			throw new Exception('The name may consist of not more than 127 characters.');
+		}
+		
 		$this->facts['index'] = $index;
 		$this->facts['name'] = str_replace('.', '_', $name);
 		
