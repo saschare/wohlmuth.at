@@ -15,11 +15,7 @@ class Module_Schema_Org_Item_Class extends Aitsu_Module_SchemaOrg_Abstract {
 
 		$availableTypes = array (
 			'AggregateRating',
-			'ContactPoint',
-			'GeoCoordinates',
-			'Organization',
-			'PostalAddress',
-			'Rating',
+			'CreativeWork',
 			'Thing'
 		);
 		sort($availableTypes);
@@ -35,7 +31,7 @@ class Module_Schema_Org_Item_Class extends Aitsu_Module_SchemaOrg_Abstract {
 		if (empty ($schemaType)) {
 			$schemaType = 'Thing';
 		}
-		
+
 		if (Aitsu_Application_Status :: isEdit()) {
 			return '<div style="padding-top:5px;">_[Schema.Org.' . $schemaType . ':' . $this->_index . ']</div>';
 		}
