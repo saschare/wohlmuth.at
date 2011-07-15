@@ -10,15 +10,67 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 
 	public static function init($context) {
 
+		preg_match('/Module_Schema_Org_(.*?)_Class$/', $context['className'], $match);
+
+		$schemaTree = array (
+			'Thing' => array (
+				'CreativeWork' => array (
+					'Article' => array (
+						'BlogPosting' => null,
+						'NewsArticle' => null,
+						'ScholarlyArticle' => null
+					),
+					'Blog' => null,
+					'Book' => null,
+					'ItemList' => null,
+					'Map' => null
+				),
+				'Event' => array (),
+				'Intangible' => array (),
+				'Organization' => array (),
+				'Person' => array (),
+				'Place' => array (),
+				'Product' => array ()
+			)
+		);
+
+		if (!empty ($context['params'])) {
+			$params = Aitsu_Util :: parseSimpleIni($context['params']);
+		}
+
+		if (isset ($params->genuineType)) {
+			$genuineType = $params->genuineType;
+		} else {
+			$genuineType = $match[1];
+		}
+
+		$types = array ();
+		self :: _getChildrenOf($genuineType, $types, $schemaTree);
+		ksort($types);
+
+		$index = preg_replace('/[^a-zA-Z_0-9]/', '_', $context['index']);
+		$index = str_replace('.', '_', $index);
+
+		$type = Aitsu_Content_Config_Select :: set($index, 'schema.org.Type', 'Subtype', $types, 'Type');
+
+		if (!empty ($type) && $type != $match[1]) {
+			/*
+			 * A subtype has to be used instead of the genuine one.
+			 */
+			return '' .
+			'<script type="application/x-aitsu" src="Schema.Org.' . $type . ':' . $context['index'] . '">' . "\n" .
+			'	genuineType = ' . $genuineType . '' . "\n" . $context['params'] . "\n" .
+			'</script>';
+		}
+
 		$output = parent :: init($context);
 
 		if (Aitsu_Application_Status :: isEdit()) {
-			preg_match('/Module_Schema_Org_(.*?)_Class$/', $context['className'], $match);
-			
 			$maxLength = 60;
 			$index = strlen($context['index']) > $maxLength ? substr($context['index'], 0, $maxLength) . '...' : $context['index'];
 
 			return '' .
+			'<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
 			'<div style="border:1px dashed #CCC; padding:2px 2px 0 2px;">' .
 			'	<div style="height:15px; background-color: #CCC; color: white; font-size: 11px; padding:2px 5px 0 5px;">' .
 			'		<span style="font-weight:bold; float:left;">' . $index . '</span><span style="float:right;">schema.org <span style="font-weight:bold;">' . $match[1] . '</span></span>' .
@@ -34,7 +86,10 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 
 	protected function _getView() {
 
-		$view = parent :: _getView();
+		$view = parent :: _getView(new Aitsu_Module_SchemaOrg_View());
+
+		preg_match('/Module_Schema_Org_(.*?)_Class/', get_class($this), $match);
+		$view->SchemaOrgType = $match[1];
 
 		$view->idart = Aitsu_Registry :: get()->env->idart;
 		$view->description = Aitsu_Content_Config_Textarea :: set($this->_index, 'schema.org.Thing.Description', 'Description', 'Thing');
@@ -70,5 +125,17 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 		$view->url = Aitsu_Content_Config_Text :: set($this->_index, 'schema.org.Thing.URL', 'URL', 'Thing');
 
 		return $view;
+	}
+
+	protected static function _getChildrenOf($type, & $result, & $subSet, $in = false) {
+
+		foreach ($subSet as $key => $value) {
+			if ($in || $type == $key) {
+				$result[$key] = $key;
+			}
+			if (is_array($value)) {
+				self :: _getChildrenOf($type, $result, $value, $in || $type == $key);
+			}
+		}
 	}
 }

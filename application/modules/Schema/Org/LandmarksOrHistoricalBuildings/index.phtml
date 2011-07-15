@@ -1,8 +1,10 @@
-<div itemscope itemtype="http://schema.org/LandmarksOrHistoricalBuildings" class="SchemaOrg LandmarksOrHistoricalBuildings">
-	<meta itemprop="name" content="<?php echo $this->name; ?>" />
-	<link itemprop="url" href="<?php echo $this->url; ?>" />
-	<?php if (!empty($this->image)) : ?>
-		<img itemprop="image" src="<?php echo Aitsu_Config :: get('sys.mainDir'); ?>image/100/100/2/<?php echo $this->idart; ?>/<?php echo $this->image; ?>" width="100" height="100" />
-	<?php endif; ?>
-	<div itemprop="description"><?php echo htmlentities($this->description, ENT_COMPAT, 'UTF-8'); ?></div>
+<div itemscope itemtype="http://schema.org/<?php $this->SchemaOrgType; ?>" class="SchemaOrg <?php $this->SchemaOrgType; ?>">
+	<dl>
+		<?php foreach ($this as $key => $value) : ?>
+		<?php if (!empty($value)) : ?>
+		<dt><?php echo ucfirst($key); ?></dt>
+			<dt><?php echo $value; ?></dt>
+		<?php endif; ?>
+		<?php endforeach; ?>
+	</dl>
 </div>

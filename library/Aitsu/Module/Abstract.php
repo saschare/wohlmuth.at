@@ -115,7 +115,7 @@ abstract class Aitsu_Module_Abstract {
 		return true;
 	}
 
-	protected function _getView() {
+	protected function _getView($view = null) {
 
 		if ($this->_view != null) {
 			return $this->_view;
@@ -134,7 +134,7 @@ abstract class Aitsu_Module_Abstract {
 
 		$modulePath = str_replace($search, $replace, $class);
 
-		$view = new Zend_View();
+		$view = $view == null ? new Zend_View() : $view;
 
 		$search = array (
 			'Aitsu/Ee/Module/',
