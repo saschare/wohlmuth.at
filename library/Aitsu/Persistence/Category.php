@@ -974,6 +974,7 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 				':idcat' => $target
 			))) {
 			$this->moveAfterCat($newTarget);
+			return;
 		}
 
 		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
