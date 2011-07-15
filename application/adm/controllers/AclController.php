@@ -13,7 +13,7 @@ class AclController extends Zend_Controller_Action {
 		if ($this->getRequest()->getActionName() == 'login' || $this->getRequest()->getActionName() == 'logout') {
 			return;
 		}
-		
+
 		if ($this->getRequest()->getActionName() == 'refreshsession') {
 			/*
 			 * Allow the action refreshsession regardless whether or not
@@ -71,15 +71,14 @@ class AclController extends Zend_Controller_Action {
 		}
 		$form->setOptions('idlang', $langs);
 
-		$languages = Zend_Locale :: getTranslationList('Language');
-
-		asort($languages, SORT_LOCALE_STRING);
+		$languages = Aitsu_Db :: fetchAllC(60 * 60 * 24 * 365, '' .
+		'select fullname, locale from _locale order by fullname asc');
 
 		$locales = array ();
-		foreach ($languages as $value => $name) {
+		foreach ($languages as $lang) {
 			$locales[] = (object) array (
-				'value' => $value,
-				'name' => $name . ' [' . $value . ']'
+				'value' => $lang['locale'],
+				'name' => $lang['fullname']
 			);
 		}
 
@@ -153,15 +152,14 @@ class AclController extends Zend_Controller_Action {
 		}
 		$form->setOptions('roles', $roles);
 
-		$languages = Zend_Locale :: getTranslationList('Language');
-
-		asort($languages, SORT_LOCALE_STRING);
+		$languages = Aitsu_Db :: fetchAllC(60 * 60 * 24 * 365, '' .
+		'select fullname, locale from _locale order by fullname asc');
 
 		$locales = array ();
-		foreach ($languages as $value => $name) {
+		foreach ($languages as $lang) {
 			$locales[] = (object) array (
-				'value' => $value,
-				'name' => $name . ' [' . $value . ']'
+				'value' => $lang['locale'],
+				'name' => $lang['fullname']
 			);
 		}
 

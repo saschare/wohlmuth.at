@@ -62,13 +62,13 @@ class Aitsu_Bootstrap_EvalRequest {
 			/*
 			 * Evaluation based on idart.
 			 */
-			$instance->_setIdartlang(Aitsu_Registry :: get()->env->idart);
+			self :: setIdartlang(Aitsu_Registry :: get()->env->idart);
 		}
 		elseif (isset (Aitsu_Registry :: get()->env->idcat) && !isset ($_GET['artname'])) {
 			/*
 			 * Evaluation based on idcat.
 			 */
-			$instance->_setIdartlang(null, Aitsu_Registry :: get()->env->idcat);
+			self :: setIdartlang(null, Aitsu_Registry :: get()->env->idcat);
 		}
 
 		if (!isset (Aitsu_Registry :: get()->env->idartlang)) {
@@ -86,18 +86,13 @@ class Aitsu_Bootstrap_EvalRequest {
 			}
 			header("HTTP/1.0 404 Not Found");
 			Aitsu_Registry :: get()->env->idart = Aitsu_Registry :: get()->config->sys->errorpage;
-			$instance->_setIdartlang(Aitsu_Registry :: get()->env->idart);
+			self :: setIdartlang(Aitsu_Registry :: get()->env->idart);
 		}
 
 		/*
 		 * Resolve redirects.
 		 */
 		$instance->_resolveRedirects();
-
-		/*
-		 * Is the current user allowed to view the requested url?
-		 */
-		$instance->_checkUserPermissions();
 
 		/*
 		 * Save URL / idartlang combination for seo purposes.
@@ -168,7 +163,7 @@ class Aitsu_Bootstrap_EvalRequest {
 		}
 	}
 
-	protected function _setIdartlang($idart = null, $idcat = null) {
+	public static function setIdartlang($idart = null, $idcat = null) {
 
 		$reg = Aitsu_Registry :: get();
 
@@ -235,7 +230,7 @@ class Aitsu_Bootstrap_EvalRequest {
 			 */
 			header("HTTP/1.0 404 Not Found");
 			Aitsu_Registry :: get()->env->idart = Aitsu_Registry :: get()->config->errordoc;
-			$this->_setIdartlang(Aitsu_Registry :: get()->env->idart);
+			self :: setIdartlang(Aitsu_Registry :: get()->env->idart);
 			return;
 		}
 
@@ -281,11 +276,11 @@ class Aitsu_Bootstrap_EvalRequest {
 		if (strtolower($match[1]) == 'idart') {
 			Aitsu_Registry :: get()->env->idcat = null;
 			Aitsu_Registry :: get()->env->idart = $match[2];
-			$this->_setIdartlang($match[2]);
+			self :: setIdartlang($match[2]);
 		} else {
 			Aitsu_Registry :: get()->env->idart = null;
 			Aitsu_Registry :: get()->env->idcat = $match[2];
-			$this->_setIdartlang(null, $match[2]);
+			self :: setIdartlang(null, $match[2]);
 		}
 
 		if (!isset (Aitsu_Registry :: get()->env->idartlang)) {
@@ -296,7 +291,7 @@ class Aitsu_Bootstrap_EvalRequest {
 			 */
 			header("HTTP/1.0 404 Not Found");
 			Aitsu_Registry :: get()->env->idart = Aitsu_Registry :: get()->config->sys->errorpage;
-			$this->_setIdartlang(Aitsu_Registry :: get()->env->idart);
+			self :: setIdartlang(Aitsu_Registry :: get()->env->idart);
 			return;
 		}
 
@@ -339,6 +334,6 @@ class Aitsu_Bootstrap_EvalRequest {
 		 * give him the possiblity to log in.
 		 */
 		Aitsu_Registry :: get()->env->idart = Aitsu_Registry :: get()->config->sys->loginpage;
-		$this->_setIdartlang(Aitsu_Registry :: get()->config->sys->loginpage);
+		self :: setIdartlang(Aitsu_Registry :: get()->config->sys->loginpage);
 	}
 }
