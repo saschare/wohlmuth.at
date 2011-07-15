@@ -381,7 +381,7 @@ class Aitsu_Bootstrap {
 		 * give him the possiblity to log in.
 		 */
 		Aitsu_Registry :: get()->env->idart = Aitsu_Config :: get('sys.loginpage');
-		$this->_setIdartlang(Aitsu_Config :: get('sys.loginpage'));
+		Aitsu_Bootstrap_EvalRequest :: setIdartlang(Aitsu_Config :: get('sys.loginpage'));
 	}
 
 	protected function _LockApplicationStatus() {
