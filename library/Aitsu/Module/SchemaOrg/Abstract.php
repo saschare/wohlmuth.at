@@ -23,11 +23,114 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 					'Blog' => null,
 					'Book' => null,
 					'ItemList' => null,
-					'Map' => null
+					'Map' => null,
+					'MediaObject' => array (
+						'AudioObject' => null,
+						'ImageObject' => null,
+						'MusicVideoObject' => null,
+						'VideoObject' => null
+					),
+					'Movie' => null,
+					'MusicPlaylist' => array (
+						'MusicAlbum' => null
+					),
+					'MusicRecording' => null,
+					'Painting' => null,
+					'Photograph' => null,
+					'Recipe' => null,
+					'Review' => null,
+					'Sculpture' => null,
+					'TVEpisode' => null,
+					'TVSeason' => null,
+					'TVSeries' => null,
+					'WebPage' => array (
+						'AboutPage' => null,
+						'CheckoutPage' => null,
+						'CollectionPage' => array (
+							'ImageGallery' => null,
+							'VideoGallery' => null
+						),
+						'ContactPage' => null,
+						'ItemPage' => null,
+						'ProfilePage' => null,
+						'SearchResultsPage' => null
+					),
+					'WebPageElement' => array (
+						'SiteNavigationElement' => null,
+						'Table' => null,
+						'WPAdBlock' => null,
+						'WPFooter' => null,
+						'WPHeader' => null,
+						'WPSideBar' => null
+					)
 				),
-				'Event' => array (),
-				'Intangible' => array (),
-				'Organization' => array (),
+				'Event' => array (
+					'BusinessEvent' => null,
+					'ChildrensEvent' => null,
+					'ComedyEvent' => null,
+					'DanceEvent' => null,
+					'EducationEvent' => null,
+					'Festival' => null,
+					'FoodEvent' => null,
+					'LiteraryEvent' => null,
+					'MusicEvent' => null,
+					'SaleEvent' => null,
+					'SocialEvent' => null,
+					'SportsEvent' => null,
+					'TheaterEvent' => null,
+					'UserInteraction' => array (
+						'UserBlocks' => null,
+						'UserCheckins' => null,
+						'UserComments' => null,
+						'UserDownloads' => null,
+						'UserLikes' => null,
+						'UserPageVisits' => null,
+						'UserPlays' => null,
+						'UserPlusOnes' => null,
+						'UserTweets' => null
+					),
+					'VisualArtsEvent' => null
+				),
+				'Intangible' => array (
+					'Enumeration' => array (
+						'BookFormatType' => null,
+						'ItemAvailability' => null,
+						'OfferItemCondition' => null
+					),
+					'Language' => null,
+					'Offer' => array (
+						'AggregateOffer' => null
+					),
+					'Quantity' => array (
+						'Distance' => null,
+						'Duration' => null,
+						'Energy' => null,
+						'Mass' => null
+					),
+					'Rating' => array (
+						'AggregateRating' => null
+					),
+					'StructuredValue' => array (
+						'ContactPoint' => array (
+							' PostalAddress' => null
+						),
+						'GeoCoordinates' => null,
+						'NutritionInformation' => null
+					)
+				),
+				'Organization' => array (
+					'Corporation' => null,
+					'EducationalOrganization' => array (
+						'CollegeOrUniversity' => null,
+						'ElementarySchool' => null,
+						'HighSchool' => null,
+						'MiddleSchool' => null,
+						'Preschool' => null,
+						'School' => null
+					),
+					'GovernmentOrganization' => null,
+					' LocalBusiness' => array ()
+				),
 				'Person' => array (),
 				'Place' => array (),
 				'Product' => array ()
