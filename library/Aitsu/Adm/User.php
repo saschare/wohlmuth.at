@@ -125,7 +125,7 @@ class Aitsu_Adm_User {
 		}
 		if (isset ($res['resource'])) {
 			if ($res['resource']['type'] == 'cat') {
-				$clause[] = "cat.idcat = :idcat";
+				$clause[] = "(cat.idcat = :idcat or resource.resourceid = 1)";
 				$data[':idcat'] = $res['resource']['id'];
 			} elseif ($res['resource']['type'] == 'art') {
 				$clause[] = "art.idart = :idart";
@@ -145,7 +145,8 @@ class Aitsu_Adm_User {
 		'left join _acl_languages as language on roles.roleid = language.roleid ' .
 		'left join _acl_resources as res on roles.roleid = res.roleid ' .
 		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
-		'left join _cat as cat on resource.resourcetype = \'cat\' and cat.idcat = resource.identifier ' .
+		'left join _cat as catparent on resource.resourcetype = \'cat\' and catparent.idcat = resource.identifier ' .
+		'left join _cat as cat on cat.lft between catparent.lft and catparent.rgt ' .
 		'left join _art as art on resource.resourcetype = \'art\' and art.idart = resource.identifier ' .
 		'where ' . implode(' and ', $clause), $data);
 		
