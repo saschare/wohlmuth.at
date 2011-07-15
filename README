@@ -1,9 +1,10 @@
-Current version: 2.3.0.4-dev
+Current version: 2.3.0.5-dev
 
 == Development ==
 
 == Lastest changes ==
 
+* Fix wrong charset in the database dump.
 * Omitted use of Zend language (bug fix).
 * Added the possiblity to add help to modules (refer to Movie_Projekktor as an example).
 * Fixed ckeditor configuration.
