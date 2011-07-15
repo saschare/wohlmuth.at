@@ -1,9 +1,10 @@
-Current version: 2.3.0.3-dev
+Current version: 2.3.0.4-dev
 
 == Development ==
 
 == Lastest changes ==
 
+* Omitted use of Zend language (bug fix).
 * Added the possiblity to add help to modules (refer to Movie_Projekktor as an example).
 * Fixed ckeditor configuration.
 * Volatile flag in the class Aitsu_Module_Abstract to add the volatile tag in case of caching.
