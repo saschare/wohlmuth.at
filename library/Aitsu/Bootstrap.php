@@ -355,14 +355,26 @@ class Aitsu_Bootstrap {
 			Aitsu_Registry :: get()->env->client = $data['idclient'];
 		}
 
+		$user = Aitsu_Adm_User :: getInstance();
+
+		if (Aitsu_Application_Status :: isEdit() && $user != null && $user->isAllowed(array (
+				'language' => Aitsu_Registry :: get()->env->idlang,
+				'area' => 'article',
+				'action' => 'update',
+				'resource' => array (
+					'type' => 'cat',
+					'id' => Aitsu_Registry :: get()->env->idcat
+				)
+			))) {
+			return;
+		}
+
 		if (isset (Aitsu_Registry :: get()->env->ispublic) && Aitsu_Registry :: get()->env->ispublic == 1) {
 			/*
 			 * No permission check necessary. Return.
 			 */
 			return;
 		}
-
-		$user = Aitsu_Adm_User :: getInstance();
 
 		if ($user != null && $user->isAllowed(array (
 				'language' => Aitsu_Registry :: get()->env->idlang,
