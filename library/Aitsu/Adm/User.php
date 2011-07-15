@@ -123,22 +123,19 @@ class Aitsu_Adm_User {
 			$clause[] = "trim(substring_index(privileg.identifier, ':', -1)) = :action";
 			$data[':action'] = $res['action'];
 		}
+		if (isset ($res['resource'])) {
+			if ($res['resource']['type'] == 'cat') {
+				$clause[] = "cat.idcat = :idcat";
+				$data[':idcat'] = $res['resource']['id'];
+			} elseif ($res['resource']['type'] == 'art') {
+				$clause[] = "art.idart = :idart";
+				$data[':idart'] = $res['resource']['id'];				
+			}
+		}
 
 		/*
 		 * Query the database layer for the count of matches.
 		 */
-		$part1 = Aitsu_Db :: prefix('' .
-		'select count(*) ' .
-		'from _acl_roles as roles ' .
-		'left join _acl_privileges as privileges on roles.roleid = privileges.roleid ' .
-		'left join _acl_privilege as privileg on privileges.privilegeid = privileg.privilegeid ' .
-		'left join _acl_clients as client on roles.roleid = client.roleid ' .
-		'left join _acl_languages as language on roles.roleid = language.roleid ' .
-		'left join _acl_resources as res on roles.roleid = res.roleid ' .
-		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
-		'left join _cat as cat on resource.resourcetype = \'cat\' and cat.idcat = resource.identifier ' .
-		'where ' . implode(' and ', $clause));
-
 		$allowed = Aitsu_Db :: fetchOne('' .
 		'select count(*) ' .
 		'from _acl_roles as roles ' .
@@ -149,6 +146,7 @@ class Aitsu_Adm_User {
 		'left join _acl_resources as res on roles.roleid = res.roleid ' .
 		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
 		'left join _cat as cat on resource.resourcetype = \'cat\' and cat.idcat = resource.identifier ' .
+		'left join _art as art on resource.resourcetype = \'art\' and art.idart = resource.identifier ' .
 		'where ' . implode(' and ', $clause), $data);
 		
 		/*
