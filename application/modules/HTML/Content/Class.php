@@ -6,7 +6,7 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-class Module_HTML_Content_Class extends Aitsu_Module_Abstract {
+class Module_HTML_Content_Class extends Aitsu_Module_Tree_Abstract {
 	
 	protected function _init() {
 

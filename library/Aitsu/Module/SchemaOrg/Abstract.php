@@ -12,8 +12,7 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 
 		preg_match('/Module_Schema_Org_(.*?)_Class$/', $context['className'], $match);
 
-		$schemaHierachy = new Zend_Config_Ini(dirname(__FILE__) . '/hierarchy.ini');
-		$schemaTree = $schemaHierachy->toArray();
+		$type = array ();
 
 		if (!empty ($context['params'])) {
 			$params = Aitsu_Util :: parseSimpleIni($context['params']);
@@ -25,12 +24,17 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 			$genuineType = $match[1];
 		}
 
-		$types = array ();
-		self :: _getChildrenOf($genuineType, $types, $schemaTree);
-		ksort($types);
+		if (Aitsu_Application_Status :: isEdit()) {
+			$schemaHierachy = new Zend_Config_Ini(dirname(__FILE__) . '/hierarchy.ini');
+			$schemaTree = $schemaHierachy->toArray();
 
-		$index = preg_replace('/[^a-zA-Z_0-9]/', '_', $context['index']);
-		$index = str_replace('.', '_', $index);
+			$types = array ();
+			self :: _getChildrenOf($genuineType, $types, $schemaTree);
+			ksort($types);
+
+			$index = preg_replace('/[^a-zA-Z_0-9]/', '_', $context['index']);
+			$index = str_replace('.', '_', $index);
+		}
 
 		$type = Aitsu_Content_Config_Select :: set($index, 'schema.org.Type', 'Subtype', $types, 'Type');
 
@@ -109,15 +113,4 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 		return $view;
 	}
 
-	protected static function _getChildrenOf($type, & $result, & $subSet, $in = false) {
-
-		foreach ($subSet as $key => $value) {
-			if ($in || $type == $key) {
-				$result[$key] = $key;
-			}
-			if (is_array($value)) {
-				self :: _getChildrenOf($type, $result, $value, $in || $type == $key);
-			}
-		}
-	}
 }

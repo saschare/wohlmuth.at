@@ -16,7 +16,7 @@ abstract class Aitsu_Module_Abstract {
 	protected $_context = null;
 	protected $_index = null;
 	protected $_params = null;
-	
+
 	/*
 	 * _isVolatile flags the cached output to be volatile in the
 	 * sense that each and every single publish event should result
@@ -52,7 +52,7 @@ abstract class Aitsu_Module_Abstract {
 		if (!empty ($instance->_context['params'])) {
 			$instance->_params = Aitsu_Util :: parseSimpleIni($instance->_context['params']);
 		}
-		
+
 		/*
 		 * Execution of the _init method is done, even a 
 		 * valid cache is available.
@@ -215,7 +215,7 @@ abstract class Aitsu_Module_Abstract {
 		}
 		$tags[] = 'cat_' . Aitsu_Registry :: get()->env->idcat;
 		$tags[] = 'art_' . Aitsu_Registry :: get()->env->idart;
-		
+
 		if ($this->_isVolatile) {
 			/*
 			 * The volatile tag is set to make sure the cached output
@@ -262,6 +262,19 @@ abstract class Aitsu_Module_Abstract {
 	private function _normalizeIndex($id) {
 
 		return preg_replace('/[^a-zA-Z_0-9]/', '', $id);
+	}
+
+	protected static function _getChildrenOf($type, & $result, & $subSet, $in = false) {
+
+		foreach ($subSet as $key => $value) {
+			if ($in || $type == $key) {
+				$tmpKey = str_replace('_', '.', $key);
+				$result[$tmpKey] = $tmpKey;
+			}
+			if (is_array($value)) {
+				self :: _getChildrenOf($type, $result, $value, $in || $type == $key);
+			}
+		}
 	}
 
 }
