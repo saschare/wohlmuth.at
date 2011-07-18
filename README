@@ -2,7 +2,8 @@ Current version: 2.3.1.0-dev
 
 == Development ==
 
-Full integration of schema.org markup.
+Module hiearchy. A module can know morph to another module which is more specific
+according to the module hierarchy.
 
 == Lastest changes ==
 
