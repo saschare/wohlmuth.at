@@ -183,10 +183,16 @@ class Aitsu_Bootstrap {
 			Zend_Session :: setSaveHandler($saveHandler);
 		}
 
-		Zend_Session :: setOptions(array (
+		$sessionOptions = array (
 			'use_only_cookies' => 'off',
 			'use_cookies' => 'on'
-		));
+		);
+		
+		if (Aitsu_Config :: get('session.cookiedomain') != null) {
+			$sessionOptions['cookie_domain'] = Aitsu_Config :: get('session.cookiedomain');
+		} 
+
+		Zend_Session :: setOptions($sessionOptions);
 
 		Zend_Session :: start(array (
 			'name' => 'AITSU'
