@@ -1,0 +1,10 @@
+<div itemscope itemtype="http://schema.org/<?php $this->SchemaOrgType; ?>" class="SchemaOrg <?php $this->SchemaOrgType; ?>">
+	<dl>
+		<?php foreach ($this as $key => $value) : ?>
+		<?php if (!empty($value)) : ?>
+		<dt><?php echo ucfirst($key); ?></dt>
+			<dt><?php echo $value; ?></dt>
+		<?php endif; ?>
+		<?php endforeach; ?>
+	</dl>
+</div>
