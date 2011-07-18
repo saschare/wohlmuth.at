@@ -11,7 +11,7 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 	public static function init($context) {
 
 		preg_match('/Module_Schema_Org_(.*?)_Class$/', $context['className'], $match);
-		
+
 		$schemaHierachy = new Zend_Config_Ini(dirname(__FILE__) . '/hierarchy.ini');
 		$schemaTree = $schemaHierachy->toArray();
 
@@ -34,12 +34,13 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 
 		$type = Aitsu_Content_Config_Select :: set($index, 'schema.org.Type', 'Subtype', $types, 'Type');
 
-		if (!empty ($type) && $type != $match[1]) {
+		if (!empty ($type) && $type != $match[1] && array_key_exists($type, $types)) {
 			/*
 			 * A subtype has to be used instead of the genuine one.
 			 */
 			return '' .
 			'<script type="application/x-aitsu" src="Schema.Org.' . $type . ':' . $context['index'] . '">' . "\n" .
+			'	contextType = ' . $match[1] . '' . "\n" .
 			'	genuineType = ' . $genuineType . '' . "\n" . $context['params'] . "\n" .
 			'</script>';
 		}
