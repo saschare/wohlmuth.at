@@ -8,7 +8,7 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Google_Maps_Javascript_Class extends Aitsu_Module_Abstract {
+class Module_Google_Maps_Javascript_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected function _init() {
 

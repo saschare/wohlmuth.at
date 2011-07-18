@@ -267,9 +267,9 @@ abstract class Aitsu_Module_Abstract {
 	protected static function _getChildrenOf($type, & $result, & $subSet, $in = false) {
 
 		foreach ($subSet as $key => $value) {
+			$key = str_replace('_', '.', $key);
 			if ($in || $type == $key) {
-				$tmpKey = str_replace('_', '.', $key);
-				$result[$tmpKey] = $tmpKey;
+				$result[$key] = $key;
 			}
 			if (is_array($value)) {
 				self :: _getChildrenOf($type, $result, $value, $in || $type == $key);

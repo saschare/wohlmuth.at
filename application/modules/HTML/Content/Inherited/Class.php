@@ -6,7 +6,7 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_HTML_Content_Class extends Aitsu_Module_Tree_Abstract {
+class Module_HTML_Content_Inherited_Class extends Aitsu_Module_Tree_Abstract {
 	
 	protected function _init() {
 
@@ -17,7 +17,7 @@ class Module_HTML_Content_Class extends Aitsu_Module_Tree_Abstract {
 			$endTag = '</div>';
 		}
 
-		$output = Aitsu_Content_Html :: get($this->_index);
+		$output = Aitsu_Content_Html :: getInherited($this->_index);
 
 		return $startTag . $output . $endTag;
 	}

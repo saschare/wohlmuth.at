@@ -6,11 +6,11 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Code_GeSHi_Class extends Aitsu_Module_Abstract {
+class Module_Code_GeSHi_Class extends Aitsu_Module_Tree_Abstract {
+	
+	protected $_allowEdit = false;
 
 	protected function _init() {
-
-		Aitsu_Content_Edit :: noEdit('Code.GeSHi', true);
 
 		$lang = $this->_index;
 		$code = $this->_context['params'];
@@ -23,8 +23,6 @@ class Module_Code_GeSHi_Class extends Aitsu_Module_Abstract {
 		}
 
 		$output = Aitsu_GeSHi :: parse($code, $lang);
-
-		$this->_save($output, 'eternal');
 
 		return $output;
 	}

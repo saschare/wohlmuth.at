@@ -6,7 +6,7 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Syndication_RSS_Reader_Class extends Aitsu_Module_Abstract {
+class Module_Syndication_RSS_Reader_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected function _init() {
 
@@ -15,23 +15,31 @@ class Module_Syndication_RSS_Reader_Class extends Aitsu_Module_Abstract {
 
 		$id = md5($this->_params->uri . ' ' . $template);
 
-		$output = '';
-		if ($this->_get('Rss_', $output, true)) {
-			return $output;
+		$view = $this->_getView();
+		
+		$uri = isset($this->_params->uri) ? $this->_params->uri : Aitsu_Content_Config_Text :: set($this->_index, 'RSS.Reader.URI', 'URI', 'RSS');
+
+		if (empty($uri)) {
+			return '';
 		}
 
-		$view = $this->_getView();
-
 		try {
-			$view->channel = new Zend_Feed_Rss($this->_params->uri);
+			$view->channel = new Zend_Feed_Rss($uri);
 		} catch (Exception $e) {
-			$this->_save('', $cache);
 			return '';
 		}
 
 		$output = $view->render($template . '.phtml');
-		$this->_save($output, $cache);
 
 		return $output;
+	}
+
+	protected function _cachingPeriod() {
+
+		if (isset ($this->_params->cache)) {
+			return $this->_params->cache;
+		}
+
+		return 60 * 60;
 	}
 }

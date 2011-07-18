@@ -13,14 +13,9 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_HTML_Content_Tunnel_Class extends Aitsu_Module_Abstract {
+class Module_HTML_Content_Tunnel_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected function _init() {
-
-		$output = '';
-		if ($instance->_get('ModulOutput', $output)) {
-			return $output;
-		}
 
 		$placeHolder = Aitsu_Translate :: _('Foreign content placeholder text');
 
@@ -55,8 +50,6 @@ class Module_HTML_Content_Tunnel_Class extends Aitsu_Module_Abstract {
 		if (Aitsu_Registry :: isEdit()) {
 			return '<div style="border:1px dashed #EC7537; padding:5px;"><div style="height:20px; background-color:#EC7537; font-weight:bold; color:white; padding-top:7px; padding-left:5px;">Output of ' . $method . ' in article ' . $idart . '</div>' . $output . '</div>';
 		}
-
-		$this->_save($output, 60 * 60 * 24);
 
 		return $output;
 	}

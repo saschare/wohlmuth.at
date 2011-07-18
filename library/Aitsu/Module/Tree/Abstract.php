@@ -28,7 +28,12 @@ abstract class Aitsu_Module_Tree_Abstract extends Aitsu_Module_Abstract {
 		$types = array ();
 
 		if (Aitsu_Application_Status :: isEdit()) {
-			$schemaHierachy = new Zend_Config_Ini(APPLICATION_PATH . '/modules/hierarchy.ini');
+			if (is_readable(APPLICATION_PATH . '/skins/' . Aitsu_Config :: get('skin') . '/module/hierarchy.ini')) {
+				$schemaHierachy = new Zend_Config_Ini(APPLICATION_PATH . '/skins/' . Aitsu_Config :: get('skin') . '/module/hierarchy.ini');
+			} else {
+				$schemaHierachy = new Zend_Config_Ini(APPLICATION_PATH . '/modules/hierarchy.ini');
+			}
+
 			$schemaTree = $schemaHierachy->toArray();
 
 			$types = array ();
@@ -40,7 +45,7 @@ abstract class Aitsu_Module_Tree_Abstract extends Aitsu_Module_Abstract {
 		}
 
 		$type = null;
-		if (!empty($types)) {
+		if (!empty ($types)) {
 			$type = Aitsu_Content_Config_Select :: set($index, $genuineType . '.SubType', 'Subtype', $types, 'Type');
 		}
 
