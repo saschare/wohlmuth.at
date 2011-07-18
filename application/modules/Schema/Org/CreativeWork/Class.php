@@ -15,8 +15,8 @@ class Module_Schema_Org_CreativeWork_Class extends Aitsu_Module_SchemaOrg_Abstra
 
 		$view = $this->_getView();
 
-		$view->about = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'Thing', 'about');
-		$view->aggregateRating = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'AggregateRating', 'about');
+		$view->about = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'Thing', 'CreativeWork', 'about');
+		$view->aggregateRating = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'AggregateRating', 'CreativeWork', 'about');
 		$view->awards = Aitsu_Content_Config_Text :: set($this->_index, 'schema.org.CreativeWork.Awards', 'Awards', 'CreativeWork');
 		$view->contentRating = Aitsu_Content_Config_Text :: set($this->_index, 'schema.org.CreativeWork.ContentRating', 'Content rating', 'CreativeWork');
 		$view->datePublished = Aitsu_Content_Config_Date :: set($this->_index, 'schema.org.CreativeWork.DatePublished', 'Date published', 'CreativeWork');
