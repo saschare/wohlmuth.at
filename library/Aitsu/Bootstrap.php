@@ -359,6 +359,7 @@ class Aitsu_Bootstrap {
 			Aitsu_Registry :: get()->env->idartlang = $data['idartlang'];
 			Aitsu_Registry :: get()->env->idclient = $data['idclient'];
 			Aitsu_Registry :: get()->env->client = $data['idclient'];
+			Aitsu_Registry :: get()->env->ispublic = $data['public'];
 		}
 
 		$user = Aitsu_Adm_User :: getInstance();
