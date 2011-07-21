@@ -20,8 +20,6 @@ class Aitsu_Content {
 	protected $idlang;
 
 	protected function __construct($index, $type, $idart, $idlang) {
-		
-		$index = preg_replace('/[^a-zA-Z_0-9]/', '_', $index);
 
 		$this->index = $index;
 		$this->type = $type;
@@ -77,8 +75,6 @@ class Aitsu_Content {
 	}
 
 	public static function set($index, $idartlang, $content) {
-		
-		$index = preg_replace('/[^a-zA-Z_0-9]/', '_', $index);
 
 		Aitsu_Event :: raise('article.content.set.start', array (
 			'idartlang' => $idartlang,
