@@ -7,4 +7,18 @@
  */
 
 class Module_HTML_Class extends Aitsu_Module_Tree_Abstract {
+
+	protected function _init() {
+
+		$return = '';
+		if (Aitsu_Application_Status :: isEdit()) {
+			$return .= '<div style="padding-top:5px; padding-bottom:5px;">';
+		} else {
+			$return .= '<div>';
+		}
+
+		$output = Aitsu_Content_Html :: get($this->_index);
+
+		return $return . $output . '</div>';
+	}
 }
