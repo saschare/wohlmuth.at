@@ -14,13 +14,13 @@ class Aitsu_Lucene_Index implements Aitsu_Event_Listener_Interface {
 	protected $document;
 
 	protected static $doIndex = true;
-	
+
 	public static function notify(Aitsu_Event_Abstract $event) {
-		
-		if (!isset($event->bootstrap->pageContent)) {
+
+		if (!isset ($event->bootstrap->pageContent)) {
 			return;
 		}
-		
+
 		Aitsu_Lucene_Index :: indexArticle($event->bootstrap->pageContent);
 	}
 
@@ -106,6 +106,34 @@ class Aitsu_Lucene_Index implements Aitsu_Event_Listener_Interface {
 		$interval = Aitsu_Registry :: get()->config->search->lucene->refreshRate;
 
 		if (Aitsu_Db :: fetchOneC(4 * 60 * 60, '' .
+			'select count(*) ' .
+			'from _art_lang as artlang ' .
+			'left join _lucene_index as lucene on lucene.idart = artlang.idart and lucene.idlang = artlang.idlang ' .
+			'left join _art_meta as metatag on artlang.idartlang = metatag.idartlang ' .
+			'where ' .
+			'	artlang.idart = :idart ' .
+			'	and artlang.idlang = :idlang ' .
+			'	and ( ' .
+			'		date_add(lucene.lastindexed, interval ' . $interval . ') < now() ' .
+			'		or lucene.lastindexed is null ' .
+			'		or artlang.lastmodified > lucene.lastindexed ' .
+			'		) ' .
+			'	and artlang.online = 1 ' .
+			'	and ( ' .
+			'		metatag.robots not like :noindex ' .
+			'		or metatag.idartlang is null ' .
+			'		) ', array (
+				':idart' => $idart,
+				':idlang' => $idlang,
+				':noindex' => '%noindex%'
+			)) == 0) {
+			/*
+			 * Index is not outdated yet or article is offline.
+			 */
+			return;
+		}
+
+		if (Aitsu_Db :: fetchOne('' .
 			'select count(*) ' .
 			'from _art_lang as artlang ' .
 			'left join _lucene_index as lucene on lucene.idart = artlang.idart and lucene.idlang = artlang.idlang ' .

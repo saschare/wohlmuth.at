@@ -159,22 +159,4 @@ class Aitsu_Adm_User {
 		return (boolean) $allowed;
 	}
 
-	public function filterCat($cats, $language) {
-
-		$return = array ();
-
-		foreach ($cats as $cat) {
-			if ($cat->isvisible && $this->isAllowed(array (
-					'language' => $language,
-					'resource' => array (
-						'type' => 'cat',
-						'id' => $cat->idcat
-					)
-				)) || $cat->ispublic) {
-				$return[] = $cat;
-			}
-		}
-
-		return $return;
-	}
 }

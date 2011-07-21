@@ -6,21 +6,16 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Navigation_Class extends Aitsu_Module_Abstract {
+class Module_Navigation_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected $type = 'navigation';
+	protected $_allowEdit = false;
+	protected $_user = null;
 
-	protected function _init() {
+	protected function _main() {
 
-		Aitsu_Content_Edit :: noEdit('Navigation', true);
-
-		$user = Aitsu_Adm_User :: getInstance();
+		$this->_user = Aitsu_Adm_User :: getInstance();
 		$template = isset ($this->_params->template) ? $this->_params->template : 'index';
-
-		$output = '';
-		if ($user == null && $this->_get('Navigation_' . $template, $output)) {
-			return $output;
-		}
 
 		/*
 		 * if $this->_params->idcat is not numeric, we have to assume 
@@ -31,15 +26,19 @@ class Module_Navigation_Class extends Aitsu_Module_Abstract {
 		}
 
 		$view = $this->_getView();
-		$view->nav = Aitsu_Persistence_View_Category :: nav($this->_params->idcat);
+		$view->nav = Aitsu_Persistence_View_Category :: nav($this->_params->idcat, false, $this->_user);
 
 		$output = $view->render($template . '.phtml');
-
-		if ($user == null) {
-			$this->_save($output, 'eternal');
-		}
 
 		return $output;
 	}
 
+	protected function _cachingPeriod() {
+
+		if ($this->_user != null) {
+			return 0;
+		}
+
+		return 60 * 60 * 24 * 365;
+	}
 }
