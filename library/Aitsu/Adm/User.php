@@ -11,7 +11,7 @@ class Aitsu_Adm_User {
 	static $_instance = null;
 	protected $_id;
 	protected $_data;
-	protected $_allowedRes = array();
+	protected $_allowedRes = array ();
 
 	protected function __construct($id) {
 
@@ -89,11 +89,11 @@ class Aitsu_Adm_User {
 		 * temporary persistence.
 		 */
 		$index = hash('md4', var_export($res, true));
-		
+
 		/*
 		 * Return the result if already available.
 		 */
-		if (isset($this->_allowedRes[$index])) {
+		if (isset ($this->_allowedRes[$index])) {
 			return $this->_allowedRes[$index];
 		}
 
@@ -127,9 +127,10 @@ class Aitsu_Adm_User {
 			if ($res['resource']['type'] == 'cat') {
 				$clause[] = "(cat.idcat = :idcat or resource.resourceid = 1)";
 				$data[':idcat'] = $res['resource']['id'];
-			} elseif ($res['resource']['type'] == 'art') {
+			}
+			elseif ($res['resource']['type'] == 'art') {
 				$clause[] = "art.idart = :idart";
-				$data[':idart'] = $res['resource']['id'];				
+				$data[':idart'] = $res['resource']['id'];
 			}
 		}
 
@@ -149,13 +150,31 @@ class Aitsu_Adm_User {
 		'left join _cat as cat on cat.lft between catparent.lft and catparent.rgt ' .
 		'left join _art as art on resource.resourcetype = \'art\' and art.idart = resource.identifier ' .
 		'where ' . implode(' and ', $clause), $data);
-		
+
 		/*
 		 * Hold the result for further use during the same request.
 		 */
 		$this->_allowedRes[$index] = (boolean) $allowed;
-		
+
 		return (boolean) $allowed;
 	}
 
+	public function filterCat($cats, $language) {
+
+		$return = array ();
+
+		foreach ($cats as $cat) {
+			if ($this->isAllowed(array (
+					'language' => $language,
+					'resource' => array (
+						'type' => 'cat',
+						'id' => $cat->idcat
+					)
+				))) {
+				$return[] = $cat;
+			}
+		}
+
+		return $return;
+	}
 }
