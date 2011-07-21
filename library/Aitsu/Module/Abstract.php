@@ -44,6 +44,7 @@ abstract class Aitsu_Module_Abstract {
 
 		$instance->_context = $context;
 
+		$instance->_context['rawIndex'] = $instance->_context['index'];
 		$instance->_context['index'] = preg_replace('/[^a-zA-Z_0-9]/', '_', $instance->_context['index']);
 		$instance->_context['index'] = str_replace('.', '_', $instance->_context['index']);
 
