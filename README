@@ -1,7 +1,8 @@
-Current version: 2.3.0.5
+Current version: 2.3.0.6
 
 == Lastest changes ==
 
+* Fixed rewrite bug (method _populateMissingUrls).
 * Fixed missing resource check in the check permission routine.
 * Fixed wrong charset in the database dump.
 * Omitted use of Zend language (bug fix).
