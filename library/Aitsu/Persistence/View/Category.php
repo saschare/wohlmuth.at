@@ -116,13 +116,13 @@ class Aitsu_Persistence_View_Category {
 		));
 	}
 
-	public static function nav($idcat, $showInvisible = false) {
+	public static function nav($idcat, $showInvisible = false, $user = null) {
 
 		$currentLang = Aitsu_Registry :: get()->env->idlang;
 		$currentCat = Aitsu_Registry :: get()->env->idcat;
-		
+
 		$visiblityClause = $showInvisible ? '' : 'and catlang.visible = 1';
-		
+
 		$cats = Aitsu_Db :: fetchAll('' .
 		'select ' .
 		'	cat.idcat, ' .
@@ -162,6 +162,24 @@ class Aitsu_Persistence_View_Category {
 
 			$cat = (object) $category;
 			$cat->level = $level;
+
+			$cat->isaccessible = false;
+			$cat->hasaccessibles = false;
+			if ($cat->ispublic) {
+				$cat->isaccessible = true;
+				$cat->hasaccessibles = true;
+			}
+			elseif ($user != null) {
+				$cat->isaccessible = $user->isAllowed(array (
+					'language' => Aitsu_Registry :: get()->env->idlang,
+					'resource' => array (
+						'type' => 'cat',
+						'id' => $cat->idcat
+					)
+				));
+				$cat->hasaccessibles = $cat->isaccessible;
+			}
+
 			$cat->children = array ();
 
 			$categories[$cat->idcat] = $cat;
@@ -175,6 +193,20 @@ class Aitsu_Persistence_View_Category {
 		}
 
 		return $return;
+	}
+	
+	protected static function _setAccessiblity(& $cat) {
+		
+		foreach ($cat as $child) {
+			self :: _setAccessiblity($child);
+		}
+		
+		foreach ($cat as $child) {
+			if ($child->hasaccessibles) {
+				$cat->hasaccessibles = true;
+				return;
+			}
+		}
 	}
 
 	public static function breadCrumb($idcat = null) {
