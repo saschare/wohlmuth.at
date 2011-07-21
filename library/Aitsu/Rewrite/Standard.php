@@ -57,7 +57,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 				':name' => $_GET['channel'],
 				':client' => $client
 			));
-			
+
 			if ($channelId) {
 				Aitsu_Application_Status :: setChannel($channelId);
 			}
@@ -163,7 +163,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 		} else {
 			Aitsu_Registry :: get()->env->idlang = Aitsu_Registry :: get()->config->sys->language;
 		}
-		
+
 		if (Aitsu_Application_Status :: getChannel() != null) {
 			/*
 			 * The url cannot be resolved. One possible reason is the use
@@ -171,7 +171,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 			 * url with channeling disabled.
 			 */
 			header("Location: /" . $_GET['url']);
-			exit(0);
+			exit (0);
 		}
 
 		if (Aitsu_Registry :: get()->config->rewrite->uselang) {
@@ -218,7 +218,7 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 				$idcats[$matches[2][$i]][] = $matches[0][$i];
 			}
 		}
-		
+
 		$channel = '';
 		if (Aitsu_Application_Status :: getChannel() != null) {
 			$channel = ':' . $_GET['channel'];
@@ -371,7 +371,9 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 				Aitsu_Db :: query('' .
 				'update _cat_lang catlang, _lang lang ' .
 				'set catlang.url = concat(lang.name, \'/\', catlang.url) ' .
-				'where catlang.idlang = :idlang', array (
+				'where ' .
+				'	lang.idlang = catlang.idlang ' .
+				'	and catlang.idlang = :idlang', array (
 					':idlang' => $idlang
 				));
 			}
