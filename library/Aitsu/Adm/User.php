@@ -164,7 +164,7 @@ class Aitsu_Adm_User {
 		$return = array ();
 
 		foreach ($cats as $cat) {
-			if ($this->isAllowed(array (
+			if ($cat->isvisible && $this->isAllowed(array (
 					'language' => $language,
 					'resource' => array (
 						'type' => 'cat',
