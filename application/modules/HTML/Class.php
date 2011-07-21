@@ -17,7 +17,8 @@ class Module_HTML_Class extends Aitsu_Module_Tree_Abstract {
 			$return .= '<div>';
 		}
 
-		$output = Aitsu_Content_Html :: get($this->_context['rawIndex']);
+		$index = str_replace('_', ' ', $this->_context['rawIndex']);
+		$output = Aitsu_Content_Html :: get($index);
 
 		return $return . $output . '</div>';
 	}
