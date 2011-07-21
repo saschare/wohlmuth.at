@@ -170,7 +170,7 @@ class Aitsu_Adm_User {
 						'type' => 'cat',
 						'id' => $cat->idcat
 					)
-				))) {
+				)) || $cat->ispublic) {
 				$return[] = $cat;
 			}
 		}
