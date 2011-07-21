@@ -17,6 +17,10 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
 		$images = Aitsu_Content_Config_Media :: set($this->_index, 'Image.Media', 'Media');
 		
 		$template = Aitsu_Content_Config_Radio :: set($this->_index, 'Image.Template', '', $this->_getTemplates(), 'Template');
+		
+		if (empty($template)) {
+			$template = 'index';
+		}
 
 		$view = $this->_getView();
 		$view->images = Aitsu_Persistence_View_Media :: byFileName(Aitsu_Registry :: get()->env->idart, $images);
