@@ -1,23 +1,9 @@
-Current version: 2.3.1.0-dev
+Current version: 2.3.1.0
 
-== Development ==
+== Module hierachy (since 2.3.1) ==
 
-Module hiearchy. A module can know morph to another module which is more specific
-according to the module hierarchy.
-
-== Lastest changes ==
-
-* Added the possiblity to add help to modules (refer to Movie_Projekktor as an example).
-* Fixed ckeditor configuration.
-* Volatile flag in the class Aitsu_Module_Abstract to add the volatile tag in case of caching.
-* _init method will always be executed in the modules class, even caching is done.
-* New module Movie.Projekktor.
-* Automatic update script for the database structure.
-* Refactoring of the module evaluation.
-* Allow session management to be made in the file system instead of the database.
-* Optimization of the performance.
-* HTML.Meta.CanonicalTag uses sys.canonicalpath, if set in the configuration. Else it uses sys.webpath.
-* HTML.Meta.CanonicalTag outputs an absolute URL, if sys.webpath is specified in the configuration.
+A module can know morph to another module which is more specific according to the
+module hierarchy.
 
 == Revision progression (since 2.2.0) ==
 
