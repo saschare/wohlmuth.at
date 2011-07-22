@@ -274,6 +274,8 @@ class Aitsu_Bootstrap {
 
 		if (isset ($_REQUEST['logout'])) {
 			Aitsu_Registry :: get()->session->user = null;
+			header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
+			exit(0);
 		}
 
 		if (isset ($_POST['username']) && isset ($_POST['password'])) {
