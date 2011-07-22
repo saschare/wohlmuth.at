@@ -51,7 +51,7 @@ class Aitsu_Html_Helper_Navigation_Ul {
 
 		$first = true;
 		foreach ($nav->children as $child) {
-			if ($child->isaccessible && $child->isvisible) {
+			if ($child->haschildren && $child->isvisible) {
 				$out .= '<li';
 
 				$classes = array ();
