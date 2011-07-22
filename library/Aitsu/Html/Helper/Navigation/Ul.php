@@ -77,7 +77,7 @@ class Aitsu_Html_Helper_Navigation_Ul {
 
 				$out .= '>';
 
-				$out .= '<a href="{ref:idcat-' . $child->idcat . '}">' . $child->name . '</a>';
+				$out .= '<a href="' . substr(Aitsu_Config :: get('sys.webpath'), 0, -1) . '{ref:idcat-' . $child->idcat . '}">' . $child->name . '</a>';
 				if ($child->haschildren) {
 					$out .= $this->_getUl($child, $level +1);
 				}
