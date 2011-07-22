@@ -14,7 +14,6 @@ class Module_Navigation_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected function _main() {
 
-		$this->_user = Aitsu_Adm_User :: getInstance();
 		$template = isset ($this->_params->template) ? $this->_params->template : 'index';
 
 		/*
@@ -26,7 +25,7 @@ class Module_Navigation_Class extends Aitsu_Module_Tree_Abstract {
 		}
 
 		$view = $this->_getView();
-		$view->nav = Aitsu_Persistence_View_Category :: nav($this->_params->idcat, false, $this->_user);
+		$view->nav = Aitsu_Persistence_View_Category :: nav2($this->_params->idcat);
 
 		$output = $view->render($template . '.phtml');
 
@@ -34,8 +33,10 @@ class Module_Navigation_Class extends Aitsu_Module_Tree_Abstract {
 	}
 
 	protected function _cachingPeriod() {
+		
+		$user = Aitsu_Adm_User :: getInstance();
 
-		if ($this->_user != null) {
+		if ($user != null) {
 			return 0;
 		}
 
