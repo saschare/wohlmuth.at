@@ -162,12 +162,72 @@ class Aitsu_Persistence_View_Category {
 
 			$cat = (object) $category;
 			$cat->level = $level;
+			$cat->children = array ();
+
+			$categories[$cat->idcat] = $cat;
+
+			if (isset ($categories[$cat->parentid]) && is_object($categories[$cat->parentid])) {
+				$categories[$cat->parentid]->children[] = $cat;
+			}
+			elseif (!isset ($return)) {
+				$return = $cat;
+			}
+		}
+
+		self :: _setChildren($return);
+
+		return $return;
+	}
+
+	public static function nav2($idcat) {
+
+		$currentLang = Aitsu_Registry :: get()->env->idlang;
+		$currentCat = Aitsu_Registry :: get()->env->idcat;
+		$user = Aitsu_Adm_User :: getInstance();
+
+		$cats = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	cat.idcat, ' .
+		'	cat.parentid, ' .
+		'	catlang.name, ' .
+		'	catlang.urlname, ' .
+		'	if (child.idcat is null, 0, if(child.idcat = cat.idcat, 0, 1)) as isparent, ' .
+		'	if (child.idcat = cat.idcat, 1, 0) as iscurrent, ' .
+		'	catlang.public as ispublic, ' .
+		'	if (artlang.online = 1 and catlang.visible = 1, 1, 0) as isvisible, ' .
+		'	catlang.config ' .
+		'from _cat as cat ' .
+		'left join _cat as root on cat.lft between root.lft and root.rgt ' .
+		'left join _cat_lang as catlang on cat.idcat = catlang.idcat ' .
+		'left join _art_lang as artlang on catlang.startidartlang = artlang.idartlang ' .
+		'left join _cat as child on child.idcat = :idcat and child.lft between cat.lft and cat.rgt ' .
+		'where ' .
+		'	root.idcat = :rootIdcat ' .
+		'	and catlang.idlang = :idlang ' .
+		'order by ' .
+		'	cat.lft asc ', array (
+			':idcat' => $currentCat,
+			':rootIdcat' => $idcat,
+			':idlang' => $currentLang
+		), false);
+
+		$return = null;
+		$categories = array ();
+		foreach ($cats as $category) {
+
+			if (isset ($categories[$category['parentid']])) {
+				$level = $categories[$category['parentid']]->level + 1;
+			} else {
+				$level = 0;
+			}
+
+			$cat = (object) $category;
+			$cat->level = $level;
 
 			$cat->isaccessible = false;
-			$cat->hasaccessibles = false;
+			$cat->haschildren = false;
 			if ($cat->ispublic) {
 				$cat->isaccessible = true;
-				$cat->hasaccessibles = true;
 			}
 			elseif ($user != null) {
 				$cat->isaccessible = $user->isAllowed(array (
@@ -177,7 +237,6 @@ class Aitsu_Persistence_View_Category {
 						'id' => $cat->idcat
 					)
 				));
-				$cat->hasaccessibles = $cat->isaccessible;
 			}
 
 			$cat->children = array ();
@@ -192,19 +251,20 @@ class Aitsu_Persistence_View_Category {
 			}
 		}
 
+		self :: _setChildren($return);
+
 		return $return;
 	}
-	
-	protected static function _setAccessiblity(& $cat) {
-		
-		foreach ($cat as $child) {
-			self :: _setAccessiblity($child);
+
+	protected static function _setChildren(& $cat) {
+
+		foreach ($cat->children as $child) {
+			self :: _setChildren($child);
 		}
-		
-		foreach ($cat as $child) {
-			if ($child->hasaccessibles) {
-				$cat->hasaccessibles = true;
-				return;
+
+		foreach ($cat->children as $child) {
+			if ($child->haschildren || ($child->isaccessible && $child->isvisible)) {
+				$cat->haschildren = true;
 			}
 		}
 	}
