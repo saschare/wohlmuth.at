@@ -1,7 +1,8 @@
-Current version: 2.3.1.2
+Current version: 2.3.1.3
 
 == Latest changes == 
 
+* Added sys.webpath to resulting URL in the navigation helper.
 * Added disable method to Aitsu_Event_Dispatcher.
 * Fixed bug in media mangement (thumbs did not get cleaned up when changing properties).
 
