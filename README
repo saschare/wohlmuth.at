@@ -1,8 +1,12 @@
-Current version: 2.3.1.1-dev
+Current version: 2.3.1.2-dev
 
 == Development==
 
 In progress.
+
+== Latest changes == 
+
+* Fixed bug in media mangement (thumbs did not get cleaned up when changing properties).
 
 == Module hierachy (since 2.3.1) ==
 
