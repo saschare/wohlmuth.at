@@ -43,6 +43,10 @@ class Aitsu_Html_Helper_Navigation_Ul {
 			return $out;
 		}
 
+		if (!$nav->haschildren) {
+			return '';
+		}
+
 		$out .= '<ul';
 		if (isset ($this->_classes[$level]['ul'])) {
 			$out .= ' class="' . $this->_classes[$level]['ul'] . '"';
