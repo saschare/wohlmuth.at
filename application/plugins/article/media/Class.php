@@ -182,6 +182,8 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 			$file->xbr = $this->getRequest()->getParam('xbr');
 			$file->ybr = $this->getRequest()->getParam('ybr');
 			$file->save();
+			
+			$this->_cleanUpThumbs();
 
 			$this->_helper->json(array (
 				'success' => true
