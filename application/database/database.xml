@@ -627,6 +627,7 @@
         <field name="date" type="date" default="null" nullable="true"/>
         <field name="expires" type="date" default="null" nullable="true"/>
         <field name="robots" type="varchar(255)" default="null"/>
+        <field name="schemaorgtype" type="int (10) unsigned" default="null"/>
         <field name="dctitle" type="varchar(255)" default="null"/>
         <field name="dccreator" type="varchar(255)" default="null"/>
         <field name="dcsubject" type="varchar(255)" default="null"/>
@@ -936,7 +937,7 @@
         </dataset>
     </table>
     <function name="getchannel"><![CDATA[
-        create function getchannel() returns varchar(255)
+        create function getchannel() returns varchar(255) no sql
         begin
             return @aitsuchannel;
         end]]></function>

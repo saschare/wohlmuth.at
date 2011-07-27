@@ -6,25 +6,22 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Navigation_BreadCrumb_Class extends Aitsu_Module_Abstract {
+class Module_Navigation_BreadCrumb_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected $type = 'navigation';
+	protected $_allowEdit = false;
 
-	protected function _init() {
-
-		Aitsu_Content_Edit :: noEdit('Navigation.BreadCrumb', true);
+	protected function _main() {
 
 		$view = $this->_getView();
 
-		$output = '';
-		if ($this->_get('Navigation.BreadCrumb', $output)) {
-			return $output;
-		}
-
 		$view->bc = Aitsu_Persistence_View_Category :: breadCrumb();
-		$output = $view->render('index.phtml');
-		$this->_save($output, 'eternal');
 
-		return $output;
+		return $view->render('index.phtml');
+	}
+
+	protected function _cachingPeriod() {
+
+		return 60 * 60 * 24 * 365;
 	}
 }
