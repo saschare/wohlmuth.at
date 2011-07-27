@@ -40,11 +40,13 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$schemaOrgTypes = array ();
 		$results = Aitsu_Db :: fetchAll('' .
-		'select ' .
+		'select distinct ' .
 		'	schemaorg.schemaorgtypeid, ' .
 		'	schemaorg.type ' .
 		'from _schemaorgtype schemaorg ' .
-		'left join _schemaorghiearchy child on schemaorg.schemaorgtypeid = child.child ' .
+		'left join _schemaorghiearchy child ' .
+		'	on schemaorg.schemaorgtypeid = child.child ' .
+		'	or schemaorg.schemaorgtypeid = child.parent ' .
 		'left join _schemaorgtype parent on child.parent = parent.schemaorgtypeid ' .
 		'where ' .
 		'	parent.type = \'WebPage\' ' .
