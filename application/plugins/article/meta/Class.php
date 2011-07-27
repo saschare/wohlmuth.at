@@ -66,6 +66,7 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$data->robots = explode(', ', $data->robots);
 		$data->idart = $id;
+		$data->schemaorgtype = empty($data->schemaorgtype) ? 1 : $data->schemaorgtype;
 		$form->setValues($data->toArray());
 
 		if ($this->getRequest()->getParam('loader')) {
