@@ -216,6 +216,8 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$this->_restoreIndexes($table);
 
+		$this->_restoreData($table);
+
 		return sprintf(Aitsu_Translate :: translate('Table %s has been restored.'), $table->attributes->getNamedItem('name')->nodeValue);
 	}
 
@@ -305,8 +307,8 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		try {
 			foreach ($this->_xml->getElementsByTagName('function') as $function) {
-				Aitsu_Db :: getDb()->getConnection()->query('drop function if exists ' . $function->getAttribute('name')); 
-				Aitsu_Db :: getDb()->getConnection()->query($function->nodeValue); 
+				Aitsu_Db :: getDb()->getConnection()->query('drop function if exists ' . $function->getAttribute('name'));
+				Aitsu_Db :: getDb()->getConnection()->query($function->nodeValue);
 			}
 		} catch (Exception $e) {
 			return (object) array (
@@ -364,6 +366,42 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			$name = $index->hasAttribute('name') ? '`' . $index->getAttribute('name') . '`' : '';
 			$columns = $index->getAttribute('columns');
 			Aitsu_Db :: query("alter table $tableName add $type $name ($columns)");
+		}
+	}
+
+	protected function _restoreData($table) {
+
+		$tableName = Aitsu_Config :: get('database.params.tblprefix') . $table->getAttribute('name');
+
+		foreach ($table->getElementsByTagName('dataset') as $dataset) {
+			$use = $dataset->getAttribute('use');
+			if ($use == 'ifempty') {
+				/*
+				 * We have to quit if the table is not empty.
+				 */
+				if (Aitsu_Db :: fetchOne('select * from ' . $tableName) > 0) {
+					return;
+				}
+			}
+			elseif ($use == 'replace') {
+				/*
+				 * We have to delete the content of the table.
+				 */
+				Aitsu_Db :: query('delete from ' . $tableName);
+			}
+			foreach ($dataset->getElementsByTagName('record') as $record) {
+				$fields = array ();
+				$valRef = array();
+				$values = array ();
+				foreach ($record->getElementsByTagName('value') as $value) {
+					$field = $value->getAttribute('attribute');
+					$fields[] = $field;
+					$valRef[] = ':' . $field;
+					$values[':' . $field] = $value->nodeValue;
+				}
+				Aitsu_Db :: query('' .
+				'replace into ' . $tableName . ' ('. implode(', ', $fields) .') values ('. implode(', ', $valRef) .')', $values);
+			}
 		}
 	}
 
