@@ -834,7 +834,7 @@
         <field default="null" name="type" type="varchar (255)" nullable="false"
             comment="Schema.org type reference."/>
         <index columns="type" name="type" type="unique"/>
-        <dataset use="replace">
+        <dataset use="add">
             <record>
                 <value attribute="schemaorgtypeid">1</value>
                 <value attribute="type">WebPage</value>
@@ -874,6 +874,64 @@
             <record>
                 <value attribute="schemaorgtypeid">10</value>
                 <value attribute="type">SearchResultsPage</value>
+            </record>
+        </dataset>
+    </table>
+    <table engine="InnoDB" name="schemaorghiearchy" since="2.3.1">
+        <field default="null" name="child" type="int (10) unsigned" nullable="false" primary="true"
+            comment="Child type.">
+            <constraint column="schemaorgtypeid" ondelete="cascade" onupdate="no action"
+                table="schemaorgtype"/>
+        </field>
+        <field default="null" name="parent" type="int (10) unsigned" nullable="false" primary="true"
+            comment="Parent type.">
+            <constraint column="schemaorgtypeid" ondelete="cascade" onupdate="no action"
+                table="schemaorgtype"/>
+        </field>
+        <dataset use="add">
+            <record>
+                <value attribute="child">2</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">3</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">4</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">5</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">6</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">7</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">8</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">9</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">10</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">5</value>
+                <value attribute="parent">4</value>
+            </record>
+            <record>
+                <value attribute="child">6</value>
+                <value attribute="parent">4</value>
             </record>
         </dataset>
     </table>
