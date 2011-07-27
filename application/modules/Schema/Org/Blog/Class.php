@@ -24,7 +24,10 @@ class Module_Schema_Org_Blog_Class extends Module_Schema_Org_CreativeWork_Class 
 
 		$view = parent :: _getView();
 		
-		$view->blogPosts = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'BlogPosting', 'Blog', 'blogPosts');
+		$blogPosts = Aitsu_Content_Config_Textarea :: set($this->_index, 'schema.org.Blog.BlogPosts', 'Blog posts', 'Blog');
+		if (!empty($blogPosts)) {
+			$view->blogPosts = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'BlogPosting', 'Blog', $blogPosts);
+		}
 
 		$view->index = $this->_index;
 

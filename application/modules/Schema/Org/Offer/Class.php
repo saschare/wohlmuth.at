@@ -8,7 +8,7 @@
 
 include_once (APPLICATION_PATH . '/modules/Schema/Org/Intangible/Class.php');
 
-class Module_Schema_Org_AggregateRating_Class extends Module_Schema_Org_Intangible_Class {
+class Module_Schema_Org_Offer_Class extends Module_Schema_Org_Intangible_Class {
 
 	protected function _init() {
 	}
