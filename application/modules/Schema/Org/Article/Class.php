@@ -23,6 +23,9 @@ class Module_Schema_Org_Article_Class extends Module_Schema_Org_CreativeWork_Cla
 	protected function _getView() {
 
 		$view = parent :: _getView();
+		
+		$view->articleBody = Aitsu_Content_Config_Text :: set($this->_index, 'schema.org.Article.ArticleBody', 'Article body', 'Article');
+		$view->articleSection = Aitsu_Content_Config_Text :: set($this->_index, 'schema.org.Article.ArticleSection', 'Article section', 'Article');
 
 		$view->index = $this->_index;
 
