@@ -23,6 +23,8 @@ class Module_Schema_Org_Blog_Class extends Module_Schema_Org_CreativeWork_Class 
 	protected function _getView() {
 
 		$view = parent :: _getView();
+		
+		$view->blogPosts = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'BlogPosting', 'Blog', 'blogPosts');
 
 		$view->index = $this->_index;
 
