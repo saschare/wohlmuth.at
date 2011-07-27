@@ -77,6 +77,7 @@ abstract class Aitsu_Module_SchemaOrg_Abstract extends Aitsu_Module_Abstract {
 		preg_match('/Module_Schema_Org_(.*?)_Class/', get_class($this), $match);
 		$view->SchemaOrgType = $match[1];
 
+		$view->showItem = Aitsu_Content_Config_Radio :: set($this->_index, 'schema.org.General.ShowItem', 'Show item', array('yes' => 'yes', 'no' => 'no'), 'General');
 		$view->idart = Aitsu_Registry :: get()->env->idart;
 		$view->description = Aitsu_Content_Config_Textarea :: set($this->_index, 'schema.org.Thing.Description', 'Description', 'Thing');
 

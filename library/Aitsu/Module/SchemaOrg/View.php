@@ -23,10 +23,17 @@ class Aitsu_Module_SchemaOrg_View extends Zend_View implements Iterator {
 	}
 
 	public function rewind() {
+		
+		if (empty($this->showItem) || $this->showItem == 'no') {
+			$this->_subSetOfPublicVars->members = array();
+			$this->_subSetOfPublicVars->pos = 0;
+			return;
+		}
 
 		$exclusions = array (
 			'idart',
-			'SchemaOrgType'
+			'SchemaOrgType',
+			'showItem'
 		);
 
 		$vars = get_object_vars($this);
