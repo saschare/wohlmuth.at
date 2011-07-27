@@ -15,6 +15,13 @@ class Module_Schema_Org_CreativeWork_Class extends Aitsu_Module_SchemaOrg_Abstra
 
 		$view = $this->_getView();
 
+		return $view->render('index.phtml');
+	}
+
+	protected function _getView() {
+
+		$view = parent :: _getView();
+
 		$view->about = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'Thing', 'CreativeWork', 'about');
 		$view->aggregateRating = Aitsu_Module_SchemaOrg_Container :: factory($this->_index, 'AggregateRating', 'CreativeWork', 'about');
 		$view->awards = Aitsu_Content_Config_Text :: set($this->_index, 'schema.org.CreativeWork.Awards', 'Awards', 'CreativeWork');
@@ -28,7 +35,7 @@ class Module_Schema_Org_CreativeWork_Class extends Aitsu_Module_SchemaOrg_Abstra
 			'no' => 'false'
 		), 'CreativeWork');
 		$view->keywords = Aitsu_Content_Config_Textarea :: set($this->_index, 'schema.org.CreativeWork.Keywords', 'Keywords', 'CreativeWork');
-
-		return $view->render('index.phtml');
+		
+		return $view;
 	}
 }
