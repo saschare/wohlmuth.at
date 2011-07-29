@@ -212,6 +212,7 @@ class Aitsu_Bootstrap {
 		Aitsu_Ee_Cache_Page :: getInstance()->clearCache();
 
 		if ($_GET['clearcache'] == 'all') {
+			Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/cachetransparent/data');
 			Aitsu_Cache :: getInstance()->clean();
 			return;
 		}

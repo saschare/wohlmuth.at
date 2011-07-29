@@ -201,7 +201,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 		
 		$pathInfo = pathinfo($_SERVER['REQUEST_URI']);
 	
-		$dir = APPLICATION_PATH . '/data/cachetransparent/' . $pathInfo['dirname'];
+		$dir = APPLICATION_PATH . '/data/cachetransparent/data/' . $pathInfo['dirname'];
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
         }
