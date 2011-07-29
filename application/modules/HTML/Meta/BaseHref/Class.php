@@ -7,10 +7,10 @@
  */
 
 class Module_HTML_Meta_BaseHref_Class extends Aitsu_Module_Abstract {
+	
+	protected $_allowEdit = false;
 
-	protected function _init() {
-
-		Aitsu_Content_Edit :: noEdit('HTML.Meta.BaseHref', true);
+	protected function _main() {
 
 		return '<base href="' . Aitsu_Config :: get('sys.webpath') . '" />';
 	}

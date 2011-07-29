@@ -26,6 +26,21 @@ abstract class Aitsu_Module_Abstract {
 	 */
 	protected $_isVolatile = false;
 
+	/*
+	 * Normally the caching mechanism is disabled as soon as the visitor
+	 * is logged in the system to prevent to persist data that is sensitive 
+	 * or specific for a particular user. To allow caching of the modules
+	 * output even if the user is logged in, set the flag to true.
+	 */
+	protected $_cacheIfLoggedIn = false;
+
+	/*
+	 * If set to true, the cache is build off context of the current article.
+	 * This has to consequences. The cache is availabe all over the page and
+	 * the cache will not be destroyed on page edit.
+	 */
+	protected $_disableCacheArticleRelation = false;
+
 	public static function init($context) {
 
 		$output = '';
@@ -188,14 +203,20 @@ abstract class Aitsu_Module_Abstract {
 		return $view;
 	}
 
-	protected function _get($id, & $output, $overwriteDisable = false) {
+	protected function _get($id, & $output) {
 
 		$id = $this->_normalizeIndex($id);
 
-		$this->_id = $id . '_' . Aitsu_Registry :: get()->env->idartlang . '_' . $this->_index;
-		$cache = Aitsu_Cache :: getInstance($this->_id, $overwriteDisable);
+		if ($this->_disableCacheArticleRelation) {
+			$lang = Aitsu_Application_Status :: isEdit() ? Aitsu_Registry :: get()->session->currentLanguage : Aitsu_Registry :: get()->env->idlang;
+			$this->_id = $id . '_lang' . $lang . '_' . $this->_index;
+		} else {
+			$this->_id = $id . '_' . Aitsu_Registry :: get()->env->idartlang . '_' . $this->_index;
+		}
 
-		if (Aitsu_Registry :: isEdit()) {
+		$cache = Aitsu_Cache :: getInstance($this->_id, $this->_cacheIfLoggedIn);
+
+		if (Aitsu_Registry :: isEdit() && !$this->_cacheIfLoggedIn) {
 			$cache->remove();
 			return false;
 		}
@@ -229,17 +250,20 @@ abstract class Aitsu_Module_Abstract {
 			throw new Exception('non-string data to be cached in ' . get_class($this));
 		}
 
-		$cache = Aitsu_Cache :: getInstance($this->_id);
+		$cache = Aitsu_Cache :: getInstance($this->_id, $this->_cacheIfLoggedIn);
 
-		if (Aitsu_Registry :: isEdit()) {
+		if (Aitsu_Registry :: isEdit() && !$this->_cacheIfLoggedIn) {
 			return false;
 		}
 
 		if (!empty ($this->_type)) {
 			$tags[] = 'type_' . $this->_type;
 		}
-		$tags[] = 'cat_' . Aitsu_Registry :: get()->env->idcat;
-		$tags[] = 'art_' . Aitsu_Registry :: get()->env->idart;
+
+		if (!$this->_disableCacheArticleRelation) {
+			$tags[] = 'cat_' . Aitsu_Registry :: get()->env->idcat;
+			$tags[] = 'art_' . Aitsu_Registry :: get()->env->idart;
+		}
 
 		if ($this->_isVolatile) {
 			/*
