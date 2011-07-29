@@ -66,7 +66,7 @@ abstract class Aitsu_Module_Tree_Abstract extends Aitsu_Module_Abstract {
 			$maxLength = 60;
 			$index = strlen($context['index']) > $maxLength ? substr($context['index'], 0, $maxLength) . '...' : $context['index'];
 
-			if (trim($output) == '') {
+			if (trim($output) == '' && $this->_allowEdit) {
 				preg_match('/^Module_(.*?)_Class$/', $context['className'], $match);
 				$moduleName = str_replace('_', '.', $match[1]);
 				return '' .
