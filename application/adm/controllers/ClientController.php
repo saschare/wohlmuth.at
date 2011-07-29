@@ -138,20 +138,19 @@ class ClientController extends Zend_Controller_Action {
 			);
 		}
 		$form->setOptions('idclient', $clients);
-                
-                $languages = Zend_Locale::getTranslationList('Language');
-                
-                asort($languages, SORT_LOCALE_STRING);
-                
-                $locales = array();
-                foreach ($languages as $value => $name) {
-                    $locales[] = (object) array(
-                        'value' => $value,
-                        'name' => $name . ' [' . $value . ']'
-                        );
-                }
-                                
-                $form->setOptions('locale', (object) $locales);
+
+		$languages = Aitsu_Db :: fetchAllC(60 * 60 * 24 * 365, '' .
+		'select fullname, locale from _locale order by fullname asc');
+
+		$locales = array ();
+		foreach ($languages as $lang) {
+			$locales[] = (object) array (
+				'value' => $lang['locale'],
+				'name' => $lang['fullname']
+			);
+		}
+
+		$form->setOptions('locale', $locales);
 
 		if (!empty ($id)) {
 			$data = Aitsu_Persistence_Language :: factory($id)->load()->toArray();
