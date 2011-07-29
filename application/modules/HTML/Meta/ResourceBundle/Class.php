@@ -10,6 +10,16 @@ class Module_HTML_Meta_ResourceBundle_Class extends Aitsu_Module_Abstract {
 	protected $_allowEdit = false;
 	protected $_cacheIfLoggedIn = true;
 	protected $_disableCacheArticleRelation = true;
+	
+	protected function _init() {
+		
+		/*
+		 * With the addition of the name of the current skin we
+		 * allow the system to make the cache of different skins
+		 * distinguishable.
+		 */
+		$this->_idSuffix = Aitsu_Config :: get('skin');
+	}
 
 	protected function _main() {
 

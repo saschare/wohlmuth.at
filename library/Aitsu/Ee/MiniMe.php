@@ -114,6 +114,8 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 				'skin'
 			));
 			header("ETag: {$etag}");
+			
+			$instance->_saveTransparentCache($output);
 
 			if (Aitsu_Registry :: get()->config->output->gzhandler) {
 				$output = gzencode($output);
@@ -178,6 +180,9 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 			$cache->save($output, array (
 				'skin'
 			));
+			
+			$instance->_saveTransparentCache($output);
+			
 			header("ETag: {$etag}");
 
 			if (Aitsu_Registry :: get()->config->output->gzhandler) {
@@ -190,6 +195,16 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 		}
 
 		exit ();
+	}
+	
+	protected function _saveTransparentCache($output) {
+		
+		$dir = APPLICATION_PATH . '/data/cachetransparent/minime';
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        
+        file_put_contents($dir . '/' . $_GET['minify'], $output);
 	}
 
 	public static function getInstance() {
