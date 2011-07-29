@@ -1,7 +1,8 @@
-Current version: 2.3.2
+Current version: 2.3.2.1
 
 == Latest changes == 
 
+* Fixed bug in Aitsu_Module_Tree_Abstract
 * Added schema.org WebPage typ to the meta data plugin
 * Added schema.org modules
 * Added sys.webpath to resulting URL in the navigation helper.
