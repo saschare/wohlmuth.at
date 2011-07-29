@@ -18,11 +18,11 @@ abstract class Aitsu_Module_Tree_Abstract extends Aitsu_Module_Abstract {
 			$genuineType = $params->genuineType;
 		} else {
 			$genuineType = $context['className'];
-			preg_match('/^Module_(.*?)_Class$/', $genuineType, $match);
+			preg_match('/^(?:Skin_)?Module_(.*?)_Class$/', $genuineType, $match);
 			$genuineType = str_replace('_', '.', $match[1]);
 		}
 
-		preg_match('/^Module_(.*?)_Class$/', $context['className'], $match);
+		preg_match('/^(?:Skin_)?Module_(.*?)_Class$/', $context['className'], $match);
 		$moduleName = str_replace('_', '.', $match[1]);
 
 		$types = array ();
