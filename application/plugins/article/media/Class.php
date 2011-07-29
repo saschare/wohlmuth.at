@@ -166,7 +166,7 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 	
 	protected function _cleanUpThumbs() {
 		
-		Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/thumbstransparent/image');
+		Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/cachetransparent/data/image');
 	}
 
 	public function saveAction() {

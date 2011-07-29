@@ -72,7 +72,7 @@ class Aitsu_Core_Image_Resize {
     	
     	$pathInfo = pathinfo($_GET['imageurl']);
     	
-    	$dir = APPLICATION_PATH . '/data/thumbstransparent/image/' . $pathInfo['dirname'];
+    	$dir = APPLICATION_PATH . '/data/cachetransparent/data/image/' . $pathInfo['dirname'];
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
         }
