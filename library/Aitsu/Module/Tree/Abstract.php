@@ -60,33 +60,7 @@ abstract class Aitsu_Module_Tree_Abstract extends Aitsu_Module_Abstract {
 			'</script>';
 		}
 
-		$output = parent :: init($context);
-
-		if (Aitsu_Application_Status :: isEdit()) {
-			$maxLength = 60;
-			$index = strlen($context['index']) > $maxLength ? substr($context['index'], 0, $maxLength) . '...' : $context['index'];
-
-			if (trim($output) == '' && $this->_allowEdit) {
-				preg_match('/^Module_(.*?)_Class$/', $context['className'], $match);
-				$moduleName = str_replace('_', '.', $match[1]);
-				return '' .
-				'<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
-				'<div style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">' .
-				'	<div style="height:15px; background-color: #CCC; color: white; font-size: 11px; padding:2px 5px 0 5px;">' .
-				'		<span style="font-weight:bold; float:left;">' . $index . '</span><span style="float:right;">Module <span style="font-weight:bold;">' . $moduleName . '</span></span>' .
-				'	</div>' .
-				'	<div>' .
-				'		' . $output . '' .
-				'	</div>' .
-				'</div>';
-			}
-
-			return '' .
-			'<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
-			'<div>' . $output . '</div>';
-		}
-
-		return $output;
+		return parent :: init($context);
 	}
 
 }

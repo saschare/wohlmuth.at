@@ -8,9 +8,9 @@
 
 class Module_HTML_Meta_Tags_Class extends Aitsu_Module_Abstract {
 
-	protected function _init() {
+	protected $_allowEdit = false;
 
-		Aitsu_Content_Edit :: noEdit('HTML.Meta.Tags', true);
+	protected function _init() {
 
 		$output = '';
 		if ($this->_get('HTML.Meta.Tags', $output)) {
@@ -41,6 +41,11 @@ class Module_HTML_Meta_Tags_Class extends Aitsu_Module_Abstract {
 		$this->_save($output, 'eternal');
 
 		return $output;
+	}
+
+	protected function _cachingPeriod() {
+
+		return 60 * 60 * 24 * 365;
 	}
 
 }
