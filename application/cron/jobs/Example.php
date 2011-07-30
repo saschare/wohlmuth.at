@@ -9,6 +9,8 @@
 class CronJob_Example extends Aitsu_Cron_Job_Abstract {
 
 	protected function _isPending($lasttime) {
+		
+		return false;
 
 		/*
 		 * Weekly execution on saturday.

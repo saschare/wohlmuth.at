@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../database/schema.xsd">
+    <table engine="InnoDB" name="eavs_e" since="EAVS 1.0">
+        <field default="null" name="eid" type="int(10) unsigned" nullable="false" primary="true"
+            autoincrement="true" comment="Primary key."/>
+        <field default="null" name="identifier" type="varchar(255)" nullable="false"
+            comment="Primary name of the entity."/>
+    </table>
+    <table engine="InnoDB" name="eavs_a" since="EAVS 1.0">
+        <field default="null" name="aid" type="int(10) unsigned" nullable="false" primary="true"
+            comment="Primary key."/>
+        <field default="null" name="identifier" type="varchar(255)" nullable="false"
+            comment="Attribute identifier."/>
+        <dataset use="ifempty">
+            <record>
+                <value attribute="aid">1</value>
+                <value attribute="identifier">a1</value>
+            </record>
+            <record>
+                <value attribute="aid">2</value>
+                <value attribute="identifier">a2</value>
+            </record>
+            <record>
+                <value attribute="aid">3</value>
+                <value attribute="identifier">a3</value>
+            </record>
+            <record>
+                <value attribute="aid">4</value>
+                <value attribute="identifier">a4</value>
+            </record>
+            <record>
+                <value attribute="aid">5</value>
+                <value attribute="identifier">a5</value>
+            </record>
+            <record>
+                <value attribute="aid">6</value>
+                <value attribute="identifier">a6</value>
+            </record>
+            <record>
+                <value attribute="aid">7</value>
+                <value attribute="identifier">a7</value>
+            </record>
+            <record>
+                <value attribute="aid">8</value>
+                <value attribute="identifier">a8</value>
+            </record>
+            <record>
+                <value attribute="aid">9</value>
+                <value attribute="identifier">a9</value>
+            </record>
+        </dataset>
+    </table>
+    <table engine="InnoDB" name="eavs_v" since="EAVS 1.0">
+        <field default="null" name="ent" type="int(10) unsigned" nullable="false" primary="true"
+            comment="Entity.">
+            <constraint column="eid" ondelete="cascade" onupdate="restrict" table="eavs_e"/>
+        </field>
+        <field default="null" name="att" type="int(10) unsigned" nullable="false" primary="true"
+            comment="Attribute.">
+            <constraint column="aid" ondelete="cascade" onupdate="restrict" table="eavs_a"/>
+        </field>
+        <field default="null" name="src" type="int(10) unsigned" nullable="false" primary="true"
+            comment="Source.">
+            <constraint column="sid" ondelete="cascade" onupdate="restrict" table="eavs_s"/>
+        </field>
+        <field default="null" name="charval" type="text" nullable="true"
+            comment="String representation of the value."/>
+    </table>
+    <table engine="InnoDB" name="eavs_s" since="EAVS 1.0">
+        <field default="null" name="sid" type="int(10) unsigned" nullable="false" primary="true"
+            comment="Primary key."/>
+        <field default="null" name="identifier" type="varchar(255)" nullable="false"
+            comment="Source identifier."/>
+        <dataset use="ifempty">
+            <record>
+                <value attribute="sid">1</value>
+                <value attribute="identifier">s1</value>
+            </record>
+            <record>
+                <value attribute="sid">2</value>
+                <value attribute="identifier">s2</value>
+            </record>
+            <record>
+                <value attribute="sid">3</value>
+                <value attribute="identifier">s3</value>
+            </record>
+            <record>
+                <value attribute="sid">4</value>
+                <value attribute="identifier">s4</value>
+            </record>
+            <record>
+                <value attribute="sid">5</value>
+                <value attribute="identifier">s5</value>
+            </record>
+        </dataset>
+    </table>
+    <table engine="InnoDB" name="eavs_s_trust" since="EAVS 1.0">
+        <field default="null" name="source" type="int(10) unsigned" nullable="false" primary="true"
+            comment="Source.">
+            <constraint column="sid" ondelete="cascade" onupdate="restrict" table="eavs_s"/>
+        </field>
+        <field default="null" name="trusted" type="int(10) unsigned" nullable="false" primary="true"
+            comment="Trusted source.">
+            <constraint column="sid" ondelete="cascade" onupdate="restrict" table="eavs_s"/>
+        </field>
+        <field default="null" name="prio" type="int(10) unsigned" nullable="false" primary="true"
+            comment="Level of trust."/>
+        <dataset use="ifempty">
+            <record>
+                <value attribute="source">1</value>
+                <value attribute="trusted">1</value>
+                <value attribute="prio">1</value>
+            </record>
+            <record>
+                <value attribute="source">1</value>
+                <value attribute="trusted">3</value>
+                <value attribute="prio">2</value>
+            </record>
+            <record>
+                <value attribute="source">1</value>
+                <value attribute="trusted">5</value>
+                <value attribute="prio">3</value>
+            </record>
+            <record>
+                <value attribute="source">2</value>
+                <value attribute="trusted">2</value>
+                <value attribute="prio">1</value>
+            </record>
+            <record>
+                <value attribute="source">2</value>
+                <value attribute="trusted">1</value>
+                <value attribute="prio">2</value>
+            </record>
+            <record>
+                <value attribute="source">3</value>
+                <value attribute="trusted">3</value>
+                <value attribute="prio">1</value>
+            </record>
+            <record>
+                <value attribute="source">4</value>
+                <value attribute="trusted">1</value>
+                <value attribute="prio">1</value>
+            </record>
+            <record>
+                <value attribute="source">4</value>
+                <value attribute="trusted">4</value>
+                <value attribute="prio">2</value>
+            </record>
+            <record>
+                <value attribute="source">5</value>
+                <value attribute="trusted">5</value>
+                <value attribute="prio">1</value>
+            </record>
+            <record>
+                <value attribute="source">5</value>
+                <value attribute="trusted">2</value>
+                <value attribute="prio">2</value>
+            </record>
+        </dataset>
+    </table>
+    <view name="eavs_v_prio"><![CDATA[
+        select
+            v.ent,
+            v.att,
+            s.source src,
+            min(s.prio) prio
+        from 
+            _eavs_v v, 
+            _eavs_s_trust s
+        where 
+            v.src = s.trusted
+        group by
+            v.ent,
+            v.att,
+            s.source
+        ]]></view>
+    <view name="eavs_v_val"><![CDATA[
+        select
+            v.*,
+            s.trusted ssrc,
+            s.source strust,
+            s.prio
+        from 
+            _eavs_v v, 
+            _eavs_s_trust s
+        where 
+            v.src = s.trusted
+        ]]></view>
+    <view name="eavs_v_trusted"><![CDATA[
+        select 
+            v.*
+        from
+            _eavs_v_val v,
+            _eavs_v_prio p
+        where
+            v.ent = p.ent
+            and v.att = p.att
+            and v.prio = p.prio
+            and v.strust = p.src
+        ]]></view>
+</database>
