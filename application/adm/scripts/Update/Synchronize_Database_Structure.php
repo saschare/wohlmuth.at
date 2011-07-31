@@ -338,7 +338,6 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			} else {
 				$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";				
 			}
-			$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";
 			$autoincrement = $field->hasAttribute('autoincrement') && $field->getAttribute('autoincrement') == 'true' ? 'auto_increment' : '';
 			$comment = $field->hasAttribute('comment') ? "comment '" . str_replace("'", "''", $field->getAttribute('comment')) . "'" : '';
 
