@@ -323,12 +323,21 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$statement = 'CREATE TABLE `' . Aitsu_Config :: get('database.params.tblprefix') . $node->attributes->getNamedItem('name')->nodeValue . '` (';
 
+		$defaultExpressions = array (
+			'current_timestamp'
+		);
+
 		$primaryKeys = array ();
 		$fields = array ();
 		foreach ($node->getElementsByTagName('field') as $field) {
 			$name = $field->getAttribute('name');
 			$type = $field->getAttribute('type');
 			$null = $field->hasAttribute('nullable') && $field->getAttribute('nullable') == 'true' ? 'null' : 'not null';
+			if (in_array($field->getAttribute('default'), $defaultExpressions)) {
+				$default = "default " . $field->getAttribute('default');
+			} else {
+				$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";				
+			}
 			$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";
 			$autoincrement = $field->hasAttribute('autoincrement') && $field->getAttribute('autoincrement') == 'true' ? 'auto_increment' : '';
 			$comment = $field->hasAttribute('comment') ? "comment '" . str_replace("'", "''", $field->getAttribute('comment')) . "'" : '';
@@ -391,7 +400,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			}
 			foreach ($dataset->getElementsByTagName('record') as $record) {
 				$fields = array ();
-				$valRef = array();
+				$valRef = array ();
 				$values = array ();
 				foreach ($record->getElementsByTagName('value') as $value) {
 					$field = $value->getAttribute('attribute');
@@ -400,7 +409,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 					$values[':' . $field] = $value->nodeValue;
 				}
 				Aitsu_Db :: query('' .
-				'replace into ' . $tableName . ' ('. implode(', ', $fields) .') values ('. implode(', ', $valRef) .')', $values);
+				'replace into ' . $tableName . ' (' . implode(', ', $fields) . ') values (' . implode(', ', $valRef) . ')', $values);
 			}
 		}
 	}
