@@ -67,7 +67,7 @@
         <field default="null" name="charval" type="text" nullable="true"
             comment="String representation of the value."/>
         <field default="1" name="valid" type="int(1) unsigned" nullable="false"/>
-        <field default="current_timestamp" name="created" type="timestamp" nullable="false"/>
+        <field default="current_timestamp" name="modified" type="timestamp" nullable="true"/>
     </table>
     <table engine="InnoDB" name="eavs_s" since="EAVS 1.0">
         <field default="null" name="sid" type="int(10) unsigned" nullable="false" primary="true"
@@ -162,7 +162,7 @@
         </dataset>
     </table>
     <table engine="InnoDB" name="eavs_v_prio_m" since="EAVS 1.0">
-        <field default="null" name="ent" type="int(10) unsigned" nullable="false" primary="false">
+        <field default="null" name="ent" type="int(10) unsigned" nullable="false" primary="true">
             <constraint column="eid" ondelete="cascade" onupdate="restrict" table="eavs_e"/>
         </field>
         <field default="null" name="att" type="int(10) unsigned" nullable="false" primary="true">
@@ -179,12 +179,14 @@
             v.ent,
             v.att,
             s.source src,
-            min(s.prio) prio
+            min(s.prio) prio,
+            max(v.created) modified
         from 
             _eavs_v v, 
             _eavs_s_trust s
         where 
             v.src = s.trusted
+            and v.modified > (select modified from _eavs_v_prio_m_modified)
         group by
             v.ent,
             v.att,
@@ -214,4 +216,53 @@
             and v.prio = p.prio
             and v.strust = p.src
         ]]></view>
+    <view name="eavs_v_prio_m_modified"><![CDATA[
+        select max(modified) modified from _eavs_v_prio_m
+        ]]></view>
+    <!--
+        drop trigger logEavsValueData
+        //
+        create trigger logEavsValueData after update on ait_eavs_v
+        for each row begin
+        insert into ait_eavs_v_old (ent, att, src, charval, modified) values (old.ent, old.att, old.src, old.charval, old.modified);
+        delete from ait_eavs_v_prio_m where ent = old.ent and att = old.att and src = old.src;
+        replace into ait_eavs_v_prio_m select * from ait_eavs_v_prio;
+        end;
+        //
+        
+        drop trigger logEavsValueData2
+        //
+        create trigger logEavsValueData2 after delete on ait_eavs_v
+        for each row begin
+        insert into ait_eavs_v_old (ent, att, src, charval, modified) values (old.ent, old.att, old.src, old.charval, old.modified);
+        delete from ait_eavs_v_prio_m where ent = old.ent;
+        replace into ait_eavs_v_prio_m 
+        select
+        v.ent,
+        v.att,
+        s.source src,
+        min(s.prio) prio,
+        max(v.modified) modified
+        from 
+        ait_eavs_v v, 
+        ait_eavs_s_trust s
+        where 
+        v.src = s.trusted
+        and v.ent = old.ent 
+        group by
+        v.ent,
+        v.att,
+        s.source;
+        end;
+        //
+        
+        drop trigger logEavsValueData3
+        //
+        create trigger logEavsValueData3 after insert on ait_eavs_v
+        for each row begin
+        delete from ait_eavs_v_prio_m where ent = new.ent and att = new.att and src = new.src;
+        replace into ait_eavs_v_prio_m select * from ait_eavs_v_prio;
+        end;
+        //         
+    -->
 </database>
