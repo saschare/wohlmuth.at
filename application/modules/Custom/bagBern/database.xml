@@ -66,6 +66,8 @@
         </field>
         <field default="null" name="charval" type="text" nullable="true"
             comment="String representation of the value."/>
+        <field default="1" name="valid" type="int(1) unsigned" nullable="false"/>
+        <field default="current_timestamp" name="created" type="timestamp" nullable="false"/>
     </table>
     <table engine="InnoDB" name="eavs_s" since="EAVS 1.0">
         <field default="null" name="sid" type="int(10) unsigned" nullable="false" primary="true"
@@ -159,6 +161,19 @@
             </record>
         </dataset>
     </table>
+    <table engine="InnoDB" name="eavs_v_prio_m" since="EAVS 1.0">
+        <field default="null" name="ent" type="int(10) unsigned" nullable="false" primary="false">
+            <constraint column="eid" ondelete="cascade" onupdate="restrict" table="eavs_e"/>
+        </field>
+        <field default="null" name="att" type="int(10) unsigned" nullable="false" primary="true">
+            <constraint column="aid" ondelete="cascade" onupdate="restrict" table="eavs_a"/>
+        </field>
+        <field default="null" name="src" type="int(10) unsigned" nullable="false" primary="true">
+            <constraint column="sid" ondelete="cascade" onupdate="restrict" table="eavs_s"/>
+        </field>
+        <field default="null" name="prio" type="int(10) unsigned" nullable="false"/>
+        <field default="current_timestamp" name="modified" type="timestamp" nullable="false"/>
+    </table>
     <view name="eavs_v_prio"><![CDATA[
         select
             v.ent,
@@ -192,7 +207,7 @@
             v.*
         from
             _eavs_v_val v,
-            _eavs_v_prio p
+            _eavs_v_prio_m p
         where
             v.ent = p.ent
             and v.att = p.att
