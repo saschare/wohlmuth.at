@@ -55,6 +55,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		}
 
 		$this->_methodMap[] = '_restoreViews';
+		$this->_methodMap[] = '_restoreTriggers';
 	}
 
 	protected function _beforeStart() {
@@ -319,6 +320,22 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		return Aitsu_Translate :: translate('Functions have been restored.');
 	}
 
+	protected function _restoreTriggers() {
+
+		try {
+			foreach ($this->_xml->getElementsByTagName('trigger') as $trigger) {
+				Aitsu_Db :: getDb()->getConnection()->query('drop trigger if exists ' . $function->getAttribute('trigger'));
+				Aitsu_Db :: getDb()->getConnection()->query(Aitsu_Db :: prefix($trigger->nodeValue));
+			}
+		} catch (Exception $e) {
+			return (object) array (
+				'message' => Aitsu_Translate :: translate('Triggers have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface.')
+			);
+		}
+
+		return Aitsu_Translate :: translate('Triggers have been restored.');
+	}
+
 	protected function _createTable($node) {
 
 		$statement = 'CREATE TABLE `' . Aitsu_Config :: get('database.params.tblprefix') . $node->attributes->getNamedItem('name')->nodeValue . '` (';
@@ -336,7 +353,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			if (in_array($field->getAttribute('default'), $defaultExpressions)) {
 				$default = "default " . $field->getAttribute('default');
 			} else {
-				$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";				
+				$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";
 			}
 			$autoincrement = $field->hasAttribute('autoincrement') && $field->getAttribute('autoincrement') == 'true' ? 'auto_increment' : '';
 			$comment = $field->hasAttribute('comment') ? "comment '" . str_replace("'", "''", $field->getAttribute('comment')) . "'" : '';

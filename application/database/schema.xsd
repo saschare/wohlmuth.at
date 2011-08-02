@@ -6,6 +6,7 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="table"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="function"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="view"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="trigger"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -27,6 +28,11 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="function">
+    <xs:complexType mixed="true">
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="trigger">
     <xs:complexType mixed="true">
       <xs:attribute name="name" use="required" type="xs:string"/>
     </xs:complexType>
