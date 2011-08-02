@@ -324,6 +324,7 @@
             comment="Category specific configuration."/>
         <index name="urlname" columns="urlname" type="index"/>
         <index name="url" columns="url" type="index"/>
+        <index columns="idcat,idlang" name="un_idcat_idlang" type="unique"/>
     </table>
     <table name="clients" engine="InnoDB" since="2.2.1.0">
         <field name="idclient" type="int(10) unsigned" default="null" autoincrement="true"

@@ -316,6 +316,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		try {
 			foreach ($this->_xml->getElementsByTagName('function') as $function) {
 				Aitsu_Db :: getDb()->getConnection()->query('drop function if exists ' . $function->getAttribute('name'));
+				Aitsu_Db :: getDb()->getConnection()->query('drop procedure if exists ' . $function->getAttribute('name'));
 				Aitsu_Db :: getDb()->getConnection()->query($function->nodeValue);
 			}
 		} catch (Exception $e) {
@@ -331,10 +332,18 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		try {
 			foreach ($this->_xml->getElementsByTagName('trigger') as $trigger) {
-				Aitsu_Db :: getDb()->getConnection()->query('drop trigger if exists ' . $trigger->getAttribute('trigger'));
+				try {
+					Aitsu_Db :: getDb()->getConnection()->query('drop trigger ' . $trigger->getAttribute('trigger'));
+				} catch (Exception $e) {
+					/*
+					 * Do nothing. If the trigger does not exist, an exception is thrown and
+					 * catched.
+					 */
+				}
 				Aitsu_Db :: getDb()->getConnection()->query(Aitsu_Db :: prefix($trigger->nodeValue));
 			}
 		} catch (Exception $e) {
+			trigger_error($e->getMessage());
 			return (object) array (
 				'message' => Aitsu_Translate :: translate('Triggers have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface.')
 			);

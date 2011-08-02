@@ -17,7 +17,7 @@ class CronJob_Eavs extends Aitsu_Cron_Job_Abstract {
 
 		Aitsu_Db :: query('delete from _eavs_e');
 
-		for ($e = 1; $e < 5000; $e++) {
+		for ($e = 1; $e < 250000; $e++) {
 
 			/*
 			 * Entitites.
@@ -32,25 +32,24 @@ class CronJob_Eavs extends Aitsu_Cron_Job_Abstract {
 			 * Values.
 			 */
 			for ($s = 1; $s <= 5; $s++) {
-				if (rand(1, 1000) % 3 == 0) {
-					for ($a = 1; $a <= 9; $a++) {
-						if (rand(1, 1000) % 2 == 0) {
-							Aitsu_Db :: query('' .
-							'insert into _eavs_v (ent, att, src, charval) values (:ent, :att, :src, :charval)', array (
-								':ent' => $e,
-								':att' => $a,
-								':src' => $s,
-								':charval' => "s$s e$e a$a"
-							));
-						}
-					}
+				for ($a = 1; $a <= 9; $a++) {
+					Aitsu_Db :: query('' .
+					'insert into _eavs_v (ent, att, src, charval) values (:ent, :att, :src, :charval)', array (
+						':ent' => $e,
+						':att' => $a,
+						':src' => $s,
+						':charval' => "s$s e$e a$a"
+					));
 				}
 			}
 
 			if ($e % 10 == 0) {
+				Aitsu_Db :: query('call updateEavs');
 				echo $e . ' records inserted.' . "\n";
 			}
 		}
+		
+		Aitsu_Db :: query('call updateEavs');
 	}
 
 }
