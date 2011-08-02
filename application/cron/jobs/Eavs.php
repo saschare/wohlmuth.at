@@ -17,7 +17,7 @@ class CronJob_Eavs extends Aitsu_Cron_Job_Abstract {
 
 		Aitsu_Db :: query('delete from _eavs_e');
 
-		for ($e = 1; $e < 250000; $e++) {
+		for ($e = 1; $e < 5000; $e++) {
 
 			/*
 			 * Entitites.

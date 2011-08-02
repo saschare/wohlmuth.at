@@ -139,8 +139,15 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$startTime = time();
 		foreach ($indexes as $index) {
-			Aitsu_Db :: query('' .
-			'alter table `' . $index['table_name'] . '` drop index `' . $index['index_name'] . '`');
+			try {
+				Aitsu_Db :: query('' .
+				'alter table `' . $index['table_name'] . '` drop index `' . $index['index_name'] . '`');
+			} catch (Exception $e) {
+				/*
+				 * Do nothing. Exceptions may occur if the table, the index belongs to, does
+				 * no longer exist.
+				 */
+			}
 
 			if (time() - $startTime > 15) {
 				throw new Aitsu_Adm_Script_Resume_Exception(Aitsu_Translate :: translate('Removement takes very long. The current step needs to be resumed.'));
@@ -324,7 +331,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		try {
 			foreach ($this->_xml->getElementsByTagName('trigger') as $trigger) {
-				Aitsu_Db :: getDb()->getConnection()->query('drop trigger if exists ' . $function->getAttribute('trigger'));
+				Aitsu_Db :: getDb()->getConnection()->query('drop trigger if exists ' . $trigger->getAttribute('trigger'));
 				Aitsu_Db :: getDb()->getConnection()->query(Aitsu_Db :: prefix($trigger->nodeValue));
 			}
 		} catch (Exception $e) {

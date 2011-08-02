@@ -175,94 +175,99 @@
         <field default="current_timestamp" name="modified" type="timestamp" nullable="false"/>
     </table>
     <view name="eavs_v_prio"><![CDATA[
-        select
-            v.ent,
-            v.att,
+        select 
+            v.ent ent,
+            v.att att,
             s.source src,
             min(s.prio) prio,
-            max(v.created) modified
+            max(v.modified) modified 
         from 
             _eavs_v v, 
             _eavs_s_trust s
         where 
-            v.src = s.trusted
-            and v.modified > (select modified from _eavs_v_prio_m_modified)
-        group by
+            v.src = s.trusted 
+            and v.modified > (
+                select 
+                    max(modified) 
+                from _eavs_v_prio_m
+                ) 
+        group by 
             v.ent,
             v.att,
             s.source
         ]]></view>
     <view name="eavs_v_val"><![CDATA[
-        select
-            v.*,
+        select 
+            v.ent ent,
+            v.att att,
+            v.src src,
+            v.charval charval,
+            v.modified modified,
             s.trusted ssrc,
             s.source strust,
-            s.prio
+            s.prio prio 
         from 
-            _eavs_v v, 
+            _eavs_v v,
             _eavs_s_trust s
-        where 
+        where
             v.src = s.trusted
         ]]></view>
     <view name="eavs_v_trusted"><![CDATA[
         select 
-            v.*
-        from
-            _eavs_v_val v,
-            _eavs_v_prio_m p
-        where
-            v.ent = p.ent
+            v.ent ent,
+            v.att att,
+            v.src src,
+            v.charval charval,
+            v.modified modified,
+            v.ssrc ssrc,
+            v.strust strust,
+            v.prio prio 
+        from 
+            _eavs_v_val v, 
+            _eavs_v_prio_m p 
+        where 
+            v.ent = p.ent 
             and v.att = p.att
             and v.prio = p.prio
             and v.strust = p.src
         ]]></view>
-    <view name="eavs_v_prio_m_modified"><![CDATA[
-        select max(modified) modified from _eavs_v_prio_m
-        ]]></view>
-    <!--
-        drop trigger logEavsValueData
-        //
-        create trigger logEavsValueData after update on ait_eavs_v
-        for each row begin
-        insert into ait_eavs_v_old (ent, att, src, charval, modified) values (old.ent, old.att, old.src, old.charval, old.modified);
-        delete from ait_eavs_v_prio_m where ent = old.ent and att = old.att and src = old.src;
-        replace into ait_eavs_v_prio_m select * from ait_eavs_v_prio;
-        end;
-        //
-        
-        drop trigger logEavsValueData2
-        //
-        create trigger logEavsValueData2 after delete on ait_eavs_v
-        for each row begin
-        insert into ait_eavs_v_old (ent, att, src, charval, modified) values (old.ent, old.att, old.src, old.charval, old.modified);
-        delete from ait_eavs_v_prio_m where ent = old.ent;
-        replace into ait_eavs_v_prio_m 
-        select
-        v.ent,
-        v.att,
-        s.source src,
-        min(s.prio) prio,
-        max(v.modified) modified
-        from 
-        ait_eavs_v v, 
-        ait_eavs_s_trust s
-        where 
-        v.src = s.trusted
-        and v.ent = old.ent 
-        group by
-        v.ent,
-        v.att,
-        s.source;
-        end;
-        //
-        
-        drop trigger logEavsValueData3
-        //
-        create trigger logEavsValueData3 after insert on ait_eavs_v
-        for each row begin
-        delete from ait_eavs_v_prio_m where ent = new.ent and att = new.att and src = new.src;
-        replace into ait_eavs_v_prio_m select * from ait_eavs_v_prio;
-        end;
-        //         
-    -->
+    <trigger name="logEavsValueData"><![CDATA[
+        create trigger logEavsValueData after update on _eavs_v
+            for each row begin
+                insert into _eavs_v_old (ent, att, src, charval, modified) values (old.ent, old.att, old.src, old.charval, old.modified);
+                delete from _eavs_v_prio_m where ent = old.ent and att = old.att and src = old.src;
+                replace into _eavs_v_prio_m select * from ait_eavs_v_prio;
+            end;
+        ]]></trigger>
+    <trigger name="logEavsValueData2"><![CDATA[
+        create trigger logEavsValueData2 after delete on _eavs_v
+            for each row begin
+                insert into _eavs_v_old (ent, att, src, charval, modified) values (old.ent, old.att, old.src, old.charval, old.modified);
+                delete from _eavs_v_prio_m where ent = old.ent;
+                replace into _eavs_v_prio_m 
+                    select
+                        v.ent,
+                        v.att,
+                        s.source src,
+                        min(s.prio) prio,
+                        max(v.modified) modified
+                    from 
+                        _eavs_v v, 
+                        _eavs_s_trust s
+                    where 
+                        v.src = s.trusted
+                        and v.ent = old.ent 
+                    group by
+                        v.ent,
+                        v.att,
+                        s.source;
+            end;
+        ]]></trigger>
+    <trigger name="logEavsValueData3"><![CDATA[
+        create trigger logEavsValueData3 after insert on _eavs_v
+            for each row begin
+                delete from _eavs_v_prio_m where ent = new.ent and att = new.att and src = new.src;
+                replace into _eavs_v_prio_m select * from _eavs_v_prio;
+            end;
+        ]]></trigger>
 </database>
