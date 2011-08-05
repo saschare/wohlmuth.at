@@ -14,10 +14,17 @@ class CronJob_Eavs extends Aitsu_Cron_Job_Abstract {
 	}
 
 	protected function _exec() {
+		
+		$blockStart = null;
 
-		Aitsu_Db :: query('delete from _eavs_e');
+		$eid = Aitsu_Db :: fetchOne('select max(eid) from _eavs_e');
+		Aitsu_Db :: query('delete from _eavs_e where eid = :eid', array (
+			':eid' => $eid
+		));
 
-		for ($e = 1; $e < 250000; $e++) {
+		for ($e = $eid; $e < 250000; $e++) {
+
+			$startTime = microtime(true);
 
 			/*
 			 * Entitites.
@@ -32,23 +39,45 @@ class CronJob_Eavs extends Aitsu_Cron_Job_Abstract {
 			 * Values.
 			 */
 			for ($s = 1; $s <= 5; $s++) {
-				for ($a = 1; $a <= 9; $a++) {
-					Aitsu_Db :: query('' .
-					'insert into _eavs_v (ent, att, src, charval) values (:ent, :att, :src, :charval)', array (
-						':ent' => $e,
-						':att' => $a,
-						':src' => $s,
-						':charval' => "s$s e$e a$a"
-					));
+				if (rand(0, 1000) % 2 == 0) {
+					for ($a = 1; $a <= 9; $a++) {
+						if (rand(0, 1000) % 2 == 0) {
+							Aitsu_Db :: query('' .
+							'insert into _eavs_v (ent, att, src, charval) values (:ent, :att, :src, :charval)', array (
+								':ent' => $e,
+								':att' => $a,
+								':src' => $s,
+								':charval' => "s$s e$e a$a"
+							));
+						}
+					}
 				}
 			}
 
-			if ($e % 10 == 0) {
+			$execTime = (microtime(true) - $startTime) * 1000;
+
+			// echo str_pad($e, 6, '0', STR_PAD_LEFT) . ': Insert time for one entity: ' . number_format($execTime, 1) . ' ms' . "\n";
+			echo '.';
+
+			if ($e % 500 == 0) {
+				$startTime = microtime(true);
 				Aitsu_Db :: query('call updateEavs');
-				echo $e . ' records inserted.' . "\n";
+				$execTime = (microtime(true) - $startTime) * 1000;
+				echo "\n" . 'Call of updateEavs done: ' . number_format($execTime, 1) . ' ms' . "\n";
+				
+				$blockEnd = microtime(true);
+				
+				if ($blockStart != null) {
+					$period = ($blockEnd - $blockStart);
+					echo 'Last block (500 items) needed: ' . number_format($period, 1) . ' s' . "\n";
+					$estimatedTime = (250000 - $e) / 500 * $period / 60 / 60;
+					echo 'Estimated time to finish: ' . number_format($estimatedTime, 2) . ' hours' . "\n";
+				}
+				
+				$blockStart = $blockEnd;
 			}
 		}
-		
+
 		Aitsu_Db :: query('call updateEavs');
 	}
 

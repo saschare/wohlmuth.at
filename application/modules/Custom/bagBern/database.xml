@@ -7,6 +7,8 @@
         <field default="null" name="identifier" type="varchar(255)" nullable="false"
             comment="Primary name of the entity."/>
         <field default="current_timestamp" name="modified" type="timestamp" nullable="true"/>
+        <field default="1" name="upd" type="int(4) unsigned" nullable="false"/>
+        <index columns="upd" name="upd" type="index"/>
     </table>
     <table engine="InnoDB" name="eavs_view_source_1" since="EAVS 1.0">
         <field default="null" name="eid" type="int(10) unsigned" primary="true">
@@ -216,46 +218,21 @@
     <function name="updateEavs"><![CDATA[
         create procedure updateEavs()
         begin
+            delete m.* from ait_eavs_v_prio_m m,  ait_eavs_e e where 
+                e.eid = m.ent 
+                and e.upd = 1;
+            delete m.* from ait_eavs_v_trusted_m m, ait_eavs_e e where 
+                e.eid = m.ent
+                and e.upd = 1;
+            delete m.* from ait_eavs_view_source_1 m, ait_eavs_e e where 
+                e.eid = m.eid
+                and e.upd = 1;
+            update ait_eavs_e set upd = 0;
             insert into ait_eavs_v_prio_m select * from ait_eavs_v_prio;
             insert into ait_eavs_v_trusted_m (ent, att, src, tsrc, charval, modified)
-                select
-                    t.ent,
-                    t.att,
-                    t.src,
-                    t.strust,
-                    t.charval,
-                    t.modified
-                from ait_eavs_v_trusted t
-                left join ait_eavs_v_trusted_m m on t.ent = m.ent and t.att = m.att and t.src = m.src and t.strust = m.tsrc
-                where
-                    m.ent is null;
+                select * from ait_eavs_v_trusted_m_view;
             insert into ait_eavs_view_source_1
-                select
-                    e.eid,
-                    e.identifier,
-                    e.modified,
-                    a1.charval a1,
-                    a2.charval a2,
-                    a3.charval a3,
-                    a4.charval a4,
-                    a5.charval a5,
-                    a6.charval a6,
-                    a7.charval a7,
-                    a8.charval a8,
-                    a9.charval a9
-                from ait_eavs_e e
-                left join ait_eavs_v_trusted_m a1 on e.eid = a1.ent and a1.att = 1 and a1.tsrc = 1
-                left join ait_eavs_v_trusted_m a2 on e.eid = a2.ent and a2.att = 2 and a2.tsrc = 1
-                left join ait_eavs_v_trusted_m a3 on e.eid = a3.ent and a3.att = 3 and a3.tsrc = 1
-                left join ait_eavs_v_trusted_m a4 on e.eid = a4.ent and a4.att = 4 and a4.tsrc = 1
-                left join ait_eavs_v_trusted_m a5 on e.eid = a5.ent and a5.att = 5 and a5.tsrc = 1
-                left join ait_eavs_v_trusted_m a6 on e.eid = a6.ent and a6.att = 6 and a6.tsrc = 1
-                left join ait_eavs_v_trusted_m a7 on e.eid = a7.ent and a7.att = 7 and a7.tsrc = 1
-                left join ait_eavs_v_trusted_m a8 on e.eid = a8.ent and a8.att = 8 and a8.tsrc = 1
-                left join ait_eavs_v_trusted_m a9 on e.eid = a9.ent and a9.att = 9 and a9.tsrc = 1
-                left join ait_eavs_view_source_1 m on e.eid = m.eid
-                where
-                    m.eid is null;
+                select * from ait_eavs_view_source_1_view;
         end]]></function>
     <view name="eavs_v_prio"><![CDATA[
         select 
@@ -320,30 +297,20 @@
         create trigger logEavsValueData after update on _eavs_v
             for each row begin
                 insert into _eavs_v_old (ent, att, src, charval, modified) values (old.ent, old.att, old.src, old.charval, now());
-                delete from _eavs_v_prio_m where ent = old.ent or ent = new.ent;
-                delete from _eavs_v_trusted_m where ent = old.ent or ent = new.ent;
-                delete from _eavs_view_source_1 where eid = old.ent or eid = new.ent;
-                update _eavs_e set modified = now() where eid = old.ent;
-                update _eavs_e set modified = now() where eid = new.ent;
+                update _eavs_e set modified = now(), upd = 1 where eid = old.ent or eid = new.ent;
             end;
         ]]></trigger>
     <trigger name="logEavsValueData2"><![CDATA[
         create trigger logEavsValueData2 after delete on _eavs_v
             for each row begin
                 insert into _eavs_v_old (ent, att, src, charval, modified) values (old.ent, old.att, old.src, old.charval, now());
-                delete from _eavs_v_prio_m where ent = old.ent;
-                delete from _eavs_v_trusted_m where ent = old.ent;
-                delete from _eavs_view_source_1 where eid = old.ent;
-                update _eavs_e set modified = now() where eid = old.ent;
+                update _eavs_e set modified = now(), upd = 1 where eid = old.ent;
             end;
         ]]></trigger>
     <trigger name="logEavsValueData3"><![CDATA[
         create trigger logEavsValueData3 after insert on _eavs_v
             for each row begin
-                delete from _eavs_v_prio_m where ent = new.ent;
-                delete from _eavs_v_trusted_m where ent = new.ent;
-                delete from _eavs_view_source_1 where eid = new.ent;
-                update _eavs_e set modified = now() where eid = new.ent;
+                update _eavs_e set modified = now(), upd = 1 where eid = new.ent;
             end;
         ]]></trigger>
 </database>
