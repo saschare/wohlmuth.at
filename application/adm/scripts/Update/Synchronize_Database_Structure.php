@@ -55,6 +55,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		}
 
 		$this->_methodMap[] = '_restoreViews';
+		$this->_methodMap[] = '_restoreTriggers';
 	}
 
 	protected function _beforeStart() {
@@ -138,8 +139,15 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$startTime = time();
 		foreach ($indexes as $index) {
-			Aitsu_Db :: query('' .
-			'alter table `' . $index['table_name'] . '` drop index `' . $index['index_name'] . '`');
+			try {
+				Aitsu_Db :: query('' .
+				'alter table `' . $index['table_name'] . '` drop index `' . $index['index_name'] . '`');
+			} catch (Exception $e) {
+				/*
+				 * Do nothing. Exceptions may occur if the table, the index belongs to, does
+				 * no longer exist.
+				 */
+			}
 
 			if (time() - $startTime > 15) {
 				throw new Aitsu_Adm_Script_Resume_Exception(Aitsu_Translate :: translate('Removement takes very long. The current step needs to be resumed.'));
@@ -308,6 +316,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		try {
 			foreach ($this->_xml->getElementsByTagName('function') as $function) {
 				Aitsu_Db :: getDb()->getConnection()->query('drop function if exists ' . $function->getAttribute('name'));
+				Aitsu_Db :: getDb()->getConnection()->query('drop procedure if exists ' . $function->getAttribute('name'));
 				Aitsu_Db :: getDb()->getConnection()->query($function->nodeValue);
 			}
 		} catch (Exception $e) {
@@ -319,9 +328,37 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 		return Aitsu_Translate :: translate('Functions have been restored.');
 	}
 
+	protected function _restoreTriggers() {
+
+		try {
+			foreach ($this->_xml->getElementsByTagName('trigger') as $trigger) {
+				try {
+					Aitsu_Db :: getDb()->getConnection()->query('drop trigger ' . $trigger->getAttribute('trigger'));
+				} catch (Exception $e) {
+					/*
+					 * Do nothing. If the trigger does not exist, an exception is thrown and
+					 * catched.
+					 */
+				}
+				Aitsu_Db :: getDb()->getConnection()->query(Aitsu_Db :: prefix($trigger->nodeValue));
+			}
+		} catch (Exception $e) {
+			trigger_error($e->getMessage());
+			return (object) array (
+				'message' => Aitsu_Translate :: translate('Triggers have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface.')
+			);
+		}
+
+		return Aitsu_Translate :: translate('Triggers have been restored.');
+	}
+
 	protected function _createTable($node) {
 
 		$statement = 'CREATE TABLE `' . Aitsu_Config :: get('database.params.tblprefix') . $node->attributes->getNamedItem('name')->nodeValue . '` (';
+
+		$defaultExpressions = array (
+			'current_timestamp'
+		);
 
 		$primaryKeys = array ();
 		$fields = array ();
@@ -329,7 +366,11 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			$name = $field->getAttribute('name');
 			$type = $field->getAttribute('type');
 			$null = $field->hasAttribute('nullable') && $field->getAttribute('nullable') == 'true' ? 'null' : 'not null';
-			$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";
+			if (in_array($field->getAttribute('default'), $defaultExpressions)) {
+				$default = "default " . $field->getAttribute('default');
+			} else {
+				$default = $field->getAttribute('default') == 'null' ? '' : "default '" . $field->getAttribute('default') . "'";
+			}
 			$autoincrement = $field->hasAttribute('autoincrement') && $field->getAttribute('autoincrement') == 'true' ? 'auto_increment' : '';
 			$comment = $field->hasAttribute('comment') ? "comment '" . str_replace("'", "''", $field->getAttribute('comment')) . "'" : '';
 
@@ -391,7 +432,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 			}
 			foreach ($dataset->getElementsByTagName('record') as $record) {
 				$fields = array ();
-				$valRef = array();
+				$valRef = array ();
 				$values = array ();
 				foreach ($record->getElementsByTagName('value') as $value) {
 					$field = $value->getAttribute('attribute');
@@ -400,7 +441,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 					$values[':' . $field] = $value->nodeValue;
 				}
 				Aitsu_Db :: query('' .
-				'replace into ' . $tableName . ' ('. implode(', ', $fields) .') values ('. implode(', ', $valRef) .')', $values);
+				'replace into ' . $tableName . ' (' . implode(', ', $fields) . ') values (' . implode(', ', $valRef) . ')', $values);
 			}
 		}
 	}
