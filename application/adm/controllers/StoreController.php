@@ -120,6 +120,8 @@ class StoreController extends Zend_Controller_Action {
 	 * @since 2.1.0.0 - 24.12.2010
 	 */
 	public function clientslangsAction() {
+		
+		$user = Aitsu_Adm_User :: getInstance();
 
 		$results = Aitsu_Db :: fetchAll('' .
 		'select ' .
@@ -134,10 +136,14 @@ class StoreController extends Zend_Controller_Action {
 
 		$data = array ();
 		foreach ($results as $result) {
-			$data[] = (object) array (
-				'idlang' => $result['idlang'],
-				'identifier' => $result['clientname'] . ' / ' . $result['langname']
-			);
+			if ($user->isAllowed(array (
+					'language' => $result['idlang']
+				))) {
+				$data[] = (object) array (
+					'idlang' => $result['idlang'],
+					'identifier' => $result['clientname'] . ' / ' . $result['langname']
+				);
+			}
 		}
 
 		$this->_helper->json((object) array (
