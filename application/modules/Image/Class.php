@@ -19,7 +19,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
 		$template = Aitsu_Content_Config_Radio :: set($this->_index, 'Image.Template', '', $this->_getTemplates(), 'Template');
 		
 		if (empty($template)) {
-			$template = 'index';
+			return '';
 		}
 
 		$view = $this->_getView();
