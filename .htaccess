@@ -10,7 +10,7 @@ RewriteRule ^res/.*$ - [L]
 RewriteRule ^id/(.*)$ index.php?id=$1 [QSA,L]
 RewriteRule ^adm/id/(\d*).*$ index.php?id=$1 [QSA,L]
 
-RewriteRule ^adm/.*\.(jpg|jpeg|gif|css|swf|png|js|xml|pdf|ico|htc|eot|svg|ttf|woff).*$ - [L]
+RewriteRule ^adm/.*\.(jpg|jpeg|gif|css|swf|png|js|xml|pdf|ico|htc|eot|svg|ttf|woff).*$ - [NC,L]
 RewriteRule ^adm/edit/(.*)$ index.php?edit=1&id=$1 [QSA,L]
 RewriteRule ^adm/preview/(.*)$ index.php?preview=1&id=$1 [QSA,L]
 RewriteRule ^adm/(.*)$ adm/index.php?$1 [QSA,L]
