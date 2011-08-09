@@ -7,8 +7,11 @@
  */
 
 class Module_Syndication_RSS_Reader_Class extends Aitsu_Module_Tree_Abstract {
+	
+	protected $_cacheIfLoggedIn = true;
+	protected $_disableCacheArticleRelation = true;
 
-	protected function _init() {
+	protected function _main() {
 
 		$template = isset ($this->_params->template) ? $this->_params->template : 'index';
 		$cache = isset ($this->_params->cache) ? $this->_params->cache : (60 * 60);
