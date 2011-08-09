@@ -18,6 +18,27 @@ class RedirectorArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public static function register($idart) {
 
+		if (!self :: getPosition($idart, 'redirector') && Aitsu_Db :: fetchOne('' .
+			'select redirect from _art_lang ' .
+			'where ' .
+			'	idart = :idart ' .
+			'	and idlang = :idlang', array (
+				':idart' => $idart,
+				':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+			)) == 1) {
+			/*
+			 * Make sure that redirect is set to 0.
+			 */
+			Aitsu_Db :: query('' .
+			'update _art_lang set redirect = 0 ' .
+			'where ' .
+			'	idart = :idart ' .
+			'	and idlang = :idlang', array (
+				':idart' => $idart,
+				':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+			));
+		}
+
 		return (object) array (
 			'name' => 'redirector',
 			'tabname' => Aitsu_Registry :: get()->Zend_Translate->translate('Redirect'),
