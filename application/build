@@ -3,8 +3,17 @@
 $filename = realpath(dirname(__FILE__) . '/../library/Aitsu/Application/Status.php');
 $applicationStatus = file_get_contents($filename);
 preg_match('@\'\\$version/([\\d\\.]*)/revision/(\\d*)\\$\'@', $applicationStatus, $match);
-$applicationStatus = str_replace($match[0], '\'$version/' . $match[1] . '/revision/' . ($match[2] + 1) . '$\'', $applicationStatus);
+
+$version = $match[1];
+$revision = $match[2] + 1;
+
+$applicationStatus = str_replace($match[0], '\'$version/' . $version . '/revision/' . $revision . '$\'', $applicationStatus);
 file_put_contents($filename, $applicationStatus);
+
+$filename = realpath(dirname(__FILE__) . '/../README');
+$readme = file_get_contents($filename);
+preg_replace('@^.*?\\:\\s([\\d\\.]*)@', "$1 $version-$revision", $readme);
+file_put_contents($filename, $readme);
 
 passthru('git commit -a -m "Version ' . $match[1] . ', Revision ' . ($match[2] + 1) . '"');
 passthru('git checkout master');
