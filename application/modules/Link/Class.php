@@ -5,12 +5,11 @@
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
-
 class Module_Link_Class extends Aitsu_Module_Tree_Abstract {
 
-	protected function _main() {
+	protected $_isBlock = false;
 
-		// Aitsu_Content_Edit :: isBlock('Link', false);
+	protected function _main() {
 
 		$view = $this->_getView();
 
@@ -31,7 +30,7 @@ class Module_Link_Class extends Aitsu_Module_Tree_Abstract {
 			$view->link = '{ref:' . $view->link . '}';
 		}
 
-		if (empty ($view->link)) {
+		if (empty ($view->link) || empty ($view->name)) {
 			return '';
 		}
 
