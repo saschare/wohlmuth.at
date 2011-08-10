@@ -7,10 +7,10 @@
  */
 
 class Module_Protection_Spam_HoneyTrap_Class extends Aitsu_Module_Abstract {
+	
+	protected $_allowEdit = false;
 
 	protected function _init() {
-
-		Aitsu_Content_Edit :: noEdit('Protection.Spam.HoneyTrap', true);
 
 		if (Aitsu_Config :: get('honeytrap.keyword') == null) {
 			return;
