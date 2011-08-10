@@ -29,7 +29,7 @@ class Module_Code_GeSHi_Class extends Aitsu_Module_Tree_Abstract {
 			'&aitsuLessThan;',
 			'&aitsuGreaterThan'
 		), array (
-			'[',
+			'|[',
 			']',
 			'<',
 			'>'
