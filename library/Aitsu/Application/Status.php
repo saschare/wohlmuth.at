@@ -170,4 +170,5 @@ class Aitsu_Application_Status {
 		
 		return '$Format:%H$';
 	}
+	
 }
