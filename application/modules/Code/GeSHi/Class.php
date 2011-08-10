@@ -7,7 +7,7 @@
  */
 
 class Module_Code_GeSHi_Class extends Aitsu_Module_Tree_Abstract {
-	
+
 	protected $_allowEdit = false;
 
 	protected function _init() {
@@ -15,15 +15,19 @@ class Module_Code_GeSHi_Class extends Aitsu_Module_Tree_Abstract {
 		$lang = $this->_index;
 		$code = $this->_context['params'];
 
-		$id = md5($lang . $code);
+		$this->_idSuffix = md5($lang . $code);
+	}
 
-		$output = '';
-		if ($this->_get('Geshi_' . $id, $output)) {
-			return $output;
-		}
+	protected function _main() {
 
-		$output = Aitsu_GeSHi :: parse($code, $lang);
+		$lang = $this->_index;
+		$code = $this->_context['params'];
 
-		return $output;
+		return Aitsu_GeSHi :: parse($code, $lang);
+	}
+
+	protected function _cachingPeriod() {
+
+		return 60 * 60 * 24 * 365;
 	}
 }
