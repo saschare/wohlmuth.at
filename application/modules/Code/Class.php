@@ -6,9 +6,9 @@
  * @copyright Copyright &copy; 2010, w3concepts AG
  */
 
-class Module_Code_Class extends Aitsu_Module_Tree_Abstract {
+class Module_Code_Class extends Aitsu_Module_Abstract {
 
-	protected function _init() {
+	protected function _main() {
 
 		$startTag = '';
 		$endTag = '';
@@ -17,10 +17,28 @@ class Module_Code_Class extends Aitsu_Module_Tree_Abstract {
 			$endTag = '</div>';
 		}
 
+		$types = array (
+			'SQL' => 'sql',
+			'PHP' => 'php',
+			'HTML' => 'html',
+			'ASP' => 'asp',
+			'Java' => 'java',
+			'Javascript' => 'javascript',
+			'XML' => 'xml'
+		);
+		ksort($types);
+
+		$type = Aitsu_Content_Config_Radio :: set($this->_index, 'Code.Type', 'Type', $types, 'Type');
+
 		$output = Aitsu_Content_Text :: get($this->_index);
 
+		/*
+		 * Escape shortcodes within the code.
+		 */
+		$output = str_replace(array('[', ']', '<', '>'), array('&aitsuBracketLeft;', '&aitsuBracketRight', '&aitsuLessThan;', '&aitsuGreaterThan'), $output);
+
 		return '' .
-		'<script type="application/x-aitsu" src="Code.GeSHi:php">' . "\n" .
+		'<script type="application/x-aitsu" src="Code.GeSHi:' . $type . '">' . "\n" .
 		$output . "\n" .
 		'</script>';
 	}

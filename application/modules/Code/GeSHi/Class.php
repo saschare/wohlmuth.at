@@ -23,6 +23,18 @@ class Module_Code_GeSHi_Class extends Aitsu_Module_Tree_Abstract {
 		$lang = $this->_index;
 		$code = $this->_context['params'];
 
+		$code = str_replace(array (
+			'&aitsuBracketLeft;',
+			'&aitsuBracketRight',
+			'&aitsuLessThan;',
+			'&aitsuGreaterThan'
+		), array (
+			'[',
+			']',
+			'<',
+			'>'
+		), $code);
+
 		return Aitsu_GeSHi :: parse($code, $lang);
 	}
 
