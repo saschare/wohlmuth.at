@@ -1,0 +1,13 @@
+<?php
+
+$filename = realpath(dirname(__FILE__) . '/../library/Aitsu/Application/Status.php');
+$applicationStatus = file_get_contents($filename);
+preg_match('@\'\\$version/([\\d\\.]*)/revision/(\\d*)\\$\'@', $applicationStatus, $match);
+$applicationStatus = str_replace($match[0], '\'$version/' . $match[1] . '/revision/' . ($match[2] + 1) . '$\'', $applicationStatus);
+file_put_contents($filename, $applicationStatus);
+
+passthru('git commit -a -m "Version ' . $match[1] . ', Revision ' . $match[2] . '"');
+passthru('git checkout master');
+passthru('git merge dev');
+
+?>
