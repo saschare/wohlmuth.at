@@ -168,6 +168,6 @@ class Aitsu_Application_Status {
 	
 	public static function version() {
 		
-		return '$Id$';
+		return '$Format:%H$';
 	}
 }
