@@ -2,20 +2,20 @@
 
 
 /**
- * @author Christian Kehres, webtischlerei
- * @copyright Copyright &copy; 2011,webtischlerei
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Link_Class extends Aitsu_Module_Abstract {
+class Module_Link_Class extends Aitsu_Module_Tree_Abstract {
 
-	protected function _init() {
+	protected function _main() {
 
-		Aitsu_Content_Edit :: isBlock('Link', false);
+		// Aitsu_Content_Edit :: isBlock('Link', false);
 
-		$name = Aitsu_Content_Config_Text :: set($this->_index, 'name', 'Name', 'Link');
-		$link = Aitsu_Content_Config_Link :: set($this->_index, 'link', 'Link', 'Link');
+		$view = $this->_getView();
+
+		$view->name = Aitsu_Content_Config_Text :: set($this->_index, 'name', 'Name', 'Link');
+		$view->link = Aitsu_Content_Config_Link :: set($this->_index, 'link', 'Link', 'Link');
 
 		$targets = array (
 			'_blank' => '_blank',
@@ -26,18 +26,21 @@ class Module_Link_Class extends Aitsu_Module_Abstract {
 
 		$target = Aitsu_Content_Config_Select :: set($this->_index, 'target', 'Target', $targets, 'Link');
 
-		if (strpos($link, 'idcat') !== false || strpos($link, 'idart') !== false) {
-			$link = str_replace(' ', '-', $link);
-			$link = '{ref:' . $link . '}';
+		if (strpos($view->link, 'idcat') !== false || strpos($view->link, 'idart') !== false) {
+			$view->link = str_replace(' ', '-', $view->link);
+			$view->link = '{ref:' . $view->link . '}';
 		}
 
-		if (empty ($link) && Aitsu_Registry :: isEdit()) {
-			return '<a href="#">no link given</a>';
-		} else {
-			if (!empty ($link)) {
-				return '<a href="' . $link . '" target="' . $target . '">' . $name . '</a>';
-			}
+		if (empty ($view->link)) {
+			return '';
 		}
+
+		return $view->render('index.phtml');
+	}
+
+	protected function _cachingPeriod() {
+
+		return 60 * 60 * 24 * 365;
 	}
 
 }
