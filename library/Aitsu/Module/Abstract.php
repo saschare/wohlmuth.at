@@ -15,12 +15,12 @@ abstract class Aitsu_Module_Abstract {
 	 * set the first time _get is called.
 	 */
 	protected $_id;
-	
+
 	/*
 	 * ID suffix to be added to the internal ID.
 	 */
 	protected $_idSuffix = '';
-	
+
 	protected $_type = null;
 	protected $_view = null;
 	protected $_context = null;
@@ -51,20 +51,35 @@ abstract class Aitsu_Module_Abstract {
 	 */
 	protected $_disableCacheArticleRelation = false;
 
+	/*
+	 * Indicates that the output of the module is a block element. Set this
+	 * value to false, if the output is not a block element to allow the 
+	 * system to render the output accordingly in the edit mode.
+	 */
+	protected $_isBlock = true;
+
 	public static function init($context) {
 
 		$output = '';
 
 		$instance = new $context['className'] ();
 
+		$className = str_replace('_', '.', $context['className']);
+		$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
+		$className = preg_replace('/\\.Class$/', "", $className);
+
 		/*
 		 * Suppress edit option, if _allowEdit is set to false.
 		 */
 		if (!$instance->_allowEdit) {
-			$className = str_replace('_', '.', $context['className']);
-			$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
-			$className = preg_replace('/\\.Class$/', "", $className);
 			Aitsu_Content_Edit :: noEdit($className, true);
+		}
+
+		/*
+		 * Set to non-block, if _isBlock is set to false.
+		 */
+		if (!$instance->_isBlock) {
+			Aitsu_Content_Edit :: isBlock(false);
 		}
 
 		$instance->_context = $context;
@@ -106,18 +121,34 @@ abstract class Aitsu_Module_Abstract {
 			$index = strlen($context['index']) > $maxLength ? substr($context['index'], 0, $maxLength) . '...' : $context['index'];
 
 			if (trim($output) == '' && $instance->_allowEdit) {
-				preg_match('/^Module_(.*?)_Class$/', $context['className'], $match);
-				$moduleName = str_replace('_', '.', $match[1]);
+				if (preg_match('/^Module_(.*?)_Class$/', $context['className'], $match)) {
+					$moduleName = str_replace('_', '.', $match[1]);
+				}
+				elseif (preg_match('/^Skin_Module_(.*?)_Class$/', $context['className'], $match)) {
+					$moduleName = str_replace('_', '.', $match[1]);
+				} else {
+					$moduleName = 'UNKNOWN';
+				}
+				if ($instance->_isBlock) {
+					return '' .
+					'<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
+					'<div style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">' .
+					'	<div style="height:15px; background-color: #CCC; color: white; font-size: 11px; padding:2px 5px 0 5px;">' .
+					'		<span style="font-weight:bold; float:left;">' . $index . '</span><span style="float:right;">Module <span style="font-weight:bold;">' . $moduleName . '</span></span>' .
+					'	</div>' .
+					'</div>';
+				} else {
+					return '' .
+					'<span style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">' .
+					'	' . $moduleName . ' :: ' . $index .
+					'</span>';
+				}
+			}
+
+			if (!$instance->_isBlock) {
 				return '' .
 				'<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
-				'<div style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">' .
-				'	<div style="height:15px; background-color: #CCC; color: white; font-size: 11px; padding:2px 5px 0 5px;">' .
-				'		<span style="font-weight:bold; float:left;">' . $index . '</span><span style="float:right;">Module <span style="font-weight:bold;">' . $moduleName . '</span></span>' .
-				'	</div>' .
-				'	<div>' .
-				'		' . $output . '' .
-				'	</div>' .
-				'</div>';
+				'<span style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">' . $output . '</span>';
 			}
 
 			return '' .
@@ -265,8 +296,8 @@ abstract class Aitsu_Module_Abstract {
 		if (Aitsu_Registry :: isEdit() && !$this->_cacheIfLoggedIn) {
 			return false;
 		}
-		
-		$tags = array();
+
+		$tags = array ();
 
 		if (!empty ($this->_type)) {
 			$tags[] = 'type_' . $this->_type;
