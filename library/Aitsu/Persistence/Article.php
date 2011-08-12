@@ -932,6 +932,13 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 				'volatile'
 			));
 
+			/*
+			 * Clean db cache.
+			 */
+			Aitsu_Cache :: getInstance()->clean(array (
+				'db'
+			));
+
 			Aitsu_Db :: commit();
 		} catch (Exception $e) {
 			Aitsu_Db :: rollback();
