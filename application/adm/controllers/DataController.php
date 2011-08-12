@@ -66,12 +66,25 @@ class DataController extends Zend_Controller_Action {
 	 * necessary async tree information.
 	 */
 	public function treesourceAction() {
+
 		$syncLang = 0;
 		$return = array ();
 
 		$id = $this->getRequest()->getParam('node');
 		if (empty ($id)) {
 			$id = 0;
+		}
+
+		if (!Aitsu_Adm_User :: getInstance()->isAllowed(array (
+				'language' => Aitsu_Registry :: get()->session->currentLanguage,
+				'area' => 'article',
+				'action' => 'update',
+				'resource' => array (
+					'type' => 'cat',
+					'id' => $id
+				)
+			))) {
+			$this->_helper->json(array ());
 		}
 
 		$categories = Aitsu_Persistence_View_Category :: cat($id, Aitsu_Registry :: get()->session->currentLanguage, null);
@@ -148,6 +161,18 @@ class DataController extends Zend_Controller_Action {
 
 	public function editAction() {
 
+		if (!Aitsu_Adm_User :: getInstance()->isAllowed(array (
+				'language' => Aitsu_Registry :: get()->session->currentLanguage,
+				'area' => 'article',
+				'action' => 'update',
+				'resource' => array (
+					'type' => 'catbyart',
+					'id' => $this->getRequest()->getParam('id')
+				)
+			))) {
+			exit(0);
+		}
+
 		header("Content-type: text/javascript");
 		$this->_helper->layout->disableLayout();
 
@@ -179,7 +204,7 @@ class DataController extends Zend_Controller_Action {
 		));
 		$plugins = array_reverse($plugins);
 
-                $this->view->hidePublishing = (Aitsu_Config::get('sys.usePublishing') ? false : true);
+		$this->view->hidePublishing = (Aitsu_Config :: get('sys.usePublishing') ? false : true);
 
 		foreach ($plugins as $plugin) {
 			$this->_helper->actionStack('article', 'plugin', 'default', array (
