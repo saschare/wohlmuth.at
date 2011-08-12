@@ -411,7 +411,7 @@ class DataController extends Zend_Controller_Action {
 
 		$idart = $this->getRequest()->getParam('idart');
 		$idcat = $this->getRequest()->getParam('idcat');
-trigger_error(var_export(array($idart, $idcat), true));
+
 		$art = Aitsu_Persistence_Article :: factory($idart)->moveTo($idcat)->load(true);
 
 		$this->_helper->json((object) array (
