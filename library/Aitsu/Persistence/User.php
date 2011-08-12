@@ -222,11 +222,11 @@ class Aitsu_Persistence_User extends Aitsu_Persistence_Abstract {
 		
 		if ($this->_properties == null) {
 			$this->_properties = array();
-			preg_match_all('/^(.*?)\\:(.*)/m', $this->_data['properties'], $matches);
+			preg_match_all('/^(.*?)(?:\\:|\\=)(.*)/m', $this->_data['properties'], $matches);
 			for ($i = 0; $i < count($matches[0]); $i++) {
 				$tKey = trim($matches[1][$i]);
 				if (!empty($tKey)) {
-					$this->_properties[$matches[1][$i]] = trim($matches[2][$i]);
+					$this->_properties[$tKey] = trim($matches[2][$i]);
 				}
 			}
 		}
