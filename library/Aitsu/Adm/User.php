@@ -123,14 +123,19 @@ class Aitsu_Adm_User {
 			$clause[] = "trim(substring_index(privileg.identifier, ':', -1)) = :action";
 			$data[':action'] = $res['action'];
 		}
+		$catJoin = '';
+		$artJoin = '';
 		if (isset ($res['resource'])) {
 			if ($res['resource']['type'] == 'cat') {
 				$clause[] = "(cat.idcat = :idcat or resource.resourceid = 1)";
 				$data[':idcat'] = $res['resource']['id'];
+				$catJoin = 'left join _cat as catparent on resource.resourcetype = \'cat\' and catparent.idcat = resource.identifier ' .
+				'left join _cat as cat on cat.lft between catparent.lft and catparent.rgt ';
 			}
 			elseif ($res['resource']['type'] == 'art') {
 				$clause[] = "art.idart = :idart";
 				$data[':idart'] = $res['resource']['id'];
+				$artJoin = 'left join _art as art on resource.resourcetype = \'art\' and art.idart = resource.identifier ';
 			}
 		}
 
@@ -146,9 +151,8 @@ class Aitsu_Adm_User {
 		'left join _acl_languages as language on roles.roleid = language.roleid ' .
 		'left join _acl_resources as res on roles.roleid = res.roleid ' .
 		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
-		'left join _cat as catparent on resource.resourcetype = \'cat\' and catparent.idcat = resource.identifier ' .
-		'left join _cat as cat on cat.lft between catparent.lft and catparent.rgt ' .
 		'left join _art as art on resource.resourcetype = \'art\' and art.idart = resource.identifier ' .
+		' ' . $catJoin . ' ' . $artJoin . ' ' .
 		'where ' . implode(' and ', $clause), $data);
 
 		/*
