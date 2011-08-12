@@ -9,6 +9,10 @@ class Aitsu_Util_Array {
 
 	public static function shiftAndMix($array, $columns, $length = null) {
 		
+		if (empty($array)) {
+			return $array;
+		}
+		
 		$returnValue = array ();
 		$tmp = array ();
 		
