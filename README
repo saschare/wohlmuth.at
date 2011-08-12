@@ -1,7 +1,9 @@
-Current version: 2.3.6-4
+Current version: 2.3.6-5
 
 == Latest changes == 
 
+* Allowed to cache db queries if a user is logged in.
+* Remove db cache if an article is published.
 * Added missing unique constraint in the table _cat_lang.
 * Optimization of caching and performance.
 * Use of database information in the languages management (clients).
