@@ -1,7 +1,8 @@
-Current version: 2.3.6-9
+Current version: 2.3.6-10
 
 == Latest changes == 
 
+* Improved performance of privilege check.
 * Allow the use of the equal sign in the user settings.
 * Remove db cache when tags are added or removed from an article.
 * Added maintenance script to remove unused tags.
