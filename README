@@ -2,6 +2,7 @@ Current version: 2.3.6-5
 
 == Latest changes == 
 
+* Added maintenance script to remove unused tags.
 * Allowed to cache db queries if a user is logged in.
 * Remove db cache if an article is published.
 * Added missing unique constraint in the table _cat_lang.

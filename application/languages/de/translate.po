@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-29 15:35+0100\n"
-"PO-Revision-Date: 2011-06-29 15:36+0100\n"
+"POT-Creation-Date: 2011-08-12 11:52+0100\n"
+"PO-Revision-Date: 2011-08-12 11:52+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,27 +37,27 @@ msgstr "Letzte"
 msgid "Edit source"
 msgstr "Quelle editieren"
 
-#: application/adm/controllers/AclController.php:50
+#: application/adm/controllers/AclController.php:58
 msgid "User profile"
 msgstr "Benutzerprofil"
 
-#: application/adm/controllers/AclController.php:136
+#: application/adm/controllers/AclController.php:143
 msgid "Edit user"
 msgstr "Benutzer aktualisieren"
 
-#: application/adm/controllers/AclController.php:197
+#: application/adm/controllers/AclController.php:203
 msgid "The login is already in use."
 msgstr "Der Benutzername ist bereits in Gebrauch."
 
-#: application/adm/controllers/AclController.php:287
+#: application/adm/controllers/AclController.php:293
 msgid "Edit role"
 msgstr "Rolle editieren"
 
-#: application/adm/controllers/AclController.php:400
+#: application/adm/controllers/AclController.php:406
 msgid "Edit privilege"
 msgstr "Privileg aktualisieren"
 
-#: application/adm/controllers/AclController.php:492
+#: application/adm/controllers/AclController.php:498
 msgid "Edit resource"
 msgstr "Ressource editieren"
 
@@ -98,8 +98,8 @@ msgstr "Mandant editieren"
 msgid "Edit language"
 msgstr "Sprache editieren"
 
-#: application/adm/controllers/ScriptController.php:20
-#: application/adm/controllers/SetupController.php:20
+#: application/adm/controllers/ScriptController.php:24
+#: application/adm/controllers/SetupController.php:26
 msgid "Access denied."
 msgstr "Zugriff verweigert"
 
@@ -246,64 +246,72 @@ msgstr "Die Tabelle %s wurde kopiert."
 msgid "Synchronize database structure"
 msgstr "Datenbankstruktur aktualisieren"
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:62
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:63
 msgid "The process may take quite a while. Please be patient."
 msgstr "Dieser Prozess kann eine Weile dauern. Wir bitten Sie um Geduld."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:67
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:68
 msgid "Removing indexes. This may take quite a while. Please be patient to allow to remove the indexes."
 msgstr "Indizes werden entfernt. Das kann einen Moment dauern."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:117
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:145
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:118
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:153
 msgid "Removement takes very long. The current step needs to be resumed."
 msgstr "Die Löschung dauert sehr lange. Der aktuelle Schritt muss fortgesetzt werden."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:121
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:122
 msgid "Constraints have been removed."
 msgstr "Die Constraints wurden entfernt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:149
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:157
 msgid "Indexes have been removed."
 msgstr "Die Indizes wurden entfernt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:170
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:178
 msgid "Views have not been dropped due to insufficient privileges. If they are unchanged, they still might work properly. However, it is recommended to drop and recreate them using mysql command line interface."
 msgstr "Die Views konnten aufgrund fehlender Rechte nicht entfernt werden. Sofern sie nicht verändert worden sind, funktionieren sie weiter. Es wird jedoch empfohlen, diese über das MySQL Command Line Interface wiederherzustellen."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:174
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:182
 msgid "Views have been removed."
 msgstr "Die Views wurden entfernt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:196
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:204
 msgid "Empty tables have been removed."
 msgstr "Leere Tabellen wurden entfernt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:219
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:229
 #, php-format
 msgid "Table %s has been restored."
 msgstr "Die Tabelle %s wurde wiederhergestellt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:276
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:286
 #, php-format
 msgid "Constraints on %s have been restored."
 msgstr "Die Constraints der Tabelle %s wurden wiederhergestellt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:297
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:307
 msgid "Views have not been completely restored due to insufficient privilegies or missing function. You have to add them using the mysql command line interface."
 msgstr "Die Views konnten aufgrund fehlender Rechte oder nicht vorhandener Funktionen nicht wiederhergestellt werden. Sie müssen diese über das MySQL Command Line Interface manuell wiederherstellen."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:301
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:311
 msgid "Views have been restored."
 msgstr "Die Views wurden wiederhergestellt."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:313
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:324
 msgid "Functions have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface."
 msgstr "Die Funktionen konnten aufgrund fehlender Rechte nicht wiederhergestellt werden. Sie müssen diese über das MySQL Command Line Interface manuell wiederherstellen."
 
-#: application/adm/scripts/Update/Synchronize_Database_Structure.php:317
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:328
 msgid "Functions have been restored."
 msgstr "Die Funktionen wurden wiederhergestellt."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:348
+msgid "Triggers have not been restored due to insufficient privilegies. You have to add them using the mysql command line interface."
+msgstr "Die Triggers konnten aufgrund fehlender Rechte nicht wiederhergestellt werden. Sie müssen diese über das MySQL Command Line Interface manuell wiederherstellen."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:352
+msgid "Triggers have been restored."
+msgstr "Die Triggers wurden wiederhergestellt."
 
 #: application/adm/scripts/Installation/Setup.php:26
 #, php-format
@@ -373,52 +381,56 @@ msgstr "Die Tabelle %s wurde angelegt."
 msgid "Article relations have been actualized."
 msgstr "Die Artikelrelationen wurden aktualisiert."
 
-#: application/modules/Google/Maps/Javascript/Class.php:21
+#: application/modules/Google/Maps/Javascript/Class.php:18
 msgid "Address"
 msgstr "Adresse"
 
-#: application/modules/Google/Maps/Javascript/Class.php:21
-#: application/modules/Google/Maps/Javascript/Class.php:27
+#: application/modules/Google/Maps/Javascript/Class.php:18
+#: application/modules/Google/Maps/Javascript/Class.php:24
 msgid "Location"
 msgstr "Ort"
 
-#: application/modules/Google/Maps/Javascript/Class.php:22
+#: application/modules/Google/Maps/Javascript/Class.php:19
 msgid "Width"
 msgstr "Breite"
 
-#: application/modules/Google/Maps/Javascript/Class.php:22
+#: application/modules/Google/Maps/Javascript/Class.php:19
+#: application/modules/Google/Maps/Javascript/Class.php:20
 #: application/modules/Google/Maps/Javascript/Class.php:23
-#: application/modules/Google/Maps/Javascript/Class.php:26
 msgid "Style"
 msgstr "Style"
 
-#: application/modules/Google/Maps/Javascript/Class.php:23
+#: application/modules/Google/Maps/Javascript/Class.php:20
 msgid "Height"
 msgstr "Höhe"
 
-#: application/modules/Google/Maps/Javascript/Class.php:24
+#: application/modules/Google/Maps/Javascript/Class.php:21
 msgid "Zoom"
 msgstr "Zoom"
 
-#: application/modules/Google/Maps/Javascript/Class.php:24
+#: application/modules/Google/Maps/Javascript/Class.php:21
 msgid "View"
 msgstr "Ansicht"
 
-#: application/modules/Google/Maps/Javascript/Class.php:26
+#: application/modules/Google/Maps/Javascript/Class.php:23
 msgid "Class"
 msgstr "Class"
 
-#: application/modules/Google/Maps/Javascript/Class.php:27
+#: application/modules/Google/Maps/Javascript/Class.php:24
 msgid "Name"
 msgstr "Name"
 
-#: application/modules/Google/Maps/Javascript/Class.php:28
+#: application/modules/Google/Maps/Javascript/Class.php:25
 msgid "Type"
 msgstr "Typ"
 
-#: application/modules/Google/Maps/Javascript/Class.php:33
+#: application/modules/Google/Maps/Javascript/Class.php:30
 msgid "Display type"
 msgstr "Anzeigetyp"
+
+#: application/modules/HTML/Content/Tunnel/Class.php:20
+msgid "Foreign content placeholder text"
+msgstr "Platzhalter für Fremdinhalt"
 
 #: application/plugins/generic/data/dam/Class.php:63
 #: application/plugins/generic/data/dam/Class.php:105
@@ -515,11 +527,11 @@ msgstr "Kanal"
 msgid "Channels"
 msgstr "Kanäle"
 
-#: application/plugins/article/redirector/Class.php:23
+#: application/plugins/article/redirector/Class.php:44
 msgid "Redirect"
 msgstr "Weiterleitung"
 
-#: application/plugins/article/redirector/Class.php:35
+#: application/plugins/article/redirector/Class.php:56
 msgid "Redirection"
 msgstr "Weiterleitung"
 
@@ -581,10 +593,6 @@ msgstr "Fügt ein Facebook-Plugin ein"
 msgid "Styles PHP Code"
 msgstr "Formatiert PHP-Code"
 
-#: application/skins/default/module/CodeHtml/Class.php:14
-msgid "Styles HTML Code"
-msgstr "Formatiert HTML-Code"
-
 #: application/skins/default/module/Twitter/Class.php:14
 msgid "Inserts a Twitter button"
 msgstr "Fügt einen Twitter-Button ein"
@@ -592,10 +600,6 @@ msgstr "Fügt einen Twitter-Button ein"
 #: application/skins/default/module/CodeIni/Class.php:14
 msgid "Styles INI Code"
 msgstr "Formatiert INI-Code"
-
-#: application/skins/default/module/TagA/Class.php:14
-msgid "Inserts a html anchor tag"
-msgstr "Fügt ein HTML-Anchor ein"
 
 #: application/skins/default/module/Config/Class.php:17
 msgid "Show a set of example module configurations"
@@ -651,7 +655,7 @@ msgstr "Die Zeichenfolge muss mindestens %u Zeichen lang sein."
 msgid "The value must not be more than %u characters long."
 msgstr "Die Zeichenfolge darf eine Länge von %u Zeichen nicht überschreiten."
 
-#: library/Aitsu/Ee/Shortcode.php:73
+#: library/Aitsu/Ee/Shortcode.php:76
 #, php-format
 msgid "// The ShortCode '%s' does not exist. //"
 msgstr "// Der ShortCode '%s' existiert nicht. //"
@@ -660,10 +664,6 @@ msgstr "// Der ShortCode '%s' existiert nicht. //"
 #, php-format
 msgid "Last update on %s"
 msgstr "Last update on %s"
-
-#: library/Aitsu/Ee/Module/WormHole/Class.php:26
-msgid "Foreign content placeholder text"
-msgstr "Platzhalter für Fremdinhalt"
 
 #: library/Aitsu/Persistence/Article.php:279
 msgid "An error occured while deleting the specified article."
@@ -1151,75 +1151,6 @@ msgstr "Kategorie bearbeiten"
 msgid "Lock / Release"
 msgstr "Schützen / Schutz aufheben"
 
-#: application/adm/views/scripts/category/index.phtml:4
-msgid "Categories"
-msgstr "Kategorien"
-
-#: application/adm/views/scripts/category/index.phtml:12
-msgid "New"
-msgstr "Neu"
-
-#: application/adm/views/scripts/category/index.phtml:14
-msgid "Visiblity"
-msgstr "Sichtbarkeit"
-
-#: application/adm/views/scripts/category/index.phtml:15
-#: application/adm/views/scripts/category/index.phtml:282
-#: application/adm/views/scripts/category/index.phtml:283
-msgid "Lock"
-msgstr "Schützen"
-
-#: application/adm/views/scripts/category/index.phtml:17
-msgid "Sync"
-msgstr "Sync"
-
-#: application/adm/views/scripts/category/index.phtml:89
-msgid "Category added"
-msgstr "Kategorie hinzugefügt"
-
-#: application/adm/views/scripts/category/index.phtml:123
-msgid "OK"
-msgstr "OK"
-
-#: application/adm/views/scripts/category/index.phtml:223
-msgid "Save"
-msgstr "Speichern"
-
-#: application/adm/views/scripts/category/index.phtml:226
-msgid "Category saved"
-msgstr "Kategorie gespeichert"
-
-#: application/adm/views/scripts/category/index.phtml:247
-msgid "Category synchronized"
-msgstr "Kategorie synchronisiert"
-
-#: application/adm/views/scripts/category/index.phtml:275
-#: application/adm/views/scripts/category/index.phtml:276
-msgid "Offline"
-msgstr "Offline"
-
-#: application/adm/views/scripts/category/index.phtml:278
-#: application/adm/views/scripts/category/index.phtml:279
-msgid "Online"
-msgstr "Online"
-
-#: application/adm/views/scripts/category/index.phtml:286
-#: application/adm/views/scripts/category/index.phtml:287
-msgid "Release"
-msgstr "Schutz aufheben"
-
-#: application/adm/views/scripts/category/index.phtml:299
-msgid "Category set online/offline"
-msgstr "On- und offline stellen"
-
-#: application/adm/views/scripts/category/index.phtml:309
-msgid "Category locked / released"
-msgstr "Kategorie geschützt / Schutz aufgehoben"
-
-#: application/adm/views/scripts/category/index.phtml:319
-msgid "Category removed"
-msgstr "Kategorie entfernt"
-
 #: application/adm/views/scripts/acl/privilegelist.phtml:3
 msgid "Privileges"
 msgstr "Rechte"
@@ -1348,6 +1279,10 @@ msgstr "Installation"
 msgid "Maintenance"
 msgstr "Wartung"
 
+#: application/modules/Navigation/Back/index.phtml:1
+msgid "Back"
+msgstr "Zurück"
+
 #: application/modules/Shop/Cart/index.phtml:6
 msgid "Quantity"
 msgstr "Menge"
@@ -1386,7 +1321,6 @@ msgstr "Medienname"
 
 #: application/plugins/generic/data/media/views/index.phtml:160
 #: application/plugins/generic/data/dates/views/index.phtml:38
-#: application/plugins/generic/data/dam/views/inbox/content.phtml:6
 msgid "Date"
 msgstr "Datum"
 
@@ -1422,6 +1356,10 @@ msgstr "Tag speichern"
 #: application/plugins/generic/data/media/views/index.phtml:431
 msgid "Subline"
 msgstr "Unterschrift"
+
+#: application/plugins/generic/data/media/views/index.phtml:463
+msgid "Save"
+msgstr "Speichern"
 
 #: application/plugins/generic/data/dates/views/index.phtml:57
 msgid "Dates"
@@ -1602,12 +1540,10 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1620,8 +1556,6 @@ msgid "Add new customer"
 msgstr "Neuen Kunden aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/customerlist.phtml:5
-#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:5
-#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:5
 msgid "Filter"
 msgstr "Filtern"
 
@@ -1762,6 +1696,10 @@ msgstr "Revisionen"
 #: application/plugins/article/dc/views/index.phtml:4
 msgid "DC meta data have been saved."
 msgstr "Dublic Core-Metadaten wurden gespeichert."
+
+#: application/plugins/article/edit/views/editcontent.phtml:104
+msgid "Close"
+msgstr "Schliessen"
 
 #: application/plugins/article/edit/views/index.phtml:20
 msgid "Normal"
@@ -2076,6 +2014,40 @@ msgstr "Email"
 msgid "send"
 msgstr "senden"
 
+#~ msgid "Styles HTML Code"
+#~ msgstr "Formatiert HTML-Code"
+#~ msgid "Inserts a html anchor tag"
+#~ msgstr "Fügt ein HTML-Anchor ein"
+#~ msgid "Categories"
+#~ msgstr "Kategorien"
+#~ msgid "New"
+#~ msgstr "Neu"
+#~ msgid "Visiblity"
+#~ msgstr "Sichtbarkeit"
+#~ msgid "Lock"
+#~ msgstr "Schützen"
+#~ msgid "Sync"
+#~ msgstr "Sync"
+#~ msgid "Category added"
+#~ msgstr "Kategorie hinzugefügt"
+#~ msgid "OK"
+#~ msgstr "OK"
+#~ msgid "Category saved"
+#~ msgstr "Kategorie gespeichert"
+#~ msgid "Category synchronized"
+#~ msgstr "Kategorie synchronisiert"
+#~ msgid "Offline"
+#~ msgstr "Offline"
+#~ msgid "Online"
+#~ msgstr "Online"
+#~ msgid "Release"
+#~ msgstr "Schutz aufheben"
+#~ msgid "Category set online/offline"
+#~ msgstr "On- und offline stellen"
+#~ msgid "Category locked / released"
+#~ msgstr "Kategorie geschützt / Schutz aufgehoben"
+#~ msgid "Category removed"
+#~ msgstr "Kategorie entfernt"
 #~ msgid ""
 #~ "Removing constraints. This may take quite a while. Please be patient to "
 #~ "allow to remove the constraints."
