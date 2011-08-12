@@ -137,6 +137,15 @@ class Aitsu_Adm_User {
 				$data[':idart'] = $res['resource']['id'];
 				$artJoin = 'left join _art as art on resource.resourcetype = \'art\' and art.idart = resource.identifier ';
 			}
+			elseif ($res['resource']['type'] == 'catbyart') {
+				$clause[] = "(cat.idcat = :idcat or resource.resourceid = 1)";
+				$data[':idcat'] = Aitsu_Db :: fetchOne('' .
+				'select idcat from _cat_art where idart = :idart', array (
+					':idart' => $res['resource']['id']
+				));
+				$catJoin = 'left join _cat as catparent on resource.resourcetype = \'cat\' and catparent.idcat = resource.identifier ' .
+				'left join _cat as cat on cat.lft between catparent.lft and catparent.rgt ';
+			}
 		}
 
 		/*
@@ -151,7 +160,6 @@ class Aitsu_Adm_User {
 		'left join _acl_languages as language on roles.roleid = language.roleid ' .
 		'left join _acl_resources as res on roles.roleid = res.roleid ' .
 		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
-		'left join _art as art on resource.resourcetype = \'art\' and art.idart = resource.identifier ' .
 		' ' . $catJoin . ' ' . $artJoin . ' ' .
 		'where ' . implode(' and ', $clause), $data);
 
