@@ -1,7 +1,8 @@
-Current version: 2.3.6-7
+Current version: 2.3.6-8
 
 == Latest changes == 
 
+* Remove db cache when tags are added or removed from an article.
 * Added maintenance script to remove unused tags.
 * Allowed to cache db queries if a user is logged in.
 * Remove db cache if an article is published.
