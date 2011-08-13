@@ -8,5 +8,6 @@
         <field default="null" name="starttime" type="timestamp" nullable="true"/>
         <field default="null" name="endtime" type="timestamp" nullable="true"/>
         <field default="0" name="periodicity" type="int(10)" nullable="false"/>
+        <field default="null" name="until" type="timestamp" nullable="true"/>
     </table>
 </database>

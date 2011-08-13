@@ -71,6 +71,11 @@ class Aitsu_Persistence_Rendezvous extends Aitsu_Persistence_Abstract {
 
 		$this->_data[$key] = $value;
 	}
+	
+	public function __isset($key) {
+		
+		return !empty($this->_data[$key]);
+	}
 
 	public function save() {
 
@@ -78,19 +83,25 @@ class Aitsu_Persistence_Rendezvous extends Aitsu_Persistence_Abstract {
 			$this->remove();
 			return;
 		}
+trigger_error(var_export($this->_data, true));
+		$this->starttime = empty ($this->starttime) ? null : $this->starttime;
+		$this->endtime = empty ($this->endtime) ? null : $this->endtime;
+		$this->until = empty ($this->until) ? null : $this->until;
 
 		Aitsu_Db :: query('' .
-		'insert into _rendezvous (idart, starttime, endtime, periodicity) ' .
+		'insert into _rendezvous (idart, starttime, endtime, periodicity, until) ' .
 		'values ' .
-		'(:idart, :starttime, :endtime, :periodicity) ' .
+		'(:idart, :starttime, :endtime, :periodicity, :until) ' .
 		'on duplicate key update ' .
 		'	starttime = :starttime, ' .
 		'	endtime = :endtime, ' .
-		'	periodicity = :periodicity', array (
+		'	periodicity = :periodicity, ' .
+		'	until = :until ', array (
 			':idart' => $this->_id,
 			':starttime' => $this->starttime,
 			':endtime' => $this->endtime,
-			':periodicity' => $this->periodicity
+			':periodicity' => $this->periodicity,
+			':until' => $this->until
 		));
 	}
 
