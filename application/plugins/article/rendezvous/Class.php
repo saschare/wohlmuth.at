@@ -21,7 +21,7 @@ class RendezvousArticleController extends Aitsu_Adm_Plugin_Controller {
 		return (object) array (
 			'name' => 'rendezvous',
 			'tabname' => Aitsu_Registry :: get()->Zend_Translate->translate('Rendez-vous'),
-			'enabled' => true,
+			'enabled' => self :: getPosition($idart, 'rendezvous'),
 			'position' => self :: getPosition($idart, 'rendezvous'),
 			'id' => self :: ID
 		);
@@ -29,13 +29,13 @@ class RendezvousArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function indexAction() {
 
-		$id = $this->getRequest()->getParam('idart');
-		$data = Aitsu_Persistence_Article :: factory($id)->load();
+		$id = $this->getRequest()->getParam('idart');		
+		$data = Aitsu_Persistence_Rendezvous :: factory($id)->load();
 
-		$form = Aitsu_Forms :: factory('pageconfiguration', APPLICATION_PATH . '/plugins/article/config/forms/config.ini');
-		$form->title = Aitsu_Translate :: translate('Configuration');
+		$form = Aitsu_Forms :: factory('rendezvous', APPLICATION_PATH . '/plugins/article/rendezvous/forms/rendezvous.ini');
+		$form->title = Aitsu_Translate :: translate('Rendez-vous');
 		$form->url = $this->view->url(array (
-			'plugin' => 'config',
+			'plugin' => 'rendezvous',
 			'paction' => 'index'
 		), 'aplugin');
 
@@ -53,7 +53,53 @@ class RendezvousArticleController extends Aitsu_Adm_Plugin_Controller {
 			);
 		}
 
-		$form->setOptions('configsetid', $options);
+		$options = array ();
+		for ($i = 0; $i <= 28; $i++) {
+			if ($i == 0) {
+				$val = array (
+					'name' => Aitsu_Translate :: translate('No recurrence'),
+					'value' => $i
+				);
+			}
+			elseif ($i == 1) {
+				$val = array (
+					'name' => Aitsu_Translate :: translate('Daily'),
+					'value' => $i
+				);
+			}
+			elseif ($i == 7) {
+				$val = array (
+					'name' => Aitsu_Translate :: translate('Weekly'),
+					'value' => $i
+				);
+			}
+			elseif ($i == 14) {
+				$val = array (
+					'name' => Aitsu_Translate :: translate('Every other week'),
+					'value' => $i
+				);
+			}
+			elseif ($i == 21) {
+				$val = array (
+					'name' => Aitsu_Translate :: translate('Every three weeks'),
+					'value' => $i
+				);
+			}
+			elseif ($i == 28) {
+				$val = array (
+					'name' => Aitsu_Translate :: translate('Every four weeks'),
+					'value' => $i
+				);
+			} else {
+				$val = array (
+					'name' => $i,
+					'value' => $i
+				);
+			}
+			$options[] = (object) $val;
+		}
+
+		$form->setOptions('periodicity', $options);
 		$form->setValues($data->toArray());
 
 		if ($this->getRequest()->getParam('loader')) {
@@ -71,9 +117,8 @@ class RendezvousArticleController extends Aitsu_Adm_Plugin_Controller {
 
 				/*
 				 * Persist the data.
-				 */
+				 */			 
 				$data->setValues($form->getValues());
-				$data->redirect = '0';
 				$data->save();
 
 				$this->_helper->json((object) array (

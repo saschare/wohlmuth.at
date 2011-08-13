@@ -33,13 +33,15 @@ class Aitsu_Persistence_Rendezvous extends Aitsu_Persistence_Abstract {
 		}
 
 		$this->_data = Aitsu_Db :: fetchRow('' .
-		'select distinct rv.* ' .
-		'from _rendezvous rv ' .
-		'left join _art_lang artlang on rv.idart = artlang.idart ' .
-		'where ' .
-		'	idartlang = :id', array (
+		'select * from _rendezvous where idart = :id', array (
 			':id' => $this->_id
 		));
+
+		if (!$this->_data) {
+			$this->_data = array ();
+		}
+
+		$this->_data['idart'] = $this->_id;
 
 		return $this;
 	}
@@ -72,20 +74,30 @@ class Aitsu_Persistence_Rendezvous extends Aitsu_Persistence_Abstract {
 
 	public function save() {
 
-		if (empty ($this->_data) || (empty ($this->_data['starttime']) && empty ($this->_data['starttime']))) {
+		if (empty ($this->_data) || (empty ($this->_data['starttime']) && empty ($this->_data['endtime']))) {
 			$this->remove();
 			return;
 		}
 
-		$this->_id = Aitsu_Db :: put('_rendezvous', 'idart', $this->_data);
+		Aitsu_Db :: query('' .
+		'insert into _rendezvous (idart, starttime, endtime, periodicity) ' .
+		'values ' .
+		'(:idart, :starttime, :endtime, :periodicity) ' .
+		'on duplicate key update ' .
+		'	starttime = :starttime, ' .
+		'	endtime = :endtime, ' .
+		'	periodicity = :periodicity', array (
+			':idart' => $this->_id,
+			':starttime' => $this->starttime,
+			':endtime' => $this->endtime,
+			':periodicity' => $this->periodicity
+		));
 	}
 
 	public function remove() {
 
 		Aitsu_Db :: query('' .
-		'delete from _rendezvous ' .
-		'where ' .
-		'	idart = (select distinct idart from _art_lang where idartlang = :id) ', array (
+		'delete from _rendezvous where idart = :id', array (
 			':id' => $this->_id
 		));
 	}

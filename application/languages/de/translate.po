@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-12 11:52+0100\n"
-"PO-Revision-Date: 2011-08-12 11:52+0100\n"
+"POT-Creation-Date: 2011-08-13 15:42+0100\n"
+"PO-Revision-Date: 2011-08-13 15:42+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -70,23 +70,23 @@ msgstr "Konfiguration editieren"
 msgid "Article with ID %s copied to clipboard."
 msgstr "Der Artikel mit der ID %s wurde in die Zwischenablage kopiert."
 
-#: application/adm/controllers/DataController.php:254
+#: application/adm/controllers/DataController.php:279
 msgid "Article"
 msgstr "Artikel"
 
-#: application/adm/controllers/DataController.php:300
+#: application/adm/controllers/DataController.php:325
 msgid "Article deleted"
 msgstr "Artikel gelöscht."
 
-#: application/adm/controllers/DataController.php:326
+#: application/adm/controllers/DataController.php:351
 msgid "An error occured while trying to set the specified article as index. "
 msgstr "Während dem Vorgang ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:345
+#: application/adm/controllers/DataController.php:370
 msgid "An error occured while trying to duplicate the specified article. "
 msgstr "Während der Duplizierung ist ein Fehler aufgetreten."
 
-#: application/adm/controllers/DataController.php:406
+#: application/adm/controllers/DataController.php:431
 msgid "Categories moved."
 msgstr "Die Kategorien wurden verschoben."
 
@@ -337,6 +337,14 @@ msgstr "Ausführung der Zeilen %s bis %s."
 msgid "Line %s to %s executed."
 msgstr "Zeilen %s bis %s ausgeführt."
 
+#: application/adm/scripts/Maintenance/Removeunusedtags.php:15
+msgid "Remove unused tags"
+msgstr "Nicht verwendete Tags löschen"
+
+#: application/adm/scripts/Maintenance/Removeunusedtags.php:25
+msgid "Unused tags have been removed."
+msgstr "Nicht verwendete Tags wurden gelöscht."
+
 #: application/adm/scripts/Maintenance/Removecaturls.php:15
 msgid "Remove category URLs"
 msgstr "Kategorie-URLs entfernen"
@@ -489,6 +497,35 @@ msgstr "Tags"
 #: application/plugins/article/revisionprogression/Class.php:22
 msgid "Revision Progression"
 msgstr "Revisionsverlauf"
+
+#: application/plugins/article/rendezvous/Class.php:23
+#: application/plugins/article/rendezvous/Class.php:36
+msgid "Rendez-vous"
+msgstr "Termin"
+
+#: application/plugins/article/rendezvous/Class.php:60
+msgid "No recurrence"
+msgstr "Keine Wiederholung"
+
+#: application/plugins/article/rendezvous/Class.php:66
+msgid "Daily"
+msgstr "Täglich"
+
+#: application/plugins/article/rendezvous/Class.php:72
+msgid "Weekly"
+msgstr "Wöchentlich"
+
+#: application/plugins/article/rendezvous/Class.php:78
+msgid "Every other week"
+msgstr "Jede zweite Woche"
+
+#: application/plugins/article/rendezvous/Class.php:84
+msgid "Every three weeks"
+msgstr "Alle drei Wochen"
+
+#: application/plugins/article/rendezvous/Class.php:90
+msgid "Every four weeks"
+msgstr "Alle vier Wochen"
 
 #: application/plugins/article/dc/Class.php:23
 msgid "Dublin core (DC)"
@@ -764,7 +801,6 @@ msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/index.phtml:58
 #: application/adm/views/scripts/data/index.phtml:163
-#: application/adm/views/scripts/mapping/index.phtml:48
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1345,7 +1381,6 @@ msgid "Choose tag"
 msgstr "Tag auswählen"
 
 #: application/plugins/generic/data/media/views/index.phtml:308
-#: application/plugins/generic/data/tags/views/taglist.phtml:5
 msgid "Tag"
 msgstr "Tag"
 
@@ -1556,6 +1591,8 @@ msgid "Add new customer"
 msgstr "Neuen Kunden aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/customerlist.phtml:5
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:5
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:5
 msgid "Filter"
 msgstr "Filtern"
 
@@ -1665,7 +1702,6 @@ msgid "Configuration has been saved."
 msgstr "Die Konfiguration wurde gespeichert."
 
 #: application/plugins/article/config/views/index.phtml:13
-#: application/plugins/article/dc/views/index.phtml:8
 msgid "Form data have not been saved due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
@@ -1692,6 +1728,14 @@ msgstr "Sind Sie sicher, dass die aktuelle Revision publiziert werden soll?"
 #: application/plugins/article/revisionprogression/views/index.phtml:194
 msgid "Revisions"
 msgstr "Revisionen"
+
+#: application/plugins/article/rendezvous/views/index.phtml:4
+msgid "Rendezvous has been saved."
+msgstr "Der Termin wurde gespeichert."
+
+#: application/plugins/article/rendezvous/views/translateDummy.phtml:2
+msgid "Periodicity"
+msgstr "Periodizität"
 
 #: application/plugins/article/dc/views/index.phtml:4
 msgid "DC meta data have been saved."
@@ -1837,55 +1881,46 @@ msgstr "Die Shop-Artikel-Daten wurden gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:106
 #: application/plugins/category/metabatch/views/index.phtml:123
-#: application/plugins/category/standard/views/index.phtml:106
 msgid "URL name"
 msgstr "URL-Name"
 
 #: application/plugins/category/blog/views/index.phtml:146
 #: application/plugins/category/metabatch/views/index.phtml:201
-#: application/plugins/category/standard/views/index.phtml:176
 msgid "Set as index"
 msgstr "Als Index setzen"
 
 #: application/plugins/category/blog/views/index.phtml:219
 #: application/plugins/category/metabatch/views/index.phtml:274
-#: application/plugins/category/standard/views/index.phtml:249
 msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
-#: application/plugins/category/standard/views/index.phtml:253
 msgid "Page cut"
 msgstr "Seite ausgeschnitten"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
-#: application/plugins/category/standard/views/index.phtml:253
 msgid "The selected page has been put to the clipboard."
 msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:232
 #: application/plugins/category/metabatch/views/index.phtml:287
-#: application/plugins/category/standard/views/index.phtml:262
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: application/plugins/category/blog/views/index.phtml:233
 #: application/plugins/category/metabatch/views/index.phtml:288
-#: application/plugins/category/standard/views/index.phtml:263
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
-#: application/plugins/category/standard/views/index.phtml:272
 msgid "Page deleted"
 msgstr "Seite gelöscht"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
-#: application/plugins/category/standard/views/index.phtml:272
 msgid "The selected page has been removed."
 msgstr "Die selektierte Seite wurde gelöscht."
 
@@ -2221,8 +2256,6 @@ msgstr "senden"
 #~ msgstr "Link hinzugefügt."
 #~ msgid "Link removed."
 #~ msgstr "Link entfernt."
-#~ msgid "Remove selected tags"
-#~ msgstr "Selektierte Tags löschen"
 #~ msgid "NULL (default)"
 #~ msgstr "NULL (default)"
 #~ msgid "You are about to remove the selected tags. Are you sure?"
