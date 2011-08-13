@@ -1,7 +1,8 @@
-Current version: 2.3.6-11
+Current version: 2.3.7-1
 
 == Latest changes == 
 
+* Added rendez-vous plugin.
 * Improved performance of privilege check.
 * Allow the use of the equal sign in the user settings.
 * Remove db cache when tags are added or removed from an article.
@@ -17,6 +18,11 @@ Current version: 2.3.6-11
 * Added sys.webpath to resulting URL in the navigation helper.
 * Added disable method to Aitsu_Event_Dispatcher.
 * Fixed bug in media mangement (thumbs did not get cleaned up when changing properties).
+
+== Rendez-vous plugin (since 2.3.7) ==
+
+The plugin allows to set an appointment with start and end time and periodicity of 0 (no
+recurrence) to 28 (every four weeks) to an article.
 
 == Module hierachy (since 2.3.1) ==
 
