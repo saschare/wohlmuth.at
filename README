@@ -1,7 +1,8 @@
-Current version: 2.3.7-2
+Current version: 2.3.7-3
 
 == Latest changes == 
 
+* 2011-08-13: Added rendez-vous module (List.Rendezvous) and a view class to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
 * 2011-08-13: Added rendez-vous plugin.
 
