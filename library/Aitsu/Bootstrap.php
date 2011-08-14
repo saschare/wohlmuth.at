@@ -183,10 +183,16 @@ class Aitsu_Bootstrap {
 			Zend_Session :: setSaveHandler($saveHandler);
 		}
 
-		Zend_Session :: setOptions(array (
+		$sessionOptions = array (
 			'use_only_cookies' => 'off',
 			'use_cookies' => 'on'
-		));
+		);
+		
+		if (Aitsu_Config :: get('session.cookiedomain') != null) {
+			$sessionOptions['cookie_domain'] = Aitsu_Config :: get('session.cookiedomain');
+		} 
+
+		Zend_Session :: setOptions($sessionOptions);
 
 		Zend_Session :: start(array (
 			'name' => 'AITSU'
@@ -206,6 +212,7 @@ class Aitsu_Bootstrap {
 		Aitsu_Ee_Cache_Page :: getInstance()->clearCache();
 
 		if ($_GET['clearcache'] == 'all') {
+			Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/cachetransparent/data');
 			Aitsu_Cache :: getInstance()->clean();
 			return;
 		}
@@ -268,6 +275,8 @@ class Aitsu_Bootstrap {
 
 		if (isset ($_REQUEST['logout'])) {
 			Aitsu_Registry :: get()->session->user = null;
+			header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
+			exit(0);
 		}
 
 		if (isset ($_POST['username']) && isset ($_POST['password'])) {
@@ -327,33 +336,74 @@ class Aitsu_Bootstrap {
 	protected function _EvaluateRequest() {
 
 		if (!isset ($_GET['id'])) {
-			return Aitsu_Bootstrap_EvalRequest :: run();
+			Aitsu_Bootstrap_EvalRequest :: run();
+		} else {
+			$data = Aitsu_Db :: fetchRowC(60 * 60, '' .
+			'select ' .
+			'	artlang.idart, ' .
+			'	catart.idcat, ' .
+			'	artlang.idlang, ' .
+			'	artlang.idartlang, ' .
+			'	lang.idclient, ' .
+			'	catlang.public ' .
+			'from _art_lang as artlang ' .
+			'left join _cat_art as catart on artlang.idart = catart.idart ' .
+			'left join _lang as lang on artlang.idlang = lang.idlang ' .
+			'left join _cat_lang as catlang on catlang.idcat = catart.idcat and catlang.idlang = artlang.idlang ' .
+			'where ' .
+			'	artlang.idartlang = :idartlang', array (
+				':idartlang' => $_GET['id']
+			));
+
+			Aitsu_Registry :: get()->env->idart = $data['idart'];
+			Aitsu_Registry :: get()->env->idcat = $data['idcat'];
+			Aitsu_Registry :: get()->env->idlang = $data['idlang'];
+			Aitsu_Registry :: get()->env->lang = $data['idlang'];
+			Aitsu_Registry :: get()->env->idartlang = $data['idartlang'];
+			Aitsu_Registry :: get()->env->idclient = $data['idclient'];
+			Aitsu_Registry :: get()->env->client = $data['idclient'];
+			Aitsu_Registry :: get()->env->ispublic = $data['public'];
 		}
 
-		$data = Aitsu_Db :: fetchRowC(60 * 60, '' .
-		'select ' .
-		'	artlang.idart, ' .
-		'	catart.idcat, ' .
-		'	artlang.idlang, ' .
-		'	artlang.idartlang, ' .
-		'	lang.idclient, ' .
-		'	catlang.public ' .
-		'from _art_lang as artlang ' .
-		'left join _cat_art as catart on artlang.idart = catart.idart ' .
-		'left join _lang as lang on artlang.idlang = lang.idlang ' .
-		'left join _cat_lang as catlang on catlang.idcat = catart.idcat and catlang.idlang = artlang.idlang ' .
-		'where ' .
-		'	artlang.idartlang = :idartlang', array (
-			':idartlang' => $_GET['id']
-		));
+		$user = Aitsu_Adm_User :: getInstance();
 
-		Aitsu_Registry :: get()->env->idart = $data['idart'];
-		Aitsu_Registry :: get()->env->idcat = $data['idcat'];
-		Aitsu_Registry :: get()->env->idlang = $data['idlang'];
-		Aitsu_Registry :: get()->env->lang = $data['idlang'];
-		Aitsu_Registry :: get()->env->idartlang = $data['idartlang'];
-		Aitsu_Registry :: get()->env->idclient = $data['idclient'];
-		Aitsu_Registry :: get()->env->client = $data['idclient'];
+		if (Aitsu_Application_Status :: isEdit() && $user != null && $user->isAllowed(array (
+				'language' => Aitsu_Registry :: get()->env->idlang,
+				'area' => 'article',
+				'action' => 'update',
+				'resource' => array (
+					'type' => 'cat',
+					'id' => Aitsu_Registry :: get()->env->idcat
+				)
+			))) {
+			return;
+		}
+
+		if (isset (Aitsu_Registry :: get()->env->ispublic) && Aitsu_Registry :: get()->env->ispublic == 1) {
+			/*
+			 * No permission check necessary. Return.
+			 */
+			return;
+		}
+
+		if ($user != null && $user->isAllowed(array (
+				'language' => Aitsu_Registry :: get()->env->idlang,
+				'area' => 'frontend',
+				'action' => 'view',
+				'resource' => array (
+					'type' => 'cat',
+					'id' => Aitsu_Registry :: get()->env->idcat
+				)
+			))) {
+			return;
+		}
+
+		/*
+		 * The user seems not to be allowed to access the page. We therefore
+		 * give him the possiblity to log in.
+		 */
+		Aitsu_Registry :: get()->env->idart = Aitsu_Config :: get('sys.loginpage');
+		Aitsu_Bootstrap_EvalRequest :: setIdartlang(Aitsu_Config :: get('sys.loginpage'));
 	}
 
 	protected function _LockApplicationStatus() {

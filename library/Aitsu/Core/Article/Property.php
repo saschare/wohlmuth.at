@@ -72,6 +72,8 @@ class Aitsu_Core_Article_Property {
 	}
 
 	public function setValue($nameSpace, $token, $value, $type = 'text') {
+		
+		$this->_normalizeName($nameSpace);
 
 		$this->changed = true;
 
@@ -87,6 +89,8 @@ class Aitsu_Core_Article_Property {
 	}
 
 	public function unsetValue($nameSpace, $token) {
+		
+		$this->_normalizeName($nameSpace);
 
 		if (isset ($this->data[$nameSpace][$token])) {
 			$this->changed = true;
@@ -190,6 +194,8 @@ class Aitsu_Core_Article_Property {
 	}
 
 	public function getValue($nameSpace, $name) {
+		
+		$this->_normalizeName($nameSpace);
 
 		if (!isset ($this->data[$nameSpace][$name])) {
 			return null;
@@ -199,11 +205,23 @@ class Aitsu_Core_Article_Property {
 	}
 
 	public function getNamespace($nameSpace) {
+		
+		$this->_normalizeName($nameSpace);
 
 		if (!isset ($this->data[$nameSpace])) {
 			return array ();
 		}
 
 		return $this->data[$nameSpace];
+	}
+	
+	protected function _normalizeName(& $name) {
+		
+		$name = preg_replace('/[^a-zA-Z_0-9]/', '_', $name);
+		
+		if (strlen($name) > 127) {
+			$hash = hash('md4', $name);
+			$name = substr($name, 0, 95) . $hash;
+		}
 	}
 }

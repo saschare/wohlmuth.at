@@ -1,0 +1,2867 @@
+# 
+#   <nils@ammari.de>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: aitsu\n"
+"Report-Msgid-Bugs-To: http://github.com/wdrei/aitsu/issues\n"
+"POT-Creation-Date: 2011-06-29 15:35+0100\n"
+"PO-Revision-Date: 2011-08-11 11:33+0000\n"
+"Last-Translator: Nils_Ammari <nils@ammari.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Poedit-Basepath: /home/kummer/workspace/org.aitsu.dev/\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-KeywordsList: translate;translateBe\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-SearchPath-0: application\n"
+"X-Poedit-SearchPath-1: library/Aitsu\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: application/adm/controllers/TranslationController.php:53
+msgid "Edit translation"
+msgstr "Edición de la traducción"
+
+#: application/adm/controllers/MappingController.php:170
+msgid "Edit mapping"
+msgstr "Editar mapping"
+
+#: application/adm/controllers/MappingController.php:177
+msgid "before"
+msgstr "antes de"
+
+#: application/adm/controllers/MappingController.php:182
+msgid "Last"
+msgstr "Pasado"
+
+#: application/adm/controllers/SyndicationController.php:39
+msgid "Edit source"
+msgstr "Editar la fuente"
+
+#: application/adm/controllers/AclController.php:50
+msgid "User profile"
+msgstr "Perfil de usuario"
+
+#: application/adm/controllers/AclController.php:136
+msgid "Edit user"
+msgstr "Editar datos del usuario"
+
+#: application/adm/controllers/AclController.php:197
+msgid "The login is already in use."
+msgstr "El inicio de sesión ya está en uso."
+
+#: application/adm/controllers/AclController.php:287
+msgid "Edit role"
+msgstr "Editar el papel"
+
+#: application/adm/controllers/AclController.php:400
+msgid "Edit privilege"
+msgstr "editar los privilegios"
+
+#: application/adm/controllers/AclController.php:492
+msgid "Edit resource"
+msgstr "editar el recurso"
+
+#: application/adm/controllers/ConfigController.php:46
+msgid "Edit config set"
+msgstr "Editar configuración de conjunto"
+
+#: application/adm/controllers/ClipboardController.php:24
+#, php-format
+msgid "Article with ID %s copied to clipboard."
+msgstr "Artículo con ID%s copiado al portapapeles."
+
+#: application/adm/controllers/DataController.php:254
+msgid "Article"
+msgstr "Artículo"
+
+#: application/adm/controllers/DataController.php:300
+msgid "Article deleted"
+msgstr "Artículo suprimido"
+
+#: application/adm/controllers/DataController.php:326
+msgid "An error occured while trying to set the specified article as index. "
+msgstr ""
+"Se produjo un error al intentar establecer el artículo especifica como "
+"índice."
+
+#: application/adm/controllers/DataController.php:345
+msgid "An error occured while trying to duplicate the specified article. "
+msgstr "Se produjo un error al tratar de duplicar el artículo especificado."
+
+#: application/adm/controllers/DataController.php:406
+msgid "Categories moved."
+msgstr "Categorías movido."
+
+#: application/adm/controllers/ClientController.php:68
+msgid "Edit client"
+msgstr "Editar cliente"
+
+#: application/adm/controllers/ClientController.php:130
+msgid "Edit language"
+msgstr "Editar la lengua"
+
+#: application/adm/controllers/ScriptController.php:20
+#: application/adm/controllers/SetupController.php:20
+msgid "Access denied."
+msgstr "Acceso denegado."
+
+#: application/adm/translations/index.php:9
+msgid "save"
+msgstr "ahorrar"
+
+#: application/adm/translations/index.php:10
+msgid "cancel"
+msgstr "cancelar"
+
+#: application/adm/translations/index.php:11
+msgid "Personal info"
+msgstr "Información personal"
+
+#: application/adm/translations/index.php:12
+msgid "Credentials"
+msgstr "Credenciales"
+
+#: application/adm/translations/index.php:13
+msgid "Access period"
+msgstr "Acceso período"
+
+#: application/adm/translations/index.php:14
+msgid "Resource selector"
+msgstr "Selector de recursos"
+
+#: application/adm/translations/index.php:15
+msgid "Password"
+msgstr "Contraseña"
+
+#: application/adm/translations/index.php:16
+msgid "Beginning with"
+msgstr "A partir de"
+
+#: application/adm/translations/index.php:17
+msgid "Resource type"
+msgstr "Tipo de recurso"
+
+#: application/adm/translations/index.php:18
+msgid "Other (to be specified)"
+msgstr "Otros (a especificar)"
+
+#: application/adm/translations/index.php:19
+msgid "Specify type (in case of other)"
+msgstr "Especificar el tipo (en el caso de otros)"
+
+#: application/adm/translations/index.php:20
+msgid "Conditions"
+msgstr "Condiciones"
+
+#: application/adm/translations/index.php:21
+msgid "Environment"
+msgstr "Medio ambiente"
+
+#: application/adm/translations/index.php:22
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: application/adm/translations/index.php:23
+msgid "Preferred language"
+msgstr "Idioma preferido"
+
+#: application/adm/translations/index.php:24
+msgid "locale"
+msgstr "lugar"
+
+#: application/adm/translations/index.php:25
+msgid "Session period"
+msgstr "Sesión de período"
+
+#: application/adm/translations/index.php:26
+msgid "Identification"
+msgstr "Identificación"
+
+#: application/adm/translations/index.php:27
+msgid "Page"
+msgstr "Página"
+
+#: application/adm/translations/index.php:28
+msgid "Teaser title"
+msgstr "Teaser título"
+
+#: application/adm/translations/index.php:29
+msgid "Summary / Teaser"
+msgstr "Resumen / Teaser"
+
+#: application/adm/translations/index.php:30
+msgid "Publication period"
+msgstr "Publicación período"
+
+#: application/adm/translations/index.php:31
+msgid "From"
+msgstr "De"
+
+#: application/adm/translations/index.php:32
+msgid "Until"
+msgstr "Hasta"
+
+#: application/adm/translations/index.php:33
+msgid "Article / Dataset"
+msgstr "Artículo / conjunto de datos"
+
+#: application/adm/scripts/Backup/Dropcopydb.php:15
+msgid "Drop the copy from the database"
+msgstr "Caída de la copia de la base de datos"
+
+#: application/adm/scripts/Backup/Dropcopydb.php:21
+#: application/adm/scripts/Backup/Copydb.php:23
+msgid "No backup table prefix specified."
+msgstr "No hay ninguna tabla de copia de seguridad prefijo especificado."
+
+#: application/adm/scripts/Backup/Dropcopydb.php:30
+msgid "There are no tables to be dropped."
+msgstr "No hay mesas que se cayó."
+
+#: application/adm/scripts/Backup/Dropcopydb.php:41
+msgid "Tables dropped."
+msgstr "Tablas cayó."
+
+#: application/adm/scripts/Backup/Copydb.php:17
+msgid "Copy database within database"
+msgstr "Copia de la base dentro de la base de datos"
+
+#: application/adm/scripts/Backup/Copydb.php:32
+msgid "Show tables privilege is missing or database access denied."
+msgstr ""
+"Mostrar las tablas de privilegios no se encuentra o le niega el acceso de "
+"base de datos."
+
+#: application/adm/scripts/Backup/Copydb.php:36
+msgid "There seem to be no tables to be backuped"
+msgstr "Parece que no hay tablas para backups"
+
+#: application/adm/scripts/Backup/Copydb.php:54
+#, php-format
+msgid "Copying table %s."
+msgstr "Copia de la tabla%s."
+
+#: application/adm/scripts/Backup/Copydb.php:65
+#, php-format
+msgid "Table %s copied."
+msgstr "Tabla%s copiados."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:19
+msgid "Synchronize database structure"
+msgstr "Sincronizar la estructura de base de datos"
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:62
+msgid "The process may take quite a while. Please be patient."
+msgstr "El proceso puede tardar bastante tiempo. Por favor, sea paciente."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:67
+msgid ""
+"Removing indexes. This may take quite a while. Please be patient to allow to"
+" remove the indexes."
+msgstr ""
+"La eliminación de los índices. Esto puede tomar bastante tiempo. Por favor "
+"sea paciente para permitir que para eliminar los índices."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:117
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:145
+msgid "Removement takes very long. The current step needs to be resumed."
+msgstr "Removement toma mucho tiempo. El paso actual se debe reanudarse."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:121
+msgid "Constraints have been removed."
+msgstr "Limitaciones han sido eliminadas."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:149
+msgid "Indexes have been removed."
+msgstr "Índices se han eliminado."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:170
+msgid ""
+"Views have not been dropped due to insufficient privileges. If they are "
+"unchanged, they still might work properly. However, it is recommended to "
+"drop and recreate them using mysql command line interface."
+msgstr ""
+"Opiniones no han sido descartados debido a la falta de privilegios. Si no se"
+" han modificado, todavía podría funcionar correctamente. Sin embargo, se "
+"recomienda a caer y volver a crearlos con el comando mysql interfaz de "
+"línea."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:174
+msgid "Views have been removed."
+msgstr "Puntos de vista han sido eliminados."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:196
+msgid "Empty tables have been removed."
+msgstr "Mesas vacías se han eliminado."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:219
+#, php-format
+msgid "Table %s has been restored."
+msgstr "Tabla%s ha sido restaurada."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:276
+#, php-format
+msgid "Constraints on %s have been restored."
+msgstr "Limitaciones en %s han sido restaurados."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:297
+msgid ""
+"Views have not been completely restored due to insufficient privilegies or "
+"missing function. You have to add them using the mysql command line "
+"interface."
+msgstr ""
+"Puntos de vista no han sido completamente restaurados, debido a los "
+"privilegiados insuficiente o función que falta. Usted tiene que añadirlos "
+"usando el comando mysql interfaz de línea."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:301
+msgid "Views have been restored."
+msgstr "Puntos de vista han sido restaurados."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:313
+msgid ""
+"Functions have not been restored due to insufficient privilegies. You have "
+"to add them using the mysql command line interface."
+msgstr ""
+"Funciones no han sido restaurados por los privilegiados insuficiente. Usted "
+"tiene que añadirlos usando el comando mysql interfaz de línea."
+
+#: application/adm/scripts/Update/Synchronize_Database_Structure.php:317
+msgid "Functions have been restored."
+msgstr "Funciones han sido restaurados."
+
+#: application/adm/scripts/Installation/Setup.php:26
+#, php-format
+msgid ""
+"Directory with path %s is not writable. Please allow the server to write to "
+"this directory and underneath."
+msgstr ""
+"Directorio con ruta %s no es escribible. Por favor, permitir que el servidor"
+" escribir en este directorio y por debajo."
+
+#: application/adm/scripts/Installation/Setup.php:32
+#, php-format
+msgid ""
+"File or directory with path %s is not writable. Please allow the server to "
+"write to %s and underneath."
+msgstr ""
+"Archivo o directorio con ruta %s no es escribible. Por favor, permitir que "
+"el servidor escribir en %s, y por debajo."
+
+#: application/adm/scripts/Installation/Setup.php:42
+msgid "The file dump.sql is missing."
+msgstr "El archivo dump.sql no existe."
+
+#: application/adm/scripts/Installation/Setup.php:78
+#, php-format
+msgid "Executing from line %s to %s."
+msgstr "La ejecución de la línea de %s a %s."
+
+#: application/adm/scripts/Installation/Setup.php:103
+#, php-format
+msgid "Line %s to %s executed."
+msgstr "Línea de %s a%s ejecutado."
+
+#: application/adm/scripts/Maintenance/Removecaturls.php:15
+msgid "Remove category URLs"
+msgstr "Eliminar URLs categoría"
+
+#: application/adm/scripts/Maintenance/Removecaturls.php:25
+msgid "URLs removed."
+msgstr "URLs eliminado."
+
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:15
+msgid "Delete unlinked media from the file system"
+msgstr ""
+"Eliminar los medios de comunicación desvincular del sistema de archivos"
+
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:34
+#, php-format
+msgid "Removing %s (ID %s)"
+msgstr "La eliminación de %s (ID %s)"
+
+#: application/adm/scripts/Maintenance/Deleteunusedmedia.php:55
+#, php-format
+msgid "File %s removed."
+msgstr "El archivo %s eliminado."
+
+#: application/adm/scripts/Maintenance/PublishAll.php:13
+msgid "Publish all pages."
+msgstr "Publicar todas las páginas."
+
+#: application/adm/scripts/Maintenance/PublishAll.php:67
+#, php-format
+msgid "Page with ID %s published."
+msgstr "Página con %s ID publicados."
+
+#: application/adm/scripts/Maintenance/ActualizeRelations.php:15
+msgid "Actualize relations based on tags"
+msgstr "Actualizar las relaciones basadas en las etiquetas"
+
+#: application/adm/scripts/Maintenance/ActualizeRelations.php:29
+#, php-format
+msgid "Table %s added."
+msgstr "Tabla %s añadido."
+
+#: application/adm/scripts/Maintenance/ActualizeRelations.php:49
+msgid "Article relations have been actualized."
+msgstr "Las relaciones artículo se ha actualizado."
+
+#: application/modules/Google/Maps/Javascript/Class.php:21
+msgid "Address"
+msgstr "Dirección"
+
+#: application/modules/Google/Maps/Javascript/Class.php:21
+#: application/modules/Google/Maps/Javascript/Class.php:27
+msgid "Location"
+msgstr "Ubicación"
+
+#: application/modules/Google/Maps/Javascript/Class.php:22
+msgid "Width"
+msgstr "Ancho"
+
+#: application/modules/Google/Maps/Javascript/Class.php:22
+#: application/modules/Google/Maps/Javascript/Class.php:23
+#: application/modules/Google/Maps/Javascript/Class.php:26
+msgid "Style"
+msgstr "Estilo"
+
+#: application/modules/Google/Maps/Javascript/Class.php:23
+msgid "Height"
+msgstr "Altura"
+
+#: application/modules/Google/Maps/Javascript/Class.php:24
+msgid "Zoom"
+msgstr "Ampliar"
+
+#: application/modules/Google/Maps/Javascript/Class.php:24
+msgid "View"
+msgstr "Ver"
+
+#: application/modules/Google/Maps/Javascript/Class.php:26
+msgid "Class"
+msgstr "Clase"
+
+#: application/modules/Google/Maps/Javascript/Class.php:27
+msgid "Name"
+msgstr "Nombre"
+
+#: application/modules/Google/Maps/Javascript/Class.php:28
+msgid "Type"
+msgstr "Tipo"
+
+#: application/modules/Google/Maps/Javascript/Class.php:33
+msgid "Display type"
+msgstr "Tipo de pantalla"
+
+#: application/plugins/generic/data/dam/Class.php:63
+#: application/plugins/generic/data/dam/Class.php:105
+msgid "Failed to open input stream."
+msgstr "No se pudo abrir la secuencia de entrada."
+
+#: application/plugins/generic/data/dam/Class.php:76
+#: application/plugins/generic/data/dam/Class.php:116
+msgid "Failed to open output stream."
+msgstr "No se pudo abrir la secuencia de salida."
+
+#: application/plugins/generic/data/dam/Class.php:87
+msgid "Failed to move uploaded file."
+msgstr "No se pudo mover el archivo subido."
+
+#: application/plugins/generic/layout/skin/Class.php:112
+msgid "File saved"
+msgstr "Archivo guardado"
+
+#: application/plugins/generic/layout/skin/Class.php:114
+msgid "File is not writable. Save cannot be done."
+msgstr "El archivo no tiene permisos de escritura. Guardar no se puede hacer."
+
+#: application/plugins/dashboard/contentAnalyzer/Class.php:23
+msgid "Analyzer"
+msgstr "Analizador"
+
+#: application/plugins/dashboard/aitsuRss/Class.php:23
+msgid "aitsu RSS"
+msgstr "Aitsu RSS"
+
+#: application/plugins/dashboard/performanceAnalyzer/Class.php:23
+msgid "Site performance"
+msgstr "El desempeño del sitio"
+
+#: application/plugins/dashboard/toDoList/Class.php:26
+msgid "To-do-List"
+msgstr "A-hacer-lista"
+
+#: application/plugins/article/config/Class.php:23
+msgid "Config"
+msgstr "Config"
+
+#: application/plugins/article/config/Class.php:36
+msgid "Configuration"
+msgstr "Configuración"
+
+#: application/plugins/article/media/Class.php:40
+msgid "Media"
+msgstr "Medios de comunicación"
+
+#: application/plugins/article/tags/Class.php:23
+msgid "Tags"
+msgstr "Tags"
+
+#: application/plugins/article/revisionprogression/Class.php:22
+msgid "Revision Progression"
+msgstr "La progresión de revisión"
+
+#: application/plugins/article/dc/Class.php:23
+msgid "Dublin core (DC)"
+msgstr "Dublin Core (DC)"
+
+#: application/plugins/article/dc/Class.php:35
+msgid "Dublin core"
+msgstr "Dublin Core"
+
+#: application/plugins/article/edit/Class.php:23
+msgid "Edit"
+msgstr "Editar"
+
+#: application/plugins/article/todo/Class.php:23
+msgid "Todo"
+msgstr "ahacer"
+
+#: application/plugins/article/properties/Class.php:23
+#: application/plugins/article/properties/Class.php:35
+msgid "Properties"
+msgstr "Propiedades"
+
+#: application/plugins/article/meta/Class.php:23
+msgid "Meta"
+msgstr "Meta"
+
+#: application/plugins/article/meta/Class.php:35
+msgid "Meta data"
+msgstr "Metadatos"
+
+#: application/plugins/article/channel/Class.php:28
+msgid "Channel"
+msgstr "Canal"
+
+#: application/plugins/article/channel/Class.php:48
+msgid "Channels"
+msgstr "Canales"
+
+#: application/plugins/article/redirector/Class.php:23
+msgid "Redirect"
+msgstr "Redirigir"
+
+#: application/plugins/article/redirector/Class.php:35
+msgid "Redirection"
+msgstr "Redirección"
+
+#: application/plugins/article/syndication/Class.php:40
+msgid "Syndication"
+msgstr "Sindicación"
+
+#: application/plugins/article/crosslinking/Class.php:23
+msgid "Crosslinking"
+msgstr "Reticulación"
+
+#: application/plugins/article/shopitem/Class.php:23
+#: application/plugins/article/shopitem/Class.php:35
+msgid "Shop item"
+msgstr "Tienda de objetos"
+
+#: application/plugins/category/blog/Class.php:30
+msgid "Blog"
+msgstr "Blog"
+
+#: application/plugins/category/metabatch/Class.php:34
+#: application/plugins/category/metabatch/Class.php:46
+msgid "Meta Data Editor (alpha)"
+msgstr "Meta Data Editor (alfa)"
+
+#: application/plugins/category/synchronization/Class.php:29
+msgid "Synchronization"
+msgstr "Sincronización"
+
+#: application/plugins/category/standard/Class.php:25
+msgid "Overview"
+msgstr "Información general"
+
+#: application/skins/default/module/Contact/Class.php:14
+msgid "Returns a simple contact form"
+msgstr "Devuelve un sencillo formulario de contacto"
+
+#: application/skins/default/module/Contact/Class.php:45
+msgid "Direct contact"
+msgstr "Contacto directo"
+
+#: application/skins/default/module/Flash/Class.php:15
+msgid "Inserts a flash movie"
+msgstr "Inserta una película flash"
+
+#: application/skins/default/module/Address/Class.php:14
+msgid "Inserts a microformat address"
+msgstr "Inserta una dirección microformato"
+
+#: application/skins/default/module/Subcolumn/Class.php:14
+msgid "Inserts a subcolumn"
+msgstr "Inserta un subcolumna"
+
+#: application/skins/default/module/Facebook/Class.php:14
+msgid "Inserts a Facebook plugin"
+msgstr "Inserta un plugin de Facebook"
+
+#: application/skins/default/module/CodePhp/Class.php:14
+msgid "Styles PHP Code"
+msgstr "Estilos de código PHP"
+
+#: application/skins/default/module/CodeHtml/Class.php:14
+msgid "Styles HTML Code"
+msgstr "Estilos HTML Código"
+
+#: application/skins/default/module/Twitter/Class.php:14
+msgid "Inserts a Twitter button"
+msgstr "Inserta un botón de Twitter"
+
+#: application/skins/default/module/CodeIni/Class.php:14
+msgid "Styles INI Code"
+msgstr "Estilos Código INI"
+
+#: application/skins/default/module/TagA/Class.php:14
+msgid "Inserts a html anchor tag"
+msgstr "Inserta una etiqueta de ancla HTML"
+
+#: application/skins/default/module/Config/Class.php:17
+msgid "Show a set of example module configurations"
+msgstr "Mostrar un conjunto de configuraciones de módulo de ejemplo"
+
+#: application/skins/default/module/Pdf/Class.php:15
+msgid "Returns PDF files"
+msgstr "Devuelve los archivos PDF"
+
+#: application/skins/default/module/File/Class.php:15
+msgid "Inserts a link to a file"
+msgstr "Inserta un enlace a un archivo"
+
+#: application/skins/default/module/GalleryGrouped/Class.php:15
+msgid "Returns a grouped image gallery"
+msgstr "Devuelve una galería de imágenes agrupadas"
+
+#: application/skins/default/module/TagAImg/Class.php:14
+msgid "Inserts a link image"
+msgstr "Inserta un enlace de imágenes"
+
+#: library/Aitsu/Forms/Validator.php:22
+msgid "The submission of a value is mandatory."
+msgstr "La presentación de un valor es obligatorio."
+
+#: library/Aitsu/Forms/Validator/Email.php:28
+msgid "The value does not represent an email."
+msgstr "El valor no representa un correo electrónico."
+
+#: library/Aitsu/Forms/Validator/Number.php:35
+msgid "The value is not numeric."
+msgstr "El valor no es numérico."
+
+#: library/Aitsu/Forms/Validator/Number.php:40
+msgid "The value must be lower or equal than %F."
+msgstr "El valor debe ser menor o igual que %F."
+
+#: library/Aitsu/Forms/Validator/Number.php:45
+msgid "The value must be greater or equal than %F."
+msgstr "El valor debe ser mayor o igual que %F."
+
+#: library/Aitsu/Forms/Validator/Regex.php:37
+msgid "The value does not match the given pattern."
+msgstr "El valor no coincide con el patrón dado."
+
+#: library/Aitsu/Forms/Validator/Regex.php:42
+#, php-format
+msgid "The value must be at least %u characters long."
+msgstr "El valor debe ser al menos caracteres %u de largo."
+
+#: library/Aitsu/Forms/Validator/Regex.php:47
+#, php-format
+msgid "The value must not be more than %u characters long."
+msgstr "El valor no debe ser más que los personajes %u de largo."
+
+#: library/Aitsu/Ee/Shortcode.php:73
+#, php-format
+msgid "// The ShortCode '%s' does not exist. //"
+msgstr "/ / El código corto '%s' no existe. / /"
+
+#: library/Aitsu/Ee/Module/LastUpdate/Class.php:35
+#, php-format
+msgid "Last update on %s"
+msgstr "Última actualización %s"
+
+#: library/Aitsu/Ee/Module/WormHole/Class.php:26
+msgid "Foreign content placeholder text"
+msgstr "Contenido extranjero texto del marcador"
+
+#: library/Aitsu/Persistence/Article.php:279
+msgid "An error occured while deleting the specified article."
+msgstr "Se produjo un error al eliminar el artículo especificado."
+
+#: library/Aitsu/Persistence/Article.php:356
+msgid "Copy of"
+msgstr "Copia de"
+
+#: library/Aitsu/Adm/Script/Response.php:43
+#, php-format
+msgid "Exception occured with message: %s"
+msgstr "Excepción se ha producido con el mensaje: %s"
+
+#: library/Aitsu/Adm/Script/Abstract.php:46
+msgid "Script end reached"
+msgstr "Fin del script alcanzado"
+
+#: library/Aitsu/Adm/Script/Abstract.php:58
+msgid "Uncaught exception"
+msgstr "Excepción no capturada"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:17
+msgid "Dashboard"
+msgstr "Tablero de instrumentos"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:36
+msgid "Management"
+msgstr "Administración"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:58
+msgid "User, Roles and Privileges"
+msgstr "De usuarios, roles y privilegios"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:70
+msgid "Clients"
+msgstr "Clientes"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:81
+msgid "Mappings"
+msgstr "Mappings"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:92
+msgid "Configurations"
+msgstr "Configuraciones"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:114
+msgid "Translations"
+msgstr "Traducciones"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:125
+msgid "Scripts"
+msgstr "Scripts"
+
+#: library/Aitsu/Adm/Controller/Plugin/Navigation.php:150
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: application/adm/layouts/scripts/layout.phtml:68
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: application/adm/layouts/scripts/layout.phtml:69
+msgid "Select"
+msgstr "Seleccionar"
+
+#: application/adm/views/scripts/config/edit.phtml:9
+#: application/adm/views/scripts/mapping/edit.phtml:9
+msgid "Saved"
+msgstr "Guardado"
+
+#: application/adm/views/scripts/config/edit.phtml:9
+#: application/adm/views/scripts/mapping/edit.phtml:9
+msgid "Form data have been saved."
+msgstr "Los datos del formulario han sido salvados."
+
+#: application/adm/views/scripts/config/edit.phtml:13
+#: application/adm/views/scripts/mapping/edit.phtml:13
+msgid "Form failure"
+msgstr "Formulario de fracaso"
+
+#: application/adm/views/scripts/config/edit.phtml:13
+#: application/adm/views/scripts/mapping/edit.phtml:13
+msgid "Form data have not been save due to errors."
+msgstr "Los datos del formulario no han sido guardar debido a los errores."
+
+#: application/adm/views/scripts/config/index.phtml:6
+msgid "Config sets"
+msgstr "De configuración fija"
+
+#: application/adm/views/scripts/config/index.phtml:22
+msgid "Identifier"
+msgstr "Identificador"
+
+#: application/adm/views/scripts/config/index.phtml:32
+msgid "Add new configset"
+msgstr "Añadir nuevo configset"
+
+#: application/adm/views/scripts/config/index.phtml:58
+#: application/adm/views/scripts/data/index.phtml:163
+#: application/adm/views/scripts/mapping/index.phtml:48
+msgid "Delete"
+msgstr "Borrar"
+
+#: application/adm/views/scripts/config/index.phtml:62
+msgid "Delete config set"
+msgstr "Eliminar set config"
+
+#: application/adm/views/scripts/config/index.phtml:63
+msgid "Are you sure to delete the selected config set?"
+msgstr "¿Está seguro de eliminar la configuración del conjunto seleccionado?"
+
+#: application/adm/views/scripts/config/index.phtml:72
+msgid "Config set removed"
+msgstr "Set config eliminado"
+
+#: application/adm/views/scripts/config/index.phtml:72
+msgid "The selected role has been removed."
+msgstr "La función seleccionada se ha eliminado."
+
+#: application/adm/views/scripts/data/categoryoverview.phtml:71
+msgid "Data saved"
+msgstr "Los datos guardados"
+
+#: application/adm/views/scripts/data/categoryoverview.phtml:71
+msgid "Update of category data has been done."
+msgstr "Actualización de datos de categoría se ha hecho."
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:3
+msgid "Synchronisation language"
+msgstr "Sincronización del lenguaje"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:9
+msgid "No synchronization"
+msgstr "No hay sincronización"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:20
+msgid ""
+"There is only one language availabe. Therefore there is no language availabe"
+" to synchronize from."
+msgstr ""
+"No hay un solo idioma DISPONIBLES. Por lo tanto no hay un lenguaje que "
+"dispongan para la sincronización."
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:28
+msgid "Article tree"
+msgstr "Artículo árbol"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:33
+msgid "Last opened articles"
+msgstr "Última artículos abrió"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:36
+msgid "Favorits"
+msgstr "Favorits"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:127
+msgid "Publish current version"
+msgstr "Publicar la versión actual"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:140
+msgid "Current version is online"
+msgstr "La versión actual no está en línea"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:162
+msgid "No"
+msgstr "No"
+
+#: application/adm/views/scripts/data/datasetSelector.phtml:165
+msgid "Yes"
+msgstr "Sí"
+
+#: application/adm/views/scripts/data/edit.phtml:39
+#: application/adm/views/scripts/data/edit.phtml:48
+#: application/adm/views/scripts/data/index.phtml:125
+msgid "Set offline"
+msgstr "Set fuera de línea"
+
+#: application/adm/views/scripts/data/edit.phtml:39
+#: application/adm/views/scripts/data/edit.phtml:51
+#: application/adm/views/scripts/data/index.phtml:125
+msgid "Set online"
+msgstr "Set en línea"
+
+#: application/adm/views/scripts/data/edit.phtml:65
+msgid "Publish"
+msgstr "Publicar"
+
+#: application/adm/views/scripts/data/index.phtml:43
+msgid "Category tree"
+msgstr "Categoría árbol"
+
+#: application/adm/views/scripts/data/index.phtml:70
+msgid "Move node"
+msgstr "Mueva el nodo"
+
+#: application/adm/views/scripts/data/index.phtml:71
+msgid "Are you sure to move the node to the specified place?"
+msgstr "¿Está seguro que desea mover el nodo en el lugar especificado?"
+
+#: application/adm/views/scripts/data/index.phtml:79
+msgid "Category moved"
+msgstr "Categoría movido"
+
+#: application/adm/views/scripts/data/index.phtml:79
+msgid "The selected category has been moved to the specified category."
+msgstr "La categoría seleccionada ha sido movido a la categoría especificada."
+
+#: application/adm/views/scripts/data/index.phtml:81
+msgid "Category not moved"
+msgstr "Categoría no se movió"
+
+#: application/adm/views/scripts/data/index.phtml:81
+msgid ""
+"The category has not been moved. You probably have not enough privileges to "
+"do so."
+msgstr ""
+"La categoría no se ha movido. Usted probablemente no tiene suficientes "
+"privilegios para hacerlo."
+
+#: application/adm/views/scripts/data/index.phtml:99
+msgid "Page moved"
+msgstr "Página movido"
+
+#: application/adm/views/scripts/data/index.phtml:99
+msgid "The selected page has been moved to the specified category."
+msgstr "La página seleccionada ha sido movido a la categoría especificada."
+
+#: application/adm/views/scripts/data/index.phtml:145
+msgid "New sub-category"
+msgstr "Nueva sub-categoría"
+
+#: application/adm/views/scripts/data/index.phtml:168
+msgid "Delete category"
+msgstr "Suprimir la categoría"
+
+#: application/adm/views/scripts/data/index.phtml:169
+msgid "Are you sure to delete the selected category?"
+msgstr "¿Está seguro de eliminar la categoría seleccionada?"
+
+#: application/adm/views/scripts/data/index.phtml:193
+#: application/adm/views/scripts/data/index.phtml:234
+msgid "Set as resource"
+msgstr "Establecer como recurso"
+
+#: application/adm/views/scripts/data/index.phtml:199
+#: application/adm/views/scripts/data/index.phtml:240
+msgid "Resource added"
+msgstr "Recurso adicional"
+
+#: application/adm/views/scripts/data/index.phtml:199
+msgid "The selected category has been added to resources."
+msgstr "La categoría seleccionada ha sido agregado a los recursos."
+
+#: application/adm/views/scripts/data/index.phtml:212
+msgid "Add to favorites"
+msgstr "Añadir a favoritos"
+
+#: application/adm/views/scripts/data/index.phtml:240
+msgid "The selected page has been added to resources."
+msgstr "La página seleccionada se ha agregado a los recursos."
+
+#: application/adm/views/scripts/data/index.phtml:256
+msgid "New category"
+msgstr "Nueva categoría"
+
+#: application/adm/views/scripts/data/index.phtml:332
+msgid "Recently opened pages"
+msgstr "Páginas recientemente inaugurado"
+
+#: application/adm/views/scripts/data/index.phtml:373
+msgid "Favorites"
+msgstr "Favoritos"
+
+#: application/adm/views/scripts/data/index.phtml:392
+msgid "Remove"
+msgstr "Eliminar"
+
+#: application/adm/views/scripts/mapping/index.phtml:5
+msgid "Mapping"
+msgstr "Mapping"
+
+#: application/adm/views/scripts/mapping/index.phtml:25
+msgid "Add new mapping"
+msgstr "Añadir nueva mapping"
+
+#: application/adm/views/scripts/mapping/index.phtml:52
+msgid "Delete mapping"
+msgstr "Eliminar mapping"
+
+#: application/adm/views/scripts/mapping/index.phtml:53
+msgid "Are you sure to delete the selected mapping?"
+msgstr "¿Está seguro de eliminar la mapping seleccionada?"
+
+#: application/adm/views/scripts/mapping/index.phtml:62
+msgid "Mapping removed"
+msgstr "Mapping eliminado"
+
+#: application/adm/views/scripts/mapping/index.phtml:62
+msgid "The selected mapping has been removed."
+msgstr "La cartografía seleccionada se ha eliminado."
+
+#: application/adm/views/scripts/plugin/index.phtml:1
+msgid "Access denied"
+msgstr "Acceso denegado"
+
+#: application/adm/views/scripts/plugin/index.phtml:2
+msgid "You do not have enough privileges to access the specified resource."
+msgstr ""
+"Usted no tiene suficientes privilegios para acceder al recurso especificado."
+
+#: application/adm/views/scripts/setup/index.phtml:125
+msgid "Step"
+msgstr "Paso"
+
+#: application/adm/views/scripts/setup/index.phtml:126
+msgid "Result"
+msgstr "Resultado"
+
+#: application/adm/views/scripts/setup/index.phtml:127
+msgid "Status"
+msgstr "Estado"
+
+#: application/adm/views/scripts/setup/index.phtml:136
+msgid "Execute script"
+msgstr "Ejecutar un script"
+
+#: application/adm/views/scripts/translate/index.phtml:12
+msgid "ID"
+msgstr "Identificación"
+
+#: application/adm/views/scripts/translate/index.phtml:13
+msgid "Key"
+msgstr "Clave"
+
+#: application/adm/views/scripts/translate/index.phtml:14
+msgid "Value"
+msgstr "Valor"
+
+#: application/adm/views/scripts/client/clientlist.phtml:29
+msgid "Add new client"
+msgstr "Agregar nuevo cliente"
+
+#: application/adm/views/scripts/client/clientlist.phtml:59
+msgid "Delete client"
+msgstr "Eliminar al cliente"
+
+#: application/adm/views/scripts/client/clientlist.phtml:60
+msgid "Are you sure to delete the selected client?"
+msgstr "¿Está seguro de eliminar el cliente seleccionado?"
+
+#: application/adm/views/scripts/client/clientlist.phtml:69
+msgid "Client removed"
+msgstr "Cliente retira"
+
+#: application/adm/views/scripts/client/clientlist.phtml:69
+msgid "The selected client has been removed."
+msgstr "El cliente seleccionado se ha eliminado."
+
+#: application/adm/views/scripts/client/languagelist.phtml:3
+msgid "Languages"
+msgstr "Lenguas"
+
+#: application/adm/views/scripts/client/languagelist.phtml:28
+msgid "Longname"
+msgstr "Longname"
+
+#: application/adm/views/scripts/client/languagelist.phtml:29
+msgid "Client"
+msgstr "Cliente"
+
+#: application/adm/views/scripts/client/languagelist.phtml:30
+msgid "Locale"
+msgstr "Lugar"
+
+#: application/adm/views/scripts/client/languagelist.phtml:31
+msgid "Encoding"
+msgstr "Codificación"
+
+#: application/adm/views/scripts/client/languagelist.phtml:41
+msgid "Add new language"
+msgstr "Añadir un nuevo lenguaje"
+
+#: application/adm/views/scripts/client/languagelist.phtml:71
+msgid "Delete language"
+msgstr "Eliminar el lengua"
+
+#: application/adm/views/scripts/client/languagelist.phtml:72
+msgid "Are you sure to delete the selected language?"
+msgstr "¿Está seguro de eliminar la lengua seleccionado?"
+
+#: application/adm/views/scripts/client/languagelist.phtml:81
+msgid "Language removed"
+msgstr "Lengua eliminados"
+
+#: application/adm/views/scripts/client/languagelist.phtml:81
+msgid "The selected language has been removed."
+msgstr "La Lengua seleccionado se ha eliminado."
+
+#: application/adm/views/scripts/layout/js/sessionManagement.phtml:12
+msgid "Remaining session time"
+msgstr "El tiempo restante de la sesión"
+
+#: application/adm/views/scripts/layout/js/sessionManagement.phtml:32
+msgid "Session refreshed at"
+msgstr "Sesión se actualiza en"
+
+#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:23
+msgid "Language changed"
+msgstr "Lengua cambiado"
+
+#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:23
+msgid "The language has been changed."
+msgstr "La lengua se ha cambiado."
+
+#: application/adm/views/scripts/translation/index.phtml:6
+msgid "Translatations"
+msgstr "Translatations"
+
+#: application/adm/views/scripts/translation/index.phtml:34
+msgid "Refresh list"
+msgstr "Actualizar la lista"
+
+#: application/adm/views/scripts/translation/index.phtml:70
+msgid "Delete translation"
+msgstr "Borrar traducción"
+
+#: application/adm/views/scripts/translation/index.phtml:71
+msgid "Are you sure to delete the selected translation?"
+msgstr "¿Está seguro de eliminar la traducción seleccionada?"
+
+#: application/adm/views/scripts/translation/index.phtml:80
+msgid "Translation removed"
+msgstr "Traducción eliminado"
+
+#: application/adm/views/scripts/translation/index.phtml:80
+msgid "The selected translation has been removed."
+msgstr "La traducción seleccionado se ha eliminado."
+
+#: application/adm/views/scripts/syndication/index.phtml:18
+msgid "Sources"
+msgstr "Fuentes"
+
+#: application/adm/views/scripts/syndication/index.phtml:36
+msgid "URL"
+msgstr "URL"
+
+#: application/adm/views/scripts/syndication/index.phtml:37
+msgid "User"
+msgstr "Usuario"
+
+#: application/adm/views/scripts/syndication/index.phtml:47
+msgid "Add new source"
+msgstr "Añadir nueva fuente"
+
+#: application/adm/views/scripts/syndication/index.phtml:77
+msgid "Delete source"
+msgstr "Eliminar la fuente"
+
+#: application/adm/views/scripts/syndication/index.phtml:78
+msgid "Are you sure to delete the selected source?"
+msgstr "¿Está seguro de eliminar la fuente seleccionada?"
+
+#: application/adm/views/scripts/syndication/index.phtml:87
+msgid "Source removed"
+msgstr "Fuente eliminado"
+
+#: application/adm/views/scripts/syndication/index.phtml:87
+msgid "The selected source has been removed."
+msgstr "La fuente seleccionada se ha eliminado."
+
+#: application/adm/views/scripts/dialog/setcategoryonline.phtml:1
+msgid "Set online / offline"
+msgstr "Set en línea / fuera de línea"
+
+#: application/adm/views/scripts/dialog/setcategoryonline.phtml:4
+#: application/adm/views/scripts/dialog/setcategorylocked.phtml:4
+msgid "Include the sub-categories?"
+msgstr "Incluye las subcategorías?"
+
+#: application/adm/views/scripts/dialog/confirmdelete.phtml:1
+msgid "Delete item"
+msgstr "Suprimir el punto"
+
+#: application/adm/views/scripts/dialog/confirmdelete.phtml:4
+msgid "The selected item will be removed permanenty. Are you sure?"
+msgstr "El elemento seleccionado se eliminará permanenty. ¿Está seguro?"
+
+#: application/adm/views/scripts/dialog/editcategory.phtml:1
+msgid "Edit category"
+msgstr "Editar categoría"
+
+#: application/adm/views/scripts/dialog/setcategorylocked.phtml:1
+msgid "Lock / Release"
+msgstr "Bloqueo / desbloqueo"
+
+#: application/adm/views/scripts/category/index.phtml:4
+msgid "Categories"
+msgstr "Categorías"
+
+#: application/adm/views/scripts/category/index.phtml:12
+msgid "New"
+msgstr "Nuevo/a"
+
+#: application/adm/views/scripts/category/index.phtml:14
+msgid "Visiblity"
+msgstr "Visiblity"
+
+#: application/adm/views/scripts/category/index.phtml:15
+#: application/adm/views/scripts/category/index.phtml:282
+#: application/adm/views/scripts/category/index.phtml:283
+msgid "Lock"
+msgstr "Cerradura"
+
+#: application/adm/views/scripts/category/index.phtml:17
+msgid "Sync"
+msgstr "Sync"
+
+#: application/adm/views/scripts/category/index.phtml:89
+msgid "Category added"
+msgstr "Categoría añadido"
+
+#: application/adm/views/scripts/category/index.phtml:123
+msgid "OK"
+msgstr "Aceptar"
+
+#: application/adm/views/scripts/category/index.phtml:223
+msgid "Save"
+msgstr "Ahorrar"
+
+#: application/adm/views/scripts/category/index.phtml:226
+msgid "Category saved"
+msgstr "Categoría salvado"
+
+#: application/adm/views/scripts/category/index.phtml:247
+msgid "Category synchronized"
+msgstr "Categoría sincronizado"
+
+#: application/adm/views/scripts/category/index.phtml:275
+#: application/adm/views/scripts/category/index.phtml:276
+msgid "Offline"
+msgstr "Fuera de línea"
+
+#: application/adm/views/scripts/category/index.phtml:278
+#: application/adm/views/scripts/category/index.phtml:279
+msgid "Online"
+msgstr "En línea"
+
+#: application/adm/views/scripts/category/index.phtml:286
+#: application/adm/views/scripts/category/index.phtml:287
+msgid "Release"
+msgstr "Liberación"
+
+#: application/adm/views/scripts/category/index.phtml:299
+msgid "Category set online/offline"
+msgstr "Categoría set en línea / fuera de línea"
+
+#: application/adm/views/scripts/category/index.phtml:309
+msgid "Category locked / released"
+msgstr "Categoría bloqueados / liberado"
+
+#: application/adm/views/scripts/category/index.phtml:319
+msgid "Category removed"
+msgstr "Categoría eliminado"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:3
+msgid "Privileges"
+msgstr "Privilegios"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:29
+msgid "Add new privilege"
+msgstr "Agregar nuevo privilegio"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:59
+msgid "Delete privilege"
+msgstr "Eliminar los privilegios"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:60
+msgid "Are you sure to delete the selected privilege?"
+msgstr "¿Está seguro de eliminar el privilegio seleccionado?"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:69
+msgid "Privilege removed"
+msgstr "Privilegio eliminado"
+
+#: application/adm/views/scripts/acl/privilegelist.phtml:69
+msgid "The selected privilege has been removed."
+msgstr "El privilegio seleccionado ha sido eliminado."
+
+#: application/adm/views/scripts/acl/userlist.phtml:3
+msgid "Users"
+msgstr "Los usuarios"
+
+#: application/adm/views/scripts/acl/userlist.phtml:31
+msgid "Firstname"
+msgstr "Nombre"
+
+#: application/adm/views/scripts/acl/userlist.phtml:32
+msgid "Lastname"
+msgstr "Apellido"
+
+#: application/adm/views/scripts/acl/userlist.phtml:33
+msgid "Login"
+msgstr "Login"
+
+#: application/adm/views/scripts/acl/userlist.phtml:34
+msgid "Access from"
+msgstr "El acceso de"
+
+#: application/adm/views/scripts/acl/userlist.phtml:35
+msgid "Access until"
+msgstr "Acceso hasta"
+
+#: application/adm/views/scripts/acl/userlist.phtml:45
+msgid "Add new user"
+msgstr "Añadir un nuevo usuario"
+
+#: application/adm/views/scripts/acl/userlist.phtml:75
+msgid "Delete user"
+msgstr "Eliminar el usuario"
+
+#: application/adm/views/scripts/acl/userlist.phtml:76
+msgid "Are you sure to delete the selected user?"
+msgstr "¿Está seguro de eliminar el usuario?"
+
+#: application/adm/views/scripts/acl/userlist.phtml:85
+msgid "User removed"
+msgstr "Usuario eliminado"
+
+#: application/adm/views/scripts/acl/userlist.phtml:85
+msgid "The selected user has been removed."
+msgstr "El usuario seleccionado se ha eliminado."
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:3
+msgid "Resources"
+msgstr "Recursos"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:32
+msgid "Add new resource"
+msgstr "Añadir nuevo recurso"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:62
+msgid "Delete resource"
+msgstr "Eliminar los recursos"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:63
+msgid "Are you sure to delete the selected resource?"
+msgstr "¿Está seguro de eliminar el recurso seleccionado?"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:72
+msgid "Resource removed"
+msgstr "Recursos eliminado"
+
+#: application/adm/views/scripts/acl/resourcelist.phtml:72
+msgid "The selected resource has been removed."
+msgstr "El recurso seleccionado se ha eliminado."
+
+#: application/adm/views/scripts/acl/rolelist.phtml:3
+msgid "Roles"
+msgstr "Roles"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:29
+msgid "Add new role"
+msgstr "Añadir nuevo papel"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:59
+msgid "Delete role"
+msgstr "Eliminar el papel"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:60
+msgid "Are you sure to delete the selected role?"
+msgstr "¿Está seguro de eliminar el rol seleccionado?"
+
+#: application/adm/views/scripts/acl/rolelist.phtml:69
+msgid "Role removed"
+msgstr "Papel eliminado"
+
+#: application/adm/scripts/Backup/index.phtml:1
+msgid "Backup"
+msgstr "De reserva"
+
+#: application/adm/scripts/Update/index.phtml:1
+msgid "Update"
+msgstr "Actualización"
+
+#: application/adm/scripts/Installation/index.phtml:1
+msgid "Installation"
+msgstr "Instalación"
+
+#: application/adm/scripts/Maintenance/index.phtml:1
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+#: application/modules/Shop/Cart/index.phtml:6
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: application/modules/Shop/Cart/index.phtml:7
+#: application/plugins/generic/data/media/views/index.phtml:436
+#: application/plugins/generic/data/dates/views/index.phtml:49
+msgid "Description"
+msgstr "Descripción"
+
+#: application/modules/Shop/Cart/index.phtml:8
+msgid "Price"
+msgstr "Precio"
+
+#: application/plugins/generic/data/media/views/index.phtml:52
+msgid "Add files"
+msgstr "Añadir archivos"
+
+#: application/plugins/generic/data/media/views/index.phtml:53
+msgid "Upload"
+msgstr "Subir"
+
+#: application/plugins/generic/data/media/views/index.phtml:127
+msgid "Preview"
+msgstr "Vista previa"
+
+#: application/plugins/generic/data/media/views/index.phtml:158
+#: application/plugins/generic/data/media/views/index.phtml:421
+msgid "File name"
+msgstr "Nombre de archivo"
+
+#: application/plugins/generic/data/media/views/index.phtml:159
+#: application/plugins/generic/data/media/views/index.phtml:426
+msgid "Media name"
+msgstr "Nombre del medio"
+
+#: application/plugins/generic/data/media/views/index.phtml:160
+#: application/plugins/generic/data/dates/views/index.phtml:38
+#: application/plugins/generic/data/dam/views/inbox/content.phtml:6
+msgid "Date"
+msgstr "Fecha"
+
+#: application/plugins/generic/data/media/views/index.phtml:207
+msgid "Remove main image flag."
+msgstr "Quitar la bandera la imagen principal."
+
+#: application/plugins/generic/data/media/views/index.phtml:210
+msgid "Set main image flag"
+msgstr "Establecido el indicador de la imagen principal"
+
+#: application/plugins/generic/data/media/views/index.phtml:219
+msgid "Delete files"
+msgstr "Borrar archivos"
+
+#: application/plugins/generic/data/media/views/index.phtml:220
+msgid "Are you sure to delete the selected file(s)?"
+msgstr "¿Está seguro de eliminar el archivo seleccionado (s)?"
+
+#: application/plugins/generic/data/media/views/index.phtml:268
+msgid "Choose tag"
+msgstr "Elija la etiqueta"
+
+#: application/plugins/generic/data/media/views/index.phtml:308
+#: application/plugins/generic/data/tags/views/taglist.phtml:5
+msgid "Tag"
+msgstr "Etiqueta"
+
+#: application/plugins/generic/data/media/views/index.phtml:322
+msgid "Save tag"
+msgstr "Guardar etiqueta"
+
+#: application/plugins/generic/data/media/views/index.phtml:431
+msgid "Subline"
+msgstr "Sublínea"
+
+#: application/plugins/generic/data/dates/views/index.phtml:57
+msgid "Dates"
+msgstr "Fechas"
+
+#: application/plugins/generic/data/dates/views/index.phtml:85
+msgid "Are you sure to delete the selected data?"
+msgstr "¿Está seguro de borrar los datos seleccionados?"
+
+#: application/plugins/generic/data/dates/views/index.phtml:94
+msgid "Deleted"
+msgstr "Eliminados"
+
+#: application/plugins/generic/data/dates/views/index.phtml:94
+msgid "Date has been deleted."
+msgstr "Fecha ha sido borrado."
+
+#: application/plugins/generic/data/dates/views/index.phtml:113
+msgid "Add new Date"
+msgstr "Añadir nueva fecha"
+
+#: application/plugins/generic/data/tags/views/index.phtml:1
+#: application/plugins/generic/data/dam/views/index.phtml:1
+msgid "Not implemented"
+msgstr "No se ha implementado"
+
+#: application/plugins/generic/data/tags/views/index.phtml:1
+#: application/plugins/generic/data/dam/views/index.phtml:1
+msgid "This feature has not yet been implemented."
+msgstr "Esta característica no se ha aplicado todavía."
+
+#: application/plugins/generic/data/tags/views/index.phtml:14
+msgid "Delete selected tags"
+msgstr "Eliminar etiquetas seleccionadas"
+
+#: application/plugins/generic/data/tags/views/index.phtml:39
+msgid "You are about to delete the selected tags. Are you sure?"
+msgstr ""
+"Usted está a punto de eliminar las etiquetas seleccionadas. ¿Está seguro?"
+
+#: application/plugins/generic/data/tags/views/index.phtml:41
+msgid "Delete tags"
+msgstr "Eliminar las etiquetas"
+
+#: application/plugins/generic/data/tags/views/index.phtml:44
+msgid "Yes, delete the tags"
+msgstr "Sí, eliminar las etiquetas"
+
+#: application/plugins/generic/data/dam/views/index.phtml:6
+msgid "Assets"
+msgstr "Bienes"
+
+#: application/plugins/generic/data/dam/views/index.phtml:9
+msgid "InBox"
+msgstr "Bandeja de entrada"
+
+#: application/plugins/generic/data/dam/views/index.phtml:60
+msgid "Add new asset?"
+msgstr "Añadir nuevo activo?"
+
+#: application/plugins/generic/data/dam/views/index.phtml:62
+msgid "Add new asset"
+msgstr "Añadir nuevo activo"
+
+#: application/plugins/generic/data/dam/views/inbox/content.phtml:5
+msgid "Size"
+msgstr "Tamaño"
+
+#: application/plugins/generic/data/dam/views/inbox/content.phtml:32
+msgid ""
+"Add new asset entry based on the selected file? Or delete the selected "
+"resource?"
+msgstr ""
+"Agregar la entrada de activos nuevos basados ​​en el archivo seleccionado? O"
+" eliminar el recurso seleccionado?"
+
+#: application/plugins/generic/management/todo/views/index.phtml:52
+msgid "Article title"
+msgstr "Título del artículo"
+
+#: application/plugins/generic/management/todo/views/index.phtml:53
+msgid "Category"
+msgstr "Categoría"
+
+#: application/plugins/generic/management/todo/views/index.phtml:54
+msgid "To Do"
+msgstr "A Hacer"
+
+#: application/plugins/generic/management/todo/views/index.phtml:55
+msgid "Due"
+msgstr "Debido"
+
+#: application/plugins/generic/management/todo/views/index.phtml:58
+msgid "over due"
+msgstr "por más de"
+
+#: application/plugins/generic/management/todo/views/index.phtml:60
+msgid "pending"
+msgstr "pendiente"
+
+#: application/plugins/generic/management/todo/views/index.phtml:85
+msgid "Go to article"
+msgstr "Ir al artículo"
+
+#: application/plugins/generic/layout/skin/views/index.phtml:4
+msgid "Edit skin files"
+msgstr "Editar archivos de la piel"
+
+#: application/plugins/generic/layout/skin/views/index.phtml:13
+msgid "reindent"
+msgstr "reindent"
+
+#: application/plugins/generic/layout/skin/views/links.phtml:5
+msgid "File selection"
+msgstr "Selección de archivos"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:12
+msgid "Ready to be used."
+msgstr "Listo para ser utilizado."
+
+#: application/plugins/generic/system/modules/views/detail.phtml:14
+msgid "Unfullfilled dependencies. Click here to install the missing parts."
+msgstr ""
+"Dependencias Unfullfilled. Haga clic aquí para instalar las piezas que "
+"faltan."
+
+#: application/plugins/generic/system/modules/views/detail.phtml:26
+msgid "Source"
+msgstr "Fuente"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:32
+msgid "Author"
+msgstr "Autor"
+
+#: application/plugins/generic/system/modules/views/detail.phtml:35
+msgid "Version"
+msgstr "Versión"
+
+#: application/plugins/generic/system/modules/views/subnav.phtml:3
+msgid "Menu"
+msgstr "Menú"
+
+#: application/plugins/generic/system/modules/views/index.phtml:4
+msgid "Modules"
+msgstr "Módulos"
+
+#: application/plugins/generic/system/logs/views/index.phtml:14
+msgid "Log"
+msgstr "Log"
+
+#: application/plugins/generic/system/logs/views/index.phtml:36
+msgid "Time"
+msgstr "Tiempo"
+
+#: application/plugins/generic/system/logs/views/index.phtml:38
+msgid "Entry"
+msgstr "Entrada"
+
+#: application/plugins/generic/system/logs/views/index.phtml:56
+msgid "Delete log"
+msgstr "Eliminar registro"
+
+#: application/plugins/generic/system/logs/views/index.phtml:68
+msgid "Refresh log"
+msgstr "Actualizar registro"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:3
+msgid "Stop"
+msgstr "Parada"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:4
+msgid "Start time capturing"
+msgstr "Hora de inicio de captura"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:5
+msgid "Edit track"
+msgstr "Edite la"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:6
+msgid "Finish track"
+msgstr "Finalizar la pista"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:7
+msgid "Close tab"
+msgstr "Cerrar la pestaña"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
+msgid "Start"
+msgstr "Comienzo"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
+msgid "End"
+msgstr "Final"
+
+#: application/plugins/generic/utilities/tracking/views/showtrack.phtml:18
+msgid "Interval"
+msgstr "Intervalo"
+
+#: application/plugins/generic/utilities/tracking/views/customerlist.phtml:3
+msgid "Add new customer"
+msgstr "Agregar nuevo cliente"
+
+#: application/plugins/generic/utilities/tracking/views/customerlist.phtml:5
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:5
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:5
+msgid "Filter"
+msgstr "Filtro"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:4
+msgid "Current tracks"
+msgstr "Temas actuales"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:7
+msgid "Projects"
+msgstr "Proyectos"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:10
+msgid "Customers"
+msgstr "Los clientes"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:13
+msgid "Tracking types"
+msgstr "Tipos de seguimiento"
+
+#: application/plugins/generic/utilities/tracking/views/index.phtml:16
+msgid "Reports"
+msgstr "Informes"
+
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:3
+msgid "Add new project"
+msgstr "Agregar nuevo proyecto"
+
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:15
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:17
+msgid "Customer"
+msgstr "Cliente"
+
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:3
+msgid "Add new track"
+msgstr "Añadir nueva pista"
+
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:14
+msgid "Title"
+msgstr "Título"
+
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:16
+msgid "Project"
+msgstr "Proyecto"
+
+#: application/plugins/generic/utilities/tracking/views/trackingtypelist.phtml:2
+msgid "Add new type"
+msgstr "Agregar nuevo tipo"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:12
+msgid "Site analyzer"
+msgstr "Analizador de Sitio"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:15
+msgid "Number of categories"
+msgstr "Número de categorías"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:16
+msgid "Number of pages"
+msgstr "Número de páginas"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:17
+msgid "Categories without index"
+msgstr "Categorías sin índice"
+
+#: application/plugins/dashboard/contentAnalyzer/views/index.phtml:18
+msgid "Duplicate URL"
+msgstr "Duplicar URL"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:13
+msgid "Overall performance"
+msgstr "El rendimiento global"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:16
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:35
+msgid "Number of impressions (n)"
+msgstr "Número de impresiones (n)"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:17
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:36
+msgid "Average rendering (ms)"
+msgstr "Prestación media (ms)"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:18
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:37
+msgid "Fastest rendering (ms)"
+msgstr "Más rápido renderizado (ms)"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:19
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:38
+msgid "Slowest rendering (ms)"
+msgstr "Más lento de representación (ms)"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:32
+msgid "Slowest page"
+msgstr "Más lento página"
+
+#: application/plugins/dashboard/performanceAnalyzer/views/index.phtml:40
+msgid "Page title"
+msgstr "Título de la página"
+
+#: application/plugins/dashboard/toDoList/views/index.phtml:95
+msgid "Open todo list"
+msgstr "Abrir la lista de tareas pendientes"
+
+#: application/plugins/article/config/views/index.phtml:4
+msgid "Configuration has been saved."
+msgstr "Configuración se ha guardado."
+
+#: application/plugins/article/config/views/index.phtml:13
+#: application/plugins/article/dc/views/index.phtml:8
+msgid "Form data have not been saved due to errors."
+msgstr "Los datos del formulario no se han salvado debido a los errores."
+
+#: application/plugins/article/revisionprogression/views/index.phtml:98
+msgid "Delete revisions"
+msgstr "Eliminar las revisiones"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:102
+msgid "Delete unused revisions"
+msgstr "Eliminar las revisiones sin usar"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:103
+msgid "Are you sure to delete the revisions?"
+msgstr "¿Está seguro de eliminar las revisiones?"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:138
+msgid "Current revision"
+msgstr "Revisión actual"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:150
+msgid "Are you sure to publish the current revision?"
+msgstr "¿Estás seguro de publicar la versión actual?"
+
+#: application/plugins/article/revisionprogression/views/index.phtml:194
+msgid "Revisions"
+msgstr "Revisiones"
+
+#: application/plugins/article/dc/views/index.phtml:4
+msgid "DC meta data have been saved."
+msgstr "DC metadatos han sido guardados."
+
+#: application/plugins/article/edit/views/index.phtml:20
+msgid "Normal"
+msgstr "Normal"
+
+#: application/plugins/article/edit/views/index.phtml:39
+#: application/plugins/article/edit/views/index.phtml:92
+msgid "Refresh"
+msgstr "Refrescar"
+
+#: application/plugins/article/edit/views/index.phtml:48
+msgid "Show template bars"
+msgstr "Mostrar las barras de plantilla"
+
+#: application/plugins/article/edit/views/index.phtml:60
+msgid "Box model"
+msgstr "Modelo de caja"
+
+#: application/plugins/article/todo/views/index.phtml:37
+#: application/plugins/article/todo/views/index.phtml:135
+msgid "Assignment"
+msgstr "Asignación"
+
+#: application/plugins/article/todo/views/index.phtml:141
+msgid "done"
+msgstr "hecho"
+
+#: application/plugins/article/todo/views/index.phtml:169
+msgid "Mark as done"
+msgstr "Marcar como hecha"
+
+#: application/plugins/article/todo/views/index.phtml:190
+msgid "Mark as pending"
+msgstr "Marcar como pendientes"
+
+#: application/plugins/article/todo/views/index.phtml:232
+msgid "Delete todo"
+msgstr "Eliminar ahacer"
+
+#: application/plugins/article/todo/views/index.phtml:233
+msgid "Are you sure to delete the selected todo?"
+msgstr "¿Está seguro de borrar la tarea seleccionada?"
+
+#: application/plugins/article/todo/views/index.phtml:264
+msgid "Add new todo"
+msgstr "Añadir nuevas Ahacer"
+
+#: application/plugins/article/properties/views/index.phtml:16
+msgid "Page properties have been saved."
+msgstr "Propiedades de la página se han guardado."
+
+#: application/plugins/article/meta/views/index.phtml:4
+msgid "Meta data have been saved."
+msgstr "Metadatos han sido guardados."
+
+#: application/plugins/article/channel/views/index.phtml:4
+msgid "Channels have been saved."
+msgstr "Canales se han guardado."
+
+#: application/plugins/article/redirector/views/index.phtml:4
+msgid "Redirection been saved."
+msgstr "Redirección ha guardado."
+
+#: application/plugins/article/syndication/views/index.phtml:55
+msgid "Resource ID"
+msgstr "Recursos ID"
+
+#: application/plugins/article/syndication/views/index.phtml:83
+msgid "Are you sure to remove the selected resource?"
+msgstr "¿Está seguro de eliminar el recurso seleccionado?"
+
+#: application/plugins/article/crosslinking/views/index.phtml:82
+msgid "Delete link"
+msgstr "Eliminar enlace"
+
+#: application/plugins/article/crosslinking/views/index.phtml:83
+msgid "Are you sure to delete the selected link?"
+msgstr "¿Está seguro de eliminar el enlace seleccionado?"
+
+#: application/plugins/article/shopitem/views/index.phtml:1
+msgid "normal"
+msgstr "normal"
+
+#: application/plugins/article/shopitem/views/index.phtml:2
+msgid "reduced"
+msgstr "reducido"
+
+#: application/plugins/article/shopitem/views/index.phtml:3
+msgid "always"
+msgstr "siempre"
+
+#: application/plugins/article/shopitem/views/index.phtml:4
+msgid "never"
+msgstr "nunca"
+
+#: application/plugins/article/shopitem/views/index.phtml:5
+msgid "allowed"
+msgstr "permitido"
+
+#: application/plugins/article/shopitem/views/index.phtml:6
+msgid "Name / Description"
+msgstr "Nombre / descripción del"
+
+#: application/plugins/article/shopitem/views/index.phtml:7
+msgid "SKU"
+msgstr "SKU"
+
+#: application/plugins/article/shopitem/views/index.phtml:8
+msgid "Price is variable"
+msgstr "El precio es la variable"
+
+#: application/plugins/article/shopitem/views/index.phtml:9
+msgid "VAT included"
+msgstr "IVA incluido"
+
+#: application/plugins/article/shopitem/views/index.phtml:10
+msgid "Shipping charges"
+msgstr "Los gastos de envío"
+
+#: application/plugins/article/shopitem/views/index.phtml:11
+msgid "Additional info required"
+msgstr "Información adicional requerida"
+
+#: application/plugins/article/shopitem/views/index.phtml:13
+msgid "Currency"
+msgstr "Moneda"
+
+#: application/plugins/article/shopitem/views/index.phtml:14
+msgid "VAT class"
+msgstr "IVA clase"
+
+#: application/plugins/article/shopitem/views/index.phtml:19
+msgid "Shop item data have been saved."
+msgstr "Tienda de objetos de datos se han guardado."
+
+#: application/plugins/category/blog/views/index.phtml:106
+#: application/plugins/category/metabatch/views/index.phtml:123
+#: application/plugins/category/standard/views/index.phtml:106
+msgid "URL name"
+msgstr "URL el nombre de"
+
+#: application/plugins/category/blog/views/index.phtml:146
+#: application/plugins/category/metabatch/views/index.phtml:201
+#: application/plugins/category/standard/views/index.phtml:176
+msgid "Set as index"
+msgstr "Establecer como índice de"
+
+#: application/plugins/category/blog/views/index.phtml:219
+#: application/plugins/category/metabatch/views/index.phtml:274
+#: application/plugins/category/standard/views/index.phtml:249
+msgid "Cut"
+msgstr "Cortar"
+
+#: application/plugins/category/blog/views/index.phtml:223
+#: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:253
+msgid "Page cut"
+msgstr "Página corte"
+
+#: application/plugins/category/blog/views/index.phtml:223
+#: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:253
+msgid "The selected page has been put to the clipboard."
+msgstr "La página seleccionada se ha puesto en el portapapeles."
+
+#: application/plugins/category/blog/views/index.phtml:232
+#: application/plugins/category/metabatch/views/index.phtml:287
+#: application/plugins/category/standard/views/index.phtml:262
+msgid "Delete page"
+msgstr "Eliminar página"
+
+#: application/plugins/category/blog/views/index.phtml:233
+#: application/plugins/category/metabatch/views/index.phtml:288
+#: application/plugins/category/standard/views/index.phtml:263
+msgid "Are you sure to delete the selected page?"
+msgstr "¿Está seguro de borrar la página seleccionada?"
+
+#: application/plugins/category/blog/views/index.phtml:242
+#: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:272
+msgid "Page deleted"
+msgstr "Página eliminada"
+
+#: application/plugins/category/blog/views/index.phtml:242
+#: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:272
+msgid "The selected page has been removed."
+msgstr "La página seleccionada se ha eliminado."
+
+#: application/plugins/category/metabatch/views/index.phtml:170
+msgid "Save Meta Data"
+msgstr "Guardar los datos Meta"
+
+#: application/plugins/category/metabatch/views/index.phtml:170
+msgid "Your changes have been saved."
+msgstr "Los cambios han sido guardados."
+
+#: application/plugins/category/synchronization/views/index.phtml:24
+msgid "Synchronization language"
+msgstr "Sincronización de idioma"
+
+#: application/plugins/category/standard/views/index.phtml:122
+msgid "Created"
+msgstr "Creado"
+
+#: application/plugins/category/standard/views/index.phtml:122
+msgid "Article has been created."
+msgstr "El artículo ha sido creado."
+
+#: application/plugins/category/standard/views/index.phtml:125
+msgid "Loading"
+msgstr "De carga"
+
+#: application/plugins/category/standard/views/index.phtml:125
+msgid "Article is loading..."
+msgstr "El artículo se está cargando ..."
+
+#: application/skins/default/module/Contact/index.phtml:8
+msgid "Please provide your name"
+msgstr "Por favor, indique su nombre"
+
+#: application/skins/default/module/Contact/index.phtml:10
+msgid "First/Lastname"
+msgstr "En primer lugar / apellido"
+
+#: application/skins/default/module/Contact/index.phtml:17
+msgid "Please provide your company"
+msgstr "Por favor, proporcionar a su empresa"
+
+#: application/skins/default/module/Contact/index.phtml:19
+msgid "Company"
+msgstr "Empresa"
+
+#: application/skins/default/module/Contact/index.phtml:26
+msgid "Please provide a valid telephone number"
+msgstr "Por favor ingrese su número de teléfono válido"
+
+#: application/skins/default/module/Contact/index.phtml:28
+msgid "Telephone"
+msgstr "Teléfono"
+
+#: application/skins/default/module/Contact/index.phtml:35
+msgid "Please provide a valid e-mail-address"
+msgstr "Por favor ingrese su e-mail válido dirección"
+
+#: application/skins/default/module/Contact/index.phtml:37
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: application/skins/default/module/Contact/index.phtml:44
+msgid "Please provide your message"
+msgstr "Por favor escriba su mensaje"
+
+#: application/skins/default/module/Contact/index.phtml:46
+msgid "Message"
+msgstr "Mensaje"
+
+#: application/skins/default/module/Contact/index.phtml:53
+msgid "Submit"
+msgstr "Presentar"
+
+#: application/skins/default/module/Twitter/index.phtml:1
+msgid "Follow"
+msgstr "Seguir"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:5
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:28
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:39
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:50
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:61
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:84
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:95
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:106
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:117
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:128
+msgid ""
+"The given pattern is not allowed or the field is mandatory. Please change it"
+" accordingly."
+msgstr ""
+"El modelo dado no se le permite o el campo es obligatorio. Por favor, cambia"
+" en consecuencia."
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:43
+msgid "Division"
+msgstr "División"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:54
+msgid "Street"
+msgstr "Calle"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:68
+msgid "Zip"
+msgstr "Cremallera"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:75
+msgid "City"
+msgstr "Ciudad"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:88
+msgid "Country"
+msgstr "País"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:99
+msgid "Phone"
+msgstr "Teléfono"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:110
+msgid "Fax"
+msgstr "Fax"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:121
+msgid "Email"
+msgstr "E-mail"
+
+#: library/Aitsu/Ee/Module/ContactForm/yaml.phtml:137
+msgid "send"
+msgstr "enviar"
+
+#~ msgid ""
+#~ "Removing constraints. This may take quite a while. Please be patient to "
+#~ "allow to remove the constraints."
+#~ msgstr "Constraints werden entfernt. Das kann einen Moment dauern."
+
+#~ msgid "Table %s already exists."
+#~ msgstr "Die Tabelle %s existiert bereits."
+
+#~ msgid ""
+#~ "Views have not been restored. Please create view with a tool of your choice."
+#~ msgstr ""
+#~ "Die Views wurden nicht wiederhergestellt. Bitte verwenden Sie dazu ein "
+#~ "Instrument Ihrer Wahl."
+
+#~ msgid "Table %s is already up to date."
+#~ msgstr "Die Tabelle %s ist bereits auf dem aktuellen Stand."
+
+#~ msgid "Table %s altered."
+#~ msgstr "Die Tabelle %s wurde aktualisiert."
+
+#~ msgid "Privilege %s already exists."
+#~ msgstr "Das Recht %s existiert bereits."
+
+#~ msgid "Privilege %s added."
+#~ msgstr "Das Recht %s wurde angelegt."
+
+#~ msgid "Privilege %s already assigned to role %s."
+#~ msgstr "Das Recht %s ist bereits der Rolle %s zugewiesen."
+
+#~ msgid "Privilege %s assigned to %s."
+#~ msgstr "Das Recht %s ist %s zugewiesen."
+
+#~ msgid ""
+#~ "Please choose the script to be executed from the list on the left hand side."
+#~ msgstr ""
+#~ "Bitte wählen Sie ein Script aus der Liste aus, die Sie auf der linken Seite "
+#~ "finden können."
+
+#~ msgid "Script terminated."
+#~ msgstr "Das Skript wurde beendet."
+
+#~ msgid "Script starts..."
+#~ msgstr "Skript startet..."
+
+#~ msgid "Aktuelle Revision"
+#~ msgstr "Revisionen löschen"
+
+#~ msgid "Module"
+#~ msgstr "Modul"
+
+#~ msgid "Articles"
+#~ msgstr "Artikel"
+
+#~ msgid "Plugins"
+#~ msgstr "Plugins"
+
+#~ msgid "Editable area rendered as a plain text area."
+#~ msgstr "Editierbereich in der Form einer reinen Textarea."
+
+#~ msgid "Honeytrap to trap spam bots in a black list."
+#~ msgstr "Honigfalle zur Aufnahme von Spam-Bots in die Schwarze Liste."
+
+#~ msgid "Login mask."
+#~ msgstr "Login-Maske"
+
+#~ msgid "Returns a navigation menu based on the specified template."
+#~ msgstr "Gibt eine Navigation auf Basis des spezifizierten Templates zurück."
+
+#~ msgid "Generic Syntax Highlighter."
+#~ msgstr "Generic Syntax Highlighter (Generischer Syntax-Auszeichner)."
+
+#~ msgid "Google Maps Javascript API implementation."
+#~ msgstr "Google Maps Javascript API-Implementierung."
+
+#~ msgid "Editable area rendered with the built-in CK editor."
+#~ msgstr "Editierbereich (WYSIWYG) als CK-Editor."
+
+#~ msgid ""
+#~ "Outputs the content of the default template or the specified template, if "
+#~ "configured accordingly."
+#~ msgstr ""
+#~ "Gibt den Inhalt des Default-Templates oder des bezeichneten Templates an die"
+#~ " Standardausgabe."
+
+#~ msgid "Returns the canonical tag of the current page."
+#~ msgstr "Gibt den Canonical-Tag der aktuellen Seite zurück."
+
+#~ msgid "Returns the meta tags of the current article."
+#~ msgstr "Gibt die Meta-Tags des aktuellen Artikels zurück."
+
+#~ msgid ""
+#~ "Bundles the specified ressources (CSS or JS) to a single file and outputs a "
+#~ "single reference containing the content of the specified resources."
+#~ msgstr ""
+#~ "Bündelt die bezeichneten Resourcen (CSS oder JS) in eine einzelne Datei und "
+#~ "gbit eine einzige Referenz zurück, welche diese Resourcen referenziert."
+
+#~ msgid "Returns the specified path as a base href tag."
+#~ msgstr "Gibt den spezifizierten Pfad als Base-Href zurück."
+
+#~ msgid "Returns the page title of the current article."
+#~ msgstr "Gibt den aktuellen Seitentitel zurück."
+
+#~ msgid ""
+#~ "Returns am img tag triggering the hit counter and counts the hits on "
+#~ "subsequent request."
+#~ msgstr ""
+#~ "Gibt ein img-Tag zurück, welches den Impressionszähler triggered und dadurch"
+#~ " die Seitenimpressionen zählt."
+
+#~ msgid ""
+#~ "Read the specified RSS source and outputs its content using the specified "
+#~ "template."
+#~ msgstr ""
+#~ "Liest den spezifizierten RSS aus der Quelle und fügt den Inhalt in die "
+#~ "Ausgabe ein unter Verwendung des spezifizierten Templates."
+
+#~ msgid "EditBox"
+#~ msgstr "EditBox"
+
+#~ msgid ""
+#~ "Allows to input content in the edit area and outputs that content in the "
+#~ "frontend."
+#~ msgstr ""
+#~ "Erlaubt die Eingabe von Inhalten im Editierbereich und gibt diese im "
+#~ "Frontend aus."
+
+#~ msgid "Proxy to the specified URL."
+#~ msgstr "Proxy zur bezeichneten URL."
+
+#~ msgid "Returns a list of files specified in a configuration."
+#~ msgstr ""
+#~ "Gibt eine Dateiliste aus, die in der Konfiguration bezeichnet worden ist."
+
+#~ msgid "Returns the timestamp of the last modification of the current article."
+#~ msgstr ""
+#~ "Gibt das Datum und den Zeitpunkt der letzten Aktualisierung des aktuellen "
+#~ "Artikels zurück."
+
+#~ msgid ""
+#~ "Returns either the specified string or - if empty - the page title of the "
+#~ "current page."
+#~ msgstr ""
+#~ "Gibt die bezeichnete Zeichenfolge zurück oder - falls diese leer sein sollte"
+#~ " - den Seitentitel der aktuellen Seite."
+
+#~ msgid "Returns the specified HTML tag with the given content."
+#~ msgstr "Gibt das spezifiierte HTML-Tag mit dem bezeichneten Inhalt zurück."
+
+#~ msgid ""
+#~ "Outputs the output of the specified module of the specified page, while "
+#~ "still allowing to edit its content in the edit mode."
+#~ msgstr ""
+#~ "Gibt die Rückgabe des bezeichneten Modules aus dem spezifizierten Artikel "
+#~ "zurück, während eine Editierung möglich bleibt."
+
+#~ msgid ""
+#~ "Returns the specified images (configuration) as a gallery specified in the "
+#~ "particular template."
+#~ msgstr ""
+#~ "Gibt die in der Konfiguration bezeichneten Bilder als Galerie aus (gemäss "
+#~ "Einstellungen im Template)."
+
+#~ msgid "Choose images to be shown"
+#~ msgstr "Anzuzeigende Bilder auswählen"
+
+#~ msgid ""
+#~ "Editable area with inherition function. It inherits its content from the "
+#~ "start article of the same level or the closed higher level containing "
+#~ "content."
+#~ msgstr ""
+#~ "Editierbereich mit Vererbungsfunktion. Der Inhalt wird ausgegeben, sofern "
+#~ "ein solcher vorhanden ist. Solllte das nicht der Fall sein, wird der Inhalt "
+#~ "des nächst höher gelegenen Startartikels verwendet, der einen Inhalt "
+#~ "aufweist."
+
+#~ msgid ""
+#~ "Standard image module. It returns the specified image(s) rendered with the "
+#~ "specified template."
+#~ msgstr ""
+#~ "Standardbildmodul. Das Modul gibt das bezeichnete Bild (oder die Bilder) "
+#~ "zurück und fügt sie so in die Ausgabe, wie das im Template spezifiziert "
+#~ "worden ist."
+
+#~ msgid "Allows to add comments to the current article (frontend)."
+#~ msgstr ""
+#~ "Erlaubt die Eingabe von Kommentaren zum aktuellen Artikel (im Frontend)."
+
+#~ msgid "Returns a bread crumb navigation."
+#~ msgstr "Gibt eine Breadcrumb-Navigation aus."
+
+#~ msgid "Outputs a definition list out of a list of line separated data."
+#~ msgstr ""
+#~ "Gibt eine Definitionsliste zurück aus einer Zeilendelimitierten Eingabe."
+
+#~ msgid "Properties saved."
+#~ msgstr "Eigenschaften wurden gespeichert."
+
+#~ msgid "Update from 2.0.10.2"
+#~ msgstr "Aktualisierung von 2.0.10.2"
+
+#~ msgid "The file 2.0.10.2-2.0.10.3.sql is missing."
+#~ msgstr "Die Datei 2.0.10.2-2.0.10.3.sql fehlt."
+
+#~ msgid "Article configuration saved."
+#~ msgstr "Die Artikelkonfiguration wurde gespeichert."
+
+#~ msgid "Tag removed."
+#~ msgstr "Tag entfernt."
+
+#~ msgid "DC.meta data saved."
+#~ msgstr "DC-Metadaten wurden gespeichert."
+
+#~ msgid "Meta data saved."
+#~ msgstr "Metadaten wurden gespeichert."
+
+#~ msgid "Link added."
+#~ msgstr "Link hinzugefügt."
+
+#~ msgid "Link removed."
+#~ msgstr "Link entfernt."
+
+#~ msgid "Remove selected tags"
+#~ msgstr "Selektierte Tags löschen"
+
+#~ msgid "NULL (default)"
+#~ msgstr "NULL (default)"
+
+#~ msgid "You are about to remove the selected tags. Are you sure?"
+#~ msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
+
+#~ msgid "Remove tags"
+#~ msgstr "Tags entfernen"
+
+#~ msgid "Yes, remove the tags"
+#~ msgstr "Ja, Tags löschen"
+
+#~ msgid "Delete selected links"
+#~ msgstr "Selektierte Links entfernen"
+
+#~ msgid "You are about to remove the selected links. Are you sure?"
+#~ msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
+
+#~ msgid "Remove links"
+#~ msgstr "Links entfernen"
+
+#~ msgid "Yes, remove the links"
+#~ msgstr "Ja, Links löschen"
+
+#~ msgid "Arbitrary data"
+#~ msgstr "Arbiträrdaten"
+
+#~ msgid "Seminars"
+#~ msgstr "Seminare"
+
+#~ msgid "Currently the system has no plugins installed."
+#~ msgstr "Zurzeit sind keine Plugins installiert."
+
+#~ msgid "There are no data to be displayed."
+#~ msgstr "Keine Daten zur Anzeige."
+
+#~ msgid "Data tables"
+#~ msgstr "Datentabellen"
+
+#~ msgid "Columns"
+#~ msgstr "Spalten"
+
+#~ msgid "Data"
+#~ msgstr "Daten"
+
+#~ msgid "Add new entry"
+#~ msgstr "Neuen Eintrag aufnehmen"
+
+#~ msgid ""
+#~ "Please select a data table on the left hand side to show, filter and edit "
+#~ "its data."
+#~ msgstr ""
+#~ "Bitte wählen Sie eine Datentabelle auf der linken Seite, um deren Daten "
+#~ "anzuzeigen, zu filtern oder zu aktualisieren."
+
+#~ msgid "Uploaded"
+#~ msgstr "Hochgeladen"
+
+#~ msgid "Deselect all"
+#~ msgstr "Alle deselektieren"
+
+#~ msgid "Toggle selection"
+#~ msgstr "Selektion umkehren"
+
+#~ msgid "Delete selected files"
+#~ msgstr "Selektierte Dateien löschen"
+
+#~ msgid "File upload"
+#~ msgstr "Dateiupload"
+
+#~ msgid "You are about to delete the selected files. Are you sure?"
+#~ msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
+
+#~ msgid "Yes, delete the files"
+#~ msgstr "Ja, Dateien löschen"
+
+#~ msgid "Add new serial"
+#~ msgstr "Neue Serie aufnehmen"
+
+#~ msgid "Delete selected serials"
+#~ msgstr "Selektierte Serie löschen"
+
+#~ msgid "Delete selected dates"
+#~ msgstr "Selektierte Termine löschen"
+
+#~ msgid "The current module has no content nor configuration to be made."
+#~ msgstr "Das gewählte Modul weist keinen Inhalt und keine Konfiguration auf."
+
+#~ msgid "Full view"
+#~ msgstr "Vollansicht"
+
+#~ msgid "Return to normal view"
+#~ msgstr "Zurück zur Normalansicht"
+
+#~ msgid "Show/Hide sub-templates"
+#~ msgstr "Subtemplates anzeigen/ausblenden"
+
+#~ msgid "Start date"
+#~ msgstr "Startdatum"
+
+#~ msgid "End date"
+#~ msgstr "Enddatum"
+
+#~ msgid "VAT"
+#~ msgstr "MwSt."
+
+#~ msgid "Discount price"
+#~ msgstr "Spezialpreis"
+
+#~ msgid "Primary article image"
+#~ msgstr "Primäres Artikelbild"
+
+#~ msgid "Overall"
+#~ msgstr "Site-Durchschnitt"
+
+#~ msgid "ms"
+#~ msgstr "ms"
+
+#~ msgid "n"
+#~ msgstr "n"
+
+#~ msgid "Standard deviation"
+#~ msgstr "Standardabweichung"
+
+#~ msgid "Min. execution time"
+#~ msgstr "Min. Ausführungsdauer"
+
+#~ msgid "Max. execution time"
+#~ msgstr "Max. Ausführungsdauer"
+
+#~ msgid "Avg. of slowest page"
+#~ msgstr "Durchsch. langsamste Seite"
+
+#~ msgid "Std. dev. of slowest page"
+#~ msgstr "Stdabw. langsamste Seite"
+
+#~ msgid "Setup database"
+#~ msgstr "Setup Datenbank"
+
+#~ msgid "Index article"
+#~ msgstr "Index-Artikel"
+
+#~ msgid "Duplicate"
+#~ msgstr "Duplizieren"
+
+#~ msgid "Delete current log"
+#~ msgstr "Aktuelles Log löschen"
+
+#~ msgid "UUID"
+#~ msgstr "UUID"
+
+#~ msgid "Comments"
+#~ msgstr "Kommentare"
+
+#~ msgid "#"
+#~ msgstr "#"
+
+#~ msgid "First"
+#~ msgstr "Erste"
+
+#~ msgid "The mappings table is currently empty."
+#~ msgstr "Die Mapping-Tabelle ist zurzeit leer."
+
+#~ msgid ""
+#~ "The file /application/configs/mapping.ini does not exist. Please create the "
+#~ "file and set the file privileges accordingly to enable the system to write "
+#~ "into the file."
+#~ msgstr ""
+#~ "Die Datei /application/configs/mapping.ini existiert nicht. Bitte erstellen "
+#~ "Sie die Datei und setzen Sie die Dateirechte so, dass das System in die "
+#~ "Datei schreiben kann."
+
+#~ msgid ""
+#~ "The system does not have enough privileges to write into the file "
+#~ "/application/configs/mapping.ini. If you wish to manage its data from within"
+#~ " the backend, you need to set the privileges accordingly."
+#~ msgstr ""
+#~ "Das System hat nicht ausreichend Rechte, um in die die Datei "
+#~ "/application/configs/mapping.ini zu schreiben. Wenn Sie die Daten mit Hilfe "
+#~ "des Systems pflegen möchten, dann müssen Sie die Dateirechte entsprechend "
+#~ "setzen."
+
+#~ msgid "An error occured while trying to synchronize the specified article. "
+#~ msgstr "Während der Synchronisation ist ein Fehler aufgetreten."
+
+#~ msgid ""
+#~ "Attention: temporarily lost connection. The session is not refreshed. Store "
+#~ "unsaved changes into clipboard."
+#~ msgstr ""
+#~ "Achtung: Die Verbindung ist unterbrochen. Die Session wird nicht "
+#~ "aktualisiert. Speichern Sie nicht gespeicherte Inhalte in die "
+#~ "Zwischenablage."
+
+#~ msgid "Session refreshed @ "
+#~ msgstr "Session aktualisiert um"
+
+#~ msgid "Attention: the session will be closed in "
+#~ msgstr "Achtung: Die Session wird geschlossen in"
+
+#~ msgid "seconds"
+#~ msgstr "Sekunden"
+
+#~ msgid "Paste from clipboard"
+#~ msgstr "Einfügen (aus Zwischenablage)"
+
+#~ msgid "Remove from favorites"
+#~ msgstr "Aus Favoriten entfernen"
+
+#~ msgid "Differences to published version"
+#~ msgstr "Unterschiede zur publizierten Version"
+
+#~ msgid "Referesh"
+#~ msgstr "Referesh"
+
+#~ msgid "Inherit from above"
+#~ msgstr "Von oberhalb erben"
+
+#~ msgid "Use article media"
+#~ msgstr "Artikelmedien verwenden"
+
+#~ msgid "Header"
+#~ msgstr "Header"
+
+#~ msgid "Import"
+#~ msgstr "Import"
+
+#~ msgid "Export"
+#~ msgstr "Export"
+
+#~ msgid "Dependencies"
+#~ msgstr "Abhängigkeiten"
+
+#~ msgid "No dependencies or fullfilled."
+#~ msgstr "Keine Abhängigkeiten oder erfüllt."
+
+#~ msgid "Publication in progress"
+#~ msgstr "Publikation in Bearbeitung"
+
+#~ msgid "More than play"
+#~ msgstr "More than play"
+
+#~ msgid "Toy finder"
+#~ msgstr "Toy finder"
+
+#~ msgid "Aktuell"
+#~ msgstr "Aktuell"
+
+#~ msgid "More..."
+#~ msgstr "Mehr..."
+
+#~ msgid "You are here"
+#~ msgstr "Sie sind hier"
+
+#~ msgid "Meistgelesene Artikel"
+#~ msgstr "Meistgelesene Artikel"
+
+#~ msgid "HTML path"
+#~ msgstr "HTML-Pfad"
+
+#~ msgid "Copyright"
+#~ msgstr "Copyright"
+
+#~ msgid "Last edited articles"
+#~ msgstr "Zuletzt aktualisierte Artikel"
+
+#~ msgid "Ad Hoc Properties"
+#~ msgstr "Ad Hoc-Eigenschaften"
+
+#~ msgid "Meta information"
+#~ msgstr "Meta-Informationen"
+
+#~ msgid "Group tags"
+#~ msgstr "Gruppentags"
+
+#~ msgid "Thumb"
+#~ msgstr "Vorschaubild"
+
+#~ msgid "Full"
+#~ msgstr "Ganz"
+
+#~ msgid "Group A"
+#~ msgstr "Gruppe A"
+
+#~ msgid "Group B"
+#~ msgstr "Gruppe B"
+
+#~ msgid "Group C"
+#~ msgstr "Gruppe C"
+
+#~ msgid "English"
+#~ msgstr "Englisch"
+
+#~ msgid "Deutsch"
+#~ msgstr "Deutsch"
+
+#~ msgid "Set filter"
+#~ msgstr "Filter setzen"
+
+#~ msgid "Set Filter"
+#~ msgstr "Filter setzen"
+
+#~ msgid "Sort by media name"
+#~ msgstr "Nach Mediennamen sortieren"
+
+#~ msgid "Sort by file name"
+#~ msgstr "Nach Name sortieren"
+
+#~ msgid "Sort by filename"
+#~ msgstr "Nach Dateiname sortieren"
+
+#~ msgid "Edit Media"
+#~ msgstr "Medien aktualisieren"
+
+#~ msgid "Visibility period"
+#~ msgstr "Sichtbarkeitsperiode"
+
+#~ msgid "Document"
+#~ msgstr "Dokument"
+
+#~ msgid "Keywords"
+#~ msgstr "Schlüsselwörter (keywords)"
+
+#~ msgid "Indexing"
+#~ msgstr "Indexierung"
+
+#~ msgid "Robots"
+#~ msgstr "Robots"
+
+#~ msgid "Expires"
+#~ msgstr "Expires"
+
+#~ msgid "Revisit-after"
+#~ msgstr "Revisit-after"
+
+#~ msgid "Please select the file to be edited on the left hand side."
+#~ msgstr "Bitte wählen Sie auf der linken Seite eine Datei zum Editieren aus."
+
+#~ msgid "Diagnose"
+#~ msgstr "Diagnose"
+
+#~ msgid "Help"
+#~ msgstr "Hilfe"
+
+#~ msgid "Image dimensions"
+#~ msgstr "Bilddimensionen"
+
+#~ msgid "fixed width/height ratio"
+#~ msgstr "festes Breite-Höhen-Verhältnis"
+
+#~ msgid "Role"
+#~ msgstr "Rolle"
+
+#~ msgid "Role identifier"
+#~ msgstr "Rollenbezeichner"
+
+#~ msgid "The current article is redirecting and therefore cannot be previewed."
+#~ msgstr ""
+#~ "Der aktuelle Artikel weist eine Weiterleitung auf und kann deshalb nicht in "
+#~ "der Vorschau angezeigt werden."
+
+#~ msgid "The redirection target is: "
+#~ msgstr "Das Weiterleitungsziel lautet:"
+
+#~ msgid "Category name"
+#~ msgstr "Kategoriename"
+
+#~ msgid "Template"
+#~ msgstr "Template"
+
+#~ msgid "Actions"
+#~ msgstr "Aktionen"
+
+#~ msgid "edit category"
+#~ msgstr "Kategorie bearbeiten"
+
+#~ msgid "add new category"
+#~ msgstr "neue Kategorie hinzuf&uuml;gen"
+
+#~ msgid "set category online"
+#~ msgstr "Kategorie online stellen"
+
+#~ msgid "lock category"
+#~ msgstr "Kategorie sch&uuml;tzen"
+
+#~ msgid "unlock category"
+#~ msgstr "Schutz aufheben"
+
+#~ msgid "Confirm delete"
+#~ msgstr "L&ouml;schung best&auml;tigen"
+
+#~ msgid "Delete the selected category"
+#~ msgstr "Kategorie löschen"
+
+#~ msgid "Should child nodes be set to online, too?"
+#~ msgstr "Sollen auch die Unterkategorien online gestellt werden?"
+
+#~ msgid "Set online children?"
+#~ msgstr "Unterkategorien online stellen?"
+
+#~ msgid "Should child nodes be set to public, too?"
+#~ msgstr ""
+#~ "Sollen auch der Schutz allf&auml;lliger Unterkategorien aufgehoben werden?"
+
+#~ msgid "Set public children?"
+#~ msgstr "Schutz f&uuml;r Unterkategorien aufheben?"
+
+#~ msgid "Sync from..."
+#~ msgstr "Sync aus..."
+
+#~ msgid "Add new category"
+#~ msgstr "Neue Kategorie hinzufügen"
+
+#~ msgid "Online/Offline"
+#~ msgstr "Online/Offline"
+
+#~ msgid "Lock/Release"
+#~ msgstr "Schützen / Schutz aufheben"
+
+#~ msgid "Add new child"
+#~ msgstr "Neues Kindelement aufnehmen"
+
+#~ msgid "Alt"
+#~ msgstr "Alt"
+
+#~ msgid "Attributes"
+#~ msgstr "Attribute"
+
+#~ msgid "Scaling"
+#~ msgstr "Skalierung"
+
+#~ msgid "Use dimensions as max values"
+#~ msgstr "Dimensionen sind Maximalwerte"
+
+#~ msgid "Scale to fit"
+#~ msgstr "Auf festgelegte Grösse skalieren"
+
+#~ msgid "Choose scaling"
+#~ msgstr "Skalierung wählen"
+
+#~ msgid "Inline (standard)"
+#~ msgstr "Inline"
+
+#~ msgid "Left (floated)"
+#~ msgstr "Links (umflossen)"
+
+#~ msgid "Right (floated)"
+#~ msgstr "Rechts (umflossen)"
+
+#~ msgid "Normal (standard)"
+#~ msgstr "Normal (Standard)"
+
+#~ msgid "Fancybox"
+#~ msgstr "Fancybox"
+
+#~ msgid "Full width"
+#~ msgstr "Volle Breite"
+
+#~ msgid "Large display"
+#~ msgstr "Grossanzeige"
+
+#~ msgid "Full height"
+#~ msgstr "Volle Höhe"
+
+#~ msgid "label"
+#~ msgstr "Label"
+
+#~ msgid "Additional attributes"
+#~ msgstr "Zusätzliche Attribute"
+
+#~ msgid "Gallery configuration"
+#~ msgstr "Galeriekonfiguration"
+
+#~ msgid "Transition period (s)"
+#~ msgstr "Übergangszeit (s)"
+
+#~ msgid "Carousel text"
+#~ msgstr "Karussel-Text"
+
+#~ msgid "Load text"
+#~ msgstr "Lade-Text"
+
+#~ msgid "Tailor"
+#~ msgstr "Tailor"
+
+#~ msgid "Contentbridge"
+#~ msgstr "Contentbridge"
+
+#~ msgid "FlexPort"
+#~ msgstr "FlexPort"
+
+#~ msgid "Type in article name, page title or part of summary"
+#~ msgstr ""
+#~ "Geben Sie den Artikelnamen, Seitentitel oder einen Teil der Zusammenfassung "
+#~ "an."
+
+#~ msgid "searching..."
+#~ msgstr "Suche..."
+
+#~ msgid "Yes, child nodes, too!"
+#~ msgstr "Ja, Unterkat. auch!"
+
+#~ msgid "Not implemented yet. This will be a feature of the next version."
+#~ msgstr ""
+#~ "Nicht implementiert. Die integration erfolgt in der n&auml;chsten Version."
+
+

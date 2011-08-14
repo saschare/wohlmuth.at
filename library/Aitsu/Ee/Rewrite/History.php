@@ -69,7 +69,8 @@ class Aitsu_Ee_Rewrite_History {
 			'insert into _aitsu_rewrite_history ' .
 			'(url, idartlang, created) ' .
 			'values ' .
-			'(:url, :idartlang, now())' .
+			'(:url, :idartlang, now()) ' .
+			'on duplicate key update created = now()' .
 			'', array (
 				'url' => $this->url,
 				':idartlang' => $idartlang

@@ -11,7 +11,7 @@ class Aitsu_Adm_User {
 	static $_instance = null;
 	protected $_id;
 	protected $_data;
-	protected $_allowedRes = array();
+	protected $_allowedRes = array ();
 
 	protected function __construct($id) {
 
@@ -80,16 +80,20 @@ class Aitsu_Adm_User {
 
 	public function isAllowed(array $res) {
 
+		if ($this->_id == 'setup') {
+			return false;
+		}
+
 		/*
 		 * First, we build a hash representing the resource to enable
 		 * temporary persistence.
 		 */
 		$index = hash('md4', var_export($res, true));
-		
+
 		/*
 		 * Return the result if already available.
 		 */
-		if (isset($this->_allowedRes[$index])) {
+		if (isset ($this->_allowedRes[$index])) {
 			return $this->_allowedRes[$index];
 		}
 
@@ -119,22 +123,34 @@ class Aitsu_Adm_User {
 			$clause[] = "trim(substring_index(privileg.identifier, ':', -1)) = :action";
 			$data[':action'] = $res['action'];
 		}
+		$catJoin = '';
+		$artJoin = '';
+		if (isset ($res['resource'])) {
+			if ($res['resource']['type'] == 'cat') {
+				$clause[] = "(cat.idcat = :idcat or resource.resourceid = 1)";
+				$data[':idcat'] = $res['resource']['id'];
+				$catJoin = 'left join _cat as catparent on resource.resourcetype = \'cat\' and catparent.idcat = resource.identifier ' .
+				'left join _cat as cat on cat.lft between catparent.lft and catparent.rgt ';
+			}
+			elseif ($res['resource']['type'] == 'art') {
+				$clause[] = "art.idart = :idart";
+				$data[':idart'] = $res['resource']['id'];
+				$artJoin = 'left join _art as art on resource.resourcetype = \'art\' and art.idart = resource.identifier ';
+			}
+			elseif ($res['resource']['type'] == 'catbyart') {
+				$clause[] = "(cat.idcat = :idcat or resource.resourceid = 1)";
+				$data[':idcat'] = Aitsu_Db :: fetchOne('' .
+				'select idcat from _cat_art where idart = :idart', array (
+					':idart' => $res['resource']['id']
+				));
+				$catJoin = 'left join _cat as catparent on resource.resourcetype = \'cat\' and catparent.idcat = resource.identifier ' .
+				'left join _cat as cat on cat.lft between catparent.lft and catparent.rgt ';
+			}
+		}
 
 		/*
 		 * Query the database layer for the count of matches.
 		 */
-		$part1 = Aitsu_Db :: prefix('' .
-		'select count(*) ' .
-		'from _acl_roles as roles ' .
-		'left join _acl_privileges as privileges on roles.roleid = privileges.roleid ' .
-		'left join _acl_privilege as privileg on privileges.privilegeid = privileg.privilegeid ' .
-		'left join _acl_clients as client on roles.roleid = client.roleid ' .
-		'left join _acl_languages as language on roles.roleid = language.roleid ' .
-		'left join _acl_resources as res on roles.roleid = res.roleid ' .
-		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
-		'left join _cat as cat on resource.resourcetype = \'cat\' and cat.idcat = resource.identifier ' .
-		'where ' . implode(' and ', $clause));
-
 		$allowed = Aitsu_Db :: fetchOne('' .
 		'select count(*) ' .
 		'from _acl_roles as roles ' .
@@ -144,14 +160,14 @@ class Aitsu_Adm_User {
 		'left join _acl_languages as language on roles.roleid = language.roleid ' .
 		'left join _acl_resources as res on roles.roleid = res.roleid ' .
 		'left join _acl_resource as resource on res.resourceid = resource.resourceid ' .
-		'left join _cat as cat on resource.resourcetype = \'cat\' and cat.idcat = resource.identifier ' .
+		' ' . $catJoin . ' ' . $artJoin . ' ' .
 		'where ' . implode(' and ', $clause), $data);
-		
+
 		/*
 		 * Hold the result for further use during the same request.
 		 */
 		$this->_allowedRes[$index] = (boolean) $allowed;
-		
+
 		return (boolean) $allowed;
 	}
 

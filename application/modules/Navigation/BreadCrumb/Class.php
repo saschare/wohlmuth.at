@@ -3,29 +3,25 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Navigation_BreadCrumb_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Navigation_BreadCrumb_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected $type = 'navigation';
+	protected $_allowEdit = false;
 
-	public static function init($context) {
+	protected function _main() {
 
-		Aitsu_Content_Edit :: noEdit('Navigation.BreadCrumb', true);
-
-		$instance = new self();
-		$view = $instance->_getView();
-
-		$output = '';
-		if ($instance->_get('Navigation_BreadCrumb', $output)) {
-			return $output;
-		}
+		$view = $this->_getView();
 
 		$view->bc = Aitsu_Persistence_View_Category :: breadCrumb();
-		$output = $view->render('index.phtml');
-		$instance->_save($output, 'eternal');
 
-		return $output;
+		return $view->render('index.phtml');
+	}
+
+	protected function _cachingPeriod() {
+
+		return 60 * 60 * 24 * 365;
 	}
 }

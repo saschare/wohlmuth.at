@@ -1,0 +1,11 @@
+<?php if ($this->showItem != 'yes') return; ?>
+<div itemscope itemtype="http://schema.org/<?php $this->SchemaOrgType; ?>" class="SchemaOrg <?php $this->SchemaOrgType; ?>">
+	<dl>
+		<?php foreach ($this as $key => $value) : ?>
+		<?php if (!empty($value)) : ?>
+		<dt><?php echo ucfirst($key); ?></dt>
+			<dd><?php echo $value; ?></dd>
+		<?php endif; ?>
+		<?php endforeach; ?>
+	</dl>
+</div>

@@ -1,0 +1,11 @@
+$(document).ready(function() {
+	projekktor('#player_a', {
+		volume: 0.3,
+		playerFlashMP4: '<?php echo Aitsu_Config :: get('sys.mainDir'); ?>res/video/projekktor/jarisplayer.swf',
+		playerFlashMP3: '<?php echo Aitsu_Config :: get('sys.mainDir'); ?>res/video/projekktor/jarisplayer.swf',
+		plugin_display: {
+			logoImage:"http://www.fitnesspark.ch/logo.png",
+			target:"_self"
+		}
+	});
+});

@@ -1,8 +1,7 @@
-<?php $counter = -1; foreach ($this->bc as $entry) : $entry = (object) $entry; $counter++; ?>
-	<?php if ($counter > 0) : ?>
+<ul itemprop="breadcrumb">
+	<?php foreach ($this->bc as $entry) : $entry = (object) $entry; ?>
+	<li>
 		<a href="{ref:idcat-<?php echo $entry->idcat; ?>}"><?php echo $entry->name; ?></a>
-		<?php if ($counter < count($this->bc) - 1) : ?>
-			&nbsp;&raquo;&nbsp;
-		<?php endif; ?>
-	<?php endif; ?>
-<?php endforeach; ?>
+	</li>
+	<?php endforeach; ?>
+</ul>

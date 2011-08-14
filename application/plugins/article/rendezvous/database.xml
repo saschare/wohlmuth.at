@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../database/schema.xsd">
+    <table engine="InnoDB" name="rendezvous" since="Version 2.3.7">
+        <field default="null" name="idart" type="int(10) unsigned" nullable="false" primary="true">
+            <constraint column="idart" ondelete="cascade" onupdate="restrict" table="art"/>
+        </field>
+        <field default="null" name="starttime" type="timestamp" nullable="true"/>
+        <field default="null" name="endtime" type="timestamp" nullable="true"/>
+        <field default="0" name="periodicity" type="int(10)" nullable="false"/>
+        <field default="null" name="until" type="timestamp" nullable="true"/>
+    </table>
+</database>

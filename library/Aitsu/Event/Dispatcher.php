@@ -3,9 +3,7 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Dispatcher.php 19564 2010-10-25 13:16:25Z akm $}
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class Aitsu_Event_Dispatcher {
@@ -26,11 +24,10 @@ class Aitsu_Event_Dispatcher {
 		if (!isset ($instance)) {
 			$instance = new self();
 		}
-		
-		$period = number_format((microtime(true) - $startTime) * 1000, 2);
-		//trigger_error('Event dispatcher (init): ' . $period . ' ms');
 
-		return $instance;		
+		$period = number_format((microtime(true) - $startTime) * 1000, 2);
+
+		return $instance;
 	}
 
 	protected function _readConfig() {
@@ -50,10 +47,12 @@ class Aitsu_Event_Dispatcher {
 			 */
 			return;
 		}
-		
-		$env = isset($_SERVER['AITSU_ENV']) ? $_SERVER['AITSU_ENV'] : 'default'; 
 
-		$this->_config = new Zend_Config_Ini($eventsTable, $env);
+		$env = isset ($_SERVER['AITSU_ENV']) ? $_SERVER['AITSU_ENV'] : 'default';
+
+		$this->_config = new Zend_Config_Ini($eventsTable, $env, array (
+			'allowModifications' => true
+		));
 	}
 
 	public function raise(Aitsu_Event_Abstract $event) {
@@ -99,7 +98,7 @@ class Aitsu_Event_Dispatcher {
 			}
 		}
 		$executionList = array_unique($executionList);
-		
+
 		try {
 			foreach ($executionList as $listener) {
 				if (array_key_exists('Aitsu_Event_Listener_Interface', class_implements($listener, true))) {
@@ -115,8 +114,24 @@ class Aitsu_Event_Dispatcher {
 			trigger_error('WARNING: Notification of pending listeners stopped.');
 			trigger_error('Affected event: ' . implode('.', $sig));
 		}
-		
+
 		$period = number_format((microtime(true) - $startTime) * 1000, 2);
-		//trigger_error('Event dispatcher (exec): ' . $period . ' ms');
+	}
+
+	public function disable($string) {
+
+		$parts = explode('.', $string);
+		$config = & $this->_config;
+
+		for ($i = 0; $i < count($parts) - 1; $i++) {
+			if (!isset ($config-> $parts[$i])) {
+				return false;
+			}
+			$config = & $config-> $parts[$i];
+		}
+
+		$config->$parts[$i] = false;
+
+		return true;
 	}
 }

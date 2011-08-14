@@ -3,40 +3,46 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright © 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Syndication_RSS_Reader_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Syndication_RSS_Reader_Class extends Aitsu_Module_Tree_Abstract {
+	
+	protected $_cacheIfLoggedIn = true;
+	protected $_disableCacheArticleRelation = true;
 
-	public static function init($context) {
+	protected function _main() {
 
-		$instance = new self();
+		$template = isset ($this->_params->template) ? $this->_params->template : 'index';
+		$cache = isset ($this->_params->cache) ? $this->_params->cache : (60 * 60);
 
-		$index = $context['index'];
-		$params = Aitsu_Util :: parseSimpleIni($context['params']);
+		$id = md5($this->_params->uri . ' ' . $template);
 
-		$template = isset ($params->template) ? $params->template : 'index';
-		$cache = isset ($params->cache) ? $params->cache : (60 * 60);
+		$view = $this->_getView();
+		
+		$uri = isset($this->_params->uri) ? $this->_params->uri : Aitsu_Content_Config_Text :: set($this->_index, 'RSS.Reader.URI', 'URI', 'RSS');
 
-		$id = md5($params->uri . ' ' . $template);
-
-		$output = '';
-		if ($instance->_get('Rss_' . $id, $output, true)) {
-			return $output;
+		if (empty($uri)) {
+			return '';
 		}
 
-		$view = $instance->_getView();
-
 		try {
-			$view->channel = new Zend_Feed_Rss($params->uri);
+			$view->channel = new Zend_Feed_Rss($uri);
 		} catch (Exception $e) {
-			$instance->_save('', $cache);
 			return '';
 		}
 
 		$output = $view->render($template . '.phtml');
-		$instance->_save($output, $cache);
 
 		return $output;
+	}
+
+	protected function _cachingPeriod() {
+
+		if (isset ($this->_params->cache)) {
+			return $this->_params->cache;
+		}
+
+		return 60 * 60;
 	}
 }

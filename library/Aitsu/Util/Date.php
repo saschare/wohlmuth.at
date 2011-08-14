@@ -15,6 +15,11 @@ class Aitsu_Util_Date {
 		$this->_time = $time;
 	}
 
+	public function getTime() {
+
+		return $this->_time;
+	}
+
 	public static function fromMySQL($date) {
 
 		if (!preg_match('/(\\d{4})\\-(\\d{2})\\-(\\d{2})\\s*(\\d{2})\\:(\\d{2})\\:(\\d{2})/', $date, $match)) {
@@ -28,9 +33,34 @@ class Aitsu_Util_Date {
 
 		return date($format, $this->_time);
 	}
-	
+
 	public static function from($date) {
-		
+
 		return new self(strtotime($date));
+	}
+
+	public function add($seconds) {
+
+		$this->_time = $this->_time + $seconds;
+
+		return $this;
+	}
+
+	public function getStartOfDay() {
+
+		$currentDate = getDate($this->_time);
+		return mktime(0, 0, 0, $currentDate['mon'], $currentDate['mday'], $currentDate['year']);
+	}
+
+	public static function dayOfCurrentWeek($day) {
+
+		$day = $day == 0 ? 6 : $day -1;
+
+		$currentDate = getDate();
+		$currentWeekDay = $currentDate['wday'] - 1;
+
+		$newDay = $day - $currentWeekDay;
+
+		return new self(mktime(0, 0, 0, $currentDate['mon'], $currentDate['mday'], $currentDate['year']) + $newDay * 24 * 60 * 60);
 	}
 }

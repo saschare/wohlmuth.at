@@ -221,6 +221,11 @@
         <field name="date" type="date" default="null" nullable="true" comment="Date."/>
         <field name="expires" type="date" default="null" nullable="true" comment="Expires."/>
         <field name="robots" type="varchar(255)" default="null" comment="Robots."/>
+        <field name="schemaorgtype" type="int (10) unsigned" default="null" nullable="true"
+            comment="schmema.org WebPage or subtype.">
+            <constraint column="schemaorgtypeid" ondelete="cascade" onupdate="no action"
+                table="schemaorgtype"/>
+        </field>
         <field name="dctitle" type="varchar(255)" default="null" comment="DC.Title."/>
         <field name="dccreator" type="varchar(255)" default="null" comment="DC.Creator."/>
         <field name="dcsubject" type="varchar(255)" default="null" comment="DC.Subject."/>
@@ -319,6 +324,7 @@
             comment="Category specific configuration."/>
         <index name="urlname" columns="urlname" type="index"/>
         <index name="url" columns="url" type="index"/>
+        <index columns="idcat,idlang" name="un_idcat_idlang" type="unique"/>
     </table>
     <table name="clients" engine="InnoDB" since="2.2.1.0">
         <field name="idclient" type="int(10) unsigned" default="null" autoincrement="true"
@@ -622,6 +628,7 @@
         <field name="date" type="date" default="null" nullable="true"/>
         <field name="expires" type="date" default="null" nullable="true"/>
         <field name="robots" type="varchar(255)" default="null"/>
+        <field name="schemaorgtype" type="int (10) unsigned" default="null"/>
         <field name="dctitle" type="varchar(255)" default="null"/>
         <field name="dccreator" type="varchar(255)" default="null"/>
         <field name="dcsubject" type="varchar(255)" default="null"/>
@@ -823,8 +830,115 @@
             <constraint column="channelid" ondelete="cascade" onupdate="no action" table="channel"/>
         </field>
     </table>
+    <table engine="InnoDB" name="schemaorgtype" since="2.3.1">
+        <field default="null" name="schemaorgtypeid" type="int (10) unsigned" nullable="false"
+            primary="true" autoincrement="true" comment="Primary key."/>
+        <field default="null" name="type" type="varchar (255)" nullable="false"
+            comment="Schema.org type reference."/>
+        <index columns="type" name="type" type="unique"/>
+        <dataset use="add">
+            <record>
+                <value attribute="schemaorgtypeid">1</value>
+                <value attribute="type">WebPage</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">2</value>
+                <value attribute="type">AboutPage</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">3</value>
+                <value attribute="type">CheckoutPage</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">4</value>
+                <value attribute="type">CollectionPage</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">5</value>
+                <value attribute="type">ImageGallery</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">6</value>
+                <value attribute="type">VideoGallery</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">7</value>
+                <value attribute="type">ContactPage</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">8</value>
+                <value attribute="type">ItemPage</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">9</value>
+                <value attribute="type">ProfilePage</value>
+            </record>
+            <record>
+                <value attribute="schemaorgtypeid">10</value>
+                <value attribute="type">SearchResultsPage</value>
+            </record>
+        </dataset>
+    </table>
+    <table engine="InnoDB" name="schemaorghiearchy" since="2.3.1">
+        <field default="null" name="child" type="int (10) unsigned" nullable="false" primary="true"
+            comment="Child type.">
+            <constraint column="schemaorgtypeid" ondelete="cascade" onupdate="no action"
+                table="schemaorgtype"/>
+        </field>
+        <field default="null" name="parent" type="int (10) unsigned" nullable="false" primary="true"
+            comment="Parent type.">
+            <constraint column="schemaorgtypeid" ondelete="cascade" onupdate="no action"
+                table="schemaorgtype"/>
+        </field>
+        <dataset use="add">
+            <record>
+                <value attribute="child">2</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">3</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">4</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">5</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">6</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">7</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">8</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">9</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">10</value>
+                <value attribute="parent">1</value>
+            </record>
+            <record>
+                <value attribute="child">5</value>
+                <value attribute="parent">4</value>
+            </record>
+            <record>
+                <value attribute="child">6</value>
+                <value attribute="parent">4</value>
+            </record>
+        </dataset>
+    </table>
     <function name="getchannel"><![CDATA[
-        create function getchannel() returns varchar(255)
+        create function getchannel() returns varchar(255) no sql
         begin
             return @aitsuchannel;
         end]]></function>

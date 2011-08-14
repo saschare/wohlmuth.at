@@ -38,9 +38,35 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 			'paction' => 'index'
 		), 'aplugin');
 
+		$schemaOrgTypes = array ();
+		$results = Aitsu_Db :: fetchAll('' .
+		'select distinct ' .
+		'	schemaorg.schemaorgtypeid, ' .
+		'	schemaorg.type ' .
+		'from _schemaorgtype schemaorg ' .
+		'left join _schemaorghiearchy child ' .
+		'	on schemaorg.schemaorgtypeid = child.child ' .
+		'	or schemaorg.schemaorgtypeid = child.parent ' .
+		'left join _schemaorgtype parent on child.parent = parent.schemaorgtypeid ' .
+		'where ' .
+		'	parent.type = \'WebPage\' ' .
+		'order by ' .
+		'	schemaorg.type asc');
+		if ($results) {
+			foreach ($results as $result) {
+				$schemaOrgTypes[] = (object) array (
+					'name' => $result['type'],
+					'value' => $result['schemaorgtypeid']
+				);
+			}
+		}
+		$form->setOptions('schemaorgtype', $schemaOrgTypes);
+
 		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
+
 		$data->robots = explode(', ', $data->robots);
 		$data->idart = $id;
+		$data->schemaorgtype = empty($data->schemaorgtype) ? 1 : $data->schemaorgtype;
 		$form->setValues($data->toArray());
 
 		if ($this->getRequest()->getParam('loader')) {
@@ -53,7 +79,7 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 			if ($form->isValid()) {
 				Aitsu_Event :: raise('backend.article.edit.save.start', array (
 					'idart' => $id
-				));			
+				));
 
 				/*
 				 * Persist the data.

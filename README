@@ -1,2 +1,30 @@
+<<<<<<< HEAD
 Plugin um die Tabelle "_aitsu_rewrite_history" von Hand zu befüllen.
 Übernahme von alten gültigen URLs des vorherigen Auftrittes. SEO
+=======
+Current version: 2.3.7-4
+
+== Latest changes == 
+
+* 2011-08-13: Added rendez-vous module (List.Rendezvous) and a view class 
+              to gather the data (Aitsu_Persistence_View_Rendezvous).
+* 2011-08-13: Added end date for periodicity in rendez-vous plugin.
+* 2011-08-13: Added rendez-vous plugin.
+
+== Rendez-vous plugin (since 2.3.7) ==
+
+The plugin allows to set an appointment with start and end time and periodicity of 0 (no
+recurrence) to 28 (every four weeks) to an article.
+
+== Module hierachy (since 2.3.1) ==
+
+A module can know morph to another module which is more specific according to the
+module hierarchy.
+
+== Revision progression (since 2.2.0) ==
+
+In the article view there is a new tab allowing you to switch between published versions of the current article. To be able to use the new feature you have to add follwing line to the default config set:
+
+plugin.article.revisionprogression.position.default = 1000
+
+The number after the equal symbol represents the relative position of the tab. You may change the value to something not lower than 1, which repositions the tab within the article view.

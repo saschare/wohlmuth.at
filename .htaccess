@@ -5,13 +5,21 @@ RewriteEngine on
 
 RewriteBase /
 
+RewriteRule ^res/.*$ - [L]
+
 RewriteRule ^id/(.*)$ index.php?id=$1 [QSA,L]
 RewriteRule ^adm/id/(\d*).*$ index.php?id=$1 [QSA,L]
 
-RewriteRule ^adm/.*\.(jpg|jpeg|gif|css|swf|png|js|xml|pdf|ico|htc|eot|svg|ttf|woff).*$ - [L]
+RewriteRule ^adm/.*\.(jpg|jpeg|gif|css|swf|png|js|xml|pdf|ico|htc|eot|svg|ttf|woff).*$ - [NC,L]
 RewriteRule ^adm/edit/(.*)$ index.php?edit=1&id=$1 [QSA,L]
 RewriteRule ^adm/preview/(.*)$ index.php?preview=1&id=$1 [QSA,L]
 RewriteRule ^adm/(.*)$ adm/index.php?$1 [QSA,L]
+
+RewriteCond %{DOCUMENT_ROOT}/application/data/cachetransparent/data%{REQUEST_URI} -f
+RewriteRule ^(.*)$ application/data/cachetransparent/data/$1 [L]
+
+RewriteCond %{DOCUMENT_ROOT}/application%{REQUEST_URI} -f
+RewriteRule ^skins/(.*)$ application/skins/$1 [L]
 
 RewriteRule ^image/(.*) index.php?imageurl=$1 [QSA,L]
 RewriteRule ^file/download/(.*) index.php?fileurl=$1 [QSA,L]

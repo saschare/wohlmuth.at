@@ -80,18 +80,20 @@
 					</td>
 					<td class="details">
 						<dl>
-						<?php foreach ($profile->data as $key => $value) : ?>
-							<dt><?php echo $key; ?></dt>
-								<?php if (is_array($value)) : ?>
-									<ol>
-									<?php foreach ($value as $track) : ?>
-										<li><?php echo (empty($track['class']) ? '' : ($track['class'] . ' :: ')) . $track['function']; ?></li>
-									<?php endforeach; ?>
-									</ol>
-								<?php else : ?>
-								<dd><?php echo $value; ?></dd>
-								<?php endif; ?>
-						<?php endforeach; ?>
+						<?php if (!empty($profile->data)) : ?>
+							<?php foreach ($profile->data as $key => $value) : ?>
+								<dt><?php echo $key; ?></dt>
+									<?php if (is_array($value)) : ?>
+										<ol>
+										<?php foreach ($value as $track) : ?>
+											<li><?php echo (empty($track['class']) ? '' : ($track['class'] . ' :: ')) . $track['function']; ?></li>
+										<?php endforeach; ?>
+										</ol>
+									<?php else : ?>
+									<dd><?php echo $value; ?></dd>
+									<?php endif; ?>
+							<?php endforeach; ?>
+						<?php endif; ?>
 						</dl>
 					</td>
 				</tr>

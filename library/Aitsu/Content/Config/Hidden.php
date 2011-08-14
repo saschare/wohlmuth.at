@@ -3,7 +3,7 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class Aitsu_Content_Config_Hidden extends Aitsu_Content_Config_Abstract {
@@ -19,7 +19,8 @@ class Aitsu_Content_Config_Hidden extends Aitsu_Content_Config_Abstract {
 		}
 
 		if (empty ($value)) {
-			return Aitsu_Core_Article_Property :: factory()->getValue('ModuleConfig_' . $index, $name)->value;
+			$val = Aitsu_Core_Article_Property :: factory()->getValue('ModuleConfig_' . $index, $name);
+			return ($val == null) ? null : $val->value;
 		}
 
 		return $value;

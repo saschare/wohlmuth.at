@@ -39,11 +39,11 @@ class Aitsu_Persistence_View_Media {
 			':idlang' => Aitsu_Registry :: get()->env->idlang
 		));
 	}
-        
+
 	public static function byFileName($idart, $filenames) {
-		
-		if (empty($filenames)) {
-			return array();
+
+		if (empty ($filenames)) {
+			return array ();
 		}
 
 		$idlang = Aitsu_Registry :: get()->env->idlang;
@@ -75,24 +75,24 @@ class Aitsu_Persistence_View_Media {
 			':idart' => $idart,
 			':idlang' => $idlang
 		));
-		
-		$return = array();
-		
+
+		$return = array ();
+
 		foreach ($images as $image) {
 			if (in_array($image['filename'], $filenames)) {
 				$return[array_search($image['filename'], $filenames)] = (object) $image;
 			}
 		}
-		
+
 		ksort($return);
-		
+
 		return $return;
 	}
-	
+
 	public static function byFileExtension($idart, $fileextension) {
-		
-		if (empty($fileextension)) {
-			return array();
+
+		if (empty ($fileextension)) {
+			return array ();
 		}
 
 		$idlang = Aitsu_Registry :: get()->env->idlang;
@@ -126,13 +126,63 @@ class Aitsu_Persistence_View_Media {
 			':idlang' => $idlang,
 			':fileextension' => $fileextension
 		));
-		
-		$return = array();
-		
+
+		$return = array ();
+
 		foreach ($images as $image) {
 			$return[] = (object) $image;
 		}
-		
+
+		return $return;
+	}
+
+	public static function byTag($idart, $tag) {
+
+		if (empty ($idart) || empty ($tag)) {
+			return array ();
+		}
+
+		$idlang = Aitsu_Registry :: get()->env->idlang;
+
+		$images = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	media.mediaid, ' .
+		'	media.idart, ' .
+		'	media.filename, ' .
+		'	media.size, ' .
+		'	media.extension, ' .
+		'	media_tag.tag, ' .
+		'	description.name, ' .
+		'	description.subline, ' .
+		'	description.description ' .
+		'from _media media ' .
+		'left join _media_description description on media.mediaid = description.mediaid and description.idlang = :idlang ' .
+		'left join _media_tags media_tags on media.mediaid = media_tags.mediaid ' .
+		'left join _media_tag media_tag on media_tags.mediatagid = media_tag.mediatagid ' .
+		'where ' .
+		'	media.idart = :idart ' .
+		'	and media_tag.tag = :tag ' .
+		'	and media.deleted is null ' .
+		'	and media.mediaid in (' .
+		'		select ' .
+		'			max(media.mediaid) ' .
+		'		from _media ' .
+		'		where ' .
+		'			idart = :idart ' .
+		'		group by' .
+		'			filename ' .
+		'	)', array (
+			':idart' => $idart,
+			':idlang' => $idlang,
+			':tag' => $tag
+		));
+
+		$return = array ();
+
+		foreach ($images as $image) {
+			$return[] = (object) $image;
+		}
+
 		return $return;
 	}
 }
