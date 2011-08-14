@@ -3,11 +3,11 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright © 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
 class Module_List_Download_Class extends Aitsu_Ee_Module_Abstract {
-	
+
 	public static function init($context) {
 
 		$instance = new self();

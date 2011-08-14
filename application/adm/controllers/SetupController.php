@@ -12,6 +12,12 @@ class SetupController extends Zend_Controller_Action {
 	 * @since 2.1.0.0 - 29.12.2010
 	 */
 	public function init() {
+		
+		$this->_helper->layout->disableLayout();
+
+		if (Aitsu_Adm_User :: getInstance()->getId() == 'setup') {
+			return;
+		} 
 
 		if (!Aitsu_Adm_User :: getInstance()->isAllowed(array (
 				'area' => 'script',
@@ -19,8 +25,6 @@ class SetupController extends Zend_Controller_Action {
 			))) {
 			throw new Exception(Aitsu_Translate :: translate('Access denied.'));
 		}
-
-		$this->_helper->layout->disableLayout();
 	}
 
 	public function indexAction() {

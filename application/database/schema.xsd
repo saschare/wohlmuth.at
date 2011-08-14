@@ -6,6 +6,7 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="table"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="function"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="view"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="trigger"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -14,6 +15,7 @@
       <xs:sequence>
         <xs:element minOccurs="1" maxOccurs="unbounded" ref="field"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
+        <xs:element minOccurs="0" maxOccurs="1" ref="dataset"/>
       </xs:sequence>
       <xs:attribute name="engine" use="required" type="engine"/>
       <xs:attribute name="name" use="required" type="xs:string"/>
@@ -30,6 +32,11 @@
       <xs:attribute name="name" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
+  <xs:element name="trigger">
+    <xs:complexType mixed="true">
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="field">
     <xs:complexType>
       <xs:sequence>
@@ -42,6 +49,26 @@
       <xs:attribute name="type" use="required" type="xs:string"/>
       <xs:attribute name="nullable" use="optional" type="xs:boolean"/>
       <xs:attribute name="comment" use="optional" type="comment"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dataset">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="record"/>
+      </xs:sequence>
+      <xs:attribute use="required" name="use" type="datasetuse"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="record">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="value">
+    <xs:complexType mixed="true">
+      <xs:attribute type="xs:string" use="required" name="attribute"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="constraint">
@@ -78,6 +105,13 @@
       <xs:enumeration value="index"/>
       <xs:enumeration value="unique"/>
       <xs:enumeration value="fulltext"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="datasetuse">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ifempty"/>
+      <xs:enumeration value="replace"/>
+      <xs:enumeration value="add"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="comment">

@@ -2,13 +2,8 @@
 
 
 /**
- * Form validator.
- * 
- * @version 1.0.0
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Validation.php 18276 2010-08-23 11:17:39Z akm $}
  */
 
 class Aitsu_Form_Validation {
@@ -42,27 +37,31 @@ class Aitsu_Form_Validation {
 
 		return $instance[$form];
 	}
-	
+
 	public function omit($omit = true) {
-		
+
 		$this->_omit = $omit;
 	}
 
 	public function setValidator($name, $validator, $args, $required = 0) {
-		
+
 		if ($required === true) {
 			$required = 1;
 		} else {
 			$required = 0;
 		}
-	
-		include_once('Aitsu/Form/Validation/Expression/' . $validator . '.php');
-		$validatorObject = call_user_func_array(array (
-			'Aitsu_Form_Validation_Expression_' . $validator,
-			"init"
-		), array (
-			$args
-		));
+
+		if (is_object($validator)) {
+			$validatorObject = $validator;
+		} else {
+			include_once ('Aitsu/Form/Validation/Expression/' . $validator . '.php');
+			$validatorObject = call_user_func_array(array (
+				'Aitsu_Form_Validation_Expression_' . $validator,
+				"init"
+			), array (
+				$args
+			));
+		}
 
 		if (!isset ($this->validators[$name])) {
 			$this->validators[$name] = array (
@@ -87,7 +86,7 @@ class Aitsu_Form_Validation {
 		$dummy = null;
 		foreach ($this->validators as $name => $validator) {
 			if (!self :: isValid($name, $dummy)) {
-				$this->valid = false;			
+				$this->valid = false;
 				return false;
 			}
 		}
@@ -97,7 +96,7 @@ class Aitsu_Form_Validation {
 		}
 
 		$processor->process();
-		
+
 		return true;
 	}
 
@@ -107,7 +106,7 @@ class Aitsu_Form_Validation {
 
 		$i = self :: factory();
 
-		if ($i->valid === true || empty($_POST)) {
+		if ($i->valid === true || empty ($_POST)) {
 			return true;
 		}
 
@@ -126,11 +125,11 @@ class Aitsu_Form_Validation {
 		} else {
 			$param = isset ($_REQUEST[$name]) ? $_REQUEST[$name] : null;
 		}
-		
+
 		if (strlen(trim($param)) == 0) {
 			$param = null;
 		}
-		
+
 		if ($i->_omit) {
 			return true;
 		}

@@ -3,10 +3,10 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Template_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Template_Class extends Aitsu_Module_Abstract {
 
 	protected static function _getDefaultTemplate($index, $params) {
 
@@ -27,7 +27,7 @@ class Module_Template_Class extends Aitsu_Ee_Module_Abstract {
 		return $defaultTemplate->default;
 	}
 
-	public static function init($context) {
+	protected function _init() {
 
 		if (isset ($_REQUEST['renderOnly'])) {
 			return '<script type="application/x-aitsu" src="' . $_REQUEST['renderOnly'] . '">' . (isset ($_REQUEST['params']) ? $_REQUEST['params'] : '') . '</script>';
@@ -35,8 +35,8 @@ class Module_Template_Class extends Aitsu_Ee_Module_Abstract {
 
 		Aitsu_Content_Edit :: noEdit('Template', true);
 
-		$index = str_replace('_', ' ', $context['index']);
-		$parameters = ($context['params'] === null) ? null : Aitsu_Util :: parseSimpleIni($context['params']);
+		$index = str_replace('_', ' ', $this->_index);
+		$parameters = $this->_params;
 		$params = Aitsu_Content_Config_Hidden :: set($index, 'Template_params', $parameters);
 
 		$idartlang = Aitsu_Registry :: get()->env->idartlang;
@@ -76,14 +76,14 @@ class Module_Template_Class extends Aitsu_Ee_Module_Abstract {
 			$template = self :: _getDefaultTemplate($index, $params);
 
 			if (!isset ($params->defaultTemplate) && $index != 'Root') {
-				$output .= '<!-- use of template shortcode without defaultTemplate ' . var_export($context, true) . ' -->';
+				$output .= '<!-- use of template shortcode without defaultTemplate ' . var_export($this->_context, true) . ' -->';
 			}
 		}
 
 		$code = '';
 
 		if ((Aitsu_Registry :: isEdit() || Aitsu_Registry :: get()->env->editAction == '1') && count($keys) > 1) {
-			$parameters = str_replace("\n", '\n', str_replace("\r\n", "\n", $context['params']));
+			$parameters = str_replace("\n", '\n', str_replace("\r\n", "\n", $this->_context['params']));
 			$code = '<code class="aitsu_params" style="display:none;">' . $parameters . '</code>';
 		}
 

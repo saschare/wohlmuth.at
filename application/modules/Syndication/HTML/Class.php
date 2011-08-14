@@ -3,20 +3,17 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Syndication_HTML_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Syndication_HTML_Class extends Aitsu_Module_Abstract {
 
 	public static function init($context) {
 
-		$index = str_replace('_', ' ', $context['index']);
-		$params = Aitsu_Util :: parseSimpleIni($context['params']);
-
-		$instance = new self();
+		$index = str_replace('_', ' ', $this->_index);
 
 		$output = '';
-		if ($instance->_get('SyndicationHtml' . $index, $output)) {
+		if ($instance->_get('SyndicationHtml', $output)) {
 			return $output;
 		}
 
@@ -67,7 +64,7 @@ class Module_Syndication_HTML_Class extends Aitsu_Ee_Module_Abstract {
 			$output = '<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' . $output;
 		}
 
-		$instance->_save($output, 60 * 60 * 24);
+		$this->_save($output, 60 * 60 * 24);
 
 		return $output;
 	}

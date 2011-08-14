@@ -169,7 +169,7 @@ th,td {
 
 #header {
 	padding: 0;
-	background: url("/skin/images/bg_header_1.png") no-repeat top right;
+	background: url("/skins/default/images/bg_header_1.png") no-repeat top right;
 	border-bottom: 1px solid #efefef;
 }
 
@@ -209,7 +209,7 @@ th,td {
 }
 
 .logo {
-	background: url("/skin/images/logo.png") no-repeat;
+	background: url("/skins/default/images/logo.png") no-repeat;
 }
 
 #header span:hover {
@@ -258,43 +258,43 @@ div.startpage #main {
 .profil a.facebook img {
 	height: 16px;
 	width: 16px;
-	background: url("/skin/images/aitsu_facebook_16x16.png") left top no-repeat;
+	background: url("/skins/default/images/aitsu_facebook_16x16.png") left top no-repeat;
 }
 
 .profil a.xing img {
 	height: 16px;
 	width: 16px;
-	background: url("/skin/images/aitsu_xing_16x16.png") left top no-repeat;
+	background: url("/skins/default/images/aitsu_xing_16x16.png") left top no-repeat;
 }
 
 .profil a.rss img {
 	height: 16px;
 	width: 16px;
-	background: url("/skin/images/aitsu_rss_16x16.png") left top no-repeat;
+	background: url("/skins/default/images/aitsu_rss_16x16.png") left top no-repeat;
 }
 
 .profil a.twitter img {
 	height: 16px;
 	width: 16px;
-	background: url("/skin/images/aitsu_twitter_16x16.png") left top no-repeat;
+	background: url("/skins/default/images/aitsu_twitter_16x16.png") left top no-repeat;
 }
 
 .profil a.linkedin img {
 	height: 16px;
 	width: 16px;
-	background: url("/skin/images/aitsu_linkedin_16x16.png") left top no-repeat;
+	background: url("/skins/default/images/aitsu_linkedin_16x16.png") left top no-repeat;
 }
 
 dd a.wiki img {
 	height: 16px;
 	width: 81px;
-	background: url("/skin/images/aitsu_wiki.png") left top no-repeat;
+	background: url("/skins/default/images/aitsu_wiki.png") left top no-repeat;
 }
 
 dd a.forum img {
 	height: 16px;
 	width: 109px;
-	background: url("/skin/images/aitsu_forum.png") left top no-repeat;
+	background: url("/skins/default/images/aitsu_forum.png") left top no-repeat;
 }
 
 .linkbox a:hover img {

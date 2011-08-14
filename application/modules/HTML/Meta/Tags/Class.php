@@ -1,49 +1,51 @@
 <?php
 
+
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
-class Module_HTML_Meta_Tags_Class extends Aitsu_Ee_Module_Abstract {
 
-    public static function init($context) {
+class Module_HTML_Meta_Tags_Class extends Aitsu_Module_Abstract {
 
-        $instance = new self();
-        Aitsu_Content_Edit :: noEdit('HTML.Meta.Tags', true);
+	protected $_allowEdit = false;
 
-        $output = '';
-        if ($instance->_get('HTML.Meta.Tags', $output)) {
-            return $output;
-        }
+	protected function _init() {
 
-        $meta = Aitsu_Db::fetchRow("
-                    SELECT
-                        *
-                    FROM
-                        `_art_meta`
-                    WHERE
-                        `idartlang` =:idartlang",
-                        array(
-                            ':idartlang' => Aitsu_Registry :: get()->env->idartlang
-                ));
+		$output = '';
+		if ($this->_get('HTML.Meta.Tags', $output)) {
+			return $output;
+		}
 
-        if (isset(Aitsu_Registry :: get()->config->honeytrap->keyword)) {
-            $honeyTraps = array_flip(Aitsu_Registry :: get()->config->honeytrap->keyword->toArray());
-            if (count(array_intersect_key($honeyTraps, $_GET)) > 0) {
-                $meta['robots'] = (object) array(
-                            'value' => 'noindex'
-                );
-            }
-        }
+		$meta = Aitsu_Db :: fetchRow('' .
+		'select * from _art_meta ' .
+		'where ' .
+		'	idartlang = :idartlang', array (
+			':idartlang' => Aitsu_Registry :: get()->env->idartlang
+		));
 
-        $view = $instance->_getView();
-        $view->meta = $meta;
+		if (Aitsu_Config :: get('honeytrap.keyword') != null) {
+			$honeyTraps = array_flip(Aitsu_Config :: get('honeytrap.keyword')->toArray());
+			if (count(array_intersect_key($honeyTraps, $_GET)) > 0) {
+				$meta['robots'] = (object) array (
+					'value' => 'noindex'
+				);
+			}
+		}
 
-        $output = $view->render('index.phtml');
+		$view = $this->_getView();
+		$view->meta = $meta;
 
-        $instance->_save($output, 'eternal');
+		$output = $view->render('index.phtml');
 
-        return $output;
-    }
+		$this->_save($output, 'eternal');
+
+		return $output;
+	}
+
+	protected function _cachingPeriod() {
+
+		return 60 * 60 * 24 * 365;
+	}
 
 }

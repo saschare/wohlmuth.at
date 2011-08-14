@@ -38,7 +38,7 @@ class TagsArticleController extends Aitsu_Adm_Plugin_Controller {
 		$token = $this->getRequest()->getParam('token');
 		$value = $this->getRequest()->getParam('value');
 
-		if (!empty($token)) {
+		if (!empty ($token)) {
 			Aitsu_Persistence_Article :: factory($idart)->addTag($token, $value);
 		}
 
@@ -57,6 +57,13 @@ class TagsArticleController extends Aitsu_Adm_Plugin_Controller {
 			$data[] = (object) $tag;
 		}
 
+		/*
+		 * Clean db cache.
+		 */
+		Aitsu_Cache :: getInstance()->clean(array (
+			'db'
+		));
+
 		$this->_helper->json((object) array (
 			'data' => $data
 		));
@@ -68,6 +75,13 @@ class TagsArticleController extends Aitsu_Adm_Plugin_Controller {
 		$tagid = $this->getRequest()->getParam('tagid');
 
 		Aitsu_Persistence_Article :: factory($idart)->removeTag($tagid);
+		
+		/*
+		 * Clean db cache.
+		 */
+		Aitsu_Cache :: getInstance()->clean(array (
+			'db'
+		));
 
 		$this->_helper->json((object) array (
 			'success' => true

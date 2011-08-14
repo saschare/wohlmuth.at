@@ -3,20 +3,12 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_HTML_Content_Class extends Aitsu_Ee_Module_Abstract {
+class Module_HTML_Content_Class extends Aitsu_Module_Tree_Abstract {
 	
-	public static function init($context) {
-
-		$instance = new self();
-		$index = str_replace('_', ' ', $context['index']);
-
-		$output = '';
-		if ($instance->_get('HTML_' . $context['index'], $output)) {
-			return $output;
-		}
+	protected function _init() {
 
 		$startTag = '';
 		$endTag = '';
@@ -25,8 +17,7 @@ class Module_HTML_Content_Class extends Aitsu_Ee_Module_Abstract {
 			$endTag = '</div>';
 		}
 
-		$output = Aitsu_Content_Html :: get($index);
-		$instance->_save($output, 'eternal');
+		$output = Aitsu_Content_Html :: get($this->_index);
 
 		return $startTag . $output . $endTag;
 	}

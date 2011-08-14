@@ -1,3 +1,4 @@
+<?php if (!$this->meta) return; ?>
 <?php foreach ($this->meta as $key => $value) : ?>
 <?php if (!empty($value) && $key != 'idartlang') : ?>
         <meta name="<?php echo $key; ?>" content="<?php echo $value; ?>" />

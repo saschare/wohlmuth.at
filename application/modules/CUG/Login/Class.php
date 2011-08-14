@@ -3,16 +3,14 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_CUG_Login_Class extends Aitsu_Ee_Module_Abstract {
+class Module_CUG_Login_Class extends Aitsu_Module_Abstract {
 
-	public static function init($context) {
+	protected function _init() {
 
-		$instance = new self();
-
-		$view = $instance->_getView();
+		$view = $this->_getView();
 
 		$output = $view->render('index.phtml');
 

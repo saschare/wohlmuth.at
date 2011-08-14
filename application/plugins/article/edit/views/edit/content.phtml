@@ -12,25 +12,11 @@
 		<?php elseif ($this->field->type == Aitsu_Content :: HTML) : ?>
 		listeners: {
 			afterrender: function(f) {
-				CKEDITOR.replace(f.getId(), {
-					toolbar: [
-						['Source'],
-						['Cut','Copy','PasteText'],
-						['Undo','Redo','-','Replace','-','SelectAll','RemoveFormat'],
-						['Styles','Format'],
-						['Maximize', 'ShowBlocks'],
-						'/',
-						['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-						['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
-						['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-						['Link','Unlink','Anchor'],
-						['HorizontalRule','SpecialChar']
-					],
-               		toolbarCanCollapse: false,
-               		skin: 'office2003',
-               		height: win.getSize().height - 163,
-               		resize_enabled: false
-               	});
+				<?php if (Aitsu_Config :: get('edit.ckeditor.type') != null) : ?>
+					<?php echo $this->partial('/edit/ckeditor/' . Aitsu_Config :: get('edit.ckeditor.type') . '.phtml'); ?>
+				<?php else : ?>
+					<?php echo $this->partial('/edit/ckeditor/normal.phtml'); ?>
+				<?php endif; ?>
 			},
 			beforedestroy: function(f) {
 				CKEDITOR.instances[f.getId()].destroy();

@@ -142,6 +142,8 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 	public function uploadAction() {
 
 		Aitsu_Core_File :: upload($this->getRequest()->getParam('idart'), $_FILES['file']['name'], $_FILES['file']['tmp_name']);
+		
+		$this->_cleanUpThumbs();
 
 		$this->_helper->json((object) array (
 			'success' => true
@@ -154,10 +156,17 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 		$id = $this->getRequest()->getParam('mediaid');
 
 		Aitsu_Core_File :: delete($idart, $id);
+		
+		$this->_cleanUpThumbs();
 
 		$this->_helper->json((object) array (
 			'success' => true
 		));
+	}
+	
+	protected function _cleanUpThumbs() {
+		
+		Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/cachetransparent/data/image');
 	}
 
 	public function saveAction() {
@@ -173,6 +182,8 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 			$file->xbr = $this->getRequest()->getParam('xbr');
 			$file->ybr = $this->getRequest()->getParam('ybr');
 			$file->save();
+			
+			$this->_cleanUpThumbs();
 
 			$this->_helper->json(array (
 				'success' => true

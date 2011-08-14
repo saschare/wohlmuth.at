@@ -22,9 +22,9 @@ class Aitsu_Adm_Controller_Plugin_Accesscontrol extends Zend_Controller_Plugin_A
 					 */
 					header('Location: ./');
 					exit;
-				} catch (Exception $e) {
-					Aitsu_Registry :: get()->session->user = Aitsu_Adm_User :: setupLogin();
-					$request->setControllerName('setup')->setActionName('index')->setDispatched(true);
+				} catch (Exception $e) {					
+					Aitsu_Registry :: get()->session->user = Aitsu_Adm_User :: setupLogin();					
+					$request->setControllerName('setup')->setActionName('index')->setDispatched(true);					
 					return;
 				}
 			}
@@ -55,7 +55,6 @@ class Aitsu_Adm_Controller_Plugin_Accesscontrol extends Zend_Controller_Plugin_A
 
 		if (isset (Aitsu_Registry :: get()->session->user)) {
 			Aitsu_Adm_User :: rehydrate(Aitsu_Registry :: get()->session->user);
-			
 			if (Aitsu_Adm_User :: getInstance()->getId() == 'setup' && $request->getControllerName() == 'index') {
 				Zend_Session :: destroy();
 				header('Location: ./');

@@ -1,5 +1,6 @@
-<pre>
-	<?php foreach ($this->channel as $item) : ?>
-		<?php echo print_r($item, true); ?>		
-	<?php endforeach; ?>
-</pre>
+<?php foreach ($this->channel as $item) : ?>
+<div style="margin-bottom:10px; padding:5px; border:1px dashed black;">
+	<h4><a href="<?php echo $item->link; ?>"><?php echo $item->title; ?></a></h4>
+	<div><?php echo htmlentities($item->description, ENT_COMPAT, 'utf-8'); ?></div>
+</div>
+<?php endforeach; ?>

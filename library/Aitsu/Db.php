@@ -55,7 +55,7 @@ class Aitsu_Db {
 	 * @param Boolean Whether or not to suppress the table prefix replacement.
 	 * @return Mixed Returns whatever zend API is returning.
 	 */
-	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod = null) {
+	protected function _query($method, $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod = null, $allowCachingWhenLoggedIn = false) {
 
 		static $issetChannel = false;
 
@@ -77,7 +77,7 @@ class Aitsu_Db {
 				$suppressTablePrefix,
 				Aitsu_Application_Status :: getChannel()
 			), true));
-			$cache = Aitsu_Cache :: getInstance($cacheId);
+			$cache = Aitsu_Cache :: getInstance($cacheId, $allowCachingWhenLoggedIn);
 			if (Aitsu_Registry :: isEdit()) {
 				$cache->remove();
 			}
@@ -151,9 +151,9 @@ class Aitsu_Db {
 		return self :: getInstance()->_query('fetchAll', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchAllC($period, $query, $vars = null) {
+	public static function fetchAllC($period, $query, $vars = null, $allowCachingWhenLoggedIn = false) {
 
-		return self :: getInstance()->_query('fetchAll', $query, $vars, false, false, $period);
+		return self :: getInstance()->_query('fetchAll', $query, $vars, false, false, $period, $allowCachingWhenLoggedIn);
 	}
 
 	public static function filter($baseQuery, $limit = null, $offset = null, $filters = null, $orders = null) {
@@ -203,9 +203,9 @@ class Aitsu_Db {
 		return self :: getInstance()->_query('fetchOne', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchOneC($period, $query, $vars = null) {
+	public static function fetchOneC($period, $query, $vars = null, $allowCachingWhenLoggedIn = false) {
 
-		return self :: getInstance()->_query('fetchOne', $query, $vars, false, false, $period);
+		return self :: getInstance()->_query('fetchOne', $query, $vars, false, false, $period, $allowCachingWhenLoggedIn);
 	}
 
 	/**
@@ -221,9 +221,9 @@ class Aitsu_Db {
 		return self :: getInstance()->_query('fetchRow', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchRowC($period, $query, $vars = null) {
+	public static function fetchRowC($period, $query, $vars = null, $allowCachingWhenLoggedIn = false) {
 
-		return self :: getInstance()->_query('fetchRow', $query, $vars, false, false, $period);
+		return self :: getInstance()->_query('fetchRow', $query, $vars, false, false, $period, $allowCachingWhenLoggedIn);
 	}
 
 	public static function fetchCol($query, $vars = null, $suppressTablePrefix = false, $showQuery = false, $cachingPeriod = null) {
@@ -231,9 +231,9 @@ class Aitsu_Db {
 		return self :: getInstance()->_query('fetchCol', $query, $vars, $suppressTablePrefix, $showQuery, $cachingPeriod);
 	}
 
-	public static function fetchColC($period, $query, $vars = null) {
+	public static function fetchColC($period, $query, $vars = null, $allowCachingWhenLoggedIn = false) {
 
-		return self :: getInstance()->_query('fetchCol', $query, $vars, false, false, $period);
+		return self :: getInstance()->_query('fetchCol', $query, $vars, false, false, $period, $allowCachingWhenLoggedIn);
 	}
 
 	/**

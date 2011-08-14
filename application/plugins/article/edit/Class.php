@@ -45,7 +45,9 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		$params = str_replace('\n', "\n", $this->getRequest()->getParam('params'));
 
 		Aitsu_Content_Edit :: start($type . '-' . $container);
-		Aitsu_Core_Module :: factory($idartlang, $container, null, $type)->getOutput(false, '0', $container, $params);
+		$module = Aitsu_Core_Module :: factory($idartlang, $container, null, $type);
+		$module->getOutput(false, '0', $container, $params);
+		$help = $module->getHelp();
 		Aitsu_Content_Edit :: end();
 
 		$editInfo = Aitsu_Content_Edit :: getContents();
@@ -71,7 +73,8 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 			'params' => $params,
 			'editInfo' => $editInfo,
 			'configTabs' => $configTabs,
-			'configInfo' => $configInfo
+			'configInfo' => $configInfo,
+			'help' => $help
 		);
 
 	}

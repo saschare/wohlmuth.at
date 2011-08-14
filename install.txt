@@ -1,6 +1,6 @@
 ********************************************************************************
 *                                                                              *
-*  aitsu 2.1.x installation process                                            *
+*  aitsu 2.3.x installation process                                            *
 *                                                                              *
 ********************************************************************************
 
@@ -28,6 +28,10 @@
 8. Change the admin password to a value known to you only and differing from what
    you set on step 2. The system does not force you to do so, but it is recommended
    because the password set in the config.ini is stored in plain text.
+   
+9. Allow the system to upgrade the database structure, as the dump does not always
+   represent the most current structure. Go to Management -> Scripts -> Update and
+   run the update script.
    
 Depending on the configuration of the database the views may not be created with 
 the user you are connecting to the database. If so, use the last eight lines of the

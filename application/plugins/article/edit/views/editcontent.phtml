@@ -11,7 +11,7 @@ win = new Ext.Window({
 	width:700,
 	height:500,
 	modal: true,
-	closable: false,
+	closable: true,
 	plain: true,
 	shadow: true,
 	floating: true,
@@ -86,6 +86,30 @@ win = new Ext.Window({
 			value: '<?php echo str_replace("\n", '\n', $this->data->params); ?>'
 		}]		
 	}),
+	<?php if ($this->data->help != null) : ?>
+	tools:[{
+	    id:'help',
+	    qtip: 'Get Help',
+	    handler: function(event, toolEl, panel) {
+            help = new Ext.Window({
+                layout:'fit',
+				width:700,
+				height:500,
+				modal: true,
+				closable: true,
+				plain: true,
+				shadow: true,
+				html: '<?php echo str_replace(array("\n", "\r"), array('\n', ''), $this->data->help); ?>',
+                buttons: [{
+                    text: '<?php echo Aitsu_Translate :: translate('Close'); ?>',
+                    handler: function(){
+                        help.close();
+                    }
+                }]
+            }).show(this);
+   		}
+	}],
+	<?php endif; ?>
 	buttons: [{
 		text:'<?php echo Aitsu_Translate :: translate('Cancel'); ?>',
 		iconCls: 'cancel',

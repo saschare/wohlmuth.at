@@ -52,16 +52,6 @@ class Aitsu_Core_Image_Resize {
 
     public function outputImage($outputPath = NULL, $imageSource = null) {
 
-        /* if ($outputPath != NULL) {
-
-          $this->thumbDir .= "/$outputPath/";
-          $this->thumbDir = preg_replace('@\/{2}@', '/', $this->thumbDir);
-
-          if (!is_dir($this->thumbDir)) {
-          mkdir($this->thumbDir);
-          }
-          } */
-
         $this->_setDimToAllowedValues();
 
         $imagename = $this->_resize();
@@ -72,8 +62,22 @@ class Aitsu_Core_Image_Resize {
         }
 
         $this->_sendHeaders();
+        
+        $this->_makeAvailableTransparent($imagename);
 
         readfile($imagename);
+    }
+    
+    protected function _makeAvailableTransparent($imagename) {
+    	
+    	$pathInfo = pathinfo($_GET['imageurl']);
+    	
+    	$dir = APPLICATION_PATH . '/data/cachetransparent/data/image/' . $pathInfo['dirname'];
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+        
+        copy($imagename, $dir . '/' . $pathInfo['basename']);
     }
 
     protected function _resize() {
@@ -90,7 +94,7 @@ class Aitsu_Core_Image_Resize {
             if (preg_match('@([^/]*)/([^/]*)\\.(.{1,5})$@', $this->imagePath, $match)) {
 
                 if (empty($match[1]) || $match[1] == null || $match[1] == 0) {
-                $mediaId = Aitsu_Db :: fetchOne('' .
+                $mediaId = Aitsu_Db :: fetchOneC(60 * 60, '' .
                                 'select mediaid from _media ' .
                                 'where ' .
                                 '	idart is null ' .
@@ -102,7 +106,7 @@ class Aitsu_Core_Image_Resize {
                             ':filename' => $match[2] . '.' . $match[3]
                         ));
                 } else {
-                    $mediaId = Aitsu_Db :: fetchOne('' .
+                    $mediaId = Aitsu_Db :: fetchOneC(60 * 60, '' .
                                     'select mediaid from _media ' .
                                     'where ' .
                                     '	idart = :idart ' .

@@ -3,26 +3,22 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Module_Syndication_Proxy_Class extends Aitsu_Ee_Module_Abstract {
+class Module_Syndication_Proxy_Class extends Aitsu_Module_Abstract {
 
 	public static function init($context) {
 
 		Aitsu_Content_Edit :: noEdit('Syndication.Proxy', true);
 
-		$params = Aitsu_Util :: parseSimpleIni($context['params']);
-
-		$domain = $params->domain;
-		$base = $params->base;
+		$domain = $this->_params->domain;
+		$base = $this->_params->base;
 		$url = urlencode(isset ($_REQUEST['purl']) ? $_REQUEST['purl'] : $params->start);
 		$expression = isset ($params->xpath) ? $params->xpath : "//body";
 
-		$instance = new self();
-
 		$output = '';
-		if ($instance->_get('Proxy' . md5($domain . $base . $url), $output)) {
+		if ($this->_get('Proxy' . md5($domain . $base . $url), $output)) {
 			return $output;
 		}
 
@@ -31,8 +27,8 @@ class Module_Syndication_Proxy_Class extends Aitsu_Ee_Module_Abstract {
 			'timeout' => 10
 		));
 
-		if (isset ($params->user) && isset ($params->password)) {
-			$client->setAuth($params->user, $params->password);
+		if (isset ($this->_params->user) && isset ($this->_params->password)) {
+			$client->setAuth($this->_params->user, $this->_params->password);
 		}
 
 		if (!empty ($_POST)) {
@@ -54,13 +50,13 @@ class Module_Syndication_Proxy_Class extends Aitsu_Ee_Module_Abstract {
 		 * 
 		 * Depending on the use more sophisticated rewrite rules might be necessary.
 		 */
-		$output = $instance->_rewriteContent($output, $domain, $base);
+		$output = $this->_rewriteContent($output, $domain, $base);
 
 		if (Aitsu_Registry :: isEdit()) {
-			$output = '<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' . $output;
+			$output = '<code class="aitsu_params" style="display:none;">' . $this->_context['params'] . '</code>' . $output;
 		}
 
-		$instance->_save($output, 60 * 60 * 24);
+		$this->_save($output, 60 * 60 * 24);
 
 		return $output;
 	}

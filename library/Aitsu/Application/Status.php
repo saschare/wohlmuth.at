@@ -28,15 +28,15 @@ class Aitsu_Application_Status {
 
 		return self :: $_instance;
 	}
-	
+
 	public static function isStructured($set = null) {
-		
+
 		$instance = self :: _getInstance();
-		
-		if (!is_null($set)) {			
+
+		if (!is_null($set)) {
 			$instance->_structured = (boolean) $set;
 		}
-		
+
 		return $instance->_structured;
 	}
 
@@ -48,17 +48,17 @@ class Aitsu_Application_Status {
 			throw new Exception('Preview mode may only be set within the bootstrap.');
 		}
 
-		if (!is_null($set)) {			
+		if (!is_null($set)) {
 			$instance->_preview = (boolean) $set;
 		}
-		
+
 		if (is_null($instance->_environment)) {
 			/*
 			 * Preview always returns true, if no environment is set.
 			 */
 			return true;
 		}
-	
+
 		if ($instance->_edit) {
 			/*
 			 * Preview always returns true, if edit is set to true.
@@ -95,16 +95,16 @@ class Aitsu_Application_Status {
 
 		return $instance->_edit;
 	}
-	
+
 	public static function getChannel() {
-		
-		$instance = self :: _getInstance();		
+
+		$instance = self :: _getInstance();
 		return $instance->_channel;
 	}
 
 	public static function setChannel($channel) {
-		
-		$instance = self :: _getInstance();		
+
+		$instance = self :: _getInstance();
 		$instance->_channel = $channel;
 	}
 
@@ -139,7 +139,7 @@ class Aitsu_Application_Status {
 			/*
 			 * Return false if preview mode is on, except publishing
 			 * is disabled.
-			 */			 
+			 */
 			return false;
 		}
 
@@ -165,9 +165,22 @@ class Aitsu_Application_Status {
 
 		self :: _getInstance()->_locked = true;
 	}
-	
+
 	public static function version() {
+
+		$version = '$version/2.3.7/revision/4$';
 		
-		return '2.3.0.1-dev';
+		$version = str_replace(array (
+			'version/',
+			'/revision/',
+			'$'
+		), array (
+			'',
+			'-',
+			''
+		), $version);
+		
+		return $version;
 	}
+
 }

@@ -1,41 +1,43 @@
 <?php
 
+
 /**
  * @author Christian Kehres, webtischlerei
  * @copyright Copyright &copy; 2011, webtischlerei
+ * @author Andreas Kummer, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
-class Module_Search_Lucene_Class extends Aitsu_Ee_Module_Abstract {
 
-    public static function init($context) {
+class Module_Search_Lucene_Class extends Aitsu_Module_Abstract {
 
-        Aitsu_Content_Edit::noEdit('Search.Lucene', true);
+	protected function _init() {
 
-        Aitsu_Registry::setExpireTime(0);
+		Aitsu_Content_Edit :: noEdit('Search.Lucene', true);
 
-        $instance = new self();
+		Aitsu_Registry :: setExpireTime(0);
 
-        $searchterm = $_POST['searchterm'];
+		$searchterm = $_POST['searchterm'];
 
-        $view = $instance->_getView();
+		$view = $this->_getView();
 
-        $view->searchterm = $searchterm;
+		$view->searchterm = $searchterm;
 
-        $search_area = Aitsu_Config::get('search.lucene.area');
+		$search_area = Aitsu_Config :: get('search.lucene.area');
 
-        $search_array = array();
-        foreach ($search_area as $idcat) {
-            $search_array[] = $idcat;
-        }
+		$search_array = array ();
+		foreach ($search_area as $idcat) {
+			$search_array[] = $idcat;
+		}
 
-        try {
-            $view->results = Aitsu_Lucene_Index::find($searchterm, $search_array);
-        } catch (Exception $e) {
-            $view->results = array();
-        }
+		try {
+			$view->results = Aitsu_Lucene_Index :: find($searchterm, $search_array);
+		} catch (Exception $e) {
+			$view->results = array ();
+		}
 
-        $output = $view->render('index.phtml');
+		$output = $view->render('index.phtml');
 
-        return $output;
-    }
+		return $output;
+	}
 
 }

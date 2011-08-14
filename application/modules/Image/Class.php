@@ -1,27 +1,32 @@
 <?php
 
+
 /**
- * @author Christian Kehres, webtischlerei
- * @copyright Copyright &copy; 2011, webtischlerei
+ * @author Andreas Kummer, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
-class Module_Image_Class extends Aitsu_Ee_Module_Abstract {
 
-    public static function init($context) {
+class Module_Image_Class extends Aitsu_Module_Abstract {
 
-        $instance = new self();
+	protected function _main() {
 
-        $index = empty($context['index']) ? 'noindex' : $context['index'];
-        $params = Aitsu_Util :: parseSimpleIni($context['params']);
+		$template = empty ($this->_params->template) ? 'index' : $this->_params->template;
+		$images = Aitsu_Content_Config_Media :: set($this->_index, 'Image.Media', 'Media');
+		$template = Aitsu_Content_Config_Radio :: set($this->_index, 'Image.Template', '', $this->_getTemplates(), 'Template');
 
-        $template = empty($params->template) ? 'index' : $params->template;
+		if (empty ($template) || empty ($images) || !in_array($template, $this->_getTemplates())) {
+			return '';
+		}
 
-        $images = Aitsu_Content_Config_Media::set($index, 'media', 'Media');
+		$view = $this->_getView();
+		$view->images = Aitsu_Persistence_View_Media :: byFileName(Aitsu_Registry :: get()->env->idart, $images);
 
-        $view = $instance->_getView();
-        $view->images = Aitsu_Persistence_View_Media::byFileName(Aitsu_Registry::get()->env->idart, $images);
-        
-        $output = $view->render($template . '.phtml');
-        return $output;
-    }
+		return $view->render($template . '.phtml');
+	}
+
+	protected function _cachingPeriod() {
+
+		return 60 * 60 * 24 * 365;
+	}
 
 }

@@ -116,13 +116,13 @@ class Aitsu_Persistence_View_Category {
 		));
 	}
 
-	public static function nav($idcat, $showInvisible = false) {
+	public static function nav($idcat, $showInvisible = false, $user = null) {
 
 		$currentLang = Aitsu_Registry :: get()->env->idlang;
 		$currentCat = Aitsu_Registry :: get()->env->idcat;
-		
+
 		$visiblityClause = $showInvisible ? '' : 'and catlang.visible = 1';
-		
+
 		$cats = Aitsu_Db :: fetchAll('' .
 		'select ' .
 		'	cat.idcat, ' .
@@ -132,7 +132,7 @@ class Aitsu_Persistence_View_Category {
 		'	if (child.idcat is null, 0, if(child.idcat = cat.idcat, 0, 1)) as isparent, ' .
 		'	if (child.idcat = cat.idcat, 1, 0) as iscurrent, ' .
 		'	catlang.public as ispublic, ' .
-		'	if (artlang.online = 1, 1, 0) as isvisible, ' .
+		'	if (artlang.online = 1 and catlang.visible = 1, 1, 0) as isvisible, ' .
 		'	catlang.config ' .
 		'from _cat as cat ' .
 		'left join _cat as root on cat.lft between root.lft and root.rgt ' .
@@ -174,7 +174,99 @@ class Aitsu_Persistence_View_Category {
 			}
 		}
 
+		self :: _setChildren($return);
+
 		return $return;
+	}
+
+	public static function nav2($idcat) {
+
+		$currentLang = Aitsu_Registry :: get()->env->idlang;
+		$currentCat = Aitsu_Registry :: get()->env->idcat;
+		$user = Aitsu_Adm_User :: getInstance();
+
+		$cats = Aitsu_Db :: fetchAll('' .
+		'select ' .
+		'	cat.idcat, ' .
+		'	cat.parentid, ' .
+		'	catlang.name, ' .
+		'	catlang.urlname, ' .
+		'	if (child.idcat is null, 0, if(child.idcat = cat.idcat, 0, 1)) as isparent, ' .
+		'	if (child.idcat = cat.idcat, 1, 0) as iscurrent, ' .
+		'	catlang.public as ispublic, ' .
+		'	if (artlang.online = 1 and catlang.visible = 1, 1, 0) as isvisible, ' .
+		'	catlang.config ' .
+		'from _cat as cat ' .
+		'left join _cat as root on cat.lft between root.lft and root.rgt ' .
+		'left join _cat_lang as catlang on cat.idcat = catlang.idcat ' .
+		'left join _art_lang as artlang on catlang.startidartlang = artlang.idartlang ' .
+		'left join _cat as child on child.idcat = :idcat and child.lft between cat.lft and cat.rgt ' .
+		'where ' .
+		'	root.idcat = :rootIdcat ' .
+		'	and catlang.idlang = :idlang ' .
+		'order by ' .
+		'	cat.lft asc ', array (
+			':idcat' => $currentCat,
+			':rootIdcat' => $idcat,
+			':idlang' => $currentLang
+		), false);
+
+		$return = null;
+		$categories = array ();
+		foreach ($cats as $category) {
+
+			if (isset ($categories[$category['parentid']])) {
+				$level = $categories[$category['parentid']]->level + 1;
+			} else {
+				$level = 0;
+			}
+
+			$cat = (object) $category;
+			$cat->level = $level;
+
+			$cat->isaccessible = false;
+			$cat->haschildren = false;
+			if ($cat->ispublic) {
+				$cat->isaccessible = true;
+			}
+			elseif ($user != null) {
+				$cat->isaccessible = $user->isAllowed(array (
+					'language' => Aitsu_Registry :: get()->env->idlang,
+					'resource' => array (
+						'type' => 'cat',
+						'id' => $cat->idcat
+					)
+				));
+			}
+
+			$cat->children = array ();
+
+			$categories[$cat->idcat] = $cat;
+
+			if (isset ($categories[$cat->parentid]) && is_object($categories[$cat->parentid])) {
+				$categories[$cat->parentid]->children[] = $cat;
+			}
+			elseif (!isset ($return)) {
+				$return = $cat;
+			}
+		}
+
+		self :: _setChildren($return);
+
+		return $return;
+	}
+
+	protected static function _setChildren(& $cat) {
+
+		foreach ($cat->children as $child) {
+			self :: _setChildren($child);
+		}
+
+		foreach ($cat->children as $child) {
+			if ($child->haschildren || ($child->isaccessible && $child->isvisible)) {
+				$cat->haschildren = true;
+			}
+		}
 	}
 
 	public static function breadCrumb($idcat = null) {
