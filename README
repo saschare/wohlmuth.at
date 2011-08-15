@@ -1,7 +1,8 @@
-Current version: 2.3.7-4
+Current version: 2.3.7-5
 
 == Latest changes == 
 
+* 2011-08-15: Removed reference to inexistent resource in default skin.
 * 2011-08-13: Added rendez-vous module (List.Rendezvous) and a view class 
               to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
