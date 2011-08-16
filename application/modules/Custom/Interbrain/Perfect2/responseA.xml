@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <GetVoucherResponse xmlns="http://interbrain.p2online/">
+            <GetVoucherResult>
+                <ErrorCode>0</ErrorCode>
+                <ErrorMessage>OK</ErrorMessage>
+                <Offer>
+                    <Items>
+                        <OfferPosition xsi:type="OfferItem">
+                            <PosNr>0</PosNr>
+                            <Name>Gutschein Internet 10</Name>
+                            <Description/>
+                            <ItemId>GU00000000010000000002</ItemId>
+                            <ItemImage/>
+                            <Price>10</Price>
+                            <ValidFrom>
+                                <From>2011-08-16T00:00:00+02:00</From>
+                                <To>2013-08-16T00:00:00+02:00</To>
+                            </ValidFrom>
+                            <ValidText>2 Jahre</ValidText>
+                            <ItemStatus>0</ItemStatus>
+                        </OfferPosition>
+                        <OfferPosition xsi:type="OfferItem">
+                            <PosNr>1</PosNr>
+                            <Name>Gutschein Test 2</Name>
+                            <Description/>
+                            <ItemId>GU00000000010000000003</ItemId>
+                            <ItemImage/>
+                            <Price>20</Price>
+                            <ValidFrom>
+                                <From>2011-08-16T00:00:00+02:00</From>
+                                <To>2013-08-16T00:00:00+02:00</To>
+                            </ValidFrom>
+                            <ValidText>2 Jahre</ValidText>
+                            <ItemStatus>0</ItemStatus>
+                        </OfferPosition>
+                    </Items>
+                </Offer>
+            </GetVoucherResult>
+        </GetVoucherResponse>
+    </soap:Body>
+</soap:Envelope>
