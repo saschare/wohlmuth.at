@@ -9,7 +9,7 @@ class Wdrei_Migros_Fitnesspark_Voucher_Pdf implements Aitsu_Event_Listener_Inter
 
 	public static function notify(Aitsu_Event_Abstract $event) {
 		
-		if (substr($_GET['url'], 0, strlen('voucher/')) != 'voucher/') {
+		if (!isset($_GET['url']) || substr($_GET['url'], 0, strlen('voucher/')) != 'voucher/') {
 			return;
 		}
 		

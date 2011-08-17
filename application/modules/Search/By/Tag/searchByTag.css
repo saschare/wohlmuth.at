@@ -1,0 +1,61 @@
+div.tags {
+    margin:0 0 5px 0;
+}
+
+div.tags ul {
+    list-style:none;
+    padding: 5px;
+    margin: 0;
+    background-color: #F8F8F8;
+}
+
+div.tags ul li {
+    padding: 0;
+    margin: 2px 0 2px 0;
+    display:block;
+    float:left;
+    width:24%;
+}
+
+div.tags ul li a {
+    display:block;
+    width:80%;
+    height:100%;
+    text-decoration:none;
+}
+
+div.tags > div {
+    color: white;
+    font-weight:bold;
+    background-color: #CCC;
+    padding: 3px;
+}
+
+div.pages {
+    margin-top:20px;
+}
+
+div.pages > a {
+    padding:5px;
+    background-color: #F8F8F8;
+    margin:5px 0 5px 0;
+    display:block;
+    text-decoration:none;
+}
+
+div.pages > a > span.olli {
+    margin-left:0;
+    float:left;
+    width: 20px;
+}
+
+div.pages > a > span {
+    margin-left:25px;
+    display:block;
+}
+
+div.pages > a > span.title {
+    font-weight:bold;
+    display:block;
+    margin-bottom:5px;
+}

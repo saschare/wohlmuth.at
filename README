@@ -1,4 +1,4 @@
-Current version: 2.3.7-8
+Current version: 2.3.7-9
 
 == Latest changes == 
 
@@ -12,6 +12,12 @@ Current version: 2.3.7-8
               to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
 * 2011-08-13: Added rendez-vous plugin.
+
+== Search.By.Tag module (since 2.3.7-9) ==
+
+Call the module with Search.By.Tag. As as styling guide you will find an example css
+file in the path /application/modules/Search/By/Tag/searchByTag.css. The module
+lets you navigation through the tags used in article beneath the current category.
 
 == Rendez-vous plugin (since 2.3.7) ==
 
