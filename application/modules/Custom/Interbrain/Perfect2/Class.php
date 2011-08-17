@@ -20,19 +20,37 @@ class Module_Custom_Interbrain_Perfect2_Class extends Aitsu_Module_Tree_Abstract
 				'OfferPosition' => 'Wdrei_Interbrain_Perfect2_OfferItem',
 				'ClientData' => 'Wdrei_Interbrain_Perfect2_ClientData',
 				'OrderPosition' => 'Wdrei_Interbrain_Perfect2_OrderPosition',
-				'Order' => 'Wdrei_Interbrain_Perfect2_Order'
+				'Order' => 'Wdrei_Interbrain_Perfect2_Order',
+				'ValidateOrder' => 'Wdrei_Interbrain_Perfect2_ValidateOrder'
 			),
+			'soap_version' => SOAP_1_2,
 			'trace' => true
 		));
 
 		$voucher = $client->GetVoucher(0, 'SD');
 
-		//$view->data = $voucher;
-		//return $view->render('index.phtml');
+		// $view->data = $client->__getFunctions();
+		// return $view->render('index.phtml');
 
 		$itemId = $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ItemId;
 
-		$order = Wdrei_Interbrain_Perfect2_Order :: instance(array (
+		$order = Wdrei_Interbrain_Perfect2_ValidateOrder :: instance(array (
+			'toOrder' => Wdrei_Interbrain_Perfect2_Order :: instance(array (
+				'Items' => array (
+					Wdrei_Interbrain_Perfect2_OrderPosition :: instance(array (
+						'Id' => 1,
+						'Client' => Wdrei_Interbrain_Perfect2_ClientData :: instance(array (
+							'EMailAddress' => 'a.kummer@wdrei.ch'
+						)),
+						'ItemId' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ItemId,
+						'ItemLanguage' => 'SD',
+						'Quantity' => 1
+					))
+				)
+			))
+		));
+
+		/*$order = Wdrei_Interbrain_Perfect2_Order :: instance(array (
 			'Items' => array (
 				Wdrei_Interbrain_Perfect2_OrderPosition :: instance(array (
 					'Id' => 1,
@@ -41,23 +59,25 @@ class Module_Custom_Interbrain_Perfect2_Class extends Aitsu_Module_Tree_Abstract
 					)),
 					'ItemId' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ItemId,
 					'ItemLanguage' => 'SD',
-					'Quantity' => 1,
-					//'ValidFrom' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ValidFrom->From,
-					//'ValidTo' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ValidFrom->To
+					'Quantity' => 1
 				))
 			)
-		));
+		));*/
 
 		/*$view->data = $order;
 		return $view->render('index.phtml');*/
 
-		$view->data = $client->ValidateOrder($order);
+		try {
+			$view->data = $client->ValidateOrder($order);
+		} catch (Exception $e) {
+			$view->data = $e->getMessage();
+		}
 
 		$doc = new DOMDocument();
 		$doc->formatOutput = true;
 		$doc->loadXML($client->__getLastRequest());
 		$view->request = $doc->saveXML();
-
+		
 		return $view->render('index.phtml');
 	}
 

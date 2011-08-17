@@ -174,9 +174,9 @@ class Aitsu_Forms_Renderer_ExtJs {
 			$option = (object) $option;
 			$value = is_numeric($option->value) ? $option->value : "'{$option->value}'";
 			if ($field['value'] == $option->value) {
-				$items[] = "{boxLabel: '{$option->name}', name: '{$key}', inputValue: $value, checked: true}";
+				$items[] = "{boxLabel: '" . Aitsu_Translate :: translate($option->name) . "', name: '{$key}', inputValue: $value, checked: true}";
 			} else {
-				$items[] = "{boxLabel: '{$option->name}', name: '{$key}', inputValue: $value}";
+				$items[] = "{boxLabel: '" . Aitsu_Translate :: translate($option->name) . "', name: '{$key}', inputValue: $value}";
 			}
 		}
 

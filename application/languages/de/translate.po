@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-13 15:42+0100\n"
-"PO-Revision-Date: 2011-08-13 15:42+0100\n"
+"POT-Creation-Date: 2011-08-17 16:28+0100\n"
+"PO-Revision-Date: 2011-08-17 16:29+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -768,22 +768,18 @@ msgid "Select"
 msgstr "Auswählen"
 
 #: application/adm/views/scripts/config/edit.phtml:9
-#: application/adm/views/scripts/mapping/edit.phtml:9
 msgid "Saved"
 msgstr "Gespeichert"
 
 #: application/adm/views/scripts/config/edit.phtml:9
-#: application/adm/views/scripts/mapping/edit.phtml:9
 msgid "Form data have been saved."
 msgstr "Die Formulardaten wurden gespeichert."
 
 #: application/adm/views/scripts/config/edit.phtml:13
-#: application/adm/views/scripts/mapping/edit.phtml:13
 msgid "Form failure"
 msgstr "Formularfehler"
 
 #: application/adm/views/scripts/config/edit.phtml:13
-#: application/adm/views/scripts/mapping/edit.phtml:13
 msgid "Form data have not been save due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
@@ -1167,7 +1163,6 @@ msgid "Set online / offline"
 msgstr "On- und offline stellen"
 
 #: application/adm/views/scripts/dialog/setcategoryonline.phtml:4
-#: application/adm/views/scripts/dialog/setcategorylocked.phtml:4
 msgid "Include the sub-categories?"
 msgstr "Unterkategorien einschliessen?"
 
@@ -1326,6 +1321,7 @@ msgstr "Menge"
 #: application/modules/Shop/Cart/index.phtml:7
 #: application/plugins/generic/data/media/views/index.phtml:436
 #: application/plugins/generic/data/dates/views/index.phtml:49
+#: application/plugins/generic/system/modules/views/detail.phtml:29
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -1357,6 +1353,7 @@ msgstr "Medienname"
 
 #: application/plugins/generic/data/media/views/index.phtml:160
 #: application/plugins/generic/data/dates/views/index.phtml:38
+#: application/plugins/generic/data/dam/views/inbox/content.phtml:6
 msgid "Date"
 msgstr "Datum"
 
@@ -1381,6 +1378,7 @@ msgid "Choose tag"
 msgstr "Tag auswählen"
 
 #: application/plugins/generic/data/media/views/index.phtml:308
+#: application/plugins/generic/data/tags/views/taglist.phtml:5
 msgid "Tag"
 msgstr "Tag"
 
@@ -1575,10 +1573,12 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1702,6 +1702,8 @@ msgid "Configuration has been saved."
 msgstr "Die Konfiguration wurde gespeichert."
 
 #: application/plugins/article/config/views/index.phtml:13
+#: application/plugins/article/rendezvous/views/index.phtml:7
+#: application/plugins/article/dc/views/index.phtml:8
 msgid "Form data have not been saved due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
@@ -1823,6 +1825,26 @@ msgstr "Link löschen"
 msgid "Are you sure to delete the selected link?"
 msgstr "Sind Sie sicher, dass Sie den selektierten Link löschen möchten?"
 
+#: application/plugins/article/shopitem/views/translation.phtml:1
+msgid "VAT"
+msgstr "MwSt."
+
+#: application/plugins/article/shopitem/views/translation.phtml:2
+msgid "fixed"
+msgstr "fest"
+
+#: application/plugins/article/shopitem/views/translation.phtml:3
+msgid "variable"
+msgstr "variabel"
+
+#: application/plugins/article/shopitem/views/translation.phtml:4
+msgid "excluded"
+msgstr "exkl."
+
+#: application/plugins/article/shopitem/views/translation.phtml:5
+msgid "included"
+msgstr "inkl."
+
 #: application/plugins/article/shopitem/views/index.phtml:1
 msgid "normal"
 msgstr "normal"
@@ -1881,46 +1903,55 @@ msgstr "Die Shop-Artikel-Daten wurden gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:106
 #: application/plugins/category/metabatch/views/index.phtml:123
+#: application/plugins/category/standard/views/index.phtml:106
 msgid "URL name"
 msgstr "URL-Name"
 
 #: application/plugins/category/blog/views/index.phtml:146
 #: application/plugins/category/metabatch/views/index.phtml:201
+#: application/plugins/category/standard/views/index.phtml:176
 msgid "Set as index"
 msgstr "Als Index setzen"
 
 #: application/plugins/category/blog/views/index.phtml:219
 #: application/plugins/category/metabatch/views/index.phtml:274
+#: application/plugins/category/standard/views/index.phtml:249
 msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:253
 msgid "Page cut"
 msgstr "Seite ausgeschnitten"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:253
 msgid "The selected page has been put to the clipboard."
 msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:232
 #: application/plugins/category/metabatch/views/index.phtml:287
+#: application/plugins/category/standard/views/index.phtml:262
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: application/plugins/category/blog/views/index.phtml:233
 #: application/plugins/category/metabatch/views/index.phtml:288
+#: application/plugins/category/standard/views/index.phtml:263
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:272
 msgid "Page deleted"
 msgstr "Seite gelöscht"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:272
 msgid "The selected page has been removed."
 msgstr "Die selektierte Seite wurde gelöscht."
 
@@ -2326,8 +2357,6 @@ msgstr "senden"
 #~ msgstr "Startdatum"
 #~ msgid "End date"
 #~ msgstr "Enddatum"
-#~ msgid "VAT"
-#~ msgstr "MwSt."
 #~ msgid "Discount price"
 #~ msgstr "Spezialpreis"
 #~ msgid "Primary article image"

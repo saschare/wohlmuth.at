@@ -2,6 +2,9 @@ Current version: 2.3.7-6
 
 == Latest changes == 
 
+* 2011-08-17: Fixed translation bug in the Extjs Forms Renderer.
+* 2011-08-17: Added database structure and an article plugin to manage
+              products for the shop (preparation for version 2.4.0)
 * 2011-08-17: Fixed apostroph bug in the edit mode.
 * 2011-08-17: Added library to the search path for database.xml.
 * 2011-08-15: Removed reference to inexistent resource in default skin.
