@@ -27,29 +27,37 @@ class Module_Custom_Interbrain_Perfect2_Class extends Aitsu_Module_Tree_Abstract
 
 		$voucher = $client->GetVoucher(0, 'SD');
 
-		// $view->data = $client->__getLastRequest();
-		// $view->data = $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ValidFrom;
-		// return $view->render('index.phtml');
+		//$view->data = $voucher;
+		//return $view->render('index.phtml');
 
 		$itemId = $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ItemId;
 
-		$view->data = $client->ValidateOrder(0, Wdrei_Interbrain_Perfect2_Order :: instance(array (
+		$order = Wdrei_Interbrain_Perfect2_Order :: instance(array (
 			'Items' => array (
 				Wdrei_Interbrain_Perfect2_OrderPosition :: instance(array (
 					'Id' => 1,
 					'Client' => Wdrei_Interbrain_Perfect2_ClientData :: instance(array (
 						'EMailAddress' => 'a.kummer@wdrei.ch'
 					)),
-					'ItemID' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ItemId,
+					'ItemId' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ItemId,
 					'ItemLanguage' => 'SD',
 					'Quantity' => 1,
-					'ValidFrom' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ValidFrom->From,
-					'ValidTo' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ValidFrom->To
+					//'ValidFrom' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ValidFrom->From,
+					//'ValidTo' => $voucher->GetVoucherResult->Offer->Items->OfferPosition[0]->ValidFrom->To
 				))
 			)
-		)));
+		));
 
-		$view->data = $client->__getLastRequest();
+		/*$view->data = $order;
+		return $view->render('index.phtml');*/
+
+		$view->data = $client->ValidateOrder($order);
+
+		$doc = new DOMDocument();
+		$doc->formatOutput = true;
+		$doc->loadXML($client->__getLastRequest());
+		$view->request = $doc->saveXML();
+
 		return $view->render('index.phtml');
 	}
 

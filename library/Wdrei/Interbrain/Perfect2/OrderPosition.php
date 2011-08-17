@@ -6,6 +6,11 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 class Wdrei_Interbrain_Perfect2_OrderPosition extends Wdrei_Interbrain_Perfect2_AbstractType {
+	
+	public $ItemId = '';
+	/*public $Price = 10;
+	public $TaxAmount = 0;
+	public $ErrorCode = 0;*/
 
 	public static function instance($args = null) {
 		

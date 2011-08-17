@@ -7,7 +7,6 @@
  */
 class Wdrei_Interbrain_Perfect2_ClientData extends Wdrei_Interbrain_Perfect2_AbstractType {
 	
-	public $Id = 1;
 	public $Typ = 2;
 	public $AllowsAdvertising = false;
 

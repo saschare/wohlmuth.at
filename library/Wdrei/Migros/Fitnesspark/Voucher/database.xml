@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../application/database/schema.xsd">
+    <table engine="InnoDB" name="migros_voucher" since="Migros Voucher 1.0">
+        <field default="null" name="voucherid" type="varchar(20)" nullable="false" primary="true"/>
+        <field default="null" name="receipient" type="varchar(255)" nullable="false" primary="true"/>
+        <field default="current_timestamp" name="created" type="timestamp"/>
+    </table>
+</database>
