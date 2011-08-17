@@ -32,7 +32,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 
 		$this->_xml = new DOMDocument();
 		$this->_xml->loadXML('<database></database>');
-		$xmls = Aitsu_Util_Dir :: scan(APPLICATION_PATH, 'database.xml');
+		$xmls = array_merge(Aitsu_Util_Dir :: scan(APPLICATION_PATH, 'database.xml'), Aitsu_Util_Dir :: scan(APPLICATION_LIBPATH, 'database.xml'));
 		foreach ($xmls as $xml) {
 			$dom = new DOMDocument();
 			$dom->load($xml);
