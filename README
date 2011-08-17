@@ -1,7 +1,9 @@
-Current version: 2.3.7-5
+Current version: 2.3.7-6
 
 == Latest changes == 
 
+* 2011-08-17: Fixed apostroph bug in the edit mode.
+* 2011-08-17: Added library to the search path for database.xml.
 * 2011-08-15: Removed reference to inexistent resource in default skin.
 * 2011-08-13: Added rendez-vous module (List.Rendezvous) and a view class 
               to gather the data (Aitsu_Persistence_View_Rendezvous).

@@ -128,7 +128,6 @@ class Aitsu_Forms_Renderer_ExtJs {
 		}
 
 		if (!empty ($value['value'])) {
-			//$fieldValue = str_replace("\r", "", str_replace("\n", '\n', $value['value']));
 			$fieldValue = str_replace(chr(39), chr(92) . chr(39), str_replace("\r", "", str_replace("\n", '\n', $value['value'])));
 			$configs[] = "value: '{$fieldValue}'";
 		}
