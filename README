@@ -1,7 +1,8 @@
-Current version: 2.3.7-10
+Current version: 2.3.7-11
 
 == Latest changes == 
 
+* 2011-08-19: Fixed bug in Module_Link_Class.
 * 2011-08-19: Fixed bug in Module_Text_Class.
 * 2011-08-17: Fixed translation bug in the Extjs Forms Renderer.
 * 2011-08-17: Added database structure and an article plugin to manage
