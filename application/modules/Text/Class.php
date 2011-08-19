@@ -5,7 +5,6 @@
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
-
 class Module_Text_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected function _init() {
@@ -15,7 +14,7 @@ class Module_Text_Class extends Aitsu_Module_Tree_Abstract {
 		$text = (empty ($text) && Aitsu_Registry :: isEdit()) ? Aitsu_LoremIpsum :: get(5) : $text;
 
 		if (isset ($params->tag)) {
-			$output = '<' . $params->tag . '>' . $text . '</' . $params->tag . '>';
+			$output = '<' . $this->_params->tag . '>' . $text . '</' . $this->_params->tag . '>';
 		} else {
 			$output = $text;
 		}
