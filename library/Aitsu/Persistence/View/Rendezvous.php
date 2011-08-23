@@ -56,22 +56,18 @@ class Aitsu_Persistence_View_Rendezvous {
 		'	and artlang.online = 1 ' .
 		'	and cat.lft between :lft and :rgt ' .
 		'	and (' .
- 		'		(rv.periodicity = 0 and rv.starttime > :from and rv.starttime < :to) ' .
+		'		(rv.periodicity = 0 and rv.starttime > :from and rv.starttime < :to) ' .
 		'		or ' .
-		'		(rv.periodicity > 0 and rv.starttime > :from and (rv.until is null or rv.until > :from)) ' .
+		'		(rv.periodicity > 0 and rv.starttime < :to and (rv.until is null or rv.until > :to)) ' .
 		'	) ', array (
 			':idlang' => Aitsu_Registry :: get()->env->idlang,
 			':lft' => $cat['lft'],
 			':rgt' => $cat['rgt'],
-			':from' => $from->get('d-m-Y H:i:s'),
-			':to' => $to->get('d-m-Y H:i:s')
+			':from' => $from->get('Y-m-d H:i:s'),
+			':to' => $to->get('Y-m-d H:i:s')
 		));
-		
-		trigger_error(var_export(array('from' => $from->get('d-m-Y H:i:s'), 'to' => $to->get('d-m-Y H:i:s')), true));
-		trigger_error(var_export($dates, true));
 
 		for ($day = $from->getTime(); $day <= $to->getTime() - 1; $day = $day +24 * 60 * 60) {
-			trigger_error(date('d.m.y H:i:s', $day));
 			foreach ($dates as $date) {
 				$startTime = Aitsu_Util_Date :: fromMySQL($date['starttime'])->getStartOfDay();
 				$until = $date['until'] == null ? PHP_INT_MAX : Aitsu_Util_Date :: fromMySQL($date['until'])->getTime();
@@ -87,7 +83,7 @@ class Aitsu_Persistence_View_Rendezvous {
 				}
 			}
 		}
-		
+
 		ksort($returnValue);
 
 		return $returnValue;
