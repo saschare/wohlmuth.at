@@ -173,7 +173,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		foreach ($field['option'] as $option) {
 			$option = (object) $option;
 			$value = is_numeric($option->value) ? $option->value : "'{$option->value}'";
-			if ($field['value'] == $option->value) {
+			if (isset($field['value']) && $field['value'] == $option->value) {
 				$items[] = "{boxLabel: '" . Aitsu_Translate :: translate($option->name) . "', name: '{$key}', inputValue: $value, checked: true}";
 			} else {
 				$items[] = "{boxLabel: '" . Aitsu_Translate :: translate($option->name) . "', name: '{$key}', inputValue: $value}";
