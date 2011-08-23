@@ -1,7 +1,8 @@
-Current version: 2.3.7-12
+Current version: 2.3.7-13
 
 == Latest changes == 
 
+* 2011-08-23: Updated translation file german.
 * 2011-08-23: Added UI masing while loading data.
 * 2011-08-23: Added article info plugin.
 * 2011-08-23: Fixed warning in Aitsu_Forms_Renderer_ExtJs (line 176).

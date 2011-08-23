@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-17 16:28+0100\n"
-"PO-Revision-Date: 2011-08-17 16:29+0100\n"
+"POT-Creation-Date: 2011-08-23 13:59+0100\n"
+"PO-Revision-Date: 2011-08-23 14:00+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -585,6 +585,10 @@ msgstr "Crosslinking"
 msgid "Shop item"
 msgstr "Shop-Artikel"
 
+#: application/plugins/article/info/Class.php:26
+msgid "Info"
+msgstr "Info"
+
 #: application/plugins/category/blog/Class.php:30
 msgid "Blog"
 msgstr "Blog"
@@ -796,7 +800,6 @@ msgid "Add new configset"
 msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/index.phtml:58
-#: application/adm/views/scripts/data/index.phtml:163
 msgid "Delete"
 msgstr "Löschen"
 
@@ -866,13 +869,11 @@ msgstr "Ja"
 
 #: application/adm/views/scripts/data/edit.phtml:39
 #: application/adm/views/scripts/data/edit.phtml:48
-#: application/adm/views/scripts/data/index.phtml:125
 msgid "Set offline"
 msgstr "Offline stellen"
 
 #: application/adm/views/scripts/data/edit.phtml:39
 #: application/adm/views/scripts/data/edit.phtml:51
-#: application/adm/views/scripts/data/index.phtml:125
 msgid "Set online"
 msgstr "Online stellen"
 
@@ -880,89 +881,89 @@ msgstr "Online stellen"
 msgid "Publish"
 msgstr "Publizieren"
 
-#: application/adm/views/scripts/data/index.phtml:43
+#: application/adm/views/scripts/data/index.phtml:44
 msgid "Category tree"
 msgstr "Kategoriebaum"
 
-#: application/adm/views/scripts/data/index.phtml:70
+#: application/adm/views/scripts/data/index.phtml:71
 msgid "Move node"
 msgstr "Knoten verschieben."
 
-#: application/adm/views/scripts/data/index.phtml:71
+#: application/adm/views/scripts/data/index.phtml:72
 msgid "Are you sure to move the node to the specified place?"
 msgstr "Sind Sie sicher, dass Sie den gewählten Knoten an die bezeichnete Stelle verschieben möchten?"
 
-#: application/adm/views/scripts/data/index.phtml:79
+#: application/adm/views/scripts/data/index.phtml:80
 msgid "Category moved"
 msgstr "Kategorie verschoben"
 
-#: application/adm/views/scripts/data/index.phtml:79
+#: application/adm/views/scripts/data/index.phtml:80
 msgid "The selected category has been moved to the specified category."
 msgstr "Die selektierte Kategorie wurde in die bezeichnete Kategorie verschoben."
 
-#: application/adm/views/scripts/data/index.phtml:81
+#: application/adm/views/scripts/data/index.phtml:82
 msgid "Category not moved"
 msgstr "Kategorie nicht verschoben"
 
-#: application/adm/views/scripts/data/index.phtml:81
+#: application/adm/views/scripts/data/index.phtml:82
 msgid "The category has not been moved. You probably have not enough privileges to do so."
 msgstr "Die Kategorie wurde nicht verschoben. Vermutlich verfügen Sie nicht über ausreichend Rechte zur Ausführung."
 
-#: application/adm/views/scripts/data/index.phtml:99
+#: application/adm/views/scripts/data/index.phtml:100
 msgid "Page moved"
 msgstr "Seite verschoben"
 
-#: application/adm/views/scripts/data/index.phtml:99
+#: application/adm/views/scripts/data/index.phtml:100
 msgid "The selected page has been moved to the specified category."
 msgstr "Die selektierte Seite wurde in die bezeichnete Kategorie verschoben."
 
-#: application/adm/views/scripts/data/index.phtml:145
+#: application/adm/views/scripts/data/index.phtml:146
 msgid "New sub-category"
 msgstr "Neue Unterkategorie erstellen"
 
-#: application/adm/views/scripts/data/index.phtml:168
+#: application/adm/views/scripts/data/index.phtml:169
 msgid "Delete category"
 msgstr "Kategorie löschen"
 
-#: application/adm/views/scripts/data/index.phtml:169
+#: application/adm/views/scripts/data/index.phtml:170
 msgid "Are you sure to delete the selected category?"
 msgstr "Sind Sie sicher, dass Sie die gew&auml;hlte Kategorie l&ouml;schen m&ouml;chten?"
 
-#: application/adm/views/scripts/data/index.phtml:193
-#: application/adm/views/scripts/data/index.phtml:234
+#: application/adm/views/scripts/data/index.phtml:194
+#: application/adm/views/scripts/data/index.phtml:235
 msgid "Set as resource"
 msgstr "Als Ressource markieren"
 
-#: application/adm/views/scripts/data/index.phtml:199
-#: application/adm/views/scripts/data/index.phtml:240
+#: application/adm/views/scripts/data/index.phtml:200
+#: application/adm/views/scripts/data/index.phtml:241
 msgid "Resource added"
 msgstr "Ressource hinzugefügt"
 
-#: application/adm/views/scripts/data/index.phtml:199
+#: application/adm/views/scripts/data/index.phtml:200
 msgid "The selected category has been added to resources."
 msgstr "Die selektierte Kategorie wurde als Ressource markiert."
 
-#: application/adm/views/scripts/data/index.phtml:212
+#: application/adm/views/scripts/data/index.phtml:213
 msgid "Add to favorites"
 msgstr "Zu den Favoriten hinzufügen"
 
-#: application/adm/views/scripts/data/index.phtml:240
+#: application/adm/views/scripts/data/index.phtml:241
 msgid "The selected page has been added to resources."
 msgstr "Die selektierte Seite wurde als Ressource markiert."
 
-#: application/adm/views/scripts/data/index.phtml:256
+#: application/adm/views/scripts/data/index.phtml:257
 msgid "New category"
 msgstr "Neue Kategorie"
 
-#: application/adm/views/scripts/data/index.phtml:332
+#: application/adm/views/scripts/data/index.phtml:333
 msgid "Recently opened pages"
 msgstr "Kürzlich geöffnete Seiten"
 
-#: application/adm/views/scripts/data/index.phtml:373
+#: application/adm/views/scripts/data/index.phtml:374
 msgid "Favorites"
 msgstr "Favoriten"
 
-#: application/adm/views/scripts/data/index.phtml:392
+#: application/adm/views/scripts/data/index.phtml:393
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -1163,6 +1164,7 @@ msgid "Set online / offline"
 msgstr "On- und offline stellen"
 
 #: application/adm/views/scripts/dialog/setcategoryonline.phtml:4
+#: application/adm/views/scripts/dialog/setcategorylocked.phtml:4
 msgid "Include the sub-categories?"
 msgstr "Unterkategorien einschliessen?"
 
@@ -1321,7 +1323,6 @@ msgstr "Menge"
 #: application/modules/Shop/Cart/index.phtml:7
 #: application/plugins/generic/data/media/views/index.phtml:436
 #: application/plugins/generic/data/dates/views/index.phtml:49
-#: application/plugins/generic/system/modules/views/detail.phtml:29
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -1900,6 +1901,10 @@ msgstr "MwSt-Klasse"
 #: application/plugins/article/shopitem/views/index.phtml:19
 msgid "Shop item data have been saved."
 msgstr "Die Shop-Artikel-Daten wurden gespeichert."
+
+#: application/plugins/article/info/views/index.phtml:24
+msgid "Article info"
+msgstr "Artikelinformationen"
 
 #: application/plugins/category/blog/views/index.phtml:106
 #: application/plugins/category/metabatch/views/index.phtml:123
