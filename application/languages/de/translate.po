@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-23 13:59+0100\n"
-"PO-Revision-Date: 2011-08-23 14:00+0100\n"
+"POT-Creation-Date: 2011-08-23 17:40+0100\n"
+"PO-Revision-Date: 2011-08-23 17:40+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1845,6 +1845,10 @@ msgstr "exkl."
 #: application/plugins/article/shopitem/views/translation.phtml:5
 msgid "included"
 msgstr "inkl."
+
+#: application/plugins/article/shopitem/views/translation.phtml:6
+msgid "none"
+msgstr "keine"
 
 #: application/plugins/article/shopitem/views/index.phtml:1
 msgid "normal"
