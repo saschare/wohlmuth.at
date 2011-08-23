@@ -1,7 +1,10 @@
-Current version: 2.3.7-11
+Current version: 2.3.7-12
 
 == Latest changes == 
 
+* 2011-08-23: Added UI masing while loading data.
+* 2011-08-23: Added article info plugin.
+* 2011-08-23: Fixed warning in Aitsu_Forms_Renderer_ExtJs (line 176).
 * 2011-08-19: Fixed bug in Module_Link_Class.
 * 2011-08-19: Fixed bug in Module_Text_Class.
 * 2011-08-17: Fixed translation bug in the Extjs Forms Renderer.
