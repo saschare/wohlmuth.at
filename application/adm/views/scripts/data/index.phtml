@@ -3,6 +3,7 @@ var editPage = function(id) {
 		Ext.getCmp('viewport').doLayout();
 		Ext.getCmp('page-edit-tab').activate(0);
 		Ext.getCmp('rop').getStore().load();
+		Ext.getCmp('viewport').enable(true);
 	}, {id: id});
 }
 		

@@ -73,6 +73,7 @@ Ext.aitsu = function() {
         },
         
         load : function(urls, callback, params) {
+        	Ext.aitsu.mask(true);
         	var pendingRequests = urls.length;
         	var code = new Array(urls.length);
         	if (typeof(params) == 'undefined' || params == null) {
@@ -92,6 +93,7 @@ Ext.aitsu = function() {
 		        				if (typeof(callback) != 'undefined' && callback != null) {
 		        					callback();
 		        				}
+		        				Ext.aitsu.mask(false);
 		        			}
 		        		},
 		        		disableCaching: true,
@@ -99,6 +101,15 @@ Ext.aitsu = function() {
 		        		params: params
 		        	});
         		}
+        	}
+        },
+        
+        mask : function(show) {
+        	var mask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
+        	if (show) {
+        		mask.show();
+        	} else {
+        		mask.hide();
         	}
         }
     };
