@@ -1,7 +1,8 @@
-Current version: 2.3.7-15
+Current version: 2.3.7-16
 
 == Latest changes == 
 
+* 2011-08-25: Added Aitsu_Module_MicroApp_Abstract for micro apps.
 * 2011-08-23: Fixed bug in Aitsu_Persistence_View_Rendezvous.
 * 2011-08-23: Updated translation file german.
 * 2011-08-23: Added UI masing while loading data.
