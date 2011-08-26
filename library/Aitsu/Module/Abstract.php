@@ -26,6 +26,7 @@ abstract class Aitsu_Module_Abstract {
 	protected $_context = null;
 	protected $_index = null;
 	protected $_params = null;
+	protected $_moduleName = '';
 
 	/*
 	 * _isVolatile flags the cached output to be volatile in the
@@ -57,16 +58,23 @@ abstract class Aitsu_Module_Abstract {
 	 * system to render the output accordingly in the edit mode.
 	 */
 	protected $_isBlock = true;
+	
+	protected static function _getInstance($className) {
+		
+		return new $className ();
+	}
 
-	public static function init($context) {
+	public static function init($context, $instance = null) {
 
 		$output = '';
-
-		$instance = new $context['className'] ();
+		
+		$instance = is_null($instance) ? self :: _getInstance($context['className']) : $instance;
 
 		$className = str_replace('_', '.', $context['className']);
 		$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
 		$className = preg_replace('/\\.Class$/', "", $className);
+		
+		$instance->_moduleName = $className;
 
 		/*
 		 * Suppress edit option, if _allowEdit is set to false.
