@@ -1,7 +1,8 @@
-Current version: 2.3.7-20
+Current version: 2.3.7-21
 
 == Latest changes == 
 
+* 2011-08-26: Added jQuery UI 1.8.16 to the resources pool.
 * 2011-08-26: Added Aitsu_Module_MicroApp_Abstract for micro apps.
 * 2011-08-26: Suppressed output of CUG.Login if the user is
               already logged in.
