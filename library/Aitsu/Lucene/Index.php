@@ -85,6 +85,13 @@ class Aitsu_Lucene_Index implements Aitsu_Event_Listener_Interface {
 	}
 
 	public static function indexArticle($html) {
+		
+		if (Aitsu_Application_Status :: isEdit()) {
+			/*
+			 * Suppress indexing in edit mode.
+			 */
+			return;
+		}
 
 		if (!isset (Aitsu_Registry :: get()->config->search->lucene)) {
 			/*

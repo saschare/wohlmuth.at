@@ -1,7 +1,8 @@
-Current version: 2.3.7-17
+Current version: 2.3.7-18
 
 == Latest changes == 
 
+* 2011-08-26: Suppressed lucene index in edit mode.
 * 2011-08-25: Added Aitsu_Module_MicroApp_Abstract for micro apps.
 * 2011-08-23: Fixed bug in Aitsu_Persistence_View_Rendezvous.
 * 2011-08-23: Updated translation file german.
