@@ -121,6 +121,11 @@ abstract class Aitsu_Module_Abstract {
 		 * is disabled or there is no valid cache.
 		 */
 		$output .= $instance->_main();
+		
+		/*
+		 * Do the transformation of the output.
+		 */
+		$output = $this->_transformOutput($output);
 
 		if ($instance->_cachingPeriod() > 0) {
 			$instance->_save($output, $instance->_cachingPeriod());
