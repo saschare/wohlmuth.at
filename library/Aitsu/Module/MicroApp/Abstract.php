@@ -22,14 +22,6 @@ abstract class Aitsu_Module_MicroApp_Abstract extends Aitsu_Module_Abstract {
 			return '';
 		}
 
-		if (Aitsu_Application_Status :: isEdit()) {
-			return '' .
-			'<div style="border:1px solid black; padding:5px;">' .
-			'	The MicroApp <strong>' . $instance->_moduleName . '</strong> is ' .
-			'	available in the frontend only.' .
-			'</div>';
-		}
-
 		if (!$instance->_user->isAllowed(array (
 				'area' => $instance->_moduleName
 			))) {
@@ -50,5 +42,18 @@ abstract class Aitsu_Module_MicroApp_Abstract extends Aitsu_Module_Abstract {
 			'action' => $action
 		));
 	}
+
+	protected function _transformOutput($output) {
+
+		if (!Aitsu_Application_Status :: isEdit()) {
+			return $output;
+		}
+
+		return '' .
+		'<div style="border:1px solid black; padding:5px;">' .
+		'	The MicroApp <strong>' . $instance->_moduleName . '</strong> is ' .
+		'	available in the frontend only.' .
+		'</div>';
+	}
+
 }
-?>

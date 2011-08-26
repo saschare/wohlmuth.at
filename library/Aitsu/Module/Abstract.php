@@ -58,24 +58,24 @@ abstract class Aitsu_Module_Abstract {
 	 * system to render the output accordingly in the edit mode.
 	 */
 	protected $_isBlock = true;
-	
+
 	protected static function _getInstance($className) {
-		
+
 		$instance = new $className ();
-		
+
 		$className = str_replace('_', '.', $className);
 		$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
 		$className = preg_replace('/\\.Class$/', "", $className);
-		
+
 		$instance->_moduleName = $className;
-		
+
 		return $instance;
 	}
 
 	public static function init($context, $instance = null) {
 
 		$output = '';
-		
+
 		$instance = is_null($instance) ? self :: _getInstance($context['className']) : $instance;
 
 		/*
@@ -172,6 +172,19 @@ abstract class Aitsu_Module_Abstract {
 	protected function _init() {
 
 		return '';
+	}
+
+	/**
+	 * _transformOutput lets the module transform or replace the generated output
+	 * before it is placed into the sourrounding document. This is especially helpfull
+	 * to suppress output in edit mode in extended abstract classes such as the
+	 * MicroApp abstract class.
+	 * @param String $output The output of the module.
+	 * @return String The transformed or replaced output.
+	 */
+	protected function _transformOutput($output) {
+
+		return $output;
 	}
 
 	protected function _main() {
@@ -380,4 +393,3 @@ abstract class Aitsu_Module_Abstract {
 	}
 
 }
-?>
