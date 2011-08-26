@@ -7,7 +7,6 @@
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
-
 class Module_Search_Lucene_Class extends Aitsu_Module_Abstract {
 
 	protected function _init() {
@@ -16,7 +15,7 @@ class Module_Search_Lucene_Class extends Aitsu_Module_Abstract {
 
 		Aitsu_Registry :: setExpireTime(0);
 
-		$searchterm = $_POST['searchterm'];
+		$searchterm = $_REQUEST['searchterm'];
 
 		$view = $this->_getView();
 
