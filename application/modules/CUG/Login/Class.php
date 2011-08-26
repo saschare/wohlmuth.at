@@ -7,6 +7,8 @@
  */
 
 class Module_CUG_Login_Class extends Aitsu_Module_Abstract {
+	
+	protected $_allowEdit = false;
 
 	protected function _init() {
 
