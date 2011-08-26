@@ -125,7 +125,7 @@ abstract class Aitsu_Module_Abstract {
 		/*
 		 * Do the transformation of the output.
 		 */
-		$output = $this->_transformOutput($output);
+		$output = $instance->_transformOutput($output);
 
 		if ($instance->_cachingPeriod() > 0) {
 			$instance->_save($output, $instance->_cachingPeriod());
