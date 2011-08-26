@@ -22,7 +22,11 @@ abstract class Aitsu_Module_MicroApp_Abstract extends Aitsu_Module_Abstract {
 			return '';
 		}
 
-		if (!$instance->_user->isAllowed(array (
+		/*
+		 * The access check is only done in the frontend as in the backend
+		 * the functionality is suppressed anyway.
+		 */
+		if (!Aitsu_Application_Status :: isEdit() && !$instance->_user->isAllowed(array (
 				'area' => $instance->_moduleName
 			))) {
 			return '';
@@ -51,7 +55,7 @@ abstract class Aitsu_Module_MicroApp_Abstract extends Aitsu_Module_Abstract {
 
 		return '' .
 		'<div style="border:1px solid black; padding:5px;">' .
-		'	The MicroApp <strong>' . $instance->_moduleName . '</strong> is ' .
+		'	The MicroApp <strong>' . $this->_moduleName . '</strong> is ' .
 		'	available in the frontend only.' .
 		'</div>';
 	}
