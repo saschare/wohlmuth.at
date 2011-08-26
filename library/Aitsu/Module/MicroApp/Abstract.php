@@ -12,6 +12,12 @@ abstract class Aitsu_Module_MicroApp_Abstract extends Aitsu_Module_Abstract {
 	protected $_cacheIfLoggedIn = true;
 	protected $_disableCacheArticleRelation = true;
 
+	/*
+	 * If set to true, the CUG.Login module is printed out if the user
+	 * is not logged in. Set to false to give blank output instead.
+	 */
+	protected $_autoLogin = true;
+
 	public static function init($context) {
 
 		$instance = self :: _getInstance($context['className']);
@@ -19,7 +25,10 @@ abstract class Aitsu_Module_MicroApp_Abstract extends Aitsu_Module_Abstract {
 		$instance->_user = Aitsu_Adm_User :: getInstance();
 
 		if ($instance->_user == null) {
-			return '<script type="application/x-aitsu" src="CUG.Login"></script>';
+			if ($instance->_autoLogin) {
+				return '<script type="application/x-aitsu" src="CUG.Login"></script>';
+			}
+			return '';
 		}
 
 		/*
