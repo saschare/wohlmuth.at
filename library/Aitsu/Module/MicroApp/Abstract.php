@@ -19,7 +19,7 @@ abstract class Aitsu_Module_MicroApp_Abstract extends Aitsu_Module_Abstract {
 		$instance->_user = Aitsu_Adm_User :: getInstance();
 
 		if ($instance->_user == null) {
-			return '';
+			return '<script type="application/x-aitsu" src="CUG.Login"></script>';
 		}
 
 		/*
