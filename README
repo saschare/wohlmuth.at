@@ -1,7 +1,9 @@
-Current version: 2.3.7-18
+Current version: 2.3.7-19
 
 == Latest changes == 
 
+* 2011-08-26: Suppressed output of CUG.Login if the user is
+              already logged in.
 * 2011-08-26: Suppressed lucene index in edit mode.
 * 2011-08-25: Added Aitsu_Module_MicroApp_Abstract for micro apps.
 * 2011-08-23: Fixed bug in Aitsu_Persistence_View_Rendezvous.
