@@ -61,7 +61,15 @@ abstract class Aitsu_Module_Abstract {
 	
 	protected static function _getInstance($className) {
 		
-		return new $className ();
+		$instance = new $className ();
+		
+		$className = str_replace('_', '.', $className);
+		$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
+		$className = preg_replace('/\\.Class$/', "", $className);
+		
+		$instance->_moduleName = $className;
+		
+		return $instance;
 	}
 
 	public static function init($context, $instance = null) {
@@ -70,17 +78,11 @@ abstract class Aitsu_Module_Abstract {
 		
 		$instance = is_null($instance) ? self :: _getInstance($context['className']) : $instance;
 
-		$className = str_replace('_', '.', $context['className']);
-		$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
-		$className = preg_replace('/\\.Class$/', "", $className);
-		
-		$instance->_moduleName = $className;
-
 		/*
 		 * Suppress edit option, if _allowEdit is set to false.
 		 */
 		if (!$instance->_allowEdit) {
-			Aitsu_Content_Edit :: noEdit($className, true);
+			Aitsu_Content_Edit :: noEdit($instance->_moduleName, true);
 		}
 
 		/*
