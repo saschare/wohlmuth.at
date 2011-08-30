@@ -17,7 +17,7 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 	}
 
 	public static function register($idcat) {
-		
+
 		$pos = self :: getPosition($idcat, 'standard', 'category');
 
 		return (object) array (
@@ -33,20 +33,46 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 
 		$idcat = $this->getRequest()->getParam('idcat');
 		$cat = Aitsu_Persistence_Category :: factory($idcat)->load();
+		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
 
 		$this->view->usePublishing = isset (Aitsu_Registry :: get()->config->sys->usePublishing) && Aitsu_Registry :: get()->config->sys->usePublishing == true;
 		$this->view->idcat = $idcat;
 		$this->view->categoryname = $cat->name;
-		$this->view->articles = Aitsu_Persistence_View_Articles :: full($idcat, null);
 		$this->view->isInFavories = Aitsu_Persistence_CatFavorite :: factory($idcat)->load()->isInFavorites();
 		$this->view->isClipboardEmpty = !isset (Aitsu_Registry :: get()->session->clipboard->articles) || count(Aitsu_Registry :: get()->session->clipboard->articles) == 0;
+
+		$this->view->allowEdit = Aitsu_Adm_User :: getInstance()->isAllowed(array (
+			'language' => $idlang,
+			'area' => 'article',
+			'action' => 'update',
+			'resource' => array (
+				'type' => 'cat',
+				'id' => $idcat
+			)
+		));
+		
+		$this->view->allowNew = Aitsu_Adm_User :: getInstance()->isAllowed(array (
+			'language' => $idlang,
+			'area' => 'article',
+			'action' => 'insert',
+			'resource' => array (
+				'type' => 'cat',
+				'id' => $idcat
+			)
+		));
+		
 	}
 
 	public function articlesAction() {
 
+		$user = Aitsu_Adm_User :: getInstance();
+
+		$idcat = $this->getRequest()->getParam('idcat');
+		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
+
 		$data = array ();
 
-		$arts = Aitsu_Persistence_View_Articles :: full($this->getRequest()->getParam('idcat'), null);
+		$arts = Aitsu_Persistence_View_Articles :: full($idcat, null);
 		if ($arts) {
 			foreach ($arts as $art) {
 				$data[] = (object) array (

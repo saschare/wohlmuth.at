@@ -25,7 +25,7 @@ var categories = new Ext.grid.GridPanel({
 	store: new Ext.data.JsonStore({
 		url: '<?php echo $this->url(array('paction' => 'articles')); ?>',
 		root: 'data',
-		fields: [{name:'id',type:'int'}, 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart'],
+		fields: [{name:'id',type:'int'}, 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart', 'editable'],
 		autoLoad: {
 			params: {
 				idcat: <?php echo $this->idcat; ?>
@@ -110,6 +110,7 @@ var categories = new Ext.grid.GridPanel({
 		autoFill: true
 	},
 	border: false,
+	<?php if ($this->allowNew) : ?>
 	tbar: {
 		items: [
 			{
@@ -162,9 +163,18 @@ var categories = new Ext.grid.GridPanel({
 	        }
 	    ]
 	},
+	<?php endif; ?>
 	listeners: {
 		celldblclick: function(grid, rowIndex, columnIndex, e) {
+			<?php if ($this->allowEdit) : ?>
 			editPage(this.getStore().getAt(rowIndex).get('id'));
+			<?php else : ?>
+			Ext.MessageBox.show({
+				title: '<?php echo $this->translate('Insufficient privileges'); ?>',
+				msg: '<?php echo $this->translate('You are not allowed to edit the selected page.'); ?>',
+				buttons: Ext.MessageBox.OK
+			});
+			<?php endif; ?>
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
 			
