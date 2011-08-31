@@ -6,7 +6,7 @@
  * inner content of the output remains editable. So you are able not only to include
  * the output, but also to maintain the content from different places.
  * 
- * The module is somehow experimental. You should use it only, if you are available
+ * The module is somehow experimental. You should use it only, if you are able
  * to extend it to your needs if necessary.
  * 
  * @author Andreas Kummer, w3concepts AG
