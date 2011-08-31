@@ -27,7 +27,7 @@ RewriteRule ^file/(.*) index.php?&fileurl=$1&inline=1 [QSA,L]
 RewriteRule ^.*/(.*)\.minime.(.*) index.php?minify=$1&type=$2 [QSA,L]
 RewriteRule ^skin/(.*) index.php?skinsource=$1 [QSA,L]
 
-RewriteRule ^.*\.(php|jpg|jpeg|gif|css|swf|doc|txt|xls|png|js|xml|pdf|ico).*$ - [L]
+RewriteRule ^.*\.(php|jpg|jpeg|gif|css|swf|doc|txt|xls|png|js|xml|pdf|ico|htc|eot|svg|ttf|woff).*$ - [NC,L]
 
 RewriteRule ^(.*?):(.*)$ index.php?url=$1&channel=$2 [QSA,L]
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
