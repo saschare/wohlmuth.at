@@ -321,10 +321,12 @@ class Aitsu_Core_File {
 				$file = Aitsu_Db :: fetchRow('' .
 				'select mediaid, extension from _media ' .
 				'where ' .
-				'	idart = ? ' .
-				'	and filename = ? ', array (
-					$idart,
-					$filename
+				'	idart = :idart ' .
+				'	and filename = :filename ' .
+				'order by mediaid desc ' .
+				'limit 0, 1 ', array (
+					':idart' => $idart,
+					':filename' => $filename
 				));
 				$fileSource = APPLICATION_PATH . '/data/media/' . $idart . '/' . $file['mediaid'] . '.' . strtolower($file['extension']);
 				if (!file_exists($fileSource)) {
