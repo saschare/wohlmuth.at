@@ -1,7 +1,8 @@
-Current version: 2.3.7-28
+Current version: 2.3.7-29
 
 == Latest changes == 
 
+* 2011-09-01: Changed cache-control from maxage to max-age.
 * 2011-08-31: Fixed bug in Aitsu_Persistence_ArticleMeta.
 * 2011-08-30: Fixed bug in Search.Lucene template.
 * 2011-08-26: Changed search output module to use REQUEST instead of POST.

@@ -63,7 +63,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 	public static function init() {
 
 		header("Pragma: public");
-		header("Cache-Control: maxage=" . (60 * 60 * 24 * 7));
+		header("Cache-Control: max-age=" . (60 * 60 * 24 * 7));
 		header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 60 * 60 * 24 * 7) . ' GMT');
 
 		if (isset ($_GET['type']) && $_GET['type'] == 'js') {
