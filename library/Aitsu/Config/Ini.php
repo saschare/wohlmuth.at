@@ -28,10 +28,6 @@ class Aitsu_Config_Ini {
 			$config->merge($client_config);
 		}
 		
-		if (!isset($_SERVER['HTTP_ACCEPT_ENCODING']) || substr_count ($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') == 0) {
-			Aitsu_Registry :: get()->config->output->gzhandler = false;
-		}
-
 		return $config;
 	}
 }

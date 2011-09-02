@@ -75,11 +75,6 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 				));
 			}
 
-			if (Aitsu_Registry :: get()->config->output->gzhandler) {
-				$content = gzencode($content);
-				header('Content-Encoding: gzip');
-			}
-
 			if (!isset ($etag)) {
 				$etag = hash('md4', $content);
 			}

@@ -1,7 +1,8 @@
-Current version: 2.3.7-29
+Current version: 2.3.7-30
 
 == Latest changes == 
 
+* 2011-09-02: Removed internal gzhandler.
 * 2011-09-01: Changed cache-control from maxage to max-age.
 * 2011-08-31: Fixed bug in Aitsu_Persistence_ArticleMeta.
 * 2011-08-30: Fixed bug in Search.Lucene template.
@@ -28,6 +29,16 @@ Current version: 2.3.7-29
               to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
 * 2011-08-13: Added rendez-vous plugin.
+
+== Remove of the internal gzhandler (since 2.3.7-30) ==
+
+The internal gzhandler has been removed for two reasons. One is the fact that the
+detection as well as the compression process is done more reliable and faster through
+the appropriate server module. On the other hand you can only compress responses that
+are made by aitsu. But there are other resources that are much more relevant to be
+compressed, that are not compressed if it is not done by the server module. So we 
+recommend either not to use compression at all or to use the server's capabilitites
+to do so.
 
 == Search.By.Tag module (since 2.3.7-9) ==
 

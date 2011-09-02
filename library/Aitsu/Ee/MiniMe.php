@@ -82,10 +82,6 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 				$output = $cache->load();
 				$etag = hash('md4', $output);
 				header("ETag: {$etag}");
-				if (Aitsu_Registry :: get()->config->output->gzhandler) {
-					$output = gzencode($output);
-					header('Content-Encoding: gzip');
-				}
 				echo $output;
 				exit ();
 			}
@@ -117,11 +113,6 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 			
 			$instance->_saveTransparentCache($output);
 
-			if (Aitsu_Registry :: get()->config->output->gzhandler) {
-				$output = gzencode($output);
-				header('Content-Encoding: gzip');
-			}
-
 			echo $output;
 			exit ();
 		}
@@ -140,10 +131,6 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 			$cache = Aitsu_Cache :: getInstance('MiniMe_CSS_' . $cacheId);
 			if ($cache->isValid()) {
 				$output = $cache->load();
-				if (Aitsu_Registry :: get()->config->output->gzhandler) {
-					$output = gzencode($output);
-					header('Content-Encoding: gzip');
-				}
 				$etag = hash('md4', $output);
 				header("ETag: {$etag}");
 				echo $output;
@@ -184,11 +171,6 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 			$instance->_saveTransparentCache($output);
 			
 			header("ETag: {$etag}");
-
-			if (Aitsu_Registry :: get()->config->output->gzhandler) {
-				$output = gzencode($output);
-				header('Content-Encoding: gzip');
-			}
 
 			echo $output;
 			exit ();
