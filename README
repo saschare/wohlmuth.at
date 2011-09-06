@@ -1,7 +1,8 @@
-Current version: 2.3.7-31
+Current version: 2.3.7-32
 
 == Latest changes == 
 
+* 2011-09-06: Removed file library/Zend/Validate/Barcode/UpcA.php.
 * 2011-09-06: Added missing referential integrity constraint on idartlang
               in the table todo.
 * 2011-09-02: Removed internal gzhandler.
