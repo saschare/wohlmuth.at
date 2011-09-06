@@ -1,7 +1,9 @@
-Current version: 2.3.7-30
+Current version: 2.3.7-31
 
 == Latest changes == 
 
+* 2011-09-06: Added missing referential integrity constraint on idartlang
+              in the table todo.
 * 2011-09-02: Removed internal gzhandler.
 * 2011-09-01: Changed cache-control from maxage to max-age.
 * 2011-08-31: Fixed bug in Aitsu_Persistence_ArticleMeta.
@@ -29,6 +31,15 @@ Current version: 2.3.7-30
               to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
 * 2011-08-13: Added rendez-vous plugin.
+
+== Referential integrity constraint on todo.idartlang (since 2.3.7-31) ==
+
+A referential integrity constraint with cascading delete has been added on the
+field idartlang in the table todo. If there are already orphaned todos, the update
+will fail. If you get an exception during the update process, delete todos with
+non-existing idartlang with the following query:
+
+delete from ait_todo where idartlang not in (select distinct idartlang from ait_art_lang) 
 
 == Remove of the internal gzhandler (since 2.3.7-30) ==
 

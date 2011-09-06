@@ -789,7 +789,9 @@
     <table name="todo" engine="InnoDB" since="2.2.1.0">
         <field name="todoid" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
-        <field name="idartlang" type="int(10) unsigned" default="null"/>
+        <field name="idartlang" type="int(10) unsigned" default="null" nullable="true">
+            <constraint column="idartlang" ondelete="cascade" onupdate="restrict" table="art_lang"/>
+        </field>
         <field name="userid" type="int(10) unsigned" default="null"/>
         <field name="status" type="tinyint(4)" default="0"/>
         <field name="title" type="varchar(255)" default="null"/>
