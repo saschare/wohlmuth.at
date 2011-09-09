@@ -41,7 +41,19 @@ class Aitsu_Util_Date {
 
 	public function add($seconds) {
 
-		$this->_time = $this->_time + $seconds;
+		$newTime = $this->_time + $seconds;
+
+		$before = date('I', $this->_time);
+		$after = date('I', $newTime);
+
+		if ($before > $after) {
+			$newTime = $newTime +60 * 60;
+		}
+		elseif ($before < $after) {
+			$newTime = $newTime -60 * 60;
+		}
+
+		$this->_time = $newTime;
 
 		return $this;
 	}
