@@ -1,7 +1,8 @@
-Current version: 2.3.7-34
+Current version: 2.3.7-35
 
 == Latest changes == 
 
+* 2011-09-09: Fixed bug in Rendez-vous class.
 * 2011-09-09: Added language auto-preselector listener.
 * 2011-09-06: Removed file library/Zend/Validate/Barcode/UpcA.php.
 * 2011-09-06: Added missing referential integrity constraint on idartlang
