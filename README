@@ -1,7 +1,8 @@
-Current version: 2.3.7-38
+Current version: 2.3.7-39
 
 == Latest changes == 
 
+* 2011-09-14: Added HTML.View module. Details see below.
 * 2011-09-14: Disabled editing in article info plugin.
 * 2011-09-14: Broadened the list of the language chooser in the top
               nagivation bar of the backend.
@@ -39,6 +40,12 @@ Current version: 2.3.7-38
               to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
 * 2011-08-13: Added rendez-vous plugin.
+
+== HTML.View module (since 2.3.7-39) ==
+
+The module is a child of HTML and may be used instead of HTML (use the
+configuration tab to change its behavious). HTML.View takes the HTML
+content with the same index from the specified article.
 
 == Lanuage auto-preselector listener (since 2.3.7-33) ==
 
