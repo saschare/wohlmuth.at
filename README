@@ -1,7 +1,8 @@
-Current version: 2.3.7-37
+Current version: 2.3.7-38
 
 == Latest changes == 
 
+* 2011-09-14: Disabled editing in article info plugin.
 * 2011-09-14: Broadened the list of the language chooser in the top
               nagivation bar of the backend.
 * 2011-09-09: Fixed daylight savings time bug when adding time in
