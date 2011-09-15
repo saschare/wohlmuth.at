@@ -1,7 +1,8 @@
-Current version: 2.3.7-40
+Current version: 2.3.7-41
 
 == Latest changes == 
 
+* 2011-09-15: Fixed bug in Aitsu_Html_Helper_Navigation_Ul.
 * 2011-09-14: Added HTML.View module. Details see below.
 * 2011-09-14: Disabled editing in article info plugin.
 * 2011-09-14: Broadened the list of the language chooser in the top
