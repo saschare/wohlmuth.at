@@ -40,7 +40,7 @@ abstract class Aitsu_Article_Policy_Abstract {
 	 * @param String Statement
 	 * @param Integer Idartlang of the article the policy belongs to.
 	 */
-	public final function __construct($statement, $idartlang = null) {
+	public final function __construct($statement, $idartlang) {
 
 		$this->_idartlang = $idartlang;
 		$this->_statement = $this->_evalStatement($statement);
@@ -110,11 +110,12 @@ abstract class Aitsu_Article_Policy_Abstract {
 			':idartlang' => $this->_idartlang,
 			':policyid' => $policyid,
 			':status' => $status ? 1 : 0,
-			':interval' => $this->_checkInterval
+			':interval' => $this->_checkInterval,
+			':message' => $this->_message
 		);
 
 		if (Aitsu_Db :: query('' .
-			'update _policy set ' .
+			'update _policy_art set ' .
 			'	status = :status, ' .
 			'	message = :message, ' .
 			'	lastcheck = now(), ' .
