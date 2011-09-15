@@ -48,7 +48,7 @@ class Aitsu_Init_Auto_LanguagePreselector implements Aitsu_Event_Listener_Interf
 		for ($i = 0; $i < count($matches[0]); $i++) {
 			$langs[$matches[1][$i]] = $matches[2][$i];
 		}
-		asort($langs, SORT_NUMERIC);
+		arsort($langs, SORT_NUMERIC);
 		$langs = array_keys($langs);
 		array_walk($langs, array (
 			'Aitsu_Init_Auto_LanguagePreselector',
