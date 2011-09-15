@@ -38,6 +38,6 @@ class Module_Statistics_HitTrigger_Class extends Aitsu_Module_Abstract {
 			return '';
 		}
 
-		return str_replace('//', '/', '<img src="' . Aitsu_Config :: get('sys.mainDir') . '{ref:idart-' . Aitsu_Registry :: get()->env->idart . '}?renderOnly=HitTrigger" />');
+		return '<img src="' . Aitsu_Config :: get('sys.mainDir') . '{ref:idart-' . Aitsu_Registry :: get()->env->idart . '}?renderOnly=HitTrigger" />';
 	}
 }
