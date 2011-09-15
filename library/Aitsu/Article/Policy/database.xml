@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../application/database/schema.xsd">
+    <table engine="InnoDB" name="policy" since="2.3.8">
+        <field default="null" name="policyid" type="int(10) unsigned" nullable="false"
+            primary="true" autoincrement="true"/>
+        <field default="null" name="policy" type="varchar(255)" nullable="false"/>
+        <index columns="policy" name="un_policy" type="unique"/>
+    </table>
+    <table engine="InnoDB" name="policy_default" since="2.3.8">
+        <field default="null" name="policyid" type="int(10) unsigned" nullable="false"
+            primary="true">
+            <constraint column="policyid" ondelete="cascade" onupdate="restrict" table="policy"/>
+        </field>
+        <field default="null" name="idclient" type="int(10) unsigned" nullable="false"
+            primary="true">
+            <constraint column="idclient" ondelete="cascade" onupdate="restrict" table="clients"/>
+        </field>
+    </table>
+    <table engine="InnoDB" name="policy_art_dependency" since="2.3.8">
+        <field default="null" name="policyartid" type="int(10) unsigned" nullable="false"
+            primary="true">
+            <constraint column="policyartid" ondelete="cascade" onupdate="restrict"
+                table="policy_art"/>
+        </field>
+        <field default="null" name="idartlang" type="int(10) unsigned" nullable="false"
+            primary="true">
+            <constraint column="idartlang" ondelete="cascade" onupdate="restrict" table="art_lang"/>
+        </field>
+    </table>
+    <table engine="InnoDB" name="policy_art" since="2.3.8">
+        <field default="null" name="policyartid" type="int(10) unsigned" nullable="false"
+            primary="true" autoincrement="true"/>
+        <field default="null" name="idartlang" type="int(10) unsigned" nullable="false">
+            <constraint column="idartlang" ondelete="cascade" onupdate="restrict" table="art_lang"/>
+        </field>
+        <field default="null" name="policyid" type="int(10) unsigned" nullable="false">
+            <constraint column="policyid" ondelete="cascade" onupdate="restrict" table="policy"/>
+        </field>
+        <field default="0" name="status" type="tinyint(4)" nullable="false"/>
+        <field default="null" name="message" type="varchar(255)" nullable="true"/>
+        <field default="null" name="lastcheck" type="timestamp" nullable="true"/>
+        <field default="null" name="nextcheck" type="timestamp" nullable="true"/>
+        <index columns="idartlang,policyid" name="key_candidate" type="unique"/>
+    </table>
+</database>

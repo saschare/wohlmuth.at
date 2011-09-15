@@ -7,10 +7,10 @@
  */
 
 class Module_Statistics_HitTrigger_Class extends Aitsu_Module_Abstract {
+	
+	protected $_allowEdit = false;
 
 	protected function _init() {
-
-		Aitsu_Content_Edit :: noEdit('Statistics.HitTrigger', true);
 
 		if (isset ($_REQUEST['renderOnly'])) {
 			/*
@@ -38,6 +38,6 @@ class Module_Statistics_HitTrigger_Class extends Aitsu_Module_Abstract {
 			return '';
 		}
 
-		return '<img src="{ref:idart-' . Aitsu_Registry :: get()->env->idart . '}?renderOnly=HitTrigger" />';
+		return '<img src="' . Aitsu_Config :: get('sys.mainDir') . '{ref:idart-' . Aitsu_Registry :: get()->env->idart . '}?renderOnly=HitTrigger" />';
 	}
 }
