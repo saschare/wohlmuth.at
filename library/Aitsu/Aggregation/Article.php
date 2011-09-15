@@ -260,7 +260,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		"	artlang.artsort artsort, " .
 		"	artlang.mainimage, " .
 		"	artlang.pubfrom pubfrom, " .
-		"	artlang.pubuntil pubuntil " .
+		"	artlang.pubuntil pubuntil, " .
+		"	artlang.mainimage mainimage " .
 		"	{$selects} " .
 		"from _art_lang as artlang " .
 		"{$joins} " .
