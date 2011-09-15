@@ -43,7 +43,8 @@ class Aitsu_Article_Policy_ExistsInLanguage extends Aitsu_Article_Policy_Abstrac
 		$status = Aitsu_Db :: fetchRow('' .
 		'select ' .
 		'	orig.online origonline, ' .
-		'	target.online targetonline ' .
+		'	target.online targetonline, ' .
+		'	target.idartlang ' .
 		'from _art_lang orig ' .
 		'left join _pubv_art_lang target on orig.idart = target.idart and target.idlang = :idlang ' .
 		'where ' .
@@ -53,12 +54,18 @@ class Aitsu_Article_Policy_ExistsInLanguage extends Aitsu_Article_Policy_Abstrac
 			':idlang' => $this->_statement->idlang
 		));
 
-		if ($status && $status['origonline'] == $status['targetonline']) {
-			return true;
-		}
-
 		if (!$status) {
 			$this->_message = 'target article does not exist.';
+			return false;
+		}
+		
+		/*
+		 * Set the target idartartlang as a dependency.
+		 */
+		$this->_dependencies = array($status['idartlang']);
+
+		if ($status['origonline'] == $status['targetonline']) {
+			return true;
 		}
 
 		if ($status['targetonline'] == 1) {
