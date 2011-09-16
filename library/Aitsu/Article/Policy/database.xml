@@ -37,10 +37,11 @@
         <field default="null" name="policyid" type="int(10) unsigned" nullable="false">
             <constraint column="policyid" ondelete="cascade" onupdate="restrict" table="policy"/>
         </field>
+        <field default="null" name="statement" type="varchar(255)" nullable="true"/>
         <field default="0" name="status" type="tinyint(4)" nullable="false"/>
         <field default="null" name="message" type="varchar(255)" nullable="true"/>
         <field default="null" name="lastcheck" type="timestamp" nullable="true"/>
         <field default="null" name="nextcheck" type="timestamp" nullable="true"/>
-        <index columns="idartlang,policyid" name="key_candidate" type="unique"/>
+        <index columns="idartlang,policyid,statement" name="key_candidate" type="unique"/>
     </table>
 </database>
