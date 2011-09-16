@@ -111,6 +111,12 @@ Ext.aitsu = function() {
         	} else {
         		mask.hide();
         	}
+        },
+        
+        setUnpublished : function() {
+        	var b = Ext.getCmp('publish-button');
+        	b.setIconClass('page-unpublished');
+        	b.setDisabled(false);
         }
     };
 }();

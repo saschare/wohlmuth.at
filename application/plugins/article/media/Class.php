@@ -142,7 +142,7 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 	public function uploadAction() {
 
 		Aitsu_Core_File :: upload($this->getRequest()->getParam('idart'), $_FILES['file']['name'], $_FILES['file']['tmp_name']);
-		
+
 		$this->_cleanUpThumbs();
 
 		$this->_helper->json((object) array (
@@ -156,16 +156,16 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 		$id = $this->getRequest()->getParam('mediaid');
 
 		Aitsu_Core_File :: delete($idart, $id);
-		
+
 		$this->_cleanUpThumbs();
 
 		$this->_helper->json((object) array (
 			'success' => true
 		));
 	}
-	
+
 	protected function _cleanUpThumbs() {
-		
+
 		Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/cachetransparent/data/image');
 	}
 
@@ -182,7 +182,7 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 			$file->xbr = $this->getRequest()->getParam('xbr');
 			$file->ybr = $this->getRequest()->getParam('ybr');
 			$file->save();
-			
+
 			$this->_cleanUpThumbs();
 
 			$this->_helper->json(array (
@@ -201,8 +201,21 @@ class MediaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$mediaid = $this->getRequest()->getParam('mediaid');
 		$set = $this->getRequest()->getParam('set');
-		
+
 		Aitsu_Persistence_File :: factory($mediaid)->setAsMainImage($set == 0);
+
+		$idartlang = Aitsu_Db :: fetchOne('' .
+		'select artlang.idartlang ' .
+		'from _media media ' .
+		'left join _art_lang artlang on media.idart = artlang.idart ' .
+		'where ' .
+		'	artlang.idlang = :idlang ' .
+		'	and media.mediaid = :mediaid', array (
+			':mediaid' => $mediaid,
+			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+		));
+
+		Aitsu_Persistence_Article :: touch($idartlang);
 
 		$this->_helper->json(array (
 			'success' => true

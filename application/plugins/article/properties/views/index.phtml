@@ -16,7 +16,7 @@ var pagePropertiesHandler = function(formId) {
 			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Page properties have been saved.'); ?>');
 			form.findField('urlname').setValue(action.result.data.urlname);
                         reloadTree(action.result.data.idcat);
-			setUnpublished();
+			Ext.aitsu.setUnpublished();
 		}, 
 		failure: function() {
 			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been saved due to errors.'); ?>');
