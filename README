@@ -1,4 +1,4 @@
-Current version: 2.3.8-1
+Current version: 2.3.8-2
 
 == Latest changes == 
 
@@ -60,7 +60,7 @@ php application/cli/index.php -sUpdate
 If you need to run the script with other privileges than the database user that is
 used by aitsu, you may specifiy the user and password as follows:
 
-php application/cli/index.php -u root -p mypassword -sUpdate
+php application/cli/index.php -uroot -pmypassword -sUpdate
 
 Depending on the configuration of mysql super privileges might be necessary to create
 views and functions.
