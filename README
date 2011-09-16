@@ -1,7 +1,8 @@
-Current version: 2.3.7-47
+Current version: 2.3.8-0
 
 == Latest changes == 
 
+* 2011-09-16: Added command line installation and update scripts.
 * 2011-09-16: Fixed setUnpublished javascript bug.
 * 2011-09-15: Added mainimage to the result in Aitsu_Aggregation_Article.
 * 2011-09-15: Fixed bug in Aitsu_Init_Auto_LanguagePreselector.
@@ -44,6 +45,25 @@ Current version: 2.3.7-47
               to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
 * 2011-08-13: Added rendez-vous plugin.
+
+== Command line installation and update scripts (since 2.3.8) ==
+
+The installation and the update may be done by command line interface. To install
+aitsu, go to the web root directory and fire following command:
+
+php application/cli/index.php -sInstallation
+
+To update the database structure of an existing installation use following command:
+
+php application/cli/index.php -sUpdate
+
+If you need to run the script with other privileges than the database user that is
+used by aitsu, you may specifiy the user and password as follows:
+
+php application/cli/index.php -u root -p mypassword -sUpdate
+
+Depending on the configuration of mysql super privileges might be necessary to create
+views and functions.
 
 == HTML.View module (since 2.3.7-39) ==
 

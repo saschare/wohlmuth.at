@@ -4,10 +4,7 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Checkdb.php 18687 2010-09-10 10:05:09Z akm $}
  */
-
 class Adm_Script_Setup extends Aitsu_Adm_Script_Abstract {
 
 	protected $_from;

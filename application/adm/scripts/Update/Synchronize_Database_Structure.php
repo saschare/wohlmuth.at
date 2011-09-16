@@ -85,7 +85,7 @@ class Adm_Script_Synchronize_Database_Structure extends Aitsu_Adm_Script_Abstrac
 	protected function _executeStep() {
 
 		$method = $this->_methodMap[$this->_currentStep];
-		$response = call_user_func_array(array (
+		$response = @call_user_func_array(array (
 			$this,
 			$method
 		), array ());
