@@ -7,6 +7,8 @@
  */
 abstract class Aitsu_Article_Policy_Abstract {
 
+	protected $_policyartid = null;
+
 	/*
 	 * The idartlang the policy belongs to.
 	 */
@@ -61,6 +63,11 @@ abstract class Aitsu_Article_Policy_Abstract {
 		}
 
 		return $status;
+	}
+
+	public final function getPolicyArtId() {
+
+		return $this->_policyartid;
 	}
 
 	/**
@@ -130,6 +137,17 @@ abstract class Aitsu_Article_Policy_Abstract {
 			'	message = :message, ' .
 			'	lastcheck = now(), ' .
 			'	nextcheck = date_add(now(), interval :interval second)', $data);
+
+			$this->_policyartid = Aitsu_Db :: fetchOne('' .
+			'select policyartid from _policy_art ' .
+			'where ' .
+			'	idartlang = :idartlang ' .
+			'	and policyid = :policyid ' .
+			'	and statement = :statement', array (
+				':idartlang' => $this->_idartlang,
+				':policyid' => $policyid,
+				':statement' => $this->_rawStatement
+			));
 
 			if ($this->_dependencies != null) {
 				$policyartid = Aitsu_Db :: fetchOne('' .

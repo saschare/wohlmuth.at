@@ -13,20 +13,24 @@ class Aitsu_Article_Policy_ExistsInLanguage extends Aitsu_Article_Policy_Abstrac
 
 		return (object) array (
 			'source' => Aitsu_Db :: fetchOne('' .
-			'select idlang from _lang ' .
+			'select t.idlang ' .
+			'from _lang t ' .
+			'left join _lang s on t.idclient = s.idclient ' .
 			'where ' .
-			'	name = :name ' .
-			'	and idclient = :client', array (
+			'	t.name = :name ' .
+			'	and s.idlang = :idlang', array (
 				':name' => $langs[0],
-				':client' => Aitsu_Registry :: get()->env->idclient
+				':idlang' => Aitsu_Registry :: get()->env->idlang
 			)),
 			'target' => Aitsu_Db :: fetchOne('' .
-			'select idlang from _lang ' .
+			'select t.idlang ' .
+			'from _lang t ' .
+			'left join _lang s on t.idclient = s.idclient ' .
 			'where ' .
-			'	name = :name ' .
-			'	and idclient = :client', array (
+			'	t.name = :name ' .
+			'	and s.idlang = :idlang', array (
 				':name' => $langs[1],
-				':client' => Aitsu_Registry :: get()->env->idclient
+				':idlang' => Aitsu_Registry :: get()->env->idlang
 			))
 		);
 	}
@@ -50,6 +54,10 @@ class Aitsu_Article_Policy_ExistsInLanguage extends Aitsu_Article_Policy_Abstrac
 			 * The current article is not of the specified source language.
 			 * The policy is therefore assumed to be fullfilled.
 			 */
+			trigger_error(var_export(array (
+				'statement' => $this->_rawStatement,
+				'source' => $this->_statement->source
+			), true));
 			$this->_message = 'not concerned.';
 			return true;
 		}

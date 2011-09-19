@@ -25,6 +25,8 @@ class Aitsu_Article_Policy_IsPublished extends Aitsu_Article_Policy_Abstract {
 			)) > 0) {
 			return true;
 		}
+		
+		$this->_message = 'article is not published.';
 
 		return false;
 	}
