@@ -940,6 +940,11 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			));
 
 			Aitsu_Db :: commit();
+
+			Aitsu_Event :: raise('persistence.article.publish.end', (object) array (
+				'idartlang' => $this->idartlang,
+				'action' => 'publish'
+			));
 		} catch (Exception $e) {
 			Aitsu_Db :: rollback();
 			throw $e;
