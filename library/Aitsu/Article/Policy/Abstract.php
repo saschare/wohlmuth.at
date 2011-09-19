@@ -18,6 +18,7 @@ abstract class Aitsu_Article_Policy_Abstract {
 	 * evaluate the statement to get reasonable values.
 	 */
 	protected $_statement = null;
+	protected $_rawStatement = '';
 
 	/*
 	 * The message that belongs to the error (if any).
@@ -43,6 +44,7 @@ abstract class Aitsu_Article_Policy_Abstract {
 	public final function __construct($statement, $idartlang) {
 
 		$this->_idartlang = $idartlang;
+		$this->_rawStatement = $statement == null ? '' : $statement;
 		$this->_statement = $this->_evalStatement($statement);
 	}
 
@@ -89,81 +91,88 @@ abstract class Aitsu_Article_Policy_Abstract {
 	 */
 	protected function _evalStatement($statement) {
 
-		return $statement;
+		return $statement == null ? '' : $statement;
 	}
 
 	protected final function _persistPolicy($status) {
 
-		$policyid = Aitsu_Db :: fetchOne('' .
-		'select policyid from _policy where policy = :name', array (
-			':name' => get_class($this)
-		));
+		Aitsu_Db :: startTransaction();
 
-		if (!$policyid) {
-			$policyid = Aitsu_Db :: query('' .
-			'insert into _policy (policy) values (:policy)', array (
-				':policy' => get_class($this)
-			))->getLastInsertId();
-		}
+		try {
+			$policyid = Aitsu_Db :: fetchOne('' .
+			'select policyid from _policy where policy = :name', array (
+				':name' => get_class($this)
+			));
 
-		$data = array (
-			':idartlang' => $this->_idartlang,
-			':policyid' => $policyid,
-			':status' => $status ? 1 : 0,
-			':interval' => $this->_checkInterval,
-			':message' => $this->_message
-		);
+			if (!$policyid) {
+				$policyid = Aitsu_Db :: query('' .
+				'insert into _policy (policy) values (:policy)', array (
+					':policy' => get_class($this)
+				))->getLastInsertId();
+			}
 
-		if (Aitsu_Db :: query('' .
-			'update _policy_art set ' .
+			$data = array (
+				':idartlang' => $this->_idartlang,
+				':policyid' => $policyid,
+				':status' => $status ? 1 : 0,
+				':interval' => $this->_checkInterval,
+				':message' => strtoupper($this->_message),
+				':statement' => $this->_rawStatement
+			);
+
+			Aitsu_Db :: query('' .
+			'insert into _policy_art ' .
+			'(idartlang, policyid, statement, status, message, lastcheck, nextcheck) ' .
+			'values ' .
+			'(:idartlang, :policyid, :statement, :status, :message, now(), date_add(now(), interval :interval second)) ' .
+			'on duplicate key update ' .
 			'	status = :status, ' .
 			'	message = :message, ' .
 			'	lastcheck = now(), ' .
-			'	nextcheck = date_add(now(), interval :interval second) ' .
-			'where ' .
-			'	idartlang = :idartlang ' .
-			'	and policyid = :policyid', $data)->rowCount() == 0) {
-			Aitsu_Db :: query('' .
-			'insert into _policy_art ' .
-			'(idartlang, policyid, status, message, lastcheck, nextcheck) ' .
-			'values ' .
-			'(:idartlang, :policyid, :status, :message, now(), date_add(now(), interval :interval second))', $data);
-		}
+			'	nextcheck = date_add(now(), interval :interval second)', $data);
 
-		if ($this->_dependencies != null) {
-			$policyartid = Aitsu_Db :: fetchOne('' .
-			'select policyartid from _policy_art ' .
-			'where ' .
-			'	idartlang = :idartlang ' .
-			'	and policyid = :policyid', array (
-				':idartlang' => $this->_idartlang,
-				':policyid' => $policyid
-			));
-			if ($policyartid) {
-				Aitsu_Db :: query('' .
-				'delete from _policy_art_dependency ' .
+			if ($this->_dependencies != null) {
+				$policyartid = Aitsu_Db :: fetchOne('' .
+				'select policyartid from _policy_art ' .
 				'where ' .
-				'	policyartid = :policyartid', array (
-					':policyartid' => $policyartid
+				'	idartlang = :idartlang ' .
+				'	and policyid = :policyid ' .
+				'	and statement = :statement', array (
+					':idartlang' => $this->_idartlang,
+					':policyid' => $policyid,
+					':statement' => $this->_statement
 				));
-				foreach ($this->_dependencies as $dep) {
-					try {
-						Aitsu_Db :: query('' .
-						'insert into _policy_art_dependency ' .
-						'(policyartid, idartlang) ' .
-						'values ' .
-						'(:policyartid, idartlang)', array (
-							':policyartid' => $policyartid,
-							':idartlang' => $this->_idartlang
-						));
-					} catch (Exception $e) {
-						/*
-						 * Do nothing, but prevent the loop from
-						 * being broken.
-						 */
+				if ($policyartid) {
+					Aitsu_Db :: query('' .
+					'delete from _policy_art_dependency ' .
+					'where ' .
+					'	policyartid = :policyartid', array (
+						':policyartid' => $policyartid
+					));
+					foreach ($this->_dependencies as $dep) {
+						try {
+							Aitsu_Db :: query('' .
+							'insert into _policy_art_dependency ' .
+							'(policyartid, idartlang) ' .
+							'values ' .
+							'(:policyartid, idartlang)', array (
+								':policyartid' => $policyartid,
+								':idartlang' => $this->_idartlang
+							));
+						} catch (Exception $e) {
+							/*
+							 * Do nothing, but prevent the loop from
+							 * being broken.
+							 */
+						}
 					}
 				}
 			}
+
+			Aitsu_Db :: commit();
+		} catch (Exception $e) {
+			Aitsu_Db :: rollback();
+			throw $e;
 		}
 
 		return $status;

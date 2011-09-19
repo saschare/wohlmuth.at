@@ -9,13 +9,23 @@ class Aitsu_Article_Policy_ExistsInLanguage extends Aitsu_Article_Policy_Abstrac
 
 	protected function _evalStatement($statement) {
 
+		$langs = explode(' ', $statement);
+
 		return (object) array (
-			'idlang' => Aitsu_Db :: fetchOne('' .
+			'source' => Aitsu_Db :: fetchOne('' .
 			'select idlang from _lang ' .
 			'where ' .
 			'	name = :name ' .
 			'	and idclient = :client', array (
-				':name' => $statement,
+				':name' => $langs[0],
+				':client' => Aitsu_Registry :: get()->env->idclient
+			)),
+			'target' => Aitsu_Db :: fetchOne('' .
+			'select idlang from _lang ' .
+			'where ' .
+			'	name = :name ' .
+			'	and idclient = :client', array (
+				':name' => $langs[1],
 				':client' => Aitsu_Registry :: get()->env->idclient
 			))
 		);
@@ -31,13 +41,26 @@ class Aitsu_Article_Policy_ExistsInLanguage extends Aitsu_Article_Policy_Abstrac
 		 * - the referenced article is offline if the current article is offline,
 		 * - the referenced article is published
 		 */
-		 
-		if (!$this->_statement->idlang) {
+
+		if (Aitsu_Db :: fetchOne('' .
+			'select idlang from _art_lang where idartlang = :idartlang', array (
+				':idartlang' => $this->_idartlang
+			)) != $this->_statement->source) {
 			/*
-			 * The specified language does not|no longer|not yet exist. The policy
-			 * is therefore assumed to be fullfilled.
+			 * The current article is not of the specified source language.
+			 * The policy is therefore assumed to be fullfilled.
 			 */
+			$this->_message = 'not concerned.';
 			return true;
+		}
+
+		if (!$this->_statement->target) {
+			/*
+			 * The specified target language does not|no longer|not yet exist. 
+			 * The policy is therefore assumed not to be fullfilled.
+			 */
+			$this->_message = 'target language does not exist.';
+			return false;
 		}
 
 		$status = Aitsu_Db :: fetchRow('' .
@@ -51,18 +74,20 @@ class Aitsu_Article_Policy_ExistsInLanguage extends Aitsu_Article_Policy_Abstrac
 		'	orig.idartlang = :idartlang ' .
 		'	and target.idartlang is not null', array (
 			':idartlang' => $this->_idartlang,
-			':idlang' => $this->_statement->idlang
+			':idlang' => $this->_statement->target
 		));
 
 		if (!$status) {
 			$this->_message = 'target article does not exist.';
 			return false;
 		}
-		
+
 		/*
 		 * Set the target idartartlang as a dependency.
 		 */
-		$this->_dependencies = array($status['idartlang']);
+		$this->_dependencies = array (
+			$status['idartlang']
+		);
 
 		if ($status['origonline'] == $status['targetonline']) {
 			return true;
