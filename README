@@ -1,7 +1,8 @@
-Current version: 2.3.8-3
+Current version: 2.3.8-4
 
 == Latest changes == 
 
+* 2011-09-21: Added secondsUntilEndOf method to Aitsu_Util_Date.
 * 2011-09-16: Added command line installation and update scripts.
 * 2011-09-16: Fixed setUnpublished javascript bug.
 * 2011-09-15: Added mainimage to the result in Aitsu_Aggregation_Article.
@@ -45,6 +46,14 @@ Current version: 2.3.8-3
               to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
 * 2011-08-13: Added rendez-vous plugin.
+
+== Aitsu_Util_Date :: secondsUntilEndOf(year|month|day|week) (since 2.3.8-4) ==
+
+Use this method to get the seconds from now to the end of the year, end of the current
+month, end of the current day or the end of the current week.
+
+Aitsu_Util_Date :: secondsUntilEndOf('week') returns the time difference in seconds
+from now to next Monday 0 a.m.
 
 == Command line installation and update scripts (since 2.3.8) ==
 
