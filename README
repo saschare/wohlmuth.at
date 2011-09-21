@@ -1,7 +1,8 @@
-Current version: 2.3.8-4
+Current version: 2.3.8-5
 
 == Latest changes == 
 
+* 2011-09-21: Allowed the use parameters in Google.Maps.Javascript.
 * 2011-09-21: Added secondsUntilEndOf method to Aitsu_Util_Date.
 * 2011-09-16: Added command line installation and update scripts.
 * 2011-09-16: Fixed setUnpublished javascript bug.
