@@ -1,7 +1,10 @@
-Current version: 2.3.8-6
+Current version: 2.3.8-7
 
 == Latest changes == 
 
+View the devlog for details.
+
+* 2011-09-21: Reorganised the devlog.
 * 2011-09-21: Allowed the use parameters in Google.Maps.Javascript.
 * 2011-09-21: Added secondsUntilEndOf method to Aitsu_Util_Date.
 * 2011-09-16: Added command line installation and update scripts.
@@ -47,92 +50,3 @@ Current version: 2.3.8-6
               to gather the data (Aitsu_Persistence_View_Rendezvous).
 * 2011-08-13: Added end date for periodicity in rendez-vous plugin.
 * 2011-08-13: Added rendez-vous plugin.
-
-== Aitsu_Util_Date :: secondsUntilEndOf(year|month|day|week) (since 2.3.8-4) ==
-
-Use this method to get the seconds from now to the end of the year, end of the current
-month, end of the current day or the end of the current week.
-
-Aitsu_Util_Date :: secondsUntilEndOf('week') returns the time difference in seconds
-from now to next Monday 0 a.m.
-
-== Command line installation and update scripts (since 2.3.8) ==
-
-The installation and the update may be done by command line interface. To install
-aitsu, go to the web root directory and fire following command:
-
-php application/cli/index.php -sInstallation
-
-To update the database structure of an existing installation use following command:
-
-php application/cli/index.php -sUpdate
-
-If you need to run the script with other privileges than the database user that is
-used by aitsu, you may specifiy the user and password as follows:
-
-php application/cli/index.php -uroot -pmypassword -sUpdate
-
-Depending on the configuration of mysql super privileges might be necessary to create
-views and functions.
-
-== HTML.View module (since 2.3.7-39) ==
-
-The module is a child of HTML and may be used instead of HTML (use the
-configuration tab to change its behavious). HTML.View takes the HTML
-content with the same index from the specified article.
-
-== Lanuage auto-preselector listener (since 2.3.7-33) ==
-
-The language auto-preselector listener evaluates the language accept header
-and redirects the user to the start page of the evaluated language. The listener
-is active, if all of the following conditions are met:
-
-1. rewrite.uselang is set to true.
-2. frontend.init.listener.Aitsu_Init_Auto_LanguagePreselector is set to true.
-3. The top-level page is requested (deeper in the tree, the listener is not active).
-
-== Referential integrity constraint on todo.idartlang (since 2.3.7-31) ==
-
-A referential integrity constraint with cascading delete has been added on the
-field idartlang in the table todo. If there are already orphaned todos, the update
-will fail. If you get an exception during the update process, delete todos with
-non-existing idartlang with the following query:
-
-delete from ait_todo where idartlang not in (select distinct idartlang from ait_art_lang) 
-
-== Remove of the internal gzhandler (since 2.3.7-30) ==
-
-The internal gzhandler has been removed for two reasons. One is the fact that the
-detection as well as the compression process is done more reliable and faster through
-the appropriate server module. On the other hand you can only compress responses that
-are made by aitsu. But there are other resources that are much more relevant to be
-compressed, that are not compressed if it is not done by the server module. So we 
-recommend either not to use compression at all or to use the server's capabilitites
-to do so.
-
-== Search.By.Tag module (since 2.3.7-9) ==
-
-Call the module with Search.By.Tag. As as styling guide you will find an example css
-file in the path /application/modules/Search/By/Tag/searchByTag.css. The module
-lets you navigate through the tags used in article beneath the current category.
-
-== Rendez-vous plugin (since 2.3.7) ==
-
-The plugin allows to set an appointment with start and end time and periodicity of 0 (no
-recurrence) to 28 (every four weeks) to an article.
-
-== Module hierachy (since 2.3.1) ==
-
-A module can know morph to another module which is more specific according to the
-module hierarchy.
-
-== Revision progression (since 2.2.0) ==
-
-In the article view there is a new tab allowing you to switch between published versions of 
-the current article. To be able to use the new feature you have to add follwing line to the 
-default config set:
-
-plugin.article.revisionprogression.position.default = 1000
-
-The number after the equal symbol represents the relative position of the tab. You may change 
-the value to something not lower than 1, which repositions the tab within the article view.

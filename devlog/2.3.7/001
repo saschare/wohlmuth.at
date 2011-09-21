@@ -1,0 +1,4 @@
+== Rendez-vous plugin (since 2.3.7) ==
+
+The plugin allows to set an appointment with start and end time and periodicity of 0 (no
+recurrence) to 28 (every four weeks) to an article.

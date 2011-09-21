@@ -1,0 +1,18 @@
+== Command line installation and update scripts ==
+
+The installation and the update may be done by command line interface. To install
+aitsu, go to the web root directory and fire following command:
+
+php application/cli/index.php -sInstallation
+
+To update the database structure of an existing installation use following command:
+
+php application/cli/index.php -sUpdate
+
+If you need to run the script with other privileges than the database user that is
+used by aitsu, you may specifiy the user and password as follows:
+
+php application/cli/index.php -uroot -pmypassword -sUpdate
+
+Depending on the configuration of mysql super privileges might be necessary to create
+views and functions.
