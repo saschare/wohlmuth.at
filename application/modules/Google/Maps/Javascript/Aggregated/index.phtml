@@ -1,0 +1,26 @@
+<div id="<?php echo $this->id; ?>" style="width:<?php echo $this->width; ?>px; height:<?php echo $this->height; ?>px;"<?php if (!empty($this->className)) {echo ' class="' . $this->className . '"';} ?>></div>
+
+<script type="text/javascript">
+function init<?php echo $this->id; ?>() {
+
+	var geocoder = new google.maps.Geocoder();
+	geocoder.geocode( { 'address': '<?php echo $this->address; ?>'}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			var map = new google.maps.Map(
+				document.getElementById("<?php echo $this->id; ?>"),
+		    	{
+					zoom: <?php echo $this->zoom; ?>,
+					center: results[0].geometry.location,
+					mapTypeId: google.maps.MapTypeId.<?php echo $this->type; ?>
+				}
+		    );
+		    var marker = new google.maps.Marker({
+            	map: map, 
+            	position: results[0].geometry.location,
+            	title:"<?php echo $this->name; ?>"
+        	});
+    	}
+    });
+
+}
+</script>
