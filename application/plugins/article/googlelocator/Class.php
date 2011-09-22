@@ -29,6 +29,49 @@ class GooglelocatorArticleController extends Aitsu_Adm_Plugin_Controller {
 
 	public function indexAction() {
 
+		$id = $this->getRequest()->getParam('idart');
+
+		$form = Aitsu_Forms :: factory('googlelocator', APPLICATION_PATH . '/plugins/article/googlelocator/forms/googlelocator.ini');
+		$form->title = Aitsu_Translate :: translate('Google Locator');
+
+		if ($this->getRequest()->getParam('loader')) {
+			$this->view->form = $form;
+			header("Content-type: text/javascript");
+			return;
+		}
+
+		try {
+			if ($form->isValid()) {
+				Aitsu_Event :: raise('backend.article.edit.save.start', array (
+					'idart' => $id
+				));
+
+				/*
+				 * Persist the data.
+				 */
+				// $data->setValues($form->getValues())->save();
+
+				/*$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) $data->toArray()
+				));*/
+				$this->_helper->json((object) array (
+					'success' => true,
+					'data' => (object) array()
+				));
+			} else {
+				$this->_helper->json((object) array (
+					'success' => false,
+					'errors' => $form->getErrors()
+				));
+			}
+		} catch (Exception $e) {
+			$this->_helper->json((object) array (
+				'success' => false,
+				'exception' => true,
+				'message' => $e->getMessage()
+			));
+		}
 	}
 
 }
