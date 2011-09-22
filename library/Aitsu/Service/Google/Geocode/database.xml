@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../../application/database/schema.xsd">
+    <table engine="InnoDB" name="google_geolocation" since="2.3.8-8">
+        <field default="null" name="id" type="int(10) unsigned" nullable="false"
+            autoincrement="true" primary="true"/>
+        <field default="null" name="address" type="text" nullable="false"/>
+        <field default="null" name="hash" type="varchar(32)" nullable="false"/>
+        <field default="null" name="lat" type="float" nullable="true"/>
+        <field default="null" name="lng" type="float" nullable="true"/>
+        <field default="current_timestamp" name="requested" type="timestamp" nullable="false"/>
+        <index columns="hash" name="un_hash" type="unique"/>
+        <index columns="lat" name="lat" type="index"/>
+        <index columns="lng" name="lng" type="index"/>
+        <index columns="lat,lng" name="lng_lng" type="index"/>
+    </table>
+</database>
