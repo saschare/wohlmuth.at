@@ -1,9 +1,10 @@
-Current version: 2.3.8-8
+Current version: 2.3.8-9
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-09-22: Added Google Locator plugin.
 * 2011-09-22: Added Aitsu_Service_Google_Geocode.
 * 2011-09-21: Reorganised the devlog.
 * 2011-09-21: Allowed the use parameters in Google.Maps.Javascript.
