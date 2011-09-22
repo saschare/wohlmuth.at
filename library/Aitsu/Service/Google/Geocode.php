@@ -24,11 +24,23 @@ class Aitsu_Service_Google_Geocode {
 
 	protected $_serviceUrl = null;
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param Boolean True, to use SSL encryption. False otherwise. Defaults to false.
+	 * @return Aitsu_Service_Google_Geocode An instance of the class.
+	 */
 	public function __construct($useSSL = false) {
 
 		$this->_serviceUrl = ($useSSL ? 'https://' : 'http://') . self :: SERVICE_URL;
 	}
 
+	/**
+	 * Singleton accessor.
+	 * 
+	 * @param Boolean True, to use SSL encryption. False otherwise. Defaults to false.
+	 * @return Aitsu_Service_Google_Geocode An instance of the class.
+	 */
 	public static function getInstance($useSSL = false) {
 
 		static $instance;
@@ -43,17 +55,26 @@ class Aitsu_Service_Google_Geocode {
 		return $instance;
 	}
 
+	/**
+	 * Locates the requested address and persists the data in ait_google_geolocation.
+	 * 
+	 * @param String Address to be located.
+	 * @param Integer The maximum acceptable age (in seconds) of the result. If the result is
+	 * older, the request is redirected to Google's Geolocation API. To overrule the cache, use
+	 * a value of 0. Default is one year.
+	 * @return Object Standard object containing the address id, lat and lng.
+	 */
 	public function locate($address, $overruleCacheIfResultIsOlderThan = 31536000) {
 
 		$hash = hash('md4', $address);
 
 		$location = Aitsu_Db :: fetchRow('' .
 		'select ' .
-		'	lat, lng ' .
+		'	id, lat, lng ' .
 		'from _google_geolocation ' .
 		'where ' .
 		'	hash = :hash ' .
-		'	and date_add(requested, interval :age second) < now()', array (
+		'	and date_add(requested, interval :age second) > now()', array (
 			':hash' => $hash,
 			':age' => $overruleCacheIfResultIsOlderThan
 		));
@@ -61,8 +82,49 @@ class Aitsu_Service_Google_Geocode {
 		if ($location) {
 			return (object) $location;
 		}
-		
-		
+
+		try {
+			$client = new Zend_Http_Client($this->_serviceUrl, array (
+				'maxredirects' => 0,
+				'timeout' => 10
+			));
+
+			$client->setParameterGet(array (
+				'sensor' => 'false',
+				'address' => $address
+			));
+
+			$response = $client->request()->getBody();
+			$locator = Zend_Json :: decode($response);
+		} catch (Exception $e) {
+			/*
+			 * Just prevent the exception from being thrown.
+			 */
+		}
+
+		$lat = isset ($locator['results'][0]['geometry']['location']['lat']) ? $locator['results'][0]['geometry']['location']['lat'] : null;
+		$lng = isset ($locator['results'][0]['geometry']['location']['lng']) ? $locator['results'][0]['geometry']['location']['lng'] : null;
+
+		try {
+			$id = Aitsu_Db :: query('' .
+			'insert into _google_geolocation ' .
+			'(address, hash, lat, lng, jsonresponse) ' .
+			'values ' .
+			'(:address, :hash, :lat, :lng, :jsonresponse)', array (
+				':address' => $address,
+				':hash' => $hash,
+				':lat' => $lat,
+				':lng' => $lng,
+				':jsonresponse' => $response
+			))->getLastInsertId();
+		} catch (Exception $e) {
+			$id = null;
+		}
+
+		return (object) array (
+			'id' => $id,
+			'lat' => $lat,
+			'lng' => $lng
+		);
 	}
 }
-?>

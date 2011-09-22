@@ -6,6 +6,7 @@
             autoincrement="true" primary="true"/>
         <field default="null" name="address" type="text" nullable="false"/>
         <field default="null" name="hash" type="varchar(32)" nullable="false"/>
+        <field default="null" name="jsonresponse" type="text" nullable="true"/>
         <field default="null" name="lat" type="float" nullable="true"/>
         <field default="null" name="lng" type="float" nullable="true"/>
         <field default="current_timestamp" name="requested" type="timestamp" nullable="false"/>
