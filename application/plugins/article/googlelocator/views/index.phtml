@@ -1,0 +1,17 @@
+var pageGooglelocatorDataHandler = function(formId) {
+	Ext.getCmp(formId).getForm().submit({
+		success: function(form, action) {
+			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Location data have been saved.'); ?>');
+		}, 
+		failure: function() {
+			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been saved due to errors.'); ?>');
+		}
+	});
+}
+
+Ext.getCmp('page-plugin-accordion').add({
+	id: 'article-plugin-googlelocator',
+	title: '<?php echo Aitsu_Translate :: translate('Google Locator'); ?>',
+	autoScroll: true,
+	items: <?php echo $this->form->render('ExtJs'); ?>
+});
