@@ -1,0 +1,15 @@
+== Aitsu_Service_Google_Geocode ==
+
+The Aitsu_Service_Google_Geocode class requests the Google Geolocation API and
+persists the result. If there is a cached result not exceeding the specifed age
+the cache is used.
+
+A typical usage looks like:
+
+Aitsu_Service_Google_Geocode :: getInstance()->locate('brunnmattstrasse 13, thörishaus, schweiz')
+
+or - if you would like to overrule the cache...
+
+Aitsu_Service_Google_Geocode :: getInstance()->locate('brunnmattstrasse 13, thörishaus, schweiz', 0)
+
+The locate method return a standard object with the id, lat and lng as its members.
