@@ -33,6 +33,35 @@ class GooglelocatorArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$form = Aitsu_Forms :: factory('googlelocator', APPLICATION_PATH . '/plugins/article/googlelocator/forms/googlelocator.ini');
 		$form->title = Aitsu_Translate :: translate('Google Locator');
+		$form->url = $this->view->url(array (
+			'plugin' => 'googlelocator',
+			'paction' => 'index'
+		), 'aplugin');
+
+		$data = Aitsu_Db :: fetchRow('' .
+		'select ' .
+		'	gg.address, ' .
+		'	gg.lat, ' .
+		'	gg.lng ' .
+		'from _art_lang artlang ' .
+		'left join _art_geolocation geoloc on artlang.idartlang = geoloc.idartlang ' .
+		'left join _google_geolocation gg on geoloc.idlocation = gg.id ' .
+		'where ' .
+		'	artlang.idart = :idart ' .
+		'	and artlang.idlang = :idlang', array (
+			':idart' => $id,
+			':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+		));
+
+		if ($data) {
+			$form->setValues(array_merge($data, array (
+				'idart' => $id
+			)));
+		} else {
+			$form->setValues(array (
+				'idart' => $id
+			));
+		}
 
 		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
@@ -46,18 +75,38 @@ class GooglelocatorArticleController extends Aitsu_Adm_Plugin_Controller {
 					'idart' => $id
 				));
 
-				/*
-				 * Persist the data.
-				 */
-				// $data->setValues($form->getValues())->save();
+				$values = $form->getValues();
+				$coord = Aitsu_Service_Google_Geocode :: getInstance()->locate($values['address']);
 
-				/*$this->_helper->json((object) array (
-					'success' => true,
-					'data' => (object) $data->toArray()
-				));*/
+				if ($coord->id != null) {
+					/*
+					 * Persist the data.
+					 */
+					$idartlang = Aitsu_Db :: fetchOne('' .
+					'select idartlang from _art_lang ' .
+					'where ' .
+					'	idart = :idart ' .
+					'	and idlang = :idlang', array (
+						':idart' => $id,
+						':idlang' => Aitsu_Registry :: get()->session->currentLanguage
+					));
+					Aitsu_Db :: query('' .
+					'delete from _art_geolocation where idartlang = :idartlang', array (
+						':idartlang' => $idartlang
+					));
+					Aitsu_Db :: query('' .
+					'insert into _art_geolocation ' .
+					'(idartlang, idlocation) ' .
+					'values ' .
+					'(:idartlang, :idlocation)', array (
+						':idartlang' => $idartlang,
+						':idlocation' => $coord->id
+					));
+				}
+
 				$this->_helper->json((object) array (
 					'success' => true,
-					'data' => (object) array()
+					'data' => $coord
 				));
 			} else {
 				$this->_helper->json((object) array (

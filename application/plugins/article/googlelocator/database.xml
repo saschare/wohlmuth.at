@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../application/database/schema.xsd">
+    <table engine="InnoDB" name="art_geolocation" since="2.3.8-9">
+        <field default="null" name="idartlang" type="int(10) unsigned" nullable="false"
+            primary="true">
+            <constraint column="idartlang" ondelete="cascade" onupdate="restrict" table="art_lang"/>
+        </field>
+        <field default="null" name="idlocation" type="int(10) unsigned" nullable="false"
+            primary="true">
+            <constraint column="id" ondelete="cascade" onupdate="restrict"
+                table="google_geolocation"/>
+        </field>
+    </table>
+</database>

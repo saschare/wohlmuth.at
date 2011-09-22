@@ -1,6 +1,7 @@
 var pageGooglelocatorDataHandler = function(formId) {
 	Ext.getCmp(formId).getForm().submit({
 		success: function(form, action) {
+			form.setValues({lat: action.result.data.lat, lng: action.result.data.lng});
 			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Location data have been saved.'); ?>');
 		}, 
 		failure: function() {
