@@ -77,6 +77,10 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 	}
 
 	public function whereBeneathCategory($category) {
+		
+		if (empty($category)) {
+			return $this;
+		}
 
 		$this->_whereInCategories = Aitsu_Db :: fetchCol('' .
 		'select distinct child.idcat from ' .
@@ -188,7 +192,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		}
 
 		/*
-		 * where in category -> $whereInCategories
+		 * where in category -> $_whereInCategories
 		 */
 		if ($this->_whereInCategories != null) {
 			$whereInCategories = 'and catart.idcat in (' . implode(', ', $this->_whereInCategories) . ') ';
@@ -214,7 +218,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		}
 
 		/*
-		 * Filters -> $where
+		 * Filters -> $_where
 		 */
 		if ($this->_filters == null) {
 			$where = '';
@@ -223,7 +227,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		}
 
 		/*
-		 * order by clause -> $orderBy
+		 * order by clause -> $_orderBy
 		 */
 		$orderAlias['modified'] = 'artlang.lastmodified';
 		$orderAlias['created'] = 'artlang.created';
@@ -280,9 +284,9 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		"	{$useOfStartArticle} " .
 		"	{$whereInCategories} " .
 		"	{$where} " .
-		"{$orderBy} " .
 		"group by " .
 		"	artlang.idartlang " .
+		"{$orderBy} " .
 		"{$this->_havingClause}" .
 		"limit {$offset}, {$limit} " .
 		"", array (
@@ -378,4 +382,5 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 
 		$this->_results = array_values($this->_results);
 	}
+	
 }

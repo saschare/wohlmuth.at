@@ -4,6 +4,7 @@ Current version: 2.3.8-9
 
 View the devlog for details.
 
+* 2011-09-23: Added Google.Maps.Javascript.Aggregated.
 * 2011-09-22: Added Google Locator plugin.
 * 2011-09-22: Added Aitsu_Service_Google_Geocode.
 * 2011-09-21: Reorganised the devlog.

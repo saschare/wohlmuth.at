@@ -2,25 +2,31 @@
 
 <script type="text/javascript">
 function init<?php echo $this->id; ?>() {
-
-	var geocoder = new google.maps.Geocoder();
-	geocoder.geocode( { 'address': '<?php echo $this->address; ?>'}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			var map = new google.maps.Map(
-				document.getElementById("<?php echo $this->id; ?>"),
-		    	{
-					zoom: <?php echo $this->zoom; ?>,
-					center: results[0].geometry.location,
-					mapTypeId: google.maps.MapTypeId.<?php echo $this->type; ?>
-				}
-		    );
-		    var marker = new google.maps.Marker({
-            	map: map, 
-            	position: results[0].geometry.location,
-            	title:"<?php echo $this->name; ?>"
-        	});
-    	}
-    });
+	
+	var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+	
+	var map = new google.maps.Map(document.getElementById("<?php echo $this->id; ?>"), {
+		zoom: <?php echo $this->zoom; ?>,
+		center: new google.maps.LatLng(<?php echo $this->clat; ?>, <?php echo $this->clng; ?>),
+		mapTypeId: google.maps.MapTypeId.<?php echo $this->type; ?> 
+	});
+	
+	var marker = new Array(<?php count($this->locations); ?>);
+	var infowindow = new Array(<?php count($this->locations); ?>);
+<?php foreach ($this->locations as $key => $location) : ?>
+	marker[<?php echo $key; ?>] = new google.maps.Marker({
+		position: new google.maps.LatLng(<?php echo $location->lat; ?>, <?php echo $location->lng; ?>),
+		map: map,
+		animation: google.maps.Animation.DROP,
+		title:"<?php echo $location->teasertitle; ?>" 
+	});
+	infowindow[<?php echo $key; ?>] = new google.maps.InfoWindow({
+		content: '<?php echo str_replace(array("\n", "\r"), '', preg_replace('/\\>[\\s\\n\\r]*\\</', '><', $this->partial('bubble.phtml', array('location' => $location)))); ?>'
+	});
+	google.maps.event.addListener(marker[<?php echo $key; ?>], 'click', function() {
+		infowindow[<?php echo $key; ?>].open(map, marker[<?php echo $key; ?>]);
+	});
+<?php endforeach; ?>
 
 }
 </script>
