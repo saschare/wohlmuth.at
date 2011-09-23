@@ -1,0 +1,74 @@
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST" style="display:inline;">
+	<?php if ($this->isRendered) : ?>
+	<div class="surveyNotCompleteWarning">
+		<?php echo Aitsu_Translate :: _('Die Grau hinterlegten Fragen müssen für die Auswertung ausgefüllt werden. Bitte ergänzen Sie diese entsprechend.'); ?>
+	</div>
+	<?php endif; ?>
+	
+	<?php $questionNo = 0; ?>
+	
+	<?php $blockNo = -1; foreach ($this->surveyXML->questions[0] as $block) : $blockNo++; ?>
+		<?php if ($blockNo == $this->showBlock) : ?>
+			<?php if (isset ($block->blockcomment)) : ?>
+				<div class="surveyBlockComment">
+					<?php echo $block->blockcomment[0]; ?>
+				</div> 
+			<?php endif; ?>
+			
+			<?php foreach ($block->question as $question) : $questionNo++; ?>
+				<div class="surveyQuestionBlock">
+					<?php
+if ($this->isRendered && $question['required'] == 'true' && Module_Custom_Migros_Fitnesspark_Go_Class :: _getPost($questionNo) == null) {
+	$requiredClass = ' surveyQuestionRequired';
+} else {
+	$requiredClass = ' surveyQuestionNotRequired';
+}
+
+$reference = '';
+if (!empty ($question['reference']) && !empty ($question['referenceName'])) {
+	$reference = '&nbsp;&nbsp;<a href="' . $question['reference'] . '" target="_blank" onclick="window.open(this.href, \'' . $question['referenceName'] . '\', \'width=500,height=400,resizable=yes,scrollbars=yes,screenX=200,screenY=100\'); return false;">[ ' . $question['referenceName'] . ' ]</a>';
+}
+?>				
+					<div class="surveyQuestionAnswer<?php echo $requiredClass; ?>">
+						<div class="surveyQuestion">
+							<?php echo $questionNo; ?>. <?php echo $question['question']; ?><?php echo $reference; ?>
+						</div>
+						
+						<?php if ($question['multiple'] == 'true') : ?>
+							<?php echo $this->partial('checkboxes.phtml', array('question' => $question, 'number' => $questionNo, 'formNamePrefix' => $this->formNamePrefix)); ?>
+						<?php else : ?>
+							<?php echo $this->partial('radios.phtml', array('question' => $question, 'number' => $questionNo, 'formNamePrefix' => $this->formNamePrefix)); ?>
+						<?php endif; ?>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		<?php else : ?>
+			<?php for ($i = 0; $i < count($block->question); $i++) : $questionNo++; $post = Module_Custom_Migros_Fitnesspark_Go_Class :: _getPost($questionNo);?>
+				<?php if ($post != null) : ?>
+					<?php if (is_array($post)) : ?>
+						<?php foreach ($post as $key => $value) : ?>
+							<input type="hidden" name="<?php echo $this->formNamePrefix; ?><?php echo $questionNo; ?>[<?php echo $key; ?>]" value="<?php echo $value; ?>" />
+						<?php endforeach; ?>
+					<?php else : ?>
+						<input type="hidden" name="<?php echo $this->formNamePrefix; ?><?php echo $questionNo; ?>" value="<?php echo $post; ?>" />
+					<?php endif; ?>
+				<?php endif; ?>
+			<?php endfor; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
+	
+	<div class="surveyButton">
+		<input type="hidden" name="<?php echo $this->formNamePrefix; ?>showBlock" id="<?php echo $this->formNamePrefix; ?>showBlock" value="0" />
+		
+		<?php if ($this->showBlock > 0) : $previousBlock = $this->showBlock -1; ?>
+		<button type="submit" value="<?php echo $previousBlock; ?>" onClick="document.getElementById(\'<?php echo $this->formNamePrefix; ?>showBlock\').value=<?php echo $previousBlock; ?>"><?php echo Aitsu_Translate :: _('&laquo; Zurück'); ?></button>&nbsp;
+		<?php endif; ?>
+		
+		<?php $nextBlock = $this->showBlock +1; if ($this->showBlock >= count($this->surveyXML->questions[0]) - 1) : ?>
+		<button type="submit" value="<?php echo $nextBlock; ?>" onclick="document.getElementById('<?php echo $this->formNamePrefix; ?>showBlock').value=<?php echo $nextBlock; ?>;"><?php echo Aitsu_Translate :: _('Auswertung vornehmen'); ?></button>&nbsp;
+		<?php else : ?>
+		<button type="submit" value="<?php echo $nextBlock; ?>" onclick="document.getElementById('<?php echo $this->formNamePrefix; ?>showBlock').value=<?php echo $nextBlock; ?>;"><?php echo Aitsu_Translate :: _('Weiter &raquo;'); ?></button>&nbsp;
+		<?php endif; ?>
+		
+	</div>	
+</form>
