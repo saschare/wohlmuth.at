@@ -18,6 +18,10 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 	protected $_startArticle = 1;
 	protected $_filters = null;
 
+	protected $_tags = array ();
+	protected $_havingClause = '';
+	protected $_tagJoin = '';
+
 	protected $_offset = 0;
 	protected $_limit = 200;
 
@@ -111,7 +115,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 	public function rewind() {
 
 		$this->_position = 0;
-		
+
 		return $this;
 	}
 
@@ -128,7 +132,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 	public function next() {
 
 		$this->_position++;
-		
+
 		return $this;
 	}
 
@@ -245,7 +249,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		}
 
 		$results = Aitsu_Db :: fetchAll("" .
-		"select straight_join distinct " .
+		"select straight_join " .
 		"	artlang.idart idart, " .
 		"	artlang.idartlang idartlang, " .
 		"	artlang.title articletitle, " .
@@ -259,23 +263,31 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		"	artlang.mainimage, " .
 		"	artlang.pubfrom pubfrom, " .
 		"	artlang.pubuntil pubuntil, " .
-		"	artlang.mainimage mainimage " .
+		"	artlang.mainimage mainimage, " .
+		"	coord.lat lat, " .
+		"	coord.lng lng " .
 		"	{$selects} " .
-		"from _art_lang as artlang " .
+		"from _art_lang artlang " .
 		"{$joins} " .
-		"left join _cat_art as catart ON artlang.idart = catart.idart " .
-		"left join _cat_lang as catlang ON catart.idcat = catlang.idcat AND catlang.idlang = ? " .
+		"left join _cat_art catart on artlang.idart = catart.idart " .
+		"left join _cat_lang catlang on catart.idcat = catlang.idcat AND catlang.idlang = :idlang " .
+		"left join _art_geolocation artcoord on artlang.idartlang = artcoord.idartlang " .
+		"left join _google_geolocation coord on artcoord.idlocation = coord.id " .
+		"{$this->_tagJoin}" .
 		"where " .
 		"	artlang.online = 1 " .
-		"	and artlang.idlang = ? " .
+		"	and artlang.idlang = :idlang " .
 		"	{$useOfStartArticle} " .
 		"	{$whereInCategories} " .
 		"	{$where} " .
 		"{$orderBy} " .
+		"group by " .
+		"	artlang.idartlang " .
+		"{$this->_havingClause}" .
 		"limit {$offset}, {$limit} " .
 		"", array (
-			$this->_idlang,
-			$this->_idlang
+			':idlang' => $this->_idlang,
+			':tags' => count($this->_tags)
 		));
 
 		if (!$results) {
@@ -341,15 +353,29 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 
 		return $this;
 	}
-	
+
+	public function havingTags(array $tags) {
+
+		if (count($tags) == 0) {
+			return;
+		}
+
+		$this->_tags = $tags;
+
+		$this->_havingClause = ' having count(tag.tagid) = :tags ';
+		$this->_tagJoin = ' left join _tag_art tagart on artlang.idart = tagart.idart ' .
+		'left join _tag tag on tagart.tagid = tag.tagid ' .
+		'and tag.tag in (\'' . implode("','", $tags) . '\') ';
+	}
+
 	public function remove($field, $value) {
-		
+
 		foreach ($this->_results as $key => $val) {
-			if ($val->$field == $value) {
-				unset($this->_results[$key]);
+			if ($val-> $field == $value) {
+				unset ($this->_results[$key]);
 			}
 		}
-		
+
 		$this->_results = array_values($this->_results);
 	}
 }
