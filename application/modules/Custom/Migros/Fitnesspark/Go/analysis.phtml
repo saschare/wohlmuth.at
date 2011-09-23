@@ -1,1 +1,10 @@
-<div>analysis</div>
+<?php foreach ($this->surveyXML->analysis[0] as $score) : ?>
+	<?php if ($this->valueToBeUsed >= $score['min'] && $this->valueToBeUsed < $score['max']) : ?>
+		<div class="surveyAnalysisTitle">
+			<?php echo $score['title']; ?>
+		</div>
+		<div class="surveyAnalysisText">
+			<?php echo $score; ?>
+		</div>
+	<?php endif; ?>
+<?php endforeach; ?>

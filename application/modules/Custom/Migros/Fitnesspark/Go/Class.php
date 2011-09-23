@@ -38,8 +38,6 @@ class Module_Custom_Migros_Fitnesspark_Go_Class extends Aitsu_Module_Abstract {
 
 		$this->_surveyXML = simplexml_load_file(APPLICATION_PATH . '/data/media/' . Aitsu_Registry :: get()->env->idart . '/' . $mediaId . '.xml');
 
-		trigger_error(var_export($this->_getPost('showBlock'), true));
-
 		$isComplete = true;
 		$currentBlock = ($this->_getPost('showBlock') == null) ? (0) : ($this->_getPost('showBlock'));
 		if (!$this->_isComplete($currentBlock -1)) {
@@ -58,7 +56,50 @@ class Module_Custom_Migros_Fitnesspark_Go_Class extends Aitsu_Module_Abstract {
 			 * Umfrage vollständig ausgefüllt. Auswertung ausgeben.
 			 */
 			$this->analysisDone = true;
-			$this->pageContent .= $this->renderAnalysis();
+			
+			/*
+			* Zunächst ist die Summe des Produkte von Wert und Gewicht sowie die gewichtete Mittelwert
+			* der Antworten zu ermitteln.
+			*/
+			$produkteSumme = 0;
+			$gewichteSumme = 0;
+			$questionNo = 0;
+
+			foreach ($this->_surveyXML->questions[0] as $block) {
+				foreach ($block->question as $question) {
+					$questionNo++;
+					$post = self :: _getPost($questionNo);
+
+					/*
+					 * Fragendurchschnitt ermitteln
+					 */
+					if ($post != null) {
+						if (is_array($post)) {
+							$questionMean = 0;
+							foreach ($post as $value) {
+								$questionMean += (double) $value;
+							}
+							$questionMean = $questionMean / count($post);
+						} else {
+							$questionMean = (double) $post;
+						}
+					}
+
+					/*
+					 * Produktsumme sowie Gewicht um entsprechende Werte in der Frage erhöhen.
+					 */
+					$gewichteSumme += (double) $question['weight'];
+					$produkteSumme += ((double) $question['weight'] * $questionMean);
+				}
+			}
+
+			$gewichtetesMittel = $produkteSumme / $gewichteSumme;
+
+			$valueToBeUsed = ($this->_surveyXML->analysis[0]['usemean'] == 'true') ? ($gewichtetesMittel) : ($produkteSumme);
+			
+			$view->valueToBeUsed = $valueToBeUsed;
+			$view->surveyXML = $this->_surveyXML;
+			return $view->render('analysis.phtml');
 		} else {
 			/*
 			 * Umfrage noch nich vollständig durchlaufen
@@ -69,7 +110,6 @@ class Module_Custom_Migros_Fitnesspark_Go_Class extends Aitsu_Module_Abstract {
 			return $view->render('survey.phtml');
 		}
 
-		return $view->render('index.phtml');
 	}
 
 	public static function _getPost($fieldName) {
@@ -97,13 +137,11 @@ class Module_Custom_Migros_Fitnesspark_Go_Class extends Aitsu_Module_Abstract {
 
 			if ($question['required'] == 'true') {
 				if (self :: _getPost($questionNo) == null) {
-					trigger_error($questionNo);
 					return false;
 				}
 			}
 		}
 
-		trigger_error('isComplete returns true');
 		return true;
 	}
 
