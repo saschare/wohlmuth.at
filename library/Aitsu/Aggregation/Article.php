@@ -3,33 +3,31 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
-
 class Aitsu_Aggregation_Article implements Iterator, Countable {
 
-	protected $idlang;
-	protected $types;
+	protected $_idlang;
+	protected $_types;
 
-	protected $fetches = array ();
-	protected $properties = array ();
-	protected $media = array ();
-	protected $whereInCategories = null;
-	protected $whereBeneathCategory = null;
-	protected $orderBy = null;
-	protected $startArticle = 1;
-	protected $filters = null;
+	protected $_fetches = array ();
+	protected $_properties = array ();
+	protected $_media = array ();
+	protected $_whereInCategories = null;
+	protected $_orderBy = null;
+	protected $_startArticle = 1;
+	protected $_filters = null;
 
-	protected $offset = 0;
-	protected $limit = 200;
+	protected $_offset = 0;
+	protected $_limit = 200;
 
-	protected $results = array ();
-	protected $position = 0;
+	protected $_results = array ();
+	protected $_position = 0;
 
 	protected function __construct() {
 
-		$this->idlang = Aitsu_Registry :: get()->env->idlang;
-		$this->whereInCategories = array (
+		$this->_idlang = Aitsu_Registry :: get()->env->idlang;
+		$this->_whereInCategories = array (
 			Aitsu_Registry :: get()->env->idcat
 		);
 	}
@@ -46,7 +44,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		$secondPart = strtok("\n");
 
 		if ($firstPart == 'property') {
-			$this->properties[$alias] = (object) array (
+			$this->_properties[$alias] = (object) array (
 				'alias' => $secondPart,
 				'type' => $datatype
 			);
@@ -54,13 +52,13 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		}
 
 		if ($firstPart == 'files') {
-			$this->media[$alias] = (object) array (
+			$this->_media[$alias] = (object) array (
 				'filter' => str_replace('*', '%', $secondPart)
 			);
 			return $this;
 		}
 
-		$this->fetches[$alias] = (object) array (
+		$this->_fetches[$alias] = (object) array (
 			'name' => $type
 		);
 
@@ -69,14 +67,14 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 
 	public function whereInCategories($categories) {
 
-		$this->whereInCategories = $categories;
+		$this->_whereInCategories = $categories;
 
 		return $this;
 	}
 
 	public function whereBeneathCategory($category) {
 
-		$this->whereInCategories = Aitsu_Db :: fetchCol('' .
+		$this->_whereInCategories = Aitsu_Db :: fetchCol('' .
 		'select distinct child.idcat from ' .
 		'_cat as parent, ' .
 		'_cat as child ' .
@@ -91,14 +89,14 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 
 	public function orderBy($alias, $ascending = true) {
 
-		$this->orderBy[$alias] = $ascending;
+		$this->_orderBy[$alias] = $ascending;
 
 		return $this;
 	}
 
 	public function useOfStartArticle($startArticle) {
 
-		$this->startArticle = $startArticle;
+		$this->_startArticle = $startArticle;
 
 		return $this;
 	}
@@ -112,41 +110,41 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 
 	public function rewind() {
 
-		$this->position = 0;
+		$this->_position = 0;
 		
 		return $this;
 	}
 
 	public function current() {
 
-		return $this->results[$this->position];
+		return $this->_results[$this->_position];
 	}
 
 	public function key() {
 
-		return $this->position;
+		return $this->_position;
 	}
 
 	public function next() {
 
-		$this->position++;
+		$this->_position++;
 		
 		return $this;
 	}
 
 	public function valid() {
 
-		return $this->position < count($this->results);
+		return $this->_position < count($this->_results);
 	}
 
 	public function count() {
 
-		return count($this->results);
+		return count($this->_results);
 	}
 
 	protected function _fetchResults($offset, $limit) {
 
-		if (count($this->results) > 0 && $this->offset == $offset && $this->limit = $limit) {
+		if (count($this->_results) > 0 && $this->_offset == $offset && $this->_limit = $limit) {
 			/*
 			 * Data has already been fetched.
 			 */
@@ -157,23 +155,23 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		 * select clause -> $select
 		 * and joins -> $joins
 		 */
-		if ($this->fetches != null || $this->properties != null || $this->media != null) {
+		if ($this->_fetches != null || $this->_properties != null || $this->_media != null) {
 			$join = array ();
 			$select = array ();
-			if ($this->fetches != null) {
-				foreach ($this->fetches as $alias => $type) {
+			if ($this->_fetches != null) {
+				foreach ($this->_fetches as $alias => $type) {
 					$join[] = "left join _article_content as tbl{$alias} on artlang.idartlang = tbl{$alias}.idartlang and tbl{$alias}.index = '{$type->name}' ";
 					$select[] = "tbl{$alias}.value as {$alias} ";
 				}
 			}
-			if ($this->properties != null) {
-				foreach ($this->properties as $alias => $property) {
+			if ($this->_properties != null) {
+				foreach ($this->_properties as $alias => $property) {
 					$join[] = "left join _aitsu_property as spro{$alias} on spro{$alias}.identifier = '{$property->alias}' left join _aitsu_article_property as tbl{$alias} on tbl{$alias}.idartlang = artlang.idartlang and spro{$alias}.propertyid = tbl{$alias}.propertyid ";
 					$select[] = "tbl{$alias}.{$property->type} as {$alias} ";
 				}
 			}
-			if ($this->media != null) {
-				foreach ($this->media as $alias => $filter) {
+			if ($this->_media != null) {
+				foreach ($this->_media as $alias => $filter) {
 					$join[] = "left join _media as tbl{$alias} on artlang.idart = tbl{$alias}.idart and tbl{$alias}.filename like '{$filter->filter}' and tbl{$alias}.deleted is null left join _media_description as tbl{$alias}2 on tbl{$alias}.mediaid = tbl{$alias}2.mediaid ";
 					$select[] = "tbl{$alias}.mediaid as f_mediaid_{$alias}, tbl{$alias}.filename as f_filename_{$alias}, tbl{$alias}.uploaded as f_uploaded_{$alias},  tbl{$alias}2.name as f_name_{$alias}, tbl{$alias}2.subline as f_subline_{$alias}, tbl{$alias}2.description as f_description_{$alias} ";
 				}
@@ -188,8 +186,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		/*
 		 * where in category -> $whereInCategories
 		 */
-		if ($this->whereInCategories != null) {
-			$whereInCategories = 'and catart.idcat in (' . implode(', ', $this->whereInCategories) . ') ';
+		if ($this->_whereInCategories != null) {
+			$whereInCategories = 'and catart.idcat in (' . implode(', ', $this->_whereInCategories) . ') ';
 		} else {
 			$whereInCategories = '';
 		}
@@ -200,7 +198,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		 * 2 = do not show start articles
 		 * 3 = show only start articles
 		 */
-		switch ($this->startArticle) {
+		switch ($this->_startArticle) {
 			case 2 :
 				$useOfStartArticle = ' and catlang.startidartlang != artlang.idartlang ';
 				break;
@@ -214,10 +212,10 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		/*
 		 * Filters -> $where
 		 */
-		if ($this->filters == null) {
+		if ($this->_filters == null) {
 			$where = '';
 		} else {
-			$where = ' and ' . implode(' and ', $this->filters);
+			$where = ' and ' . implode(' and ', $this->_filters);
 		}
 
 		/*
@@ -226,10 +224,10 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		$orderAlias['modified'] = 'artlang.lastmodified';
 		$orderAlias['created'] = 'artlang.created';
 		$orderAlias['artsort'] = 'artlang.artsort';
-		if ($this->orderBy != null) {
+		if ($this->_orderBy != null) {
 			$orderBy = 'order by ';
 			$order = array ();
-			foreach ($this->orderBy as $alias => $ascending) {
+			foreach ($this->_orderBy as $alias => $ascending) {
 				$order[] = $alias . ' ' . ($ascending ? 'asc' : 'desc');
 			}
 			$orderBy .= implode(', ', $order);
@@ -237,10 +235,10 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 			$orderBy = '';
 		}
 
-		if ($this->media != null) {
+		if ($this->_media != null) {
 			$orderBy = $orderBy == '' ? $orderBy : $orderBy . ', ';
 			$orderByAddOns = array ();
-			foreach ($this->media as $alias => $value) {
+			foreach ($this->_media as $alias => $value) {
 				$orderByAddOns[] = "tbl{$alias}.mediaid desc";
 			}
 			$orderBy .= implode(', ', $orderByAddOns);
@@ -276,8 +274,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		"{$orderBy} " .
 		"limit {$offset}, {$limit} " .
 		"", array (
-			$this->idlang,
-			$this->idlang
+			$this->_idlang,
+			$this->_idlang
 		));
 
 		if (!$results) {
@@ -321,7 +319,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		}
 
 		foreach ($rows as $row) {
-			$this->results[] = $row;
+			$this->_results[] = $row;
 		}
 
 		return;
@@ -330,15 +328,15 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 	public function addFilter($filter, $alias = null) {
 
 		if ($alias == null) {
-			$this->filters[] = $filter;
+			$this->_filters[] = $filter;
 		}
 
-		if (array_key_exists($alias, $this->fetches)) {
-			$this->filters[] = str_replace('?', "tbl{$alias}.value", $filter);
+		if (array_key_exists($alias, $this->_fetches)) {
+			$this->_filters[] = str_replace('?', "tbl{$alias}.value", $filter);
 		}
 
-		if (array_key_exists($alias, $this->properties)) {
-			$this->filters[] = str_replace('?', "tbl{$alias}.{$this->properties[$alias]->type}", $filter);
+		if (array_key_exists($alias, $this->_properties)) {
+			$this->_filters[] = str_replace('?', "tbl{$alias}.{$this->_properties[$alias]->type}", $filter);
 		}
 
 		return $this;
@@ -346,12 +344,12 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 	
 	public function remove($field, $value) {
 		
-		foreach ($this->results as $key => $val) {
+		foreach ($this->_results as $key => $val) {
 			if ($val->$field == $value) {
-				unset($this->results[$key]);
+				unset($this->_results[$key]);
 			}
 		}
 		
-		$this->results = array_values($this->results);
+		$this->_results = array_values($this->_results);
 	}
 }
