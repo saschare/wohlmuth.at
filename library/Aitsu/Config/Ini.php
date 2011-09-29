@@ -14,7 +14,11 @@ class Aitsu_Config_Ini {
 
 	public static function getInstance($ini) {
 
-		$env = (getenv("AITSU_ENV") == '' ? 'live' : getenv("AITSU_ENV"));
+                if (empty($_SERVER['PHP_FCGI_CHILDREN'])) {
+                    $env = (getenv("AITSU_ENV") == '' ? 'live' : getenv("AITSU_ENV"));
+                } else {
+                    $env = (getenv("REDIRECT_AITSU_ENV") == '' ? 'live' : getenv("REDIRECT_AITSU_ENV"));
+                }
 
 		$config = new Zend_Config_Ini('application/configs/config.ini', $env, array (
 			'allowModifications' => true
@@ -27,7 +31,7 @@ class Aitsu_Config_Ini {
 
 			$config->merge($client_config);
 		}
-		
+
 		return $config;
 	}
 }
