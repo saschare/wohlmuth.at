@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Test.xsd">
+  <header name="Gesundheitstest" date="2009-10-01">Machen Sie unseren grossen Test und finden Sie heraus, wie es um Ihre Gesundheit steht.</header>
+  <questions>
+    <block>
+      <question question="Haben Sie in den letzten 24 Monaten Ihren Partner verloren oder haben Sie sich in den letzten 12 Monaten von Ihrem Partner getrennt?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Sind Sie in den letzten 24 Monaten entlassen oder beruflich heruntergestuft worden?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Ist jemand von ihren Angehörigen schwer krank?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben Sie sexuelle Probleme oder sind Sie sexuell unzufrieden?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben Sie drückende Schulden, die Sie seelisch belasten?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben sich Ihre Lebensbedingungen in den letzten 12 Monaten sehr verschlechtert?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Hat sich Ihr Schlaf in den letzten 12 Monaten verschlechtert  (Einschlaf- oder Durchschlafstörungen)?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben sich Ihre Essgewohnheiten in den letzten 12 Monaten verschlechtert (unregelmässiges Essen, Appetitmangel)?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Wurde ein Teil Ihrer Eltern oder Grosseltern älter als 85 Jahre?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="0"/>
+        <answer answer="Nein" value="1"/>
+      </question>
+      <question question="Leidet oder litt ein Teil Ihrer Eltern oder Geschwister an Krebs, Herz-Kreislauferkrankungen, an Bluthochdruck oder an Zucker?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Sind Sie älter als 65 Jahre?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+    </block>
+    <block>
+      <question question="Sind Sie leicht erregbar und/oder angespannt?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Gehen Sie entspannt mit schwierigen Situationen um?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Sind Sie unglücklich oder neigen Sie zu depressiver Stimmung?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Arbeiten Sie vorwiegend im Sitzen?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben Sie zu Hause regelmässig körperliche Arbeit oder treiben Sie wöchentlich mindestens zweimal Sport (mehr als 30 Minuten)?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="0"/>
+        <answer answer="Nein" value="1"/>
+      </question>
+      <question question="Schlafen Sie in der Regel mindestens 6 bis 7 Stunden pro Woche (1 Ausnahme pro Woche erlaubt)?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="0"/>
+        <answer answer="Nein" value="1"/>
+      </question>
+      <question question="Haben Sie mehr als 5 kg Übergewicht?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Rauchen Sie (Zigaretten, Pfeife oder Zigarren)?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Trinken Sie täglich Alkohol?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Leiden Sie auch ohne körperliche Belastung unter Atemknappheit?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Bekommen Sie bei grösseren Anstrengungen wie Treppensteigen Atemnot?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+    </block>
+    <block>
+      <question question="Haben Sie das Gefühl, dass Ihr Herz gelegentlich «stolpert» oder stark klopft?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Ist Ihr Puls meistens regelmässig?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="0"/>
+        <answer answer="Nein" value="1"/>
+      </question>
+      <question question="Leiden Sie gelegentlich oder ständig unter bläulich verfärbten Lippen?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Ist Ihnen manchmal schwindlig oder leiden Sie hin und wieder unter Ohrensausen?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Leiden Sie öfters unter Erkältungen (mehr als zwei Mal pro Jahr)?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Ist es länger als 5 Jahre her, dass Sie hohes Fieber hatten (39° und mehr)?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="0"/>
+        <answer answer="Nein" value="1"/>
+      </question>
+      <question question="Haben Sie Ihre Rachenmandeln noch?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben Sie tote (wurzelbehandelte) Zähne oder leiden Sie an Paradontitis?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben Sie Gelenkbeschwerden oder Morgensteifigkeit der Füsse oder Finger?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben Sie öfters eine entzündete Mundschleimhaut (z. B. Pusteln, Bläschen)?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Wissen oder glauben Sie, dass Sie Gallen- oder Nierensteine hatten?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+    </block>
+    <block>
+      <question question="Haben Sie öfters eine belegte Zunge?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben Sie öfters Magenbeschwerden, Sodbrennen, Aufstossen oder ein Völlegefühl?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Leiden Sie öfters unter schmerzhaften Blähungen?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Leiden Sie öfters unter Darmträgheit, Stuhlbeschwerden, unregelmässigem Stuhl oder Verstopfung?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Essen Sie mehrmals Wurstwaren pro Woche?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Essen Sie viele ballaststoffreiche Nahrungsmittel (Vollkornprodukte, Frischobst, Rohgemüse, Salate, Müsli)?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="0"/>
+        <answer answer="Nein" value="1"/>
+      </question>
+      <question question="Essen Sie regelmässig viele Süssigkeiten?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Haben Sie Hämorrhoiden?"
+               required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Hatten Sie schon einmall Blut im Stuhl, obwohl Sie keine Hämorrhoiden hatten?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="1"/>
+        <answer answer="Nein" value="0"/>
+      </question>
+      <question question="Trinken Sie täglich mindestens 2 Liter Wasser oder Tee?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="0"/>
+        <answer answer="Nein" value="1"/>
+      </question>
+      <question question="Lassen Sie sich jährlich einmal untersuchen oder gehen Sie einmal pro Jahr zum Arzt?"
+			                 required="true" multiple="false" weight="1">
+        <answer answer="Ja" value="0"/>
+        <answer answer="Nein" value="1"/>
+      </question>
+    </block>
+  </questions>
+  <analysis usemean="false">
+    <score min="30" max="999" title="Gehen Sie zum Arzt!">Sie müssen unbedingt zum Arzt. Ihre gesundheitliche Verfassung ist bedenklich. Sie brauchen dringend eine gründliche ärztliche Untersuchung und Behandlung, um vorhandene Risiken und Beschwerden zu bekämpfen. Zudem müssen Sie alle Risikofaktoren abbauen, die Sie selbst beeinflussen können: Nehmen Sie ab und stellen Sie auf gesunde Ernährung um.</score>
+    <score min="20" max="29.5" title="Angeschlagen! ">Sie sind gesundheitlich angeschlagen und eine Kontrolle durch einen Arzt ist angezeigt. Möglicherweise haben Sie bereits Störungen oder Krankheiten, die dringend behandelt werden müssen. Auf jeden Fall sollten Sie Ihre Risiken reduzieren. Hören Sie auf zu rauchen, nehmen Sie ab, essen Sie weniger Wurst und Fett und nehmen Sie dafür genügend Vitamine und Mineralstoffe zu sich. Treiben Sie mindestens zweimal pro Woche Ausdauersport.</score>
+    <score min="11" max="19.5" title="Befriedigend!">Ihre gesundheitliche Verfassung ist vermutlich befriedigend. Trotzdem kann nicht ganz ausgeschlossen werden, dass Ihr Immunsystem geschwächt ist. Auch die Belastungen, die Sie Ihren Organen zumuten, sind wahrscheinlich nicht ganz unbedenklich. Achten Sie vermehrt auf Ihre Gesundheit. Ansonsten kann es in den nächsten fünf Jahren zu ernsthaften Störungen kommen. Melden Sie sich zudem für eine ärztliche Vorsorgeuntersuchung an.</score>
+    <score min="0" max="10.5" title="Topfit!">Sie sind sehr wahrscheinlich topfit und verfügen über eine hervorragende physische und psychische Gesamtverfassung. Ihr Immunsystem ist vermutlich stabil und Sie weisen wahrscheinlich keine Risiken für Organerkrankungen oder Funktionsstörungen auf. Machen Sie trotzdem bei Gelegenheit eine ärztliche Vorsorgeuntersuchung.</score>
+  </analysis>
+</root>

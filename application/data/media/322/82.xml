@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Test.xsd">
+  <header name="Was tun Sie für Ihre Hormone?" date="2009-04-01">Bitte denken Sie daran, dass dieser Kurztest keine ärztliche Diagnose ersetzen kann und will.</header>
+  <questions>
+    <block>
+      <question question="Wie alt sind Sie?"
+                required="true" multiple="false" weight="1">
+        <answer answer="Unter 30" value="3"/>
+        <answer answer="30 bis 40" value="2"/>
+        <answer answer="40 bis 50" value="1"/>
+        <answer answer="Über 50" value="0"/>
+      </question>
+      <question question="Zu welchem Geschlecht gehören Sie?" required="true" multiple="false"
+                weight="1">
+        <answer answer="Männlich" value="3"/>
+        <answer answer="Weiblich" value="1"/>
+      </question>
+      <question multiple="false" question="Wie oft bewegen Sie sich während mindestens 30 Minuten?" required="true"
+                weight="1">
+        <answer answer="Täglich " value="4"/>
+        <answer answer="3- bis 4-mal pro Woche" value="2"/>
+        <answer answer="Weniger als 2-mal pro Woche" value="0"/>
+      </question>
+      <question multiple="false" question="Wie viel Zeit verbringen Sie mit Ausdauersportarten?"
+                required="true" weight="1">
+        <answer answer="4 bis 5 Stunden pro Woche" value="3"/>
+        <answer answer="2 bis 3 Stunden pro Woche" value="2"/>
+        <answer answer="1 Stunde pro Woche" value="1"/>
+        <answer answer="Weniger als 1 Stunde pro Woche" value="0"/>
+      </question>
+    </block>
+    <block>
+      <question multiple="false"
+                question="Wieviel Zeit verbringen Sie mit Entspannungsübungen (Yoga, Stretching, Meditation etc.)?"
+                required="true" weight="1">
+        <answer answer="Über 2 Stunden pro Woche" value="3"/>
+        <answer answer="2 bis 3 Stunden pro Woche" value="2"/>
+        <answer answer="Weniger als 1 Stunde pro Woche" value="0"/>
+      </question>
+      <question multiple="false" question="Haben Wie viele Stunden schlafen Sie nachts?" 
+	  required="true"
+                weight="1">
+        <answer answer="6 bis 8 Stunden" value="3"/>
+        <answer answer="5 bis 6 Stunden" value="2"/>
+        <answer answer="4 bis 5 Stunden" value="0"/>
+      </question>
+      <question multiple="false"
+                question="Was essen Sie?"
+                required="true" weight="1">
+        <answer answer="Fettarme, ausgewogene Vollwertkost" value="3"/>
+        <answer answer="Meist abwechslungsreich und gesund, aber hin und wieder Fett und Zuckerhaltiges" value="1"/>
+        <answer answer="Meist Kantinenessen und Fastfood" value="1"/>
+      </question>
+      <question multiple="false"
+                question="Wie oft essen Sie fettarme Milchprodukte?"
+                required="true" weight="1">
+        <answer answer="Mehrmals täglich" value="3"/>
+        <answer answer="Einmal pro Tag" value="2"/>
+        <answer answer="2- bis 3-mal pro Woche" value="1"/>
+        <answer answer="Selten oder nie" value="0"/>
+      </question>
+    </block>
+	    <block>
+      <question multiple="false"
+                question="Wie oft essen Sie frisches Obst und Gemüse?"
+                required="true" weight="1">
+        <answer answer="Mehrmals täglich" value="3"/>
+        <answer answer="Einmal pro Tag" value="2"/>
+        <answer answer="2- bis 3-mal pro Woche" value="1"/>
+        <answer answer="Selten oder nie" value="0"/>
+      </question>
+      <question multiple="false" question="Wann nehmen Sie in der Regel das Abendessen ein?" 
+	  required="true"
+                weight="1">
+        <answer answer="Vor 18 Uhr" value="3"/>
+        <answer answer="Zwischen 18 und 19 Uhr" value="1"/>
+        <answer answer="Nach 19 Uhr" value="0"/>
+      </question>
+      <question multiple="false"
+                question="Wie viel Wasser oder ungesüssten Tee trinken Sie täglich?"
+                required="true" weight="1">
+        <answer answer="Über 2 Liter" value="3"/>
+        <answer answer="1 bis 2 Liter" value="1"/>
+        <answer answer="Unter 1 Liter" value="0"/>
+      </question>
+      <question multiple="false"
+                question="Wie hoch ist Ihr BMI?"
+                required="true" weight="1" reference="http://www.fitnesspark.ch/go/front_content.php?idart=3177" referenceName="BMI-Rechner">
+        <answer answer="19 bis 24" value="3"/>
+        <answer answer="25 bis 30" value="1"/>
+        <answer answer="Unter 19/über 30" value="0"/>
+      </question>
+    </block>
+	
+	<block>
+      <question multiple="false"
+                question="Trinken Sie Alkohol?"
+                required="true" weight="1">
+        <answer answer="Selten oder nie" value="3"/>
+        <answer answer="Hin und wieder" value="1"/>
+        <answer answer="Regelmässig" value="0"/>
+      </question>
+      <question multiple="false" question="Rauchen Sie?" 
+	  required="true"
+                weight="1">
+        <answer answer="Nein" value="3"/>
+        <answer answer="Unter 5 Zigaretten täglich" value="1"/>
+        <answer answer="Über 5 Zigaretten täglich" value="0"/>
+      </question>
+      <question multiple="false"
+                question="Wie oft haben Sie beruflich Stress?"
+                required="true" weight="1">
+        <answer answer="Selten bis nie" value="3"/>
+        <answer answer="Hin und wieder" value="2"/>
+        <answer answer="Praktisch täglich" value="0"/>
+      </question>
+      <question multiple="false"
+                question="Wie entspannen Sie sich in Stresssituationen?"
+                required="true" weight="1">
+        <answer answer="Mit leichtem Sport" value="3"/>
+        <answer answer="Mit Freunden oder Musik " value="2"/>
+        <answer answer="Vor dem Fernseher" value="1"/>
+      </question>
+    </block>
+	
+		<block>
+      <question multiple="false"
+                question="Wie wohnen Sie?"
+                required="true" weight="1">
+        <answer answer="Mit einem Partner oder in einer Familie" value="3"/>
+        <answer answer="Mit einem Haustier" value="1"/>
+        <answer answer="Allein" value="0"/>
+      </question>
+      <question multiple="false" question="Wie oft treffen Sie sich mit Freunden?" 
+	  required="true"
+                weight="1">
+        <answer answer="Regelmässig" value="3"/>
+        <answer answer="Hin und wieder" value="1"/>
+        <answer answer="Selten" value="0"/>
+      </question>
+      <question multiple="false"
+                question="Wie oft empfinden Sie Freude und Spass?"
+                required="true" weight="1">
+        <answer answer="Sehr oft" value="3"/>
+        <answer answer="Hin und wiederr" value="1"/>
+        <answer answer="Selten" value="0"/>
+      </question>
+      <question multiple="false"
+                question="Wie oft lachen Sie?"
+                required="true" weight="1">
+        <answer answer="Oft und gern" value="3"/>
+        <answer answer="Hin und wieder" value="1"/>
+        <answer answer="Selten oder nie" value="0"/>
+      </question>
+    </block>
+	<block>
+      <question multiple="false"
+                question="Wie zufrieden sind Sie mit Ihrem Sexualleben?"
+                required="true" weight="1">
+        <answer answer="Sehr zufrieden" value="3"/>
+        <answer answer="Halbwegs zufrieden" value="1"/>
+        <answer answer="Unzufrieden" value="0"/>
+      </question>
+      <question multiple="false" question="Wie lautet Ihre Lebenseinstellung?" 
+	  required="true"
+                weight="1">
+        <answer answer="Immer positiv" value="3"/>
+        <answer answer="Überwiegend positiv" value="2"/>
+        <answer answer="Eher negativ" value="0"/>
+      </question>
+    </block>
+	
+  </questions>
+  <analysis usemean="false">
+    <score min="51" max="999" title="Herzlichen Glückwunsch!">
+Sie tun sehr viel für Ihren Körper und somit für Ihre Hormone. Ruhen Sie nicht auf Ihren Lorbeeren aus und machen Sie weiter so! </score>
+    <score min="41" max="50" title="Sie tun bereits eine Menge für Ihre Hormone.">Sie können aber ohne grossen Aufwand einiges optimieren. Zum Beispiel mehr Bewegung, weniger fettes Essen, weniger Alkohol und mehr Schlaf. Ihr Körper wird es Ihnen mit mehr Lebensfreude und Vitalität danken.</score>
+    <score min="31" max="40" title="Sie müssen mehr für Ihre Hormone tun.">Denken Sie daran: Alkohol, Stress, Nikotin, zucker- oder fettreiche Ernährung lassen den Hormonpegel im Blut absinken und lähmen Ihre Antriebskraft.</score>
+    <score min="0" max="29" title="Sie kümmern sich zu wenig um Ihre Gesundheit.">Eine Neuorientierung ist unumgänglich: Lesen Sie die Ausgabe von «go…» aufmerksam durch und befolgen Sie die Ratschläge unserer Experten!</score>
+  </analysis>
+</root>

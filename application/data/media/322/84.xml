@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Test.xsd">
+    <header name="Wie hoch ist Ihr Osteoporose-Risiko?" date="2007-12-17">Finden Sie heraus, wie
+        stabil Ihre Knochen sind - beantworten Sie die folgenden Fragen. Denken Sie bitte daran,
+        dass es sich nur um einen kurzen Test handelt, der keine ärztliche Diagnose ersetzen kann
+        und will.</header>
+    <questions>
+        <block>
+            <question question="Gibt es in Ihrer Familie bereits Fälle von Osteoporose?"
+                required="true" multiple="false" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+                <answer answer="weiss nicht" value="0"/>
+            </question>
+            <question question="Haben Sie häufig Rückenschmerzen?" required="true" multiple="false"
+                weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Leiden Sie an einer chronisch entzündlichen Erkrankung wie Morbus Crohn oder Gelenkrheuma?"
+                required="true" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false" question="Treiben Sie regelmässig Sport?" required="true"
+                weight="1">
+                <answer answer="ja, mindestens zweimal pro Woche" value="0"/>
+                <answer answer="nein" value="1"/>
+                <answer answer="selten" value="1"/>
+            </question>
+            <question multiple="false"
+                question="Trinken Sie täglich mehr als drei Tassen Kaffee oder 1/2 Liter Cola?"
+                required="true" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Mussten Sie schon einmal länger als sechs Monate Kortisonpräparate einnehmen?"
+                required="true" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Haben Sie über mindestens fünf Jahre hinweg mehr als 10 Zigaretten täglich geraucht?"
+                required="true" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Haben Sie über mindestens fünf Jahre hinweg täglich mehr als ein Liter Bier, eine halbe Flasche Wein oder ähnliche Mengen Alkohol getrunken?"
+                required="true" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+        </block>
+        <block>
+            <question multiple="false"
+                question="Ernähren Sie sich seit Ihrer Kindheit ausreichend mit Milchprodukten, oder nehmen Sie schon seit längerer Zeit Kalziumtabletten ein?"
+                required="true" weight="1">
+                <answer answer="ja" value="0"/>
+                <answer answer="nein" value="1"/>
+            </question>
+            <question multiple="false" question="Wie hoch ist Ihr Body-Mass Index?" required="true"
+                weight="1" reference="http://www.fitnesspark.ch/go/front_content.php?idart=3177"
+                referenceName="BMI-Rechner">
+                <answer answer="grösser als 20" value="0"/>
+                <answer answer="kleiner als 20" value="1"/>
+            </question>
+            <question multiple="false"
+                question="Sind Sie nach dem 25. Lebensjahr um mehr als 4 cm kleiner geworden?"
+                required="true" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Haben Sie in letzter Zeit ungewollt mehr als 10% Ihres Körpergewichts verloren?"
+                required="true" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false" question="Sind Sie männlich oder weiblich?" required="true"
+                weight="1">
+                <answer answer="weiblich" value="1"/>
+                <answer answer="männlich" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Nur für Frauen: Trat Ihre Regelblutung vor dem 15. Altersjahr auf?"
+                required="false" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Nur für Männer: Leiden Sie unter einer Störung des Testosteronhaushaltes, oder leiden Sie unter Impotenz?"
+                required="false" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false" question="Wie alt sind Sie?" required="true" weight="1">
+                <answer answer="unter 45" value="0"/>
+                <answer answer="über 45" value="1"/>
+            </question>
+        </block>
+        <block>
+            <blockcomment>Für Frauen unter 45 Jahren und Männer endet der Test hier. Für Frauen über
+                45 Jahre geht der Test weiter:</blockcomment>
+            <question multiple="false"
+                question="Hatten Sie seit Ihrem 45. Lebensjahr ohne Einwirkung äusserer Kräfte (Verkehrs- oder Sportunfall) einen Knochenbruch?"
+                required="false" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Kamen Sie vor der Vollendung Ihres 45. Lebensjahres in die Wechseljahre?"
+                required="false" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+            <question multiple="false"
+                question="Haben Sie jemals eine Hormonersatztherapie gemacht?" required="false"
+                weight="1">
+                <answer answer="ja" value="0"/>
+                <answer answer="nein" value="1"/>
+            </question>
+            <question multiple="false"
+                question="Hatten Sie weniger als 30 Jahre Regelblutungen, oder sind Ihnen die Eierstöcke entfernt worden?"
+                required="false" weight="1">
+                <answer answer="ja" value="1"/>
+                <answer answer="nein" value="0"/>
+            </question>
+        </block>
+    </questions>
+    <analysis usemean="false">
+        <score min="0" max="3.5" title="Herzlichen Glückwunsch!">Ihr Risiko, an Osteoporose zu
+            erkranken, ist gering. Achten Sie weiterhin auf eine gesunde Lebensweise. Ernähren Sie
+            sich -kalziumreich, bewegen Sie sich ausreichend, und meiden Sie Nikotin, Kaffee und
+            Alkohol - Ihre Knochen werden es Ihnen danken.</score>
+        <score min="0.5" max="7.5" title="Vorsicht!">Das Testresultat bedeutet nicht zwingend, dass
+            Sie tatsächlich an Osteoporose erkranken. Aber Sie sind überdurchschnittlich gefährdet;
+            vor allem wenn Sie familiär vorbelastet sind. Achten Sie unbedingt auf eine gesunde
+            Lebensweise mit ausreichender Bewegung und kalziumreicher -Ernährung. Klären Sie
+            sicherheitshalber mit einem Spezialisten ab, ob Sie tatsächlich zur Risikogruppe
+            gehören, und informieren Sie sich eingehend zum Thema Osteoporose.</score>
+        <score min="7.5" max="99" title="Alarm!">Ihr persönliches Osteoporose-Risiko ist
+            überdurchschnittlich hoch. Mit jedem neuen Lebensjahr wird sich das Risiko weiter
+            erhöhen. Lassen Sie Ihre Knochendichte durch einen Facharzt testen, und informieren Sie
+            sich eingehend über die verschiedenen Therapien. Ernähren Sie sich unbedingt
+            kalziumreich, und vermeiden Sie auf jeden Fall Nikotin, Kaffee und Alkohol. Trainieren
+            Sie Ihre Muskulatur regelmässig, und vermeiden Sie Stürze!</score>
+    </analysis>
+</root>
