@@ -13,6 +13,8 @@
  * 
  * @link http://code.google.com/apis/maps/documentation/javascript/basics.html Google Maps Basics
  * @link http://code.google.com/apis/maps/documentation/javascript/overlays.html Google Maps Overlays
+ * 
+ * This module has been made availabe by fashionweb Felix Kuster (http://www.fashionweb.ch).
  */
 class Module_Google_Maps_Javascript_Aggregated_Class extends Aitsu_Module_Abstract {
 
