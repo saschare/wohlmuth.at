@@ -358,7 +358,11 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		return $this;
 	}
 
-	public function havingTags(array $tags) {
+	public function havingTags($tags) {
+		
+		if ($tags == null || !is_array($tags)) {
+			return;
+		}
 
 		if (count($tags) == 0) {
 			return;

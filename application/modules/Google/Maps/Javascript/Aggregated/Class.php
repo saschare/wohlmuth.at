@@ -83,15 +83,20 @@ class Module_Google_Maps_Javascript_Aggregated_Class extends Aitsu_Module_Abstra
 
 		$view->locations = $l->fetch();
 
-		$view->clat = 0;
-		$view->clng = 0;
-		$count = count($view->locations);
-		if ($count > 0) {
+		$minLat = 1000;
+		$maxLat = -1000;
+		$minLng = 1000;
+		$maxLng = -1000;
+		if (count($view->locations)) {
 			foreach ($view->locations as $location) {
-				$view->clat += $location->lat / $count;
-				$view->clng += $location->lng / $count;
+				$minLat = min($minLat, $location->lat);
+				$maxLat = max($maxLat, $location->lat);
+				$minLng = min($minLng, $location->lng);
+				$maxLng = max($maxLng, $location->lng);
 			}
 		}
+		$view->clat = ($minLat + $maxLat) / 2;
+		$view->clng = ($minLng + $maxLng) / 2;
 
 		return $view->render('index.phtml');
 	}
