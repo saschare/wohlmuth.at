@@ -8,7 +8,7 @@
 
 abstract class Aitsu_Module_Tree_Abstract extends Aitsu_Module_Abstract {
 
-	public static function init($context) {
+	public static function init($context, $instance = null) {
 
 		if (!empty ($context['params'])) {
 			$params = Aitsu_Util :: parseSimpleIni($context['params']);
