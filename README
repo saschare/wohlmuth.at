@@ -1,9 +1,10 @@
-Current version: 2.3.9-5
+Current version: 2.3.9-6
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-10-06: Eliminated notice in Aitsu_Registry on line 107.
 * 2011-10-05: Fixed minor bug in Google.Maps.Javascript.Aggregated.
 * 2011-10-05: Fixed init method of Aitsu_Module_Tree_Abstract.
 * 2011-09-23: Added Google.Maps.Javascript.Aggregated.
