@@ -27,6 +27,9 @@ abstract class Aitsu_Module_Tree_Abstract extends Aitsu_Module_Abstract {
 
 		$types = array ();
 
+		$index = preg_replace('/[^a-zA-Z_0-9]/', '_', $context['index']);
+		$index = str_replace('.', '_', $index);
+
 		if (Aitsu_Application_Status :: isEdit()) {
 			if (is_readable(APPLICATION_PATH . '/skins/' . Aitsu_Config :: get('skin') . '/module/hierarchy.ini')) {
 				$schemaHierachy = new Zend_Config_Ini(APPLICATION_PATH . '/skins/' . Aitsu_Config :: get('skin') . '/module/hierarchy.ini');
@@ -39,17 +42,11 @@ abstract class Aitsu_Module_Tree_Abstract extends Aitsu_Module_Abstract {
 			$types = array ();
 			self :: _getChildrenOf($genuineType, $types, $schemaTree);
 			ksort($types);
-
-			$index = preg_replace('/[^a-zA-Z_0-9]/', '_', $context['index']);
-			$index = str_replace('.', '_', $index);
 		}
 
-		$type = null;
-		if (!empty ($types)) {
-			$type = Aitsu_Content_Config_Select :: set($index, $genuineType . '.SubType', 'Subtype', $types, 'Type');
-		}
+		$type = Aitsu_Content_Config_Select :: set($index, $genuineType . '.SubType', 'Subtype', $types, 'Type');
 
-		if (!empty ($type) && $type != $moduleName && array_key_exists($type, $types)) {
+		if (!empty ($type) && $type != $moduleName) {
 			/*
 			 * A subtype has to be used instead of the genuine one.
 			 */
