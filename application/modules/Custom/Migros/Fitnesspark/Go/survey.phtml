@@ -1,8 +1,8 @@
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST" style="display:inline;">
 	<?php if ($this->isRendered) : ?>
-	<div class="surveyNotCompleteWarning">
+	<div class="surveyNotCompleteWarning"><h4>
 		<?php echo Aitsu_Translate :: _('Die Grau hinterlegten Fragen müssen für die Auswertung ausgefüllt werden. Bitte ergänzen Sie diese entsprechend.'); ?>
-	</div>
+	</h4></div>
 	<?php endif; ?>
 	
 	<?php $questionNo = 0; ?>
@@ -30,8 +30,8 @@ if (!empty ($question['reference']) && !empty ($question['referenceName'])) {
 }
 ?>				
 					<div class="surveyQuestionAnswer<?php echo $requiredClass; ?>">
-						<div class="surveyQuestion">
-							<?php echo $questionNo; ?>. <?php echo $question['question']; ?><?php echo $reference; ?>
+						<div class="surveyQuestion"><h5>
+							<?php echo $questionNo; ?>. <?php echo $question['question']; ?><?php echo $reference; ?></h5>
 						</div>
 						
 						<?php if ($question['multiple'] == 'true') : ?>

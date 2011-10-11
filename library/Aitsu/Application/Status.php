@@ -168,7 +168,7 @@ class Aitsu_Application_Status {
 
 	public static function version() {
 
-		$version = '$version/2.3.9/revision/10$';
+		$version = '$version/2.3.9/revision/11$';
 		
 		$version = str_replace(array (
 			'version/',
