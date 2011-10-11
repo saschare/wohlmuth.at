@@ -29,7 +29,7 @@ class Aitsu_Persistence_View_Media {
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
-		'		from _media ' .
+		'		from _media media ' .
 		'		where ' .
 		'			(idart = :idart or idart is null)' .
 		'		group by' .
@@ -66,7 +66,7 @@ class Aitsu_Persistence_View_Media {
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
-		'		from _media ' .
+		'		from _media media ' .
 		'		where ' .
 		'			(idart = :idart or idart is null)' .
 		'		group by' .
@@ -116,7 +116,7 @@ class Aitsu_Persistence_View_Media {
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
-		'		from _media ' .
+		'		from _media media ' .
 		'		where ' .
 		'			idart = :idart ' .
 		'		group by' .
@@ -166,7 +166,7 @@ class Aitsu_Persistence_View_Media {
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
-		'		from _media ' .
+		'		from _media media ' .
 		'		where ' .
 		'			idart = :idart ' .
 		'		group by' .
