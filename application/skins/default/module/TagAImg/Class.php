@@ -80,7 +80,7 @@ class Skin_Module_TagAImg_Class extends Aitsu_Ee_Module_Abstract {
 			$view->class = empty($class) ? NULL : ' class="' . $class . '"';
 			$view->style = empty($style) ? NULL : ' style="' . $style . '"';
 			
-			if (count($view->images) == 0 || !href) {
+			if (count($view->images) == 0 || !$href) {
 				if (Aitsu_Application_Status :: isEdit()) {
 					$output = '| TagAImg :: ' . $index . ' |';
 				} else {
