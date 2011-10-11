@@ -1,9 +1,11 @@
-Current version: 2.3.9-9
+Current version: 2.3.9-10
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-10-11: Suppress protected image resources from being cached
+              in the transparent cache.
 * 2011-10-06: Eliminated notice in Aitsu_Registry on line 107.
 * 2011-10-05: Fixed minor bug in Google.Maps.Javascript.Aggregated.
 * 2011-10-05: Fixed init method of Aitsu_Module_Tree_Abstract.
