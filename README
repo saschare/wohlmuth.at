@@ -1,9 +1,10 @@
-Current version: 2.3.9-13
+Current version: 2.3.9-14
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-10-11: Added order by in Aitsu_Persistence_View_Media.
 * 2011-10-11: Fixed minor bug in Aitsu_Persistence_View_Media.
 * 2011-10-11: Suppress protected image resources from being cached
               in the transparent cache.
