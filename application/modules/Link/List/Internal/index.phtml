@@ -1,7 +1,7 @@
 <ul>
 <?php foreach ($this->links as $link) : $link = (object) $link; ?>
 	<li>
-		<a href="{idart-<?php echo $link->idart; ?>}" title="<?php echo $link->pagetitle; ?>"><?php echo $link->pagetitle; ?></a>
+		<a href="{ref:idart-<?php echo $link->idart; ?>}" title="<?php echo $link->pagetitle; ?>"><?php echo $link->pagetitle; ?></a>
 	</li>
 <?php endforeach; ?>
 </ul>
