@@ -1,9 +1,10 @@
-Current version: 2.3.10-1
+Current version: 2.3.10-2
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-10-13: Updated plupload plugin and changed version tag to 2.3.10.
 * 2011-10-13: Fixed minor bug in Link.List.Internal module and added
               the possibility to specify a template. 
 * 2011-10-11: Added order by in Aitsu_Persistence_View_Media.
