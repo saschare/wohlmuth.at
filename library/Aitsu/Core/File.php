@@ -308,6 +308,8 @@ class Aitsu_Core_File {
 	public static function get($path, $inline = false) {
 
 		ob_end_clean();
+		
+		self :: _abortIfNotAllowed($path);
 
 		$fileSource = APPLICATION_PATH . '/data/media/' . $path;
 
@@ -491,6 +493,46 @@ class Aitsu_Core_File {
 		}
 
 		return $return;
+	}
+	
+	protected static function _abortIfNotAllowed($path) {
+
+		if (!preg_match('/^\\d{1,}/', $path, $match)) {
+			throw new Exception('Not a valid resource path.');
+		}
+
+		$idart = $match[0];
+
+		$result = Aitsu_Db :: fetchRowC(60 * 60 * 24, '' .
+		'select ' .
+		'	catlang.idcat, ' .
+		'	min(catlang.public) public ' .
+		'from _cat_art catart ' .
+		'left join _cat_lang catlang on catart.idcat = catlang.idcat ' .
+		'where ' .
+		'	catart.idart = :idart ' .
+		'group by ' .
+		'	catlang.idcat ', array (
+			':idart' => $idart
+		));
+
+		if ($result['public'] > 0) {
+			return;
+		}
+
+		$user = Aitsu_Adm_User :: getInstance();
+
+		if ($user == null || !$user->isAllowed(array (
+				'resource' => array (
+					'type' => 'cat',
+					'id' => $result['idcat']
+				),
+				'area' => 'frontend',
+				'action' => 'view'
+			))) {
+			header('HTTP/1.1 403 Forbidden');
+			exit (0);
+		}
 	}
 
 }
