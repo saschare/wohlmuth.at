@@ -35,6 +35,7 @@ class Aitsu_Core_Image_Resize {
 	}
 
 	public function setImageSource(Aitsu_Core_Image_Source $image) {
+
 		$this->imageSrc = $image;
 
 		return $this;
@@ -107,6 +108,8 @@ class Aitsu_Core_Image_Resize {
 		}
 
 		$this->imagePath = $this->imageSrc->getImagePath();
+
+		$this->_abortIfNotAllowed($this->imagePath);
 
 		$imageSource = APPLICATION_PATH . '/data/media/' . $this->imagePath;
 
@@ -495,6 +498,46 @@ class Aitsu_Core_Image_Resize {
 			'x' => $x,
 			'y' => $y
 		);
+	}
+
+	protected function _abortIfNotAllowed($path) {
+
+		if (!preg_match('/^\\d{1,}/', $path, $match)) {
+			throw new Exception('Not a valid image path.');
+		}
+
+		$idart = $match[0];
+
+		$result = Aitsu_Db :: fetchRowC(60 * 60 * 24, '' .
+		'select ' .
+		'	catlang.idcat, ' .
+		'	min(catlang.public) public ' .
+		'from _cat_art catart ' .
+		'left join _cat_lang catlang on catart.idcat = catlang.idcat ' .
+		'where ' .
+		'	catart.idart = :idart ' .
+		'group by ' .
+		'	catlang.idcat ', array (
+			':idart' => $idart
+		));
+
+		if ($result['public'] > 0) {
+			return;
+		}
+
+		$user = Aitsu_Adm_User :: getInstance();
+
+		if ($user == null || !$user->isAllowed(array (
+				'resource' => array (
+					'type' => 'cat',
+					'id' => $result['idcat']
+				),
+				'area' => 'frontend',
+				'action' => 'view'
+			))) {
+			header('HTTP/1.1 403 Forbidden');
+			exit (0);
+		}
 	}
 
 }
