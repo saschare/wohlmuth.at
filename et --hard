@@ -1,0 +1,2387 @@
+commit ef290356eef1d6ea5be20c33d04323db47b33e8e
+Author: Christian Kehres <c.kehres@webtischlerei.de>
+Date:   Thu Sep 29 13:38:42 2011 +0200
+
+    fastCGI Bugfixing
+
+commit 28bca3ec8210181bda11fcf25a94b0ba727e4dbf
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 23 14:15:14 2011 +0200
+
+    Version 2.3.9, Revision 1
+
+commit 763a9068d03e9eb7e9ec375611ce1cb0f5b2e955
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 23 14:14:52 2011 +0200
+
+    Google.Maps.Javascript.Aggregated module. Ready for production.
+
+commit b02007c7abb6b6800d05a7a87441117979385b7a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 23 11:39:30 2011 +0200
+
+    Added havingTags filter to Aitsu_Aggregation_Article.
+
+commit cfb943c97ed73ebcebf73b4247d43a3d5a95bb02
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 23 10:56:46 2011 +0200
+
+    Changed protected members' names according to naming convention of Zend.
+
+commit 44af5e11e546e25c33f46efb2e99e7dc87ddaf0f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 22 19:43:29 2011 +0200
+
+    Version 2.3.8, Revision 9
+
+commit 7fe871e496b34e01c50aba27c337d6b773ba5b79
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 22 19:39:07 2011 +0200
+
+    Added Google Locator Article Plugin.
+
+commit 2ffebe37361ca984b7234ebf528b9c6d60bb4934
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 22 18:41:48 2011 +0200
+
+    Intermediate dev stage.
+
+commit 6fcbe15784ce12e23b144c90b72b20ed965fffed
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 22 17:59:35 2011 +0200
+
+    Intermediate dev stage.
+
+commit 5bcc9d5affac5427bf7842e1192342834ec899ad
+Merge: 94853c0 0d86e9c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 22 17:54:27 2011 +0200
+
+    Merge branch 'master' into googlemaps
+
+commit 0d86e9cb1f01b87b7f64ed949340a260251a4372
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 22 17:50:34 2011 +0200
+
+    Version 2.3.8, Revision 8
+
+commit 139d39091260eea634b96e8f126e1d2ec79ddb26
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 22 17:46:00 2011 +0200
+
+    Added Aitsu_Service_Google_Geocode.
+
+commit db0804a37ef63214cf157cf873b4c606874cc4e8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 22 16:50:41 2011 +0200
+
+    Intermediate dev stage.
+
+commit 94853c0430478d9438cd6c7ff4d0237187b5ef0c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 21 20:55:08 2011 +0200
+
+    Intermediate dev stage. Not to be used in production environment.
+
+commit 3a969658df9b03d7fb5e8bd530264df1e057c2a4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 21 20:46:24 2011 +0200
+
+    Version 2.3.8, Revision 7
+
+commit f0fa91fe5afd6ada16c13f05c2828e810ceee0f7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 21 20:30:07 2011 +0200
+
+    Version 2.3.8, Revision 6
+
+commit d465b315dc4c6d0cd8ccb91b559566c8b599d64b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 21 20:28:17 2011 +0200
+
+    Version 2.3.8, Revision 5
+
+commit 5249e0f62087221a414c61c731d29f45108f4428
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 21 20:27:22 2011 +0200
+
+    Allow the use of parameters in Google.Maps.Javascript.
+
+commit 26f374c6a42bf3181eca080c605b57210ce19d05
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 21 09:53:54 2011 +0200
+
+    Version 2.3.8, Revision 4
+
+commit 8c664088d41db36466eed25cec81d11713fb41c5
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Sep 19 17:12:38 2011 +0200
+
+    Version 2.3.8, Revision 3
+
+commit aff826b530e7dccb1749f2936d4ab2e55131e229
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Sep 19 17:12:16 2011 +0200
+
+    Policy basics implemented.
+
+commit 47a7f99dae5fb9dc5d4d0aeff9d5b5eae50d8ee2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Sep 19 16:16:26 2011 +0200
+
+    Intermediate dev stage.
+
+commit 05a0a9ebb91b7f24f4e51a4e1906bf75a9a1643f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Sep 19 16:05:55 2011 +0200
+
+    Intermediate dev stage.
+
+commit 0108946c207d26735fe3b4780a42a6879faa8678
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Sep 19 13:08:22 2011 +0200
+
+    Intermediate dev stage.
+
+commit b375b64c5161e5910b045b791055db25d8ee7a9f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 16 19:19:37 2011 +0200
+
+    Version 2.3.8, Revision 2
+
+commit 9d4cd93e8ddbfe2224af75c34aa0c64787605162
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 16 19:06:44 2011 +0200
+
+    Version 2.3.8, Revision 1
+
+commit 036f63ce80765f183d848442613dd16bcae78e11
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 16 18:58:18 2011 +0200
+
+    Version 2.3.7, Revision 50
+
+commit ab1cdeea3658f95839456c3c9bfd8ca82997c3a4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 16 18:57:44 2011 +0200
+
+    Version 2.3.7, Revision 49
+
+commit 0ae19d473cd0277cba6320b8b789098e911a9fd4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 16 18:57:05 2011 +0200
+
+    Version 2.3.7, Revision 48
+
+commit 099a9454df68fbcd3a623225aa150631dff6d475
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 16 18:56:28 2011 +0200
+
+    Finished dev of cli script implementation.
+
+commit d366c9f016b7942f5ce404ddbc27a9eec87905ef
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 16 09:34:33 2011 +0200
+
+    Added statement attribute to ait_policy_art.
+
+commit 7e64d0f10699efbe60b94a212ffb77a3a981c3f4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 16 09:21:00 2011 +0200
+
+    Version 2.3.7, Revision 47
+
+commit 7070f1cdf3cdae0c121f1f539ce62615559ee893
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 15 17:58:38 2011 +0200
+
+    Intermediate dev stage.
+
+commit a1da9adb22e42df9319e1d380ab880c62698115c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 15 17:43:51 2011 +0200
+
+    Intermediate dev stage.
+
+commit 4e7eb4a9e8ad94719fef160c68acd35cbfa7bd30
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 15 17:33:21 2011 +0200
+
+    Version 2.3.7, Revision 46
+
+commit a38cec81b3e297775549c7758bfd93b06cba38d2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 15 17:25:13 2011 +0200
+
+    Version 2.3.7, Revision 45
+
+commit f95f7c9dc3ee14571e1627b14ad51ebdfd797550
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 15 17:19:58 2011 +0200
+
+    Version 2.3.7, Revision 44
+
+commit f0a97995399b4b186910b798765d199777bc7e13
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 15 14:24:47 2011 +0200
+
+    Version 2.3.7, Revision 43
+
+commit 869a59dc6be9d437fe6d4d085840e401d7f9f177
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 15 12:51:18 2011 +0200
+
+    Version 2.3.7, Revision 42
+
+commit e6f2c861457a5cf53f2ad515b44c3dace8d5f9a0
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 15 11:45:59 2011 +0200
+
+    Version 2.3.7, Revision 41
+
+commit 903274083d99530d7b12b944507c3d0e5da66f53
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 14 18:59:56 2011 +0200
+
+    Version 2.3.7, Revision 40
+
+commit e7019b2c4484e769338670284b7e79ce48d18c88
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 14 18:50:20 2011 +0200
+
+    Version 2.3.7, Revision 39
+
+commit abcf206c12595d2b0264999ceaea516da327015f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 14 13:31:11 2011 +0200
+
+    Version 2.3.7, Revision 38
+
+commit 52c53dcfa5f33a590aac8ba02ce7c47c5f909f05
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Sep 14 11:04:03 2011 +0200
+
+    Version 2.3.7, Revision 37
+
+commit ddfa4f4a82ec4b83404f4b7784a85340468f24eb
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 9 18:29:23 2011 +0200
+
+    Version 2.3.7, Revision 36
+
+commit 578c636fabfc833b2cd717016856a17e5738e489
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 9 17:43:55 2011 +0200
+
+    Version 2.3.7, Revision 35
+
+commit a5cd1bd1b4095b4e1e3b5d6c662e563211c8d26f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 9 16:59:03 2011 +0200
+
+    Version 2.3.7, Revision 34
+
+commit b2147890094b3c93cb3e5169cb4dea1a1eb3f707
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 9 12:18:26 2011 +0200
+
+    Version 2.3.7, Revision 33
+
+commit f8c07ca28b0b551d80d879ab46c6110543d937f6
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Sep 6 13:14:12 2011 +0200
+
+    Version 2.3.7, Revision 32
+
+commit 789205fa03db830af445050369f64aef003018a1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Sep 6 11:44:57 2011 +0200
+
+    Version 2.3.7, Revision 31
+
+commit 477ca32aa003a58476d43a844d168b2dfb4197c4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Sep 2 18:48:57 2011 +0200
+
+    Version 2.3.7, Revision 30
+
+commit 858c116197539d0fae3ad99cbe7f20fd116157d4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Sep 1 18:44:03 2011 +0200
+
+    Version 2.3.7, Revision 29
+
+commit 182b87c6a6d49371220cbddc60af0ff10aa9214a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 31 11:22:58 2011 +0200
+
+    Fixed typo in the file header.
+
+commit e7cadc38d0bf5fc79691b4b90e00fae073d29c91
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 31 11:13:36 2011 +0200
+
+    Version 2.3.7, Revision 28
+
+commit 160d71ea0dd63bb778ab601eec979e551083f260
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 31 10:52:06 2011 +0200
+
+    Version 2.3.7, Revision 27
+
+commit eb780a5c2aafbe3318934984001aee736c20c53c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 31 10:48:25 2011 +0200
+
+    Version 2.3.7, Revision 26
+
+commit 41824f4a7013560799bf7564324ed1cffdd5e5bf
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 31 10:41:32 2011 +0200
+
+    Version 2.3.7, Revision 25
+
+commit 2de1336016829967a4f3ad40bf03fcab9a367327
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 30 15:05:16 2011 +0200
+
+    Version 2.3.7, Revision 24
+
+commit 37b7a773d8d2c69afa462c0317ca63c017416194
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 30 12:18:14 2011 +0200
+
+    Version 2.3.7, Revision 23
+
+commit 9b3dc6169f7cc507d3d9c46d9096157d153153f2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 30 12:11:18 2011 +0200
+
+    Intermediate dev stage.
+
+commit 25ac065ecdd92eefc8f3b70c0548049b7ca6f248
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 17:24:01 2011 +0200
+
+    Version 2.3.7, Revision 22
+
+commit 3e3c9bbf92c4ddb63a58d328b65a23d7fa97c3c1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 11:40:38 2011 +0200
+
+    Version 2.3.7, Revision 21
+
+commit ab2ff96b20cc373fc51963dc359b2d90394c340d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 11:34:27 2011 +0200
+
+    Changed js references in the default template to use aitsu resources.
+
+commit d984205932e5eedece2b3aa7949f19ecf4ccc33d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 10:31:55 2011 +0200
+
+    Version 2.3.7, Revision 20
+
+commit 65e19dd9c12164230b194b19e11653648822b9bc
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 10:28:32 2011 +0200
+
+    Added _autoLogin member to allow to influence the behaviour if the user is not logged in.
+
+commit 2fef458756e8dc035a49eadac5e435ac558d50c1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 10:24:50 2011 +0200
+
+    Disabled edit mode in the CUG.Login module.
+
+commit b934ddc5a59dd0723c7410c3b46b07de6d39e91d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 10:22:05 2011 +0200
+
+    Output a login form if the user is not logged in.
+
+commit 01baea142585f5c8820ce6de598a44868e5eef49
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 10:13:28 2011 +0200
+
+    Version 2.3.7, Revision 19
+
+commit 05fa51044deafe9a7668341b3b13f0221048297f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 10:12:04 2011 +0200
+
+    Suppress output if the user is already logged in.
+
+commit 7034fdc8342e18c5a4be4fbd67bce8f247645c52
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 09:56:39 2011 +0200
+
+    Fixed some minor bugs.
+
+commit c7531c17502e4f0117c43b1931fdb9ee8f366bbd
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 09:49:37 2011 +0200
+
+    Changed  to  on line 128.
+
+commit 2b18a19ae7977bf0064e0d332a4a8f128dd42fda
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 09:48:37 2011 +0200
+
+    Added the transformation.
+
+commit 168fb52a7a9733944d3dbe4c8a3c86636c6fcecc
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 09:46:08 2011 +0200
+
+    Added _transformOutput method to allow suppression of the output in the backend.
+
+commit d54b9d759e850aae667c64cc5855c0ef5c550b6e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 09:33:02 2011 +0200
+
+    Changed behaviour of Aitsu_Module_Abstract.
+
+commit e45f9e9e981b547dc555a14fd7c607ea8f754548
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 09:26:37 2011 +0200
+
+    Supress output of MicroApps in the backend.
+
+commit 344203c7af91be91baac0dfccf5410e10be7b901
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 09:18:56 2011 +0200
+
+    Version 2.3.7, Revision 18
+
+commit 403c06068b7848ee9ea40384ecf54825cf431f69
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 26 08:59:01 2011 +0200
+
+    Version 2.3.7, Revision 17
+
+commit d9776fac03c588645d163cab29582a15c73e9ba3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Aug 25 17:13:29 2011 +0200
+
+    Version 2.3.7, Revision 16
+
+commit 39680809752eecc47becdebc7a66c3e772782b6f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 23 20:15:40 2011 +0200
+
+    Version 2.3.7, Revision 15
+
+commit 65e8a4b87a62371004ba6443f3c7461739b0ce92
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 23 17:41:06 2011 +0200
+
+    Version 2.3.7, Revision 14
+
+commit 881a6b3a8018cf75998218b8541933a8f3b066f3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 23 14:01:09 2011 +0200
+
+    Version 2.3.7, Revision 13
+
+commit 1faf596a5a3eace7e7fcd85454e9d731de12a1b4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 23 13:12:46 2011 +0200
+
+    Version 2.3.7, Revision 12
+
+commit c24887a158943c30ce69491b6f995b0e9766cf80
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 23 13:12:02 2011 +0200
+
+    Added UI masing while loading.
+
+commit 00681974159899a2a38c0ca6910e9b651e9f1e25
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 23 12:48:07 2011 +0200
+
+    Fixed warning.
+
+commit d84fa6a20db2b56a80fcce6740d9f43d471fbdbf
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 23 12:47:50 2011 +0200
+
+    Added article info plugin.
+
+commit 7dfb79415a6ffa300fe1c27452add52d87f7eb8a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 19 17:34:49 2011 +0200
+
+    Version 2.3.7, Revision 11
+
+commit 12de9c72d2b8b4bd438842b535dff0817e20e533
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 19 12:05:27 2011 +0200
+
+    Version 2.3.7, Revision 10
+
+commit f88c98db00a1123dd60fde85edeaec4fc9af9ce8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 16:58:46 2011 +0200
+
+    Fixed typo.
+
+commit 201c127d792903cb9cbd5ac4aabd4981f917a8f1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 16:57:26 2011 +0200
+
+    Version 2.3.7, Revision 9
+
+commit 3c96a364c5fb0acbbeea9e089c8e162772e94c4c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 16:44:38 2011 +0200
+
+    Version 2.3.7, Revision 8
+
+commit 21177cabd984abdd6fa1833eae7005dff8245b8a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 16:42:19 2011 +0200
+
+    Version 2.3.7, Revision 7
+
+commit 4725ffdf4f4d69a1e2ac458ed5b5274f01e56062
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 16:42:09 2011 +0200
+
+    Removed unused resources.
+
+commit 9c8544b7e6b5cd01858a49a60ba9ee4078515ea8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 16:40:43 2011 +0200
+
+    Added database structure and fixed bug.
+
+commit 72f1fda16da45fc00c70ea02b96439c18155d8db
+Merge: 0dea3cf 194bcc2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 12:15:32 2011 +0200
+
+    Merge branch 'master' into perfect2
+
+commit 194bcc210832fd6b291ecb31272f2418473eda72
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 12:14:44 2011 +0200
+
+    Version 2.3.7, Revision 6
+
+commit 0dea3cf6a5fff392cdfa5a72c9cbfb063bd4f59e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 11:57:15 2011 +0200
+
+    Intermediate stage.
+
+commit f7d5b76814e278033f88a529f83d2a80b7065d1c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 17 11:56:30 2011 +0200
+
+    Intermediate stage.
+
+commit 6145750e93453cebdeb0a9963e578fce574a6fa7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 16 19:58:27 2011 +0200
+
+    Fixed bug according to http://www.aitsu.org/board/viewtopic.php?f=64&t=512&start=10.
+
+commit 62e5d1991f7c3a4ad210e040cf4599340b4cee47
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 16 19:53:52 2011 +0200
+
+    Intermediate stage.
+
+commit 1b137fed1e05acb0f72974028453e69f35b13749
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Aug 15 23:11:16 2011 +0200
+
+    Version 2.3.7, Revision 5
+
+commit 6b15551ab2f8ab12425f7f1785b27202f73723cd
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Aug 13 19:06:29 2011 +0200
+
+    Version 2.3.7, Revision 4
+
+commit 909222b596b84a9a188cf1f16e754fb0a06e03bb
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Aug 13 19:06:21 2011 +0200
+
+    Fixed typo.
+
+commit 8ec84ecc4e356d021d0dd90e6b6ab333d22edcd3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Aug 13 19:04:07 2011 +0200
+
+    Version 2.3.7, Revision 3
+
+commit 3019ca22b06e89cfea11810670c995ed7a6897e0
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Aug 13 16:52:55 2011 +0200
+
+    Version 2.3.7, Revision 2
+
+commit 686771b7c84a9c88c2773adc810ff46077358309
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Aug 13 16:10:50 2011 +0200
+
+    Version 2.3.7, Revision 1
+
+commit 5d0d49f6376df3ce983d5877b4c794de4af54f0e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Aug 13 16:08:16 2011 +0200
+
+    Added rendezvous plugin.
+
+commit 86ffda15bc3be02efd986e5d3b88ce3f9a0899b6
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Aug 13 15:07:32 2011 +0200
+
+    Added rendezvous table for dates.
+
+commit 862e64f02f8233179fb8ced6e4aebe1ac6661433
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Aug 13 15:06:34 2011 +0200
+
+    Changed version to 2.3.7.
+
+commit d5a702e8e84f3b384387ded41ffb61a3ea1af571
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 20:48:46 2011 +0200
+
+    Version 2.3.6, Revision 11
+
+commit 40a2404d36fb69349416303606bd19bb3f76e6d9
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 20:48:32 2011 +0200
+
+    Check privilege in the treesourceAction and editAction.
+
+commit e0db30ef9963bb807d3ab06d600c9409f308bad9
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 20:47:51 2011 +0200
+
+    Added resource privilege check type catbyart to allow to check article privilege by the category it belongs to.
+
+commit 06420bb28a5653902fae6ffe9503cc196d4a06af
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 19:36:01 2011 +0200
+
+    Version 2.3.6, Revision 10
+
+commit ca46e3354a5f60050a36471a46e196a295911212
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 19:35:22 2011 +0200
+
+    Improved performance of privilege check.
+
+commit dbe86fe9e9628df4f29ee53d48964f45a03196e7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 13:36:11 2011 +0200
+
+    Version 2.3.6, Revision 9
+
+commit fa02460feb37c5661f8989f314bc5dd5f6e30bf8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 13:35:34 2011 +0200
+
+    Allowed the equal sign in the user's settings.
+
+commit 1f6e6de6e50ca0aafea99ea0c2c3a98ebd0d1063
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 12:31:31 2011 +0200
+
+    Added integer check to Aitsu_Util_Type.
+
+commit fa210c51b4d97c273b6a80c7e9d84460610deb45
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 12:10:20 2011 +0200
+
+    Version 2.3.6, Revision 8
+
+commit 4e791715f2636cfed943e92b3a50701abb0157c2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 12:08:59 2011 +0200
+
+    Remove db cache when editing tags.
+
+commit 0e601f54dfd7d7d0ba6e4244301c6b2f9c71ae89
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 12:04:02 2011 +0200
+
+    Version 2.3.6, Revision 7
+
+commit dc093d335f9abad3983f56e871b1d52cbdd3f4b7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 12:03:35 2011 +0200
+
+    Removed typeAhead from tag plugin to allow to add shorter tags matching an existing tag.
+
+commit 1c50496acd6ab9e3639b505b89bdd3c0b72cc7dd
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 11:55:48 2011 +0200
+
+    Version 2.3.6, Revision 6
+
+commit 60875fdace8839297f9d6786f1a8e731c249ef77
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 11:55:42 2011 +0200
+
+    Added maintenance script to remove unused tags.
+
+commit 4456c5ddb2ab60330c2cf131921f9b9567b2d4b0
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 11:41:53 2011 +0200
+
+    Version 2.3.6, Revision 5
+
+commit fa06e9261a78cd8894d88a5f613c3307c2b3dab7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 11:40:23 2011 +0200
+
+    Remove db cache when an article is published.
+
+commit b314b779592543ead6a34a06e86921f7522409fa
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 11:39:58 2011 +0200
+
+    Allow caching of query results when user is logged in.
+
+commit 75a4aa9fbf87e70c44a95b72e94d6841e0722783
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 11:28:16 2011 +0200
+
+    Version 2.3.6, Revision 4
+
+commit 799de423a9817755f5a41285f6745c9df196479c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 11:27:45 2011 +0200
+
+    Added po for nl Dutch and Spanish.
+
+commit 04ab7df340e32e109fc577157b2d3998b904465f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 12 10:03:24 2011 +0200
+
+    Return when given array is empty to avoid warning.
+
+commit 1d47473f84a4f290a42eae9fd21cec1d43c373b4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 21:59:34 2011 +0200
+
+    Version 2.3.6, Revision 3
+
+commit 8ed2a60f646f7b6361be5cee72b4218d63902c5b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 21:59:28 2011 +0200
+
+    Added array util class.
+
+commit 823404ac1c4b644a43c972c47ab0d106b2543133
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 21:46:23 2011 +0200
+
+    Version 2.3.6, Revision 2
+
+commit 1f34f7f8e72e8bb02550400e82bc8719af9ffb18
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 14:34:30 2011 +0200
+
+    Version 2.3.6, Revision 1
+
+commit fc5bef54da79e4ccf428a5d81b9270c4e2dff627
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 14:31:38 2011 +0200
+
+    Version 2.3.5, Revision 8
+
+commit 7e70989c9ac251bd7848737fd80ff2bd14390709
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 14:29:51 2011 +0200
+
+    Version 2.3.5, Revision 7
+
+commit a5d4d7e52c886a01b644ac05ff9e340a2d10d709
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 14:28:31 2011 +0200
+
+    Version 2.3.5, Revision 6
+
+commit c25e8a14a73559f6cc59fece3a4342077c79deed
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 14:19:57 2011 +0200
+
+    Version 2.3.5, Revision 5
+
+commit b1df7312162cbdae28a8b9bcfeebe0e19e052b96
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 14:19:51 2011 +0200
+
+    Fixed bug in build script.
+
+commit 3dcd9fa3d048c1cba60267f1c3753f152aa5ba57
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 14:17:46 2011 +0200
+
+    Version 2.3.5, Revision 3
+
+commit bb6ddbc6aff69d858bfc5cb3856badb5d4ffa086
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 14:17:37 2011 +0200
+
+    Added crosslinking output as a reference implementation.
+
+commit ad874357cf10a5e0c3f0bebf69ee41ff9ef5048f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 13:45:04 2011 +0200
+
+    Added check whether or not the template exists.
+
+commit 7d5a0ad8e30ad3183ebba7f0a2d767882ba5fcb8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 13:37:04 2011 +0200
+
+    Fixed bug in Image shortcode.
+
+commit 2c229583910d67be71c166c9ffdad3a3c56787f2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 13:27:19 2011 +0200
+
+    Set allowEdit to false.
+
+commit c1a2d9ebdf8d504261b14620800e7a495e2c9280
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 13:16:31 2011 +0200
+
+    Version 2.3.5, Revision 2
+
+commit 67b132f64d20846dd77058a3734203c4ce345bec
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 13:16:00 2011 +0200
+
+    Version 2.3.5, Revision 1
+
+commit 9213dcf608de44091c3805e82219008f21bffe78
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 13:15:52 2011 +0200
+
+    Fixed shortcode bug in GeSHi highlighter.
+
+commit 4fbbe5d693658cc0f1241421174068932f2959e4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 12:10:56 2011 +0200
+
+    Version 2.3.5, Revision 0
+
+commit 4a0898809a7eb6f1634ab66a9404d225434f0113
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 12:09:29 2011 +0200
+
+    Added php build file.
+
+commit a27abfefc9c634b5e9628958e5ac49399ad2a8eb
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 12:07:44 2011 +0200
+
+    Version 2.3.4, Revision 12
+
+commit f9173ad08138859dc67e1eb1a12f6015a41b2844
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 11:31:37 2011 +0200
+
+    Changed application status.
+
+commit 1b3bf138dabb5c37bc78b978c4a4476dc1e17676
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 11:30:10 2011 +0200
+
+    Changed application status.
+
+commit 0d9fcdb5f7422f7eb5a4cac289ac500c7a3e075b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 11:07:03 2011 +0200
+
+    Test.
+
+commit a97addeaecbee7c588a200e44cde191eb5f1ed43
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 11:05:56 2011 +0200
+
+    Added hash.
+
+commit 04a67734972f345269b7f665b9ed894c93c6b0a3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 11:00:24 2011 +0200
+
+    Test.
+
+commit 706279b8184a6ee4d7845ebaeaea5d11d2bcfdcf
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 10:49:12 2011 +0200
+
+    Moved back to how it was before.
+
+commit dcec7ad7a5082e41b6884136b95fbeabe40cf2d3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 10:42:22 2011 +0200
+
+    Test commit.
+
+commit d8aa7e441ff5f66c66fac44d3a6967dd67deeffa
+Merge: 85bf0fd 3fda458
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 10:19:08 2011 +0200
+
+    Merge branch 'dev'
+
+commit 3fda4585d0d35443b2ea7cbc85e003a06f3805c9
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 10:18:49 2011 +0200
+
+    Added _isBlock = false.
+
+commit 85bf0fd98aff7e7ffba35b7d52e8541a35c173e3
+Merge: 85b51e3 8746776
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 10:13:32 2011 +0200
+
+    Merge branch 'dev'
+
+commit 8746776fafb38f7d159c3736d98fe24ee729df84
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 10:13:09 2011 +0200
+
+    Fixed isBlock minor bug.
+
+commit d3fe49e566c898a07a6c476e62636d3b3324d8a7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 09:26:07 2011 +0200
+
+    Refactored Code shortcode.
+
+commit cd72ca5224bd9bf717eafdb3ac5b4a77d8c050bb
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 09:25:05 2011 +0200
+
+    Refactored shortcode Link.
+
+commit 85b51e37cb2a6d49467d0ad43b899eb218ede91b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 08:35:30 2011 +0200
+
+    Version 2.3.4.
+
+commit ec3c6af51ef3ef0139c7d1bb021a18124d0663ff
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Aug 10 08:33:54 2011 +0200
+
+    Refactored Code.GeSHi shortcode.
+
+commit 71930052adf7b99f634ced1c31ee5cdfb4fcc363
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 9 20:55:41 2011 +0200
+
+    Removed non-accessible languages from drop down.
+
+commit 98d9ba93617adddd95e806a0cc57c2d16b46078c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 9 18:21:41 2011 +0200
+
+    Removed output if empty in edit mode.
+
+commit 37be149671704f44a505d11a082cebb6be2dde72
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 9 18:20:51 2011 +0200
+
+    Made some tests case insensitive.
+
+commit 418e9e3c931c78a70b8275f417b1267a641f2b09
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 9 16:44:33 2011 +0200
+
+    Version 2.3.5-dev.
+
+commit 5ebaccf1e8a94d58454067e2fe92feb9851c4e8b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 9 16:41:52 2011 +0200
+
+    Fixed redirector to allow to change back to normal mode.
+
+commit 32819b7c26532930d6ae8046957b69d73e35cf73
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 9 14:04:57 2011 +0200
+
+    Version 2.3.4.
+
+commit 33125eb83b9496260829b775a0572b9bb9f64d40
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 9 14:03:22 2011 +0200
+
+    Allow RSS feed to be cached if user is logged in.
+
+commit a10b5e2b8d9f324b60f113d139fa9f8095982120
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 5 17:50:24 2011 +0200
+
+    Version 2.3.5-dev.
+
+commit 8d3c58f257abbb59e3e0758340a0f2f6361e4b7d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 5 17:48:57 2011 +0200
+
+    Version 2.3.4.
+
+commit 5ddb7f457de384924053ada81e175dc9444dcedd
+Merge: 144d6a4 b2c70ce
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 5 17:47:47 2011 +0200
+
+    Merge branch 'dev'
+
+commit b2c70ce3d71eb50c6eac4b0b9c64496eea58f43d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 5 17:47:24 2011 +0200
+
+    Removed unnecessary resources.
+
+commit 8f9f2e7c0b5516ad24b9a0549d43f0045430f4df
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Aug 5 17:45:26 2011 +0200
+
+    Minor changes.
+
+commit 1bc86ae56b75dcac873e8383574f1a80275a093e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 2 20:04:22 2011 +0200
+
+    EAVS, Proof of Concept, Version 1.
+
+commit 290b22424e98d2e981fa72f542aaa813b835caf5
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 2 13:19:59 2011 +0200
+
+    Intermediate stage.
+
+commit 09e43b17be0515c5e8ca99f9f23e233d3a8f6974
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Aug 2 11:35:07 2011 +0200
+
+    Added triggers.
+
+commit f8e0bd5176928fb58ce919f85859f98beb626269
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sun Jul 31 21:17:27 2011 +0200
+
+    Changed database structure.
+
+commit db7c008917ecdb3fa7a91b3ef84de0eac967d8c9
+Merge: c2f576b 50636b9
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sun Jul 31 15:53:13 2011 +0200
+
+    Merge branch 'dev' into eavs
+
+commit 50636b9cf2f9c2c830e7236d35da80bce9f55102
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sun Jul 31 15:53:02 2011 +0200
+
+    Removed quotes if an expression is used as default value.
+
+commit c2f576bbe3eaa7788344bf4e880861f304682cc9
+Merge: 4f0f85c 79d50fb
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sun Jul 31 15:49:19 2011 +0200
+
+    Merge branch 'dev' into eavs
+
+commit 79d50fb063f84658300d09a2f51fbfa7c88b433b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sun Jul 31 15:49:09 2011 +0200
+
+    Removed quotes if an expression is used as default value.
+
+commit 4f0f85c99e07bf5377af4a41576c03f314d5ede1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sun Jul 31 15:45:21 2011 +0200
+
+    Changed database structure.
+
+commit 879a467418a47cc181802d5b3b8e8cc5d7acdcf0
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 30 15:04:17 2011 +0200
+
+    Using source context in eav model.
+
+commit 144d6a4e521355ec8c0fcedcde18c2930102f2e4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 20:30:49 2011 +0200
+
+    Version 2.3.3.
+
+commit c2b8b785a518130a31d374b253a696d7af06b7da
+Merge: 12a1af0 17df57f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 20:30:14 2011 +0200
+
+    Merge branch 'dev'
+    
+    Conflicts:
+    	README
+    	library/Aitsu/Application/Status.php
+
+commit 17df57fe3885e3f85d3cca948458e8597fb13ddd
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 20:29:08 2011 +0200
+
+    Version 2.3.3.1-dev.
+
+commit 9d1943de4d50f8c53ebec881cda3cf1c23441dbc
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 20:26:13 2011 +0200
+
+    Cache and performance optimization.
+
+commit e0d99eeff0ce1aeccaafa862ec5cb60407932393
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 20:16:18 2011 +0200
+
+    Intermediate stage.
+
+commit 0e73b604ee719da656ba957c5fd851249441eb46
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 20:13:57 2011 +0200
+
+    Intermediate stage.
+
+commit 82a0671aad9cd35564dc97bddcef45f671ff849c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 20:02:16 2011 +0200
+
+    Intermediate stage.
+
+commit 09ff36aa6aa6129b371960f1ba7778b8f4dc5f7c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 19:46:46 2011 +0200
+
+    Intermediate stage.
+
+commit 402f49c964573a1639afc337a8eee1a3ead98599
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 19:07:50 2011 +0200
+
+    Cache optimization, intermediate stage.
+
+commit 12a1af0b9215289c24334dc6f50ab663071f7b6c
+Merge: 6b327cf 92b55b8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 17:41:23 2011 +0200
+
+    Merge branch 'dev'
+
+commit 92b55b8f0abf5e730f906f9ad1e3036396b97c11
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 17:41:03 2011 +0200
+
+    Changed behaviour of Aitsu_Module_Abstrace class.
+
+commit 6b327cf2e7f605f120512d944e02a9c8a9ccde8a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 17:31:53 2011 +0200
+
+    Version 2.3.2.2.
+
+commit 46257b88cf86cb388f7cb831edfc36b98b82ac6d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 17:30:44 2011 +0200
+
+    Minor changes.
+
+commit 340ca7bb574c1550e9e2adfde52e0d5a5ee1145c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 17:03:06 2011 +0200
+
+    Version 2.3.2.3-dev.
+
+commit 3f83f0ebcd87ba1cd5309274ad4c66f450117642
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 17:01:40 2011 +0200
+
+    Version 2.3.2.2.
+
+commit 83bf5dc9e590aae2a58d77ccf52f9ed431ec8a42
+Merge: 7faf5c8 b1322d5
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 17:00:14 2011 +0200
+
+    Merge branch 'dev'
+    
+    Conflicts:
+    	README
+    	library/Aitsu/Application/Status.php
+
+commit b1322d51d5d426b7655688c8c766ddb6ea2ee3c4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 16:59:04 2011 +0200
+
+    Changed client language locale to data from database.
+
+commit 7faf5c845510fac5c261fefa869f951b586ea3c7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 13:36:38 2011 +0200
+
+    Version 2.3.2.1.
+
+commit ea17f22c8b950f980cbee547a4a4f598419b000e
+Merge: 1c17bae da7b0cc
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 13:35:26 2011 +0200
+
+    Merge branch 'dev'
+
+commit da7b0cc841a1570ab094702c16845e1b3d3d559a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 29 13:35:01 2011 +0200
+
+    Fixed warning in the module tree abstract class.
+
+commit 1c17bae38b8c376ef97daef569075f1326d44d2b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 17:26:26 2011 +0200
+
+    Version 2.3.2.
+
+commit 677df3122b1dd10c7771c97a8f7974f5f3558c46
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 17:24:42 2011 +0200
+
+    Added HTML.Body module.
+
+commit c1eb06c86d2531b3f36464bc281c08ad8ed07350
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 15:39:43 2011 +0200
+
+    Version 2.3.2.1-dev.
+
+commit 6b04a2726436a113dbf845c928f09532bbbf457b
+Merge: 7b3807d 3d7e2fe
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 15:38:51 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 3d7e2fe48ee46beef1fe45afd92b65070b9c8036
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 15:38:15 2011 +0200
+
+    Version 2.3.2.
+
+commit 7b3807d6cda044183cb42ab10c3d32268ab5e8f7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 15:35:09 2011 +0200
+
+    Minor change.
+
+commit 92e52102706a787c20818b350d9b42adb539cb60
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 15:27:42 2011 +0200
+
+    Minor change.
+
+commit 0528350946cd9c8fc532f1cdabf4170a0134e8d7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 14:47:49 2011 +0200
+
+    Added Schema.org WebPage type to meta plugin.
+
+commit 2e1b94f29d6fe34f183fd82502acaf458b876520
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 13:54:21 2011 +0200
+
+    Added schemaorg entity type and values to database.xml.
+
+commit b79227e107eddfd55aa051dba135a4e992df4b7a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 12:24:57 2011 +0200
+
+    Full implementatin of schema.org/CreativeWork.
+
+commit 2a4caf525c480b91e9c23927b1548c7dd0658830
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 11:47:04 2011 +0200
+
+    Changed index.phtml to output nothing if showItem is not set to yes.
+
+commit c0df44471b327d6cbb5a80f7c3a54129e8a29893
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 11:39:36 2011 +0200
+
+    Changed schema.org view.
+
+commit ade8e45635bab57a4b5b5797e9fd6052ebf3d36c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 10:39:10 2011 +0200
+
+    Added schema.org.blog.
+
+commit a8cd6707dac70559db6aa451cbeedbd5ad881ee9
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 10:33:05 2011 +0200
+
+    Added modules to hierarchy.
+
+commit 2e421b583a7b6c5ea3fb886d3a6210b7c5429b58
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 10:28:29 2011 +0200
+
+    Implemented schema.org.article.
+
+commit f9141cdba20c60769b4baec4c1e16c58f2d352ff
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 10:26:47 2011 +0200
+
+    Implemented schema.org.article.
+
+commit 8f928b59ac17673312ffc60da75e107700123f80
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 10:21:16 2011 +0200
+
+    Added raw schema.org implementation.
+
+commit 0dbcdf7f666d4f4efa3180808b3df4f9a34f7271
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 27 10:07:42 2011 +0200
+
+    Minor changes.
+
+commit 231e2e0635a81f259bb3b3c36ce2aaff0b52bb50
+Merge: 3cdb5e8 4633946
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 18:15:38 2011 +0200
+
+    Merge branch 'dev'
+
+commit 46339466945939f9762f741aacf894cec3aac09c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 18:15:06 2011 +0200
+
+    Minor bug fix in navigation helper class.
+
+commit 3cdb5e8c857f604b448248f8dd69ec81d38d43ce
+Merge: f2535a6 c44573e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 17:11:43 2011 +0200
+
+    Merge branch 'dev'
+
+commit c44573e9dc7933cde7e028a34027932bd124bcdd
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 17:11:23 2011 +0200
+
+    Redirect to base URL after logout.
+
+commit f2535a6fa18ce16ac50010e5dfcbbe6a03af22af
+Merge: 52edd38 eaf3fed
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 16:56:25 2011 +0200
+
+    Merge branch 'dev'
+
+commit eaf3feda5ca6f8575fc53b7389a381c7dc097ada
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 16:56:08 2011 +0200
+
+    Minor bug fix in the navigation helper.
+
+commit 52edd387ea23c5e162bdc1ea7d9afbced3ba76d2
+Merge: 778bdcb fba895b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 16:50:40 2011 +0200
+
+    Merge branch 'dev'
+
+commit fba895ba2dccdbc68a7235edfbb7858396072d91
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 16:50:15 2011 +0200
+
+    Fixed minor bug in navigation helper.
+
+commit 778bdcbc9e9c1f3c798dcc010a8521bfaf7c45ff
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 16:10:22 2011 +0200
+
+    Version 2.3.1.3.
+
+commit 3256bc79413de9354667962bdefbd61adc4f556e
+Merge: 282f14e 523d023
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 16:09:33 2011 +0200
+
+    Merge branch 'dev'
+    
+    Conflicts:
+    	README
+    	library/Aitsu/Application/Status.php
+
+commit 523d02387c2fe16fbe61836c8e909b7ea28c2b5c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 16:08:38 2011 +0200
+
+    Version 2.3.1.4-dev.
+
+commit 7e189e4c0dbda05502c0b80e251c1457f01fad71
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 16:07:50 2011 +0200
+
+    Added sys.webpath to resulting URLs.
+
+commit 282f14e6e7306b85d5a4d410b59e88b5e3eaf9b2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 15:23:57 2011 +0200
+
+    Version 2.3.1.2.
+
+commit db15075858436b0ba35a1071133dcbe79014b090
+Merge: c8fb74a 5a3bac4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 15:23:08 2011 +0200
+
+    Merge branch 'dev'
+    
+    Conflicts:
+    	README
+    	library/Aitsu/Application/Status.php
+
+commit 5a3bac4fe2fcc6f27761b32f79e8762a0c9fd018
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 15:21:52 2011 +0200
+
+    Version 2.3.1.3-dev.
+
+commit 0b1e1730b998e877bbf633b1189ca63463d52e37
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 14:32:54 2011 +0200
+
+    Added a disable method to the event dispatcher.
+
+commit c8fb74a091297190f568739684a9f9786f899bab
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 11:26:47 2011 +0200
+
+    Changed version to 2.3.1.1.
+
+commit ffee387dd294d0758ea343c841fcf62fc4a834d1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 11:25:33 2011 +0200
+
+    Changed version to 2.3.1.2-dev.
+
+commit ece684d978e39b8c2c068378a06eb340fddc1f14
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 11:23:25 2011 +0200
+
+    Made cleanup of thumbs when changing media properties.
+
+commit 5f0ea63e99cf3b9aef036370daab25ebba20b236
+Merge: 1ae1bd0 c9a37f8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 11:19:38 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit c9a37f879607424f02f9bbb1e9ddda86b9ac725a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 22 11:19:16 2011 +0200
+
+    Added navigation helper class.
+
+commit 1ae1bd0e902ce01084b35464a88fcfa456ae9cb9
+Merge: 8e295ab 33d77fd
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 19:54:31 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 33d77fdbe2f9356fec7d45179eaaf097115b3c71
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 19:54:12 2011 +0200
+
+    Added hasaccessibles and isaccessible properties to navigation tree.
+
+commit 8e295ab00c3db0ddfb9012fc1cc4a1d1201f6965
+Merge: d4b5d6c 7fba7aa
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 18:58:00 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 7fba7aa38b39c0486bb474279eea2e6c682f0277
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 18:57:44 2011 +0200
+
+    Minor change.
+
+commit d4b5d6c53b8351f45855de9609cf1a3ed651dfad
+Merge: e5b544d d0313b8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 17:49:25 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit d0313b8fe44d5a368977eb1ea8f59bd4c88dab31
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 17:49:08 2011 +0200
+
+    Minor change.
+
+commit e5b544d0f375268551cf21c441d7110702967e48
+Merge: 2076798 2c457a8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 17:39:14 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 2c457a80a300aedb5b15e203697df1c276d36c57
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 17:38:58 2011 +0200
+
+    Added isvisible to filterCat method.
+
+commit 20767986159714167bdefc722a49effeb0f1d73e
+Merge: c94076a 1759ee8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 17:10:17 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 1759ee8e48ff0bca37daa9d16f87d67833c19509
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 17:09:59 2011 +0200
+
+    Added filterCat method to user.
+
+commit c94076a13a77600717a009d67176085e05cea807
+Merge: 1c3bb07 bb8185f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 15:30:58 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit bb8185fa10324dd5da4e600b9fc252a5526c6164
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 15:30:42 2011 +0200
+
+    Added ispublic to evaluation result.
+
+commit 1c3bb0749287e26bd217f14f3c748b40a8517b02
+Merge: 09672a1 9fc0ca2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 15:17:47 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 9fc0ca245f7bdfcac1514ef2ce969bdef29f9db4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 15:17:29 2011 +0200
+
+    Minor change.
+
+commit 09672a1d16d67fb0fe7bada2ac98210886ba95c9
+Merge: 1f1d81e 2cdd301
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 15:12:46 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 2cdd3012d8fe672b0ca2a9e497816d2114681198
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 15:12:24 2011 +0200
+
+    Added templates to Image module.
+
+commit 1f1d81eee28e14686b581a5e2fae5adf406eb942
+Merge: 3cc2038 4cf905e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:59:05 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 4cf905e7999489ad757841665d64a87d1fe7f5ce
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:58:46 2011 +0200
+
+    Removed deprecated module.
+
+commit 3cc20381f1452d16453f23f721e194d41bb4cd37
+Merge: 7373f76 fc77023
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:57:06 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit fc77023e895fa6564f9eb37434c93018162b37ee
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:56:49 2011 +0200
+
+    Removed index change.
+
+commit 7373f76cdd23fc496ea90810ab4dd2fcf84ec0ea
+Merge: 8cd6a08 fd9a3ec
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:42:24 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit fd9a3ec2f4f8e2ed11f6b7309b86938237293470
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:42:08 2011 +0200
+
+    Changed use of index.
+
+commit 8cd6a0832384d8663d4dbb474e0eb4c6ce6d0e2a
+Merge: 256c9e7 14abaf3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:39:10 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 14abaf3a8aa23b1dbea7c569afba93dad1babd57
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:38:53 2011 +0200
+
+    Added rawIndex to module context.
+
+commit 256c9e7874203ce5b4ac3089ca76e1a6463dee0b
+Merge: 2839705 674dcd5
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:33:03 2011 +0200
+
+    Merge branch 'master' into dev
+
+commit 674dcd5b4a170eaa8b14569b512d3aad2268cc5e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 12:32:39 2011 +0200
+
+    Restored HTML module.
+
+commit 283970590ef9dea710d9072cd8b72d9c12ed584c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 10:33:45 2011 +0200
+
+    Changed to version 2.3.1.1-dev.
+
+commit 1ad235b61a1f5acb15f8b1235d73faea09422baf
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 10:31:40 2011 +0200
+
+    Changed to version 2.3.1.0.
+
+commit c0c4c22486e10e04b236c383979cdb5e077e719d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 10:20:32 2011 +0200
+
+    Added back button module.
+
+commit e504be22eafde811bd9c2110bc631a05109f4326
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 09:45:23 2011 +0200
+
+    Changed version to 2.3.0.7-dev.
+
+commit dca070b230fe01401051591930ce66f2c1375c88
+Merge: 895e88e 8459361
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 09:10:55 2011 +0200
+
+    Merge branch 'master' into dev
+    
+    Conflicts:
+    	README
+    	library/Aitsu/Application/Status.php
+
+commit 8459361cd567300a336f2e3e4e58fcbc37fed20f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 09:09:29 2011 +0200
+
+    Changed to version 2.3.0.6.
+
+commit fe309357c08e5c09abdc5775d2c1f76ba1fec693
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 21 09:06:40 2011 +0200
+
+    Fixed rewrite bug.
+
+commit 895e88e33427b6229bfedaa9da2fc8893a640bbf
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 18:47:37 2011 +0200
+
+    Changed README.
+
+commit 02a019a9a037c09e27acb6129048f8f1d1993598
+Merge: 15f9913 e3a5020
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 18:19:06 2011 +0200
+
+    Merge branch 'dev' into schemaorg
+
+commit 15f991319788353a425c9d8d05e736ef120b45b1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 18:15:53 2011 +0200
+
+    Added morphing according to hierarchy to standard modules.
+
+commit 66d7f3ba3c2713862f2debd1af60183a5bc30c3f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 16:51:06 2011 +0200
+
+    Intermediate stage.
+
+commit f038e6487a047d3f7a19bd45ebe03508823c177e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 14:43:23 2011 +0200
+
+    Intermediate stage.
+
+commit 99d2327421f65bbb96e4bd38092503dbc95282a9
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 12:28:31 2011 +0200
+
+    Changed dt to dd.
+
+commit 8d600fd40088fd9cb8386b14c85f9faa8cde4434
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 12:24:58 2011 +0200
+
+    Intermediate stage.
+
+commit 7a601312f961a8b30c88364eecfa96a38cb51606
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 12:19:59 2011 +0200
+
+    Intermediate stage.
+
+commit 89360589be13eb03331be5058b0e0e3a5c306ba7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jul 18 11:07:59 2011 +0200
+
+    Intermediate stage.
+
+commit 19d93be7b082c8bb95bdf006f8aa8a2597150182
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 20:47:56 2011 +0200
+
+    Added items to the schema tree.
+
+commit 88c7924db1d2d0dc7e5f95f4b8f1473c83678114
+Merge: 62f5c1b e3a5020
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 19:09:50 2011 +0200
+
+    Merge branch 'dev'
+
+commit e3a5020be43e18d8cf7ce9475b958b64a6b9f6bc
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 19:09:31 2011 +0200
+
+    Added .htaccess to thumbstransparent.
+
+commit 62f5c1bdc325158f68ef1362b17f14c194fcd9ab
+Merge: e8de7ba 4d71bc4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 19:06:13 2011 +0200
+
+    Merge branch 'dev'
+
+commit 4d71bc4729bd51ac126eb53d83f1ecd541c58c1f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 19:05:57 2011 +0200
+
+    Added .htaccess in thumbstransparent.
+
+commit e8de7ba9be4e49d1dc23935b207f67091740590f
+Merge: 36766d7 4395348
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 18:55:41 2011 +0200
+
+    Merge branch 'dev'
+
+commit 4395348bd939c9a89f53fc136ff1ffb78e0d3f75
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 18:35:42 2011 +0200
+
+    Added option to set cookie_domain for session handling.
+
+commit 86812dc43a9e96d4ae94816179c3e1d25cf913b4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 16:23:42 2011 +0200
+
+    Intermediate stage.
+
+commit 588dfd240a51f4c9b221296b50dec612feeb3c06
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 12:41:57 2011 +0200
+
+    Removed skin template for Schema.Org.Thing.
+
+commit fedef0055b6282474bab9247793d10f1435ecda0
+Merge: cdd1964 d43a360
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 12:39:16 2011 +0200
+
+    Merge branch 'dev' into schemaorg
+
+commit 36766d7cd07b9707a780b4d61c77381677697571
+Merge: e3303a6 d43a360
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 12:38:38 2011 +0200
+
+    Merge branch 'dev'
+    
+    Conflicts:
+    	README
+    	library/Aitsu/Application/Status.php
+
+commit d43a360087bddd16c0a2610af13a4b774b4d328a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 12:37:28 2011 +0200
+
+    Fixed edit bug in the permission check.
+
+commit cdd196417b8a1352ad1ed268c06009844cb96f2a
+Merge: bbd98ab 2fe2ca5
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 12:08:41 2011 +0200
+
+    Merge branch 'dev' into schemaorg
+    
+    Conflicts:
+    	README
+    	library/Aitsu/Application/Status.php
+
+commit 2fe2ca58ee6b409c8884e55dfb0fea5ef934f096
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 12:07:10 2011 +0200
+
+    Version 2.3.0.6-dev.
+
+commit e3303a6536d3c077afb7db5be9611d0ca9654e4a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 12:05:59 2011 +0200
+
+    Version 2.3.0.5.
+
+commit 33ee25151f3fd76e3cd44daf4f214e6b3cde146f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 12:03:21 2011 +0200
+
+    Changed standard implementation of CUG.Login to reload itself.
+
+commit 52ecda26f657218c3323b3801d9ea95329db9b16
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 11:57:56 2011 +0200
+
+    Added resource check to the permission check routine.
+
+commit 59165a20c33ed77378a7d77295adfcc40eca5099
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 11:34:55 2011 +0200
+
+    Changed workflow to enable access checks when id is used.
+
+commit 128ae5e9aa6d06a38d50df60df25f5d39948a3b7
+Merge: bb8536e 58f7c8b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 11:16:48 2011 +0200
+
+    Merge branch 'dev' into fixcug
+
+commit 58f7c8ba05b278d2dd5c6970c74ede801bcacbce
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 11:16:40 2011 +0200
+
+    Fixed error on category movement into another category (bug fix).
+
+commit bb8536e542f5cfdcd7f9845355f8863c964bc6ab
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 11:07:20 2011 +0200
+
+    Removed unused views.
+
+commit e76816b7ed1d429eb56fe6b8d5051f83638de229
+Merge: f10d599 75fbece
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 11:04:21 2011 +0200
+
+    Merge branch 'dev' into fixcug
+
+commit 75fbece3f15abe8e1b67c164175f489224cf8d6c
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 11:03:43 2011 +0200
+
+    Changed to version 2.3.0.5-dev.
+
+commit c70a6a674a91d708dd08f6afb2e59b3c5fc21963
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 11:00:38 2011 +0200
+
+    Fixed wrong charset in the installation dump.
+
+commit 768bb1947349c78407cb7d1deb78174af9746976
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 10:58:21 2011 +0200
+
+    Changed charset to utf8 in the dump (bug fix).
+
+commit bbd98abea257a06bf9a52bfb89e5054c42f0723a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 10:19:08 2011 +0200
+
+    Changed version to 2.3.1.0-dev.
+
+commit f10d59979676a566a80c9bdc0118a9ff0cd5a199
+Merge: 216c5f7 abd92f2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 10:10:25 2011 +0200
+
+    Merge branch 'dev' into fixcug
+
+commit abd92f2951f79950bf17ac976775e94b647f67e6
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 10:09:53 2011 +0200
+
+    Changed version to 2.3.0.4-dev.
+
+commit 0b070bbf2052034229dddeaf329dfc0358acb865
+Merge: 5999033 fdba5a6
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 10:06:11 2011 +0200
+
+    Merge branch 'dev'
+
+commit 599903336e2353d4cdb4300d6c0b4134b9b19db1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 10:03:21 2011 +0200
+
+    Changed to version 2.3.0.3.
+
+commit fdba5a64b5da079e409e1330ef4ffaad8b0c0697
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 15 10:00:52 2011 +0200
+
+    Omit use of Zend Language.
+
+commit 4316f45cf684d2a7b1ddfc66427deff0b6bcda0f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 14 17:57:42 2011 +0200
+
+    Intermediate stage.
+
+commit 95e317920cd987cb61f261ccc2d5bb49960a03f9
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 14 17:33:55 2011 +0200
+
+    Intermediate stage.
+
+commit d99451f9653fc82c8f5cc573c9ccc7f92bb7065a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 14 16:35:55 2011 +0200
+
+    Intermediate stage.
+
+commit f75fb4157df14f519af8239c5ee22b57469d9f80
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 14 13:08:58 2011 +0200
+
+    Fixed limited length of index problem in the EAV model.
+
+commit ff1af74467277fd862f2b061d56699dd7dc10ae4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 17:48:50 2011 +0200
+
+    Intermediate stage.
+
+commit 216c5f7f50fc01ea7939eb2c736fb828e9c5ac5e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 17:33:51 2011 +0200
+
+    Intermediate stage.
+
+commit efa5be4518561cb9f66f248bf11de9a711c10261
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 15:42:00 2011 +0200
+
+    Added RewriteCond to .htaccess.
+
+commit b79bfb01dda61b802acf50a8425935ae0f3cbf8e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 15:23:11 2011 +0200
+
+    Made thumbs path transparent.
+
+commit cc2d33e05120c972dd2b253a3a8b605d95f59132
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 14:33:34 2011 +0200
+
+    Changed version to 2.3.0.3-dev.
+
+commit 82e1a60f08ea1ed9c8cdea9f6caf20098f469c4b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 14:31:44 2011 +0200
+
+    Changed version to 2.3.0.2.
+
+commit f989a549e07840aa2b683e56dd2e2a9258b5debe
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 14:30:18 2011 +0200
+
+    Fixed bug in edit mode.
+
+commit 7da24807bfab083b96ac8ac72f4bc26aa45f198a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 13:53:47 2011 +0200
+
+    Added help feature to modules.
+
+commit b9bebc88184ab4aa16f10c73dc68bdb030800771
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 12:41:03 2011 +0200
+
+    Changed version to 2.3.0.1.
+
+commit 36cda544ca8bc91522e3477755f77685818aa261
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 12:37:34 2011 +0200
+
+    Fixed ckeditor configuration.
+
+commit 885e551685b2b71aabf274be332dae396fbeddf3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 11:56:42 2011 +0200
+
+    Added alternative output in edit mode.
+
+commit d14efe2db34fc52fb7b565cf8033b812e4781424
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 11:47:41 2011 +0200
+
+    Added comments in README.
+
+commit 92e9363894406f2d7d9221f6d6dd45473922fc3d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 11:38:44 2011 +0200
+
+    Added module Movie.Projekktor.
+
+commit bd365286b6efcdac4d5950200e0ac17e274a5139
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 11:34:41 2011 +0200
+
+    Added resources in /res.
+
+commit cd69d0bcb3eb69d342e567513aed53bca7f7df0a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jul 13 11:34:06 2011 +0200
+
+    Allowed access to resources in /res.
+
+commit f15f4a4227a0dc709e185113eb3634f4ef29450e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Jul 12 18:04:36 2011 +0200
+
+    Added volatile comment.
+
+commit 79a4858690af6a50eef0691767aab667f5c4361f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Jul 12 17:55:46 2011 +0200
+
+    Added volatile tag to the module abstract class.
+    
+    Set _isVolatile to true in the concrete module class to loose cached
+    data on every publish event outside the scope of the current article
+    or page.
+
+commit 7d1f5aed35e8623f2aa93822954ab397c1286930
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 16:03:55 2011 +0200
+
+    Changed version to 2.3.0.1-dev.
+
+commit 7cfbf254032795fb0e11fe8696fb7714173261ba
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 16:01:07 2011 +0200
+
+    Changed version to 2.3.0.0.
+
+commit f0e8a1e74ece43f5fd333962d21e0bb8af070ea4
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 15:55:52 2011 +0200
+
+    Fixed error in the setup script.
+
+commit b2a0276496185877e14c4bab9e8ffc95f2edce31
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 15:29:51 2011 +0200
+
+    Fixed exception on inserting into the rewrite history.
+
+commit 415e706538c6d537415d1758a22102f7fb50060f
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 15:26:37 2011 +0200
+
+    Removed warning on line 22 of the class.
+
+commit 36bfa69f01bc90eecad8389c8c1d5f88f1060426
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 15:23:41 2011 +0200
+
+    Removed warning on line 1 of the template.
+
+commit be5c1ff37f426f5dc4c93bdca998ead5bbbe56e0
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 15:15:32 2011 +0200
+
+    Small changes.
+
+commit 875e8cfa7e2da50f27f9da7b41466b5b657b1cc3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 15:11:22 2011 +0200
+
+    Refactored the module code and added a simple module example for illustration purposes.
+
+commit 4e155c5fec2d04a091ceccdd1b8b91c0c9830814
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 9 14:01:57 2011 +0200
+
+    Renamde database.xml to be excluded from db update.
+
+commit 563586b435720ba43f14c0e2c4e25df8bc0e0ea9
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 8 20:49:19 2011 +0200
+
+    Intermediate stage.
+
+commit fe68b3d2ab418748aba73190205619c59c4fb697
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 8 20:32:37 2011 +0200
+
+    Added database structure of IsaBern Adressen 1.0.
+
+commit ca1c514a567a255222bdde09ba6e5f963113e942
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 8 19:41:38 2011 +0200
+
+    Fixed bug on line 19 ($instance instead of $this).
+
+commit 470f533f2b588084dcb6bdbf58b5f408ae305c57
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Thu Jul 7 04:30:13 2011 +0200
+
+    Extended validation. Allowed use of own instance.
+
+commit 134adc10d437f0122b99b2c6d1c74f983c7e1694
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Jul 5 12:39:55 2011 +0200
+
+    Changed config back to dev.
+
+commit 6da0523d6dfb21b3d65adb03d0e2e98ad86736b6
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Tue Jul 5 12:37:10 2011 +0200
+
+    Fixed no installation possible bug.
+
+commit e855d4bbec12693b7cfdf4ba59539800223880ca
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Sat Jul 2 13:43:20 2011 +0200
+
+    Updated modules to use the new abstract class.
+
+commit 07d27e117cde005cf6f5c98ca25c9eb357547db1
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 21:12:53 2011 +0200
+
+    Changed modules to Aitsu_Module_Abstract.
+
+commit 31f7595ffa81d8597bf901c80606e9420a22d158
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 21:12:29 2011 +0200
+
+    Added debug.deprecated.
+
+commit 65bcaace634612e2f9ec022411e41e13e5a33323
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 21:12:02 2011 +0200
+
+    Added Aitsu_Module_Abstract and set Aitsu_Ee_Module_Abstract to deprecated.
+
+commit e451a2cdb482f06fde7d46adc6d02873ec062f71
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 18:53:07 2011 +0200
+
+    Moved version to 2.3.0.1-dev.
+
+commit 22aaefb6ff20aa74e7e048ec8902b96b8335a792
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 18:46:44 2011 +0200
+
+    Improved performance of put method of Aitsu_Db.
+
+commit 8958b6eb3dd9ad53d29f8f7938cde4b35938fa16
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 18:35:35 2011 +0200
+
+    Allow refresh session regardless of whether the user is explicitly allowed or not to do so.
+
+commit bbe7489bb3f69743850445940d475545d5445e78
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 18:23:09 2011 +0200
+
+    Fixed user auth bug (out of memory exception).
+
+commit 7a1ba7b5d054fbfe4b57f2764ae06916c2a290a7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 17:34:43 2011 +0200
+
+    Intermediate stage of development.
+
+commit 2e6677960c858b652157df4302a66cc619bdf0ad
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 16:11:26 2011 +0200
+
+    Detected possible bug in the user authentication. Not fixed yet. Fix on the agenda.
+
+commit 60b7533a07145f0f5112d61416219dc347302f96
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 16:00:31 2011 +0200
+
+    Bypassed Zend when firing ddl statements (drop and add functions).
+
+commit faa27d7e0c5f1adc441b06b1830f9bcbd2812ad7
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Fri Jul 1 15:23:51 2011 +0200
+
+    Fixed warning on line 221.
+
+commit 5ac7d7b7b1e1af0400e13a969b2c5237fb3882d2
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 17:39:15 2011 +0200
+
+    Removed ob_end_clean, as the buffer is always empty at this point
+    of execution.
+
+commit 6d37c09b2b3985d03231ba1431c5947dec5e0c90
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 17:35:36 2011 +0200
+
+    Added isvisible checks in default's skin navigation module.
+
+commit d898f3a6f7ff346b2e6244d9fc6694fe51695570
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 17:29:09 2011 +0200
+
+    Added redirect in the standard rewrite class to exit channeling
+    if an url cannot be resolved properly.
+
+commit 7a08be675f8eae96a832bf415517b96e6cba26ff
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 16:57:41 2011 +0200
+
+    Removed debug logs.
+
+commit 85df41c060954b6877fe49eaa04968c3641bdffb
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 16:45:24 2011 +0200
+
+    Implemented channeling. Channel mangement plugin still missing.
+
+commit 561e514f47f4fe13086686a2c4eb42a29e570679
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 16:18:49 2011 +0200
+
+    Added rule to filter the channel used.
+
+commit 8d3eee87d73b519a34c1c27b735f5c99a7a88b9a
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 16:10:22 2011 +0200
+
+    Added transcription to views in case of channeling.
+
+commit 8b9090e67e3f7294572470b7325fbfbd4d8778bc
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 15:56:34 2011 +0200
+
+    Added channel's id in front of the cacheid if channeling is active.
+
+commit 108ec658d421e3c8460447fd1e3e98d7c56de1fa
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 15:52:30 2011 +0200
+
+    Added get-/setChannel method.
+
+commit c6afaf07de31543bde270fbd3a85f46933a79e23
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 15:52:08 2011 +0200
+
+    Removed channel_cat_lang from db, as it is not used.
+
+commit 0106b2b0c2678993d0eef5292072d8824021ed1b
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 15:37:16 2011 +0200
+
+    Updated translation.
+
+commit b43e1f8d0d6eb84acc4645d82808bbeb321d4417
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 15:32:22 2011 +0200
+
+    Added channel article plugin.
+
+commit f72f89388138c598735cc7edc353da7774577940
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 14:54:42 2011 +0200
+
+    Initial commit on channel article plugin.
+
+commit 960c3d944a2f1de73adcee739c104d63b8905b2e
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 14:53:27 2011 +0200
+
+    Added reference to client from channel.
+
+commit 72d660dff7b719f151637836f3614cab8416c5e0
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 14:24:23 2011 +0200
+
+    Change version to 2.3.0.0-dev.
+
+commit 22ab5efdf6ededbe318aebd7538282c5acf0b0c8
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 14:22:33 2011 +0200
+
+    Added function to database script.
+
+commit 4c9b312854723b18b521538020b64340a4b9eb5d
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 12:24:49 2011 +0200
+
+    Added channelling tables and relations.
+
+commit 67b9b7f398ffd4ecec7ed1326a645854be52f755
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 12:24:31 2011 +0200
+
+    Added function to schema.
+
+commit f4bae001deb551073296b13010b72465576bb7c3
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Wed Jun 29 12:23:47 2011 +0200
+
+    Changed database name.
+
+commit 635ad4f9042d4707efea81cbe2ca8d8718cbdd32
+Author: Andreas Kummer, w3concepts AG <a.kummer@wdrei.ch>
+Date:   Mon Jun 27 11:27:29 2011 +0200
+
+    Added/removed comment in the README file.
