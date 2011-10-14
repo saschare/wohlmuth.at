@@ -39,7 +39,7 @@ Ext.ux.form.LinkField = Ext.extend(Ext.form.TriggerField,  {
 	        buttons: [{
 	            text: this.cancelButtonText,
 	            handler: function(){
-	        		win.close();
+	        		linkWin.close();
 	            }
 	        }, {
 	            text: this.selectButtonText,
