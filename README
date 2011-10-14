@@ -1,9 +1,11 @@
-Current version: 2.3.10-5
+Current version: 2.3.11-1
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-10-14: Update of ExtJs to version 3.4 and changed version tag
+              to 2.3.11.
 * 2011-10-13: Supress output of resources in protected categories for users
               not allowed to view the resource in the frontend.
 * 2011-10-13: Removed warnings on line 261/265 in 
