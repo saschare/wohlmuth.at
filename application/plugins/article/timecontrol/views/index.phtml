@@ -1,0 +1,17 @@
+var pageTimecontrolDataHandler = function(formId) {
+	Ext.getCmp(formId).getForm().submit({
+		success: function(form, action) {
+			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Time control data have been saved.'); ?>');
+		}, 
+		failure: function() {
+			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been saved due to errors.'); ?>');
+		}
+	});
+}
+
+Ext.getCmp('page-plugin-accordion').add({
+	id: 'article-plugin-timecontrol',
+	title: '<?php echo Aitsu_Translate :: translate('Time control'); ?>',
+	autoScroll: true,
+	items: <?php echo $this->form->render('ExtJs'); ?>
+});
