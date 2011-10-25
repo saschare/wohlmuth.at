@@ -3,8 +3,6 @@
 <script type="text/javascript">
 function init<?php echo $this->id; ?>() {
 	
-	var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
-	
 	var map = new google.maps.Map(document.getElementById("<?php echo $this->id; ?>"), {
 		zoom: <?php echo $this->zoom; ?>,
 		center: new google.maps.LatLng(<?php echo $this->clat; ?>, <?php echo $this->clng; ?>),

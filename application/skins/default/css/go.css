@@ -1,0 +1,110 @@
+/* Kommentar zu einem Frageblock */
+.surveyBlockComment {
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+/* Frageblock */
+.surveyQuestionBlock {
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+/* Ganze Frage inklusive Antwort */
+.surveyQuestionAnswer {
+    padding-top:5px;
+    padding-bottom: 5px;
+    padding-left:3px;
+    padding-right:5px;
+}
+
+/* Auszeichnung für nicht beantwortete Pflichtfragen */
+.surveyQuestionRequired {
+    background-color: #DDDDDD;
+    border:1px solid #AAAAAA;
+}
+
+/* Ausszeichnung für beantwortete Fragen oder nicht Pflichtfragen */
+.surveyQuestionNotRequired {
+    background-color:#C8EAFE;
+    border:1px solid #029ACC;
+}
+
+/* Frage */
+.surveyQuestion {
+    font-weight:bold;
+    margin-bottom:10px;
+    padding-left:5px;
+}
+
+/* Antwort */
+.surveyAnswer {
+    margin-bottom:4px;
+    height:20px;
+}
+
+/* Abesendeknopf */
+.surveyButton button {
+    background-color: #EAF9FF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #016494;
+	height: 19px;
+	border: 1px solid #CCCCCC;
+	margin-top: 2px;
+	margin-bottom:2px;
+}
+
+/* Checkbox oder Radiobutton */
+.surveySelectButton {
+    float:left;
+}
+
+.surveySelectButton input {
+    height:13px;
+    border:none;
+}
+
+.surveyQuestionNotRequired input {
+    background-color:#C8EAFE;
+}
+
+.surveyQuestionRequired input {
+    background-color:#DDDDDD;
+}
+
+/* Label für Checkbox oder Radiobutton */
+.surveySelectButtonLabel {
+    padding-left:30px;
+}
+
+/* Warnung, dass nicht alle Felder ausgefüllt wurden */
+.surveyNotCompleteWarning {
+    font-weight:bold;
+}
+
+/* Analysenresultat Titel */
+.surveyAnalysisTitle {
+    background-color: #C8EAFE;
+	border-top: 1px solid #029ACC;
+	height: 19px;
+	line-height: 19px;
+	vertical-align: middle;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #016494;
+	text-decoration: none;
+	height: 19px;
+	padding-left: 5px;
+}
+
+/* Analysenresultat Text */
+.surveyAnalysisText {
+    margin-top:15px;
+}
+
+/* Vorwort */
+.surveyProlog {
+    margin-bottom:20px;
+}

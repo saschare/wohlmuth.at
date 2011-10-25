@@ -1,0 +1,10 @@
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST" style="display:inline;">
+	<div class="surveyProlog">
+		<?php echo $this->prolog; ?>
+	</div>
+	<div class="surveyButton">
+		<button type="submit" name="<?php echo $this->formNamePrefix; ?>showBlock" value="0">
+			<?php echo Aitsu_Translate :: _('zum Test &raquo;'); ?>
+		</button>
+	</div>
+</form>

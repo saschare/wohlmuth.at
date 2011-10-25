@@ -11,6 +11,8 @@ class Module_Link_List_Internal_Class extends Aitsu_Module_Tree_Abstract {
 	protected $_allowEdit = false;
 
 	protected function _main() {
+		
+		$template = empty($this->_params->template) ? 'index.phtml' : $this->_params->template;
 
 		$view = $this->_getView();
 
@@ -32,7 +34,7 @@ class Module_Link_List_Internal_Class extends Aitsu_Module_Tree_Abstract {
 			return '';
 		}
 
-		return $view->render('index.phtml');
+		return $view->render($template);
 	}
 
 	protected function _cachingPeriod() {

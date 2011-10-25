@@ -1,9 +1,29 @@
-Current version: 2.3.9-1
+Current version: 2.3.11-4
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-10-14: Fixed cancel bug in ext.ux.linkField.js.
+* 2011-10-14: Removed unused extjs ressources (from version 3.3.1).
+* 2011-10-14: Update of ExtJs to version 3.4 and changed version tag
+              to 2.3.11.
+* 2011-10-13: Supress output of resources in protected categories for users
+              not allowed to view the resource in the frontend.
+* 2011-10-13: Removed warnings on line 261/265 in 
+              Aitsu_Persistence_View_Category
+* 2011-10-13: Suppress output of images in protected resources for users
+              not allowed to view the resource in the frontend.
+* 2011-10-13: Updated plupload plugin and changed version tag to 2.3.10.
+* 2011-10-13: Fixed minor bug in Link.List.Internal module and added
+              the possibility to specify a template. 
+* 2011-10-11: Added order by in Aitsu_Persistence_View_Media.
+* 2011-10-11: Fixed minor bug in Aitsu_Persistence_View_Media.
+* 2011-10-11: Suppress protected image resources from being cached
+              in the transparent cache.
+* 2011-10-06: Eliminated notice in Aitsu_Registry on line 107.
+* 2011-10-05: Fixed minor bug in Google.Maps.Javascript.Aggregated.
+* 2011-10-05: Fixed init method of Aitsu_Module_Tree_Abstract.
 * 2011-09-23: Added Google.Maps.Javascript.Aggregated.
 * 2011-09-22: Added Google Locator plugin.
 * 2011-09-22: Added Aitsu_Service_Google_Geocode.

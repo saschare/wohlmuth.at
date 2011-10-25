@@ -3,11 +3,8 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Category.php 18760 2010-09-14 17:09:42Z akm $}
+ * @copyright Copyright &copy; 2011, w3concepts AG
  */
-
 class Aitsu_Persistence_View_Category {
 
 	public static function tree($idlang) {
@@ -257,6 +254,10 @@ class Aitsu_Persistence_View_Category {
 	}
 
 	protected static function _setChildren(& $cat) {
+
+		if (empty ($cat)) {
+			return;
+		}
 
 		foreach ($cat->children as $child) {
 			self :: _setChildren($child);

@@ -9,7 +9,7 @@
 
 class Aitsu_Persistence_View_Media {
 
-	public static function ofCurrentArticle() {
+	public static function ofCurrentArticle($orderBy = 'media.filename asc') {
 
 		return Aitsu_Db :: fetchAll('' .
 		'select ' .
@@ -29,18 +29,20 @@ class Aitsu_Persistence_View_Media {
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
-		'		from _media ' .
+		'		from _media media ' .
 		'		where ' .
 		'			(idart = :idart or idart is null)' .
 		'		group by' .
 		'			filename ' .
-		'	)', array (
+		'	) ' .
+		'order by ' .
+		'	' . $orderBy, array (
 			':idart' => Aitsu_Registry :: get()->env->idart,
 			':idlang' => Aitsu_Registry :: get()->env->idlang
 		));
 	}
 
-	public static function byFileName($idart, $filenames) {
+	public static function byFileName($idart, $filenames, $orderBy = 'media.filename asc') {
 
 		if (empty ($filenames)) {
 			return array ();
@@ -66,12 +68,14 @@ class Aitsu_Persistence_View_Media {
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
-		'		from _media ' .
+		'		from _media media ' .
 		'		where ' .
 		'			(idart = :idart or idart is null)' .
 		'		group by' .
 		'			filename ' .
-		'	)', array (
+		'	) ' .
+		'order by ' .
+		'	' . $orderBy, array (
 			':idart' => $idart,
 			':idlang' => $idlang
 		));
@@ -89,7 +93,7 @@ class Aitsu_Persistence_View_Media {
 		return $return;
 	}
 
-	public static function byFileExtension($idart, $fileextension) {
+	public static function byFileExtension($idart, $fileextension, $orderBy = 'media.filename asc') {
 
 		if (empty ($fileextension)) {
 			return array ();
@@ -116,12 +120,14 @@ class Aitsu_Persistence_View_Media {
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
-		'		from _media ' .
+		'		from _media media ' .
 		'		where ' .
 		'			idart = :idart ' .
 		'		group by' .
 		'			filename ' .
-		'	)', array (
+		'	) ' .
+		'order by ' .
+		'	' . $orderBy, array (
 			':idart' => $idart,
 			':idlang' => $idlang,
 			':fileextension' => $fileextension
@@ -136,7 +142,7 @@ class Aitsu_Persistence_View_Media {
 		return $return;
 	}
 
-	public static function byTag($idart, $tag) {
+	public static function byTag($idart, $tag, $orderBy = 'media.filename asc') {
 
 		if (empty ($idart) || empty ($tag)) {
 			return array ();
@@ -166,12 +172,14 @@ class Aitsu_Persistence_View_Media {
 		'	and media.mediaid in (' .
 		'		select ' .
 		'			max(media.mediaid) ' .
-		'		from _media ' .
+		'		from _media media ' .
 		'		where ' .
 		'			idart = :idart ' .
 		'		group by' .
 		'			filename ' .
-		'	)', array (
+		'	) ' .
+		'order by ' .
+		'	' . $orderBy, array (
 			':idart' => $idart,
 			':idlang' => $idlang,
 			':tag' => $tag

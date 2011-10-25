@@ -5,27 +5,20 @@
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
+class Module_List_Download_Class extends Aitsu_Module_Abstract {
 
-class Module_List_Download_Class extends Aitsu_Ee_Module_Abstract {
+	public static function _main() {
 
-	public static function init($context) {
+		$view = $this->_getView();
 
-		$instance = new self();
-		$index = $context['index'];
-
-		$output = '';
-		if ($instance->_get('List_Download' . $index, $output)) {
-			return $output;
-		}
-
-		$view = $instance->_getView();
-
-		$files = Aitsu_Content_Config_Media :: set($index, 'DownloadList', 'Files');
+		$files = Aitsu_Content_Config_Media :: set($this->_index, 'DownloadList', 'Files');
 		$view->files = Aitsu_Persistence_View_Media :: byFileName(Aitsu_Registry :: get()->env->idart, $files);
 
-		$output = $view->render('index.phtml');
-		$instance->_save($output, 'eternal');
+		return $view->render('index.phtml');
+	}
+	
+	protected function _cachingPeriod() {
 
-		return $output;
+		return 60 * 60 * 24 * 365;
 	}
 }
