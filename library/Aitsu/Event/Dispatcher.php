@@ -48,10 +48,10 @@ class Aitsu_Event_Dispatcher {
 			return;
 		}
 
-                if (empty($_SERVER['PHP_FCGI_CHILDREN'])) {
-                    $env = (getenv("AITSU_ENV") == '' ? 'default' : getenv("AITSU_ENV"));
-                } else {
+                if (!empty($_SERVER['PHP_FCGI_CHILDREN']) || !empty($_SERVER['FCGI_ROLE'])) {
                     $env = (getenv("REDIRECT_AITSU_ENV") == '' ? 'default' : getenv("REDIRECT_AITSU_ENV"));
+                } else {
+                    $env = (getenv("AITSU_ENV") == '' ? 'default' : getenv("AITSU_ENV"));
                 }
 
 		$this->_config = new Zend_Config_Ini($eventsTable, $env, array (
