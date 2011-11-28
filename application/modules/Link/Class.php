@@ -23,7 +23,7 @@ class Module_Link_Class extends Aitsu_Module_Tree_Abstract {
 			'_parent' => '_parent'
 		);
 
-		$target = Aitsu_Content_Config_Select :: set($this->_index, 'target', 'Target', $targets, 'Link');
+		$view->target = Aitsu_Content_Config_Select :: set($this->_index, 'target', 'Target', $targets, 'Link');
 
 		if (strpos($view->link, 'idcat') !== false || strpos($view->link, 'idart') !== false) {
 			$view->link = str_replace(' ', '-', $view->link);

@@ -56,38 +56,34 @@ class Aitsu_Persistence_View_Rendezvous {
 		'	and artlang.online = 1 ' .
 		'	and cat.lft between :lft and :rgt ' .
 		'	and (' .
- 		'		(rv.periodicity = 0 and rv.starttime > :from and rv.starttime < :to) ' .
+		'		(rv.periodicity = 0 and rv.starttime > :from and rv.starttime < :to) ' .
 		'		or ' .
-		'		(rv.periodicity > 0 and rv.starttime > :from and (rv.until is null or rv.until > :from)) ' .
+		'		(rv.periodicity > 0 and rv.starttime < :to and (rv.until is null or rv.until > :to)) ' .
 		'	) ', array (
 			':idlang' => Aitsu_Registry :: get()->env->idlang,
 			':lft' => $cat['lft'],
 			':rgt' => $cat['rgt'],
-			':from' => $from->get('d-m-Y H:i:s'),
-			':to' => $to->get('d-m-Y H:i:s')
+			':from' => $from->get('Y-m-d H:i:s'),
+			':to' => $to->get('Y-m-d H:i:s')
 		));
-		
-		trigger_error(var_export(array('from' => $from->get('d-m-Y H:i:s'), 'to' => $to->get('d-m-Y H:i:s')), true));
-		trigger_error(var_export($dates, true));
 
 		for ($day = $from->getTime(); $day <= $to->getTime() - 1; $day = $day +24 * 60 * 60) {
-			trigger_error(date('d.m.y H:i:s', $day));
 			foreach ($dates as $date) {
 				$startTime = Aitsu_Util_Date :: fromMySQL($date['starttime'])->getStartOfDay();
-				$until = $date['until'] == null ? PHP_INT_MAX : Aitsu_Util_Date :: fromMySQL($date['until'])->getTime();
+				$until = $date['until'] == null ? PHP_INT_MAX : Aitsu_Util_Date :: fromMySQL($date['until'])->getTime();				
 				if ($day == $startTime && $date['periodicity'] == 0) {
 					$date['starttime'] = Aitsu_Util_Date :: fromMySQL($date['starttime']);
 					$date['endtime'] = Aitsu_Util_Date :: fromMySQL($date['endtime']);
 					$returnValue[$date['starttime']->getTime() . uniqid()] = (object) $date;
 				}
-				elseif ($date['periodicity'] > 0 && $startTime < $day && $until > $day && (($day - $startTime) / 60 / 60 / 24) % $date['periodicity'] == 0) {
+				elseif ($date['periodicity'] > 0 && $startTime <= $day && $until > $day && (($day - $startTime) / 60 / 60 / 24) % $date['periodicity'] == 0) {
 					$date['starttime'] = Aitsu_Util_Date :: fromMySQL($date['starttime'])->add($day - $startTime);
 					$date['endtime'] = Aitsu_Util_Date :: fromMySQL($date['endtime'])->add($day - $startTime);
 					$returnValue[$date['starttime']->getTime() . uniqid()] = (object) $date;
 				}
 			}
 		}
-		
+
 		ksort($returnValue);
 
 		return $returnValue;

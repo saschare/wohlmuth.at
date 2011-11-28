@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Test.xsd">
+  <header name="Stress-Test" date="2009-10-01">Der Stress-Test besteht aus zwei Teilen. Die Fragen zu den Stressoren (äussere Reize) geben Ihnen einen Überblick, welche Faktoren bei Ihnen Stress hervorrufen. Die Fragen zur Stressbewältigung zeigen Ihnen Möglichkeiten zur Stressbewältigung auf.</header>
+  <questions>
+    <block>
+      <question question="Stressoren: Ich arbeite unter starkem Termindruck."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question>
+
+      <question question="Probleme und Meinungsverschiedenheiten am Arbeitsplatz belasten mich."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question>
+
+      <question question="Ich muss mehrere Arbeiten gleichzeitig erledigen oder werde ständig unterbrochen."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question>
+
+      <question question="Mein Tagesrhythmus wechselt."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question>      
+
+      <question question="Ungenau definierte und schwierige Aufgaben belasten mich."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Ich finde meine Arbeit unbefriedigend."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Ich leide bei der Arbeit oder zu Hause unter Lärm."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Konflikte oder Probleme in der Familie oder mit dem Partner belasten mich."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Ein aktuelles Trennungserlebnis belastet mich."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Ich habe finanzielle Sorgen oder Angst um meinen Arbeitsplatz."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Es ist mir wichtig, was andere von mir denken."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Ich rege mich leicht auf."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Ich kann schwer Nein sagen."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Ich mache mir Sorgen um meine Gesundheit."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+      <question question="Ich leide unter Beschwerden, die auf chronischen Stress zurückzuführen sind."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="2"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="0"/>
+      </question> 
+
+    </block>
+    <block>
+      <question question="Stressbewältigung - Ich setze klare Prioritäten, wenn mehrere Arbeiten anstehen."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+      
+
+	<question question="Auch unter Druck sorge ich für Arbeitspausen und Ausgleich nach Feierabend."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+
+	<question question="Drohen mir Aufgaben über den Kopf zu wachsen, nehme ich keine Arbeit mehr an oder delegiere."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Ich kann gut abschalten."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Ich sorge für ausreichenden Schlaf."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Ich beherrsche eine Entspannungsmethode und wende diese bei Bedarf an."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Wenn ich Ruhe brauche, teile ich dies meiner Umgebung unmissverständlich mit."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Ich übe ein Hobby aus, bei dem ich Sorgen ganz vergessen kann."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Ich treibe mindestens zweimal pro Woche Sport."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Ich nutze den Urlaub zur Erholung und zum Ausgleich der beruflichen Belastung."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Konflikte und Meinungsverschiedenheiten versuche ich baldmöglichst zu lösen."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Wenn ich Sorgen oder Probleme habe, rede ich mit meinem Partner oder einer Vertrauensperson darüber."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="In Diskussionen vertrete ich selbstbewusst meinen Standpunkt."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+	<question question="Bin ich krank oder nicht belastbar, bitte ich Kollegen, Verwandte oder Freunde um Unterstützung."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+
+	<question question="Ich achte insgesamt gut auf meine Gesundheit."
+                required="true" multiple="false" weight="1">
+        <answer answer="regelmässig oder meistens" value="0"/>
+        <answer answer="häufig" value="1"/>
+        <answer answer="selten oder nie" value="2"/>
+      </question>
+
+
+    </block>
+  </questions>
+  <analysis usemean="false">
+
+	    <score min="31" max="999" title="Dauerstress!">Sie leben im Dauerstress. Ihre Situation ist psychisch und emotional nur für einen begrenzten Zeitraum zu verkraften. Ohne Veränderung Ihrer Situation und einen entsprechenden Ausgleich sind gesundheitliche Probleme vorprogrammiert. Gehen Sie die Fragen zu den Stressoren noch einmal bewusst durch. Markieren Sie die Stressoren, die Sie am stärksten belasten. Was können Sie kurzfristig, was mittelfristig und was langfristig verändern? Greifen Sie auf professionelle Hilfe zurück, suchen Sie das Gespräch mit Ihrem Arzt oder besuchen Sie ein Stressbewältigungsseminar.</score>
+
+	    <score min="21" max="30.5" title="Negativ empfundener Stress! ">In einigen Lebensbereichen haben Sie mit den Fragen zur Stressbelastung negativ empfundenen Stress aufgedeckt.  Vielleicht stellen Sie bereits erste körperliche Warnsymptome fest. Gehen Sie die Fragen zu den Stressoren noch einmal bewusst durch. Liegen diese eher im Bereich Ihrer eignen Einstellung, Ihrer beruflichen oder familiären Situation? Grenzen Sie die Bereiche bewusst ab und überlegen Sie, ob und wie Sie Ihre derzeitige Situation verbessern können. Hilfreich könnte auch eine Optimierung Ihrer Stressbewältigung sein.</score>
+
+	    <score min="11" max="20.5" title="Negativ empfundener Stress!">Sie sind nicht dauernd, aber doch in gewissen Situationen negativ empfundenem Stress ausgesetzt. Es gibt immer wieder Zeiten, in denen Sie keinen vollständigen Ausgleich erreichen. Versuchen Sie, sich mehr Zeit für sich selbst, zum Entspannen und für aktive Erholung einzuräumen.</score>
+
+	    <score min="0" max="10.5" title="In gutem Gleichgewicht! ">Wenn Sie ehrlich geantwortet haben, sind Sie in einem guten Gleichgewicht. Negativ empfundene Stresssituationen kommen bei Ihnen selten vor. Geraten Sie unter Druck, können Sie angemessen damit umgehen.</score>
+  </analysis>
+</root>

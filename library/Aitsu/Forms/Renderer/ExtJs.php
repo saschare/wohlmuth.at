@@ -128,7 +128,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		}
 
 		if (!empty ($value['value'])) {
-			$fieldValue = str_replace("\r", "", str_replace("\n", '\n', $value['value']));
+			$fieldValue = str_replace(chr(39), chr(92) . chr(39), str_replace("\r", "", str_replace("\n", '\n', $value['value'])));
 			$configs[] = "value: '{$fieldValue}'";
 		}
 
@@ -159,7 +159,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 	protected static function _extraFieldAttsCombo($configs, $key, $field) {
 
 		$configs[] = "hiddenName: '{$key}'";
-		
+
 		return $configs;
 	}
 
@@ -173,15 +173,15 @@ class Aitsu_Forms_Renderer_ExtJs {
 		foreach ($field['option'] as $option) {
 			$option = (object) $option;
 			$value = is_numeric($option->value) ? $option->value : "'{$option->value}'";
-			if ($field['value'] == $option->value) {
-				$items[] = "{boxLabel: '{$option->name}', name: '{$key}', inputValue: $value, checked: true}";
+			if (isset($field['value']) && $field['value'] == $option->value) {
+				$items[] = "{boxLabel: '" . Aitsu_Translate :: translate($option->name) . "', name: '{$key}', inputValue: $value, checked: true}";
 			} else {
-				$items[] = "{boxLabel: '{$option->name}', name: '{$key}', inputValue: $value}";
+				$items[] = "{boxLabel: '" . Aitsu_Translate :: translate($option->name) . "', name: '{$key}', inputValue: $value}";
 			}
 		}
 
 		$configs[] = 'items: [' . implode(', ', $items) . ']';
-		
+
 		return $configs;
 	}
 
@@ -205,7 +205,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 		}
 
 		$configs[] = 'items: [' . implode(', ', $items) . ']';
-		
+
 		return $configs;
 	}
 
@@ -213,7 +213,7 @@ class Aitsu_Forms_Renderer_ExtJs {
 
 		$configs[] = "format: 'Y-m-d H:i:s'";
 		$configs[] = "altFormats: 'Y-m-d|d.m.Y|d.m.y'";
-		
+
 		return $configs;
 	}
 

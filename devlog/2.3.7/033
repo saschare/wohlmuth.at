@@ -1,0 +1,9 @@
+== Lanuage auto-preselector listener ==
+
+The language auto-preselector listener evaluates the language accept header
+and redirects the user to the start page of the evaluated language. The listener
+is active, if all of the following conditions are met:
+
+1. rewrite.uselang is set to true.
+2. frontend.init.listener.Aitsu_Init_Auto_LanguagePreselector is set to true.
+3. The top-level page is requested (deeper in the tree, the listener is not active).

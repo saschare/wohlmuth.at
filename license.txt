@@ -1,10 +1,10 @@
 ********************************************************************************
 *                                                                              *
-* aitsu 2.1.x - License aggrement                                              *
+* aitsu 2.3.x - License aggrement                                              *
 *                                                                              *
 ********************************************************************************
 
-1. aitsu 2.1.x is protected by copyright law. The aitsu logo is copyrighted by 
+1. aitsu 2.3.x is protected by copyright law. The aitsu logo is copyrighted by 
    meine experten GbR (Germany). The software is copyrighted by w3concepts AG
    (Switzerland).
    

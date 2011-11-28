@@ -97,6 +97,8 @@ class Aitsu_Persistence_ArticleMeta extends Aitsu_Persistence_Abstract {
 
 			if (is_array($this->_data['robots'])) {
 				$this->_data['robots'] = implode(', ', $this->_data['robots']);
+			} else {
+				$this->_data['robots'] = '';
 			}
 
 			Aitsu_Db :: put('_art_meta', 'idartlang', $this->_data);

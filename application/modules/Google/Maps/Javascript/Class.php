@@ -6,6 +6,9 @@
  * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2011, w3concepts AG
+ * 
+ * @link http://code.google.com/apis/maps/documentation/javascript/basics.html Google Maps Basics
+ * @link http://code.google.com/apis/maps/documentation/javascript/overlays.html Google Maps Overlays
  */
 
 class Module_Google_Maps_Javascript_Class extends Aitsu_Module_Tree_Abstract {
@@ -28,11 +31,13 @@ class Module_Google_Maps_Javascript_Class extends Aitsu_Module_Tree_Abstract {
 			'Hybrid' => 'HYBRID',
 			'Terrain' => 'TERRAIN'
 		), Aitsu_Translate :: translate('Display type'));
-		$view->type = empty($type) ? 'SATELLITE' : $type;
+		
+		$view->type = empty ($type) ? empty($this->_params->type) ? 'SATELLITE' : $this->_params->type : $type;
 		$view->address = empty ($address) ? 'Nowhere Creek, Victoria, Australia' : $address;
-		$view->width = empty ($width) ? 300 : $width;
-		$view->height = empty ($height) ? 200 : $height;
-		$view->zoom = empty ($zoom) ? 0 : $zoom;
+		
+		$view->width = empty ($width) ? empty($this->_params->width) ? 300 : $this->_params->width : $width;
+		$view->height = empty ($height) ? empty($this->_params->height) ? 200 : $this->_params->height : $height;
+		$view->zoom = empty ($zoom) ? empty($this->_params->zoom) ? 0 : $this->_params->zoom : $zoom;
 
 		$output = $view->render('index.phtml');
 

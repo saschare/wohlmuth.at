@@ -13,10 +13,10 @@ class Module_List_Rendezvous_Class extends Aitsu_Module_Tree_Abstract {
 	protected function _main() {
 
 		$view = $this->_getView();
-
+		
 		$view->dates = Aitsu_Persistence_View_Rendezvous :: getDates(
 			Aitsu_Util_Date :: dayOfCurrentWeek(1), 
-			Aitsu_Util_Date :: dayOfCurrentWeek(0)->add(60 * 60 * 24 * 8), 
+			Aitsu_Util_Date :: dayOfCurrentWeek(1)->add(60 * 60 * 24 * 7), 
 			Aitsu_Registry :: get()->env->idcat
 		);
 

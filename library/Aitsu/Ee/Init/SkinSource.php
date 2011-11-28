@@ -36,7 +36,7 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 		$expires = 60 * 60 * 24 * 7;
 
 		header("Pragma: public");
-		header("Cache-Control: maxage=" . $expires);
+		header("Cache-Control: max-age=" . $expires);
 		header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
 
 		$file_extension = strtolower(pathinfo(end($exploded), PATHINFO_EXTENSION));
@@ -73,11 +73,6 @@ class Aitsu_Ee_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 				self :: _cache($etag, $content, array (
 					'js'
 				));
-			}
-
-			if (Aitsu_Registry :: get()->config->output->gzhandler) {
-				$content = gzencode($content);
-				header('Content-Encoding: gzip');
 			}
 
 			if (!isset ($etag)) {

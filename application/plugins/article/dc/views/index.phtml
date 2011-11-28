@@ -2,7 +2,7 @@ var pageDublinCoreDataHandler = function(formId) {
 	Ext.getCmp(formId).getForm().submit({
 		success: function(form, action) {
 			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('DC meta data have been saved.'); ?>');
-			setUnpublished();
+			Ext.aitsu.setUnpublished();
 		}, 
 		failure: function() {
 			Ext.aitsu.errmsg('<?php echo Aitsu_Translate :: translate('Form failure'); ?>', '<?php echo Aitsu_Translate :: translate('Form data have not been saved due to errors.'); ?>');

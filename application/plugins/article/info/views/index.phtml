@@ -1,0 +1,27 @@
+var articlePropsGrid = new Ext.grid.PropertyGrid({
+	autoHeight: true,
+	source: {
+		<?php $keys = array_keys($this->props); ?>
+		<?php for ($i = 0; $i < count($this->props); $i++) : ?>
+			<?php if ($i > 0) { echo ', ' . "\n"; } ?>
+			<?php $key = $keys[$i]; $val = str_replace("'", "\\'", $this->props[$key]); ?>
+			'<?php echo $key; ?>': '<?php echo $val; ?>'
+		<?php endfor; ?>
+	},
+	viewConfig : {
+		forceFit: true,
+		scrollOffset: 2
+	},
+	listeners: {
+		beforeedit: function(e) {
+			return false;
+		}
+	}
+});
+    
+Ext.getCmp('page-plugin-accordion').add({
+	id: 'article-plugin-info',
+	title: '<?php echo Aitsu_Translate :: translate('Article info'); ?>',
+	autoScroll: true,
+	items: articlePropsGrid
+});

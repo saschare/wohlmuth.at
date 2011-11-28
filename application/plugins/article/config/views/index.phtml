@@ -2,7 +2,7 @@ var pageConfigurationHandler = function(formId) {
 	Ext.getCmp(formId).getForm().submit({
 		success: function(form, action) {
 			Ext.aitsu.msg('<?php echo Aitsu_Translate :: translate('Saved'); ?>', '<?php echo Aitsu_Translate :: translate('Configuration has been saved.'); ?>');
-			setUnpublished();
+			Ext.aitsu.setUnpublished();
 			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>'], function() {
 				Ext.getCmp('viewport').doLayout();
 				Ext.getCmp('page-edit-tab').activate(0);

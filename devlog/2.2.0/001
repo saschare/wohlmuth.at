@@ -1,0 +1,10 @@
+== Revision progression (since 2.2.0) ==
+
+In the article view there is a new tab allowing you to switch between published versions of 
+the current article. To be able to use the new feature you have to add follwing line to the 
+default config set:
+
+plugin.article.revisionprogression.position.default = 1000
+
+The number after the equal symbol represents the relative position of the tab. You may change 
+the value to something not lower than 1, which repositions the tab within the article view.

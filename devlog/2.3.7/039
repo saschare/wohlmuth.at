@@ -1,0 +1,5 @@
+== HTML.View module ==
+
+The module is a child of HTML and may be used instead of HTML (use the
+configuration tab to change its behavious). HTML.View takes the HTML
+content with the same index from the specified article.

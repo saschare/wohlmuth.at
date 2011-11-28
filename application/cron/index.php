@@ -7,7 +7,7 @@
 
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../application'));
 define('APPLICATION_ENV', 'development');
-define('APPLICATION_LIBPATH', realpath(APPLICATION_PATH . '/../../library'));
+define('APPLICATION_LIBPATH', realpath(APPLICATION_PATH . '/../library'));
 
 set_include_path(implode(PATH_SEPARATOR, array (
 	realpath(APPLICATION_PATH . '/../library'),

@@ -1,0 +1,8 @@
+== Referential integrity constraint on todo.idartlang (since 2.3.7-31) ==
+
+A referential integrity constraint with cascading delete has been added on the
+field idartlang in the table todo. If there are already orphaned todos, the update
+will fail. If you get an exception during the update process, delete todos with
+non-existing idartlang with the following query:
+
+delete from ait_todo where idartlang not in (select distinct idartlang from ait_art_lang) 

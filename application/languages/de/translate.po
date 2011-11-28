@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-13 15:42+0100\n"
-"PO-Revision-Date: 2011-08-13 15:42+0100\n"
+"POT-Creation-Date: 2011-09-22 18:38+0100\n"
+"PO-Revision-Date: 2011-09-22 18:40+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -313,26 +313,26 @@ msgstr "Die Triggers konnten aufgrund fehlender Rechte nicht wiederhergestellt w
 msgid "Triggers have been restored."
 msgstr "Die Triggers wurden wiederhergestellt."
 
-#: application/adm/scripts/Installation/Setup.php:26
+#: application/adm/scripts/Installation/Setup.php:23
 #, php-format
 msgid "Directory with path %s is not writable. Please allow the server to write to this directory and underneath."
 msgstr "Das Verzeichnis mit dem Pfad %s ist nicht beschreibbar. Setzen Sie die Rechte so, dass der Server in das bezeichnete Verzeichnis und sich darin befindliche Dateien und Verzeichnisse schreiben kann."
 
-#: application/adm/scripts/Installation/Setup.php:32
+#: application/adm/scripts/Installation/Setup.php:29
 #, php-format
 msgid "File or directory with path %s is not writable. Please allow the server to write to %s and underneath."
 msgstr "Die Datei oder das Verzeichnis mit dem Pfad %s ist nicht beschreibbar. Vergeben Sie die Rechte so, dass der Server in das Verzeichnis %s und in darin befindliche Dateien und Verzeichnisse schreiben kann."
 
-#: application/adm/scripts/Installation/Setup.php:42
+#: application/adm/scripts/Installation/Setup.php:39
 msgid "The file dump.sql is missing."
 msgstr "Die Datei dump.sql fehlt."
 
-#: application/adm/scripts/Installation/Setup.php:78
+#: application/adm/scripts/Installation/Setup.php:75
 #, php-format
 msgid "Executing from line %s to %s."
 msgstr "Ausführung der Zeilen %s bis %s."
 
-#: application/adm/scripts/Installation/Setup.php:103
+#: application/adm/scripts/Installation/Setup.php:100
 #, php-format
 msgid "Line %s to %s executed."
 msgstr "Zeilen %s bis %s ausgeführt."
@@ -389,50 +389,60 @@ msgstr "Die Tabelle %s wurde angelegt."
 msgid "Article relations have been actualized."
 msgstr "Die Artikelrelationen wurden aktualisiert."
 
-#: application/modules/Google/Maps/Javascript/Class.php:18
+#: application/modules/Google/Maps/Javascript/Class.php:21
 msgid "Address"
 msgstr "Adresse"
 
-#: application/modules/Google/Maps/Javascript/Class.php:18
-#: application/modules/Google/Maps/Javascript/Class.php:24
+#: application/modules/Google/Maps/Javascript/Class.php:21
+#: application/modules/Google/Maps/Javascript/Class.php:27
 msgid "Location"
 msgstr "Ort"
 
-#: application/modules/Google/Maps/Javascript/Class.php:19
+#: application/modules/Google/Maps/Javascript/Class.php:22
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:29
 msgid "Width"
 msgstr "Breite"
 
-#: application/modules/Google/Maps/Javascript/Class.php:19
-#: application/modules/Google/Maps/Javascript/Class.php:20
+#: application/modules/Google/Maps/Javascript/Class.php:22
 #: application/modules/Google/Maps/Javascript/Class.php:23
+#: application/modules/Google/Maps/Javascript/Class.php:26
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:29
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:30
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:33
 msgid "Style"
 msgstr "Style"
 
-#: application/modules/Google/Maps/Javascript/Class.php:20
+#: application/modules/Google/Maps/Javascript/Class.php:23
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:30
 msgid "Height"
 msgstr "Höhe"
 
-#: application/modules/Google/Maps/Javascript/Class.php:21
+#: application/modules/Google/Maps/Javascript/Class.php:24
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:31
 msgid "Zoom"
 msgstr "Zoom"
 
-#: application/modules/Google/Maps/Javascript/Class.php:21
+#: application/modules/Google/Maps/Javascript/Class.php:24
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:31
 msgid "View"
 msgstr "Ansicht"
 
-#: application/modules/Google/Maps/Javascript/Class.php:23
+#: application/modules/Google/Maps/Javascript/Class.php:26
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:33
 msgid "Class"
 msgstr "Class"
 
-#: application/modules/Google/Maps/Javascript/Class.php:24
+#: application/modules/Google/Maps/Javascript/Class.php:27
 msgid "Name"
 msgstr "Name"
 
-#: application/modules/Google/Maps/Javascript/Class.php:25
+#: application/modules/Google/Maps/Javascript/Class.php:28
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:34
 msgid "Type"
 msgstr "Typ"
 
-#: application/modules/Google/Maps/Javascript/Class.php:30
+#: application/modules/Google/Maps/Javascript/Class.php:33
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:39
 msgid "Display type"
 msgstr "Anzeigetyp"
 
@@ -556,6 +566,23 @@ msgstr "Meta"
 msgid "Meta data"
 msgstr "Metadaten"
 
+#: application/plugins/article/googlelocator/Class.php:23
+#: application/plugins/article/googlelocator/Class.php:35
+msgid "Google Locator"
+msgstr "Google Locator"
+
+#: application/plugins/article/googlelocator/views/translation.php:1
+msgid "Coordinates"
+msgstr "Koordinaten"
+
+#: application/plugins/article/googlelocator/views/translation.php:2
+msgid "Longitude"
+msgstr "Geogr. Länge"
+
+#: application/plugins/article/googlelocator/views/translation.php:3
+msgid "Latitude"
+msgstr "Geogr. Breite"
+
 #: application/plugins/article/channel/Class.php:28
 msgid "Channel"
 msgstr "Kanal"
@@ -584,6 +611,10 @@ msgstr "Crosslinking"
 #: application/plugins/article/shopitem/Class.php:35
 msgid "Shop item"
 msgstr "Shop-Artikel"
+
+#: application/plugins/article/info/Class.php:26
+msgid "Info"
+msgstr "Info"
 
 #: application/plugins/category/blog/Class.php:30
 msgid "Blog"
@@ -792,6 +823,7 @@ msgid "Config sets"
 msgstr "Konfigurationen"
 
 #: application/adm/views/scripts/config/index.phtml:22
+#: application/adm/views/scripts/client/clientlist.phtml:19
 msgid "Identifier"
 msgstr "Bezeichner"
 
@@ -800,7 +832,9 @@ msgid "Add new configset"
 msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/index.phtml:58
-#: application/adm/views/scripts/data/index.phtml:163
+#: application/adm/views/scripts/data/index.phtml:164
+#: application/adm/views/scripts/mapping/index.phtml:48
+#: application/adm/views/scripts/client/clientlist.phtml:55
 msgid "Delete"
 msgstr "Löschen"
 
@@ -870,13 +904,13 @@ msgstr "Ja"
 
 #: application/adm/views/scripts/data/edit.phtml:39
 #: application/adm/views/scripts/data/edit.phtml:48
-#: application/adm/views/scripts/data/index.phtml:125
+#: application/adm/views/scripts/data/index.phtml:126
 msgid "Set offline"
 msgstr "Offline stellen"
 
 #: application/adm/views/scripts/data/edit.phtml:39
 #: application/adm/views/scripts/data/edit.phtml:51
-#: application/adm/views/scripts/data/index.phtml:125
+#: application/adm/views/scripts/data/index.phtml:126
 msgid "Set online"
 msgstr "Online stellen"
 
@@ -884,89 +918,89 @@ msgstr "Online stellen"
 msgid "Publish"
 msgstr "Publizieren"
 
-#: application/adm/views/scripts/data/index.phtml:43
+#: application/adm/views/scripts/data/index.phtml:44
 msgid "Category tree"
 msgstr "Kategoriebaum"
 
-#: application/adm/views/scripts/data/index.phtml:70
+#: application/adm/views/scripts/data/index.phtml:71
 msgid "Move node"
 msgstr "Knoten verschieben."
 
-#: application/adm/views/scripts/data/index.phtml:71
+#: application/adm/views/scripts/data/index.phtml:72
 msgid "Are you sure to move the node to the specified place?"
 msgstr "Sind Sie sicher, dass Sie den gewählten Knoten an die bezeichnete Stelle verschieben möchten?"
 
-#: application/adm/views/scripts/data/index.phtml:79
+#: application/adm/views/scripts/data/index.phtml:80
 msgid "Category moved"
 msgstr "Kategorie verschoben"
 
-#: application/adm/views/scripts/data/index.phtml:79
+#: application/adm/views/scripts/data/index.phtml:80
 msgid "The selected category has been moved to the specified category."
 msgstr "Die selektierte Kategorie wurde in die bezeichnete Kategorie verschoben."
 
-#: application/adm/views/scripts/data/index.phtml:81
+#: application/adm/views/scripts/data/index.phtml:82
 msgid "Category not moved"
 msgstr "Kategorie nicht verschoben"
 
-#: application/adm/views/scripts/data/index.phtml:81
+#: application/adm/views/scripts/data/index.phtml:82
 msgid "The category has not been moved. You probably have not enough privileges to do so."
 msgstr "Die Kategorie wurde nicht verschoben. Vermutlich verfügen Sie nicht über ausreichend Rechte zur Ausführung."
 
-#: application/adm/views/scripts/data/index.phtml:99
+#: application/adm/views/scripts/data/index.phtml:100
 msgid "Page moved"
 msgstr "Seite verschoben"
 
-#: application/adm/views/scripts/data/index.phtml:99
+#: application/adm/views/scripts/data/index.phtml:100
 msgid "The selected page has been moved to the specified category."
 msgstr "Die selektierte Seite wurde in die bezeichnete Kategorie verschoben."
 
-#: application/adm/views/scripts/data/index.phtml:145
+#: application/adm/views/scripts/data/index.phtml:146
 msgid "New sub-category"
 msgstr "Neue Unterkategorie erstellen"
 
-#: application/adm/views/scripts/data/index.phtml:168
+#: application/adm/views/scripts/data/index.phtml:169
 msgid "Delete category"
 msgstr "Kategorie löschen"
 
-#: application/adm/views/scripts/data/index.phtml:169
+#: application/adm/views/scripts/data/index.phtml:170
 msgid "Are you sure to delete the selected category?"
 msgstr "Sind Sie sicher, dass Sie die gew&auml;hlte Kategorie l&ouml;schen m&ouml;chten?"
 
-#: application/adm/views/scripts/data/index.phtml:193
-#: application/adm/views/scripts/data/index.phtml:234
+#: application/adm/views/scripts/data/index.phtml:194
+#: application/adm/views/scripts/data/index.phtml:235
 msgid "Set as resource"
 msgstr "Als Ressource markieren"
 
-#: application/adm/views/scripts/data/index.phtml:199
-#: application/adm/views/scripts/data/index.phtml:240
+#: application/adm/views/scripts/data/index.phtml:200
+#: application/adm/views/scripts/data/index.phtml:241
 msgid "Resource added"
 msgstr "Ressource hinzugefügt"
 
-#: application/adm/views/scripts/data/index.phtml:199
+#: application/adm/views/scripts/data/index.phtml:200
 msgid "The selected category has been added to resources."
 msgstr "Die selektierte Kategorie wurde als Ressource markiert."
 
-#: application/adm/views/scripts/data/index.phtml:212
+#: application/adm/views/scripts/data/index.phtml:213
 msgid "Add to favorites"
 msgstr "Zu den Favoriten hinzufügen"
 
-#: application/adm/views/scripts/data/index.phtml:240
+#: application/adm/views/scripts/data/index.phtml:241
 msgid "The selected page has been added to resources."
 msgstr "Die selektierte Seite wurde als Ressource markiert."
 
-#: application/adm/views/scripts/data/index.phtml:256
+#: application/adm/views/scripts/data/index.phtml:257
 msgid "New category"
 msgstr "Neue Kategorie"
 
-#: application/adm/views/scripts/data/index.phtml:332
+#: application/adm/views/scripts/data/index.phtml:333
 msgid "Recently opened pages"
 msgstr "Kürzlich geöffnete Seiten"
 
-#: application/adm/views/scripts/data/index.phtml:373
+#: application/adm/views/scripts/data/index.phtml:374
 msgid "Favorites"
 msgstr "Favoriten"
 
-#: application/adm/views/scripts/data/index.phtml:392
+#: application/adm/views/scripts/data/index.phtml:393
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -1098,11 +1132,11 @@ msgstr "Verbleibende Sessiondauer"
 msgid "Session refreshed at"
 msgstr "Session aktualisiert um"
 
-#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:23
+#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:24
 msgid "Language changed"
 msgstr "Sprache gewechselt"
 
-#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:23
+#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:24
 msgid "The language has been changed."
 msgstr "Die Sprache wurde gewechselt."
 
@@ -1318,6 +1352,11 @@ msgstr "Wartung"
 #: application/modules/Navigation/Back/index.phtml:1
 msgid "Back"
 msgstr "Zurück"
+
+#: application/modules/Search/Lucene/index.phtml:1
+#, php-format
+msgid "About %s results found for '%s'"
+msgstr "Ungefähr %s Resultate für '%s' gefunden."
 
 #: application/modules/Shop/Cart/index.phtml:6
 msgid "Quantity"
@@ -1741,7 +1780,7 @@ msgstr "Periodizität"
 msgid "DC meta data have been saved."
 msgstr "Dublic Core-Metadaten wurden gespeichert."
 
-#: application/plugins/article/edit/views/editcontent.phtml:104
+#: application/plugins/article/edit/views/editcontent.phtml:98
 msgid "Close"
 msgstr "Schliessen"
 
@@ -1799,6 +1838,10 @@ msgstr "Seiteneigenschaften wurden gespeichert."
 msgid "Meta data have been saved."
 msgstr "Die Metadaten wurden gespeichert."
 
+#: application/plugins/article/googlelocator/views/index.phtml:4
+msgid "Location data have been saved."
+msgstr "Die Koordinaten wurden gespeichert."
+
 #: application/plugins/article/channel/views/index.phtml:4
 msgid "Channels have been saved."
 msgstr "Die Kanäle wurden gespeichert."
@@ -1822,6 +1865,30 @@ msgstr "Link löschen"
 #: application/plugins/article/crosslinking/views/index.phtml:83
 msgid "Are you sure to delete the selected link?"
 msgstr "Sind Sie sicher, dass Sie den selektierten Link löschen möchten?"
+
+#: application/plugins/article/shopitem/views/translation.phtml:1
+msgid "VAT"
+msgstr "MwSt."
+
+#: application/plugins/article/shopitem/views/translation.phtml:2
+msgid "fixed"
+msgstr "fest"
+
+#: application/plugins/article/shopitem/views/translation.phtml:3
+msgid "variable"
+msgstr "variabel"
+
+#: application/plugins/article/shopitem/views/translation.phtml:4
+msgid "excluded"
+msgstr "exkl."
+
+#: application/plugins/article/shopitem/views/translation.phtml:5
+msgid "included"
+msgstr "inkl."
+
+#: application/plugins/article/shopitem/views/translation.phtml:6
+msgid "none"
+msgstr "keine"
 
 #: application/plugins/article/shopitem/views/index.phtml:1
 msgid "normal"
@@ -1879,48 +1946,61 @@ msgstr "MwSt-Klasse"
 msgid "Shop item data have been saved."
 msgstr "Die Shop-Artikel-Daten wurden gespeichert."
 
+#: application/plugins/article/info/views/index.phtml:24
+msgid "Article info"
+msgstr "Artikelinformationen"
+
 #: application/plugins/category/blog/views/index.phtml:106
 #: application/plugins/category/metabatch/views/index.phtml:123
+#: application/plugins/category/standard/views/index.phtml:106
 msgid "URL name"
 msgstr "URL-Name"
 
 #: application/plugins/category/blog/views/index.phtml:146
 #: application/plugins/category/metabatch/views/index.phtml:201
+#: application/plugins/category/standard/views/index.phtml:186
 msgid "Set as index"
 msgstr "Als Index setzen"
 
 #: application/plugins/category/blog/views/index.phtml:219
 #: application/plugins/category/metabatch/views/index.phtml:274
+#: application/plugins/category/standard/views/index.phtml:259
 msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:263
 msgid "Page cut"
 msgstr "Seite ausgeschnitten"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:263
 msgid "The selected page has been put to the clipboard."
 msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:232
 #: application/plugins/category/metabatch/views/index.phtml:287
+#: application/plugins/category/standard/views/index.phtml:272
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: application/plugins/category/blog/views/index.phtml:233
 #: application/plugins/category/metabatch/views/index.phtml:288
+#: application/plugins/category/standard/views/index.phtml:273
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:282
 msgid "Page deleted"
 msgstr "Seite gelöscht"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:282
 msgid "The selected page has been removed."
 msgstr "Die selektierte Seite wurde gelöscht."
 
@@ -1936,21 +2016,29 @@ msgstr "Ihre Änderungen wurden gespeichert."
 msgid "Synchronization language"
 msgstr "Synchronisationssprache"
 
-#: application/plugins/category/standard/views/index.phtml:122
+#: application/plugins/category/standard/views/index.phtml:123
 msgid "Created"
 msgstr "Erstellt"
 
-#: application/plugins/category/standard/views/index.phtml:122
+#: application/plugins/category/standard/views/index.phtml:123
 msgid "Article has been created."
 msgstr "Der Artikel wurde erstellt."
 
-#: application/plugins/category/standard/views/index.phtml:125
+#: application/plugins/category/standard/views/index.phtml:126
 msgid "Loading"
 msgstr "Laden"
 
-#: application/plugins/category/standard/views/index.phtml:125
+#: application/plugins/category/standard/views/index.phtml:126
 msgid "Article is loading..."
 msgstr "Der Artikel wird geladen..."
+
+#: application/plugins/category/standard/views/index.phtml:173
+msgid "Insufficient privileges"
+msgstr "Unzureichende Privilegien."
+
+#: application/plugins/category/standard/views/index.phtml:174
+msgid "You are not allowed to edit the selected page."
+msgstr "Sie sind nicht ausreichend berechtigt, den selektierten Artikel zu bearbeiten."
 
 #: application/skins/default/module/Contact/index.phtml:8
 msgid "Please provide your name"
@@ -2326,8 +2414,6 @@ msgstr "senden"
 #~ msgstr "Startdatum"
 #~ msgid "End date"
 #~ msgstr "Enddatum"
-#~ msgid "VAT"
-#~ msgstr "MwSt."
 #~ msgid "Discount price"
 #~ msgstr "Spezialpreis"
 #~ msgid "Primary article image"

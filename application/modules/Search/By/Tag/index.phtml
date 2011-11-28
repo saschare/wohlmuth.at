@@ -1,0 +1,40 @@
+<?php if (!empty($this->currentTagsFull)) : ?>
+<div class="tags">
+	<div>Selektierte Tags</div>
+	<ul class="clearfix">
+	<?php $counter = 0; foreach ($this->currentTagsFull as $tag) : $counter++; $tag = (object) $tag; ?>
+		<li<?php if ($counter % 4 == 0) {echo ' class="clearfix"';} ?>>
+			<a href="{ref:idart-<?php echo Aitsu_Registry :: get()->env->idart; ?>}?<?php echo http_build_query(array('tags' => array_values(array_diff($this->currentTags, array($tag->tagid))))); ?>"><?php echo $tag->tag; ?></a>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+</div>
+<?php endif; ?>
+
+<?php if (!empty($this->tags)) : ?>
+<div class="tags">
+	<div>Verfügbare Tags</div>
+	<ul class="clearfix">
+	<?php $counter = 0; foreach (Aitsu_Util_Array :: shiftAndMix($this->tags, 4) as $tag) : $counter++; $tag = (object) $tag; ?>
+		<li<?php if ($counter % 4 == 0) {echo ' class="clearfix"';} ?>>
+			<a href="{ref:idart-<?php echo Aitsu_Registry :: get()->env->idart; ?>}?<?php echo http_build_query(array('tags' => array_merge($this->currentTags, array($tag->tagid)))); ?>"><?php echo $tag->tag; ?> (<?php echo $tag->pages; ?>)</a>
+		</li>
+	<?php endforeach; ?>
+	</ul>
+</div>
+<div style="clear:left;"></div>
+<?php endif; ?>
+
+<?php if (!empty($this->pages)) : ?>
+<div class="pages">
+	<?php $counter = 0; foreach ($this->pages as $page) : $counter++; $page = (object) $page; ?>
+	<a href="{ref:idart-<?php echo $page->idart; ?>}">
+		<span class="olli">
+			<?php echo str_pad($counter, 2, '0', STR_PAD_LEFT); ?>
+		</span>
+		<span class="title"><?php echo $page->pagetitle; ?></span>
+		<span><?php echo $page->summary; ?></span>
+	</a>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>

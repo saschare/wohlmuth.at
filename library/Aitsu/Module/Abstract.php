@@ -26,6 +26,7 @@ abstract class Aitsu_Module_Abstract {
 	protected $_context = null;
 	protected $_index = null;
 	protected $_params = null;
+	protected $_moduleName = '';
 
 	/*
 	 * _isVolatile flags the cached output to be volatile in the
@@ -58,21 +59,30 @@ abstract class Aitsu_Module_Abstract {
 	 */
 	protected $_isBlock = true;
 
-	public static function init($context) {
+	protected static function _getInstance($className) {
+
+		$instance = new $className ();
+
+		$className = str_replace('_', '.', $className);
+		$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
+		$className = preg_replace('/\\.Class$/', "", $className);
+
+		$instance->_moduleName = $className;
+
+		return $instance;
+	}
+
+	public static function init($context, $instance = null) {
 
 		$output = '';
 
-		$instance = new $context['className'] ();
-
-		$className = str_replace('_', '.', $context['className']);
-		$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
-		$className = preg_replace('/\\.Class$/', "", $className);
+		$instance = is_null($instance) ? self :: _getInstance($context['className']) : $instance;
 
 		/*
 		 * Suppress edit option, if _allowEdit is set to false.
 		 */
 		if (!$instance->_allowEdit) {
-			Aitsu_Content_Edit :: noEdit($className, true);
+			Aitsu_Content_Edit :: noEdit($instance->_moduleName, true);
 		}
 
 		/*
@@ -111,6 +121,11 @@ abstract class Aitsu_Module_Abstract {
 		 * is disabled or there is no valid cache.
 		 */
 		$output .= $instance->_main();
+		
+		/*
+		 * Do the transformation of the output.
+		 */
+		$output = $instance->_transformOutput($output);
 
 		if ($instance->_cachingPeriod() > 0) {
 			$instance->_save($output, $instance->_cachingPeriod());
@@ -162,6 +177,19 @@ abstract class Aitsu_Module_Abstract {
 	protected function _init() {
 
 		return '';
+	}
+
+	/**
+	 * _transformOutput lets the module transform or replace the generated output
+	 * before it is placed into the sourrounding document. This is especially helpfull
+	 * to suppress output in edit mode in extended abstract classes such as the
+	 * MicroApp abstract class.
+	 * @param String $output The output of the module.
+	 * @return String The transformed or replaced output.
+	 */
+	protected function _transformOutput($output) {
+
+		return $output;
 	}
 
 	protected function _main() {
@@ -370,4 +398,3 @@ abstract class Aitsu_Module_Abstract {
 	}
 
 }
-?>

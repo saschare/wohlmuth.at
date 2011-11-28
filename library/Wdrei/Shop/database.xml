@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../application/database/schema.xsd">
+    <table engine="InnoDB" name="shop_currency" since="2.4.0">
+        <field default="null" name="currencyid" type="int(10) unsigned" nullable="false"
+            primary="true" autoincrement="true"/>
+        <field default="null" name="code" type="varchar(10)" nullable="false"/>
+        <field default="null" name="parity" type="float" nullable="false"/>
+        <dataset use="ifempty">
+            <record>
+                <value attribute="code">CHF</value>
+                <value attribute="parity">1</value>
+            </record>
+            <record>
+                <value attribute="code">EUR</value>
+                <value attribute="parity">1</value>
+            </record>
+            <record>
+                <value attribute="code">USD</value>
+                <value attribute="parity">1</value>
+            </record>
+        </dataset>
+    </table>
+    <table engine="InnoDB" name="shop_tax_class" since="2.4.0">
+        <field default="null" name="classid" type="int(10) unsigned" nullable="false" primary="true"
+            autoincrement="true"/>
+        <field default="null" name="identifier" type="varchar(255)" nullable="false"/>
+        <dataset use="ifempty">
+            <record>
+                <value attribute="identifier">normal</value>
+            </record>
+            <record>
+                <value attribute="identifier">reduced</value>
+            </record>
+        </dataset>
+    </table>
+    <table engine="InnoDB" name="shop_tax_rate" since="2.4.0">
+        <field default="null" name="classid" type="int(10) unsigned" nullable="false" primary="true">
+            <constraint column="classid" ondelete="cascade" onupdate="restrict"
+                table="shop_tax_class"/>
+        </field>
+        <field default="null" name="countryid" type="int(10) unsigned" nullable="false"
+            primary="true">
+            <constraint column="countryid" ondelete="cascade" onupdate="restrict"
+                table="geo_country"/>
+        </field>
+        <field default="0" name="rate" type="float" nullable="false"/>
+    </table>
+    <table engine="InnoDB" name="shop_product" since="2.4.0">
+        <field default="null" name="productid" type="int(10) unsigned" nullable="false"
+            primary="true" autoincrement="true"/>
+        <field default="null" name="idart" type="int(10) unsigned" nullable="false">
+            <constraint column="idart" ondelete="cascade" onupdate="restrict" table="art_lang"/>
+        </field>
+        <field default="null" name="sku" type="varchar(255)" nullable="true"/>
+        <field default="null" name="price" type="float" nullable="true"/>
+        <field default="null" name="classid" type="int(10) unsigned" nullable="false">
+            <constraint column="classid" ondelete="restrict" onupdate="restrict"
+                table="shop_tax_class"/>
+        </field>
+        <field default="0" name="vatincluded" type="int(4)" nullable="false"/>
+        <field default="0" name="variableprice" type="int(4)" nullable="false"/>
+        <field default="null" name="currencyid" type="int(10) unsigned" nullable="false">
+            <constraint column="currencyid" ondelete="restrict" onupdate="restrict"
+                table="shop_currency"/>
+        </field>
+        <field default="normal" name="shippingcharge" type="enum('normal','always','never')"
+            nullable="false"/>
+        <field default="never" name="additionalinfo" type="enum('allowed','always','never')"
+            nullable="false"/>
+    </table>
+    <table engine="InnoDB" name="shop_product_name" since="2.4.0">
+        <field default="null" name="productid" type="int(10) unsigned" nullable="false"
+            primary="true">
+            <constraint column="productid" ondelete="cascade" onupdate="restrict"
+                table="shop_product"/>
+        </field>
+        <field default="null" name="idlang" type="int(10) unsigned" nullable="false" primary="true">
+            <constraint column="idlang" ondelete="cascade" onupdate="restrict" table="lang"/>
+        </field>
+        <field default="null" name="name" type="varchar(255)" nullable="true"/>
+        <field default="null" name="description" type="text" nullable="true"/>
+    </table>
+    <table engine="InnoDB" name="shop_order" since="2.4.0">
+        <field default="null" name="orderid" type="int(10) unsigned" nullable="false" primary="true"
+            autoincrement="true"/>
+        <field default="current_timestamp" name="created" type="timestamp" nullable="false"/>
+        <field default="null" name="checkedout" type="timestamp" nullable="true"/>
+        <field default="null" name="firstname" type="varchar(255)" nullable="true"/>
+        <field default="null" name="lastname" type="varchar(255)" nullable="true"/>
+        <field default="null" name="company" type="varchar(255)" nullable="true"/>
+        <field default="null" name="street" type="varchar(255)" nullable="true"/>
+        <field default="null" name="zip" type="varchar(20)" nullable="true"/>
+        <field default="null" name="city" type="varchar(255)" nullable="true"/>
+        <field default="null" name="countryid" type="int(10) unsigned" nullable="true">
+            <constraint column="countryid" ondelete="restrict" onupdate="restrict"
+                table="geo_country"/>
+        </field>
+        <field default="null" name="ifirstname" type="varchar(255)" nullable="true"/>
+        <field default="null" name="ilastname" type="varchar(255)" nullable="true"/>
+        <field default="null" name="icompany" type="varchar(255)" nullable="true"/>
+        <field default="null" name="istreet" type="varchar(255)" nullable="true"/>
+        <field default="null" name="izip" type="varchar(20)" nullable="true"/>
+        <field default="null" name="icity" type="varchar(255)" nullable="true"/>
+        <field default="null" name="icountryid" type="int(10) unsigned" nullable="true">
+            <constraint column="countryid" ondelete="restrict" onupdate="restrict"
+                table="geo_country"/>
+        </field>
+    </table>
+    <table engine="InnoDB" name="shop_item" since="2.4.0">
+        <field default="null" name="itemid" type="int(10) unsigned" nullable="false" primary="true"
+            autoincrement="true"/>
+        <field default="null" name="orderid" type="int(10) unsigned" nullable="false">
+            <constraint column="orderid" ondelete="cascade" onupdate="restrict" table="shop_order"/>
+        </field>
+        <field default="current_timestamp" name="added" type="timestamp" nullable="false"/>
+        <field default="null" name="productid" type="int(10) unsigned" nullable="false">
+            <constraint column="productid" ondelete="cascade" onupdate="restrict"
+                table="shop_product"/>
+        </field>
+        <field default="0" name="amount" type="float" nullable="false"/>
+        <field default="0" name="price" type="float" nullable="false"/>
+        <field default="null" name="additionalinfo" type="text" nullable="true"/>
+    </table>
+</database>

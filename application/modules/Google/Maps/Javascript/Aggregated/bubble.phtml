@@ -1,0 +1,13 @@
+<div>
+	<h3><?php echo $this->location->pagetitle; ?></h3>
+	<?php if (!empty($this->location->mainimage)) : ?>
+		<img src="<?php echo Aitsu_Config :: get('sys.mainDir'); ?>image/110/110/2/<?php echo $this->location->idart; ?>/<?php echo $this->location->mainimage; ?>" width="110" height="110" style="float:right; margin: 0 0 5px 10px;" />
+	<?php endif; ?>
+	<p><?php echo $this->location->summary; ?></p>
+	<p>
+		&raquo; 
+		<a href="{ref:idart-<?php echo $this->location->idart; ?>}">
+			<?php echo $this->location->teasertitle; ?>
+		</a>
+	</p>
+</div>

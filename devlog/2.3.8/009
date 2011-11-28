@@ -1,0 +1,14 @@
+== Google Locator Article Plugin ==
+
+The Locator plugin takes an address, determines its coordinates, saves the data for further
+use and connects the data to the article to be used in aggregations within a Google Map.
+
+An article aggregation that returns a Google Map with markers for each article will follow
+in the near future.
+
+To enable the plugin, add following line to the default configset or a configset
+of your choice:
+
+plugin.article.googlelocator.position.default = 201
+
+Change the value to fit your needs.
