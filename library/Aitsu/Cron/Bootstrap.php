@@ -41,7 +41,7 @@ class Aitsu_Cron_Bootstrap {
 		Aitsu_Application_Status :: isEdit(false);
 		Aitsu_Application_Status :: isPreview(false);
 		Aitsu_Application_Status :: setEnv('backend');
-		Aitsu_Application_Status :: lock();
+		// Aitsu_Application_Status :: lock();
 	}
 
 	protected function _initCrons() {

@@ -388,7 +388,7 @@ class Aitsu_Db {
 		$updates = array ();
 
 		$columns = self :: fetchAll('show columns from ' . $table);
-
+		
 		foreach ($columns as $col) {
 			if (isset ($data[$col['Field']])) {
 				$fields[] = $col['Field'];

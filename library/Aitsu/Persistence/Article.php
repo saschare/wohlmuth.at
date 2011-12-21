@@ -855,9 +855,11 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		return true;
 	}
 
-	public function publish($publish = true) {
+	public function publish($publish = true, $cron = false) {
 
 		Aitsu_Db :: startTransaction();
+		
+		$userId = $cron ? null : Aitsu_Adm_User :: getInstance()->getId();
 
 		try {
 
@@ -878,7 +880,7 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 			'values ' .
 			'(:idartlang, :userid, :pubtime, :status)', array (
 				':idartlang' => $this->idartlang,
-				':userid' => Aitsu_Adm_User :: getInstance()->getId(),
+				':userid' => $userId,
 				':pubtime' => $transactionTime,
 				'status' => $publish ? 1 : -1
 			))->getLastInsertId();

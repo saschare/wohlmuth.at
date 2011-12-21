@@ -547,7 +547,7 @@
         <field name="idartlang" type="int(10) unsigned" default="null">
             <constraint table="art_lang" column="idartlang" onupdate="restrict" ondelete="cascade"/>
         </field>
-        <field name="userid" type="int(10) unsigned" default="null"/>
+        <field name="userid" type="int(10) unsigned" default="null" nullable="true"/>
         <field name="pubtime" type="datetime" default="null"/>
         <field name="status" type="tinyint(4)" default="1"/>
     </table>

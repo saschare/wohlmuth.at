@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-22 18:38+0100\n"
-"PO-Revision-Date: 2011-09-22 18:40+0100\n"
+"POT-Creation-Date: 2011-12-21 14:57+0100\n"
+"PO-Revision-Date: 2011-12-21 14:59+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -389,6 +389,10 @@ msgstr "Die Tabelle %s wurde angelegt."
 msgid "Article relations have been actualized."
 msgstr "Die Artikelrelationen wurden aktualisiert."
 
+#: application/modules/Custom/Migros/Fitnesspark/Go/Class.php:21
+msgid "Go-Data"
+msgstr "Go-Daten"
+
 #: application/modules/Google/Maps/Javascript/Class.php:21
 msgid "Address"
 msgstr "Adresse"
@@ -399,36 +403,35 @@ msgid "Location"
 msgstr "Ort"
 
 #: application/modules/Google/Maps/Javascript/Class.php:22
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:29
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:63
 msgid "Width"
 msgstr "Breite"
 
 #: application/modules/Google/Maps/Javascript/Class.php:22
 #: application/modules/Google/Maps/Javascript/Class.php:23
 #: application/modules/Google/Maps/Javascript/Class.php:26
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:29
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:30
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:33
 msgid "Style"
 msgstr "Style"
 
 #: application/modules/Google/Maps/Javascript/Class.php:23
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:30
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:64
 msgid "Height"
 msgstr "Höhe"
 
 #: application/modules/Google/Maps/Javascript/Class.php:24
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:31
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:65
 msgid "Zoom"
 msgstr "Zoom"
 
 #: application/modules/Google/Maps/Javascript/Class.php:24
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:31
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:63
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:64
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:65
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:72
 msgid "View"
 msgstr "Ansicht"
 
 #: application/modules/Google/Maps/Javascript/Class.php:26
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:33
 msgid "Class"
 msgstr "Class"
 
@@ -437,14 +440,21 @@ msgid "Name"
 msgstr "Name"
 
 #: application/modules/Google/Maps/Javascript/Class.php:28
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:34
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:67
 msgid "Type"
 msgstr "Typ"
 
 #: application/modules/Google/Maps/Javascript/Class.php:33
-#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:39
 msgid "Display type"
 msgstr "Anzeigetyp"
+
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:56
+msgid "Tags"
+msgstr "Tags"
+
+#: application/modules/Google/Maps/Javascript/Aggregated/Class.php:61
+msgid "Category"
+msgstr "Kategorie"
 
 #: application/modules/HTML/Content/Tunnel/Class.php:20
 msgid "Foreign content placeholder text"
@@ -500,10 +510,6 @@ msgstr "Konfiguration"
 msgid "Media"
 msgstr "Medien"
 
-#: application/plugins/article/tags/Class.php:23
-msgid "Tags"
-msgstr "Tags"
-
 #: application/plugins/article/revisionprogression/Class.php:22
 msgid "Revision Progression"
 msgstr "Revisionsverlauf"
@@ -557,6 +563,23 @@ msgstr "Pendenz"
 #: application/plugins/article/properties/Class.php:35
 msgid "Properties"
 msgstr "Eigenschaften"
+
+#: application/plugins/article/timecontrol/Class.php:23
+#: application/plugins/article/timecontrol/Class.php:37
+msgid "Time control"
+msgstr "Zeitsteuerung"
+
+#: application/plugins/article/timecontrol/views/translation.php:1
+msgid "Publish only"
+msgstr "Nur publizieren"
+
+#: application/plugins/article/timecontrol/views/translation.php:2
+msgid "Set online"
+msgstr "Online stellen"
+
+#: application/plugins/article/timecontrol/views/translation.php:3
+msgid "Set offline"
+msgstr "Offline stellen"
 
 #: application/plugins/article/meta/Class.php:23
 msgid "Meta"
@@ -823,7 +846,6 @@ msgid "Config sets"
 msgstr "Konfigurationen"
 
 #: application/adm/views/scripts/config/index.phtml:22
-#: application/adm/views/scripts/client/clientlist.phtml:19
 msgid "Identifier"
 msgstr "Bezeichner"
 
@@ -833,8 +855,6 @@ msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/index.phtml:58
 #: application/adm/views/scripts/data/index.phtml:164
-#: application/adm/views/scripts/mapping/index.phtml:48
-#: application/adm/views/scripts/client/clientlist.phtml:55
 msgid "Delete"
 msgstr "Löschen"
 
@@ -901,18 +921,6 @@ msgstr "Nein"
 #: application/adm/views/scripts/data/datasetSelector.phtml:165
 msgid "Yes"
 msgstr "Ja"
-
-#: application/adm/views/scripts/data/edit.phtml:39
-#: application/adm/views/scripts/data/edit.phtml:48
-#: application/adm/views/scripts/data/index.phtml:126
-msgid "Set offline"
-msgstr "Offline stellen"
-
-#: application/adm/views/scripts/data/edit.phtml:39
-#: application/adm/views/scripts/data/edit.phtml:51
-#: application/adm/views/scripts/data/index.phtml:126
-msgid "Set online"
-msgstr "Online stellen"
 
 #: application/adm/views/scripts/data/edit.phtml:65
 msgid "Publish"
@@ -1349,6 +1357,30 @@ msgstr "Installation"
 msgid "Maintenance"
 msgstr "Wartung"
 
+#: application/modules/Custom/Migros/Fitnesspark/Go/survey.phtml:4
+msgid "Die Grau hinterlegten Fragen müssen für die Auswertung ausgefüllt werden. Bitte ergänzen Sie diese entsprechend."
+msgstr "Die Grau hinterlegten Fragen müssen für die Auswertung ausgefüllt werden. Bitte ergänzen Sie diese entsprechend."
+
+#: application/modules/Custom/Migros/Fitnesspark/Go/survey.phtml:64
+msgid "&laquo; Zurück"
+msgstr "&laquo; Zurück"
+
+#: application/modules/Custom/Migros/Fitnesspark/Go/survey.phtml:68
+msgid "Auswertung vornehmen"
+msgstr "Auswertung vornehmen"
+
+#: application/modules/Custom/Migros/Fitnesspark/Go/survey.phtml:70
+msgid "Weiter &raquo;"
+msgstr "Weiter &raquo;"
+
+#: application/modules/Custom/Migros/Fitnesspark/Go/analysis.phtml:3
+msgid "Ihre Auswertung"
+msgstr "Ihre Auswertung"
+
+#: application/modules/Custom/Migros/Fitnesspark/Go/prolog.phtml:7
+msgid "zum Test &raquo;"
+msgstr "zum Test &raquo;"
+
 #: application/modules/Navigation/Back/index.phtml:1
 msgid "Back"
 msgstr "Zurück"
@@ -1396,6 +1428,7 @@ msgstr "Medienname"
 
 #: application/plugins/generic/data/media/views/index.phtml:160
 #: application/plugins/generic/data/dates/views/index.phtml:38
+#: application/plugins/generic/data/dam/views/inbox/content.phtml:6
 msgid "Date"
 msgstr "Datum"
 
@@ -1420,6 +1453,7 @@ msgid "Choose tag"
 msgstr "Tag auswählen"
 
 #: application/plugins/generic/data/media/views/index.phtml:308
+#: application/plugins/generic/data/tags/views/taglist.phtml:5
 msgid "Tag"
 msgstr "Tag"
 
@@ -1508,10 +1542,6 @@ msgstr "Neues Asset auf Basis der selektierten Datei erstellen? Oder die selekti
 #: application/plugins/generic/management/todo/views/index.phtml:52
 msgid "Article title"
 msgstr "Artikeltitel"
-
-#: application/plugins/generic/management/todo/views/index.phtml:53
-msgid "Category"
-msgstr "Kategorie"
 
 #: application/plugins/generic/management/todo/views/index.phtml:54
 msgid "To Do"
@@ -1614,10 +1644,12 @@ msgid "Close tab"
 msgstr "Tab schliessen"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:16
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:16
 msgid "Start"
 msgstr "Start"
 
 #: application/plugins/generic/utilities/tracking/views/showtrack.phtml:17
+#: application/plugins/generic/utilities/tracking/views/projectlist.phtml:17
 msgid "End"
 msgstr "Ende"
 
@@ -1631,7 +1663,6 @@ msgstr "Neuen Kunden aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/customerlist.phtml:5
 #: application/plugins/generic/utilities/tracking/views/projectlist.phtml:5
-#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:5
 msgid "Filter"
 msgstr "Filtern"
 
@@ -1660,7 +1691,6 @@ msgid "Add new project"
 msgstr "Neues Projekt aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/projectlist.phtml:15
-#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:17
 msgid "Customer"
 msgstr "Kunde"
 
@@ -1741,6 +1771,8 @@ msgid "Configuration has been saved."
 msgstr "Die Konfiguration wurde gespeichert."
 
 #: application/plugins/article/config/views/index.phtml:13
+#: application/plugins/article/rendezvous/views/index.phtml:7
+#: application/plugins/article/dc/views/index.phtml:8
 msgid "Form data have not been saved due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
@@ -1834,11 +1866,15 @@ msgstr "Neue Pendenz aufnehmen"
 msgid "Page properties have been saved."
 msgstr "Seiteneigenschaften wurden gespeichert."
 
+#: application/plugins/article/timecontrol/views/index.phtml:4
+msgid "Time control data have been saved."
+msgstr "Die Zeitsteuerungsdaten wurden gespeichert."
+
 #: application/plugins/article/meta/views/index.phtml:4
 msgid "Meta data have been saved."
 msgstr "Die Metadaten wurden gespeichert."
 
-#: application/plugins/article/googlelocator/views/index.phtml:4
+#: application/plugins/article/googlelocator/views/index.phtml:5
 msgid "Location data have been saved."
 msgstr "Die Koordinaten wurden gespeichert."
 
@@ -1952,55 +1988,46 @@ msgstr "Artikelinformationen"
 
 #: application/plugins/category/blog/views/index.phtml:106
 #: application/plugins/category/metabatch/views/index.phtml:123
-#: application/plugins/category/standard/views/index.phtml:106
 msgid "URL name"
 msgstr "URL-Name"
 
 #: application/plugins/category/blog/views/index.phtml:146
 #: application/plugins/category/metabatch/views/index.phtml:201
-#: application/plugins/category/standard/views/index.phtml:186
 msgid "Set as index"
 msgstr "Als Index setzen"
 
 #: application/plugins/category/blog/views/index.phtml:219
 #: application/plugins/category/metabatch/views/index.phtml:274
-#: application/plugins/category/standard/views/index.phtml:259
 msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
-#: application/plugins/category/standard/views/index.phtml:263
 msgid "Page cut"
 msgstr "Seite ausgeschnitten"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
-#: application/plugins/category/standard/views/index.phtml:263
 msgid "The selected page has been put to the clipboard."
 msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:232
 #: application/plugins/category/metabatch/views/index.phtml:287
-#: application/plugins/category/standard/views/index.phtml:272
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: application/plugins/category/blog/views/index.phtml:233
 #: application/plugins/category/metabatch/views/index.phtml:288
-#: application/plugins/category/standard/views/index.phtml:273
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
-#: application/plugins/category/standard/views/index.phtml:282
 msgid "Page deleted"
 msgstr "Seite gelöscht"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
-#: application/plugins/category/standard/views/index.phtml:282
 msgid "The selected page has been removed."
 msgstr "Die selektierte Seite wurde gelöscht."
 
@@ -2372,8 +2399,6 @@ msgstr "senden"
 #~ msgstr "Datentabellen"
 #~ msgid "Columns"
 #~ msgstr "Spalten"
-#~ msgid "Data"
-#~ msgstr "Daten"
 #~ msgid "Add new entry"
 #~ msgstr "Neuen Eintrag aufnehmen"
 #~ msgid ""
