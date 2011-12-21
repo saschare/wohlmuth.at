@@ -108,6 +108,7 @@ class Aitsu_Persistence_User extends Aitsu_Persistence_Abstract {
 			}
 		}
 
+		return $this->_id;
 	}
 
 	public function remove() {
