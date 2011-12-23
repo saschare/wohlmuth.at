@@ -1,0 +1,22 @@
+The module abstract class has been altered to ensure, that the module
+is only executed directly (by a get request) if this has been allowed
+from within the module by setting $_renderOnlyAllowed to true.
+
+Furthermore Aitsu_Securty_Exceptions are thrown up to the bootstrap which
+then logs additional information such as the ip address and hostname of
+the client. The client gets a HTTP/1.0 403 Forbidden header with no content.
+
+Beginning with this revision modules may be accessed directly with one of the
+following methods (if $_renderOnlyAllowed is set to true):
+
+http(s)://my.domain.tld/my/page/?renderOnly=moduleName
+http(s)://my.domain.tld/my/page/(moduleName)
+
+The module name may contain an index (if appropriate) separated by a colon.
+
+(The first method was possible before the current revision.)
+
+Modules that are accessed directly (via URL) must have $_renderOnlyAllowed
+of the module class set to true. Otherwise a security exception is thrown
+and a forbidden header is sent to the client. Have a look into the logs to
+find the modules that need to be altered.

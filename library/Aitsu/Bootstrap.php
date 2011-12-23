@@ -522,7 +522,8 @@ class Aitsu_Bootstrap {
 			$details = '[IP: ' . $_SERVER['REMOTE_ADDR'] . ']';
 			$details .= '[Host: ' . gethostbyaddr($_SERVER['REMOTE_ADDR']) . ']';
 			$details .= '[Request: ' . $_SERVER['REQUEST_URI'] . ']';
-			trigger_error('SECURITY WARNING: ' . $e->getMessage() . $details, E_USER_WARNING);		
+			trigger_error('SECURITY WARNING: ' . $e->getMessage() . $details, E_USER_WARNING);
+			header("HTTP/1.0 403 Forbidden");		
 			exit();
 		} catch (Exception $e) {
 			trigger_error('Exception in ' . __FILE__ . ' on line ' . __LINE__ . ': ' . $e->getMessage());

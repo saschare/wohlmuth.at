@@ -1,9 +1,11 @@
-Current version: 2.3.12-1
+Current version: 2.3.12-2
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-12-23: Added security routines to prevent modules from being
+              executed if not explicitly allowed to do so.
 * 2011-10-14: Fixed cancel bug in ext.ux.linkField.js.
 * 2011-10-14: Removed unused extjs ressources (from version 3.3.1).
 * 2011-10-14: Update of ExtJs to version 3.4 and changed version tag
