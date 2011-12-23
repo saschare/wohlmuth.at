@@ -55,6 +55,8 @@ class Aitsu_Core_Logger {
 			return;
 		}
 		
+		$errfile = substr($errfile, strlen(realpath(APPLICATION_PATH . '/../')));
+		
 		$errorHandlerMap = array(
 			E_COMPILE_ERROR	  => Zend_Log::CRIT,
 			E_CORE_ERROR        => Zend_Log::CRIT,
@@ -79,8 +81,8 @@ class Aitsu_Core_Logger {
 		}	
         
 
-		$level = (in_array($errno, $errorHandlerMap)) ? $errorHandlerMap[$errno] : Zend_Log :: INFO;
+		$level = (isset($errorHandlerMap[$errno])) ? $errorHandlerMap[$errno] : Zend_Log :: INFO;
 		
-		self :: log($errstr . ' in ' . $errfile . ' on line ' . $errline, $level);
+		self :: log($errstr . '[Thrown @:' . $errfile . ':' . $errline . ']', $level);
 	}
 }

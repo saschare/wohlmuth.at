@@ -3,7 +3,7 @@
 
 /**
 * @author Anreas Kummer, w3concepts AG
-* @copyright Copyright &copy; 2010, w3concepts AG
+* @copyright Copyright &copy; 2012, w3concepts AG
 */
 
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/application'));

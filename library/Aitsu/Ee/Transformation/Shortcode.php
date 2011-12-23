@@ -25,10 +25,10 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 
 		return $instance;
 	}
-	
+
 	public static function notify(Aitsu_Event_Abstract $event) {
-		
-		if (!isset($event->bootstrap->pageContent)) {
+
+		if (!isset ($event->bootstrap->pageContent)) {
 			return;
 		}
 
@@ -73,7 +73,7 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 			$method = $matches[1][$i];
 
 			if (!empty ($matches[3][$i])) {
-				$context = Aitsu_Core_Module_Context :: get(substr($matches[3][$i],1));
+				$context = Aitsu_Core_Module_Context :: get(substr($matches[3][$i], 1));
 				$regClone = clone Aitsu_Registry :: get();
 				$old['idartlang'] = Aitsu_Registry :: get()->env->idartlang;
 				$old['idart'] = Aitsu_Registry :: get()->env->idart;
@@ -89,11 +89,13 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 
 			try {
 				$replacement = $sc->evalModule($method, null, $client, $matches[2][$i], empty ($matches[3][$i]));
+			} catch (Aitsu_Security_Exception $e) {
+				throw $e;
 			} catch (Exception $e) {
 				$replacement = $e->getMessage();
 			}
-			
-			if (!empty($matches[3][$i])) {
+
+			if (!empty ($matches[3][$i])) {
 				Aitsu_Registry :: get()->env = $regClone->env;
 				Aitsu_Registry :: get()->env->idartlang = $old['idartlang'];
 				Aitsu_Registry :: get()->env->idart = $old['idart'];
@@ -130,6 +132,8 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 
 			try {
 				$replacement = $sc->evalModule($method, $params, $client, $index, true);
+			} catch (Aitsu_Security_Exception $e) {
+				throw $e;
 			} catch (Exception $e) {
 				$replacement = $e->getMessage();
 			}

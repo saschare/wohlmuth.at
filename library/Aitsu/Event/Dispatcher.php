@@ -108,6 +108,8 @@ class Aitsu_Event_Dispatcher {
 					), $event);
 				}
 			}
+		} catch (Aitsu_Security_Exception $e) {
+			throw $e;
 		} catch (Exception $e) {
 			trigger_error('Exception: ' . $e->getMessage());
 			trigger_error($e->getTraceAsString());

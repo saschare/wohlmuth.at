@@ -3,7 +3,7 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
 
 set_include_path(realpath(dirname(__FILE__) . '/..') . PATH_SEPARATOR . get_include_path());
@@ -518,6 +518,12 @@ class Aitsu_Bootstrap {
 				}
 				$counter++;
 			}
+		} catch (Aitsu_Security_Exception $e) {
+			$details = '[IP: ' . $_SERVER['REMOTE_ADDR'] . ']';
+			$details .= '[Host: ' . gethostbyaddr($_SERVER['REMOTE_ADDR']) . ']';
+			$details .= '[Request: ' . $_SERVER['REQUEST_URI'] . ']';
+			trigger_error('SECURITY WARNING: ' . $e->getMessage() . $details, E_USER_WARNING);		
+			exit();
 		} catch (Exception $e) {
 			trigger_error('Exception in ' . __FILE__ . ' on line ' . __LINE__ . ': ' . $e->getMessage());
 			trigger_error("Stack trace: \n" . $e->getTraceAsString());

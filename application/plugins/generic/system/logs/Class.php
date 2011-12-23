@@ -28,10 +28,12 @@ class LogsPluginController extends Aitsu_Adm_Plugin_Controller {
 			$log = file($logFile, FILE_IGNORE_NEW_LINES);
 			foreach ($log as $entry) {
 				if (preg_match('/(\\d{4})-(\\d{2})-(\\d{2}).(\\d{2}):(\\d{2}):(\\d{2})[^\\s]*\\s*([^:]*):\\s*(.*)/', $entry, $match)) {
+					$entryTitle = preg_replace('/\\[Thrown @\\:\\s*([^\\]]*)\\]/', " @$1", $match[8]);
+					$entryTitle = preg_replace('/\\[[^\\:]*\\:[^\\]]*\\]/', '', $entryTitle);
 					$data[] = (object) array (
 						'time' => "{$match[4]}:{$match[5]}:{$match[6]}",
 						'type' => $match[7],
-						'entry' => htmlentities((substr($match[8], 0, 200))),
+						'entry' => htmlentities(substr($entryTitle, 0, 200)),
 						'full' => (str_replace("\n", '', $match[8]))
 					);
 				} else {
@@ -41,6 +43,13 @@ class LogsPluginController extends Aitsu_Adm_Plugin_Controller {
 					array_shift($data);
 				}
 			}
+		}
+
+		foreach ($data as $entry) {
+			$entry->full = " \n" . $entry->full;
+			$entry->full = preg_replace('/(\\[[^\\:]*\\:)/', "\n$1", $entry->full, 1);
+			$entry->full = preg_replace('/\\[([^\\:]*)\\:([^\\]]*)\\]/', "\n$1: $2", $entry->full);
+			$entry->full .= "\n ";
 		}
 
 		$this->_helper->json((object) array (

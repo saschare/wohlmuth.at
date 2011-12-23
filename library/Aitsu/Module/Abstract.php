@@ -59,6 +59,20 @@ abstract class Aitsu_Module_Abstract {
 	 */
 	protected $_isBlock = true;
 
+	/*
+	 * If $_renderOnlyAllowed is set to false (default), the module may not
+	 * be rendered by adding the renderOnly get parameter to the URL. If set
+	 * to true, the module may be executed by adding the mentioned parameter in
+	 * one of the following two ways:
+	 * 
+	 * (1) http(s)://my.domain.tld/my/page/(moduleName)
+	 * (2) http(s)://my.domain.tld/my/page/?renderOnly=moduleName
+	 * 
+	 * where moduleName is the name of the module as it is used as a shortcode
+	 * (i.e. with or without an index separated by a colon).
+	 */
+	protected $_renderOnlyAllowed = false;
+
 	protected static function _getInstance($className) {
 
 		$instance = new $className ();
@@ -66,6 +80,10 @@ abstract class Aitsu_Module_Abstract {
 		$className = str_replace('_', '.', $className);
 		$className = preg_replace('/^(?:Skin\\.Module|Module)\\./', "", $className);
 		$className = preg_replace('/\\.Class$/', "", $className);
+
+		if (isset ($_GET['renderOnly']) && $className == substr($_GET['renderOnly'], 0, strlen($className)) && !$instance->_renderOnlyAllowed) {
+			throw new Aitsu_Security_Module_RenderOnly_Exception($className);
+		}
 
 		$instance->_moduleName = $className;
 
@@ -121,7 +139,7 @@ abstract class Aitsu_Module_Abstract {
 		 * is disabled or there is no valid cache.
 		 */
 		$output .= $instance->_main();
-		
+
 		/*
 		 * Do the transformation of the output.
 		 */

@@ -29,10 +29,11 @@ RewriteRule ^skin/(.*) index.php?skinsource=$1 [QSA,L]
 
 RewriteRule ^.*\.(php|jpg|jpeg|gif|css|swf|doc|txt|xls|png|js|xml|pdf|ico|htc|eot|svg|ttf|woff).*$ - [NC,L]
 
+RewriteRule ^([^\(]*)\(([^\)]*)\)$ index.php?url=$1&renderOnly=$2 [QSA,L]
 RewriteRule ^(.*?):(.*)$ index.php?url=$1&channel=$2 [QSA,L]
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 
 </IfModule>
 
-# if problems occure - i.e. with file uploads - uncomment the next line
+# if problems occur - i.e. with file uploads - uncomment the next line
 #php_value suhosin.session.cryptua  0
