@@ -39,7 +39,7 @@ class Module_HTML_Meta_ResourceBundle_Class extends Aitsu_Module_Abstract {
 		}
 
 		if ($type == 'css') {
-			if (isset ($params->media)) {
+			if (isset ($this->_params->media)) {
 				$output = '<link type="text/css" rel="stylesheet" href="' . $env . '/css/' . $uri . '" media="' . $this->_params->media . '" /> ';
 			} else {
 				$output = '<link type="text/css" rel="stylesheet" href="' . $env . '/css/' . $uri . '" /> ';
