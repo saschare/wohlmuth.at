@@ -1,9 +1,10 @@
-Current version: 2.3.12-4
+Current version: 2.3.12-5
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2011-12-30: Added Google API (Version 0.4.7).
 * 2011-12-23: Added security routines to prevent modules from being
               executed if not explicitly allowed to do so.
 * 2011-10-14: Fixed cancel bug in ext.ux.linkField.js.
