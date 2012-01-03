@@ -21,7 +21,6 @@ class Module_Test_Google_Api_Class extends Aitsu_Module_Abstract {
 		
 		if (empty(Aitsu_Registry :: get()->session->google->api->accessToken)) {
 			Aitsu_Registry :: get()->session->google->api->accessToken = $client->authenticate();
-			$client->setAccessToken(Aitsu_Registry :: get()->session->google->api->accessToken);
 		} else {
 			$client->setAccessToken(Aitsu_Registry :: get()->session->google->api->accessToken);
 		}
