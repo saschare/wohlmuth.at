@@ -10,7 +10,7 @@ class Google_Api {
 	private function __construct() {
 	}
 
-	public static function factory($apiPath, $apiClient, $apiConfig = null) {
+	public static function factory($apiPath, $apiClient = null, $apiConfig = null) {
 		
 		Aitsu_Registry :: get()->session->oAuthRequestingUrl = $_SERVER['REQUEST_URI'];
 

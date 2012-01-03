@@ -17,7 +17,7 @@ class Module_Test_Google_Api_Class extends Aitsu_Module_Abstract {
 		$client->setApplicationName('aitsu MicroApp');
 		$client->setScopes('https://www.google.com/calendar/feeds/');
 		$client->setState($_SERVER['REQUEST_URI']);
-		$client->setApprovalPrompt('auto');
+		$client->setApprovalPrompt('force');
 		
 		if (empty(Aitsu_Registry :: get()->session->google->api->accessToken)) {
 			Aitsu_Registry :: get()->session->google->api->accessToken = $client->authenticate();
