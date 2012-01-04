@@ -1,0 +1,15 @@
+<?php foreach ($this->data->items as $item) : ?>
+<div style="border:1px dotted grey; padding:2px 5px 2px 5px; margin-bottom:10px;">
+	<p style="margin:0;"><?php echo $item->object->content; ?></p>
+	<?php if (isset($item->object->attachments)) : ?>
+		<?php foreach ($item->object->attachments as $att) : ?>
+			<?php if ($att->objectType == 'photo') : ?>
+				<img src="<?php echo $att->image->url; ?>" title="<?php echo $att->content; ?>" />
+			<?php elseif ($att->objectType == 'article') : ?>
+				<h3><?php echo $att->displayName; ?></h3>
+				<p><?php echo $att->content; ?></p>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
+</div>
+<?php endforeach; ?>

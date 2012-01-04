@@ -47,7 +47,7 @@ abstract class Aitsu_Module_Abstract {
 
 	/*
 	 * If set to true, the cache is build off context of the current article.
-	 * This has to consequences. The cache is availabe all over the page and
+	 * This has two consequences. The cache is availabe all over the page and
 	 * the cache will not be destroyed on page edit.
 	 */
 	protected $_disableCacheArticleRelation = false;
