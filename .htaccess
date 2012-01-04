@@ -18,7 +18,6 @@ RewriteRule ^adm/(.*)$ adm/index.php?$1 [QSA,L]
 RewriteCond %{DOCUMENT_ROOT}/application/data/cachetransparent/data%{REQUEST_URI} -f
 RewriteRule ^(.*)$ application/data/cachetransparent/data/$1 [L]
 
-RewriteCond %{DOCUMENT_ROOT}/application%{REQUEST_URI} -f
 RewriteRule ^skins/(.*)$ application/skins/$1 [L]
 
 RewriteRule ^image/(.*) index.php?imageurl=$1 [QSA,L]

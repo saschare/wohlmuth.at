@@ -1,9 +1,10 @@
-Current version: 2.3.12-6
+Current version: 2.3.12-7
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2012-01-04: Removed check for existens of skins files.
 * 2012-01-04: Added reference implementation of Google Plus API.
 * 2012-01-04: Updated Google API to trunk (last change made Dec 12, 2011)
 * 2011-12-30: Added Google API (Version 0.4.7).
