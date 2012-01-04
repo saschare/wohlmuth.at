@@ -26,6 +26,7 @@
 class apiServiceResource {
   // Valid query parameters that work, but don't appear in discovery.
   private $stackParameters = array(
+      'alt' => array('type' => 'string', 'location' => 'query'),
       'fields' => array('type' => 'string', 'location' => 'query'),
       'trace' => array('type' => 'string', 'location' => 'query'),
       'userIp' => array('type' => 'string', 'location' => 'query'),
@@ -138,8 +139,7 @@ class apiServiceResource {
       $method['path'] = $method['restPath'];
     }
 
-    $request = new apiServiceRequest(
-        $this->service->getIo(), $this->service->getRestBasePath(), $this->service->getRpcPath(),
+    $request = new apiServiceRequest($this->service->getRestBasePath(), $this->service->getRpcPath(),
         $method['path'], $method['id'], $method['httpMethod'], $parameters, $postBody);
     if ($batchKey) {
       $request->setBatchKey($batchKey);
