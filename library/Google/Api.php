@@ -19,6 +19,10 @@ class Google_Api {
 		require_once ($apiPath);
 
 		$path = pathinfo($apiPath);
+		
+		if ($apiClient != null) {
+			return new $path['filename']($apiClient);
+		}
 
 		return new $path['filename'];
 	}
