@@ -1,4 +1,6 @@
 function enableFlex<?php echo $this->id; ?>() {
+	var scrollTimerId;
+	var scrolling = false;
 	$("ul#flexcontent<?php echo $this->id; ?>").sortable({
 		update: function(event, ui) {
 			var modules = $('#flexcontent<?php echo $this->id; ?> > li > a.module').map(function(index) {
@@ -15,11 +17,35 @@ function enableFlex<?php echo $this->id; ?>() {
 				enableFlex<?php echo $this->id; ?>();
 			});
 		},
-		containment: $('#Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>')
+		containment: $('#Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>'),
+		start: function(event, ui) {
+			var distance = 0;
+			$(this).bind('mousemove', function(e) {				
+				if (!scrolling && ($(document).scrollTop() + $(window).height() - e.pageY < 100 || e.pageY - $(document).scrollTop() < 100)) {
+					scrolling = true;
+					scrollTimerId = window.setInterval(function() {
+						$(window).scrollTop($(document).scrollTop() + distance);
+					}, 10);
+				}
+				if ($(document).scrollTop() + $(window).height() - e.pageY < 100) {
+					distance = 500 / ($(document).scrollTop() + $(window).height() - e.pageY);
+				} else if (e.pageY - $(document).scrollTop() < 100) {
+					distance = -500 / (e.pageY - $(document).scrollTop());
+				} else {
+					distance = 0;
+					scrolling = false;
+					window.clearInterval(scrollTimerId);
+				}
+			});
+		},
+		stop: function(event, ui) {
+			window.clearInterval(scrollTimerId);
+			$(this).unbind('mousemove');
+		}
 	});
-	$("ul#flextemplate<?php echo $this->id; ?>").sortable({
-		connectWith: 'ul#flexcontent<?php echo $this->id; ?>',
-		containment: $('#Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>')
-	});
+	//$("ul#flextemplate<?php echo $this->id; ?>").sortable({
+	//	connectWith: 'ul#flexcontent<?php echo $this->id; ?>',
+	//	containment: $('#Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>')
+	//});
 }
 enableFlex<?php echo $this->id; ?>();
