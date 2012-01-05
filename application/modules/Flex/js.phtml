@@ -14,10 +14,12 @@ function enableFlex<?php echo $this->id; ?>() {
 				parent.$(parent.document).trigger('edit-page-content', [$(document)]);
 				enableFlex<?php echo $this->id; ?>();
 			});
-		}
+		},
+		containment: $('#Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>')
 	});
 	$("ul#flextemplate<?php echo $this->id; ?>").sortable({
-		connectWith: 'ul#flexcontent<?php echo $this->id; ?>'
+		connectWith: 'ul#flexcontent<?php echo $this->id; ?>',
+		containment: $('#Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>')
 	});
 }
 enableFlex<?php echo $this->id; ?>();
