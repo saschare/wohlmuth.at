@@ -2,6 +2,7 @@ $(function() {
 	
 	$(document).unbind('edit-page-content');
 	$(document).bind('edit-page-content', function(event, obj) {
+
 		var oBody = obj.contents().find("body");
 		$(document).data('edit-frame-content', oBody);
 		
@@ -20,7 +21,7 @@ $(function() {
 		$(document).unbind('toogle-sub-templates');
 		$(document).unbind('doReplace');
 		
-		/* Hover and edit binding normal .aitsu_editables (except on-domand). */
+		/* Hover and edit binding normal .aitsu_editables (except on-demand). */
 		$('.aitsu_editable:not(.on-demand)', oBody).bind('mouseenter', function (e){
 			e.stopPropagation();
 			$('.aitsu_editable', oBody).css({
@@ -37,7 +38,14 @@ $(function() {
 			});
 			$('.aitsu_editable', oBody).unbind('click');
 			$(this).bind('click', function(e) {
-				$(this).triggerHandler('doEdit');
+				e.stopPropagation();
+				/(.*?)\-(.*?)\-(\d*)$/.exec($(this).attr('id'));
+				doEditHandler({
+					type: RegExp.$1,
+					container: RegExp.$2,
+					idartlang: RegExp.$3,
+					params: $(this).find('code.aitsu_params').length > 0 ? $(this).find('code.aitsu_params').first().html() : ''
+				});
 			});
 		});
 		$('.aitsu_editable:not(.on-demand)', oBody).bind('mouseleave', function (e){
@@ -57,7 +65,14 @@ $(function() {
 			});
 			$('.aitsu_editable', oBody).unbind('click');
 			$(this).bind('click', function(e) {
-				$(this).parents('.aitsu_editable').triggerHandler('doEdit'); 
+				$(this).parents('.aitsu_editable').triggerHandler('doEdit');
+				/(.*?)\-(.*?)\-(\d*)$/.exec($(this).parents('.aitsu_editable').attr('id'));
+				doEditHandler({
+					type: RegExp.$1,
+					container: RegExp.$2,
+					idartlang: RegExp.$3,
+					params: $(this).parents('.aitsu_editable').find('code.aitsu_params').length > 0 ? $(this).parents('.aitsu_editable').find('code.aitsu_params').first().html() : ''
+				});				 
 			});
 		});
 		$('.aitsu_editable.on-demand .show-on-demand', oBody).bind('mouseleave', function() {
@@ -81,17 +96,6 @@ $(function() {
 				});
 				$(document).data('show-sub-templates', '1');
 			}
-		});
-		
-		/* Edit handler. */
-		$('.aitsu_editable', oBody).bind('doEdit', function(e) {
-			/(.*?)\-(.*?)\-(\d*)$/.exec($(this).attr('id'));
-			doEditHandler({
-				type: RegExp.$1,
-				container: RegExp.$2,
-				idartlang: RegExp.$3,
-				params: $(this).find('code.aitsu_params').length > 0 ? $(this).find('code.aitsu_params').first().html() : ''
-			});
 		});
 		
 		/* Content replace handler. */

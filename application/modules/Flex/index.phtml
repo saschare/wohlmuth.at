@@ -1,0 +1,46 @@
+<div id="Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>" class="flexeditor" style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">
+	<div style="height:15px; background-color: #CCC; color: white; font-size: 11px; padding:2px 5px 0 5px; margin-bottom:2px;">
+		<span style="float:right;">Flex :: <?php echo $this->id; ?></span>
+	</div>
+	<div style="background-color: #CCC; color: white; font-size: 11px; padding:2px 2px 2px 2px; margin-bottom:10px; line-height:1.5em;">
+		<ul id="flextemplate<?php echo $this->id; ?>" style="padding:0; margin:0;">
+			<?php $keys = array_keys($this->availableModules); ?>
+			<?php for ($i = 0; $i < count($this->availableModules); $i++) : $module = (object) $this->availableModules[$keys[$i]]; ?>
+			<li style="list-style-type:none; margin:0; display:inline;">
+				<a href="<?php echo $module->module; ?>" class="module" title="<?php echo $module->module; ?>" style="font-weight:bold; color:inherit; text-decoration:none; padding:0 2px 0 2px; white-space: nowrap;">
+					<?php echo $module->name; ?>
+				</a>
+				<?php if ($i < count($this->availableModules) - 1) : ?>
+					|
+				<?php endif; ?>
+			</li>
+			<?php endfor; ?>
+		</ul>
+	</div>
+	<ul id="flexcontent<?php echo $this->id; ?>" style="padding:0; margin:0;">
+		<li style="list-style-type:none; margin:0 0 3px 0; border:1px dashed #CCC; padding:2px;">
+			<a href="Link:1" class="module" style="display:none;"></a>
+			_[Link:1]
+		</li>
+		<li style="list-style-type:none; margin:0 0 3px 0; border:1px dashed #CCC; padding:2px;">
+			<a href="Link:2" class="module" style="display:none;"></a>
+			_[Link:2]
+		</li>
+		<li style="list-style-type:none; margin:0 0 3px 0; border:1px dashed #CCC; padding:2px;">
+			<a href="Link:3" class="module" style="display:none;"></a>
+			_[Link:3]
+		</li>
+		<li style="list-style-type:none; margin:0 0 3px 0; border:1px dashed #CCC; padding:2px;">
+			<a href="Link:4" class="module" style="display:none;"></a>
+			_[Link:4]
+		</li>
+		<li style="list-style-type:none; margin:0 0 3px 0; border:1px dashed #CCC; padding:2px;">
+			<a href="Link:5" class="module" style="display:none;"></a>
+			_[Link:5]
+		</li>
+		<li style="list-style-type:none; margin:0 0 3px 0; border:1px dashed #CCC; padding:2px;">
+			<a href="Link:6" class="module" style="display:none;"></a>
+			_[Link:6]
+		</li>
+	</ul>
+</div>
