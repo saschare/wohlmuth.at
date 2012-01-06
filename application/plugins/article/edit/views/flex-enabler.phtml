@@ -22,6 +22,7 @@
 		});
 		
 		this.find('ul.flexcontent').sortable({
+			axis: 'y',
 			update: function(event, ui) {
 				var editor = $(this).closest('.flexeditor');
 				var modules = $(this).find('li > a.module').map(function(index) {
@@ -41,6 +42,45 @@
 					editor.html(flexcontent);
 					$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
 				});
+			},
+			start: function(event, ui) {
+  				/([^-]*)-([^-]*)-(\d*)/.exec($(this).closest('.flexeditor').attr('id'));
+				var cframe =  $('#edit-iframe-' + RegExp.$3);
+				var sbar = cframe.contents().find('body');
+				var distance = 0;
+				var maxOffset = $(this).closest('div').offset().top + $(this).height() - cframe.height() + 50;
+				var minOffset = $(this).closest('div').offset().top;
+				$(this).bind('mousemove', function(e) {				
+					if (!scrolling && (sbar.scrollTop() + cframe.height() - e.pageY < 100 || e.pageY - sbar.scrollTop() < 100)) {
+						scrolling = true;
+						scrollTimerId = window.setInterval(function() {
+							if (distance > 0) {
+								sbar.scrollTop(Math.min(sbar.scrollTop() + distance, maxOffset));
+							} else {
+								sbar.scrollTop(Math.max(sbar.scrollTop() + distance, minOffset));
+							}
+							if (sbar.scrollTop() >= maxOffset || sbar.scrollTop() <= minOffset) {
+								distance = 0;
+								scrolling = false;
+								window.clearInterval(scrollTimerId);
+								return;
+							}
+						}, 10);
+					}
+					if (sbar.scrollTop() + cframe.height() - e.pageY < 100) {
+						distance = 200 / (sbar.scrollTop() + cframe.height() - e.pageY);
+					} else if (e.pageY - sbar.scrollTop() < 100) {
+						distance = -200 / (e.pageY - sbar.scrollTop());
+					} else {
+						distance = 0;
+						scrolling = false;
+						window.clearInterval(scrollTimerId);
+					}
+				});
+			},
+			stop: function(event, ui) {
+				window.clearInterval(scrollTimerId);
+				$(this).unbind('mousemove');
 			}
 		});
 	};
