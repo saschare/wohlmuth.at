@@ -24,7 +24,7 @@ class Module_ModuleSelector_Class extends Aitsu_Module_Abstract {
                 $keys[] = $key;
             }
 
-            $modules = Aitsu_Content_Config_Module :: set($this->index, 'ModuleSelector', 'ModuleSelector', $keyValuePairs, 'Modules');
+            $modules = Aitsu_Content_Config_Module :: set($this->_index, 'ModuleSelector', 'ModuleSelector', $keyValuePairs, 'Modules');
 
             if (Aitsu_Registry :: isEdit()) {
                 $startTag = '<div id="Template-' . $this->_index . '-' . $idartlang . '" class="aitsu_editable on-demand"><div class="aitsu_hover">';
