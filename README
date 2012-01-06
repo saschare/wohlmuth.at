@@ -1,9 +1,10 @@
-Current version: 2.3.13-1
+Current version: 2.3.13-2
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2012-01-06: Added jQuery UI 1.8.6 (backend).
 * 2012-01-06: Updated backend to jQuery 1.7.1.
 * 2012-01-04: Added mod_gzip in the htaccess file.
 * 2012-01-04: Removed check for existence of skins files.
