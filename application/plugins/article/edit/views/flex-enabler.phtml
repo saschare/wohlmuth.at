@@ -1,0 +1,68 @@
+(function( $ ){
+	$.fn.enableFlexEditor = function() {
+
+		var scrollTimerId;
+		var scrolling = false;
+
+		this.find('.flexcontent').mouseover(function(e){
+			e.stopPropagation();
+		});
+		
+		return;
+		
+		this.find('ul.flexcontent').sortable({
+			opacity: 0.5,
+			update: function(event, ui) {
+				var modules = $('#flexcontent' + id + ' > li > a.module').map(function(index) {
+					return $(this).attr('href');
+				}).get();
+				$.post(location.href, {
+					renderOnly: "Flex:" + id,
+					edit: 1,
+					modules: modules
+				},function(data) {
+					var flexcontent = $('#Flex-' + id + '-<?php echo $this->idartlang; ?>', data).html();
+					$('#Flex-' + id + '-<?php echo $this->idartlang; ?>').html(flexcontent);
+					parent.$(parent.document).trigger('edit-page-content', [$(document)]);
+					enableFlex(id);
+				});
+			},
+			start: function(event, ui) {
+				var distance = 0;
+				var maxOffset = $(this).closest('div').offset().top + $(this).height() - $(window).height() + 50;
+				var minOffset = $(this).closest('div').offset().top;
+				$(this).bind('mousemove', function(e) {				
+					if (!scrolling && ($(document).scrollTop() + $(window).height() - e.pageY < 100 || e.pageY - $(document).scrollTop() < 100)) {
+						scrolling = true;
+						scrollTimerId = window.setInterval(function() {
+							if (distance > 0) {
+								$(window).scrollTop(Math.min($(document).scrollTop() + distance, maxOffset));
+							} else {
+								$(window).scrollTop(Math.max($(document).scrollTop() + distance, minOffset));
+							}
+							if ($(document).scrollTop() >= maxOffset || $(document).scrollTop() <= minOffset) {
+								distance = 0;
+								scrolling = false;
+								window.clearInterval(scrollTimerId);
+								return;
+							}
+						}, 10);
+					}
+					if ($(document).scrollTop() + $(window).height() - e.pageY < 100) {
+						distance = 500 / ($(document).scrollTop() + $(window).height() - e.pageY);
+					} else if (e.pageY - $(document).scrollTop() < 100) {
+						distance = -500 / (e.pageY - $(document).scrollTop());
+					} else {
+						distance = 0;
+						scrolling = false;
+						window.clearInterval(scrollTimerId);
+					}
+				});
+			},
+			stop: function(event, ui) {
+				window.clearInterval(scrollTimerId);
+				$(this).unbind('mousemove');
+			}
+		});
+	};
+})( jQuery );

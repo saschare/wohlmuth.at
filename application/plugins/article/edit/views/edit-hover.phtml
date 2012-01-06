@@ -6,6 +6,9 @@ $(function() {
 		var oBody = obj.contents().find("body");
 		$(document).data('edit-frame-content', oBody);
 		
+		/* Enable flex editors (if available). */
+		$('.flexeditor', oBody).enableFlexEditor();
+		
 		/* Stop links working. */
 		$('a', oBody).click(function(e) {
 			e.preventDefault();
