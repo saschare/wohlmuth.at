@@ -8,7 +8,7 @@
  */
 class Module_ModuleSelector_Class extends Aitsu_Module_Abstract {
 
-    protected function _init($context) {
+    protected function _main() {
 
         $params = Aitsu_Content_Config_Hidden :: set($this->_index, 'ModuleSelector_params', $this->_params);
         $idartlang = Aitsu_Registry :: get()->env->idartlang;
