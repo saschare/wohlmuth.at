@@ -1,6 +1,9 @@
 function enableFlex<?php echo $this->id; ?>() {
 	var scrollTimerId;
 	var scrolling = false;
+	$("flexcontent<?php echo $this->id; ?>").mouseover(function(e){
+		e.stopPropagation();
+	});
 	$("ul#flexcontent<?php echo $this->id; ?>").sortable({
 		opacity: 0.5,
 		update: function(event, ui) {

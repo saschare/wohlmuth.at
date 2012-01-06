@@ -22,7 +22,7 @@ $(function() {
 		$(document).unbind('doReplace');
 		
 		/* Hover and edit binding normal .aitsu_editables (except on-demand). */
-		$('.aitsu_editable:not(.on-demand)', oBody).bind('mouseenter', function (e){
+		$('.aitsu_editable:not(.on-demand .no-edit)', oBody).bind('mouseenter', function (e){
 			e.stopPropagation();
 			$('.aitsu_editable', oBody).css({
 				'background': 'none',
@@ -48,14 +48,24 @@ $(function() {
 				});
 			});
 		});
-		$('.aitsu_editable:not(.on-demand)', oBody).bind('mouseleave', function (e){
+		$('.aitsu_editable:not(.on-demand), .no-edit', oBody).bind('mouseleave', function (e){
 			$(this).css({
 				'background': 'none',
 				'border': 'none',
 				'margin': '0'
 			});
 			$(this).unbind('click');
-			$(this).parents('.aitsu_editable').first().trigger('mouseenter');
+			$(this).parents('.aitsu_editable, .no-edit').first().trigger('mouseenter');
+		});
+		$('.no-edit', oBody).bind('mouseenter', function (e){
+			e.stopPropagation();
+			$('.aitsu_editable', oBody).css({
+				'background': 'none',
+				'border': 'none',
+				'margin': '0',
+				'cursor': 'auto'
+			});
+			$('.aitsu_editable', oBody).unbind('click');
 		});
 		
 		$('.aitsu_editable.on-demand .show-on-demand', oBody).bind('mouseenter', function() {
