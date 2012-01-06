@@ -1,24 +1,24 @@
-function enableFlex<?php echo $this->id; ?>() {
+function enableFlex(id) {
 	var scrollTimerId;
 	var scrolling = false;
-	$("flexcontent<?php echo $this->id; ?>").mouseover(function(e){
+	$("flexcontent" + id).mouseover(function(e){
 		e.stopPropagation();
 	});
-	$("ul#flexcontent<?php echo $this->id; ?>").sortable({
+	$("ul#flexcontent" + id).sortable({
 		opacity: 0.5,
 		update: function(event, ui) {
-			var modules = $('#flexcontent<?php echo $this->id; ?> > li > a.module').map(function(index) {
+			var modules = $('#flexcontent' + id + ' > li > a.module').map(function(index) {
 				return $(this).attr('href');
 			}).get();
 			$.post(location.href, {
-				renderOnly: "Flex:<?php echo $this->id; ?>",
+				renderOnly: "Flex:" + id,
 				edit: 1,
 				modules: modules
 			},function(data) {
-				var flexcontent = $("#Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>", data).html();
-				$("#Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>").html(flexcontent);
+				var flexcontent = $('#Flex-' + id + '-<?php echo $this->idartlang; ?>', data).html();
+				$('#Flex-' + id + '-<?php echo $this->idartlang; ?>').html(flexcontent);
 				parent.$(parent.document).trigger('edit-page-content', [$(document)]);
-				enableFlex<?php echo $this->id; ?>();
+				enableFlex(id);
 			});
 		},
 		start: function(event, ui) {
@@ -59,4 +59,4 @@ function enableFlex<?php echo $this->id; ?>() {
 		}
 	});
 }
-enableFlex<?php echo $this->id; ?>();
+enableFlex('<?php echo $this->id; ?>');
