@@ -183,6 +183,10 @@ abstract class Aitsu_Module_Abstract {
 				'<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
 				'<span style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">' . $output . '</span>';
 			}
+			
+			if (isset($instance->_params->suppressWrapping) && $instance->_params->suppressWrapping) {
+				return $output;
+			}
 
 			return '' .
 			'<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
