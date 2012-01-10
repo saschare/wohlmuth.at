@@ -4,6 +4,12 @@
 		var scrollTimerId;
 		var scrolling = false;
 		var bboffset = 0;
+		var moving = false;
+		
+		var id = $(this).closest('.flexeditor').attr('id');
+  		/([^-]*)-([^-]*)-(\d*)/.exec(id);
+		var index = RegExp.$2;
+		var idart = RegExp.$3;
 
 		this.find('.flexcontent').mouseover(function(e){
 			e.stopPropagation();
@@ -25,18 +31,18 @@
 		this.find('.buttonbar').css({
 			'display': 'none',
 			'position': 'absolute',
-			'padding': '2px 0 2px 2px',
+			'padding': '4px 0 0 0',
 			'cursor': 'move',
 			'background-color': '#DDD',
 			'position': 'absolute',
-			'top': '-26px',
-			'height': '26px',
+			'top': '-30px',
+			'height': '30px',
 			'width': '100%'
 		});
 		
 		this.find('.buttonbar .flex-ui-button').css({
 			'padding': '0 3px 0 3px',
-			'margin': '0 1px 0 1px',
+			'margin': '0 0 0 4px',
 			'border': '1px solid #CCC',
 			'-moz-border-radius': '4px',
 			'-webkit-border-radius': '4px',
@@ -49,39 +55,79 @@
 			'cursor': 'pointer'
 		});
 		
-		this.find('.buttonbar span.add').css({
+		this.find('.buttonbar button.add span').css({
 			'display': 'block',
 			'height': '16px',
 			'width': '16px',
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-16px -128px'
-		});
+		})
+		.attr('title', 'Add a block below the current position.');
 		
-		this.find('.buttonbar span.edit').css({
+		this.find('.buttonbar button.edit span').css({
 			'display': 'block',
 			'height': '16px',
 			'width': '16px',
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-64px -112px'
-		});
+		})
+		.attr('title', 'Edit current block.');
 		
-		this.find('.buttonbar span.trash').css({
+		this.find('.buttonbar button.trash span').css({
 			'display': 'block',
 			'height': '16px',
 			'width': '16px',
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-176px -96px'
+		})
+		.attr('title', 'Remove current block.')
+		
+		this.find('.buttonbar button.add').click(function() {
+			var pos = $(this).closest('ul').find('li').index($(this).closest('li'));
+			var editor = $(this).closest('.flexeditor');
+			alert('hier kommt die modulauswahl hin');
+		});
+		
+		this.find('.buttonbar button.edit').click(function() {
+			var pos = $(this).closest('ul').find('li').index($(this).closest('li'));
+			var editor = $(this).closest('.flexeditor');
+			alert('initialisierung editierung');
+		});
+		
+		this.find('.buttonbar button.trash').click(function() {
+			var pos = $(this).closest('ul').find('li').index($(this).closest('li'));
+			var editor = $(this).closest('.flexeditor');
+			alert(pos);
+			$.post($('#edit-iframe-' + idart).attr('src'), {
+					renderOnly: "Flex:" + index,
+					edit: 1,
+					del: pos
+				},function(data) {
+					var flexcontent = $('#' + id, data).html();
+					editor.html(flexcontent);
+					$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
+				});
 		});
 		
 		this.find('ul.flexcontent > li').hover(
 			function() {
+				if (moving) {
+					return;
+				}
 				$(this).find('div.buttonbar').css({
-					'display': 'block',
+					'display': 'block'
+				});
+				$(this).css({
+					'background-color': '#DDD',
 					'opacity': '0.8'
 				});
 			},
 			function() {
 				$(this).find('div.buttonbar').css('display', 'none');
+				$(this).css({
+					'background': 'none',
+					'opacity': '1'
+				});
 			});
 		
 		this.find('ul.flexcontent').sortable({
@@ -108,6 +154,7 @@
 				});
 			},
 			start: function(event, ui) {
+				moving = true;
   				/([^-]*)-([^-]*)-(\d*)/.exec($(this).closest('.flexeditor').attr('id'));
 				var cframe =  $('#edit-iframe-' + RegExp.$3);
 				var sbar = cframe.contents().find('body');
@@ -143,9 +190,16 @@
 				});
 			},
 			stop: function(event, ui) {
+				moving = false;
 				window.clearInterval(scrollTimerId);
 				$(this).unbind('mousemove');
-			}
+			},
+			sort: function(event, ui) { 
+				/([^-]*)-([^-]*)-(\d*)/.exec($(this).closest('.flexeditor').attr('id'));
+				var cframe =  $('#edit-iframe-' + RegExp.$3);
+				var sbar = cframe.contents().find('body');
+        		ui.helper.css({'top' : ui.position.top + sbar.scrollTop() + 'px'});
+    		}
 		});
 	};
 })( jQuery );
