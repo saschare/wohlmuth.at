@@ -29,12 +29,11 @@ mySettings = {
 		{name:'Bulleted list', openWith:'(!(* |!|*)!)'},
 		{name:'Numeric list', openWith:'(!(# |!|#)!)'}, 
 		{separator:'---------------' },
-		{name:'Picture', replaceWith:'![![Source:!:http://]!]([![Alternative text]!])!'}, 
-		{name:'Link', openWith:'"', closeWith:'([![Title]!])":[![Link:!:http://]!]', placeHolder:'Your text to link here...' },
+		{name:'Picture', replaceWith:'_[Image:[![Index]!]]'}, 
+		{name:'Link', replaceWith:'_[Link:[![Index]!]]'}, 
 		{separator:'---------------' },
 		{name:'Quotes', openWith:'bq(!(([![Class]!]))!). '},
 		{name:'Code', openWith:'@', closeWith:'@'},
-		{separator:'---------------' },
-		{name:'Preview', call:'preview', className:'preview'}
+		{separator:'---------------' }
 	]
 }

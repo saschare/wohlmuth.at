@@ -4,7 +4,7 @@
 		var scrollTimerId;
 		var scrolling = false;
 		var bboffset = 0;
-		var moving = false;
+		var suppressHover = false;
 		
 		var id = $(this).closest('.flexeditor').attr('id');
   		/([^-]*)-([^-]*)-(\d*)/.exec(id);
@@ -27,6 +27,8 @@
 				$(parent.document).trigger(event);
 			}
 		});
+		
+		this.find('ul.flexcontent div.editor').css('display', 'none');
 		
 		this.find('.buttonbar').css({
 			'display': 'none',
@@ -90,8 +92,26 @@
 		
 		this.find('.buttonbar button.edit').click(function() {
 			var pos = $(this).closest('ul').find('li').index($(this).closest('li'));
-			var editor = $(this).closest('.flexeditor');
-			alert('initialisierung editierung');
+			var element = $(this).closest('li');
+			element.find('div.content').css('display', 'none');
+			element.find('div.editor').css('display', 'block');
+			suppressHover = true;
+			element.find('div.buttonbar').css({
+				'display': 'none'
+			});
+			element.css({
+				'background': 'none'
+			});
+			var setting = mySettings;
+			setting.markupSet.splice(setting.markupSet.length - 2, 2);
+			setting.markupSet = setting.markupSet.concat({name:'Save', call: function() {alert('SPEICHERN')}, className:'preview'});
+			setting.markupSet = setting.markupSet.concat({name:'Cancel', call: function() {
+				suppressHover = false;
+				element.find('div.editor').css('display', 'none');
+				element.find('div.content').css('display', 'block');
+				element.trigger('mouseenter');
+			}, className:'preview'});
+			element.find('div.editor > textarea').markItUp(setting);
 		});
 		
 		this.find('.buttonbar button.trash').click(function() {
@@ -111,7 +131,7 @@
 		
 		this.find('ul.flexcontent > li').hover(
 			function() {
-				if (moving) {
+				if (suppressHover) {
 					return;
 				}
 				$(this).find('div.buttonbar').css({
