@@ -21,6 +21,10 @@
 			}
 		});
 		
+		this.find('ul.flexcontent > li').hover(function() {
+			alert('test');
+		});
+		
 		this.find('ul.flexcontent').sortable({
 			axis: 'y',
 			update: function(event, ui) {

@@ -15,11 +15,6 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 		$view = $this->_getView();
 		$view->id = $this->_index;
 		$view->idartlang = Aitsu_Registry :: get()->env->idartlang;
-
-		if (Aitsu_Application_Status :: isEdit()) {
-			// Aitsu_Util_Javascript :: addReference('/res/jQuery/1.6.2/jquery-ui-1.8.16.custom.min.js');
-			// Aitsu_Util_Javascript :: add($view->render('js.phtml'));
-		}
 	}
 
 	protected function _main() {
