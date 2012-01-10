@@ -3,6 +3,7 @@
 
 		var scrollTimerId;
 		var scrolling = false;
+		var bboffset = 0;
 
 		this.find('.flexcontent').mouseover(function(e){
 			e.stopPropagation();
@@ -21,12 +22,27 @@
 			}
 		});
 		
-		this.find('ul.flexcontent > li').hover(function() {
-			alert('test');
-		});
+		
+		this.find('ul.flexcontent > li').hover(
+			function() {
+				$(this).find('div.buttonbar').css({
+					'display': 'block',
+					'opacity': '0.8',
+					'cursor': 'pointer',
+					'width': '100%',
+					'background-color': '#BBB',
+					'height': '30px',
+					'position': 'absolute',
+					'top': '-30px'
+				});
+			},
+			function() {
+				$(this).find('div.buttonbar').css('display', 'none');
+			});
 		
 		this.find('ul.flexcontent').sortable({
 			axis: 'y',
+			handle: 'div.buttonbar',
 			update: function(event, ui) {
 				var editor = $(this).closest('.flexeditor');
 				var modules = $(this).find('li > a.module').map(function(index) {

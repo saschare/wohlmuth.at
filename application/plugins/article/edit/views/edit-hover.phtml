@@ -27,6 +27,7 @@ $(function() {
 		/* Hover and edit binding normal .aitsu_editables (except on-demand). */
 		$('.aitsu_editable:not(.on-demand .no-edit)', oBody).bind('mouseenter', function (e){
 			e.stopPropagation();
+			$(this).closest('ul.flexcontent > li').trigger('mouseenter');
 			$('.aitsu_editable', oBody).css({
 				'background': 'none',
 				'border': 'none',
