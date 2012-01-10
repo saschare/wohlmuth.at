@@ -22,18 +22,62 @@
 			}
 		});
 		
+		this.find('.buttonbar').css({
+			'display': 'none',
+			'position': 'absolute',
+			'padding': '2px 0 2px 2px',
+			'cursor': 'move',
+			'background-color': '#DDD',
+			'position': 'absolute',
+			'top': '-26px',
+			'height': '26px',
+			'width': '100%'
+		});
+		
+		this.find('.buttonbar .flex-ui-button').css({
+			'padding': '0 3px 0 3px',
+			'margin': '0 1px 0 1px',
+			'border': '1px solid #CCC',
+			'-moz-border-radius': '4px',
+			'-webkit-border-radius': '4px',
+			'-khtml-border-radius': '4px',
+			'border-radius': '4px',
+			'width': '24px',
+			'height': '24px',
+			'float': 'left',
+			'background-color': 'white',
+			'cursor': 'pointer'
+		});
+		
+		this.find('.buttonbar span.add').css({
+			'display': 'block',
+			'height': '16px',
+			'width': '16px',
+			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-position': '-16px -128px'
+		});
+		
+		this.find('.buttonbar span.edit').css({
+			'display': 'block',
+			'height': '16px',
+			'width': '16px',
+			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-position': '-64px -112px'
+		});
+		
+		this.find('.buttonbar span.trash').css({
+			'display': 'block',
+			'height': '16px',
+			'width': '16px',
+			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-position': '-176px -96px'
+		});
 		
 		this.find('ul.flexcontent > li').hover(
 			function() {
 				$(this).find('div.buttonbar').css({
 					'display': 'block',
-					'opacity': '0.8',
-					'cursor': 'pointer',
-					'width': '100%',
-					'background-color': '#BBB',
-					'height': '30px',
-					'position': 'absolute',
-					'top': '-30px'
+					'opacity': '0.8'
 				});
 			},
 			function() {
