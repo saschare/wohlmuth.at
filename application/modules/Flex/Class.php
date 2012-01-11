@@ -63,10 +63,17 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			/*
 			 * Edit case with textile editor.
 			 */
-			$parts = $this->_explode($this->_loadContent());
-			$content = trim(implode("\n\n", array_slice($parts, 0, $_POST['pos'])) . "\n\n" . $_POST['content']);
+			trigger_error(var_export($parts, true));
+			if ($_POST['pos'] == 0) {
+				$content = $_POST['content'];
+			} else {
+				$parts = $this->_explode($this->_loadContent());
+				$content = trim(implode("\n\n", array_slice($parts, 0, $_POST['pos'])) . "\n\n" . $_POST['content']);
+			}
+			trigger_error($content);
 			Aitsu_Content :: set($this->_index, Aitsu_Registry :: get()->env->idartlang, $content);
-			Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0, true);
+			$content = Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0, true);
+			trigger_error($content);
 			return;
 		}
 		elseif (isset ($_POST['del'])) {
@@ -74,8 +81,22 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			 * Remove case.
 			 */
 			$parts = $this->_explode($this->_loadContent());
-			unset($parts[$_POST['del']]);
+			unset ($parts[$_POST['del']]);
 			$content = trim(implode("\n\n", $parts));
+			Aitsu_Content :: set($this->_index, Aitsu_Registry :: get()->env->idartlang, $content);
+			Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0, true);
+			return;
+		}
+		elseif (isset ($_POST['newpos'])) {
+			/*
+			 * Move case.
+			 */
+			$parts = $this->_explode($this->_loadContent());
+			$newOrder = array ();
+			foreach ($_POST['newpos'] as $pos) {
+				$newOrder[] = $parts[$pos];
+			}
+			$content = trim(implode("\n\n", $newOrder));
 			Aitsu_Content :: set($this->_index, Aitsu_Registry :: get()->env->idartlang, $content);
 			Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0, true);
 			return;

@@ -138,13 +138,13 @@
 			handle: 'div.buttonbar',
 			update: function(event, ui) {
 				var editor = $(this).closest('.flexeditor');
-				var modules = $(this).find('li > a.module').map(function(index) {
+				var newpos = $(this).find('li > a.position').map(function(index) {
 					return $(this).attr('href');
 				}).get();
 				$.post($('#edit-iframe-' + idart).attr('src'), {
 					renderOnly: "Flex:" + index,
 					edit: 1,
-					modules: modules
+					newpos: newpos
 				},function(data) {
 					var flexcontent = $('#' + id, data).html();
 					editor.html(flexcontent);

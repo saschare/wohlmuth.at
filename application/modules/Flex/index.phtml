@@ -1,5 +1,20 @@
 <div id="Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>" class="flexeditor">
 	<ul class="flexcontent no-edit" style="padding:0; margin:0;">
+	<?php if (count($this->content) == 0) : ?>
+		<li style="list-style-type:none; margin:0; position:relative;">
+			<a href="0" class="position" style="display:none"></a>
+			<div class="buttonbar">
+				<button class="flex-ui-button add"><span /></button>
+				<button class="flex-ui-button edit"><span /></button>
+			</div>
+			<div class="content">
+				Add text here...
+			</div>
+			<div class="editor">
+				<textarea name="content textile"></textarea>
+			</div>
+		</li>
+	<?php else : ?>
 	<?php foreach ($this->content as $content) : ?>
 		<li style="list-style-type:none; margin:0; position:relative;">
 			<a href="<?php echo $content->position; ?>" class="position" style="display:none"></a>
@@ -12,11 +27,16 @@
 				<?php echo $content->html; ?>
 			</div>
 			<div class="editor">
-				<textarea name="content textile">
-<?php echo $content->textile; ?>				
-				</textarea>
+				<textarea name="content textile"><?php echo $content->textile; ?></textarea>
 			</div>
 		</li>
 	<?php endforeach; ?>
+		<li style="list-style-type:none; margin:0; position:relative;">
+			<a href="<?php echo count($this->content) + 1; ?>" class="position" style="display:none"></a>
+			<div class="buttonbar">
+				<button class="flex-ui-button add"><span /></button>
+			</div>
+		</li>
+	<?php endif; ?>
 	</ul>
 </div>
