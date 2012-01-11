@@ -1,5 +1,6 @@
 <div id="Flex-<?php echo $this->id; ?>-<?php echo $this->idartlang; ?>" class="flexeditor">
 	<ul class="flexcontent no-edit" style="padding:0; margin:0;">
+	<?php foreach ($this->content as $content) : ?>
 		<li style="list-style-type:none; margin:0; position:relative;">
 			<div class="buttonbar">
 				<button class="flex-ui-button add"><span /></button>
@@ -7,198 +8,14 @@
 				<button class="flex-ui-button trash"><span /></button>
 			</div>
 			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
+				<?php echo $content->html; ?>
 			</div>
 			<div class="editor">
 				<textarea name="content textile">
-* test1
-* test 2
-				
-das ist ein weiterer test.
+<?php echo $content->textile; ?>				
 				</textarea>
 			</div>
 		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-				<button class="flex-ui-button edit"><span /></button>
-				<button class="flex-ui-button trash"><span /></button>
-			</div>
-			<div class="content">
-				<p>_[Link:1]Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. Das ist ein Test. </p>
-			</div>
-			<div class="editor">
-				<textarea name="content"></textarea>
-			</div>
-		</li>
+	<?php endforeach; ?>
 	</ul>
 </div>

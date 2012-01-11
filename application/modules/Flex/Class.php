@@ -27,20 +27,24 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 		$view->content = $this->_loadContent();
 		$view->availableModules = Aitsu_Config :: get('flex')->toArray();
 
-		$in = $in =<<<EOF
+		$content = $this->_loadContent();
 
-A *simple* example.
+		if (Aitsu_Application_Status :: isEdit()) {
+			$parts = preg_split('/(?:\\n\\r?){2,}/s', $content);
+			$view->content = array ();
+			for ($i = 0; $i < count($parts); $i++) {
+				$part = trim($parts[$i]);
+				if (!empty ($part)) {
+					$view->content[] = (object) array (
+						'textile' => implode("\n\n", array_slice($parts, $i)),
+						'html' => Thresholdstate_Textile :: textile($part)
+					);
+				}
+			}
+			return $view->render('index.phtml');
+		}
 
-an an new paragraph.
-an just an new line.
-
-notextile. <div>das ist ein test.</div>
-
-EOF;
-
-		// return Thresholdstate_Textile :: textile($in);
-
-		return $view->render('index.phtml');
+		return Thresholdstate_Textile :: textile($content);
 	}
 
 	protected function _cachingPeriod() {
@@ -65,11 +69,7 @@ EOF;
 
 	protected function _loadContent() {
 
-		/*
-		 * Loading is done here.
-		 */
-
-		return null;
+		return Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0);
 	}
 
 }
