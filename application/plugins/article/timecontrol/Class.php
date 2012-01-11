@@ -40,8 +40,6 @@ class TimecontrolArticleController extends Aitsu_Adm_Plugin_Controller {
 			'paction' => 'index'
 		), 'aplugin');
 		$form->setValues($data->toArray());
-		
-		trigger_error(var_export($data->toArray(), true));
 
 		if ($this->getRequest()->getParam('loader')) {
 			$this->view->form = $form;
