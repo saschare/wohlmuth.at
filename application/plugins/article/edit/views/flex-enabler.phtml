@@ -92,16 +92,24 @@
 		this.find('.buttonbar button.trash').click(function() {
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
-			alert(pos);
-			$.post($('#edit-iframe-' + idart).attr('src'), {
-					renderOnly: "Flex:" + index,
-					edit: 1,
-					del: pos
-				},function(data) {
-					var flexcontent = $('#' + id, data).html();
-					editor.html(flexcontent);
-					$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
-				});
+			Ext.aitsu.confirm({
+				title: '<?php echo $this->translate('Delete entry'); ?>',
+				msg: '<?php echo $this->translate('Are you sure to delete the selected entry?'); ?>',
+				ok: function() {
+					$.post($('#edit-iframe-' + idart).attr('src'), {
+							renderOnly: "Flex:" + index,
+							edit: 1,
+							del: pos
+						},function(data) {
+							var flexcontent = $('#' + id, data).html();
+							editor.html(flexcontent);
+							$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
+						});
+				},
+				cancel: function() {
+				}
+			});
+			
 		});
 		
 		this.find('ul.flexcontent > li').hover(
