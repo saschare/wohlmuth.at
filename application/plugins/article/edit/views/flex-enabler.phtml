@@ -64,7 +64,7 @@
 			element.css({
 				'background': 'none'
 			});
-			var setting = mySettings;
+			var setting = myFlexSettings;
 			setting.markupSet.splice(setting.markupSet.length - 2, 2);
 			setting.markupSet = setting.markupSet.concat({name:'Save', call: function() {alert('SPEICHERN')}, className:'preview'});
 			setting.markupSet = setting.markupSet.concat({name:'Cancel', call: function() {
