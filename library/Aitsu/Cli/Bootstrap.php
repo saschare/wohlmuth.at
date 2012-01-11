@@ -45,11 +45,11 @@ class Aitsu_Cli_Bootstrap {
 		
 		Aitsu_Registry :: get()->db = Zend_Db :: factory(Aitsu_Registry :: get()->config->database);
 		
-		if ($options['u'] != false) {
+		if (isset($options['u']) && $options['u'] != false) {
 			Aitsu_Registry :: get()->config->database->params->username = $options['u'];
 		}
 
-		if ($options['p'] != false) {
+		if (isset($options['p']) && $options['p'] != false) {
 			Aitsu_Registry :: get()->config->database->params->password = $options['p'];
 		}
 
