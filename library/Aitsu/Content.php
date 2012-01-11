@@ -46,9 +46,13 @@ class Aitsu_Content {
 		return $instance[$token];
 	}
 
-	public static function get($index, $type = null, $idart = null, $idlang = null, $words = 50) {
+	public static function get($index, $type = null, $idart = null, $idlang = null, $words = 50, $forceReload = false) {
 
 		$i = self :: getInstance($index, $type, $idart, $idlang);
+		
+		if ($forceReload) {
+			$i->_restore();
+		}
 
 		Aitsu_Content_Edit :: registerContent((object) array (
 			'index' => $i->index,

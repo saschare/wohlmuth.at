@@ -5,6 +5,7 @@
 		var scrolling = false;
 		var bboffset = 0;
 		var suppressHover = false;
+		var markitup;
 		
 		var id = $(this).closest('.flexeditor').attr('id');
   		/([^-]*)-([^-]*)-(\d*)/.exec(id);
@@ -47,14 +48,15 @@
 		.attr('title', 'Remove current block.')
 		
 		this.find('.buttonbar button.add').click(function() {
-			var pos = $(this).closest('ul').find('li').index($(this).closest('li'));
+			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
 			alert('hier kommt die modulauswahl hin');
 		});
 		
 		this.find('.buttonbar button.edit').click(function() {
-			var pos = $(this).closest('ul').find('li').index($(this).closest('li'));
+			var pos = $(this).closest('li').find('a.position').attr('href');
 			var element = $(this).closest('li');
+			var editor = $(this).closest('.flexeditor');
 			element.find('div.content').css('display', 'none');
 			element.find('div.editor').css('display', 'block');
 			suppressHover = true;
@@ -66,18 +68,29 @@
 			});
 			var setting = myFlexSettings;
 			setting.markupSet.splice(setting.markupSet.length - 2, 2);
-			setting.markupSet = setting.markupSet.concat({name:'Save', call: function() {alert('SPEICHERN')}, className:'preview'});
+			setting.markupSet = setting.markupSet.concat({name:'Save', call: function() {
+				$.post($('#edit-iframe-' + idart).attr('src'), {
+						renderOnly: "Flex:" + index,
+						edit: 1,
+						pos: pos,
+						content: markitup.val()
+					},function(data) {
+						var flexcontent = $('#' + id, data).html();
+						editor.html(flexcontent);
+						$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
+					});				
+			}, className:'preview'});
 			setting.markupSet = setting.markupSet.concat({name:'Cancel', call: function() {
 				suppressHover = false;
 				element.find('div.editor').css('display', 'none');
 				element.find('div.content').css('display', 'block');
 				element.trigger('mouseenter');
 			}, className:'preview'});
-			element.find('div.editor > textarea').markItUp(setting);
+			markitup = element.find('div.editor > textarea').markItUp(setting);
 		});
 		
 		this.find('.buttonbar button.trash').click(function() {
-			var pos = $(this).closest('ul').find('li').index($(this).closest('li'));
+			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
 			alert(pos);
 			$.post($('#edit-iframe-' + idart).attr('src'), {
