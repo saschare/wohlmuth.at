@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.flexeditor > ul.flexcontent div.editor {
+    display:none;
+}
+
+.flexeditor > ul.flexcontent > li > div.buttonbar {
+    display:none;
+    position:absolute;
+    padding:4px 0 0 0;
+    cursor:move;
+    background-color:#DDD;
+    top:-30px;
+    height:30px;
+    width:100%;
+}
+
+.flexeditor > ul.flexcontent > li > div.buttonbar .flex-ui-button {
+    padding:0 3px 0 3px;
+    margin:0 0 0 4px;
+    border:1px solid #CCC;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    -khtml-border-radius:4px;
+    border-radius:4px;
+    width:24px;
+    height:24px;
+    float:left;
+    background-color:white;
+    cursor:pointer;
+}
+
+.flexeditor > ul.flexcontent > li > div.buttonbar button span {
+    display:block;
+    height:16px;
+    width:16px;
+}

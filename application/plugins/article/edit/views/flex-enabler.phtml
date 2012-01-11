@@ -28,57 +28,19 @@
 			}
 		});
 		
-		this.find('ul.flexcontent div.editor').css('display', 'none');
-		
-		this.find('.buttonbar').css({
-			'display': 'none',
-			'position': 'absolute',
-			'padding': '4px 0 0 0',
-			'cursor': 'move',
-			'background-color': '#DDD',
-			'position': 'absolute',
-			'top': '-30px',
-			'height': '30px',
-			'width': '100%'
-		});
-		
-		this.find('.buttonbar .flex-ui-button').css({
-			'padding': '0 3px 0 3px',
-			'margin': '0 0 0 4px',
-			'border': '1px solid #CCC',
-			'-moz-border-radius': '4px',
-			'-webkit-border-radius': '4px',
-			'-khtml-border-radius': '4px',
-			'border-radius': '4px',
-			'width': '24px',
-			'height': '24px',
-			'float': 'left',
-			'background-color': 'white',
-			'cursor': 'pointer'
-		});
-		
 		this.find('.buttonbar button.add span').css({
-			'display': 'block',
-			'height': '16px',
-			'width': '16px',
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-16px -128px'
 		})
 		.attr('title', 'Add a block below the current position.');
 		
 		this.find('.buttonbar button.edit span').css({
-			'display': 'block',
-			'height': '16px',
-			'width': '16px',
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-64px -112px'
 		})
 		.attr('title', 'Edit current block.');
 		
 		this.find('.buttonbar button.trash span').css({
-			'display': 'block',
-			'height': '16px',
-			'width': '16px',
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-176px -96px'
 		})
@@ -158,11 +120,6 @@
 				var modules = $(this).find('li > a.module').map(function(index) {
 					return $(this).attr('href');
 				}).get();
-				var id = $(this).closest('.flexeditor').attr('id');
-				var regex = /([^-]*)-([^-]*)-(\d*)/;
-  				regex.exec(id);
-				var index = RegExp.$2;
-				var idart = RegExp.$3;
 				$.post($('#edit-iframe-' + idart).attr('src'), {
 					renderOnly: "Flex:" + index,
 					edit: 1,
