@@ -154,9 +154,9 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 				'description' => 'Ein einfacher Shortcode. Aber einer, mit etwas mehr Text.'
 			),
 			(object) array (
-				'shortcode' => 'derDritte',
-				'name' => 'Shortcode 3',
-				'description' => 'Ein einfacher Shortcode. Aber einer, mit etwas mehr Text.'
+				'shortcode' => 'Image',
+				'name' => 'Image',
+				'description' => 'Ein Bild oder eine Galerie.'
 			),
 			(object) array (
 				'shortcode' => 'derVierte',
@@ -166,7 +166,7 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			(object) array (
 				'shortcode' => 'derFuenfte',
 				'name' => 'Shortcode 5',
-				'description' => 'Ein einfacher Shortcode. Ein einfacher Shortcode. Ein einfacher Shortcode. Ein einfacher Shortcode. Ein einfacher Shortcode. Ein einfacher Shortcode.'
+				'description' => 'Ein einfacher Shortcode. Ein einfacher Shortcode.'
 			),
 			(object) array (
 				'shortcode' => 'derSechste',

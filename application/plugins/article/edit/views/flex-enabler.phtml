@@ -9,6 +9,8 @@
 		
 		this.find('*').unbind();
 		
+		this.find('div.modules').css('width', Math.floor(($(this).parent().width() - 10) / 190) * 190);
+		
 		var id = $(this).closest('.flexeditor').attr('id');
   		/([^-]*)-([^-]*)-(\d*)/.exec(id);
 		var index = RegExp.$2;
