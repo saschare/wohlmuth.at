@@ -45,6 +45,12 @@
 		})
 		.attr('title', 'Add a block below the current position.');
 		
+		this.find('.buttonbar button.configure span').css({
+			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-position': '-192px -112px'
+		})
+		.attr('title', 'Configure shortcode.');
+		
 		this.find('.buttonbar button.edit span').css({
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-64px -112px'
@@ -61,6 +67,17 @@
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
 			alert('hier kommt die modulauswahl hin');
+		});
+		
+		this.find('.buttonbar button.configure').each(function() {
+			if ($(this).closest('li').find('div.content .aitsu_editable').size() == 0) {
+				$(this).remove();
+			}
+		});
+		
+		this.find('.buttonbar button.configure span').click(function() {
+			$(this).closest('li').find('div.content .aitsu_editable').trigger('mouseenter');
+			$(this).closest('li').find('div.content .aitsu_editable').trigger('click');
 		});
 		
 		this.find('.buttonbar button.edit').click(function() {
@@ -97,6 +114,10 @@
 				element.trigger('mouseenter');
 			}, className:'preview'});
 			markitup = element.find('div.editor > textarea').markItUp(setting);
+			var editorContent = element.nextAll().find('div.editor textarea').map(function() {
+				return $(this).val();
+			}).get().join('\n\n');
+			markitup.val(element.find('div.editor textarea').val() + '\n\n' + editorContent);
 		});
 		
 		this.find('.buttonbar button.trash').click(function() {

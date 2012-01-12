@@ -20,6 +20,9 @@
 			<a href="<?php echo $content->position; ?>" class="position" style="display:none"></a>
 			<div class="buttonbar">
 				<button class="flex-ui-button add"><span /></button>
+				<?php if ($content->isShortcodeBlock) : ?>
+				<button class="flex-ui-button configure"><span /></button>
+				<?php endif; ?>
 				<button class="flex-ui-button edit"><span /></button>
 				<button class="flex-ui-button trash"><span /></button>
 			</div>
@@ -34,12 +37,6 @@
 			</div>
 		</li>
 	<?php endforeach; ?>
-		<li style="list-style-type:none; margin:0; position:relative;">
-			<a href="<?php echo count($this->content) + 1; ?>" class="position" style="display:none"></a>
-			<div class="buttonbar">
-				<button class="flex-ui-button add"><span /></button>
-			</div>
-		</li>
 	<?php endif; ?>
 	</ul>
 	<div class="flexcontent no-edit">

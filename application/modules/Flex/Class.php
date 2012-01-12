@@ -34,8 +34,10 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			for ($i = 0; $i < count($parts); $i++) {
 				$view->content[] = (object) array (
 					'position' => $i,
-					'textile' => implode("\n\n", array_slice($parts, $i)),
-					'html' => Wdrei_Textile :: textile($parts[$i])
+					// 'textile' => implode("\n\n", array_slice($parts, $i)),
+					'textile' => $parts[$i],
+					'html' => Wdrei_Textile :: textile($parts[$i]),
+					'isShortcodeBlock' => preg_match('/^\\.sc\\([^\\)]*\\)$/s', trim($parts[$i]))
 				);
 			}
 			return $view->render('index.phtml');

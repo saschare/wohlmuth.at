@@ -38,13 +38,8 @@ $(function() {
 				'margin': '0',
 				'cursor': 'auto'
 			});
-			$(this).css({
-				'background-color': '#ec7537',
-				'border': '5px solid #ec7537',
-				'margin': '-5px',
-				'cursor': 'pointer'
-			});
 			$('.aitsu_editable', oBody).unbind('click');
+			
 			$(this).bind('click', function(e) {
 				e.stopPropagation();
 				/(.*?)\-(.*?)\-(\d*)$/.exec($(this).attr('id'));
@@ -54,6 +49,17 @@ $(function() {
 					idartlang: RegExp.$3,
 					params: $(this).find('code.aitsu_params').length > 0 ? $(this).find('code.aitsu_params').first().html() : ''
 				});
+			});
+
+			if ($(this).parent().hasClass('shortcodeBlock')) {
+				return;
+			}
+			
+			$(this).css({
+				'background-color': '#ec7537',
+				'border': '5px solid #ec7537',
+				'margin': '-5px',
+				'cursor': 'pointer'
 			});
 		});
 		$('.aitsu_editable:not(.on-demand), .no-edit', oBody).bind('mouseleave', function (e){

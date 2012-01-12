@@ -43,7 +43,13 @@ class Wdrei_Textile {
 	 */
 	protected function _emEmbedShortcode() {
 		
-		$this->_text = preg_replace('/((?:^|(?:\\n\\r?){2,}))(\\.sc\\([^\\)]*\\))((?:(?:\\n\\r?){2,}|$))/s', "$1<div>$2</div>$3", $this->_text);
+		$class = '';
+		
+		if (Aitsu_Application_Status :: isEdit()) {
+			$class = ' class="shortcodeBlock"';
+		}
+		
+		$this->_text = preg_replace('/((?:^|(?:\\n\\r?){2,}))(\\.sc\\([^\\)]*\\))((?:(?:\\n\\r?){2,}|$))/s', "$1<div$class>$2</div>$3", $this->_text);
 	}
 	
 	/**
