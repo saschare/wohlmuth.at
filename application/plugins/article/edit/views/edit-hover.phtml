@@ -124,7 +124,7 @@ $(function() {
 		
 		/* Content replace handler. */
 		$(document).bind('doReplace', function(event, type, container, idartlang, data) {
-			$('#' + type.replace(/\./g, '\\.') + '-' + container + '-' + idartlang, oBody).html($('#.aitsu_hover:first', data));
+			$('#' + type.replace(/\./g, '\\.') + '-' + container + '-' + idartlang, oBody).html($('.aitsu_editable .aitsu_hover:first', data));
 			$(document).trigger('edit-page-content', [$('#edit-iframe-' + idartlang)]);
 			var boxModelFrame = Ext.get('edit-iframe-boxmodel-<?php echo $this->idartlang; ?>');
 			if (boxModelFrame != null) {

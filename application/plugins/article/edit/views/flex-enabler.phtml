@@ -7,6 +7,8 @@
 		var suppressHover = false;
 		var markitup;
 		
+		this.find('*').unbind();
+		
 		var id = $(this).closest('.flexeditor').attr('id');
   		/([^-]*)-([^-]*)-(\d*)/.exec(id);
 		var index = RegExp.$2;
