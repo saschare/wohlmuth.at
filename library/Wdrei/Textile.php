@@ -23,9 +23,7 @@ class Wdrei_Textile {
 		$instance->_text = $text;
 		$instance->_transform();
 		
-		// return $instance->_text;
-
-		return Thresholdstate_Textile :: textile($instance->_text);
+		return $instance->_text;
 	}
 
 	protected function _transform() {
@@ -38,6 +36,14 @@ class Wdrei_Textile {
 				));
 			}
 		}
+	}
+	
+	/**
+	 * Embed shortcodes into a div, if they represent a block.
+	 */
+	protected function _emEmbedShortcode() {
+		
+		$this->_text = preg_replace('/((?:^|(?:\\n\\r?){2,}))(\\.sc\\([^\\)]*\\))((?:(?:\\n\\r?){2,}|$))/s', "$1<div>$2</div>$3", $this->_text);
 	}
 	
 	/**
@@ -95,6 +101,30 @@ class Wdrei_Textile {
 			$replacement = preg_replace('/^\\#\\s*(.*)/m', " <li>$1</li>", $match);
 			$this->_text = str_replace($match, '<ol>' . $replacement . '</ol>' . "\n\n", $this->_text);
 		}
+	}
+	
+	/**
+	 * Execute Thresholdstate_Textile
+	 */
+	protected function _emThresholdstateTextile() {
+		
+		$this->_text = Thresholdstate_Textile :: textile($this->_text);
+	}
+	
+	/**
+	 * Remove empty divs.
+	 */
+	protected function _emRemoveEmptyDivs() {
+		
+		$this->_text = str_replace('<div></div>', '', $this->_text);
+	}
+	
+	/**
+	 * Remove empty paragraphs.
+	 */
+	protected function _emRemoveEmptyParagraphs() {
+		
+		$this->_text = str_replace('<p></p>', '', $this->_text);
 	}
 	
 }

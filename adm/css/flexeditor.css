@@ -43,8 +43,6 @@
 .flexeditor > ul.flexcontent > li > div.content {
     padding:0;
     margin:0;
-    border-bottom:1px dotted #CCC;
-    margin-bottom:-1px;
 }
 
 .flexeditor .placeholder {
