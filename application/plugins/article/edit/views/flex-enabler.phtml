@@ -8,6 +8,7 @@
 		var markitup;
 		
 		this.find('*').unbind();
+		this.find('ul.flexcontent').sortable('destroy');
 		
 		this.find('div.modules').css('width', Math.floor(($(this).parent().width() - 10) / 190) * 190);
 		
