@@ -103,9 +103,13 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0, true);
 			return;
 		}
-		elseif (isset ($_POST['pos']) && isset ($_POST['add'])) {		
-			$parts = $this->_explode($this->_loadContent());
-			array_splice ($parts, $_POST['pos'], 1, array($parts[$_POST['pos']], $this->_newVal()));
+		elseif (isset ($_POST['pos']) && isset ($_POST['add'])) {
+			$content = $this->_loadContent();
+			$parts = $this->_explode($content);
+			array_splice($parts, $_POST['pos'], 1, array (
+				$parts[$_POST['pos']],
+				$this->_newVal($content)
+			));
 			$content = trim(implode("\n\n", $parts));
 			Aitsu_Content :: set($this->_index, Aitsu_Registry :: get()->env->idartlang, $content);
 			Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0, true);
@@ -176,16 +180,40 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			)
 		);
 	}
-	
-	protected function _newVal() {
-		
+
+	protected function _newVal($content) {
+
 		$val = trim($_POST['add']);
-		
-		if (empty($val)) {
+
+		if (empty ($val)) {
 			return 'Add your text here...';
 		}
+
+		$index = Aitsu_Db :: fetchOne('' .
+		'select ' .
+		'	substr(a.identifier, 14, instr(a.identifier, \':\') - 14) + 1 as i ' .
+		'from ait_aitsu_property a,  ait_aitsu_article_property b ' .
+		'where ' .
+		'	a.propertyid = b.propertyid ' .
+		'	and b.idartlang = :idartlang ' .
+		'	and substr(a.identifier, 14, instr(a.identifier, \':\') - 14) regexp \'^[0-9]*$\' = 1 ' .
+		'order by ' .
+		'	cast(substr(a.identifier, 14, instr(a.identifier, \':\') - 14) as decimal) desc ' .
+		'limit 0, 1', array (
+			':idartlang' => Aitsu_Registry :: get()->env->idartlang
+		));
 		
-		return $val;
+		if (!$index) {
+			$index = 1;
+		}
+		
+		if (preg_match_all('/\\.sc\\([^\\)\\d]*(\\d*)\\)/s', $content, $matches) > 0) {
+			foreach ($matches[1] as $number) {
+				$index = max($index, $number + 1);
+			}
+		}
+
+		return '.sc(' . $val . ':' . $index . ')';
 	}
 
 }
