@@ -43,13 +43,17 @@
 	<?php endif; ?>
 	</ul>
 	<div class="flexcontent no-edit">
-	<?php foreach ($this->content as $content) : ?>
-		<div class="content">
-			<?php echo $content->html; ?>
-			<?php if (substr(trim($content->html), 0, 3) != '<p>') : ?>
-			<p style="height:0px;"></p>
-			<?php endif; ?>
-		</div>
-	<?php endforeach; ?>
+	<?php if (count($this->content) == 0) : ?>
+		Add text here...
+	<?php else : ?>
+		<?php foreach ($this->content as $content) : ?>
+			<div>
+				<?php echo $content->html; ?>
+				<?php if (substr(trim($content->html), 0, 3) != '<p>') : ?>
+				<p style="height:0px;"></p>
+				<?php endif; ?>
+			</div>
+		<?php endforeach; ?>
+	<?php endif; ?>
 	</div>
 </div>
