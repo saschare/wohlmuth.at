@@ -53,4 +53,22 @@
 		<?php endforeach; ?>
 	<?php endif; ?>
 	</div>
+	<ul style="display:none;">
+		<li class="modules" style="list-style-type:none; margin:0; position:relative;">
+			<a href="" class="position" style="display:none"></a>
+			<div class="content modules" style="background-color:#CCC; padding:5px 0 0 5px;">
+				<button value="" class="text">
+					<div class="name">Text block</div>
+					<div class="description">...</div>
+				</button>
+				<?php foreach ($this->modules as $module) : ?>
+				<button value="<?php echo $module->shortcode; ?>" class="shortcode">
+					<div class="name"><?php echo $module->name; ?></div>
+					<div class="description"><?php echo $module->description; ?></div>
+				</button>
+				<?php endforeach; ?>
+				<div style="clear:left;"></div>
+			</div>
+		</li>
+	</ul>
 </div>

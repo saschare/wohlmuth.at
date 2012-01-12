@@ -34,12 +34,12 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			for ($i = 0; $i < count($parts); $i++) {
 				$view->content[] = (object) array (
 					'position' => $i,
-					// 'textile' => implode("\n\n", array_slice($parts, $i)),
 					'textile' => $parts[$i],
 					'html' => Wdrei_Textile :: textile($parts[$i]),
 					'isShortcodeBlock' => preg_match('/^\\.sc\\([^\\)]*\\)$/s', trim($parts[$i]))
 				);
 			}
+			$view->modules = $this->_getModules();
 			return $view->render('index.phtml');
 		}
 
@@ -103,6 +103,14 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0, true);
 			return;
 		}
+		elseif (isset ($_POST['pos']) && isset ($_POST['add'])) {		
+			$parts = $this->_explode($this->_loadContent());
+			array_splice ($parts, $_POST['pos'], 1, array($parts[$_POST['pos']], $this->_newVal()));
+			$content = trim(implode("\n\n", $parts));
+			Aitsu_Content :: set($this->_index, Aitsu_Registry :: get()->env->idartlang, $content);
+			Aitsu_Content :: get($this->_index, Aitsu_Content :: PLAINTEXT, null, null, 0, true);
+			return;
+		}
 
 		return;
 	}
@@ -126,6 +134,58 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 		}
 
 		return $returnValue;
+	}
+
+	protected function _getModules() {
+
+		return array (
+			(object) array (
+				'shortcode' => 'derErste',
+				'name' => 'Shortcode 1',
+				'description' => 'Ein einfacher Shortcode.'
+			),
+			(object) array (
+				'shortcode' => 'derZweite',
+				'name' => 'Shortcode 2',
+				'description' => 'Ein einfacher Shortcode. Aber einer, mit etwas mehr Text.'
+			),
+			(object) array (
+				'shortcode' => 'derDritte',
+				'name' => 'Shortcode 3',
+				'description' => 'Ein einfacher Shortcode. Aber einer, mit etwas mehr Text.'
+			),
+			(object) array (
+				'shortcode' => 'derVierte',
+				'name' => 'Shortcode 4',
+				'description' => 'Ein einfacher Shortcode.'
+			),
+			(object) array (
+				'shortcode' => 'derFuenfte',
+				'name' => 'Shortcode 5',
+				'description' => 'Ein einfacher Shortcode. Ein einfacher Shortcode. Ein einfacher Shortcode. Ein einfacher Shortcode. Ein einfacher Shortcode. Ein einfacher Shortcode.'
+			),
+			(object) array (
+				'shortcode' => 'derSechste',
+				'name' => 'Shortcode 6',
+				'description' => 'Ein einfacher Shortcode.'
+			),
+			(object) array (
+				'shortcode' => 'derSiebente',
+				'name' => 'Shortcode 7',
+				'description' => 'Ein einfacher Shortcode.'
+			)
+		);
+	}
+	
+	protected function _newVal() {
+		
+		$val = trim($_POST['add']);
+		
+		if (empty($val)) {
+			return 'Add your text here...';
+		}
+		
+		return $val;
 	}
 
 }

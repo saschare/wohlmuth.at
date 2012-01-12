@@ -50,3 +50,31 @@
     margin:0;
     background-color:#CCC;
 }
+
+.flexeditor div.modules > button {
+    padding:5px 5px 0 5px;
+    margin:0 10px 10px 0;
+    border:1px solid #CCC;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    -khtml-border-radius:4px;
+    border-radius:4px;
+    background-color:white;
+    cursor:pointer;
+    width:180px;
+    height:75px;
+    font-size:9px;
+    text-align:left;
+    float:left;
+}
+
+.flexeditor div.modules > button > .name {
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.flexeditor div.modules > button > .description {
+    height:50px;
+}
+
