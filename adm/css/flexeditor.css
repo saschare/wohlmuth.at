@@ -47,9 +47,8 @@
     margin-bottom:-1px;
 }
 
-.flexeditor > div.flexcontent > div {
-    padding:0;
+.flexeditor .placeholder {
+    list-style-type:none; 
     margin:0;
-    border-bottom:1px dotted #CCC;
-    margin-bottom:-1px;
+    background-color:yellow;
 }

@@ -146,6 +146,10 @@
 		this.find('ul.flexcontent').sortable({
 			axis: 'y',
 			handle: 'div.buttonbar',
+			forceHelperSize: true,
+			forcePlaceholderSize: true,
+			placeholder: "placeholder",
+			opacity: 0.1,
 			update: function(event, ui) {
 				var editor = $(this).closest('.flexeditor');
 				var newpos = $(this).find('li > a.position').map(function(index) {
@@ -163,6 +167,8 @@
 			},
 			start: function(event, ui) {
 				moving = true;
+				suppressHover = true;
+				$(this).closest('.flexeditor').find('div.buttonbar').hide();
   				/([^-]*)-([^-]*)-(\d*)/.exec($(this).closest('.flexeditor').attr('id'));
 				var cframe =  $('#edit-iframe-' + RegExp.$3);
 				var sbar = cframe.contents().find('body');
@@ -199,6 +205,8 @@
 			},
 			stop: function(event, ui) {
 				moving = false;
+				suppressHover = false;
+				$(this).closest('.flexeditor').find('div.buttonbar').hide();
 				window.clearInterval(scrollTimerId);
 				$(this).unbind('mousemove');
 			},
