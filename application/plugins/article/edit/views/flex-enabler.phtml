@@ -11,8 +11,18 @@
   		/([^-]*)-([^-]*)-(\d*)/.exec(id);
 		var index = RegExp.$2;
 		var idart = RegExp.$3;
-
-		this.find('.flexcontent').mouseover(function(e){
+		
+		this.find('div.flexcontent').mouseenter(function() {
+			$(this).hide();
+			$(this).closest('.flexeditor').find('ul.flexcontent').show();
+		});
+		
+		this.find('ul.flexcontent').mouseleave(function() {
+			$(this).hide();
+			$(this).closest('.flexeditor').find('div.flexcontent').show();
+		});
+		
+		this.find('ul.flexcontent').mouseover(function(e){
 			e.stopPropagation();
 		});
 		

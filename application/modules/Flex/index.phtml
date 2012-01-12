@@ -25,6 +25,9 @@
 			</div>
 			<div class="content">
 				<?php echo $content->html; ?>
+				<?php if (substr(trim($content->html), 0, 3) != '<p>') : ?>
+				<p style="height:0px;"></p>
+				<?php endif; ?>
 			</div>
 			<div class="editor">
 				<textarea name="content textile"><?php echo $content->textile; ?></textarea>
@@ -39,4 +42,14 @@
 		</li>
 	<?php endif; ?>
 	</ul>
+	<div class="flexcontent no-edit">
+	<?php foreach ($this->content as $content) : ?>
+		<div class="content">
+			<?php echo $content->html; ?>
+			<?php if (substr(trim($content->html), 0, 3) != '<p>') : ?>
+			<p style="height:0px;"></p>
+			<?php endif; ?>
+		</div>
+	<?php endforeach; ?>
+	</div>
 </div>

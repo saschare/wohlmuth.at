@@ -35,13 +35,13 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 				$view->content[] = (object) array (
 					'position' => $i,
 					'textile' => implode("\n\n", array_slice($parts, $i)),
-					'html' => Thresholdstate_Textile :: textile($parts[$i])
+					'html' => Wdrei_Textile :: textile($parts[$i])
 				);
 			}
 			return $view->render('index.phtml');
 		}
 
-		return Thresholdstate_Textile :: textile($content);
+		return Wdrei_Textile :: textile($content);
 	}
 
 	protected function _cachingPeriod() {
