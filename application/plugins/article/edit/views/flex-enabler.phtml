@@ -14,7 +14,7 @@
 		this.find('ul.flexcontent').sortable('destroy');
 		this.find('*').off('.flexeditor');
 				
-		this.find('div.modules').css('width', Math.floor(($(this).parent().width() - 10) / 190) * 190);
+		this.find('div.modules').css('width', Math.floor(($(this).parent().width() - 10) / 170) * 170);
 				
 		var id = $(this).closest('.flexeditor').attr('id');
   		/([^-]*)-([^-]*)-(\d*)/.exec(id);
@@ -51,30 +51,36 @@
 			}
 		});
 				
-		this.find('.buttonbar button.add span').css({
+		this.find('button.add span').css({
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-16px -128px'
 		})
 		.attr('title', 'Add a block below the current position.');
 		
-		this.find('.buttonbar button.configure span').css({
+		this.find('button.configure span').css({
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-192px -112px'
 		})
 		.attr('title', 'Configure shortcode.');
 		
-		this.find('.buttonbar button.edit span').css({
+		this.find('button.edit span').css({
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-64px -112px'
 		})
 		.attr('title', 'Edit current block.');
 		
-		this.find('.buttonbar button.trash span').css({
+		this.find('button.trash span').css({
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-176px -96px'
 		})
 		.attr('title', 'Remove current block.')
 		
+		this.find('button.cancel span').css({
+			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-position': '-32px -192px'
+		})
+		.attr('title', 'Cancel.')
+				
 		this.find('.buttonbar button.add').on('click.flexeditor', function() {
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
@@ -83,7 +89,7 @@
 			modules.find('a.position').attr('href', pos);
 			modules.show();
 			modules.insertAfter($(this).closest('li'));
-			modules.find('div.modules button').on('click', function() {
+			modules.find('div.modules button:not(.cancel)').one('click', function() {
 				$.post($('#edit-iframe-' + idart).attr('src'), {
 						renderOnly: "Flex:" + index,
 						edit: 1,
@@ -94,6 +100,10 @@
 						editor.html(flexcontent);
 						$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
 					});				
+			});
+			modules.find('div.modules button.cancel').one('click.flexeditor', function() {
+				$(this).closest('li').remove();
+				doSuppressHover.apply(this, false);
 			});
 		});
 				
