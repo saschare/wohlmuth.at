@@ -11,8 +11,8 @@
 		origin = this;
 		suppressHover = false;
 		
-		this.find('*').unbind();
 		this.find('ul.flexcontent').sortable('destroy');
+		this.find('*').off('.flexeditor');
 				
 		this.find('div.modules').css('width', Math.floor(($(this).parent().width() - 10) / 190) * 190);
 				
@@ -75,7 +75,7 @@
 		})
 		.attr('title', 'Remove current block.')
 		
-		this.find('.buttonbar button.add').click(function() {
+		this.find('.buttonbar button.add').on('click.flexeditor', function() {
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
 			doSuppressHover.apply(this);
@@ -103,12 +103,12 @@
 			}
 		});
 				
-		this.find('.buttonbar button.configure span').click(function() {
+		this.find('.buttonbar button.configure span').on('click.flexeditor', function() {
 			$(this).closest('li').find('div.content .aitsu_editable').trigger('mouseenter');
 			$(this).closest('li').find('div.content .aitsu_editable').trigger('click');
 		});
 				
-		this.find('.buttonbar button.edit').click(function() {
+		this.find('.buttonbar button.edit').on('click.flexeditor', function() {
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var element = $(this).closest('li');
 			var editor = $(this).closest('.flexeditor');
@@ -149,7 +149,7 @@
 			markitup.val(element.find('div.editor textarea').val() + '\n\n' + editorContent);
 		});
 				
-		this.find('.buttonbar button.trash').click(function() {
+		this.find('.buttonbar button.trash').on('click.flexeditor', function() {
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
 			Ext.aitsu.confirm({
@@ -173,7 +173,7 @@
 			
 		});
 				
-		this.find('ul.flexcontent > li').hover(
+		this.find('ul.flexcontent > li').on('mouseenter.flexeditor',
 			function() {
 				if (suppressHover) {
 					return;
@@ -185,7 +185,8 @@
 					'background-color': '#DDD',
 					'opacity': '0.8'
 				});
-			},
+			}
+		).on('mouseleave.flexeditor', 
 			function() {
 				$(this).find('div.buttonbar').css('display', 'none');
 				$(this).css({
@@ -228,7 +229,7 @@
 				var distance = 0;
 				var maxOffset = $(this).closest('div').offset().top + $(this).height() - cframe.height() + 50;
 				var minOffset = $(this).closest('div').offset().top;
-				$(this).bind('mousemove', function(e) {				
+				$(this).on('mousemove.flexeditor', function(e) {				
 					if (!scrolling && (sbar.scrollTop() + cframe.height() - e.pageY < 100 || e.pageY - sbar.scrollTop() < 100)) {
 						scrolling = true;
 						scrollTimerId = window.setInterval(function() {
@@ -271,6 +272,11 @@
     		}
 		});		
 	}
+	
+	var doDestroy = function() {
+		this.find('ul.flexcontent').sortable('destroy');
+		this.find('*').off('.flexeditor');
+	}
 				
 	var doSuppressHover = function() {
 		if (arguments.length == 1) {
@@ -287,6 +293,9 @@
 			init : function( options ) { 
 				main.apply(this, arguments);
 	    	}, 
+	    	destroy : function() {
+	    		doDestroy.apply(this);
+	    	},
 	    	suppressHover : function() { 
 	    		doSuppressHover.apply(this, arguments);
 	    	}
