@@ -1,36 +1,43 @@
 (function( $ ){
-	$.fn.enableFlexEditor = function() {
-
-		var scrollTimerId;
-		var scrolling = false;
-		var bboffset = 0;
-		var suppressHover = false;
-		var markitup;
+	
+	var origin;	
+	var scrollTimerId;
+	var scrolling = false;
+	var bboffset = 0;
+	var suppressHover = false;
+	var markitup;
+	
+	var main = function() {
+		origin = this;
+		suppressHover = false;
 		
 		this.find('*').unbind();
 		this.find('ul.flexcontent').sortable('destroy');
-		
+				
 		this.find('div.modules').css('width', Math.floor(($(this).parent().width() - 10) / 190) * 190);
-		
+				
 		var id = $(this).closest('.flexeditor').attr('id');
   		/([^-]*)-([^-]*)-(\d*)/.exec(id);
 		var index = RegExp.$2;
 		var idart = RegExp.$3;
-		
+				
 		this.find('div.flexcontent').mouseenter(function() {
 			$(this).hide();
 			$(this).closest('.flexeditor').find('ul.flexcontent').show();
 		});
-		
+				
 		this.find('ul.flexcontent').mouseleave(function() {
+			if (suppressHover) {
+				return;
+			}
 			$(this).hide();
 			$(this).closest('.flexeditor').find('div.flexcontent').show();
 		});
-		
+				
 		this.find('ul.flexcontent').mouseover(function(e){
 			e.stopPropagation();
 		});
-		
+				
 		/*
 		 * As mouse events are not propagated above the current document
 		 * boundaries this must be done explicitly.
@@ -43,7 +50,7 @@
 				$(parent.document).trigger(event);
 			}
 		});
-		
+				
 		this.find('.buttonbar button.add span').css({
 			'background-image': 'url(/adm/images/flex-ui-icons.png)',
 			'background-position': '-16px -128px'
@@ -71,7 +78,7 @@
 		this.find('.buttonbar button.add').click(function() {
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
-			suppressHover = true;
+			doSuppressHover.apply(this);
 			var modules = $(this).closest('.flexeditor').find('li.modules').clone();
 			modules.find('a.position').attr('href', pos);
 			modules.show();
@@ -89,25 +96,25 @@
 					});				
 			});
 		});
-		
+				
 		this.find('.buttonbar button.configure').each(function() {
 			if ($(this).closest('li').find('div.content .aitsu_editable').size() == 0) {
 				$(this).remove();
 			}
 		});
-		
+				
 		this.find('.buttonbar button.configure span').click(function() {
 			$(this).closest('li').find('div.content .aitsu_editable').trigger('mouseenter');
 			$(this).closest('li').find('div.content .aitsu_editable').trigger('click');
 		});
-		
+				
 		this.find('.buttonbar button.edit').click(function() {
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var element = $(this).closest('li');
 			var editor = $(this).closest('.flexeditor');
 			element.find('div.content').css('display', 'none');
 			element.find('div.editor').css('display', 'block');
-			suppressHover = true;
+			doSuppressHover.apply(this);
 			element.find('div.buttonbar').css({
 				'display': 'none'
 			});
@@ -130,7 +137,7 @@
 					});				
 			}, className:'preview'});
 			setting.markupSet = setting.markupSet.concat({name:'Cancel', call: function() {
-				suppressHover = false;
+				editor.enableFlexEditor('suppressHover', false);
 				element.find('div.editor').css('display', 'none');
 				element.find('div.content').css('display', 'block');
 				element.trigger('mouseenter');
@@ -141,7 +148,7 @@
 			}).get().join('\n\n');
 			markitup.val(element.find('div.editor textarea').val() + '\n\n' + editorContent);
 		});
-		
+				
 		this.find('.buttonbar button.trash').click(function() {
 			var pos = $(this).closest('li').find('a.position').attr('href');
 			var editor = $(this).closest('.flexeditor');
@@ -165,7 +172,7 @@
 			});
 			
 		});
-		
+				
 		this.find('ul.flexcontent > li').hover(
 			function() {
 				if (suppressHover) {
@@ -186,7 +193,7 @@
 					'opacity': '1'
 				});
 			});
-		
+				
 		this.find('ul.flexcontent').sortable({
 			axis: 'y',
 			handle: 'div.buttonbar',
@@ -213,7 +220,7 @@
 			},
 			start: function(event, ui) {
 				moving = true;
-				suppressHover = true;
+				doSuppressHover.apply(this);
 				$(this).closest('.flexeditor').find('div.buttonbar').hide();
   				/([^-]*)-([^-]*)-(\d*)/.exec($(this).closest('.flexeditor').attr('id'));
 				var cframe =  $('#edit-iframe-' + RegExp.$3);
@@ -262,6 +269,37 @@
 				var sbar = cframe.contents().find('body');
         		ui.helper.css({'top' : ui.position.top + sbar.scrollTop() + 'px'});
     		}
-		});
+		});		
+	}
+				
+	var doSuppressHover = function() {
+		if (arguments.length == 1) {
+			suppressHover = false;
+			return;
+		}
+			
+		origin.find('ul.flexcontent > li').trigger('mouseleave');
+			
+		suppressHover = true;
+	}
+	
+	var methods = {
+			init : function( options ) { 
+				main.apply(this, arguments);
+	    	}, 
+	    	suppressHover : function() { 
+	    		doSuppressHover.apply(this, arguments);
+	    	}
+		};
+	
+	$.fn.enableFlexEditor = function(method) {
+		
+		if ( methods[method] ) {
+			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+		} else if ( typeof method === 'object' || ! method ) {
+			return methods.init.apply( this, arguments );
+		} else {
+			$.error( 'Method ' +  method + ' does not exist on jQuery.enableFlexEditor' );
+		}    
 	};
 })( jQuery );
