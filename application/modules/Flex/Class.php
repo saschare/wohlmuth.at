@@ -144,9 +144,9 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 
 		return array (
 			(object) array (
-				'shortcode' => 'derErste',
-				'name' => 'Shortcode 1',
-				'description' => 'Ein einfacher Shortcode.'
+				'shortcode' => 'Link',
+				'name' => 'Link',
+				'description' => 'HTML-Referenz (Link) auf internes oder externes Ziel.'
 			),
 			(object) array (
 				'shortcode' => 'derZweite',
