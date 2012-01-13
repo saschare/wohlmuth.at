@@ -126,6 +126,7 @@
 						var flexcontent = $('#' + id, data).html();
 						editor.html(flexcontent);
 						$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
+						Ext.aitsu.setUnpublished();
 					});				
 			}, className:'preview'});
 			setting.markupSet = setting.markupSet.concat({name:'Cancel', call: function() {
@@ -156,6 +157,7 @@
 							var flexcontent = $('#' + id, data).html();
 							editor.html(flexcontent);
 							$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
+							Ext.aitsu.setUnpublished();
 						});
 				},
 				cancel: function() {
@@ -206,6 +208,7 @@
 					var flexcontent = $('#' + id, data).html();
 					editor.html(flexcontent);
 					$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
+					Ext.aitsu.setUnpublished();
 				});
 			},
 			start: function(event, ui) {
