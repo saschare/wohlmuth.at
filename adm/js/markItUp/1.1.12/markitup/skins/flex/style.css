@@ -2,12 +2,7 @@
 // markItUp! Universal MarkUp Engine, JQuery plugin
 // By Jay Salvat - http://markitup.jaysalvat.com/
 // ------------------------------------------------------------------*/
-body {
-/*	background-color:#3875D7;*/
-}
 .markItUp  {
-	/*background-color:#3875D7;
-	border:1px solid #3C769D;*/
 	padding:13px;
 }
 .markItUp * {
@@ -16,17 +11,12 @@ body {
 }
 .markItUp a:link,
 .markItUp a:visited {
-	/*color:#000;
-	text-decoration:none;*/
 }
 .markItUp  {
-	/*width:670px;*/
 	margin:5px 0 5px 0;
 }
 .markItUpContainer  {
-	/*width:670px;*/
 	font:11px Verdana, Arial, Helvetica, sans-serif;
-	/*background-image:url(images/bg-container.png);*/
 	background: #FFF;
 	border: 1px solid #CCC;
 }
@@ -35,8 +25,8 @@ body {
 	padding:10px;
 	margin:0 10px 0 40px;
 	width:90%;
-	height:525px;
-	clear:both; /*display:block;*/
+	height:425px;
+	clear:both;
 	line-height:18px;
 	overflow:auto;
 	border:0px solid white;
@@ -49,12 +39,7 @@ body {
 	margin:5px 0;
 }
 .markItUpHeader {
-/*	width:650px;
-	padding:15px 0px 0px 20px;
-	height:25px;
-	background-image:url(images/bg-header.png);*/
 	width: 30px;
-	/*padding:5px 0 0 5px;*/
 	padding:5px;
 	position: absolute;
 	margin: -10px 0 0 -10px;
@@ -71,10 +56,7 @@ body {
 
 }
 .markItUpFooter {
-	/*width:670px;
-	height:25px;
-	background-image:url(images/bg-footer.png);
-	padding-bottom:10px;*/
+	display:none;
 }
 .markItUpResizeHandle {
 	margin:0px 0 0 auto;
