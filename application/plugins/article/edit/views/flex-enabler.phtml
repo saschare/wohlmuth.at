@@ -132,7 +132,7 @@
 				'background': 'none'
 			});
 			var setting = myFlexSettings;
-			setting.markupSet.splice(setting.markupSet.length - 2, 2);
+			// setting.markupSet.splice(setting.markupSet.length - 2, 2);
 			setting.markupSet = setting.markupSet.concat({name:'Save', call: function() {
 				$.post($('#edit-iframe-' + idart).attr('src'), {
 						renderOnly: "Flex:" + index,

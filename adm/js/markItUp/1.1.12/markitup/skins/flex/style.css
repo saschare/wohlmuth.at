@@ -61,9 +61,9 @@ body {
 	background: #ccc;
 	border-radius-top-left: 8px;
 	-moz-border-radius-topleft: 8px;
-	box-shadow: -3px -1px 5px #aaa, 3px 1px 5px #aaa;
-	-moz-box-shadow: -3px -1px 5px #aaa, 3px 1px 5px #aaa;
-	-webkit-box-shadow: -3px -1px 5px #aaa, 3px 1px 5px #aaa;
+	box-shadow: -3px -3px 5px #aaa;
+	-moz-box-shadow: -3px -3px 5px #aaa;
+	-webkit-box-shadow: -3px -3px 5px #aaa;
 
 
 }
