@@ -145,18 +145,19 @@
 						$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
 						Ext.aitsu.setUnpublished();
 					});				
-			}, className:'preview'});
+			}, className:'save confirm'});
 			setting.markupSet = setting.markupSet.concat({name:'Cancel', call: function() {
 				editor.enableFlexEditor('suppressHover', false);
 				element.find('div.editor').css('display', 'none');
 				element.find('div.content').css('display', 'block');
 				element.trigger('mouseenter');
-			}, className:'preview'});
+			}, className:'cancel deny'});
 			markitup = element.find('div.editor > textarea').markItUp(setting);
 			var editorContent = element.nextAll().find('div.editor textarea').map(function() {
 				return $(this).val();
 			}).get().join('\n\n');
 			markitup.val(element.find('div.editor textarea').val() + '\n\n' + editorContent);
+			doUiButtons.apply(this);
 		});
 				
 		this.find('.buttonbar button.trash').on('click.flexeditor', function() {
@@ -281,6 +282,123 @@
         		ui.helper.css({'top' : ui.position.top + sbar.scrollTop() + 'px'});
     		}
 		});		
+	}
+	
+	var doUiButtons = function() {
+		origin.find( ".markItUpButton.heading1 a").button({
+			icons: {
+				primary: "ui-icon-heading1"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.heading2 a").button({
+			icons: {
+				primary: "ui-icon-heading2"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.heading3 a").button({
+			icons: {
+				primary: "ui-icon-heading3"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.heading4 a").button({
+			icons: {
+				primary: "ui-icon-heading4"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.heading5 a").button({
+			icons: {
+				primary: "ui-icon-heading5"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.heading6 a").button({
+			icons: {
+				primary: "ui-icon-heading6"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.paragraph a").button({
+			icons: {
+				primary: "ui-icon-paragraph"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.strong a").button({
+			icons: {
+				primary: "ui-icon-strong"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.emphasis a").button({
+			icons: {
+				primary: "ui-icon-emphasis"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.inserted a").button({
+			icons: {
+				primary: "ui-icon-inserted"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.deleted a").button({
+			icons: {
+				primary: "ui-icon-deleted"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.bulletlist a").button({
+			icons: {
+				primary: "ui-icon-bulletlist"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.numericlist a").button({
+			icons: {
+				primary: "ui-icon-numericlist"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.image a").button({
+			icons: {
+				primary: "ui-icon-image"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.anchor a").button({
+			icons: {
+				primary: "ui-icon-link"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.quote a").button({
+			icons: {
+				primary: "ui-icon-comment"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.code a").button({
+			icons: {
+				primary: "ui-icon-script"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.cancel a").button({
+			icons: {
+				primary: "ui-icon-circle-close"
+			},
+			text: false
+		});
+		origin.find( ".markItUpButton.save a").button({
+			icons: {
+				primary: "ui-icon-circle-check"
+			},
+			text: false
+		});
 	}
 	
 	var doDestroy = function() {
