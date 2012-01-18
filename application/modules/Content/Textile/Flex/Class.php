@@ -141,44 +141,18 @@ class Module_Content_Textile_Flex_Class extends Aitsu_Module_Tree_Abstract {
 	}
 
 	protected function _getModules() {
+		
+		if (isset($this->_params->modules)) {
+			return $this->_params->modules;
+		}
+		
+		$modules = Aitsu_Config :: get('flex.modules');
+		
+		if (!empty($modules)) {
+			return $modules;
+		}
 
-		return array (
-			(object) array (
-				'shortcode' => 'Link',
-				'name' => 'Link',
-				'description' => 'HTML-Referenz (Link) auf internes oder externes Ziel.'
-			),
-			(object) array (
-				'shortcode' => 'derZweite',
-				'name' => 'Shortcode 2',
-				'description' => 'Ein einfacher Shortcode. Aber einer, mit etwas mehr Text.'
-			),
-			(object) array (
-				'shortcode' => 'Image',
-				'name' => 'Image',
-				'description' => 'Ein Bild oder eine Galerie.'
-			),
-			(object) array (
-				'shortcode' => 'derVierte',
-				'name' => 'Shortcode 4',
-				'description' => 'Ein einfacher Shortcode.'
-			),
-			(object) array (
-				'shortcode' => 'derFuenfte',
-				'name' => 'Shortcode 5',
-				'description' => 'Ein einfacher Shortcode. Ein einfacher Shortcode.'
-			),
-			(object) array (
-				'shortcode' => 'derSechste',
-				'name' => 'Shortcode 6',
-				'description' => 'Ein einfacher Shortcode.'
-			),
-			(object) array (
-				'shortcode' => 'derSiebente',
-				'name' => 'Shortcode 7',
-				'description' => 'Ein einfacher Shortcode.'
-			)
-		);
+		return array ();
 	}
 
 	protected function _newVal($content) {
