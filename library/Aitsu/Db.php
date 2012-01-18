@@ -383,13 +383,15 @@ class Aitsu_Db {
 		
 		static $columns = array();
 
+		if (!isset($columns[$table])) {
+			$columns[$table] = self :: fetchAll('show columns from ' . $table);
+		}
+		
 		$fields = array ();
 		$values = array ();
 		$updates = array ();
 
-		$columns = self :: fetchAll('show columns from ' . $table);
-		
-		foreach ($columns as $col) {
+		foreach ($columns[$table] as $col) {
 			if (isset ($data[$col['Field']])) {
 				$fields[] = $col['Field'];
 				$values[':' . $col['Field']] = $data[$col['Field']];
