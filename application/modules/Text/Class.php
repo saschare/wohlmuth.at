@@ -2,24 +2,14 @@
 
 
 /**
+ * The module has been moved to Content.Text. The present
+ * implementation exists for convenience reasons only. In
+ * new installations use Content.Text instead.
+ * 
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2012, w3concepts AG
  */
-class Module_Text_Class extends Aitsu_Module_Tree_Abstract {
-
-	protected function _init() {
-
-		$text = htmlentities(Aitsu_Content_Text :: get($this->_index, 0), ENT_COMPAT, 'UTF-8');
-
-		$text = (empty ($text) && Aitsu_Registry :: isEdit()) ? Aitsu_LoremIpsum :: get(5) : $text;
-
-		if (isset ($this->_params->tag)) {
-			$output = '<' . $this->_params->tag . '>' . $text . '</' . $this->_params->tag . '>';
-		} else {
-			$output = $text;
-		}
-
-		return $output;
-	}
-
+ include_once APPLICATION_PATH . '/modules/Content/Text/Class.php';
+ 
+class Module_Text_Class extends Module_Content_Text_Class {
 }
