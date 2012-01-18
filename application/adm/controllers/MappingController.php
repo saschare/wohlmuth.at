@@ -127,12 +127,12 @@ class MappingController extends Zend_Controller_Action {
 	}
 
 	protected function _getConditions($conditions) {
-            
-                $return[] = 'host: ' . (!empty($conditions->condition_host) ? $conditions->condition_host : '*');
-                $return[] = 'url: ' . (!empty($conditions->condition_url) ? $conditions->condition_url : '*');
-                $return[] = 'device: ' . (!empty($conditions->condition_device) ? $conditions->condition_device : '*');
-                $return[] = 'delegate: ' . (!empty($conditions->condition_delegate) ? $conditions->condition_delegate : '*');
-                
+
+		$return[] = 'host: ' . (!empty ($conditions->condition_host) ? $conditions->condition_host : '*');
+		$return[] = 'url: ' . (!empty ($conditions->condition_url) ? $conditions->condition_url : '*');
+		$return[] = 'device: ' . (!empty ($conditions->condition_device) ? $conditions->condition_device : '*');
+		$return[] = 'delegate: ' . (!empty ($conditions->condition_delegate) ? $conditions->condition_delegate : '*');
+
 		return $return;
 	}
 
@@ -172,21 +172,31 @@ class MappingController extends Zend_Controller_Action {
 		);
 		$form->setOptions('pos', $positions);
 
+		$envs = array ();
+		foreach (Aitsu_Util_Dir :: scan(APPLICATION_PATH . '/configs/clients', '*.ini') as $env) {
+			preg_match('@/([^/]+)\\.ini$@m', $env, $match);
+			$envs[] = (object) array (
+				'value' => $match[1],
+				'name' => $match[1]
+			);
+		}
+		$form->setOptions('env', $envs);
+
 		$id = $this->getRequest()->getParam('id');
 		if (!empty ($id)) {
-                        $item = $config->item-> $id;
+			$item = $config->item-> $id;
 			$form->setValues(array_merge($item->toArray(), array (
 				'id' => $id,
 				'pos' => $id
 			)));
-                        
-                        foreach ($item->conditions->toArray()as $condition) {
-                                preg_match('/^(\\w+)\\s*\\:\\s*(.*)/', $condition, $match);
-                                
-                                $form->setValues(array_merge($item->toArray(), array (
-                                        'condition_' . $match[1] => $match[2]
-                                )));
-                        }
+
+			foreach ($item->conditions->toArray() as $condition) {
+				preg_match('/^(\\w+)\\s*\\:\\s*(.*)/', $condition, $match);
+
+				$form->setValues(array_merge($item->toArray(), array (
+					'condition_' . $match[1] => $match[2]
+				)));
+			}
 		}
 
 		if ($this->getRequest()->getParam('loader')) {
