@@ -68,7 +68,7 @@ class Wdrei_Textile {
 	 */
 	protected function _emStrong() {
 		
-		$this->_text = preg_replace('/\\*([^\\*\\n\\r]{1,})\\*/m', "<b>$1</b>", $this->_text);
+		$this->_text = preg_replace('/(?!^)\\*([^\\*]+?)\\*/m', "<strong>$1</strong>", $this->_text);
 	}
 	
 	/**
