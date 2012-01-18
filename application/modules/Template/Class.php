@@ -90,7 +90,10 @@ class Module_Template_Class extends Aitsu_Module_Abstract {
 		try {
 			if (!empty ($template)) {
 				$view = new Zend_View();
-				$view->setScriptPath(APPLICATION_PATH . '/skins/' . Aitsu_Registry :: get()->config->skin);
+                                
+                                $skin = (!is_string(Aitsu_Article_Config :: factory()->skin) ? Aitsu_Registry :: get()->config->skin : Aitsu_Article_Config :: factory()->skin); 
+                                
+				$view->setScriptPath(APPLICATION_PATH . '/skins/' . $skin);
 
 				if (isset ($params->template-> $template->param)) {
 					$view->param = $params->template-> $template->param;
