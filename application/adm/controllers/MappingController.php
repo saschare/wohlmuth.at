@@ -131,7 +131,10 @@ class MappingController extends Zend_Controller_Action {
 		$return[] = 'host: ' . (!empty ($conditions->condition_host) ? $conditions->condition_host : '*');
 		$return[] = 'url: ' . (!empty ($conditions->condition_url) ? $conditions->condition_url : '*');
 		$return[] = 'device: ' . (!empty ($conditions->condition_device) ? $conditions->condition_device : '*');
-		$return[] = 'delegate: ' . (!empty ($conditions->condition_delegate) ? $conditions->condition_delegate : '*');
+		
+		if (!empty ($conditions->condition_delegate)) {
+			$return[] = 'delegate: ' . $conditions->condition_delegate;
+		}
 
 		return $return;
 	}
