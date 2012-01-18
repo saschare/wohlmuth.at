@@ -15,7 +15,9 @@ myFlexSettings = {
 	previewParserPath:	'', // path to your Textile parser
 	onShiftEnter:		{keepDefault:false, replaceWith:'\n\n'},
 	markupSet: [
-	    {separator:'' },
+   	    {separator:'' },
+   	    {separator:'' },
+   	    {separator:'' },
 		{name:'Heading 1', key:'1', openWith:'h1(!(([![Class]!]))!). ', placeHolder:'Your title here...', className:'heading1'},
 		{name:'Heading 2', key:'2', openWith:'h2(!(([![Class]!]))!). ', placeHolder:'Your title here...', className:'heading2'},
 		{name:'Heading 3', key:'3', openWith:'h3(!(([![Class]!]))!). ', placeHolder:'Your title here...', className:'heading3'},
@@ -30,7 +32,6 @@ myFlexSettings = {
 		{name:'Numeric list', openWith:'(!(# |!|#)!)', className:'numericlist'}, 
 		{separator:'' },
 		{name:'Picture', replaceWith:'.sc(Image:[![Index]!])', className:'image'}, 
-		{name:'Link', replaceWith:'.sc(Link:[![Index]!])', className:'anchor'},
-		{separator:'' }
+		{name:'Link', replaceWith:'.sc(Link:[![Index]!])', className:'anchor'}
 	]
 }

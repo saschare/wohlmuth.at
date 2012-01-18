@@ -132,8 +132,7 @@
 				'background': 'none'
 			});
 			var setting = myFlexSettings;
-			// setting.markupSet.splice(setting.markupSet.length - 2, 2);
-			setting.markupSet = setting.markupSet.concat({name:'Save', call: function() {
+			setting.markupSet[0] = {name:'Save', call: function() {
 				$.post($('#edit-iframe-' + idart).attr('src'), {
 						renderOnly: "Flex:" + index,
 						edit: 1,
@@ -145,13 +144,13 @@
 						$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
 						Ext.aitsu.setUnpublished();
 					});				
-			}, className:'save confirm'});
-			setting.markupSet = setting.markupSet.concat({name:'Cancel', call: function() {
+			}, className:'save confirm'};
+			setting.markupSet[1] = {name:'Cancel', call: function() {
 				editor.enableFlexEditor('suppressHover', false);
 				element.find('div.editor').css('display', 'none');
 				element.find('div.content').css('display', 'block');
 				element.trigger('mouseenter');
-			}, className:'cancel deny'});
+			}, className:'cancel deny'};
 			markitup = element.find('div.editor > textarea').markItUp(setting);
 			var editorContent = element.nextAll().find('div.editor textarea').map(function() {
 				return $(this).val();
@@ -353,13 +352,13 @@
 		});
 		origin.find( ".markItUpButton.bulletlist a").button({
 			icons: {
-				primary: "ui-icon-bulletlist"
+				primary: "ui-icon-numericlist"
 			},
 			text: false
 		});
 		origin.find( ".markItUpButton.numericlist a").button({
 			icons: {
-				primary: "ui-icon-numericlist"
+				primary: "ui-icon-bulletlist"
 			},
 			text: false
 		});
