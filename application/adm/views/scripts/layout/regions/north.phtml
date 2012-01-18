@@ -17,8 +17,7 @@
 					<?php echo $this->partial('layout/navigation/top.phtml'); ?>
 					<?php echo $this->partial('layout/navigation/languagechooser.phtml'); ?>,
 					{
-						text: 'Logout',
-						iconCls: 'tm-logout',
+						text: 'Logout (<?php echo Aitsu_Adm_User::getInstance()->lastname; ?>, <?php echo Aitsu_Adm_User::getInstance()->firstname; ?>)',						iconCls: 'tm-logout',
 						listeners: {
 							click: function() {
 								window.location.href = '<?php echo $this->url(array('controller' => 'acl', 'action' => 'logout'), 'default'); ?>';
