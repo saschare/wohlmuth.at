@@ -52,31 +52,31 @@
 		});
 				
 		this.find('button.add span').css({
-			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-image': 'url(<?php echo Aitsu_Config :: get('sys.mainDir'); ?>adm/images/flex-ui-icons.png)',
 			'background-position': '-16px -128px'
 		})
 		.attr('title', 'Add a block below the current position.');
 		
 		this.find('button.configure span').css({
-			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-image': 'url(<?php echo Aitsu_Config :: get('sys.mainDir'); ?>adm/images/flex-ui-icons.png)',
 			'background-position': '-192px -112px'
 		})
 		.attr('title', 'Configure shortcode.');
 		
 		this.find('button.edit span').css({
-			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-image': 'url(<?php echo Aitsu_Config :: get('sys.mainDir'); ?>adm/images/flex-ui-icons.png)',
 			'background-position': '-64px -112px'
 		})
 		.attr('title', 'Edit current block.');
 		
 		this.find('button.trash span').css({
-			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-image': 'url(<?php echo Aitsu_Config :: get('sys.mainDir'); ?>adm/images/flex-ui-icons.png)',
 			'background-position': '-176px -96px'
 		})
 		.attr('title', 'Remove current block.')
 		
 		this.find('button.cancel span').css({
-			'background-image': 'url(/adm/images/flex-ui-icons.png)',
+			'background-image': 'url(<?php echo Aitsu_Config :: get('sys.mainDir'); ?>adm/images/flex-ui-icons.png)',
 			'background-position': '-32px -192px'
 		})
 		.attr('title', 'Cancel.')
@@ -91,7 +91,7 @@
 			modules.insertAfter($(this).closest('li'));
 			modules.find('div.modules button:not(.cancel)').one('click', function() {
 				$.post($('#edit-iframe-' + idart).attr('src'), {
-						renderOnly: "Flex:" + index,
+						renderOnly: "Content.Textile.Flex:" + index,
 						edit: 1,
 						pos: pos,
 						add: $(this).val()
@@ -134,7 +134,7 @@
 			var setting = myFlexSettings;
 			setting.markupSet[0] = {name:'Save', call: function() {
 				$.post($('#edit-iframe-' + idart).attr('src'), {
-						renderOnly: "Flex:" + index,
+						renderOnly: "Content.Textile.Flex:" + index,
 						edit: 1,
 						pos: pos,
 						content: markitup.val()
@@ -167,7 +167,7 @@
 				msg: '<?php echo $this->translate('Are you sure to delete the selected entry?'); ?>',
 				ok: function() {
 					$.post($('#edit-iframe-' + idart).attr('src'), {
-							renderOnly: "Flex:" + index,
+							renderOnly: "Content.Textile.Flex:" + index,
 							edit: 1,
 							del: pos
 						},function(data) {
@@ -219,7 +219,7 @@
 					return $(this).attr('href');
 				}).get();
 				$.post($('#edit-iframe-' + idart).attr('src'), {
-					renderOnly: "Flex:" + index,
+					renderOnly: "Content.Textile.Flex:" + index,
 					edit: 1,
 					newpos: newpos
 				},function(data) {
