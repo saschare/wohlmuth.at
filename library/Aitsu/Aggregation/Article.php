@@ -3,7 +3,7 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
 class Aitsu_Aggregation_Article implements Iterator, Countable {
 
@@ -77,8 +77,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 	}
 
 	public function whereBeneathCategory($category) {
-		
-		if (empty($category)) {
+
+		if (empty ($category)) {
 			return $this;
 		}
 
@@ -286,8 +286,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		"	{$where} " .
 		"group by " .
 		"	artlang.idartlang " .
-		"{$orderBy} " .
 		"{$this->_havingClause}" .
+		"{$orderBy} " .
 		"limit {$offset}, {$limit} " .
 		"", array (
 			':idlang' => $this->_idlang,
@@ -359,7 +359,7 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 	}
 
 	public function havingTags($tags) {
-		
+
 		if ($tags == null || !is_array($tags)) {
 			return;
 		}
@@ -374,6 +374,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		$this->_tagJoin = ' left join _tag_art tagart on artlang.idart = tagart.idart ' .
 		'left join _tag tag on tagart.tagid = tag.tagid ' .
 		'and tag.tag in (\'' . implode("','", $tags) . '\') ';
+
+		return $this;
 	}
 
 	public function remove($field, $value) {
@@ -386,5 +388,5 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 
 		$this->_results = array_values($this->_results);
 	}
-	
+
 }

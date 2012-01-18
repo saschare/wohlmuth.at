@@ -157,7 +157,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 	protected function _initRouter() {
 
-		Zend_Controller_Front :: getInstance()->getRouter()->addRoute('plugin', new Zend_Controller_Router_Route('plugin/:area/:plugin/:paction/*', array (
+                $router = Zend_Controller_Front :: getInstance()->getRouter();
+            
+		$router->addRoute('plugin', new Zend_Controller_Router_Route('plugin/:area/:plugin/:paction/*', array (
 			'controller' => 'plugin',
 			'action' => 'index',
 			'area' => 'none',
@@ -165,34 +167,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 			'paction' => 'index'
 		)));
 
-		Zend_Controller_Front :: getInstance()->getRouter()->addRoute('aplugin', new Zend_Controller_Router_Route('aplugin/:plugin/:paction/*', array (
+		$router->addRoute('aplugin', new Zend_Controller_Router_Route('aplugin/:plugin/:paction/*', array (
 			'controller' => 'plugin',
 			'action' => 'article',
 			'plugin' => 'none',
 			'paction' => 'index'
 		)));
 
-		Zend_Controller_Front :: getInstance()->getRouter()->addRoute('dashboard', new Zend_Controller_Router_Route('dashboard/:plugin/:paction/*', array (
+		$router->addRoute('dashboard', new Zend_Controller_Router_Route('dashboard/:plugin/:paction/*', array (
 			'controller' => 'plugin',
 			'action' => 'dashboard',
 			'plugin' => 'none',
 			'paction' => 'index'
 		)));
 
-		Zend_Controller_Front :: getInstance()->getRouter()->addRoute('cplugin', new Zend_Controller_Router_Route('cplugin/:plugin/:paction/*', array (
+		$router->addRoute('cplugin', new Zend_Controller_Router_Route('cplugin/:plugin/:paction/*', array (
 			'controller' => 'plugin',
 			'action' => 'category',
 			'plugin' => 'none',
 			'paction' => 'index'
 		)));
 
-		Zend_Controller_Front :: getInstance()->getRouter()->addRoute('plugins', new Zend_Controller_Router_Route('plugins/:area/', array (
+		$router->addRoute('plugins', new Zend_Controller_Router_Route('plugins/:area/', array (
 			'controller' => 'plugins',
 			'action' => 'index',
 			'area' => 'none'
 		)));
 
-		Zend_Controller_Front :: getInstance()->getRouter()->addRoute('rest', new Zend_Controller_Router_Route('rest/:api/:method/*', array (
+		$router->addRoute('rest', new Zend_Controller_Router_Route('rest/:api/:method/*', array (
 			'controller' => 'rest',
 			'action' => 'index',
 			'api' => 'none',

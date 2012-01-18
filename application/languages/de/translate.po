@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aitsu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 14:57+0100\n"
-"PO-Revision-Date: 2011-12-21 14:59+0100\n"
+"POT-Creation-Date: 2012-01-18 18:20+0100\n"
+"PO-Revision-Date: 2012-01-18 18:20+0100\n"
 "Last-Translator: Andreas Kummer <a.kummer@wdrei.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -474,6 +474,10 @@ msgstr "Output-Stream konnte nicht geöffnet werden."
 msgid "Failed to move uploaded file."
 msgstr "Die hochgeladene Datei konnte nicht verschoben werden."
 
+#: application/plugins/generic/management/rewritehistory/Class.php:48
+msgid "Edit rewrite Rule"
+msgstr "Rewriterule aktualisieren"
+
 #: application/plugins/generic/layout/skin/Class.php:112
 msgid "File saved"
 msgstr "Datei gespeichert"
@@ -563,6 +567,10 @@ msgstr "Pendenz"
 #: application/plugins/article/properties/Class.php:35
 msgid "Properties"
 msgstr "Eigenschaften"
+
+#: application/plugins/article/rewritehistory/Class.php:20
+msgid "Rewrite History"
+msgstr "Rewrite History"
 
 #: application/plugins/article/timecontrol/Class.php:23
 #: application/plugins/article/timecontrol/Class.php:37
@@ -813,11 +821,11 @@ msgstr "Skripte"
 msgid "Logout"
 msgstr "Logout"
 
-#: application/adm/layouts/scripts/layout.phtml:68
+#: application/adm/layouts/scripts/layout.phtml:61
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: application/adm/layouts/scripts/layout.phtml:69
+#: application/adm/layouts/scripts/layout.phtml:62
 msgid "Select"
 msgstr "Auswählen"
 
@@ -855,6 +863,7 @@ msgstr "Neue Konfiguration aufnehmen"
 
 #: application/adm/views/scripts/config/index.phtml:58
 #: application/adm/views/scripts/data/index.phtml:164
+#: application/adm/views/scripts/mapping/index.phtml:48
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1140,11 +1149,11 @@ msgstr "Verbleibende Sessiondauer"
 msgid "Session refreshed at"
 msgstr "Session aktualisiert um"
 
-#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:24
+#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:23
 msgid "Language changed"
 msgstr "Sprache gewechselt"
 
-#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:24
+#: application/adm/views/scripts/layout/navigation/languagechooser.phtml:23
 msgid "The language has been changed."
 msgstr "Die Sprache wurde gewechselt."
 
@@ -1428,7 +1437,6 @@ msgstr "Medienname"
 
 #: application/plugins/generic/data/media/views/index.phtml:160
 #: application/plugins/generic/data/dates/views/index.phtml:38
-#: application/plugins/generic/data/dam/views/inbox/content.phtml:6
 msgid "Date"
 msgstr "Datum"
 
@@ -1453,7 +1461,6 @@ msgid "Choose tag"
 msgstr "Tag auswählen"
 
 #: application/plugins/generic/data/media/views/index.phtml:308
-#: application/plugins/generic/data/tags/views/taglist.phtml:5
 msgid "Tag"
 msgstr "Tag"
 
@@ -1563,6 +1570,30 @@ msgstr "ausstehend"
 msgid "Go to article"
 msgstr "Zum Artikel gehen"
 
+#: application/plugins/generic/management/rewritehistory/views/index.phtml:16
+msgid "Target"
+msgstr "Ziel"
+
+#: application/plugins/generic/management/rewritehistory/views/index.phtml:25
+msgid "Add new Rewrite Rule"
+msgstr "Neue Rewriterule aufnehmen"
+
+#: application/plugins/generic/management/rewritehistory/views/index.phtml:52
+msgid "Delete Rewrite Rule"
+msgstr "Rewriterule löschen"
+
+#: application/plugins/generic/management/rewritehistory/views/index.phtml:53
+msgid "Are you sure to delete the selected rewrite rule?"
+msgstr "Sind Sie sicher, dass Sie die selektierte Rewriterule löschen möchten?"
+
+#: application/plugins/generic/management/rewritehistory/views/index.phtml:62
+msgid "Rule removed"
+msgstr "Regel entfernt"
+
+#: application/plugins/generic/management/rewritehistory/views/index.phtml:62
+msgid "The selected rewrite rule has been removed."
+msgstr "Die selektierte Rewriterule wurde entfernt."
+
 #: application/plugins/generic/layout/skin/views/index.phtml:4
 msgid "Edit skin files"
 msgstr "Skin-Dateien editieren"
@@ -1663,6 +1694,7 @@ msgstr "Neuen Kunden aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/customerlist.phtml:5
 #: application/plugins/generic/utilities/tracking/views/projectlist.phtml:5
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:5
 msgid "Filter"
 msgstr "Filtern"
 
@@ -1691,6 +1723,7 @@ msgid "Add new project"
 msgstr "Neues Projekt aufnehmen"
 
 #: application/plugins/generic/utilities/tracking/views/projectlist.phtml:15
+#: application/plugins/generic/utilities/tracking/views/tracklist.phtml:17
 msgid "Customer"
 msgstr "Kunde"
 
@@ -1771,8 +1804,6 @@ msgid "Configuration has been saved."
 msgstr "Die Konfiguration wurde gespeichert."
 
 #: application/plugins/article/config/views/index.phtml:13
-#: application/plugins/article/rendezvous/views/index.phtml:7
-#: application/plugins/article/dc/views/index.phtml:8
 msgid "Form data have not been saved due to errors."
 msgstr "Die Formulardaten wurden aufgrund eines Fehlers nicht gespeichert."
 
@@ -1812,24 +1843,32 @@ msgstr "Periodizität"
 msgid "DC meta data have been saved."
 msgstr "Dublic Core-Metadaten wurden gespeichert."
 
+#: application/plugins/article/edit/views/flex-enabler.phtml:166
+msgid "Delete entry"
+msgstr "Eintrag löschen"
+
+#: application/plugins/article/edit/views/flex-enabler.phtml:167
+msgid "Are you sure to delete the selected entry?"
+msgstr "Sind Sie sicher, dass Sie den selektierten Eintrag löschen möchten?"
+
 #: application/plugins/article/edit/views/editcontent.phtml:98
 msgid "Close"
 msgstr "Schliessen"
 
-#: application/plugins/article/edit/views/index.phtml:20
+#: application/plugins/article/edit/views/index.phtml:21
 msgid "Normal"
 msgstr "Normal"
 
-#: application/plugins/article/edit/views/index.phtml:39
-#: application/plugins/article/edit/views/index.phtml:92
+#: application/plugins/article/edit/views/index.phtml:40
+#: application/plugins/article/edit/views/index.phtml:93
 msgid "Refresh"
 msgstr "Refresh"
 
-#: application/plugins/article/edit/views/index.phtml:48
+#: application/plugins/article/edit/views/index.phtml:49
 msgid "Show template bars"
 msgstr "Subtemplates anzeigen/ausblenden"
 
-#: application/plugins/article/edit/views/index.phtml:60
+#: application/plugins/article/edit/views/index.phtml:61
 msgid "Box model"
 msgstr "Boxmodel"
 
@@ -1865,6 +1904,22 @@ msgstr "Neue Pendenz aufnehmen"
 #: application/plugins/article/properties/views/index.phtml:16
 msgid "Page properties have been saved."
 msgstr "Seiteneigenschaften wurden gespeichert."
+
+#: application/plugins/article/rewritehistory/views/index.phtml:21
+msgid "url"
+msgstr "URL"
+
+#: application/plugins/article/rewritehistory/views/index.phtml:75
+msgid "Are you sure to delete the selected rewrite Rule?"
+msgstr "Sind Sie sicher, dass Sie die selektierte Rewriterule löschen möchten?"
+
+#: application/plugins/article/rewritehistory/views/index.phtml:84
+msgid "Entry removed"
+msgstr "Eintrag wurde entfernt"
+
+#: application/plugins/article/rewritehistory/views/index.phtml:84
+msgid "The selected Rewrite Rule has been removed."
+msgstr "Die selektierte Rewriterule wurde entfernt."
 
 #: application/plugins/article/timecontrol/views/index.phtml:4
 msgid "Time control data have been saved."
@@ -1988,46 +2043,55 @@ msgstr "Artikelinformationen"
 
 #: application/plugins/category/blog/views/index.phtml:106
 #: application/plugins/category/metabatch/views/index.phtml:123
+#: application/plugins/category/standard/views/index.phtml:108
 msgid "URL name"
 msgstr "URL-Name"
 
 #: application/plugins/category/blog/views/index.phtml:146
 #: application/plugins/category/metabatch/views/index.phtml:201
+#: application/plugins/category/standard/views/index.phtml:188
 msgid "Set as index"
 msgstr "Als Index setzen"
 
 #: application/plugins/category/blog/views/index.phtml:219
 #: application/plugins/category/metabatch/views/index.phtml:274
+#: application/plugins/category/standard/views/index.phtml:263
 msgid "Cut"
 msgstr "Ausschneiden"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:267
 msgid "Page cut"
 msgstr "Seite ausgeschnitten"
 
 #: application/plugins/category/blog/views/index.phtml:223
 #: application/plugins/category/metabatch/views/index.phtml:278
+#: application/plugins/category/standard/views/index.phtml:267
 msgid "The selected page has been put to the clipboard."
 msgstr "Die selektierte Seite wurde in die Zwischenablage gespeichert."
 
 #: application/plugins/category/blog/views/index.phtml:232
 #: application/plugins/category/metabatch/views/index.phtml:287
+#: application/plugins/category/standard/views/index.phtml:276
 msgid "Delete page"
 msgstr "Seite löschen"
 
 #: application/plugins/category/blog/views/index.phtml:233
 #: application/plugins/category/metabatch/views/index.phtml:288
+#: application/plugins/category/standard/views/index.phtml:277
 msgid "Are you sure to delete the selected page?"
 msgstr "Sind Sie sicher, dass Sie die selektierte Seite löschen möchten?"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:286
 msgid "Page deleted"
 msgstr "Seite gelöscht"
 
 #: application/plugins/category/blog/views/index.phtml:242
 #: application/plugins/category/metabatch/views/index.phtml:297
+#: application/plugins/category/standard/views/index.phtml:286
 msgid "The selected page has been removed."
 msgstr "Die selektierte Seite wurde gelöscht."
 
@@ -2043,27 +2107,27 @@ msgstr "Ihre Änderungen wurden gespeichert."
 msgid "Synchronization language"
 msgstr "Synchronisationssprache"
 
-#: application/plugins/category/standard/views/index.phtml:123
+#: application/plugins/category/standard/views/index.phtml:125
 msgid "Created"
 msgstr "Erstellt"
 
-#: application/plugins/category/standard/views/index.phtml:123
+#: application/plugins/category/standard/views/index.phtml:125
 msgid "Article has been created."
 msgstr "Der Artikel wurde erstellt."
 
-#: application/plugins/category/standard/views/index.phtml:126
+#: application/plugins/category/standard/views/index.phtml:128
 msgid "Loading"
 msgstr "Laden"
 
-#: application/plugins/category/standard/views/index.phtml:126
+#: application/plugins/category/standard/views/index.phtml:128
 msgid "Article is loading..."
 msgstr "Der Artikel wird geladen..."
 
-#: application/plugins/category/standard/views/index.phtml:173
+#: application/plugins/category/standard/views/index.phtml:175
 msgid "Insufficient privileges"
 msgstr "Unzureichende Privilegien."
 
-#: application/plugins/category/standard/views/index.phtml:174
+#: application/plugins/category/standard/views/index.phtml:176
 msgid "You are not allowed to edit the selected page."
 msgstr "Sie sind nicht ausreichend berechtigt, den selektierten Artikel zu bearbeiten."
 
@@ -2196,8 +2260,6 @@ msgstr "senden"
 #~ msgstr "On- und offline stellen"
 #~ msgid "Category locked / released"
 #~ msgstr "Kategorie geschützt / Schutz aufgehoben"
-#~ msgid "Category removed"
-#~ msgstr "Kategorie entfernt"
 #~ msgid ""
 #~ "Removing constraints. This may take quite a while. Please be patient to "
 #~ "allow to remove the constraints."
@@ -2421,8 +2483,6 @@ msgstr "senden"
 #~ msgstr "Die Löschung wird vorgenommen werden. Sind Sie sicher?"
 #~ msgid "Yes, delete the files"
 #~ msgstr "Ja, Dateien löschen"
-#~ msgid "Add new serial"
-#~ msgstr "Neue Serie aufnehmen"
 #~ msgid "Delete selected serials"
 #~ msgstr "Selektierte Serie löschen"
 #~ msgid "Delete selected dates"
