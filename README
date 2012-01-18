@@ -1,9 +1,10 @@
-Current version: 2.4.0-12
+Current version: 2.4.1-1
 
 == Latest changes == 
 
 View the devlog for details.
 
+* 2012-01-18: Added RewriteHistory plugin by C. Kehres. New Version 2.4.1.
 * 2012-01-18: Added name of current user to the logout button.
 * 2012-01-18: Added Content.Textile.Flex editor. New Version 2.4.0.
 * 2012-01-11: Fixed warnings in CLI bootstrap.
