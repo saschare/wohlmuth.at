@@ -3,9 +3,8 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-
 class Module_Template_Class extends Aitsu_Module_Abstract {
 
 	protected static function _getDefaultTemplate($index, $params) {
@@ -90,9 +89,9 @@ class Module_Template_Class extends Aitsu_Module_Abstract {
 		try {
 			if (!empty ($template)) {
 				$view = new Zend_View();
-                                
-                                $skin = (!is_string(Aitsu_Article_Config :: factory()->skin) ? Aitsu_Registry :: get()->config->skin : Aitsu_Article_Config :: factory()->skin); 
-                                
+
+				$skin = (!is_string(Aitsu_Article_Config :: factory()->skin) ? Aitsu_Registry :: get()->config->skin : Aitsu_Article_Config :: factory()->skin);
+
 				$view->setScriptPath(APPLICATION_PATH . '/skins/' . $skin);
 
 				if (isset ($params->template-> $template->param)) {
