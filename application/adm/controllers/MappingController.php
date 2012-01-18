@@ -120,30 +120,19 @@ class MappingController extends Zend_Controller_Action {
 		->name = $values->name;
 		$env->item-> {
 			$id }
-		->client = $values->client;
-		$env->item-> {
-			$id }
 		->env = $values->env;
 		$env->item-> {
 			$id }
-		->conditions = $this->_splitConditions($values->conditions);
+		->conditions = $this->_getConditions($values);
 	}
 
-	protected function _splitConditions($cond) {
-
-		if (is_object($cond)) {
-			return $cond;
-		}
-
-		$return = array ();
-		$cond = explode("\n", $cond);
-
-		foreach ($cond as $condition) {
-			if (!empty ($condition)) {
-				$return[] = $condition;
-			}
-		}
-
+	protected function _getConditions($conditions) {
+            
+                $return[] = 'host: ' . (!empty($conditions->condition_host) ? $conditions->condition_host : '*');
+                $return[] = 'url: ' . (!empty($conditions->condition_url) ? $conditions->condition_url : '*');
+                $return[] = 'device: ' . (!empty($conditions->condition_device) ? $conditions->condition_device : '*');
+                $return[] = 'delegate: ' . (!empty($conditions->condition_delegate) ? $conditions->condition_delegate : '*');
+                
 		return $return;
 	}
 
@@ -185,12 +174,19 @@ class MappingController extends Zend_Controller_Action {
 
 		$id = $this->getRequest()->getParam('id');
 		if (!empty ($id)) {
-			$item = $config->item-> $id;
+                        $item = $config->item-> $id;
 			$form->setValues(array_merge($item->toArray(), array (
 				'id' => $id,
-				'conditions' => implode('\n', $item->conditions->toArray()),
 				'pos' => $id
 			)));
+                        
+                        foreach ($item->conditions->toArray()as $condition) {
+                                preg_match('/^(\\w+)\\s*\\:\\s*(.*)/', $condition, $match);
+                                
+                                $form->setValues(array_merge($item->toArray(), array (
+                                        'condition_' . $match[1] => $match[2]
+                                )));
+                        }
 		}
 
 		if ($this->getRequest()->getParam('loader')) {
