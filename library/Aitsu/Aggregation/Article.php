@@ -286,8 +286,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		"	{$where} " .
 		"group by " .
 		"	artlang.idartlang " .
-		"{$orderBy} " .
 		"{$this->_havingClause}" .
+                 "{$orderBy} " .
 		"limit {$offset}, {$limit} " .
 		"", array (
 			':idlang' => $this->_idlang,
@@ -374,6 +374,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		$this->_tagJoin = ' left join _tag_art tagart on artlang.idart = tagart.idart ' .
 		'left join _tag tag on tagart.tagid = tag.tagid ' .
 		'and tag.tag in (\'' . implode("','", $tags) . '\') ';
+                
+                return $this;
 	}
 
 	public function remove($field, $value) {
