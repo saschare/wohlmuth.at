@@ -103,7 +103,7 @@
 			});
 			modules.find('div.modules button.cancel').one('click.flexeditor', function() {
 				$(this).closest('li').remove();
-				doSuppressHover.apply(this, false);
+				$(document).trigger('edit-page-content', [$('#edit-iframe-' + idart)]);
 			});
 		});
 				
