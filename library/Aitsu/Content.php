@@ -47,7 +47,7 @@ class Aitsu_Content {
 		return $instance[$token];
 	}
 
-	public static function get($index, $type = null, $idart = null, $idlang = null, $words = 50, $forceReload = false) {
+	public static function get($index, $type = null, $idart = null, $idlang = null, $words = 50, $forceReload = false, $configTab = true) {
 
 		$i = self :: getInstance($index, $type, $idart, $idlang);
 		
@@ -55,13 +55,15 @@ class Aitsu_Content {
 			$i->_restore();
 		}
 
-		Aitsu_Content_Edit :: registerContent((object) array (
-			'index' => $i->index,
-			'type' => $i->type,
-			'idart' => $i->idart,
-			'idlang' => $i->idlang
-		));
-
+                if ($configTab) {
+                        Aitsu_Content_Edit :: registerContent((object) array (
+                                'index' => $i->index,
+                                'type' => $i->type,
+                                'idart' => $i->idart,
+                                'idlang' => $i->idlang
+                        ));
+                }
+                
 		if (isset (Aitsu_Registry :: get()->env->substituteEmptyAreas) && Aitsu_Registry :: get()->env->substituteEmptyAreas == true) {
 			$subst = true;
 		} else {
