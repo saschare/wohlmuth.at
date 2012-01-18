@@ -66,6 +66,7 @@ var categories = new Ext.grid.GridPanel({
                 },
     			{
                     getClass: function(v, meta, rec) {
+                    	 <?php if (!$this->hidePublishing) : ?>
                     	if (rec.get('published') == 1) {
                     		this.items[1].tooltip = 'Published';
                     		return 'page-published';
@@ -73,6 +74,7 @@ var categories = new Ext.grid.GridPanel({
                     		this.items[1].tooltip = 'Unpublished';
                     		return 'page-unpublished';
                     	}
+                    	<?php endif; ?>
                     },
                     handler: function(grid, rowIndex, colIndex) {
                     	if (categories.getStore().getAt(rowIndex).get('published') == 0) {
@@ -233,6 +235,7 @@ var categories = new Ext.grid.GridPanel({
 				}
 			});				
 			
+			 <?php if (!$this->hidePublishing) : ?>
 			if (record.get('published') == 0) {
 				menu.addItem({
 					text: '<?php echo $this->translate('Publish'); ?>',
@@ -252,6 +255,7 @@ var categories = new Ext.grid.GridPanel({
 					}
 				});				
 			}
+			<?php endif; ?>
 			
 			menu.addItem('-');
 			

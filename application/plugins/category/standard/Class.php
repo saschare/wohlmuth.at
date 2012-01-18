@@ -50,7 +50,7 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 				'id' => $idcat
 			)
 		));
-		
+
 		$this->view->allowNew = Aitsu_Adm_User :: getInstance()->isAllowed(array (
 			'language' => $idlang,
 			'area' => 'article',
@@ -60,7 +60,8 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 				'id' => $idcat
 			)
 		));
-		
+
+		$this->view->hidePublishing = (Aitsu_Config :: get('sys.usePublishing') ? false : true);
 	}
 
 	public function articlesAction() {
