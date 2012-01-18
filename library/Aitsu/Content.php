@@ -3,9 +3,8 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-
 class Aitsu_Content {
 
 	const PLAINTEXT = 1;
@@ -50,20 +49,20 @@ class Aitsu_Content {
 	public static function get($index, $type = null, $idart = null, $idlang = null, $words = 50, $forceReload = false, $configTab = true) {
 
 		$i = self :: getInstance($index, $type, $idart, $idlang);
-		
+
 		if ($forceReload) {
 			$i->_restore();
 		}
 
-                if ($configTab) {
-                        Aitsu_Content_Edit :: registerContent((object) array (
-                                'index' => $i->index,
-                                'type' => $i->type,
-                                'idart' => $i->idart,
-                                'idlang' => $i->idlang
-                        ));
-                }
-                
+		if ($configTab) {
+			Aitsu_Content_Edit :: registerContent((object) array (
+				'index' => $i->index,
+				'type' => $i->type,
+				'idart' => $i->idart,
+				'idlang' => $i->idlang
+			));
+		}
+
 		if (isset (Aitsu_Registry :: get()->env->substituteEmptyAreas) && Aitsu_Registry :: get()->env->substituteEmptyAreas == true) {
 			$subst = true;
 		} else {
