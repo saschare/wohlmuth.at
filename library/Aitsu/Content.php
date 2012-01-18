@@ -11,6 +11,7 @@ class Aitsu_Content {
 	const PLAINTEXT = 1;
 	const HTML = 2;
 	const WIKICODE = 3;
+	const TEXTILE = 4;
 
 	protected $index;
 	protected $type;

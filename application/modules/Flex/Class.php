@@ -35,7 +35,7 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 				$view->content[] = (object) array (
 					'position' => $i,
 					'textile' => $parts[$i],
-					'html' => Wdrei_Textile :: textile($parts[$i]),
+					'html' => Aitsu_Textile :: textile($parts[$i]),
 					'isShortcodeBlock' => preg_match('/^\\.sc\\([^\\)]*\\)$/s', trim($parts[$i]))
 				);
 			}
@@ -43,7 +43,7 @@ class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
 			return $view->render('index.phtml');
 		}
 
-		return Wdrei_Textile :: textile($content);
+		return Aitsu_Textile :: textile($content);
 	}
 
 	protected function _cachingPeriod() {
