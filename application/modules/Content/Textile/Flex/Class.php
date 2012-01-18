@@ -5,7 +5,7 @@
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2012, w3concepts AG
  */
-class Module_Flex_Class extends Aitsu_Module_Tree_Abstract {
+class Module_Content_Textile_Flex_Class extends Aitsu_Module_Tree_Abstract {
 
 	protected $_renderOnlyAllowed = true;
 	protected $_allowEdit = false;
