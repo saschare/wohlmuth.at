@@ -58,6 +58,11 @@ class Aitsu_Mapping {
 						return false;
 					}
 				}
+                                elseif ($match[1] == 'device') {
+					if (!fnmatch($match[2], $_SERVER['HTTP_USER_AGENT'])) {
+						return false;
+					}
+				}
 				elseif ($match[1] == 'delegate') {
 					if (!call_user_func(array (
 							$match[2],
