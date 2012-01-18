@@ -54,15 +54,12 @@ class Aitsu_Bootstrap {
 			return;
 		}
 
-		$maxage = 10;
-
 		$files = glob(CACHE_PATH . '/' . REQUEST_HASH . '.*.html');
 		if ($files !== false) {
 			foreach ($files as $file) {
 				if (preg_match('/\\w{32}\\.([0-9]*).([0-9a-z]*)\\.html/', $file, $match)) {
 					if (isset ($_SERVER['HTTP_IF_NONE_MATCH']) && $match[2] == $_SERVER['HTTP_IF_NONE_MATCH']) {
 						header("Pragma: public");
-						// header("Cache-Control: max-age=" . $maxage);
 						header("ETag: {$match[2]}");
 						header("HTTP/1.1 304 Not Modified");
 						header("Connection: Close");
@@ -70,7 +67,6 @@ class Aitsu_Bootstrap {
 					}
 					elseif ($match[1] > time()) {
 						header("Pragma: public");
-						// header("Cache-Control: max-age=" . $maxage);
 						header("ETag: {$match[2]}");
 						readfile($file);
 						exit (0);
