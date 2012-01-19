@@ -109,6 +109,15 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 					':artsort' => $artsort,
 					':idartlang' => $arts[$i]['idartlang']
 				));
+				Aitsu_Db :: query('' .
+				'update _pub_art_lang ' .
+				'set artsort = :artsort ' .
+				'where ' .
+				'	idartlang = :idartlang ' .
+				'	and status = 1', array (
+					':artsort' => $artsort,
+					':idartlang' => $arts[$i]['idartlang']
+				));
 			}
 		}
 
