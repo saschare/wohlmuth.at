@@ -25,7 +25,7 @@ var categories = new Ext.grid.GridPanel({
 	store: new Ext.data.JsonStore({
 		url: '<?php echo $this->url(array('paction' => 'articles')); ?>',
 		root: 'data',
-		fields: [{name:'id',type:'int'}, 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart', 'editable'],
+		fields: [{name:'id',type:'int'}, 'title', 'pagetitle', 'urlname', 'online', 'published', 'isstart', 'editable', {name:'artsort',type:'int'}],
 		autoLoad: {
 			params: {
 				idcat: <?php echo $this->idcat; ?>
@@ -103,6 +103,7 @@ var categories = new Ext.grid.GridPanel({
              ]
         },
     	{dataIndex: 'id', header: 'ID', menuDisabled: true, sortable: true, width: 20},
+    	{dataIndex: 'artsort', header: '<?php echo Aitsu_Translate :: translate('Order #'); ?>', menuDisabled: true, sortable: true, width: 20},
     	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', menuDisabled: true, sortable: true},
     	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Page title'); ?>', menuDisabled: true, sortable: true},
     	{dataIndex: 'urlname', header: '<?php echo Aitsu_Translate :: translate('URL name'); ?>', menuDisabled: true, sortable: true}
@@ -166,7 +167,35 @@ var categories = new Ext.grid.GridPanel({
 	    ]
 	},
 	<?php endif; ?>
+	enableDragDrop : true,
+	ddGroup : 'article-dd',
+	sm: new Ext.grid.RowSelectionModel({  
+	    singleSelect:true,  
+	    listeners: {  
+	        beforerowselect: function(sm,i,ke,row){  
+	            categories.ddText = row.data.title;  
+	        }  
+	    }  
+	}),    
 	listeners: {
+		render: function(grid) {
+			var ddrow = new Ext.dd.DropTarget(grid.container, {  
+			    ddGroup : 'article-dd', 
+			    copy: false, 
+			    notifyDrop : function(dd, e, data){  
+			        var sm = grid.getSelectionModel();  
+			        var rows = sm.getSelections();  
+			        var cindex = dd.getDragData(e).rowIndex;  
+			        if (sm.hasSelection()) {  
+			            for (i = 0; i < rows.length; i++) {  
+			                grid.store.remove(grid.store.getById(rows[i].id));  
+			                grid.store.insert(cindex,rows[i]);  
+			            }  
+			            sm.selectRecords(rows);  
+			        }    
+			    }  
+			}); 
+		},
 		celldblclick: function(grid, rowIndex, columnIndex, e) {
 			<?php if ($this->allowEdit) : ?>
 			editPage(this.getStore().getAt(rowIndex).get('id'));
