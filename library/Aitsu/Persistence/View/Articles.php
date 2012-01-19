@@ -73,15 +73,16 @@ class Aitsu_Persistence_View_Articles {
 
 		return Aitsu_Db :: fetchAll('' .
 		'select ' .
-		'	artlang.idart as idart, ' .
-		'	artlang.idartlang as idartlang, ' .
-		'	artlang.title as title, ' .
-		'	artlang.urlname as urlname, ' .
-		'	artlang.pagetitle as pagetitle, ' .
-		'	artlang.online as online, ' .
-		'	if (pub.pubtime is null or artlang.lastmodified != pub.pubtime, 0, 1) as published, ' .
-		'	if(catlang.startidartlang = artlang.idartlang, 1, 0) as isstart, ' .
-		'	1 as synced ' .
+		'	artlang.idart idart, ' .
+		'	artlang.idartlang idartlang, ' .
+		'	artlang.title title, ' .
+		'	artlang.urlname urlname, ' .
+		'	artlang.pagetitle pagetitle, ' .
+		'	artlang.online online, ' .
+		'	if (pub.pubtime is null or artlang.lastmodified != pub.pubtime, 0, 1) published, ' .
+		'	if(catlang.startidartlang = artlang.idartlang, 1, 0) isstart, ' .
+		'	1 as synced, ' .
+		'	artlang.artsort artsort ' .
 		'from _art_lang as artlang ' .
 		'left join _pub as pub on artlang.idartlang = pub.idartlang and pub.status = 1 ' .
 		'left join _cat_art as catart on artlang.idart = catart.idart ' .
