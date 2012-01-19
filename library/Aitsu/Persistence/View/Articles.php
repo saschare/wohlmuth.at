@@ -63,6 +63,7 @@ class Aitsu_Persistence_View_Articles {
 			'group by ' .
 			'	artlang.idart ' .
 			'order by ' .
+			'	artsort asc, ' .
 			'	isstart desc, ' .
 			'	artlang.title asc', array (
 				':cat' => $cat,
@@ -91,6 +92,7 @@ class Aitsu_Persistence_View_Articles {
 		'	catart.idcat = :cat ' .
 		'	and artlang.idlang = :idlang ' .
 		'order by ' .
+		'	artsort asc, ' .
 		'	isstart desc, ' .
 		'	artlang.title asc', array (
 			':cat' => $cat,

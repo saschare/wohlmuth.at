@@ -67,9 +67,50 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 	public function articlesAction() {
 
 		$user = Aitsu_Adm_User :: getInstance();
-
 		$idcat = $this->getRequest()->getParam('idcat');
 		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
+
+		if (isset ($_POST['xaction']) && $_POST['xaction'] == 'update') {
+			$data = json_decode($_POST['data']);
+			$idcat = Aitsu_Db :: fetchOne('' .
+			'select idcat from _cat_art where idart = :idart', array (
+				':idart' => $data->id
+			));
+			$arts = Aitsu_Db :: fetchAll('' .
+			'select ' .
+			'	artlang.idart, ' .
+			'	artlang.idartlang ' .
+			'from _art_lang artlang ' .
+			'left join _cat_art catart on artlang.idart = catart.idart ' .
+			'where ' .
+			'	catart.idcat = :idcat ' .
+			'	and artlang.idlang = :idlang ' .
+			'order by ' .
+			'	artlang.artsort asc', array (
+				':idcat' => $idcat,
+				':idlang' => $idlang
+			));
+			$pos = 0;
+			for ($i = 0; $i < count($arts); $i++) {
+				$idart = $arts[$i]['idart'];
+				if ($pos == $data->artsort) {
+					$pos++;
+				}
+				if ($idart == $data->id) {
+					$artsort = $data->artsort;
+				} else {
+					$artsort = $pos++;
+				}
+				Aitsu_Db :: query('' .
+				'update _art_lang ' .
+				'set artsort = :artsort ' .
+				'where ' .
+				'	idartlang = :idartlang', array (
+					':artsort' => $artsort,
+					':idartlang' => $arts[$i]['idartlang']
+				));
+			}
+		}
 
 		$data = array ();
 
@@ -83,7 +124,8 @@ class StandardCategoryController extends Aitsu_Adm_Plugin_Controller {
 					'urlname' => $art['urlname'],
 					'online' => $art['online'],
 					'published' => $art['published'],
-					'isstart' => $art['isstart']
+					'isstart' => $art['isstart'],
+					'artsort' => $art['artsort']
 				);
 			}
 		}

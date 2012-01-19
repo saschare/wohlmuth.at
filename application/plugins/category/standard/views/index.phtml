@@ -30,6 +30,20 @@ var categories = new Ext.grid.GridPanel({
 			params: {
 				idcat: <?php echo $this->idcat; ?>
 			}
+		},
+		autoSave: false,
+		writer: new Ext.data.JsonWriter({
+    		encode: true,
+    		writeAllFields: true
+		}),
+		listeners: {
+			save: function(store) {
+				store.load({
+					params: {
+						idcat: <?php echo $this->idcat; ?>
+					}
+				});
+			}
 		}
 	}),
     columns: [
@@ -103,7 +117,7 @@ var categories = new Ext.grid.GridPanel({
              ]
         },
     	{dataIndex: 'id', header: 'ID', menuDisabled: true, sortable: true, width: 20},
-    	{dataIndex: 'artsort', header: '<?php echo Aitsu_Translate :: translate('Order #'); ?>', menuDisabled: true, sortable: true, width: 20},
+    	{dataIndex: 'artsort', header: '<?php echo Aitsu_Translate :: translate('#'); ?>', menuDisabled: true, sortable: true, width: 20},
     	{dataIndex: 'title', header: '<?php echo Aitsu_Translate :: translate('Title'); ?>', menuDisabled: true, sortable: true},
     	{dataIndex: 'pagetitle', header: '<?php echo Aitsu_Translate :: translate('Page title'); ?>', menuDisabled: true, sortable: true},
     	{dataIndex: 'urlname', header: '<?php echo Aitsu_Translate :: translate('URL name'); ?>', menuDisabled: true, sortable: true}
@@ -188,11 +202,16 @@ var categories = new Ext.grid.GridPanel({
 			        var cindex = dd.getDragData(e).rowIndex;  
 			        if (sm.hasSelection()) {  
 			            for (i = 0; i < rows.length; i++) {  
-			                grid.store.remove(grid.store.getById(rows[i].id));  
-			                grid.store.insert(cindex,rows[i]);  
+			                grid.store.getById(rows[i].id).set('artsort', cindex);
 			            }  
 			            sm.selectRecords(rows);  
-			        }    
+			        }
+			        grid.store.save();  
+			        /*grid.store.load({
+			        	params: {
+							idcat: <?php echo $this->idcat; ?>
+						}
+					});*/ 
 			    }  
 			}); 
 		},
