@@ -38,15 +38,16 @@ class Aitsu_Persistence_View_Articles {
 		if ($syncLang != null) {			
 			return Aitsu_Db :: fetchAll('' .
 			'select ' .
-			'	artlang.idart as idart, ' .
-			'	artlang.idartlang as idartlang, ' .
-			'	artlang.title as title, ' .
-			'	artlang.urlname as urlname, ' .
-			'	artlang.pagetitle as pagetitle, ' .
-			'	artlang.online as online, ' .
-			'	if (artlang.published = \'0000-00-00 00:00:00\', 0, 1) as published, ' .
-			'	if(catlang.startidartlang = artlang.idartlang, 1, 0) as isstart, ' .
-			'	if(oartlang.idartlang is null, 0, 1) as synced ' .
+			'	artlang.idart idart, ' .
+			'	artlang.idartlang idartlang, ' .
+			'	artlang.title title, ' .
+			'	artlang.urlname urlname, ' .
+			'	artlang.pagetitle pagetitle, ' .
+			'	artlang.online online, ' .
+			'	if (artlang.published = \'0000-00-00 00:00:00\', 0, 1) published, ' .
+			'	if(catlang.startidartlang = artlang.idartlang, 1, 0) isstart, ' .
+			'	if(oartlang.idartlang is null, 0, 1) synced, ' .
+			'	artlang.artsort artsort ' .
 			'from _art_lang as artlang ' .
 			'left join _art_lang as sartlang on artlang.idart = sartlang.idart and sartlang.idlang = :syncLang ' .
 			'left join _art_lang as oartlang on artlang.idart = oartlang.idart and oartlang.idlang = :idlang ' .
