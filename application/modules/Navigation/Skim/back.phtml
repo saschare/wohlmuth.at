@@ -1,3 +1,9 @@
+<?php if (empty($this->back)) : ?>
+	<div>
+		Kein Vorgänger vorhanden.
+	</div>
+	<?php return; ?>
+<?php endif; ?>
 <div>
-	<a href="{ref:idart-<?php echo $this->art[0]['idart']; ?>}">Back to <strong><?php echo $this->art[0]['pagetitle']; ?></strong></a>
+	<a href="{ref:idart-<?php echo $this->back->idart; ?>}">Back to <strong><?php echo $this->back->pagetitle; ?></strong></a>
 </div>

@@ -12,11 +12,10 @@
  * ...and taking into account the category's position and the articles' order
  * number (artsort).
  * 
- * Use either BackX oder ForthX as the index, where X represents the idcat of
- * the most top category the article must reside in. If using BackX the template
- * back.phtml is used to render the output, otherwise forth.phtml is used.
+ * Use templateX as the index, where template represents the template name 
+ * and X represents the idcat of the most top category the article must reside in. 
  * 
- * If the X is ommitted (i.e. using either Back or Forth as index), the skimming
+ * If the X is ommitted (i.e. using the template name as index), the skimming
  * remains within the current category.
  * 
  * @author Andreas Kummer, w3concepts AG
@@ -31,13 +30,12 @@ class Module_Navigation_Skim_Class extends Aitsu_Module_Abstract {
 
 		$view = $this->_getView();
 
-		$template = strtolower(substr($this->_index, 0, 4)) == 'back' ? 'back' : 'forth';
-		
-		if (preg_match('/\\d*$/', $this->_index, $match)) {
-			$startidcat = $match[0];
-		} else {
-			$startidcat = Aitsu_Registry :: get()->env->idcat;
+		if (!preg_match('/^(.*?)(\\d*)$/s', $this->_index, $match)) {
+			throw new Exception('Index of Navigation.Skim must match ^(.*?)(\d*)$.');
 		}
+		
+		$template = strtolower($match[1]);
+		$startidcat = isset($match[2]) ? $match[2] : Aitsu_Registry :: get()->env->idcat;
 
 		$currentPosition = Aitsu_Db :: fetchOne('' .
 		'select ' .
@@ -114,8 +112,17 @@ class Module_Navigation_Skim_Class extends Aitsu_Module_Abstract {
 			':idartlang' => Aitsu_Registry :: get()->env->idartlang,
 			':startidcat' => $startidcat
 		));
-
-		$view->art = $art;
+		
+		$view->art = (object) array();
+		if ($art) {
+			foreach ($art as $article) {
+				if ($article['position'] < $currentPosition) {
+					$view->back = (object) $article;
+				} else {
+					$view->forth = (object) $article; 
+				}
+			}
+		}
 
 		return $view->render($template . '.phtml');
 	}
