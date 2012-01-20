@@ -1,6 +1,5 @@
 <?php if (empty($this->files) && Aitsu_Application_Status :: isEdit()) : ?>
-<div>NO FILES ADDED TO DOWNLOAD LIST</div>
-<?php return; ?>
+	<?php return; ?>
 <?php endif; ?>
 <ul>
 <?php foreach ($this->files as $file) : ?>
