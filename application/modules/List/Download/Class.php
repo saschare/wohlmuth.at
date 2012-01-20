@@ -7,7 +7,7 @@
  */
 class Module_List_Download_Class extends Aitsu_Module_Abstract {
 
-	public static function _main() {
+	public function _main() {
 
 		$view = $this->_getView();
 
