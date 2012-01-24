@@ -88,8 +88,6 @@ class Aitsu_Translate {
 			}
 		}
 
-		trigger_error(var_export($files, true));
-
 		foreach ($files as $file) {
 			$content = file_get_contents($file);
 			if (preg_match_all("@Aitsu_Translate\\s*\\:{2}\\s*_\\(\\s*(['\\\"])(.*?)(?:\\1\\s*\\))@", $content, $matches) > 0) {
