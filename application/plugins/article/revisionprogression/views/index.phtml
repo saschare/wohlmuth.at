@@ -26,10 +26,12 @@ var revisions = new Ext.grid.GridPanel({
             load : function() {
                 var rows = Ext.getCmp('revisions').getStore().getRange();
                 
-                for (var row in rows) {
-                    if (rows[row].data.isEdit) {
-                        Ext.getCmp('revisions').selModel.selectRow(row);
-                        break;
+                if (rows.length > 0) {
+                    for (var row in rows) {
+                        if (rows[row].data.isEdit) {
+                            Ext.getCmp('revisions').selModel.selectRow(row);
+                            break;
+                        }
                     }
                 }
             }
