@@ -6,8 +6,6 @@
  */
 class Adm_Script_Pubschemaorgtypenullable extends Aitsu_Adm_Script_Abstract {
 
-    protected $_tables;
-
     public static function getName() {
 
         return Aitsu_Translate :: translate('Remove "nullable schemaorgtype" bug in "_pub_art_meta"');
