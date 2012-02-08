@@ -72,6 +72,9 @@ class CategoryController extends Zend_Controller_Action {
 		try {
 			$id = $this->getRequest()->getParam('idcat');
 			$idcat = Aitsu_Persistence_Category :: factory($id)->insert(Aitsu_Registry :: get()->session->currentLanguage);
+			Aitsu_Event :: raise('backend.category.new.end', array (
+				'idcat' => $id
+			));
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
 				'sucess' => false,
@@ -94,6 +97,10 @@ class CategoryController extends Zend_Controller_Action {
 		try {
 			$id = $this->getRequest()->getParam('idcat');
 			Aitsu_Persistence_Category :: factory($id)->remove(Aitsu_Registry :: get()->session->currentLanguage);
+			Aitsu_Event :: raise('backend.category.remove.end', array (
+				'idcat' => $id
+			));
+
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
 				'success' => false,
@@ -223,6 +230,9 @@ class CategoryController extends Zend_Controller_Action {
 			elseif (!empty ($previous)) {
 				$cat->moveAfterCat($previous);
 			}
+			Aitsu_Event :: raise('backend.category.move.end', array (
+				'idcat' => $idcat
+			));
 		} catch (Exception $e) {
 			$this->_helper->json((object) array (
 				'success' => false,
