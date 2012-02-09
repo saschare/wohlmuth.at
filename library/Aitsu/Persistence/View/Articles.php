@@ -16,7 +16,8 @@ class Aitsu_Persistence_View_Articles {
 		'	artlang.idartlang, ' .
 		'	artlang.title, ' .
 		'	artlang.online, ' .
-		'	if(catlang.startidartlang = artlang.idartlang, 1, 0) as isstart ' .
+		'	if(catlang.startidartlang = artlang.idartlang, 1, 0) as isstart, ' .
+		'	catlang.idcat idcat ' .
 		'from _art_lang as artlang ' .
 		'left join _cat_art as catart on artlang.idart = catart.idart ' .
 		'left join _cat_lang as catlang on artlang.idlang = catlang.idlang and catart.idcat = catlang.idcat ' .
@@ -47,7 +48,8 @@ class Aitsu_Persistence_View_Articles {
 			'	if (artlang.published = \'0000-00-00 00:00:00\', 0, 1) published, ' .
 			'	if(catlang.startidartlang = artlang.idartlang, 1, 0) isstart, ' .
 			'	if(oartlang.idartlang is null, 0, 1) synced, ' .
-			'	artlang.artsort artsort ' .
+			'	artlang.artsort artsort, ' .
+			'	catlang.idcat idcat ' .
 			'from _art_lang as artlang ' .
 			'left join _art_lang as sartlang on artlang.idart = sartlang.idart and sartlang.idlang = :syncLang ' .
 			'left join _art_lang as oartlang on artlang.idart = oartlang.idart and oartlang.idlang = :idlang ' .
