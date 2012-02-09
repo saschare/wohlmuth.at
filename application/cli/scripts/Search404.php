@@ -64,30 +64,7 @@ class Cli_Search404 extends Aitsu_Cli_Script_Abstract {
 
 			$content = $response->getBody();
 
-			if (preg_match_all('/\\shref=\"([^\"]*)"/', $content, $matches) > 0) {
-				for ($i = 0; $i < count($matches[0]); $i++) {
-					$src = $this->_rel2abs($matches[1][$i], $uri . $page['url'] . '.html');
-					$client->setUri($src);
-					$start = microtime(true);
-					$response = $client->request();
-					$period2 = microtime(true) - $start;
-					$status = $response->getStatus();
-
-					$counter++;
-					$line = $counter . ': ';
-					$line .= $response->getStatus() . " - ";
-					$line .= $src;
-					echo $line . "\n";
-
-					Aitsu_Db :: put('_link_status', 'id', array (
-						'src' => $uri . $page['url'] . '.html',
-						'ref' => $src,
-						'status' => $response->getStatus(),
-						'rt' => round($period2 * 1000)
-					));
-				}
-			}
-			if (preg_match_all('/\\ssrc=\"([^\"]*)\"/', $content, $matches) > 0) {
+			if (preg_match_all('/\\s(?:href|src)=\"([^\"]*)\"/', $content, $matches) > 0) {
 				for ($i = 0; $i < count($matches[0]); $i++) {
 					$src = $this->_rel2abs($matches[1][$i], $uri . $page['url'] . '.html');
 					$client->setUri($src);
