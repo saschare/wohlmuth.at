@@ -36,12 +36,12 @@ class Aitsu_Cli_Bootstrap {
 		Aitsu_Application_Status :: isEdit(true);
 		Aitsu_Application_Status :: isPreview(false);
 		Aitsu_Application_Status :: setEnv('backend');
-		Aitsu_Application_Status :: lock();
+		// Aitsu_Application_Status :: lock();
 	}
 
 	protected function _initCli() {
 
-		$options = getopt('u::p::s:');
+		$options = getopt('u::p::s:e:');
 		
 		Aitsu_Registry :: get()->db = Zend_Db :: factory(Aitsu_Registry :: get()->config->database);
 		
@@ -62,7 +62,7 @@ class Aitsu_Cli_Bootstrap {
 
 		$className = 'Cli_' . $options['s'];
 		$script = new $className ();
-		$script->execute();
+		$script->execute($options);
 	}
 
 	public static function run() {
