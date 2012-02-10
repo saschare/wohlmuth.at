@@ -1,6 +1,6 @@
 h1. aitsu - Content Management Framework
 
-Current version: *2.4.3-38*
+Current version: *2.4.3-39*
 
 h2. About
 
@@ -22,6 +22,10 @@ The installation is amazingly easy:
 # Run the update script from the main navigation: _Management > Scripts > Update > Synchronize database structure_
 # Change the admin password to a value known to you only and differing from what you set in the configuration. The system does not force you to do so, but it is recommended because the password set in the config.ini is stored in plain text.
 # Your done.
+
+Depending on the configuration of the database the views may not be created with the user you are connecting to the database. If so, use following sql to restore the views:
+
+pre. /application/adm/scripts/Update/createviews.sql
 
 h2. Update
 
