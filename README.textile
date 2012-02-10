@@ -1,6 +1,6 @@
 h1. aitsu - Content Management Framework
 
-Current version: *2.4.3-37*
+Current version: *2.4.3-38*
 
 h2. About
 
@@ -11,14 +11,16 @@ h2. Installation
 The installation is amazingly easy:
 
 # Go the document root, initialize and configure git and pull aitsu's master branch.
-# Create a MySQL database.
+# Create a MySQL database (using UTF-8!).
 # Open /application/configs/config.ini and set the database name and the user credentials as appropriate.
 # In the same file specify the installation password (setup.password).
 # Open /application/configs/clients/default.ini and set the domain, the installation is running on.
+# Allow the web server to read and write the directory /application/data, its content and its sub-directories.
 # Log in the system on http://www.domain.tld/adm/setup/ using setup as username and your setup password.
 # Run the installation script found at the screen after log in.
 # Log out and log in again using admin as username and your setup password.
 # Run the update script from the main navigation: _Management > Scripts > Update > Synchronize database structure_
+# Change the admin password to a value known to you only and differing from what you set in the configuration. The system does not force you to do so, but it is recommended because the password set in the config.ini is stored in plain text.
 # Your done.
 
 h2. Update
