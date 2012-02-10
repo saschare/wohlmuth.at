@@ -4,7 +4,11 @@ Current version: *_2.4.3-20_*
 
 h2. About
 
-For further information on aitsu and how installation has to be done, please visit "aitsu's official website":http://www.aitsu.org/.
+For further information on aitsu(tm) and how installation has to be done, please visit "the official website":http://www.aitsu.org/.
+
+h2. Important notice
+
+* If you are updating from version 2.4.3-20 or earlier, you have to run the update script mentioned "here":#fix1
 
 h2. Update
 
@@ -12,9 +16,9 @@ h3. The fast way for people living on razor's edge
 
 ...or for developing, testing and pre-production systems.
 
-If you update the system just pull the master branch into your existing installation and run the update script you'll find in the backend in the top navigation: *_Management > Scripts > Update > Synchronize database structure_*.
+To update the system just pull the master branch into your existing installation and run the update script you'll find in the backend in the top navigation: *_Management > Scripts > Update > Synchronize database structure_*.
 
-Alternatively you may run the same script in the shell using the command (assuming, the current path is your document root):
+Alternatively you may run the same script in the shell using the command line interface (assuming, the current path is your document root):
 
 pre. php application/cli/index.php -s Update
 
@@ -24,23 +28,17 @@ h3. The secure way for all others
 
 The suggested update procedure is as follows:
 
-# Dump the database content.
-# Optional: Make sure the dump can be restored by restoring it in an identical local installation or on a pre-production system on the server.
-# Create a new branch from the master branch of your installation and call it update: _git branch update_
-# Checkout the new branch: _git checkout update_
-# Pull the current master branch of aitsu: _git pull origin master_
-# Fix conflicts if necessary.
+# Dump the database content and make sure the dump can be restored by restoring it in an identical local installation or on a pre-production system on the server.
+# Create a new branch from the master branch of your installation and and checkout the new branch.
+# Pull the current master branch of aitsu and fix conflicts if necessary.
 # Run the update script mentioned above.
-# Run fix scripts mentioned beneath (if necessary, depending on the version you are updating from).
+# Run the fix scripts mentioned beneath (if necessary, depending on the version you are updating from).
 # Test the system's functionality.
-# If everything is ok, commit the changes you made (if any).
-# Change back to your master branch: _git checkout master_
-# Merge the update branch into your master: _git merge update_
-# Optional: Remove the update branch: _git branch -D update_
+# If everything is ok, commit the changes you made (if any), change back to the master branch and merge the update branch into it.
 # Your done.
 
 Depending wether or not your data directory is under git's control, you probably want to backup its content, too. And just to be sure: if you have a pre-production system, make the update in this environment first.
 
-h3. Update from Version 2.4.3-20 or earlier
+h3. (#fix1)Update from Version 2.4.3-20 or earlier
 
 Due to a minor bug your data may contain 0 (zero) in the column pub_art_meta.schemaorgtype. After finishing the usual update procedure you should run the script that can be found at: *_Management > Scripts > Fixes > pub_art_meta.schemaorgtype, replace 0 with null_*.
