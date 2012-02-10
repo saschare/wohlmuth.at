@@ -1,7 +1,0 @@
-== Aitsu_Util_Date :: secondsUntilEndOf(year|month|day|week) ==
-
-Use this method to get the seconds from now to the end of the year, end of the current
-month, end of the current day or the end of the current week.
-
-Aitsu_Util_Date :: secondsUntilEndOf('week') returns the time difference in seconds
-from now to next Monday 0 a.m.

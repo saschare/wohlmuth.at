@@ -1,5 +1,0 @@
-== Module hierachy (since 2.3.1) ==
-
-A module can know morph to another module which is more specific according to the
-module hierarchy.
-

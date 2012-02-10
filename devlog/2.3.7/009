@@ -1,5 +1,0 @@
-== Search.By.Tag module (since 2.3.7-9) ==
-
-Call the module with Search.By.Tag. As as styling guide you will find an example css
-file in the path /application/modules/Search/By/Tag/searchByTag.css. The module
-lets you navigate through the tags used in article beneath the current category.
