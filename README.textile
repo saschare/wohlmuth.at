@@ -1,3 +1,8 @@
 h1. aitsu - Content Management Framework
 
-*Current version _2.4.3-20_*
+*Current version: _2.4.3-20_*
+
+h2. About
+
+For further information on aitsu and how installation has to be done,
+please visit "aitsu's official website":http://www.aitsu.org/.
