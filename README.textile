@@ -4,5 +4,8 @@ h1. aitsu - Content Management Framework
 
 h2. About
 
-For further information on aitsu and how installation has to be done,
-please visit "aitsu's official website":http://www.aitsu.org/.
+For further information on aitsu and how installation has to be done, please visit "aitsu's official website":http://www.aitsu.org/.
+
+h2. Update
+
+If you update the system just pull the master branch into your existing installation an run the update script you'll find in the backend in the top navigation: *_Management > Scripts > Update > Synchronize database structure_*
