@@ -10,7 +10,7 @@ $revision = $match[2] + 1;
 $applicationStatus = str_replace($match[0], '\'$version/' . $version . '/revision/' . $revision . '$\'', $applicationStatus);
 file_put_contents($filename, $applicationStatus);
 
-$filename = realpath(dirname(__FILE__) . '/../README');
+$filename = realpath(dirname(__FILE__) . '/../README.textile');
 $readme = file_get_contents($filename);
 $readme = preg_replace('@^(.*?\\:)\\s([\\d\\.\\-]*)@', "$1 $version-$revision", $readme);
 file_put_contents($filename, $readme);
