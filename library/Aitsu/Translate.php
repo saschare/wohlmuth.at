@@ -68,7 +68,10 @@ class Aitsu_Translate {
 
 	protected static function _populateFromClasses($idlang) {
 
-		$files = scandir(APPLICATION_LIBPATH);
+		$files = self :: _scanDir(APPLICATION_LIBPATH, array (
+			'php',
+			'phtml'
+		));
 
 		$dirs = array (
 			APPLICATION_PATH . '/plugins',

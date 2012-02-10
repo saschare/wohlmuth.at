@@ -7,10 +7,13 @@
  */
 abstract class Aitsu_Cli_Script_Abstract {
 	
+	protected $_options;
+	
 	abstract protected function _main();
 	
-	public function execute() {
+	public function execute($options) {
 		
+		$this->_options = $options;
 		$this->_main();
 	}
 }

@@ -939,6 +939,15 @@
             </record>
         </dataset>
     </table>
+    <table engine="InnoDB" name="link_status" since="2.4.3">
+        <field default="null" name="id" type="int(10) unsigned" autoincrement="true" primary="true"
+            nullable="false"/>
+        <field default="null" name="src" type="varchar(255)" nullable="true" comment="Source URL"/>
+        <field default="null" name="ref" type="varchar(255)" nullable="false" comment="Referenced URL"/>
+        <field default="null" name="status" type="varchar(3)" nullable="true" comment="Response status"/>
+        <field default="null" name="rt" type="int(10) unsigned" nullable="true" comment="Reponse time"/>
+        <field name="requested" type="timestamp" default="CURRENT_TIMESTAMP"/>
+    </table>
     <function name="getchannel"><![CDATA[
         create function getchannel() returns varchar(255) no sql
         begin
