@@ -1,6 +1,6 @@
 h1. aitsu - Content Management Framework
 
-Current version: *2.4.3-32*
+Current version: *2.4.3-33*
 
 h2. About
 
@@ -23,13 +23,15 @@ h2. Update
 
 h3. Important notice
 
-* Updating from version 2.4.3-20 or earlier: Due to a minor bug your data may contain 0 (zero) in the column pub_art_meta.schemaorgtype. After finishing the usual update procedure you should run the script that can be found at: *_Management > Scripts > Fixes > pub_art_meta.schemaorgtype, replace 0 with null_*.
+* Updating from version 2.4.3-20 or earlier: Due to a minor bug your data may contain 0 (zero) in the column pub_art_meta.schemaorgtype. After finishing the usual update procedure you should run the script that can be found at:
+pre. _Management > Scripts > Fixes > pub_art_meta.schemaorgtype, replace 0 with null
 
 h3. The fast way for people living on razor's edge
 
 ...or for developing, testing and pre-production systems.
 
-To update the system just pull the master branch into your existing installation and run the update script you'll find in the backend in the top navigation: *_Management > Scripts > Update > Synchronize database structure_*.
+To update the system just pull the master branch into your existing installation and run the update script you'll find in the backend in the top navigation:
+pre. Management > Scripts > Update > Synchronize database structure
 
 Alternatively you may run the same script in the shell using the command line interface (assuming, the current path is your document root):
 
