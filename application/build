@@ -12,7 +12,7 @@ file_put_contents($filename, $applicationStatus);
 
 $filename = realpath(dirname(__FILE__) . '/../README.textile');
 $readme = file_get_contents($filename);
-$readme = preg_replace('@^(.*?\\:)\\s([\\d\\.\\-]*)@', "$1 $version-$revision", $readme);
+$readme = preg_replace('@^(Current version\\:\\s*\\*_)([^_]*)(_\\*)@', "$1$version-$revision$3", $readme);
 file_put_contents($filename, $readme);
 
 passthru('git commit -a -m "Version ' . $match[1] . ', Revision ' . ($match[2] + 1) . '"');
