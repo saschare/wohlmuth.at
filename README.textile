@@ -4,7 +4,20 @@ Current version: *_2.4.3-20_*
 
 h2. About
 
-For further information on aitsu(tm) and how installation has to be done, please visit "the official website":http://www.aitsu.org/.
+For further information on aitsu(tm), please visit "the official website":http://www.aitsu.org/.
+
+h2. Installation
+
+The installation is amazingly easy:
+
+# Go the document root, initialize and configure git and pull aitsu's master branch.
+# Create a MySQL database.
+# Open /application/configs/config.ini and set the database name and the user credentials as appropriate.
+# In the same file specify the installation password (setup.password).
+# Log in the system on http://www.domain.tld/adm/setup/ using setup as username and your setup password.
+# Run the installation script found at the screen after log in.
+# Log out and log in again using admin as username and your setup password.
+# Your done.
 
 h2. Update
 
