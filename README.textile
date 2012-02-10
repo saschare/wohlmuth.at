@@ -14,9 +14,11 @@ The installation is amazingly easy:
 # Create a MySQL database.
 # Open /application/configs/config.ini and set the database name and the user credentials as appropriate.
 # In the same file specify the installation password (setup.password).
+# Open /application/configs/clients/default.ini and set the domain, the installation is running on.
 # Log in the system on http://www.domain.tld/adm/setup/ using setup as username and your setup password.
 # Run the installation script found at the screen after log in.
 # Log out and log in again using admin as username and your setup password.
+# Run the update script from the main navigation: _Management > Scripts > Update > Synchronize database structure_
 # Your done.
 
 h2. Update
