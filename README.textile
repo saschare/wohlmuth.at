@@ -11,4 +11,5 @@ h2. Update
 If you update the system just pull the master branch into your existing installation and run the update script you'll find in the backend in the top navigation: *_Management > Scripts > Update > Synchronize database structure_*.
 
 Alternatively you may run the same script in the shell using the command (assuming, the current path is your document root):
+
 pre. php application/cli/index.php -s Update
