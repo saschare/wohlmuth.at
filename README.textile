@@ -1,6 +1,6 @@
 h1. aitsu - Content Management Framework
 
-Current version: *2.4.3-35*
+Current version: *2.4.3-36*
 
 h2. About
 
