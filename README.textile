@@ -39,6 +39,6 @@ The suggested update procedure is as follows:
 
 Depending wether or not your data directory is under git's control, you probably want to backup its content, too. And just to be sure: if you have a pre-production system, make the update in this environment first.
 
-h3. (#fix1)Update from Version 2.4.3-20 or earlier
+h3(#fix1). Update from Version 2.4.3-20 or earlier
 
 Due to a minor bug your data may contain 0 (zero) in the column pub_art_meta.schemaorgtype. After finishing the usual update procedure you should run the script that can be found at: *_Management > Scripts > Fixes > pub_art_meta.schemaorgtype, replace 0 with null_*.
