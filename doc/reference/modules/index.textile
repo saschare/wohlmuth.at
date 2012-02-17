@@ -63,7 +63,7 @@ h3. _main()
 
 The main method is called when the module is executed (called from a template or another module). It is (usually) expected to return a HTML fragment. However, it is not limited to that purpose. You also may decide to flush the buffer, send other headers, return arbitrary text or binary content and halt the execution of the script as a whole.
 
-As mentioned above the index used when calling the module as well as the given parameters (if any) is available within the class's context (_index and _params members). You have also available the page's context from the registry (Aitsu_Registry) as well as the configuration (Aitsu_Config) and the library (e.g. Aitsu_Db to make database calls).
+As mentioned above the index used when calling the module as well as the given parameters (if any) are available within the class's context ==(_index and _params members)==. You have also available the page's context from the registry (Aitsu_Registry) as well as the configuration (Aitsu_Config) and the library (e.g. Aitsu_Db to make database calls).
 
 Be aware that the main method is executed only, if there is no valid cache available. This is the case when at least one of the following three conditions is met:
 
