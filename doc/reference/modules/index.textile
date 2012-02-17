@@ -61,6 +61,19 @@ class Module_HelloWorld_Class extends Aitsu_Module_Abstract {
 
 h3. _main()
 
+The main method is called when the module is executed (called from a template or another module). It is (usually) expected to return a HTML fragment. However, it is not limited to that purpose. You also may decide to flush the buffer, send other headers, return arbitrary text or binary content and halt the execution of the script as a whole.
+
+As mentioned above the index used when calling the module as well as the given parameters (if any) is available within the class's context (_index and _params members). You have also available the page's context from the registry (Aitsu_Registry) as well as the configuration (Aitsu_Config) and the library (e.g. Aitsu_Db to make database calls).
+
+Be aware that the main method is executed only, if there is no valid cache available. This is the case when at least one of the following three conditions is met:
+
+# The caching period is set to 0 (default);
+# you are logged in and the module's $_cacheIfLoggedIn member is set to false;
+# the cache is outdated and no longer valid;
+# or the cache has been cleared.
+
+If you expect the code to be executed regardless whether or not the cache is valid, use the _init method instead.
+
 h3. _init()
 
 h3. _cachingPeriod()
