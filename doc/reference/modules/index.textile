@@ -1,3 +1,20 @@
 "Main":../../index.textile
 
 h1. Modules
+
+A module is class producing a content fragment that is placed into the resulting page during the rendering phase. It may produce arbitrary HTML code, which may contain references to other modules. Even a recursive call of itself is possible, as long as you implement a breaking rule to prevent the system from looping endlessly.
+
+h2. Module call
+
+The module is called with one of the following two references:
+
+bc. _[My.Module.Name:Index]
+
+The is the easy way usually used in text editors within the edit mode. As long as there is no need to configure the module programmatically, this call may be used.
+
+If referenced from within a template or a module, most often the module has to be configured dynamically. The recommended reference looks like as follows:
+
+bc. <script type="application/x-aitsu" src="My.Module.Name:Index">
+    paramA = My first parameter
+    paramB = My second parameter
+</script>
