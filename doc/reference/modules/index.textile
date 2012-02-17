@@ -12,7 +12,7 @@ bc. _[My.Module.Name:Index]
 
 The is the easy way usually used in text editors within the edit mode. As long as there is no need to configure the module programmatically, this call may be used.
 
-If referenced from within a template or a module, most often the module has to be configured dynamically. The recommended reference looks like as follows:
+If referenced from within a template or a module, most often the module has to be configured dynamically. The recommended reference looks like:
 
 bc. <script type="application/x-aitsu" src="My.Module.Name:Index">
     paramA = My first parameter
