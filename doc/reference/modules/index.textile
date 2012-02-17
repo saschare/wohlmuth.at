@@ -44,7 +44,7 @@ bc. Module_My_Module_Name_Class
 
 and is referenced as _My.Module.Name:Index_.
 
-The same module in _/application/skins/{skin name}/module/My/Module/Name must be named as:
+The same module in _/application/skins/{skin name}/module/My/Module/Name_ must be named as:
 
 bc. Skin_Module_My_Module_Name_Class
 
