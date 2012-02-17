@@ -10,7 +10,7 @@ The module is called with one of the following two references:
 
 bc. _[My.Module.Name:Index]
 
-This is the easy way usually used in text editors within the edit mode. As long as there is no need to configure the module programmatically, this call may be used.
+This is the easy way usually used in text editors in the edit mode. As long as there is no need to configure the module programmatically, this call may be used.
 
 If referenced from within a template or a module, most often the module has to be configured dynamically. The recommended reference looks like:
 
@@ -30,3 +30,22 @@ and
 bc. $this->_params
 
 along with the page's context, the module is embedded in.
+
+h2. The class
+
+The modules file name is always _Class.php_ and the class's name must correspond with its location in the file system. Modules reside in one of the following two locations:
+
+* /application/modules/{module name or path} or
+* /application/skins/{skin name}/modules/{module name or path}
+
+A module in _/application/modules/My/Module/Name_ must be:
+
+bc. Module_My_Module_Name_Class
+
+and is referenced as _My.Module.Name:Index_.
+
+The same module in _/application/skins/{skin name}/module/My/Module/Name must be:
+
+bc. Skin_Module_My_Module_Name_Class
+
+and is referece exactly the same way. This means that you may overwrite an existing module with a skin specific module. The system uses the skin module if available. Otherwise the one available in /application/modules/.
