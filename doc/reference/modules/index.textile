@@ -50,4 +50,4 @@ bc. Skin_Module_My_Module_Name_Class
 
 and is referece exactly the same. This means that you may overwrite an existing module with a skin specific module. The system uses the skin module if available. Otherwise the one available in _/application/modules/_ is used.
 
-h3. Implements Aitsu_Module_Tree_Abstract
+h3. Implementation of Aitsu_Module_Abstract
