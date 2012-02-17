@@ -21,7 +21,7 @@ The installation is amazingly easy:
 # Log out and log in again using admin as username and your setup password.
 # Run the update script from the main navigation: _Management > Scripts > Update > Synchronize database structure_
 # Change the admin password to a value known to you only and differing from what you set in the configuration. The system does not force you to do so, but it is recommended because the password set in the config.ini is stored in plain text.
-# Your done.
+# You're done.
 
 Depending on the configuration of the database the views may not be created with the user you are connecting to the database. If so, use following sql to restore the views:
 
