@@ -1,1 +1,22 @@
 h1. aitsu - Content Management Framework
+
+The documentation you'll find here is used as the basis of documentation that can be found "here":http://www.aitsu.org/ in the future. It's a work in progress. The current stage (February 2012) is the very beginning. Please be aware that you won't find most information here at the moment.
+
+h2. Authors
+
+* Andreas Kummer, "w3concepts AG":http://wdrei.ch/
+
+h2. Other Sources of Documentation
+
+* "Aitsu's Official Website":http://www.aitsu.org/
+* "wdrei Themen - Documentation fragments":http://wdrei.ch/themen/index.html?tags%5B0%5D=2
+
+h2. Developers's Reference Guide
+
+h3. Modules
+
+h3. Plugins
+
+h3. Listeners
+
+h3. Libraries
