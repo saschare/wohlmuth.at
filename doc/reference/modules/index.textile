@@ -48,9 +48,9 @@ The same module in _/application/skins/{skin name}/module/My/Module/Name_ must b
 
 bc. Skin_Module_My_Module_Name_Class
 
-and is referenced exactly the same. This means that you may overwrite an existing module with a skin specific module. The system uses the skin module if available. Otherwise the one available in _/application/modules/_ is used.
+and is referenced exactly the same way. This means that you may overwrite an existing module with a skin specific module. The system uses the skin module if available. Otherwise the one available in _/application/modules/_ is used.
 
-The class must implement either Aitsu_Module_Abstract or Aitsu_Module_Tree_Abstract and in its simplest form looks like:
+The class must implement either Aitsu_Module_Abstract or Aitsu_Module_Tree_Abstract and the class in its simplest form then looks like:
 
 bc. <?php
 class Module_HelloWorld_Class extends Aitsu_Module_Abstract {
