@@ -1,0 +1,12 @@
+h1. Google Maps
+
+h2. Author / Copyright
+
+Andreas Kummer, w3concepts AG, (c) 2011
+
+The javascript code is provieded by Google Maps.
+
+h2. Documentation
+
+* "Google Maps Basics" http://code.google.com/apis/maps/documentation/javascript/basics.html
+* "Google Maps Overlays" http://code.google.com/apis/maps/documentation/javascript/overlays.html
