@@ -6,17 +6,25 @@ h2. Authors
 
 * Andreas Kummer, "w3concepts AG":http://wdrei.ch/
 
-h2. Other Sources of Documentation
-
-* "Aitsu's Official Website":http://www.aitsu.org/
-* "wdrei Themen - Documentation fragments":http://wdrei.ch/themen/index.html?tags%5B0%5D=2
-
 h2. Developers's Reference Guide
 
 h3. Modules
 
+* "Getting Started":modules/index.textile
+
 h3. Plugins
+
+* "Getting Started":plugins/index.textile
 
 h3. Listeners
 
+* "Getting Started":listeners/index.textile
+
 h3. Libraries
+
+Documentation of the libraries, i.e. the classes can be found in the file doc.textile in the library folder.
+
+h3. Other Sources of Documentation
+
+* "Aitsu's Official Website":http://www.aitsu.org/
+* "wdrei Themen - Documentation fragments":http://wdrei.ch/themen/index.html?tags%5B0%5D=2
