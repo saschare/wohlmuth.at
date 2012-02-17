@@ -208,7 +208,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		 */
 		switch ($this->_startArticle) {
 			case 2 :
-				$useOfStartArticle = ' and catlang.startidartlang != artlang.idartlang ';
+				// $useOfStartArticle = ' and catlang.startidartlang != artlang.idartlang ';
+				$useOfStartArticle = ' and (catlang.startidartlang != artlang.idartlang or catlang.startidartlang is null) ';
 				break;
 			case 3 :
 				$useOfStartArticle = ' and catlang.startidartlang = artlang.idartlang ';

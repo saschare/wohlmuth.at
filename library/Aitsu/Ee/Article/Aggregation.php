@@ -4,8 +4,9 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
+ * 
+ * @deprecated 2.4.3-44 - 2012-02-17
  */
-
 class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
 
 	protected $idlang;
@@ -27,6 +28,8 @@ class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
 	protected $position = 0;
 
 	protected function __construct() {
+
+		trigger_error('This class is deprecated. Please use Aitsu_Aggregation_Article instead.');
 
 		$this->idlang = Aitsu_Registry :: get()->env->idlang;
 		$this->whereInCategories = array (
@@ -113,7 +116,7 @@ class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
 	public function rewind() {
 
 		$this->position = 0;
-		
+
 		return $this;
 	}
 
@@ -130,7 +133,7 @@ class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
 	public function next() {
 
 		$this->position++;
-		
+
 		return $this;
 	}
 
@@ -339,15 +342,15 @@ class Aitsu_Ee_Article_Aggregation implements Iterator, Countable {
 
 		return $this;
 	}
-	
+
 	public function remove($field, $value) {
-		
+
 		foreach ($this->results as $key => $val) {
-			if ($val->$field == $value) {
-				unset($this->results[$key]);
+			if ($val-> $field == $value) {
+				unset ($this->results[$key]);
 			}
 		}
-		
+
 		$this->results = array_values($this->results);
 	}
 }
