@@ -10,15 +10,15 @@ h2. Developers's Reference Guide
 
 h3. Modules
 
-* "Getting Started":modules/index.textile
+* "Getting Started":reference/modules/index.textile
 
 h3. Plugins
 
-* "Getting Started":plugins/index.textile
+* "Getting Started":reference/plugins/index.textile
 
 h3. Listeners
 
-* "Getting Started":listeners/index.textile
+* "Getting Started":reference/listeners/index.textile
 
 h3. Libraries
 
