@@ -1,5 +1,3 @@
-"Main":../../index.textile
-
 h1. Modules
 
 A module is a class producing a content fragment that is placed into the resulting page during the rendering phase. It may produce arbitrary HTML code, which may contain references to other modules. Even a recursive call of itself is possible, as long as you implement a breaking rule to prevent the system from looping endlessly.
