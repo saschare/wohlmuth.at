@@ -65,10 +65,10 @@ The main method is called when the module is executed (called from a template or
 
 As mentioned above the index used when calling the module as well as the given parameters (if any) are available within the class's context ==(_index and _params members)==. You have also available the page's context from the registry (Aitsu_Registry) as well as the configuration (Aitsu_Config) and the library (e.g. Aitsu_Db to make database calls).
 
-Be aware that the main method is executed only, if there is no valid cache available. This is the case when at least one of the following three conditions is met:
+Be aware that the main method is executed only, if there is no valid cache available. This is the case when at least one of the following conditions is met:
 
 # The caching period is set to 0 (default);
-# you are logged in and the module's $_cacheIfLoggedIn member is set to false;
+# you are logged in and the module's _cacheIfLoggedIn member is set to false;
 # the cache is outdated and no longer valid;
 # or the cache has been cleared.
 
@@ -76,7 +76,16 @@ If you expect the code to be executed regardless whether or not the cache is val
 
 h3. _init()
 
+The init method is identical to the main method, except that it is executed always, even if a valid cache is available. Both methods may return content which is just glued together (the init's return in front of the main's content). Usually you use either only the main method or both. To use the init method solely does not make sense.
+
+The init method is especially useful in following scenarios:
+
+* Some code has to be executed regardless of the cache's state, while other content may be provided from cache. E.g. the code should update rows in a database table while the actual output remains the same.
+* You want to inject javascript code or references into the layout using ==Aitsu_Util_Javascript==, while the visible content may be taken from cache. 
+
 h3. _cachingPeriod()
+
+The method returns zero by default, which is disabling the cache for this particular module. The value may be set dynamically using information available during runtime or statically. It should return an integer value representing the period in seconds the resulting cache has to be expected to be valid. During this period (beginning from the point of execution) the main method will not be executed and the cache is used instead which has been returned by the main method when executed the last time.
 
 h3. _getView()
 
