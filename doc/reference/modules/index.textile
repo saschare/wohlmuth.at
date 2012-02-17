@@ -2,7 +2,7 @@
 
 h1. Modules
 
-A module is class producing a content fragment that is placed into the resulting page during the rendering phase. It may produce arbitrary HTML code, which may contain references to other modules. Even a recursive call of itself is possible, as long as you implement a breaking rule to prevent the system from looping endlessly.
+A module is a class producing a content fragment that is placed into the resulting page during the rendering phase. It may produce arbitrary HTML code, which may contain references to other modules. Even a recursive call of itself is possible, as long as you implement a breaking rule to prevent the system from looping endlessly.
 
 h2. Module call
 
@@ -10,7 +10,7 @@ The module is called with one of the following two references:
 
 bc. _[My.Module.Name:Index]
 
-The is the easy way usually used in text editors within the edit mode. As long as there is no need to configure the module programmatically, this call may be used.
+This is the easy way usually used in text editors within the edit mode. As long as there is no need to configure the module programmatically, this call may be used.
 
 If referenced from within a template or a module, most often the module has to be configured dynamically. The recommended reference looks like:
 
@@ -18,3 +18,15 @@ bc. <script type="application/x-aitsu" src="My.Module.Name:Index">
     paramA = My first parameter
     paramB = My second parameter
 </script>
+
+The provided index is used to distinguish between different calls of the same module within the page's context and must be provided if you allow to configure the module in the edit mode.
+
+The index as well as the parameters are available in the modules context as...
+
+bc. $this->_index
+
+and
+
+bc. $this->_params
+
+along with the page's context, the module is embedded in.
