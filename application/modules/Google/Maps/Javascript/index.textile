@@ -1,8 +1,6 @@
 h1. Google Maps
 
-h2. Author / Copyright
-
-* Andreas Kummer, w3concepts AG, (c) 2011
+* Author: Andreas Kummer, w3concepts AG, (c) 2011
 * The javascript code is provieded by Google Maps.
 
 h2. Documentation
