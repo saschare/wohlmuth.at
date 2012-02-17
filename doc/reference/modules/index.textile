@@ -66,3 +66,14 @@ h3. _init()
 h3. _cachingPeriod()
 
 h3. _getView()
+
+Following call returns a Zend view with the template path the to the modules location:
+
+bc. $this->_getView();
+
+To render a view and to embed the result into the page following call can be made either in the _init() or the _main() method of the class:
+
+bc. $view->_getView();
+// Set arbitrary data to be available in the view's context.
+$view->data = $data;
+return $view->render('template.phtml'); 
