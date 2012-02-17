@@ -33,7 +33,7 @@ along with the page's context, the module is embedded in.
 
 h2. The class
 
-The modules file name is always _Class.php_ and the class's name must correspond with its location in the file system. Modules must reside in one of the following two locations:
+The module's file name is always _Class.php_ and the class's name must correspond with its location in the file system. Modules must reside in one of the following two locations:
 
 * /application/modules/{module name or path} or
 * /application/skins/{skin name}/modules/{module name or path}
