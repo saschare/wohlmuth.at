@@ -58,3 +58,11 @@ class Module_HelloWorld_Class extends Aitsu_Module_Abstract {
 		return 'Hello World!';
 	}
 }
+
+h3. _main()
+
+h3. _init()
+
+h3. _cachingPeriod()
+
+h3. _getView()
