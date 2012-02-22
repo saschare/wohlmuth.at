@@ -23,8 +23,6 @@ class Aitsu_File_AutoFillMetaData implements Aitsu_Event_Listener_Interface {
 			return;
 		}
 
-		trigger_error(var_export($pdf->properties, true));
-
 		$event->file->medianame = isset($pdf->properties['Title']) ? $pdf->properties['Title'] : '';
 		$event->file->subline = isset($pdf->properties['Subject']) ? $pdf->properties['Subject'] : '';
 		$event->file->description = isset($pdf->properties['Subject']) ? $pdf->properties['Subject'] : '';
