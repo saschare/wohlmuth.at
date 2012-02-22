@@ -14,16 +14,22 @@ class Aitsu_File_AutoFillMetaData implements Aitsu_Event_Listener_Interface {
 	public static function notify(Aitsu_Event_Abstract $event) {
 
 		trigger_error(var_export($event->file, true));
-		
+
 		if (strtolower($event->file->extension) != 'pdf') {
 			return;
 		}
-		
-		//$pdf = Zend_Pdf::load($pdfPath);
 
-		$event->file->medianame = 'das ist ein test';
+		try {
+			$pdf = Zend_Pdf :: load($event->path);
+		} catch (Exception $e) {
+			return;
+		}
+
+		trigger_error(var_export($pdf->properties, true));
+
+		$event->file->medianame = isset($pdf->properties['Title']) ? $pdf->properties['Title'] : '';
 		$event->file->subline = '';
-		$event->file->description = '';
+		$event->file->description = isset($pdf->properties['Subject']) ? $pdf->properties['Subject'] : '';
 
 		$langs = Aitsu_Db :: fetchCol('' .
 		'select lang.idlang from _lang lang, _lang current ' .

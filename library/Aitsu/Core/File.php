@@ -86,11 +86,12 @@ class Aitsu_Core_File {
 
 		$file->_save();
 
-		Aitsu_Event :: raise('backend.media.upload.end', array (
-			'file' => & $file
-		));
-
 		move_uploaded_file($tmpFilename, APPLICATION_PATH . '/data/media/' . $idart . '/' . $file->mediaid . '.' . $file->extension);
+
+		Aitsu_Event :: raise('backend.media.upload.end', array (
+			'file' => & $file,
+			'path' => APPLICATION_PATH . '/data/media/' . $idart . '/' . $file->mediaid . '.' . $file->extension
+		));
 	}
 
 	public static function delete($idart, $id) {
