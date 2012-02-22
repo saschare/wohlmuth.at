@@ -18,6 +18,8 @@ class Aitsu_File_AutoFillMetaData implements Aitsu_Event_Listener_Interface {
 		if (strtolower($event->file->extension) != 'pdf') {
 			return;
 		}
+		
+		//$pdf = Zend_Pdf::load($pdfPath);
 
 		$event->file->medianame = 'das ist ein test';
 		$event->file->subline = '';
