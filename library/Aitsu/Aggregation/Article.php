@@ -270,7 +270,8 @@ class Aitsu_Aggregation_Article implements Iterator, Countable {
 		"	artlang.pubuntil pubuntil, " .
 		"	artlang.mainimage mainimage, " .
 		"	coord.lat lat, " .
-		"	coord.lng lng " .
+		"	coord.lng lng, " .
+		"	if(artlang.redirect = 1 and substr(artlang.redirect_url, 1, 4) = 'http', artlang.redirect_url, null) redirect " .
 		"	{$selects} " .
 		"from _art_lang artlang " .
 		"{$joins} " .
