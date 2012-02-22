@@ -2,14 +2,9 @@
 
 
 /**
- * Revision of article's properties and content.
- * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Article.php 19904 2010-11-16 13:31:32Z akm $}
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-
 class Aitsu_Revision_Article implements Aitsu_Event_Listener_Interface {
 
 	public static function notify(Aitsu_Event_Abstract $event) {

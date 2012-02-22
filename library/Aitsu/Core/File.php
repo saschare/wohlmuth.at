@@ -3,9 +3,8 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-
 class Aitsu_Core_File {
 
 	public $mediaid = null;
@@ -81,7 +80,15 @@ class Aitsu_Core_File {
 			chmod(APPLICATION_PATH . '/data/media/' . $idart, 0777);
 		}
 
+		Aitsu_Event :: raise('backend.media.upload.start', array (
+			'file' => & $file
+		));
+
 		$file->_save();
+
+		Aitsu_Event :: raise('backend.media.upload.end', array (
+			'file' => & $file
+		));
 
 		move_uploaded_file($tmpFilename, APPLICATION_PATH . '/data/media/' . $idart . '/' . $file->mediaid . '.' . $file->extension);
 	}
@@ -308,7 +315,7 @@ class Aitsu_Core_File {
 	public static function get($path, $inline = false) {
 
 		ob_end_clean();
-		
+
 		self :: _abortIfNotAllowed($path);
 
 		$fileSource = APPLICATION_PATH . '/data/media/' . $path;
@@ -357,7 +364,7 @@ class Aitsu_Core_File {
 			'mp3' => 'audio/mpeg'
 		);
 
-		if (isset($mimeTypes[$file['extension']])) {
+		if (isset ($mimeTypes[$file['extension']])) {
 			header('Content-type: ' . $mimeTypes[$file['extension']]);
 		} else {
 			header('Content-type: application/' . $file['extension']);
@@ -494,7 +501,7 @@ class Aitsu_Core_File {
 
 		return $return;
 	}
-	
+
 	protected static function _abortIfNotAllowed($path) {
 
 		if (!preg_match('/^\\d{1,}/', $path, $match)) {

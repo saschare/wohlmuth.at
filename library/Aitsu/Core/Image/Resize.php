@@ -71,6 +71,10 @@ class Aitsu_Core_Image_Resize {
 	}
 
 	protected function _makeAvailableTransparent($imagename) {
+		
+		if (!isset($_GET['imageurl'])) {
+			return;
+		}
 
 		$pathInfo = pathinfo($_GET['imageurl']);
 
