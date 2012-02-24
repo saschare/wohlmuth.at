@@ -1,0 +1,22 @@
+h1. Syndication.IProxy
+
+* Author: Andreas Kummer, w3concepts AG, (c) 2011
+
+h2. Description
+
+The module emulates the context of the specified article, renders the module within that context and puts the output of the module into the current artcle (page).
+
+h2. Use
+
+Either...
+
+bc. _[Syndication.IProxy:Index]
+
+or
+
+bc. <script type="application/x-aitsu" src="Syndication.IProxy:Index></script>
+
+h2. Configuration
+
+# Choose the article to take the content from;
+# Specify the module and the index (e.g. My.Module:1)
