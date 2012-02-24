@@ -182,13 +182,14 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 	protected function _saveTransparentCache($output) {
 		
 		$pathInfo = pathinfo($_SERVER['REQUEST_URI']);
+		$path = trim($pathInfo['dirname'], '/');
 	
-		$dir = APPLICATION_PATH . '/data/cachetransparent/data/' . $pathInfo['dirname'];
+		$dir = APPLICATION_PATH . '/data/cachetransparent/data/' . $path;
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
         }
-        
-        file_put_contents($dir . '/' . $_GET['minify'], $output);
+
+		  file_put_contents($dir . '/' . $_GET['minify'], $output);
 	}
 
 	public static function getInstance() {
