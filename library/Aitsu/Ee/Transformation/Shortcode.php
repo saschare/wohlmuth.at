@@ -2,14 +2,9 @@
 
 
 /**
- * aitsuEE Shortcode.
- * 
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Shortcode.php 17647 2010-07-21 08:20:55Z akm $}
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-
 class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interface {
 
 	protected function __construct() {
@@ -35,7 +30,7 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 		$event->bootstrap->pageContent = self :: getInstance()->getContent($event->bootstrap->pageContent);
 	}
 
-	public function getContent($content) {
+	protected function _rewrite(& $content) {
 
 		if (preg_match_all('/_\\[(.*?)\\:(.*?)(:?\\:(\\d*))?\\]/', $content, $matches) > 0) {
 			/*
@@ -52,12 +47,45 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 			 */
 			$content = $this->_rewriteScriptCodes($content, $matches);
 		}
+	}
+
+	public function getContent($content) {
+
+		$this->_rewrite($content);
 
 		/*
 		 * Rewrite ShortCodes with the pattern _|[...]. These are used to show the syntax
 		 * of ShortCodes without replacing them.
 		 */
 		return str_replace('_|[', '_[', $content);
+	}
+
+	protected function _switchTo($idartlang, $back = false) {
+
+		static $old;
+		static $regClone;
+
+		if ($back) {
+			Aitsu_Registry :: get()->env = $regClone->env;
+			Aitsu_Registry :: get()->env->idartlang = $old['idartlang'];
+			Aitsu_Registry :: get()->env->idart = $old['idart'];
+			Aitsu_Registry :: get()->env->idlang = $old['idlang'];
+			Aitsu_Registry :: get()->env->client = $old['client'];
+			return;
+		}
+
+		$context = Aitsu_Core_Module_Context :: get($idartlang);
+		$regClone = clone Aitsu_Registry :: get();
+		$old['idartlang'] = Aitsu_Registry :: get()->env->idartlang;
+		$old['idart'] = Aitsu_Registry :: get()->env->idart;
+		$old['idlang'] = Aitsu_Registry :: get()->env->idlang;
+		$old['idcat'] = Aitsu_Registry :: get()->env->idcat;
+		$old['client'] = Aitsu_Registry :: get()->env->client;
+		Aitsu_Registry :: get()->env->idart = $context['idart'];
+		Aitsu_Registry :: get()->env->idartlang = $context['idartlang'];
+		Aitsu_Registry :: get()->env->idlang = $context['idlang'];
+		Aitsu_Registry :: get()->env->idcat = $context['idcat'];
+		Aitsu_Registry :: get()->env->client = $context['client'];
 	}
 
 	protected function _rewriteShortcodes($content, $matches) {
@@ -73,18 +101,7 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 			$method = $matches[1][$i];
 
 			if (!empty ($matches[3][$i])) {
-				$context = Aitsu_Core_Module_Context :: get(substr($matches[3][$i], 1));
-				$regClone = clone Aitsu_Registry :: get();
-				$old['idartlang'] = Aitsu_Registry :: get()->env->idartlang;
-				$old['idart'] = Aitsu_Registry :: get()->env->idart;
-				$old['idlang'] = Aitsu_Registry :: get()->env->idlang;
-				$old['idcat'] = Aitsu_Registry :: get()->env->idcat;
-				$old['client'] = Aitsu_Registry :: get()->env->client;
-				Aitsu_Registry :: get()->env->idart = $context['idart'];
-				Aitsu_Registry :: get()->env->idartlang = $context['idartlang'];
-				Aitsu_Registry :: get()->env->idlang = $context['idlang'];
-				Aitsu_Registry :: get()->env->idcat = $context['idcat'];
-				Aitsu_Registry :: get()->env->client = $context['client'];
+				$this->_switchTo(substr($matches[3][$i], 1));
 			}
 
 			try {
@@ -96,19 +113,13 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 			}
 
 			if (!empty ($matches[3][$i])) {
-				Aitsu_Registry :: get()->env = $regClone->env;
-				Aitsu_Registry :: get()->env->idartlang = $old['idartlang'];
-				Aitsu_Registry :: get()->env->idart = $old['idart'];
-				Aitsu_Registry :: get()->env->idlang = $old['idlang'];
-				Aitsu_Registry :: get()->env->client = $old['client'];
+				$this->_switchTo(0, true);
 			}
 
 			$content = str_replace($matches[0][$i], $replacement, $content);
 		}
 
-		if (preg_match_all('/_\\[(.*?)\\:(.*?)(:?\\:(\\d*))?\\]/', $content, $matches) > 0) {
-			$content = $this->_rewriteShortcodes($content, $matches);
-		}
+		$this->_rewrite($content);
 
 		return $content;
 	}
@@ -129,6 +140,12 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 			$method = $matches[1][$i];
 			$index = isset ($matches[2][$i]) ? $matches[2][$i] : '';
 			$params = isset ($matches[3][$i]) ? $matches[3][$i] : null;
+			
+			$switched = false;
+			if (preg_match('/execcontext\\s*=\\s*(\\d*)/', $params, $match)) {
+				$this->_switchTo($match[1]);
+				$switched = true;
+			}
 
 			try {
 				$replacement = $sc->evalModule($method, $params, $client, $index, true);
@@ -137,17 +154,15 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 			} catch (Exception $e) {
 				$replacement = $e->getMessage();
 			}
+			
+			if ($switched) {
+				$this->_switchTo(0, true);
+			}
 
 			$content = str_replace($matches[0][$i], $replacement, $content);
 		}
 
-		if (preg_match_all('/_\\[(.*?)\\:(.*?)(:?\\:(\\d*))?\\]/', $content, $matches) > 0) {
-			$content = $this->_rewriteShortcodes($content, $matches);
-		}
-
-		if (preg_match_all('@<script\\s+type=\"application/x-aitsu\"\\s+src=\"([^:\"]+):?([^\"]*)\"[^/>]*(?:(?:/>)|(?:>(.*?)</script>))@s', $content, $matches) > 0) {
-			$content = $this->_rewriteScriptCodes($content, $matches);
-		}
+		$this->_rewrite($content);
 
 		return $content;
 

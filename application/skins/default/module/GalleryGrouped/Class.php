@@ -1,61 +1,36 @@
 <?php
 
+
 /**
  * @author Frank Ammari, Ammari & Ammari GbR
- * @copyright Copyright &copy; 2011, Ammari & Ammari GbR
+ * @author Andreas Kummer, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  * @sponsor Felix Kuster, fashionweb.ch 
  */
 
-class Skin_Module_GalleryGrouped_Class extends Aitsu_Ee_Module_Abstract {
+class Skin_Module_GalleryGrouped_Class extends Aitsu_Module_Abstract {
 
-	public static function about() {
+	protected function _main() {
 
-		return (object) array (
-			'name' => 'GalleryGrouped',
-			'description' => Aitsu_Translate :: translate('Returns a grouped image gallery'),
-			'type' => 'Content',
-			'author' => (object) array (
-				'name' => 'Frank Ammari',
-				'copyright' => 'Ammari & Ammari GbR'
-			),
-			'version' => '1.0.2',
-			'status' => 'stable',
-			'url' => null,
-			'id' => '4ddea821-aabc-42ce-8f4a-1ff47f000001'
-		);
-	}
-	
-	public static function init($context) {
+		$view = $this->_getView();
 
-		$instance = new self();
+		$images = Aitsu_Content_Config_Media :: set($this->_index, 'GalleryMedia', 'Media');
+		$images = Aitsu_Persistence_View_Media :: byFileName(Aitsu_Registry :: get()->env->idart, $images);
+		$modulo = Aitsu_Content_Config_Text :: set($this->_index, 'GalleryModulo', 'Modulo', 'Grouping');
 
-		$index = $context['index'];
+		$view->index = $this->_index;
+		$view->images = $images;
+		$view->modulo = $modulo;
 
-		$output = '';
-		if (!$instance->_get('GalleryGrouped' . preg_replace('/[^a-zA-Z_0-9]/', '', $index), $output)) {
-
-			$view = $instance->_getView();
-
-			$images = Aitsu_Content_Config_Media :: set($index, 'GalleryMedia', 'Media');
-			$images = Aitsu_Persistence_View_Media :: byFileName(Aitsu_Registry :: get()->env->idart, $images);
-			$modulo = Aitsu_Content_Config_Text :: set($index, 'GalleryModulo', 'Modulo', 'Grouping');
-			
-			$view->index = $index;
-			$view->images = $images;
-			$view->modulo = $modulo;
-
-			if (count($view->images) == 0) {
-				if (Aitsu_Application_Status :: isEdit()) {
-					$output = '| GalleryGrouped :: ' . $index . ' |';
-				} else {
-					$output = '';
-				}
-			} else {
-				$output = $view->render('index.phtml');
-				$instance->_save($output, 'eternal');
-			}
+		if (count($view->images) == 0) {
+			return '';
 		}
 
-		return $output;
+		return $view->render('index.phtml');
+	}
+
+	protected function _cachingPeriod() {
+
+		return 60 * 60 * 24 * 365;
 	}
 }
