@@ -4,7 +4,7 @@ h1. Syndication.IProxy
 
 h2. Description
 
-The module emulates the context of the specified article, renders the module within that context and puts the output of the module into the current artcle (page).
+The module emulates the context of the specified article, renders the module within that context and puts the output of the module into the current article (page).
 
 h2. Use
 
@@ -19,4 +19,16 @@ bc. <script type="application/x-aitsu" src="Syndication.IProxy:Index></script>
 h2. Configuration
 
 # Choose the article to take the content from;
-# Specify the module and the index (e.g. My.Module:1)
+# Specify the module and the index (e.g. My.Module:1).
+
+h2. Static invocation (without editable configuration)
+
+If you intend to use the same content over and over again, you should not use this module. In this case you may put following script shortcode into the template:
+
+bc. <script type="application/x-aitsu" src="My.Module:1">
+	edit = false
+	execcontext = 123
+</script>
+
+# Replace My.Module:1 with the reference to the module of your choice;
+# Replace 123 (execcontext) with the idartlang of the source article.
