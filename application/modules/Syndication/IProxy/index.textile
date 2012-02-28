@@ -1,6 +1,6 @@
 h1. Syndication.IProxy
 
-* Author: Andreas Kummer, w3concepts AG, (c) 2011
+* Author: Andreas Kummer, w3concepts AG, (c) 2012
 
 h2. Description
 

@@ -4,7 +4,7 @@ h1. Syndication.Module
 
 h2. Description
 
-The Syndication.Module is somehow special in the sense, that it is not used directly, but as a dynamic substitution of parent modules (such as List.Download). If a module is configured as a parent of Syndication.Module in the hierarchy.ini (/application/modules/hierarchy.ini) the user may substitute the current module with Syndication.Module. The syndication module then allows to specify an article to take the content from, fetches the content of the same module with the same index from the specified page.
+The Syndication.Module is somehow special in the sense, that it is not used directly, but as a dynamic substitution of parent modules (such as List.Download). If a module is configured as a parent of Syndication.Module in the hierarchy.ini (/application/modules/hierarchy.ini) the user may substitute the current module with Syndication.Module. The syndication module then allows to specify an article to take the content from and fetches the content of the same module with the same index from the specified page.
 
 h2. Use
 
