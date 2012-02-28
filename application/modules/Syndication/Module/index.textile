@@ -9,21 +9,10 @@ If a module is configured as a parent of Syndication.Module in the hierarchy.ini
 
 h2. Use
 
-As mentioned above the module may not be used directly. It can be specified as a descendant of a module that extends Aitsu_Module_Tree_Abstract either in the /application/modules/hierarchy.ini or in the .
+As mentioned above the module may not be used directly. It can be specified as a descendant of a module that extends Aitsu_Module_Tree_Abstract either in the /application/modules/hierarchy.ini or in the /application/skins/{skin}/module/hierarchy.ini. I.e.:
 
-h2. Configuration
+bc. Module.List_Download.Syndication_Module = null
 
-# Choose the article to take the content from;
-# Specify the module and the index (e.g. My.Module:1).
-
-h2. Static invocation (without editable configuration)
-
-If you intend to use the same content over and over again, you should not use this module. In this case you may put following script shortcode into the template:
-
-bc. <script type="application/x-aitsu" src="My.Module:1">
-	edit = false
-	execcontext = 123
-</script>
-
-# Replace My.Module:1 with the reference to the module of your choice;
-# Replace 123 (execcontext) with the idartlang of the source article.
+# Implement the module as would do normally.
+# Choose Syndication.Module in the configuration and save.
+# Edit the module again and choose the article to take the content from and save.
