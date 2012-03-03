@@ -22,7 +22,7 @@ h3. Listeners
 
 h3. Libraries
 
-Documentation of the libraries, i.e. the classes can be found in the file doc.textile in the library folder.
+Documentation of the libraries, i.e. the classes can be found in "here":../library/index.textile.
 
 h3. Other Sources of Documentation
 
