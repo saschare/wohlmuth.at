@@ -1,6 +1,6 @@
 h1. aitsu - Content Management Framework
 
-The documentation you'll find here is used as the basis of documentation that can be found "here":http://www.aitsu.org/ in the future. It's a work in progress. The current stage (February 2012) is the very beginning. Please be aware that you won't find most information here at the moment.
+The documentation you'll find here is used as the basis of documentation that can be found "here":http://www.aitsu.org/ in the future. It's a work in progress. Please be aware that a lot of information is not yet availabe. So please do not hesitate to ask: "aitsu Google Groups":https://groups.google.com/forum/?hl=de#!forum/aitsu.
 
 h2. Authors
 
