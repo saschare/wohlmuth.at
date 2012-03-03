@@ -6,6 +6,10 @@ h2. About
 
 For further information on aitsu(tm), please visit "the official website":http://www.aitsu.org/.
 
+h2. Documentation
+
+The documentation can be found "here":doc/index.textile.
+
 h2. Installation
 
 The installation is amazingly easy:
