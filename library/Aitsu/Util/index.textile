@@ -4,7 +4,7 @@ Aitsu_Util classes provide widely used functions as static methods.
 
 h2. Aitsu_Util_Array
 
-Often used and complex array manipulations. Inline documentation is found in the "class":Array.php.
+Provides complex array manipulations. Inline documentation is found in the "class":Array.php.
 
 h3. shiftAndMix
 
@@ -23,10 +23,20 @@ B F J N R
 C G K O S
 D H L P T
 
-h2. "Aitsu_Util_Date":Date.php
+h2. Aitsu_Util_Date
 
 Provides date manipulations and reformatting methods. Inline documentation is found in the "class":Date.php
 
+h2. Aitsu_Util_Dir
+
+h3. scan
+
+The method scans the file system recursively for files of the given pattern and returns the file paths.
+
+h3. rm
+
+Removes the given directory after removing its children and its content.
+
 h2. Aitsu_Util_Validator
 
-Often used validations such as email validation. Inline documentation is found in the "class":Validator.php
+Provides often used validations such as email validation. Inline documentation is found in the "class":Validator.php
