@@ -2,7 +2,7 @@ h1. Aitsu_Util Classes
 
 Aitsu_Util classes provide widely used functions as static methods.
 
-* "Aitsu_Util_Array":Array.php: Complex array manipulations.
+* *"Aitsu_Util_Array":Array.php*: Complex array manipulations.
 * "Aitsu_Util_Date":Date.php: Date formatting and calculations.
 * "Aitsu_Util_Dir":Dir.php: File system scan and recursive removement of directories.
 * "Aitsu_Util_Javascript":Javascript.php
