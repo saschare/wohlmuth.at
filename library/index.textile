@@ -1,4 +1,4 @@
 h1. Library
 
-* Aitsu
-** *"Aitsu_Util":Aitsu/Util/index.textile*
+* *Aitsu*
+** *"Aitsu_Util":Aitsu/Util/index.textile*: Utility classes to be used in the core, in plugins and modules.
