@@ -6,7 +6,7 @@ Furthermore we usually want to reference solely javascript libraries that are us
 
 Aitsu_Util_Javascript provides two methods to allow you to add javascript references as well as javascript code within modules, but placed at the bottom of the resulting HTML document.
 
-*Caution*: If you use this class in a module that is cached, you must place the code to add references or code into the *_init* method, because the *_main* method is not executed if there is a valid cache. See "module documentation":../../doc/reference/modules/index.textile for further information.
+*Caution*: If you use this class in a module that is cached, you must place the code to add references or code into the *_init* method, because the *_main* method is not executed if there is a valid cache. See "module documentation":../../../doc/reference/modules/index.textile for further information.
 
 h2. add
 
