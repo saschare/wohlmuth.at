@@ -6,4 +6,24 @@ Furthermore we usually want to reference solely javascript libraries that are us
 
 Aitsu_Util_Javascript provides two methods to allow you to add javascript references as well as javascript code within modules, but placed at the bottom of the resulting HTML document.
 
-*Caution*: If you use this class in a module that is cached, you must place the code to add references or code into the *_init* method, because the *_main* method is not executed if there is a valid cache. 
+*Caution*: If you use this class in a module that is cached, you must place the code to add references or code into the *_init* method, because the *_main* method is not executed if there is a valid cache.
+
+h2. add
+
+Allows you to add javascript at the bottom of the HTML document from within a module. Either with...
+
+bc. Aitsu_Util_Javascript :: add('place the javascript code here');
+
+...or even more comfortable by using a template with...
+
+bc. Aitsu_Util_Javascript :: add($this->_getView()->render('my-js-code.phtml')); 
+
+The script tag is added automatically.
+
+h2. addReference
+
+Adds a javascript reference with the given path:
+
+bc. Aitsu_Util_Javascript :: addReference('/path/to/js/lib.js');
+
+If several modules use the same reference (i.e. the same path) the lib is referenced only once.
