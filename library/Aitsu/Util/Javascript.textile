@@ -1,3 +1,5 @@
 h1. Aitsu_Util_Javascript
 
-For the sake of page load speed, CSS should always be placed in the header of the HTML document to provide information about the layout in an early stage. Javascript references as well as javascript code on the other hand, should always be placed in front of the closing body tag. Otherwise the browser stops rendering and loads the referenced javascript libraries, resulting in a much slower page rendering. 
+For the sake of page load speed, CSS should always be placed in the header of the HTML document to provide information about the layout in an early stage. Javascript references as well as javascript code on the other hand, should always be placed in front of the closing body tag. Otherwise the browser stops rendering and loads the referenced javascript libraries, resulting in a much slower page rendering.
+
+Furthermore we usually want to reference solely javascript libraries that are used in the current page. This particular point must be balanced on each individual case. It might be better to reference a bundle of javascript at the very beginning, as this is cached in the client's browser. However, if you have a library that is used within a module that is referenced once or twice on a site with thousands of pages, it may interesting to reference that particular library only, if the module is used in the page. 
