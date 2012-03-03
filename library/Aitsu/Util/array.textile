@@ -1,0 +1,20 @@
+h1. Aitsu_Util_Array
+
+Provides complex array manipulations. Inline documentation is found in the "class":Array.php.
+
+h2. shiftAndMix
+
+Reorders, for example, ...
+
+bc. A B C D E F G H I J K L M N O P Q R S T
+
+...when using 5 as the columns parameter to
+
+bc. A E I M Q B F J N R C G K O S D H L P T
+
+If you output the result in 5 columns, you will get something like...
+
+bc. A E I M Q
+B F J N R
+C G K O S
+D H L P T
