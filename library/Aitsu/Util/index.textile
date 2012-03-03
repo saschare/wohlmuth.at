@@ -25,18 +25,12 @@ D H L P T
 
 h2. Aitsu_Util_Date
 
-Provides date manipulations and reformatting methods. Inline documentation is found in the "class":Date.php
+Provides date manipulations and reformatting methods. Inline documentation is found in the "class":Date.php.
 
 h2. Aitsu_Util_Dir
 
-h3. scan
-
-The method scans the file system recursively for files of the given pattern and returns the file paths.
-
-h3. rm
-
-Removes the given directory after removing its children and its content.
+The "class":Dir.php provides method to recusively scan the file system and to remove directories.
 
 h2. Aitsu_Util_Validator
 
-Provides often used validations such as email validation. Inline documentation is found in the "class":Validator.php
+Provides often used validations such as email validation. Inline documentation is found in the "class":Validator.php.
