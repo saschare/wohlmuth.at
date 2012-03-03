@@ -13,9 +13,9 @@ class Aitsu_Util_Array {
 	 * as columns instead of lines.
 	 * A B C D E F G H I J K L M N O P Q R S T
 	 * ... is sorted to (using 5 as the columns parameter)
-	 * A E I M O B F J N R C G K O S D H L P T
+	 * A E I M Q B F J N R C G K O S D H L P T
 	 * If you output the result in left floating boxes you will get...
-	 * A E I M O
+	 * A E I M Q
 	 * B F J N R
 	 * C G K O S
 	 * D H L P T

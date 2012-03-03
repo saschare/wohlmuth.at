@@ -1,5 +1,7 @@
 h1. Aitsu_Util Classes
 
+Aitsu_Util classes provide widely used functions as static methods.
+
 h2. Aitsu_Util_Array
 
 Often used and complex array manipulations. Inline documentation is found in the "class":Array.php.
@@ -12,11 +14,19 @@ bc. A B C D E F G H I J K L M N O P Q R S T
 
 ...when using 5 as the columns parameter to
 
-bc. A E I M O B F J N R C G K O S D H L P T
+bc. A E I M Q B F J N R C G K O S D H L P T
 
 If you output the result in 5 columns, you will get something like...
 
-bc. A E I M O
+bc. A E I M Q
 B F J N R
 C G K O S
 D H L P T
+
+h2. "Aitsu_Util_Date":Date.php
+
+Provides date manipulations and reformatting methods. Inline documentation is found in the "class":Date.php
+
+h2. Aitsu_Util_Validator
+
+Often used validations such as email validation. Inline documentation is found in the "class":Validator.php
