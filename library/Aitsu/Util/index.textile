@@ -1,0 +1,5 @@
+h1. Aitsu_Util Classes
+
+h2. Aitsu_Util_Array
+
+Often used and complex array manipulations. Inline documentation is found in the "class":Array.php. 
