@@ -2,4 +2,21 @@ h1. Aitsu_Util Classes
 
 h2. Aitsu_Util_Array
 
-Often used and complex array manipulations. Inline documentation is found in the "class":Array.php. 
+Often used and complex array manipulations. Inline documentation is found in the "class":Array.php.
+
+h3. shiftAndMix
+
+Reorders, for example, ...
+
+bc. A B C D E F G H I J K L M N O P Q R S T
+
+...when using 5 as the columns parameter to
+
+bc. A E I M O B F J N R C G K O S D H L P T
+
+If you output the result in 5 columns, you will get something like...
+
+bc. A E I M O
+B F J N R
+C G K O S
+D H L P T
