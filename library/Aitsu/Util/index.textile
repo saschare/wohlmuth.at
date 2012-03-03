@@ -2,24 +2,12 @@ h1. Aitsu_Util Classes
 
 Aitsu_Util classes provide widely used functions as static methods.
 
-* *"Aitsu_Util_Array":array.textile*: Complex array manipulations.
+* *"Aitsu_Util_Array":Array.textile*: Complex array manipulations.
 * *"Aitsu_Util_Date":Date.php*: Date formatting and calculations.
 * *"Aitsu_Util_Dir":Dir.php*: File system scan and recursive removement of directories.
-* *"Aitsu_Util_Javascript":Javascript.php*: Dynamic linking of Javascript references and code.
+* *"Aitsu_Util_Javascript":Javascript.textile*: Dynamic linking of Javascript references and code.
 * *"Aitsu_Util_Request":Request.php*: Returns server variables taking into account apache request headers.
 * *"Aitsu_Util_String":String.php*: Complex string manipulations.
 * *"Aitsu_Util_Type":Type.php*: Type conversions.
 * *"Aitsu_Util_Uuid":Uuid.php*: Generates UUIDs.
 * *"Aitsu_Util_Validator":Validator.php*: Provides often used validations.
-
-h2. Aitsu_Util_Date
-
-Provides date manipulations and reformatting methods. Inline documentation is found in the "class":Date.php.
-
-h2. Aitsu_Util_Dir
-
-The "class":Dir.php provides method to recusively scan the file system and to remove directories.
-
-h2. Aitsu_Util_Validator
-
-Provides often used validations such as email validation. Inline documentation is found in the "class":Validator.php.

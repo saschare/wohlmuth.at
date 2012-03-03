@@ -1,0 +1,3 @@
+h1. Aitsu_Util_Javascript
+
+For the sake of page load speed CSS should always be placed in the header of the HTML document to provide information about the layout in an early stage. Javascript references as well as javascript code should always be placed in front of the closing body tag. The reason is the fact, that the browser stops rendering as soon as there a javascript references to be loaded. 
