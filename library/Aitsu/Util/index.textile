@@ -2,6 +2,16 @@ h1. Aitsu_Util Classes
 
 Aitsu_Util classes provide widely used functions as static methods.
 
+* "Aitsu_Util_Array":Array.php
+* "Aitsu_Util_Date":Date.php
+* "Aitsu_Util_Dir":Dir.php
+* "Aitsu_Util_Javascript":Javascript.php
+* "Aitsu_Util_Request":Request.php
+* "Aitsu_Util_String":String.php
+* "Aitsu_Util_Type":Type.php
+* "Aitsu_Util_Uuid":Uuid.php
+* "Aitsu_Util_Validator":Validator.php
+
 h2. Aitsu_Util_Array
 
 Provides complex array manipulations. Inline documentation is found in the "class":Array.php.
