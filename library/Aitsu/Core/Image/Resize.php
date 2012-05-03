@@ -97,7 +97,7 @@ class Aitsu_Core_Image_Resize {
 			}
 		}
 
-		$dir = APPLICATION_PATH . '/data/cachetransparent/data/image/' . $pathInfo['dirname'];
+		$dir = APPLICATION_PATH . '/data/cachetransparent/data' . Aitsu_Config :: get('sys.mainDir') . 'image/' . $pathInfo['dirname'];
 		if (!file_exists($dir)) {
 			mkdir($dir, 0777, true);
 		}

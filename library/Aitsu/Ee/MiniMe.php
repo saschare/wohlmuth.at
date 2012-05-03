@@ -189,7 +189,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
             mkdir($dir, 0777, true);
         }
 
-		  file_put_contents($dir . '/' . $_GET['minify'], $output);
+		  file_put_contents($dir . '/' . $_GET['minify'] . '.minime.' . $_GET['type'], $output);
 	}
 
 	public static function getInstance() {
