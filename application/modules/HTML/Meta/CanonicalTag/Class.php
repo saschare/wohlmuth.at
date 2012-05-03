@@ -23,17 +23,17 @@ class Module_HTML_Meta_CanonicalTag_Class extends Aitsu_Module_Abstract {
                 if ($art->idcat == Aitsu_Config::get('sys.startcat')) {
                     if (Aitsu_Config::get('rewrite.uselang')) {
                         $language = Aitsu_Persistence_Language::factory(Aitsu_Registry::get()->env->idlang)->name;
-                        $output = '<link rel="canonical" href="' . $base . '/' . $language . '/" />';
+                        $href = '/' . $language . '/"';
                     } else {
-                        $output = '<link rel="canonical" href="' . $base . '/" />';
+                        $href = '/"';
                     }
                 } elseif ($art->startidartlang == $art->idartlang) {
-			$output = '<link rel="canonical" href="' . $base . '{ref:idcat-' . $art->idcat . '}" />';
+			$href = '{ref:idcat-' . $art->idcat . '}"';
 		} else {
-			$output = '<link rel="canonical" href="' . $base . '{ref:idart-' . $art->idart . '}" />';
+			$href = '{ref:idart-' . $art->idart . '}"';
 		}
 
-		return $output;
+		return '<link rel="canonical" href="' . $base . '' . $href . '" />';
 	}
 
 	protected function _cachingPeriod() {
