@@ -168,6 +168,7 @@ class Aitsu_Persistence_Language extends Aitsu_Persistence_Abstract {
 		'select * from (' .
 		'	select ' .
 		'		lang.idlang, ' .
+                '		lang.lngsort, ' .
 		'		lang.name, ' .
 		'		lang.longname, ' .
 		'		client.name as client, ' .
@@ -176,7 +177,7 @@ class Aitsu_Persistence_Language extends Aitsu_Persistence_Abstract {
 		'		lang.direction ' .
 		'	from _lang lang' .
 		'	left join _clients client on lang.idclient = client.idclient ' .
-		') lang ', $limit, $offset, $filters, $orders);
+		') lang order by lngsort asc', $limit, $offset, $filters, $orders);
 	}
 
 	public static function getCurrentLangName() {
