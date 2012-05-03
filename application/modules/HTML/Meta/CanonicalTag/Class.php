@@ -20,7 +20,17 @@ class Module_HTML_Meta_CanonicalTag_Class extends Aitsu_Module_Abstract {
 			$base = substr(Aitsu_Config :: get('sys.canonicalpath'), 0, -1);
 		}
 
-		if ($art->startidartlang == $art->idartlang) {
+                if ($art->idcat == Aitsu_Config::get('sys.startcat')) {
+
+                    $language = Aitsu_Persistence_Language::factory(Aitsu_Registry::get()->env->idlang)->name;
+                    
+                    if (Aitsu_Config::get('rewrite.uselang')) {
+                        $output = '<link rel="canonical" href="' . $base . '/' . $language . '/" />';
+                    } else {
+                        $output = '<link rel="canonical" href="' . $base . '/" />';
+                    }
+                    
+                } elseif ($art->startidartlang == $art->idartlang) {
 			$output = '<link rel="canonical" href="' . $base . '{ref:idcat-' . $art->idcat . '}" />';
 		} else {
 			$output = '<link rel="canonical" href="' . $base . '{ref:idart-' . $art->idart . '}" />';
