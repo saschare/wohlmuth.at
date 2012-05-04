@@ -7,4 +7,5 @@ The first thing to do is to find a hosting provider with state of the art server
 Having an opcode cache installed you are almost done. A further significant gain may be achieved by caching. aitsu caches by default. However, not knowing what's available, it assumes there is at least a file system around (an assumption that won't be wrong in most cases). Consider...
 
 # If your maschine is connected to a distributed storage system the default cache location might be a bad decision. Distributed storage system usually deliver fast, however, dml operations (write, append, delete) are rather slow. In this case, you should use a local temporary directory and configure the path in the config.ini.
- 
+# To cache into the file system is a good decision as long as the amount of data cached has a reasonable size. As the amount grows is will take longer and longer to write the data, while reading it remains fast. As a consequence you might loose as much or even more performance (when the cache is invalid) as you win, when the cache is valid.
+# The file system is not that slow. But not writing to or reading from the disk will be much faster. If your server is equipped with APC you 
