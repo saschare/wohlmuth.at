@@ -2,3 +2,4 @@ h1. Performance
 
 The performance of the system is one its primary goals. Beside of the site's content, which have to be accurate and interesting, of course, fast response is one of the most important targets to achieve. The longer it takes to load the more people will abandon.
 
+The first thing to do is to find a hosting provider with state of the art servers and fast connections to networks the potential visitors are connected to. As the server is only one part of the story, you should - if you can - use some sort of opcode cache, such as "APC":http://php.net/manual/en/book.apc.php for example. This may increase performance be more than 200 per cent.
