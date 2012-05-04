@@ -3,3 +3,8 @@ h1. Performance
 The performance of the system is one its primary goals. Beside of the site's content, which have to be accurate and interesting, of course, fast response is one of the most important targets to achieve. The longer it takes to load the more people will abandon.
 
 The first thing to do is to find a hosting provider with state of the art servers and fast connections to networks the potential visitors are connected to. As the server is only one part of the story, you should - if you can - use some sort of opcode cache, such as "APC":http://php.net/manual/en/book.apc.php for example. This may increase performance be more than 200 per cent.
+
+Having an opcode cache installed you are almost done. A further significant gain may be achieved by caching. aitsu caches by default. However, not knowing what's available, it assumes there is at least a file system around (an assumption that won't be wrong in most cases). Consider...
+
+#If your maschine is connected to a distributed storage system the default cache location might be a bad decision. Distributed storage system usually deliver fast, however, dml operations (write, append, delete) are rather slow. In this case, you should use a local temporary directory and configure the path in the config.ini.
+ 
