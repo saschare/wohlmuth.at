@@ -24,6 +24,10 @@ h3. Libraries
 
 Documentation of the libraries, i.e. the classes can be found in "here":../library/index.textile.
 
+h3. Tips and Tricks
+
+Enhance everything a bit by following the "Tips and Tricks":tipsandtricks/index.textile.
+
 h3. Other Sources of Documentation
 
 * "Aitsu's Official Website":http://www.aitsu.org/

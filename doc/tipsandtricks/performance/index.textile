@@ -1,0 +1,4 @@
+h1. Performance
+
+The performance of the system is one its primary goals. Beside of the site's content, which have to be accurate and interesting, of course, fast response is one of the most important targets to achieve. The longer it takes to load the more people will abandon.
+
