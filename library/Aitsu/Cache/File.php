@@ -33,7 +33,10 @@ class Aitsu_Cache_File extends Aitsu_Cache_Abstract {
 		}
 
 		$backendOptions = array (
-			'cache_dir' => $cache_dir
+			'cache_dir' => $cache_dir,
+			'file_locking' => false,
+			'read_control' => false,
+			'hashed_directory_level' => 2
 		);
 
 		$this->cache = Zend_Cache :: factory('Output', 'File', $frontendOptions, $backendOptions);

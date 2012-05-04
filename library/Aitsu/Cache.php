@@ -3,9 +3,8 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-
 class Aitsu_Cache {
 
 	protected function __construct() {
@@ -29,14 +28,12 @@ class Aitsu_Cache {
 		}
 
 		if (!isset ($instance)) {
-			if (isset (Aitsu_Registry :: get()->config->memcached->enable) && Aitsu_Registry :: get()->config->memcached->enable) {
-				/*
-				 * Not yet implemented.
-				 */
-				throw new Exception('Memcache not yet implemented.');
+			$type = Aitsu_Config :: get('cache.type');
+			if ($type == 'apc') {
+				$instance = new Aitsu_Cache_Apc();
+			} else {
+				$instance = new Aitsu_Cache_File();
 			}
-
-			$instance = new Aitsu_Cache_File();
 		}
 
 		$instance->setId($sid);
