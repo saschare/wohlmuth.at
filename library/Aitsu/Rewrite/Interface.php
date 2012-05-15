@@ -3,11 +3,8 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2010, w3concepts AG
- * 
- * {@id $Id: Interface.php 19262 2010-10-12 13:32:25Z akm $}
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-
 interface Aitsu_Rewrite_Interface {
 
 	public static function getInstance();
