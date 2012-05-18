@@ -3,10 +3,9 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-
-class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
+class Aitsu_Rewrite_Standard extends Aitsu_Rewrite_Abstract {
 
 	protected function __construct() {
 	}
@@ -20,6 +19,11 @@ class Aitsu_Rewrite_Standard implements Aitsu_Rewrite_Interface {
 		}
 
 		return $instance;
+	}
+
+	public function register() {
+
+		return empty (Aitsu_Registry :: get()->env->idlang);
 	}
 
 	public function registerParams() {

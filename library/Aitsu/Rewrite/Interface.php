@@ -8,6 +8,8 @@
 interface Aitsu_Rewrite_Interface {
 
 	public static function getInstance();
+	
+	public function register();
 
 	public function registerParams();
 
