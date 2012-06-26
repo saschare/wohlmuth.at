@@ -434,6 +434,7 @@
     <table name="lang" engine="InnoDB" since="2.2.1.0">
         <field name="idlang" type="int(10) unsigned" default="null" autoincrement="true"
             primary="true"/>
+        <field name="artsort" type="int(10)" default="0"/>
         <field name="idclient" type="int(10) unsigned" default="null"
             comment="Client, the language belongs to.">
             <constraint table="clients" column="idclient" onupdate="restrict" ondelete="cascade"/>

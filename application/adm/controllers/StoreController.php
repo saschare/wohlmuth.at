@@ -75,9 +75,54 @@ class StoreController extends Zend_Controller_Action {
 	/**
 	 * Language data.
 	 * @since 2.1.0.0 - 23.12.2010
+         * 
+         * xaction == update
+         * @since 03.05.2012
+         * @package aitsu-ce
+         * @author Christian Kehres, webtischlerei
+         * @copyright Copyright &copy; 2012, webtischlerei
 	 */
 	public function languagesAction() {
 
+                $xaction = $this->getRequest()->getParam('xaction');
+                
+                if ($xaction == 'update') {
+                    $lngs = Aitsu_Persistence_Language :: getStore(100, 0, $this->_filter);
+                    
+                    $data = json_decode($this->getRequest()->getParam('data'));
+                    
+                    $pos = 0;
+                    
+                    for ($i = 0; $i < count($lngs); $i++) {
+                        $idlang = $lngs[$i]->idlang;
+                        
+			if ($pos == $data->lngsort) {
+                            $pos++;
+			}
+                        
+			if ($idlang == $data->idlang) {
+                            $lngsort = $data->lngsort;
+			} else {
+                            $lngsort = $pos++;
+			}
+                        
+			Aitsu_Db :: query('' .
+			'update _lang ' .
+			'set lngsort = :lngsort ' .
+			'where ' .
+			'	idlang = :idlang', array (
+				':lngsort' => $lngsort,
+				':idlang' => $lngs[$i]->idlang
+			));
+                    }
+                    
+                    $this->_helper->json((object) array (
+			'success' => true
+                    ));
+                    
+                    return;
+                }
+            
 		$this->_helper->json((object) array (
 			'data' => Aitsu_Persistence_Language :: getStore(100, 0, $this->_filter)
 		));

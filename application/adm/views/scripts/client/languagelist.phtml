@@ -3,6 +3,7 @@ var languages = new Ext.grid.GridPanel({
 	title: '<?php echo Aitsu_Translate :: translate('Languages'); ?>',
 	store: new Ext.data.JsonStore({
         autoDestroy: true,
+        autoLoad: true,
         url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'languages'), 'default'); ?>',
         remoteSort: false,
         storeId: 'languageStore',
@@ -20,10 +21,24 @@ var languages = new Ext.grid.GridPanel({
             name: 'locale'
         }, {
             name: 'encoding'
-        }]
+        }, {
+            name:'lngsort',
+            type:'int'
+        }],
+        autoSave: false,
+        writer: new Ext.data.JsonWriter({
+            encode: true,
+            writeAllFields: true
+	}),
+        listeners: {
+            save: function(store) {
+                store.load();
+            }
+	}
     }),
     columns: [
     	{dataIndex: 'idlang', header: 'ID', menuDisabled: false, sortable: false, width: 20},
+        {dataIndex: 'lngsort', header: '<?php echo Aitsu_Translate :: translate('#'); ?>', menuDisabled: true, sortable: true, width: 20},
     	{dataIndex: 'name', header: '<?php echo Aitsu_Translate :: translate('Identifier'); ?>', menuDisabled: false, sortable: true},
         {dataIndex: 'longname', header: '<?php echo Aitsu_Translate :: translate('Longname'); ?>', menuDisabled: false, sortable: true},
     	{dataIndex: 'client', header: '<?php echo Aitsu_Translate :: translate('Client'); ?>', menuDisabled: false, sortable: true},
@@ -46,13 +61,36 @@ var languages = new Ext.grid.GridPanel({
 	        }
 	    ]
 	},
+        enableDragDrop : true,
+        ddGroup : 'language-dd',
+	sm: new Ext.grid.RowSelectionModel({  
+	    singleSelect:true,  
+	    listeners: {  
+	        beforerowselect: function(sm,i,ke,row){  
+	            languages.ddText = row.data.name;  
+	        }  
+	    }  
+	}), 
 	listeners: {
-		render: {
-			fn: function(){
-				this.getStore().load();
-			}
+		render: function(grid) {
+			var ddrow = new Ext.dd.DropTarget(grid.container, {  
+			    ddGroup : 'language-dd', 
+			    copy: false, 
+			    notifyDrop : function(dd, e, data){  
+			        var sm = grid.getSelectionModel();  
+			        var rows = sm.getSelections();  
+			        var cindex = dd.getDragData(e).rowIndex;  
+			        if (sm.hasSelection()) {  
+			            for (i = 0; i < rows.length; i++) {  
+			                grid.store.getById(rows[i].id).set('lngsort', cindex);
+			            }  
+			            sm.selectRecords(rows);  
+			        }
+			        grid.store.save();  
+			    }  
+			}); 
 		},
-		rowclick: function(grid, rowIndex, event) {
+		celldblclick: function(grid, rowIndex, event) {
 			var id = this.getStore().getAt(rowIndex).get('idlang');
 			Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'client', 'action' => 'editlanguage'), 'default'); ?>'], null, {idlang: id});
 		},
