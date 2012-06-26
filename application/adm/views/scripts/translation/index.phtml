@@ -34,10 +34,14 @@ var translationGrid = new Ext.grid.GridPanel({
 	            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh list'); ?>',
 	            iconCls: 'tb-refresh',
 	            handler: function(b, e) {
-	            	translationGrid.getStore().load({
-	            		params: {
-	            			refresh: 1
-	            		}
+                        translationGrid.getStore().load({
+                            params: {
+                                refresh: 1
+                            },
+                            callback: Ext.aitsu.mask(true),
+                            callback: function(r, options, success) {
+                                Ext.aitsu.mask(false);
+                            }
 	            	});
 	            }
 	        }
