@@ -20,13 +20,20 @@ class Module_HTML_Meta_CanonicalTag_Class extends Aitsu_Module_Abstract {
 			$base = substr(Aitsu_Config :: get('sys.canonicalpath'), 0, -1);
 		}
 
-		if ($art->startidartlang == $art->idartlang) {
-			$output = '<link rel="canonical" href="' . $base . '{ref:idcat-' . $art->idcat . '}" />';
+                if ($art->idcat == Aitsu_Config::get('sys.startcat')) {
+                    if (Aitsu_Config::get('rewrite.uselang')) {
+                        $language = Aitsu_Persistence_Language::factory(Aitsu_Registry::get()->env->idlang)->name;
+                        $href = '/' . $language . '/"';
+                    } else {
+                        $href = '/"';
+                    }
+                } elseif ($art->startidartlang == $art->idartlang) {
+			$href = '{ref:idcat-' . $art->idcat . '}"';
 		} else {
-			$output = '<link rel="canonical" href="' . $base . '{ref:idart-' . $art->idart . '}" />';
+			$href = '{ref:idart-' . $art->idart . '}"';
 		}
 
-		return $output;
+		return '<link rel="canonical" href="' . $base . '' . $href . '" />';
 	}
 
 	protected function _cachingPeriod() {
