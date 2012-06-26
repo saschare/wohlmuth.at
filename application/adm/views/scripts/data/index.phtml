@@ -8,15 +8,19 @@ var editPage = function(id) {
 }
 		
 var reloadTree = function(id, tree) {
-	var node = tree.getNodeById(id);
-	if (node.id == 0) {
-		tree.getLoader().load(tree.getRootNode());
-	}
-	tree.getLoader().load(node.parentNode, function(n) {
-		n.expand(false, false, function() {
-			tree.getNodeById(node.attributes.id).expand(false, false);
-		});
-	});
+        if (id != undefined) {
+                var node = tree.getNodeById(id);
+                if (node.id == 0) {
+                        tree.getLoader().load(tree.getRootNode());
+                }
+                tree.getLoader().load(node.parentNode, function(n) {
+                        n.expand(false, false, function() {
+                                tree.getNodeById(node.attributes.id).expand(false, false);
+                        });
+                });
+        } else {
+                tree.getLoader().load(tree.getRootNode());
+        }
 }
 		
 var openTreePath = function(path, tree, select) {
@@ -175,7 +179,7 @@ var pagetree = 	new Ext.tree.TreePanel({
 										url: '<?php echo $this->url(array('controller' => 'category', 'action' => 'delete'), 'default'); ?>',
 							            success: function(response) {
 							            	var rsp = Ext.decode(response.responseText);
-							            	reloadTree(parent, pagetree);
+                                                                        reloadTree(parent, pagetree);
 							            },
 							            params: {
 							            	idcat: node.attributes.idcat
