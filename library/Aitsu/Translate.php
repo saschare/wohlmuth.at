@@ -36,7 +36,7 @@ class Aitsu_Translate {
 		$instance = self :: _getInstance();
 
                 if (!array_key_exists($text, $instance->translationMap)) {
-			self :: _createTranslationEntry($instance->idlang, $text);
+			self :: _createTranslationEntry($text);
 		}
                 
 		if (!array_key_exists($text, $instance->translationMap) || strlen($instance->translationMap[$text]) == 0) {
@@ -177,7 +177,7 @@ class Aitsu_Translate {
 		return Aitsu_Registry :: get()->Zend_Translate->translate($text);
 	}
         
-        protected function _createTranslationEntry($idlang, $tkey) {
+        protected function _createTranslationEntry($tkey) {
 
                 $instance = self :: _getInstance();
                 
@@ -187,7 +187,7 @@ class Aitsu_Translate {
                         '   (idlang, tkey) ' .
                         'values ' .
                         '   (?, ?) ', array (
-                                $idlang,
+                                $instance->idlang,
                                 $tkey
                         )
                 );
