@@ -35,11 +35,11 @@ class Aitsu_Translate {
 
 		$instance = self :: _getInstance();
 
-                if (!isset ($instance->translationMap[$text])) {
+                if (!array_key_exists($text, $instance->translationMap)) {
 			self :: _createTranslationEntry($instance->idlang, $text);
 		}
                 
-		if (!isset ($instance->translationMap[$text]) || strlen($instance->translationMap[$text]) == 0) {
+		if (!array_key_exists($text, $instance->translationMap) || strlen($instance->translationMap[$text]) == 0) {
 			return $text;
 		}
 
@@ -53,7 +53,7 @@ class Aitsu_Translate {
 		'where idlang = ? ', array (
 			$this->idlang
 		));
-
+                
 		if (!$results) {
 			return;
 		}
