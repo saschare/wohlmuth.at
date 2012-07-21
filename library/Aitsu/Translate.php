@@ -177,17 +177,22 @@ class Aitsu_Translate {
 		return Aitsu_Registry :: get()->Zend_Translate->translate($text);
 	}
         
-        protected static function _createTranslationEntry($idlang, $tkey) {
+        protected function _createTranslationEntry($idlang, $tkey) {
 
-		Aitsu_Db :: query('' .
-                    'insert into ' .
-                    '   _translate ' .
-                    '(idlang, tkey) ' .
-                    'values ' .
-                    '(?, ?) ', array (
-                        $idlang,
-			$tkey
-                    ));
+                $instance = self :: _getInstance();
+                
+                Aitsu_Db :: query('' .
+                        'insert into ' .
+                        '   _translate ' .
+                        '   (idlang, tkey) ' .
+                        'values ' .
+                        '   (?, ?) ', array (
+                                $idlang,
+                                $tkey
+                        )
+                );
+                    
+                $instance->translationMap[$tkey] = '';
 	}
 
 }
