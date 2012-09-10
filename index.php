@@ -11,9 +11,10 @@
  * @since 2.4.5
  */
 
+define('REQUEST_START', microtime(true));
+
 $dirPath = dirname(__FILE__);
 
-define('REQUEST_START', microtime(true));
 define('APPLICATION_PATH', $dirPath. '/application');
 define('LIBRARY_PATH', $dirPath. '/library');
 define('CACHE_PATH', APPLICATION_PATH . '/data/pagecache');
