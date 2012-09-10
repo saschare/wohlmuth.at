@@ -1,46 +1,44 @@
 <?php
 
 /**
- * @author Christian Kehres, webtischlerei
- * @copyright Copyright &copy; 2011, webtischlerei
+ * @author Christian Kehres <c.kehres@webtischlerei.de>
+ * 
+ * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
+ * 
+ * @version 1.1
+ * @since 2.2.x
  */
 class Aitsu_Placeholder {
 
     public static function get($identifier) {
 
-        if (Aitsu_Registry::isFront()) {
-            $idlang = Aitsu_Registry::get()->env->idlang;
-        } else {
-            $idlang = Aitsu_Registry::get()->session->currentLanguage;
-        }
+        $idlang = Aitsu_Registry::isFront() ? Aitsu_Registry::get()->env->idlang : Aitsu_Registry::get()->session->currentLanguage;
 
         if (!is_numeric($identifier)) {
-            $value = Aitsu_Db::fetchOne("
-            SELECT
-                `value`.`value`
-            FROM
-                `_placeholder` AS `placeholder`
-            INNER JOIN
-                `_placeholder_values` AS `value` ON (
-                    `value`.`placeholderid` = `placeholder`.`id`
-                 AND
-                    `value`.`idlang` =:idlang
-                )
-            WHERE
-                `placeholder`.`identifier` = :identifier
-            ", array(
+            $value = Aitsu_Db::fetchOne('' .
+                            'select ' .
+                            '   value.value ' .
+                            'from ' .
+                            '   _placeholder as placeholder ' .
+                            'inner join ' .
+                            '   _placeholder_values as value on (' .
+                            '       value.placeholderid = placeholder.id ' .
+                            '   and ' .
+                            '       value.idlang =:idlang ' .
+                            '   ) ' .
+                            'where ' .
+                            '   placeholder.identifier =:identifier', array(
                         ':identifier' => $identifier,
                         ':idlang' => $idlang
                     ));
         } else {
-            $value = Aitsu_Db::fetchOne("
-            SELECT
-                `identifier`
-            FROM
-                `_placeholder`
-            WHERE
-                `id` =:identifier
-            ", array(
+            $value = Aitsu_Db::fetchOneC('eternal', '' .
+                            'select ' .
+                            '   identifier ' .
+                            'from ' .
+                            '   _placeholder ' .
+                            'where ' .
+                            '   id =:identifier', array(
                         ':identifier' => $identifier
                     ));
         }
@@ -60,7 +58,15 @@ class Aitsu_Placeholder {
 
         unset($data);
 
-        $id = Aitsu_Db::fetchOne("SELECT `id` FROM `_placeholder_values` WHERE `idlang` =:idlang AND `placeholderid` =:placeholderid", array(
+        $id = Aitsu_Db::fetchOneC('eternal', '' .
+                        'select ' .
+                        '   id ' .
+                        'from ' .
+                        '   _placeholder_values ' .
+                        'where ' .
+                        '   idlang =:idlang ' .
+                        'and ' .
+                        '   placeholderid =:placeholderid', array(
                     ':placeholderid' => $placeholderid,
                     ':idlang' => Aitsu_Registry::get()->session->currentLanguage
                 ));
