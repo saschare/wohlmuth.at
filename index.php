@@ -1,14 +1,24 @@
 <?php
 
 /**
- * @author Anreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2012, w3concepts AG
+ * @author Andreas Kummer <a.kummer@wdrei.ch>
+ * @author Christian Kehres <c.kehres@webtischlerei.de>
+ * 
+ * @copyright (c) 2012, w3concepts AG <http://www.wdrei.ch>
+ * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
+ * 
+ * @version 1.1
+ * @since 2.4.5
  */
+
+$dirPath = dirname(__FILE__);
+
 define('REQUEST_START', microtime(true));
-define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/application'));
+define('APPLICATION_PATH', $dirPath. '/application');
+define('LIBRARY_PATH', $dirPath. '/library');
 define('CACHE_PATH', APPLICATION_PATH . '/data/pagecache');
 
-require_once (realpath('./library/Aitsu/Bootstrap.php'));
+require_once (LIBRARY_PATH . '/Aitsu/Bootstrap.php');
 
 $md5available = in_array('md5', hash_algos()) ? true : false;
 
