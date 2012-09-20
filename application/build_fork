@@ -10,9 +10,9 @@ $revision = $match[2] + 1;
 $applicationStatus = str_replace($match[0], '\'$version/' . $version . '/revision/' . $revision . '$\'', $applicationStatus);
 file_put_contents($filename, $applicationStatus);
 
-$filename = realpath(dirname(__FILE__) . '/../README_FORK.textile');
+$filename = realpath(dirname(__FILE__) . '/../README.textile');
 $readme = file_get_contents($filename);
-$readme = preg_replace('@^Current version\\:\\s*\\*[^\\*]*\\*@m', "Current version: *$version-$revision*", $readme);
+$readme = preg_replace('@^Fork version\\:\\s*\\*[^\\*]*\\*@m', "Fork version: *$version-$revision*", $readme);
 file_put_contents($filename, $readme);
 
 passthru('git commit -a -m "Version ' . $version . ', Revision ' . $revision . '"');
