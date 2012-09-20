@@ -282,7 +282,9 @@ abstract class Aitsu_Module_Abstract {
 		);
 		$skinModulePath = APPLICATION_PATH . "/skins/" . (isset (Aitsu_Registry :: get()->config->skin) ? Aitsu_Registry :: get()->config->skin : 'x') . "/module/" . str_replace($search, $replace, $modulePath);
 
-		if (file_exists($skinModulePath . '/class.php')) {
+		$skinModuleFiles = preg_grep("/^Class.php$|.phtml$/", $skinModulePath);
+                
+		if (count($skinModuleFiles) > 0) {
 			$view->setScriptPath($skinModulePath);
 		}
 		elseif (file_exists(APPLICATION_PATH . '/modules/' . str_replace('_', '/', substr($class, 7, strlen($class) - 13)))) {
