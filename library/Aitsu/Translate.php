@@ -3,7 +3,9 @@
 
 /**
  * @author Andreas Kummer, w3concepts AG
+ * @author Christian Kehres, webtischlerei
  * @copyright Copyright &copy; 2010, w3concepts AG
+ * @copyright Copyright &copy; 2012, webtischlerei
  */
 
 class Aitsu_Translate {
@@ -33,7 +35,11 @@ class Aitsu_Translate {
 
 		$instance = self :: _getInstance();
 
-		if (!isset ($instance->translationMap[$text]) || strlen($instance->translationMap[$text]) == 0) {
+                if (!array_key_exists($text, $instance->translationMap)) {
+			self :: _createTranslationEntry($text);
+		}
+                
+		if (!array_key_exists($text, $instance->translationMap) || strlen($instance->translationMap[$text]) == 0) {
 			return $text;
 		}
 
@@ -47,7 +53,7 @@ class Aitsu_Translate {
 		'where idlang = ? ', array (
 			$this->idlang
 		));
-
+                
 		if (!$results) {
 			return;
 		}
@@ -169,6 +175,24 @@ class Aitsu_Translate {
 		}
 
 		return Aitsu_Registry :: get()->Zend_Translate->translate($text);
+	}
+        
+        protected function _createTranslationEntry($tkey) {
+
+                $instance = self :: _getInstance();
+                
+                Aitsu_Db :: query('' .
+                        'insert into ' .
+                        '   _translate ' .
+                        '   (idlang, tkey) ' .
+                        'values ' .
+                        '   (?, ?) ', array (
+                                $instance->idlang,
+                                $tkey
+                        )
+                );
+                    
+                $instance->translationMap[$tkey] = '';
 	}
 
 }
