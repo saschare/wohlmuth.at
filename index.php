@@ -21,16 +21,14 @@ define('CACHE_PATH', APPLICATION_PATH . '/data/pagecache');
 
 require_once (LIBRARY_PATH . '/Aitsu/Bootstrap.php');
 
-$md5available = in_array('md5', hash_algos()) ? true : false;
-
 $request = array_merge($_REQUEST, array($_SERVER['HTTP_HOST']));
 $serializedRequest = serialize($request);
-define('REQUEST_HASH', $md5available ? md5($serializedRequest) : hash('md4', $serializedRequest));
+define('REQUEST_HASH', crc32($serializedRequest));
 unset($request);
 
 $content = Aitsu_Bootstrap :: run()->getOutput();
 
-$etag = $md5available ? md5($content) : hash('md4', $content);
+$etag = crc32($content);
 
 header("ETag: {$etag}");
 
