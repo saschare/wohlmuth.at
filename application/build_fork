@@ -12,7 +12,6 @@ file_put_contents($filename, $applicationStatus);
 
 $filename = realpath(dirname(__FILE__) . '/../README_FORK.textile');
 $readme = file_get_contents($filename);
-echo "$version-$revision\n";
 $readme = preg_replace('@^Current version\\:\\s*\\*[^\\*]*\\*@m', "Current version: *$version-$revision*", $readme);
 file_put_contents($filename, $readme);
 
