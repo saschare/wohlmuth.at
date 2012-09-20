@@ -77,16 +77,16 @@ class Aitsu_Util_Date {
 
 		$newTime = $this->_time + $seconds;
 
-		$before = date('I', $this->_time);
-		$after = date('I', $newTime);
-
-		if ($before > $after) {
-			$newTime = $newTime +60 * 60;
-		}
-		elseif ($before < $after) {
-			$newTime = $newTime -60 * 60;
-		}
-
+                if (date("I")) {
+                    if (!date("I", $newTime)) {
+                        $newTime = $newTime + 3600;
+                    }
+                } else {
+                    if (date("I", $newTime)) {
+                        $newTime = $newTime - 3600;
+                    }
+                }
+                
 		$this->_time = $newTime;
 
 		return $this;
