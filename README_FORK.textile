@@ -1,6 +1,6 @@
 h1. aitsu - Content Management Framework (Forked by webtischlerei)
 
-Current version: *1.0.0-4*
+Current version: *1.0.0-5*
 
 h2. About
 
