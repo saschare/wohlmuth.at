@@ -22,6 +22,6 @@ passthru('git merge dev');
 passthru('git push origin release');
 passthru('git tag -a v' . $version . '-' . $revision . ' -m "Version ' . $version . ', Revision ' . $revision . ' released."');
 passthru('git push --tags');
-passthru('git checkout origin -b dev');
+passthru('git checkout dev');
 
 ?>
