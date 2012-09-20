@@ -1,2 +1,0 @@
-Modules
-View available modules and search for eventual updates.
