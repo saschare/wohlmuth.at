@@ -2,7 +2,7 @@ h1. aitsu CMS Fork by webtischlerei - Roadmap
 
 h2. v1.1.0
 
-# removed all unused files
+# removed all unused files *"issues #1":https://github.com/webtischlerei/aitsu/issues/1*
 # replaced default skin with a simple "it`s working" page
 # removed all aitsuEe files and depencies
 # updated Zend Framework to newest Zend Framework 1.x version
