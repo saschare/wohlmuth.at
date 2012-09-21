@@ -16,12 +16,12 @@ $readme = preg_replace('@^Fork version\\:\\s*\\*[^\\*]*\\*@m', "Fork version: *$
 file_put_contents($filename, $readme);
 
 passthru('git commit -a -m "Version ' . $version . ', Revision ' . $revision . '"');
-passthru('git push origin dev');
+passthru('git push origin release.dev');
 passthru('git checkout release');
-passthru('git merge dev');
+passthru('git merge release.dev');
 passthru('git push origin release');
 passthru('git tag -a v' . $version . '-' . $revision . ' -m "Version ' . $version . ', Revision ' . $revision . ' released."');
 passthru('git push --tags');
-passthru('git checkout dev');
+passthru('git checkout release.dev');
 
 ?>
