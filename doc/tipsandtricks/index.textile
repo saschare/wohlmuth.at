@@ -1,3 +1,0 @@
-h1. Tips and Tricks
-
-* "Improve performance":performance/index.textile

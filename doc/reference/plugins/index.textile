@@ -1,3 +1,0 @@
-h1. Plugins
-
-The documentation is not ready yet to be published.
