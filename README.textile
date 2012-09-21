@@ -1,7 +1,7 @@
 h1. aitsu - Content Management Framework
 
 Current version: *2.4.4-11*
-Fork version: *1.0.0-8* by webtischlerei
+Fork version: *1.0.0-9* by webtischlerei
 
 h2. About
 
