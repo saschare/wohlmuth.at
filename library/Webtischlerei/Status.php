@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, w3conceps AG
+ * @author Christian Kehres <c.kehres@webtischlerei.de>
+ * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
  */
 class Webtischlerei_Status {
 
@@ -10,7 +10,7 @@ class Webtischlerei_Status {
 
         $version = '$version/1.0.0/revision/8$';
 
-        $version = str_replace(array(
+        return str_replace(array(
             'version/',
             '/revision/',
             '$'
@@ -19,8 +19,6 @@ class Webtischlerei_Status {
             '-',
             ''
                 ), $version);
-
-        return $version;
     }
 
 }
