@@ -2,14 +2,14 @@ h1. aitsu CMS Fork by webtischlerei - Roadmap
 
 h2. v1.1.0
 
-# removed all unused files *"issues #1":https://github.com/webtischlerei/aitsu/issues/1*
-# replaced default skin with a simple "it`s working" page
-# removed all aitsuEe files and depencies
-# updated Zend Framework to newest Zend Framework 1.x version
-# cleand up database dump
+# removed all unused files *">> issue #1":https://github.com/webtischlerei/aitsu/issues/1*
+# replaced default skin with a simple "it`s working" page *">> issue #2":https://github.com/webtischlerei/aitsu/issues/2*
+# removed all aitsuEe files and depencies *">> issue #3":https://github.com/webtischlerei/aitsu/issues/3*
+# updated Zend Framework to newest Zend Framework 1.x version *">> issue #4":https://github.com/webtischlerei/aitsu/issues/4*
+# cleand up database dump *">> issue #5":https://github.com/webtischlerei/aitsu/issues/5*
 
 h2. v1.2.0
-# setup checks requirements, for example: php >= 5.2 or mysql >= 5.1
+# setup checks requirements, for example: php >= 5.2 or mysql >= 5.1 *">> issue #6":https://github.com/webtischlerei/aitsu/issues/6*
 
 h2. v1.3.0
-# added basic logging of user actions
+# added basic logging of user actions *">> issue #7":https://github.com/webtischlerei/aitsu/issues/7*
