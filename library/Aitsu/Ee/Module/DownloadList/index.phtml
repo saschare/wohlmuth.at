@@ -1,8 +1,0 @@
-<?php if (count($this->elements) == 0 && Aitsu_Application_Status :: isEdit()) : ?>
-<div>[[ DOWNLOAD LIST: no files chosen so far ]]</div>
-<?php return; endif; ?>
-<ul>
-<?php foreach ($this->elements as $element) : ?>
-	<li><?php echo print_r($element, true); ?></li>
-<?php endforeach; ?>
-</ul>
