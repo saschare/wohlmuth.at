@@ -8,7 +8,7 @@
  *
  * {@id$}
  */
-class Aitsu_Ee_Transformation_Skin implements Aitsu_Event_Listener_Interface {
+class Aitsu_Transformation_Skin implements Aitsu_Event_Listener_Interface {
 
     protected function __construct() {
 

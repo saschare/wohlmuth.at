@@ -10,7 +10,7 @@
  * {@id $Id: Select.php 16750 2010-06-02 08:15:42Z akm $}
  */
 
-class Aitsu_Ee_Config_Select extends Aitsu_Content_Config_Abstract {
+class Aitsu_Config_Select extends Aitsu_Content_Config_Abstract {
 	
 	public function getTemplate() {
 

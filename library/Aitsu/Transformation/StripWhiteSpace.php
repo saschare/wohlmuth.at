@@ -9,7 +9,7 @@
  *
  * {@id $Id: StripWhiteSpace.php 18229 2010-08-20 06:58:18Z akm $}
  */
-class Aitsu_Ee_Transformation_StripWhiteSpace implements Aitsu_Event_Listener_Interface {
+class Aitsu_Transformation_StripWhiteSpace implements Aitsu_Event_Listener_Interface {
 
 	public static function notify(Aitsu_Event_Abstract $event) {
 		

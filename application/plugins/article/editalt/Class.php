@@ -67,7 +67,7 @@ class EditaltArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		Aitsu_Registry :: isEdit(true);
 		Aitsu_Registry :: isBoxModel(true);
-		$content = Aitsu_Ee_Transformation_Shortcode :: getInstance()->getContent('<script type="application/x-aitsu" src="Template:Root"></script>');
+		$content = Aitsu_Transformation_Shortcode :: getInstance()->getContent('<script type="application/x-aitsu" src="Template:Root"></script>');
 
 		$content = strip_tags($content, '<shortcode>,<code>');
 		$content = preg_replace('/&[a-zA-Z0-9]*;/', ' ', $content);

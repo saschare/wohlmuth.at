@@ -18,7 +18,7 @@
  * @copyright Copyright &copy; 2011, w3concepts AG
  */
 
-class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
+class Aitsu_MiniMe implements Aitsu_Event_Listener_Interface {
 
 	protected $cache = null;
 
@@ -226,7 +226,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 		$instance = self :: getInstance();
 
 		if (!isset ($instance->resources['css'][1][$path])) {
-			throw new Aitsu_Ee_MiniMe_ResourceMissingException('The resource ' . $path . ' is not available.');
+			throw new Aitsu_MiniMe_ResourceMissingException('The resource ' . $path . ' is not available.');
 		}
 
 		$instance->addedResources['css'][$path] = $instance->resources['css'][1][$path];
@@ -237,7 +237,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 		$instance = self :: getInstance();
 
 		if (!isset ($instance->resources['js'][1][$path])) {
-			throw new Aitsu_Ee_MiniMe_ResourceMissingException('The resource ' . $path . ' is not available.');
+			throw new Aitsu_MiniMe_ResourceMissingException('The resource ' . $path . ' is not available.');
 		}
 
 		$instance->addedResources['js'][$path] = $instance->resources['js'][1][$path];
@@ -250,7 +250,7 @@ class Aitsu_Ee_MiniMe implements Aitsu_Event_Listener_Interface {
 		$addedResources = array ();
 		foreach ($resources as $res) {
 			if (!isset ($instance->resources[$type][1][$res])) {
-				throw new Aitsu_Ee_MiniMe_ResourceMissingException('The resource ' . $res . ' is not available.');
+				throw new Aitsu_MiniMe_ResourceMissingException('The resource ' . $res . ' is not available.');
 			}
 			$addedResources[] = $instance->resources[$type][1][$res];
 		}

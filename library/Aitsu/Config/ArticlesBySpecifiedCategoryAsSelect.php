@@ -12,7 +12,7 @@
  * this class will no longer be usable. It is available for documentation
  * purposes only.
  */
-class Aitsu_Ee_Config_ArticlesBySpecifiedCategoryAsSelect extends Aitsu_Content_Config_Abstract {
+class Aitsu_Config_ArticlesBySpecifiedCategoryAsSelect extends Aitsu_Content_Config_Abstract {
 
 	public function getTemplate() {
 

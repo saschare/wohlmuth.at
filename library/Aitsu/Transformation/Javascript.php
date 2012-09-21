@@ -8,7 +8,7 @@
  * {@id $Id: Javascript.php 18373 2010-08-27 09:50:04Z akm $}
  */
 
-class Aitsu_Ee_Transformation_Javascript implements Aitsu_Event_Listener_Interface {
+class Aitsu_Transformation_Javascript implements Aitsu_Event_Listener_Interface {
 
 	public static function notify(Aitsu_Event_Abstract $event) {
 

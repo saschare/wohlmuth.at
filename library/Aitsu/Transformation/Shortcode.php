@@ -5,7 +5,7 @@
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2012, w3concepts AG
  */
-class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interface {
+class Aitsu_Transformation_Shortcode implements Aitsu_Event_Listener_Interface {
 
 	protected function __construct() {
 	}
@@ -95,7 +95,7 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 		/*
 		 * Standard Shortcode class.
 		 */
-		$sc = Aitsu_Ee_Shortcode :: getInstance();
+		$sc = Aitsu_Shortcode :: getInstance();
 
 		for ($i = 0; $i < count($matches[0]); $i++) {
 			$method = $matches[1][$i];
@@ -134,7 +134,7 @@ class Aitsu_Ee_Transformation_Shortcode implements Aitsu_Event_Listener_Interfac
 		/*
 		 * Standard Shortcode class.
 		 */
-		$sc = Aitsu_Ee_Shortcode :: getInstance();
+		$sc = Aitsu_Shortcode :: getInstance();
 
 		for ($i = 0; $i < count($matches[0]); $i++) {
 			$method = $matches[1][$i];

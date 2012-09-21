@@ -10,5 +10,5 @@
  * {@id $Id: ResourceMissingException.php 17307 2010-06-25 12:09:42Z akm $}
  */
 
-class Aitsu_Ee_MiniMe_ResourceMissingException extends Exception {
+class Aitsu_MiniMe_ResourceMissingException extends Exception {
 }
