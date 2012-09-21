@@ -269,13 +269,11 @@ abstract class Aitsu_Module_Abstract {
 		$view = $view == null ? new Zend_View() : $view;
 
 		$search = array (
-			'Aitsu/Ee/Module/',
 			'Local/Module/',
 			'Skin/Module/',
 			'Module/'
 		);
 		$replace = array (
-			'',
 			'',
 			'',
 			''
