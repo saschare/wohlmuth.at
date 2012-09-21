@@ -1,4 +1,4 @@
-h1. aitsu CMS Fork by webtischlrei - Roadmap
+h1. aitsu CMS Fork by webtischlerei - Roadmap
 
 h2. v1.1.0
 
@@ -6,4 +6,10 @@ h2. v1.1.0
 # replaced default skin with a simple "it`s working" page
 # removed all aitsuEe files and depencies
 # updated Zend Framework to newest Zend Framework 1.x version
+# cleand up database dump
+
+h2. v1.2.0
+# setup checks requirements, for example: php >= 5.2 or mysql >= 5.1
+
+h2. v1.3.0
 # added basic logging of user actions
