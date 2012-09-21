@@ -114,12 +114,12 @@ abstract class Aitsu_Module_Abstract {
 		if (!empty ($instance->_context['params'])) {
 			$instance->_params = Aitsu_Util :: parseSimpleIni($instance->_context['params']);
 		}
-		
+
 		/*
 		 * Suppress edit option, if _allowEdit is set to false or the
 		 * edit parameter is set to false.
 		 */
-		if (!$instance->_allowEdit || (isset($instance->_params->edit) && !$instance->_params->edit)) {
+		if (!$instance->_allowEdit || (isset ($instance->_params->edit) && !$instance->_params->edit)) {
 			Aitsu_Content_Edit :: noEdit($instance->_moduleName, true);
 		}
 
@@ -184,8 +184,8 @@ abstract class Aitsu_Module_Abstract {
 				'<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
 				'<span style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">' . $output . '</span>';
 			}
-			
-			if (isset($instance->_params->suppressWrapping) && $instance->_params->suppressWrapping) {
+
+			if (isset ($instance->_params->suppressWrapping) && $instance->_params->suppressWrapping) {
 				return $output;
 			}
 
@@ -282,7 +282,8 @@ abstract class Aitsu_Module_Abstract {
 		);
 		$skinModulePath = APPLICATION_PATH . "/skins/" . (isset (Aitsu_Registry :: get()->config->skin) ? Aitsu_Registry :: get()->config->skin : 'x') . "/module/" . str_replace($search, $replace, $modulePath);
 
-		if (file_exists($skinModulePath . '/Class.php')) {
+		$skinModuleFiles = preg_grep("/^Class.php$|.phtml$/", $skinModulePath);
+		if (count($skinModuleFiles) > 0) {
 			$view->setScriptPath($skinModulePath);
 		}
 		elseif (file_exists(APPLICATION_PATH . '/modules/' . str_replace('_', '/', substr($class, 7, strlen($class) - 13)))) {
