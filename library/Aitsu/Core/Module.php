@@ -80,10 +80,10 @@ class Aitsu_Core_Module {
 		$cCurrentContainer = $this->container;
 
 		if ($this->shortCode != null) {
-			$return = Aitsu_Ee_Shortcode :: getInstance()->evalModule($this->shortCode, $params, 0, $index);
+			$return = Aitsu_Shortcode :: getInstance()->evalModule($this->shortCode, $params, 0, $index);
 		}
 		if ($renderShortCodes) {
-			$return = Aitsu_Ee_Transformation_Shortcode :: getInstance()->getContent($return);
+			$return = Aitsu_Transformation_Shortcode :: getInstance()->getContent($return);
 		}
 
 		/*
@@ -104,8 +104,7 @@ class Aitsu_Core_Module {
 			'Skin_Module' => APPLICATION_PATH . "/skins/" . Aitsu_Registry :: get()->config->skin . "/module/" . str_replace('.', '/', $this->shortCode) . "/Class.php",
 			'Local_Module' => realpath(APPLICATION_PATH . '/../library/Local/Module/' . str_replace('.', '/', $this->shortCode) . '/Class.php'),
 			'Comm_Module' => realpath(APPLICATION_PATH . '/../library/Comm/Module/' . str_replace('.', '/', $this->shortCode) . '/Class.php'),
-			'Module' => APPLICATION_PATH . '/modules/' . str_replace('.', '/', $this->shortCode) . '/Class.php',
-			'Aitsu_Ee_Module' => realpath(APPLICATION_PATH . '/../library/Aitsu/Ee/Module/' . str_replace('.', '/', $this->shortCode) . '/Class.php')
+			'Module' => APPLICATION_PATH . '/modules/' . str_replace('.', '/', $this->shortCode) . '/Class.php'
 		);
 
 		$exists = false;

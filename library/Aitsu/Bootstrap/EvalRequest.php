@@ -72,7 +72,7 @@ class Aitsu_Bootstrap_EvalRequest {
 		}
 
 		if (!isset (Aitsu_Registry :: get()->env->idartlang)) {
-			$altUrl = Aitsu_Ee_Rewrite_History :: getInstance()->getAlternative();
+			$altUrl = Aitsu_Rewrite_History :: getInstance()->getAlternative();
 			if ($altUrl !== false) {
 				header("HTTP/1.1 301 Moved Permanently");
 				header("Location: {$altUrl}");
@@ -97,7 +97,7 @@ class Aitsu_Bootstrap_EvalRequest {
 		/*
 		 * Save URL / idartlang combination for seo purposes.
 		 */
-		Aitsu_Ee_Rewrite_History :: getInstance()->saveUrl();
+		Aitsu_Rewrite_History :: getInstance()->saveUrl();
 
 		/*
 		 * Set the appropriate locale, taken from the database or de_DE, if no

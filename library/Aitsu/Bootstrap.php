@@ -205,7 +205,7 @@ class Aitsu_Bootstrap {
 			return;
 		}
 
-		Aitsu_Ee_Cache_Page :: getInstance()->clearCache();
+		Aitsu_Cache_Page :: getInstance()->clearCache();
 
 		if ($_GET['clearcache'] == 'all') {
 			Aitsu_Util_Dir :: rm(APPLICATION_PATH . '/data/cachetransparent/data');
@@ -452,7 +452,7 @@ class Aitsu_Bootstrap {
 			return;
 		}
 
-		Aitsu_Ee_Cache_Page :: getInstance()->saveFs($this->pageContent);
+		Aitsu_Cache_Page :: getInstance()->saveFs($this->pageContent);
 	}
 
 	protected function _TriggerIndexing() {

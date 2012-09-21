@@ -29,7 +29,7 @@ class Aitsu_Profiler {
 			/*
 			 * Disable caching on page level.
 			 */
-			Aitsu_Ee_Cache_Page :: lifetime(-1);
+			Aitsu_Cache_Page :: lifetime(-1);
 
 			/*
 			 * Activate profiling.
