@@ -1,8 +1,7 @@
-h1. aitsu - Content Management Framework
+h1. moraso CMS (based on aitsu CMF)
 
-Current version: *2.4.4-13*
-
-Fork version: *1.1.0-7* by webtischlerei
+aitsu version: *2.4.4-13*
+moraso version: *1.1.0-7*
 
 h2. About
 

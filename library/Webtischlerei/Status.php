@@ -8,7 +8,7 @@ class Webtischlerei_Status {
 
     public static function version() {
 
-        $version = '$version/1.1.0/revision/7$';
+        $version = '$version/1.1.0/revision/8$';
 
         return str_replace(array(
             'version/',
