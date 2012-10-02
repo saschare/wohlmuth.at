@@ -10,6 +10,7 @@ h2. v1.1.0
 
 h2. v1.2.0
 # setup checks requirements, for example: php >= 5.2 or mysql >= 5.1 *"issue #6":https://github.com/webtischlerei/aitsu/issues/6*
+# own eav modell *"issue #8":https://github.com/webtischlerei/aitsu/issues/8*
 
 h2. v1.3.0
 # added basic logging of user actions *"issue #7":https://github.com/webtischlerei/aitsu/issues/7*
