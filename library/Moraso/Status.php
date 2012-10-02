@@ -4,7 +4,7 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
  */
-class Webtischlerei_Status {
+class Moraso_Status {
 
     public static function version() {
 
