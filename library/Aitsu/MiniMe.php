@@ -358,7 +358,7 @@ class Aitsu_MiniMe implements Aitsu_Event_Listener_Interface {
 
 	protected function _minifyJs(& $js) {
 
-		include_once ('Aitsu/Ee/MiniMe/jsmin.php');
+		include_once ('Aitsu/MiniMe/jsmin.php');
 
 		$js = JSMin :: minify($js);
 	}
