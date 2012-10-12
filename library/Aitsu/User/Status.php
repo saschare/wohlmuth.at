@@ -30,6 +30,10 @@ class Aitsu_User_Status {
 	}
 
 	public static function isHuman($set = null) {
+		
+		if (is_null($set) && !is_null(Aitsu_Adm_User :: getInstance()) && Aitsu_Adm_User :: getInstance()->getId() != null) {
+			return true;
+		}
 
 		$instance = self :: _getInstance();
 

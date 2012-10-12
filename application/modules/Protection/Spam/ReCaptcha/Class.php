@@ -12,17 +12,6 @@ class Module_Protection_Spam_ReCaptcha_Class extends Aitsu_Module_Abstract {
 
 	protected function _init() {
 
-		$this->_verifyResponse();
-		
-		if (Aitsu_User_Status :: isHuman()) {
-			/*
-			 * We have to redirect the browser to where the user has
-			 * been before.
-			 */
-			header('Location: ' . Aitsu_User_Status :: getUrl(1));
-			exit;
-		}
-
 		$view = $this->_getView();
 
 		$theme = Aitsu_Content_Config_Radio :: set($this->_index, 'ReCaptcha.theme', '', array (
@@ -38,6 +27,17 @@ class Module_Protection_Spam_ReCaptcha_Class extends Aitsu_Module_Abstract {
 
 		if (Aitsu_Application_Status :: isEdit()) {
 			return;
+		}
+
+		$this->_verifyResponse();
+
+		if (Aitsu_User_Status :: isHuman() && !Aitsu_Application_Status :: isPreview()) {
+			/*
+			 * We have to redirect the browser to where the user has
+			 * been before.
+			 */
+			header('Location: ' . Aitsu_User_Status :: getUrl(1));
+			exit;
 		}
 
 		$return = $view->render('init.phtml');
@@ -63,7 +63,7 @@ class Module_Protection_Spam_ReCaptcha_Class extends Aitsu_Module_Abstract {
 			'response' => $_POST['recaptcha_response_field']
 		));
 		$response = $client->request('POST');
-		
+
 		if (substr($response->getBody(), 0, 4) == 'true') {
 			Aitsu_User_Status :: isHuman(true);
 		}
