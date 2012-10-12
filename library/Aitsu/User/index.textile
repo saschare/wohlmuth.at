@@ -12,3 +12,18 @@ If you can verify his status (by using a captcha method) you may also set his st
 
 bc. Aitsu_User_Status :: isHuman(true);
 
+The information is put into or provided from the session and will reamain unchanged from then on.
+
+h2. getUrl
+
+Beginning with the version 2.5.0 aitsu tracks the distinct URLs the user has visited and puts them into a stack. You may get the last URL (the one before the visitor reached the current page) by following call:
+
+bc. Aitsu_User_Status :: getUrl();
+
+Alternatively you may provide an index as follows:
+
+bc. Aitsu_User_Status :: getUrl(3);
+
+The index starts at 0 (current page). An index of 1 will get the last page, an index of 2 the page before and so on.
+
+*Important*: The stack tracks distinct visits. That means every page is taken into account just once, even the visitor reloaded the page several times or interacted with the same page several times (e.g. when submitting the same form several times due to validation errors).
