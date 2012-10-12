@@ -198,6 +198,11 @@ class Aitsu_Bootstrap {
 
 		Aitsu_Registry :: get()->session = $this->session;
 	}
+	
+	protected function _AddUrlToStack() {
+		
+		Aitsu_User_Status :: pageStack($_SERVER['REQUEST_URI']);
+	}
 
 	protected function _CleanCache() {
 
