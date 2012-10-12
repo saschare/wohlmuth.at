@@ -1,0 +1,14 @@
+h1. Aitsu_User_Status
+
+The class Aitsu_User_Status provides information about the current user, such as information about his verification status of beeing a human or not.
+
+h2. isHuman
+
+The following call returns true, if the current user has been verified as a human beeing or false otherwise:
+
+bc. Aitsu_User_Status :: isHuman();
+
+If you can verify his status (by using a captcha method) you may also set his status by using following call:
+
+bc. Aitsu_User_Status :: isHuman(true);
+
