@@ -27,3 +27,15 @@ bc. Aitsu_User_Status :: getUrl(3);
 The index starts at 0 (current page). An index of 1 will get the last page, an index of 2 the page before and so on.
 
 *Important*: The stack tracks distinct visits. That means every page is taken into account just once, even the visitor reloaded the page several times or interacted with the same page several times (e.g. when submitting the same form several times due to validation errors).
+
+h2. pageStack
+
+The method pageStack returns the current stack of visited URLS (up to 20).
+
+bc. Aitsu_User_Status :: pageStack();
+
+The method accepts an array containing URL, if you need to clean up things (for whatever reason) or manipulate the stack for any reason.
+
+bc. $myStack = array('page1', 'page2', 'page3'); 
+Aitsu_User_Status :: pageStack($myStack);
+
