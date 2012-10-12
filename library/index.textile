@@ -1,5 +1,5 @@
 h1. Library
 
 * *"Aitsu":./*
-** *"Aitsu_User_Status":Aitsu/User/index.textile*: Provides information about the current visitor, such as the page stack of visited pages and the verification status of the user.
+** *"Aitsu_User_Status":Aitsu/User/index.textile*: Provides information about the current visitor.
 ** *"Aitsu_Util":Aitsu/Util/index.textile*: Utility classes to be used in the core, in plugins and modules.
