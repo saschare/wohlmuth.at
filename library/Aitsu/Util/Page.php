@@ -29,10 +29,24 @@ class Aitsu_Util_Page {
 		}
 
 		$url = Aitsu_Db :: fetchOne('' .
-		'', array (
+		'select ' .
+		'	artlang.idart as idart, ' .
+		'	concat(catlang.url, \'/\', artlang.urlname, \'.html\') as url ' .
+		'from _art_lang as artlang ' .
+		'inner join _cat_art as catart on artlang.idart = catart.idart ' .
+		'inner join _cat_lang as catlang on (artlang.idlang = catlang.idlang and catart.idcat = catlang.idcat) ' .
+		'where ' .
+		'	artlang.idart = :idart ' .
+		'	and artlang.idlang = :idlang ', array (
 			':idart' => $idart,
 			':idlang' => Aitsu_Registry :: get()->env->idlang
 		));
+		
+		if ($url) {
+			return '/' . $url;
+		}
+		
+		return null;
 	}
 
 }

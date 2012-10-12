@@ -454,7 +454,7 @@ abstract class Aitsu_Module_Abstract {
 		}
 
 		if ($this->_forHumanEyesOnly == 'verify') {
-			header('Location: ' . Aitsu_Config :: get('human.verification'));
+			header('Location: ' . Aitsu_Util_Page :: getUrlByIdart(Aitsu_Config :: get('human.verification')));
 			exit;
 		}
 
