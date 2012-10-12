@@ -6,6 +6,13 @@ h2. Authors
 
 * Andreas Kummer, "w3concepts AG":http://wdrei.ch/
 
+h2. Latest changes
+
+* 2012-10-12
+** Updated Zend Framework to the version 1.12.
+** Added option to check against verification of the user to be a human being in modules.
+** Added visited page stack (up to 20 entries). See class Aitsu_User_Status.
+
 h2. Developers's Reference Guide
 
 h3. Modules
