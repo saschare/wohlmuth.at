@@ -20,7 +20,7 @@ class Aitsu_Util_Page {
 	 */
 	public static function getUrlByIdart($idart) {
 
-		if (Aitsu_Util_Type :: integer($idart)) {
+		if (!Aitsu_Util_Type :: integer($idart)) {
 			/*
 			 * The parameter provided is not an integer. We assume it to be
 			 * an URL and we return it unchanged.
@@ -30,7 +30,6 @@ class Aitsu_Util_Page {
 
 		$url = Aitsu_Db :: fetchOne('' .
 		'select ' .
-		'	artlang.idart as idart, ' .
 		'	concat(catlang.url, \'/\', artlang.urlname, \'.html\') as url ' .
 		'from _art_lang as artlang ' .
 		'inner join _cat_art as catart on artlang.idart = catart.idart ' .
