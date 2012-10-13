@@ -73,6 +73,24 @@ abstract class Aitsu_Module_Abstract {
 	 */
 	protected $_renderOnlyAllowed = false;
 
+	/*
+	 * Disables output of the module, if the user is not a verified human.
+	 */
+	protected $_disableForNunHumans = false;
+
+	/*
+	 * Disables output of the module or asks for verification, if the user is not 
+	 * already verified as a human.
+	 * 
+	 * nope = Allow all to see the content.
+	 * yes = Do not show the output to non-humans.
+	 * verify = Do a verification (if available).
+	 * 
+	 * When using verify, you have to specify an URL to do verification (human.verification).
+	 * Otherwise the output will not be shown (same as yes).
+	 */
+	protected $_forHumanEyesOnly = 'nope';
+
 	protected static function _getInstance($className) {
 
 		$instance = new $className ();
@@ -95,6 +113,10 @@ abstract class Aitsu_Module_Abstract {
 		$output = '';
 
 		$instance = is_null($instance) ? self :: _getInstance($context['className']) : $instance;
+
+		if ($instance->_notForHumans()) {
+			return;
+		}
 
 		/*
 		 * Set to non-block, if _isBlock is set to false.
@@ -417,6 +439,24 @@ abstract class Aitsu_Module_Abstract {
 				self :: _getChildrenOf($type, $result, $value, $in || $type == $key);
 			}
 		}
+	}
+
+	protected function _notForHumans() {
+
+		if ($this->_forHumanEyesOnly == 'nope' || Aitsu_User_Status :: isHuman()) {
+			return false;
+		}
+
+		if ($this->_forHumanEyesOnly == 'yes') {
+			return true;
+		}
+
+		if ($this->_forHumanEyesOnly == 'verify') {
+			header('Location: ' . Aitsu_Util_Page :: getUrlByIdart(Aitsu_Config :: get('human.verification')));
+			exit;
+		}
+
+		return false;
 	}
 
 }
