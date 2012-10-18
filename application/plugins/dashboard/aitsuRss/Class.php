@@ -31,8 +31,8 @@ class aitsuRssDashboardController extends Aitsu_Adm_Plugin_Controller {
 	}
 
 	public function rssAction() {
-
-		$cache = Aitsu_Core_Cache :: getInstance('feedsFeedburderComAitsu');
+		
+		$cache = Aitsu_Cache :: getInstance('feedsFeedburderComAitsu');
 		if ($cache->isValid()) {
 			$channel = unserialize($cache->load());
 		} else {
