@@ -58,7 +58,7 @@ class Aitsu_Persistence_View_Rendezvous {
 		'	and (' .
 		'		(rv.periodicity = 0 and rv.starttime > :from and rv.starttime < :to) ' .
 		'		or ' .
-		'		(rv.periodicity > 0 and rv.starttime < :to and (rv.until is null or rv.until > :to)) ' .
+		'		(rv.periodicity > 0 and rv.starttime < :to and (rv.until is null or rv.until > :from)) ' .
 		'	) ', array (
 			':idlang' => Aitsu_Registry :: get()->env->idlang,
 			':lft' => $cat['lft'],
