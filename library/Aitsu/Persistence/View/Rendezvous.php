@@ -67,7 +67,7 @@ class Aitsu_Persistence_View_Rendezvous {
 			':to' => $to->get('Y-m-d H:i:s')
 		));
 
-		for ($day = $from->getTime(); $day <= $to->getTime() - 1; $day = $day +24 * 60 * 60) {
+		for ($day = $from->getTime(); $day <= $to->getTime() - 1; $day = strtotime('+1 day', $day)) {
 			foreach ($dates as $date) {
 				$startTime = Aitsu_Util_Date :: fromMySQL($date['starttime'])->getStartOfDay();
 				$until = $date['until'] == null ? PHP_INT_MAX : Aitsu_Util_Date :: fromMySQL($date['until'])->getTime();				
