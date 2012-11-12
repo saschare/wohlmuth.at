@@ -1,5 +1,7 @@
 AddDefaultCharset UTF-8
 
+php_value date.timezone "Europe/Berlin"
+
 <IfModule mod_gzip.c>
   mod_gzip_on Yes
   mod_gzip_dechunk Yes
