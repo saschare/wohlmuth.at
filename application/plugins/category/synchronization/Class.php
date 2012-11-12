@@ -1,40 +1,46 @@
 <?php
 
-
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2010, w3concepts AG
+ * 
+ * @author Christian Kehres <c.kehres@webtischlerei.de>
+ * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
  */
-
 class SynchronizationCategoryController extends Aitsu_Adm_Plugin_Controller {
 
-	const ID = '4dd4ec6a-3828-4a9c-95de-0adf7f000101';
+    const ID = '50a125aa-0868-4399-9c8b-53777f000001';
 
-	public function init() {
+    public function init() {
 
-		$this->_helper->layout->disableLayout();
-		header("Content-type: text/javascript");
-	}
+        $this->_helper->layout->disableLayout();
+        header("Content-type: text/javascript");
+    }
 
-	public static function register($idcat) {
+    public static function register($idcat) {
 
-                if (empty($idcat)) {
-                    $pos = 1;
-                } else {
-                    $pos = self :: getPosition($idcat, 'synchronization', 'category');
-                }
+        $lngCnt = count(Aitsu_Persistence_Language::getAsArray());
                 
-		return (object) array (
-			'name' => 'synchronization',
-			'tabname' => Aitsu_Translate :: translate('Synchronization'),
-			'enabled' => $pos,
-			'position' => $pos,
-			'id' => self :: ID
-		);
-	}
+        if ($lngCnt === 1) {
+            $pos = 0;
+        } elseif (empty($idcat)) {
+            $pos = 1;
+        } else {
+            $pos = self :: getPosition($idcat, 'synchronization', 'category');
+        }
 
-	public function indexAction() {
+        return (object) array(
+                    'name' => 'synchronization',
+                    'tabname' => Aitsu_Translate :: translate('Synchronization'),
+                    'enabled' => $pos,
+                    'position' => $pos,
+                    'id' => self :: ID
+        );
+    }
 
-		$this->view->idcat = $this->getRequest()->getParam('idcat');
-	}
+    public function indexAction() {
+
+        $this->view->idcat = $this->getRequest()->getParam('idcat');
+    }
+
 }
