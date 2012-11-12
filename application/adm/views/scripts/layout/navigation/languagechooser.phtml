@@ -1,3 +1,6 @@
+<?php $lngCnt = count(Aitsu_Persistence_Language::getAsArray()); ?>
+
+<?php if ($lngCnt !== 1) : ?>
 new Ext.form.ComboBox({
 	store: new Ext.data.JsonStore({
         url: '<?php echo $this->url(array('controller' => 'store', 'action' => 'clientslangs'), 'default'); ?>',
@@ -27,4 +30,5 @@ new Ext.form.ComboBox({
         	});
         }
     }
-})
+}),
+<?php endif; ?>
