@@ -69,6 +69,9 @@ class Moraso_Article {
         );
         unset($oldArtLangData['idartlang']);
         $oldArtLangData['idart'] = $newIdArt;
+        
+        $oldArtLangData['title'] = $oldArtLangData['title'] . ' (Copy)';
+        $oldArtLangData['urlname'] = $oldArtLangData['urlname'] . '-copy';
 
         $newIdArtLang = Aitsu_Db::put('_art_lang', 'idartlang', $oldArtLangData);
 
