@@ -1,7 +1,8 @@
 cache
+cachetransparent
 cron
 logs
+lucene
+media
 pagecache
 thumbs
-lucene
-cachetransparent
