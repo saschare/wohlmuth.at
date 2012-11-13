@@ -191,15 +191,16 @@ class Moraso_Article {
         if (!empty($oldMediaData)) {
             Moraso_Util_Dir::copy(APPLICATION_PATH . '/data/media/' . $this->idart . '/', APPLICATION_PATH . '/data/media/' . $newIdArt . '/');
             
+            $mediaDir = APPLICATION_PATH . '/data/media/' . $newIdArt . '/';
+            
             foreach ($oldMediaData as $row) {
                 $oldMediaId = $row['mediaid'];
-
                 unset($row['mediaid']);
                 $row['idart'] = $newIdArt;
 
                 $newMediaId = Aitsu_Db::put('_media', 'mediaid', $row);
                 
-                Moraso_Util_File::rename(APPLICATION_PATH . '/data/media/' . $newIdArt . '/' . $oldMediaId . '.' . $row['extension'], APPLICATION_PATH . '/data/media/' . $newIdArt . '/' . $newMediaId . '.' . $row['extension']);
+                Moraso_Util_File::rename($mediaDir . $oldMediaId . '.' . $row['extension'], $mediaDir . $newMediaId . '.' . $row['extension']);
 
                 // _media_description
                 $oldMediaDescriptionData = Aitsu_Db::fetchRow('' .
