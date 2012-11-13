@@ -199,7 +199,7 @@ class Moraso_Article {
 
                 $newMediaId = Aitsu_Db::put('_media', 'mediaid', $row);
                 
-                Moraso_Util_File::rename(APPLICATION_PATH . '/data/media/' . $this->idart . '/' . $oldMediaId . '.' . $row['extension'], APPLICATION_PATH . '/data/media/' . $newIdArt . '/' . $newMediaId . '.' . $row['extension']);
+                Moraso_Util_File::rename(APPLICATION_PATH . '/data/media/' . $newIdArt . '/' . $oldMediaId . '.' . $row['extension'], APPLICATION_PATH . '/data/media/' . $newIdArt . '/' . $newMediaId . '.' . $row['extension']);
 
                 // _media_description
                 $oldMediaDescriptionData = Aitsu_Db::fetchRow('' .
