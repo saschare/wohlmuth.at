@@ -28,8 +28,6 @@ class Moraso_Util_String {
      * @since 1.2.4-1
      * @param string $string String to slugify
      * @return string $slug slugified string
-     * 
-     * @ex
      */
     public static function slugify($string) {
 
