@@ -24,10 +24,12 @@ class Moraso_Util_String {
      * ?>
      * </code></pre>
      * 
-     * @example http://www.moraso.de/doc/functions/util/string/slugify.html How tu use this function
+     * @example http://www.moraso.de/doc/functions/util/string/slugify.html How to use this function
      * @since 1.2.4-1
      * @param string $string String to slugify
      * @return string $slug slugified string
+     * 
+     * @ex
      */
     public static function slugify($string) {
 
