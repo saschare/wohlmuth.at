@@ -4,10 +4,31 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
  * 
- * @since 1.2.3-8
+ * @category Moraso
+ * @package Util
+ * @subpackage String
+ * 
+ * @since 1.2.4-1
  */
-class Moraso_Util {
+class Moraso_Util_String {
 
+    /**
+     * The perfect PHP clean url generator
+     * 
+     * Here is an example:
+     * <pre><code>
+     * <?php
+     * $slug = Moraso_Util_String::slugify("Hällö Foo");
+     * 
+     * echo $slug; // haelloe-foo
+     * ?>
+     * </code></pre>
+     * 
+     * @example http://www.moraso.de/doc/functions/util/string/slugify.html How tu use this function
+     * @since 1.2.4-1
+     * @param string $string String to slugify
+     * @return string $slug slugified string
+     */
     public static function slugify($string) {
 
         $in_charset = mb_detect_encoding($string);
