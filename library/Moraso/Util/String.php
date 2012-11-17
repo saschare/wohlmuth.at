@@ -27,7 +27,7 @@ class Moraso_Util_String {
      * @example http://www.webtischlerei.de/moraso-cms/doc/functions/util/string/slugify.html How to use this function
      * @since 1.2.4-1
      * @param string $string String to slugify
-     * @return string $slug slugified string
+     * @return string $slug Slugified string
      */
     public static function slugify($string) {
 
@@ -45,6 +45,36 @@ class Moraso_Util_String {
         $slug = preg_replace("/[\/_|+ -]+/", '-', $slug_whitespace);
 
         return $slug;
+    }
+    
+    /**
+     * Creates a random string
+     * 
+     * Here is an example:
+     * <pre><code>
+     * <?php
+     * $random = Moraso_Util_String::random(8, 'avd75FGW');
+     * 
+     * echo $random; // v5GFav7W
+     * ?>
+     * </code></pre>
+     * 
+     * @example http://www.webtischlerei.de/moraso-cms/doc/functions/util/string/random.html How to use this function
+     * @since 1.2.5-1
+     * @param int $length Length of random string
+     * @return string $character Characters to create random string
+     */
+    public static function random($length = 16, $character = null) {
+
+        $character = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $character_count = strlen($character);
+        
+        $random = '';
+        for ($i = 0; $i < $length; $i++) {
+            $random .= $character[mt_rand(0, $character_count - 1)];
+        }
+        
+        return $random;
     }
 
 }
