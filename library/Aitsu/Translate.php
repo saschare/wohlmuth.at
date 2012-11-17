@@ -36,7 +36,7 @@ class Aitsu_Translate {
 		$instance = self :: _getInstance();
 
                 if (!array_key_exists($text, $instance->translationMap)) {
-			self :: _createTranslationEntry($text);
+                        $instance->_createTranslationEntry($text);
 		}
                 
 		if (!array_key_exists($text, $instance->translationMap) || strlen($instance->translationMap[$text]) == 0) {
