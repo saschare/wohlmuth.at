@@ -7,7 +7,8 @@
 class Moraso_Db {
 
     /**
-     * Extended Aitsu_Db::filter() by variable $groups
+     * Based on Aitsu_Db::filter()
+     * Extended by variable $groups
      * 
      * @since 1.2.6-1
      * @see Aitsu_Db::filter();
