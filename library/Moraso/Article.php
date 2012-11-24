@@ -93,6 +93,10 @@ class Moraso_Article {
             Aitsu_Db::put('_article_content', null, $oldArtLangData);
         }
 
+        Aitsu_Event :: raise('frontend.dispatch', array (
+			'bootstrap' => $this
+		));
+        
         // _art_geolocation
         $oldArtGeolocationData = Aitsu_Db::fetchRow('' .
                         'select ' .
