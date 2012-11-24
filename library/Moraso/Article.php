@@ -69,7 +69,7 @@ class Moraso_Article {
         );
         unset($oldArtLangData['idartlang']);
         $oldArtLangData['idart'] = $newIdArt;
-        
+
         $oldArtLangData['title'] = $oldArtLangData['title'] . ' (Copy)';
         $oldArtLangData['urlname'] = $oldArtLangData['urlname'] . '-copy';
 
@@ -93,10 +93,6 @@ class Moraso_Article {
             Aitsu_Db::put('_article_content', null, $oldArtLangData);
         }
 
-        Aitsu_Event :: raise('frontend.dispatch', array (
-			'bootstrap' => $this
-		));
-        
         // _art_geolocation
         $oldArtGeolocationData = Aitsu_Db::fetchRow('' .
                         'select ' .
@@ -197,16 +193,16 @@ class Moraso_Article {
 
         if (!empty($oldMediaData)) {
             Moraso_Util_Dir::copy(APPLICATION_PATH . '/data/media/' . $this->idart . '/', APPLICATION_PATH . '/data/media/' . $newIdArt . '/');
-            
+
             $mediaDir = APPLICATION_PATH . '/data/media/' . $newIdArt . '/';
-            
+
             foreach ($oldMediaData as $row) {
                 $oldMediaId = $row['mediaid'];
                 unset($row['mediaid']);
                 $row['idart'] = $newIdArt;
 
                 $newMediaId = Aitsu_Db::put('_media', 'mediaid', $row);
-                
+
                 Moraso_Util_File::rename($mediaDir . $oldMediaId . '.' . $row['extension'], $mediaDir . $newMediaId . '.' . $row['extension']);
 
                 // _media_description
@@ -247,6 +243,11 @@ class Moraso_Article {
                         Aitsu_Db::put('_media_tags', null, $row);
                     }
                 }
+
+                Aitsu_Event :: raise('article.duplicate.media.file.end', array(
+                    'old_mediaid' => $oldMediaId,
+                    'new_mediaid' => $newMediaId,
+                ));
             }
         }
 
@@ -287,6 +288,13 @@ class Moraso_Article {
                 Aitsu_Db::put('_aitsu_article_property', null, $row);
             }
         }
+
+        Aitsu_Event :: raise('article.duplicate.end', array(
+            'old_idart' => $this->idart,
+            'old_idartlang' => $this->idartlang,
+            'new_idart' => $newIdArt,
+            'new_idartlang' => $newIdArtLang
+        ));
 
         return $newIdArt;
     }
