@@ -4,7 +4,7 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
  */
-class Skin_Module_Image_Predetermined_Class extends Aitsu_Module_Abstract {
+class Module_Image_Predetermined_Class extends Aitsu_Module_Abstract {
 
     protected function _main() {
 
