@@ -1,0 +1,8 @@
+<!-- Standard -->
+<div>
+    <?php foreach ($this->images as $image) : ?>
+        <div>
+            <img src="<?php echo Aitsu_Registry::get()->config->sys->webpath; ?>image/150/150/2/<?php echo (empty($image->idart) ? 'null' : $image->idart); ?>/<?php echo $image->filename; ?>" alt="<?php echo $image->name; ?>" width="150" height="150" />
+        </div>
+    <?php endforeach; ?>
+</div>
