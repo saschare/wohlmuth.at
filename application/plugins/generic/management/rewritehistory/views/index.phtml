@@ -7,13 +7,14 @@ var rewritehistoryGrid = new Ext.grid.GridPanel({
 	store: new Ext.data.JsonStore({
 		url: '<?php echo $this->url(array('paction' => 'store')); ?>',
 		root: 'data',
-		fields: ['id', 'url', 'target'],
+		fields: ['id', 'url', 'target', 'idart'],
 		autoLoad: true
 	}),
     columns: [
-        {dataIndex: 'id', width: 60, fixed: true, header: 'id', menuDisabled: true},
-    	{dataIndex: 'url', header: '<?php echo Aitsu_Translate :: translate('URL'); ?>', menuDisabled: true},
-    	{dataIndex: 'target', header: '<?php echo Aitsu_Translate :: translate('Target'); ?>', menuDisabled: true}
+        {dataIndex: 'id', width: 60, fixed: true, header: 'id', sortable: true},
+    	{dataIndex: 'url', header: '<?php echo Aitsu_Translate :: translate('URL'); ?>', sortable: true},
+    	{dataIndex: 'target', header: '<?php echo Aitsu_Translate :: translate('Target'); ?>', sortable: true},
+        {dataIndex: 'idart', width: 60, header: '<?php echo Aitsu_Translate :: translate('idart'); ?>', sortable: true}
 	],
 	viewConfig: {
 		forceFit: true,

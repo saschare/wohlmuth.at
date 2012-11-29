@@ -20,6 +20,7 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                         'select ' .
                         '   history.id, ' .
                         '   history.url, ' .
+                        '   artlang.idart, ' .
                         '   if (catlang.url <> "", concat("/", catlang.url, "/", artlang.urlname, ".html"), concat("/", artlang.urlname, ".html")) as target ' .
                         'from ' .
                         '   _aitsu_rewrite_history as history ' .
