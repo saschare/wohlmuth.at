@@ -4,7 +4,7 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
  */
-class Moraso_Db {
+class Moraso_Db extends Aitsu_Db {
 
     /**
      * Based on Aitsu_Db::filter()

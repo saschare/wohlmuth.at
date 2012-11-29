@@ -1,43 +1,43 @@
 <?php
 
-
 /**
- * @author Christian Kehres, webtischlerei
- * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, webtischlerei
- * @copyright Copyright &copy; 2011, w3concepts AG
+ * @author Andreas Kummer <info@wdrei.ch>
+ * @copyright (c) 2011, w3concepts AG <http://www.wdrei.ch>
+ * 
+ * @author Christian Kehres <c.kehres@webtischlerei.de>
+ * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
  */
-
 class Module_Language_Selector_Class extends Aitsu_Module_Abstract {
 
-	protected function _init() {
+    protected $_allowEdit = false;
 
-		Aitsu_Content_Edit :: noEdit('Language.Selector', true);
+    protected function _main() {
 
-		$view = $this->_getView();
+        $view = $this->_getView();
 
-		$languages = Aitsu_Db :: fetchAll('' .
-		'select ' .
-		'	idlang, ' .
-		'	name, ' .
-		'	longname ' .
-		'from _lang ' .
-		'where ' .
-		'	idclient = :idclient', array (
-			':idclient' => Aitsu_Config :: get('sys.client')
-		));
+        $languages = Moraso_Db::fetchAll('' .
+                        'select ' .
+                        '   idlang, ' .
+                        '   name, ' .
+                        '   longname ' .
+                        'from ' .
+                        '   _lang ' .
+                        'where ' .
+                        '   idclient = :idclient', array(
+                    ':idclient' => Aitsu_Config::get('sys.client')
+                ));
 
-		foreach ($languages as $language) {
-			$language = (object) $language;
-			Aitsu_Core_Navigation_Language :: getInstance()->registerLang($language->idlang, $language->name, $language->longname);
-		}
+        $languageInstance = Aitsu_Core_Navigation_Language::getInstance();
+        
+        foreach ($languages as $language) {
+            $display = empty($language['longname']) ? $language['name'] : $language['longname'];
+            
+            $languageInstance->registerLang($language['idlang'], $language['name'], $display);
+        }
 
-		$view->langs = Aitsu_Core_Navigation_Language :: getInstance()->getLangs();
+        $view->langs = $languageInstance->getLangs();
 
-		$output = $view->render('index.phtml');
-
-		return $output;
-	}
+        return $view->render('index.phtml');
+    }
 
 }
-?>
