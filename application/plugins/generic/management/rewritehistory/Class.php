@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @author Christian Kehres
- * @copyright Copyright &copy; 2011, webtischlerei
+ * @author Christian Kehres <c.kehres@webtischlerei.de>
+ * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
  */
 class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
 
@@ -16,22 +16,21 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
 
     public function storeAction() {
 
-        $data = Aitsu_Db::fetchAll("
-            SELECT
-                `history`.`id`,
-                `history`.`url`,
-                CONCAT('/', `catlang`.`url`, '/', `artlang`.`urlname`, '.html') AS `target`
-            FROM
-                `_aitsu_rewrite_history` AS `history`
-            LEFT JOIN
-                `_art_lang` AS `artlang` ON `artlang`.`idartlang` = `history`.`idartlang`
-            LEFT JOIN
-                `_cat_art` AS `catart` ON `catart`.`idart` = `artlang`.`idart`
-            LEFT JOIN
-                `_cat_lang` AS `catlang` ON (`catlang`.`idcat` = `catart`.`idcat` AND `catlang`.`idlang` = `artlang`.`idlang`)
-            ORDER BY
-                `history`.`id` DESC
-            ");
+        $data = Moraso_Db::fetchAll('' .
+                        'select ' .
+                        '   history.id, ' .
+                        '   history.url, ' .
+                        '   if (catlang.url <> "", concat("/", catlang.url, "/", artlang.urlname, ".html"), concat("/", artlang.urlname, ".html")) as target ' .
+                        'from ' .
+                        '   _aitsu_rewrite_history as history ' .
+                        'left join ' .
+                        '   _art_lang as artlang on artlang.idartlang = history.idartlang ' .
+                        'left join ' .
+                        '   _cat_art as catart on catart.idart = artlang.idart ' .
+                        'left join ' .
+                        '   _cat_lang as catlang on (catlang.idcat = catart.idcat and catlang.idlang = artlang.idlang) ' .
+                        'order by ' .
+                        '   history.id desc');
 
         $this->_helper->json((object) array(
                     'data' => $data
@@ -45,19 +44,18 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
         $this->_helper->layout->disableLayout();
 
         $form = Aitsu_Forms::factory('entry', APPLICATION_PATH . '/plugins/generic/management/rewritehistory/forms/edit.ini');
-        $form->title = Aitsu_Translate :: translate('Edit rewrite Rule');
+        $form->title = Aitsu_Translate::translate('Edit rewrite Rule');
         $form->url = $this->view->url(array('paction' => 'edit'), 'plugin');
 
-        $data = Aitsu_Db::fetchRow("
-            SELECT
-                `history`.`id`,
-                `history`.`url`,
-                `history`.`idartlang`
-            FROM
-                `_aitsu_rewrite_history` AS `history`
-            WHERE
-                `history`.`id` = :id
-        ", array(
+        $data = Moraso_Db::fetchRow('' .
+                        'select ' .
+                        '   history.id, ' .
+                        '   history.url, ' .
+                        '   history.idartlang ' .
+                        'from ' .
+                        '   _aitsu_rewrite_history as history ' .
+                        'where ' .
+                        '   history.id =:id', array(
                     ':id' => $id
                 ));
 
@@ -80,22 +78,25 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
                 if (strpos($data['idartlang'], 'idart') !== false) {
                     $data['idartlang'] = Aitsu_Util::getIdArtLang(substr($data['idartlang'], 6), $idlang);
                 } elseif (strpos($data['idartlang'], 'idcat') !== false) {
-                    $data['idartlang'] = Aitsu_Db :: fetchOne('' .
-                                    'select startidartlang ' .
-                                    'from _cat_lang ' .
-                                    'where idcat = :idcat ' .
-                                    'and idlang = :idlang', array(
+                    $data['idartlang'] = Moraso_Db::fetchOne('' .
+                                    'select ' .
+                                    '   startidartlang ' .
+                                    'from ' .
+                                    '   _cat_lang ' .
+                                    'where ' .
+                                    '   idcat =:idcat ' .
+                                    'and ' .
+                                    '   idlang =:idlang', array(
                                 ':idcat' => substr($data['idartlang'], 6),
                                 ':idlang' => $idlang
                             ));
                 }
-                
+
                 if (empty($data['id'])) {
                     unset($data['id']);
                 }
-                
-                Aitsu_Db :: put('_aitsu_rewrite_history', 'id', $data); 
-                
+
+                Moraso_Db::put('_aitsu_rewrite_history', 'id', $data);
 
                 $this->_helper->json((object) array(
                             'success' => true,
@@ -118,11 +119,15 @@ class RewritehistoryPluginController extends Aitsu_Adm_Plugin_Controller {
 
     public function deleteAction() {
 
-        $id = $this->getRequest()->getParam('id');
-
         $this->_helper->layout->disableLayout();
 
-        Aitsu_Db::query("DELETE FROM `_aitsu_rewrite_history` WHERE `id` =:id", array(':id' => $id));
+        Moraso_Db::query('' .
+                'delete from ' .
+                '   _aitsu_rewrite_history ' .
+                'where ' .
+                '   id =:id', array(
+            ':id' => $this->getRequest()->getParam('id')
+        ));
 
         $this->_helper->json((object) array(
                     'success' => true,
