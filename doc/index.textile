@@ -8,6 +8,8 @@ h2. Authors
 
 h2. Latest changes
 
+* 2012-12-18
+** Fixed mapping bug.
 * 2012-10-12
 ** Updated Zend Framework to the version 1.12.
 ** Added option to check against verification of the user to be a human being in modules.
