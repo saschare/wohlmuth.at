@@ -8,6 +8,7 @@
 class Aitsu_Service_Google_Analytics {
 
 	protected $_data = array ();
+	protected $_pageView = true;
 
 	private function __construct() {
 	}
@@ -25,8 +26,8 @@ class Aitsu_Service_Google_Analytics {
 		$domain = isset ($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null;
 		$domain = empty ($domain) && isset ($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : $domain;
 		$instance->_data['_setDomainName'] = empty ($domain) ? 'domain.tld' : $domain;
-		
-		$instance->_data['_setAllowLinker'] = Aitsu_Config :: get('google.analytics.allowlinker');
+
+		$instance->_data['_setAllowLinker'] = Aitsu_Config :: get('google.analytics.allowlinker') ? 'true' : 'false';
 
 		return $instance;
 	}
@@ -41,21 +42,23 @@ class Aitsu_Service_Google_Analytics {
 		));
 
 		foreach ($this->_data as $key => $val) {
-			$return .= "\t_gaq.push(['$val']);\n";
+			$return .= "\t_gaq.push(['$key', '$val']);\n";
 		}
 
-		$return .= "\t_gaq.push(['_trackPageview']);\n";
+		if ($this->_pageView) {
+			$return .= "\t_gaq.push(['_trackPageview']);\n";
+		}
 
 		return $return;
 	}
 
 	public function getJQueryBinding() {
-		
+
 		if (!Aitsu_Config :: get('google.analytics.jquerybinding')) {
 			return '';
 		}
-		
-		if (!isset($this->_data['_setAllowLinker']) || !$this->_data['_setAllowLinker']) {
+
+		if (!isset ($this->_data['_setAllowLinker']) || !$this->_data['_setAllowLinker']) {
 			return '';
 		}
 
@@ -80,6 +83,7 @@ class Aitsu_Service_Google_Analytics {
 		$return .= '<script type="text/javascript">' . "\n";
 		$return .= "\tvar _gaq = _gaq || [];\n";
 		$return .= Aitsu_Service_Google_Analytics :: getInstance()->getPush();
+		$return .= Aitsu_Service_Google_Analytics_Event :: getPush();
 		$return .= Aitsu_Service_Google_Analytics_Transaction :: getPush();
 		$return .= "\t(function() {\n\t\tvar ga = document.createElement('script');\n\t\tga.type = 'text/javascript';\n\t\tga.async = true;\n\t\tga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';\n\t\tvar s = document.getElementsByTagName('script')[0];\n\t\ts.parentNode.insertBefore(ga, s);\n\t})();\n";
 		$return .= '</script>' . "\n";
@@ -92,8 +96,9 @@ class Aitsu_Service_Google_Analytics {
 		$val = preg_replace("/\r?\n/", "\\n", addslashes($val));
 	}
 
-}
+	public static function noPageView() {
 
-/*
-_gaq.push(['_trackEvent', 'Error', '404', 'page: ' + document.location.pathname + document.location.search + ' ref: ' + document.referrer ]);
-*/
+		Aitsu_Service_Google_Analytics :: getInstance()->_pageView = false;
+	}
+
+}
