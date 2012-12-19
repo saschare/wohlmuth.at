@@ -6,6 +6,11 @@
  * @copyright Copyright &copy; 2012, w3concepts AG
  * 
  * php application/cli/index.php -s Test -t Aitsu_Service_Google_Analytics_Test
+ * 
+ * Pendings:
+ * - Fehlercode automatisch setzen (Bootstrap)
+ * - Transaction und Items setzen (Shop, Module_Shop_Payment_Class, _initSucccess)
+ * - Ausgabe vornehmen (Modul)
  */
 class Aitsu_Service_Google_Analytics_Test {
 

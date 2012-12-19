@@ -11,12 +11,9 @@ class Module_Google_Analytics_Class extends Aitsu_Module_Abstract {
 
 	protected $_cacheIfLoggedIn = true;
 
-	protected function _init() {
-	}
-
 	protected function _main() {
 
-		return $view->render('index.phtml');
+		return Aitsu_Service_Google_Analytics :: getScript();
 	}
 
 	protected function _cachingPeriod() {
