@@ -45,10 +45,10 @@ class Aitsu_Service_Google_Analytics_Transaction {
 		if (empty ($affiliationDomain)) {
 			$affiliationDomain = Aitsu_Config :: get('google.analytics.affiliatedomain');
 		}
-		if (empty ($affiliationDomain) && isset($_SERVER['HTTP_HOST'])) {
+		if (empty ($affiliationDomain) && isset ($_SERVER['HTTP_HOST'])) {
 			$affiliationDomain = $_SERVER['HTTP_HOST'];
 		}
-		if (empty ($affiliationDomain) && isset($_SERVER['SERVER_NAME'])) {
+		if (empty ($affiliationDomain) && isset ($_SERVER['SERVER_NAME'])) {
 			$affiliationDomain = $_SERVER['SERVER_NAME'];
 		}
 		/*
@@ -58,9 +58,9 @@ class Aitsu_Service_Google_Analytics_Transaction {
 
 		$instance->_data[$instance->_transactionId]['orderId'] = $orderId;
 		$instance->_data[$instance->_transactionId]['affiliationDomain'] = $affiliationDomain;
-		$instance->_data[$instance->_transactionId]['total'] = $total;
-		$instance->_data[$instance->_transactionId]['tax'] = $tax;
-		$instance->_data[$instance->_transactionId]['shipping'] = $shipping;
+		$instance->_data[$instance->_transactionId]['total'] = preg_replace('/[^0-9\\.]/', '', $total);
+		$instance->_data[$instance->_transactionId]['tax'] = preg_replace('/[^0-9\\.]/', '', $tax);
+		$instance->_data[$instance->_transactionId]['shipping'] = preg_replace('/[^0-9\\.]/', '', $shipping);
 		$instance->_data[$instance->_transactionId]['city'] = $city;
 		$instance->_data[$instance->_transactionId]['state'] = $state;
 		$instance->_data[$instance->_transactionId]['country'] = $country;
@@ -83,8 +83,13 @@ class Aitsu_Service_Google_Analytics_Transaction {
 
 		$return = '';
 
+		array_walk_recursive($instance->_data, array (
+			$instance,
+			'_escapeForJs'
+		));
+
 		foreach ($instance->_data as $key => $val) {
-			$return .= '_gaq.push([\'_addTrans\',\'';
+			$return .= "\t" . '_gaq.push([\'_addTrans\',\'';
 			$return .= implode('\',\'', $instance->_data[$key]);
 			$return .= '\']);' . "\n";
 
@@ -94,8 +99,15 @@ class Aitsu_Service_Google_Analytics_Transaction {
 				}
 			}
 		}
+		
+		$return .= "\t_gaq.push(['_trackTrans']);\n";
 
 		return $return;
+	}
+
+	protected function _escapeForJs(& $val) {
+
+		$val = preg_replace("/\r?\n/", "\\n", addslashes($val));
 	}
 
 }

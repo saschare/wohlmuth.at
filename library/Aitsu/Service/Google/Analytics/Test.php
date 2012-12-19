@@ -16,14 +16,14 @@ class Aitsu_Service_Google_Analytics_Test {
 		$transaction->addItem('123.789', 'Produkt2', 'Kategorie2', '10', '1');
 		$transaction->addItem('123.012', 'Produkt3', 'Kategorie3', '10', '1');
 		$transaction = Aitsu_Service_Google_Analytics_Transaction :: add('456', 'domain.tld', '100', '8', '0', 'Bern', 'Bern', 'Schweiz');
-		$transaction->addItem('123.456', 'Produkt1', 'Kategorie1', '10', '1');
-		$transaction->addItem('123.789', 'Produkt2', 'Kategorie2', '10', '1');
+		$transaction->addItem('123.456', 'Produkt1', 'Kategorie1', 'fdfsdfs10', '1');
+		$transaction->addItem('123.789', 'Pro"duk\'t2', 'Kategorie2', '10', '1');
 		$transaction->addItem('123.012', 'Produkt3', 'Kategorie3', '10', '1');
 		$transaction = Aitsu_Service_Google_Analytics_Transaction :: add(null, null, '100', '8', '0', 'Bern', 'Bern', 'Schweiz');
-		$transaction->addItem('123.456', 'Produkt1', 'Kategorie1', '10', '1');
+		$transaction->addItem('123.456', 'Produ' . "\n" . 'kt1', 'Kategorie1', '10', '1');
 		$transaction->addItem('123.789', 'Produkt2', 'Kategorie2', '10', '1');
 		$transaction->addItem('123.012', 'Produkt3', 'Kategorie3', '10', '1');
 		
-		echo Aitsu_Service_Google_Analytics_Transaction :: getPush();
+		echo Aitsu_Service_Google_Analytics :: getScript();
 	}
 }
