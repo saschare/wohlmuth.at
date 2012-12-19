@@ -31,21 +31,6 @@ class Aitsu_Service_Google_Analytics {
 		return $instance;
 	}
 
-	public function setAccount(string $val) {
-
-		$this->_data['_setAccount'] = $val;
-	}
-
-	public function setDomainName(string $val) {
-
-		$this->_data['_setDomainName'] = $val;
-	}
-
-	public function setAllowLinker(boolean $val) {
-
-		$this->_data['_setAllowLinker'] = (boolean) $val;
-	}
-
 	public function getPush() {
 
 		$return = '';
@@ -108,3 +93,7 @@ class Aitsu_Service_Google_Analytics {
 	}
 
 }
+
+/*
+_gaq.push(['_trackEvent', 'Error', '404', 'page: ' + document.location.pathname + document.location.search + ' ref: ' + document.referrer ]);
+*/
