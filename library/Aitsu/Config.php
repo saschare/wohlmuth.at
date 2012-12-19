@@ -20,20 +20,25 @@ class Aitsu_Config {
 		$parts = explode('.', $string);
 
 		for ($i = 0; $i < count($parts); $i++) {
-			if (!isset($config-> $parts[$i])) {
+			if (!isset ($config-> $parts[$i])) {
 				return false;
 			}
 			$config = $config-> $parts[$i];
 		}
-		
+
 		return $config == $value;
 	}
-	
-	public static function get($string) {
-		
+
+	/**
+	 * @var String The configuration string to get the value from.
+	 * @var Boolean Set this value to true to bypass the caching. Default is false.
+	 * @return Mixed The value set in the configuration for the specified string.
+	 */
+	public static function get($string, $fresh = false) {
+
 		static $val = array ();
 
-		if (isset ($val[$string])) {
+		if (!$fresh && isset ($val[$string])) {
 			return $val[$string];
 		}
 
@@ -41,14 +46,14 @@ class Aitsu_Config {
 		$parts = explode('.', $string);
 
 		for ($i = 0; $i < count($parts); $i++) {
-			if (!isset($config-> $parts[$i])) {
+			if (!isset ($config-> $parts[$i])) {
 				return false;
 			}
 			$config = $config-> $parts[$i];
 		}
-		
+
 		$val[$string] = $config;
-		
+
 		return $config;
 	}
 
