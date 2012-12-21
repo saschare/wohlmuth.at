@@ -8,6 +8,8 @@ h2. Authors
 
 h2. Latest changes
 
+* 2012-12-21
+** Fixed the media module configuration bug (apostroph bug).
 * 2012-12-18
 ** Fixed mapping bug.
 * 2012-10-12
