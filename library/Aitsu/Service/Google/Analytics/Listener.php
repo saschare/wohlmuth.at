@@ -20,7 +20,7 @@ class Aitsu_Service_Google_Analytics_Listener implements Aitsu_Event_Listener_In
 		
 		$js = Aitsu_Service_Google_Analytics :: getScript();
 		if (!empty ($js)) {
-			$event->bootstrap->pageContent = str_replace('</head>', "{$js}</head>", $event->bootstrap->pageContent);
+			$event->bootstrap->pageContent = str_replace('</body>', "{$js}</body>", $event->bootstrap->pageContent);
 		}
 	}
 
