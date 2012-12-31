@@ -8,13 +8,7 @@ $counter = -1;
 foreach ($this->field->media as $file) {
 	$counter++;
 	$text = empty($file['name']) ? $file['filename'] : "{$file['name']} ({$file['filename']}),";
-	$iconCls = 'file';
-	if (in_array($file['extension'], array('png', 'jpeg', 'jpg', 'gif'))) {
-		$iconCls = 'image';
-	}
-	if (in_array($file['extension'], array('mov', 'swf', 'mpeg', 'avi', 'mp4'))) {
-		$iconCls = 'movie';
-	}
+	$file = array_map('addslashes', $file);
 	if (in_array($file['filename'], $selectedVals)) {
 		$index = array_search($file['filename'], $selectedVals);
 		$media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", $file) . "', 1]";
