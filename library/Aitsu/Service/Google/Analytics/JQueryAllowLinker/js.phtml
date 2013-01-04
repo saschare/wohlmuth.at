@@ -5,12 +5,12 @@
 	
 	$(document).ready(function() {
 		
-		$("a:external").click(function() {
+		$("a:external").on('click', function() {
 			_gaq.push(['_link', this.href]);
 			return false;
 		});
 
-		$("form:external").submit(function() {
+		$("form:external").on('submit', function() {
 			_gaq.push(['_linkByPost', this]);
 		});
 	});
