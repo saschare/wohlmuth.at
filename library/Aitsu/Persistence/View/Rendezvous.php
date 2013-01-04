@@ -7,6 +7,8 @@
  */
 class Aitsu_Persistence_View_Rendezvous {
 
+	private $_currentFilter = null;
+
 	protected function __construct() {
 	}
 
@@ -21,7 +23,7 @@ class Aitsu_Persistence_View_Rendezvous {
 		return $instance;
 	}
 
-	public static function getDates(Aitsu_Util_Date $from, Aitsu_Util_Date $to, $category = null) {
+	public static function getDates(Aitsu_Util_Date $from, Aitsu_Util_Date $to, $category = null, array $filters = null) {
 
 		$returnValue = array ();
 
@@ -70,7 +72,7 @@ class Aitsu_Persistence_View_Rendezvous {
 		for ($day = $from->getTime(); $day <= $to->getTime() - 1; $day = strtotime('+1 day', $day)) {
 			foreach ($dates as $date) {
 				$startTime = Aitsu_Util_Date :: fromMySQL($date['starttime'])->getStartOfDay();
-				$until = $date['until'] == null ? PHP_INT_MAX : Aitsu_Util_Date :: fromMySQL($date['until'])->getTime();				
+				$until = $date['until'] == null ? PHP_INT_MAX : Aitsu_Util_Date :: fromMySQL($date['until'])->getTime();
 				if ($day == $startTime && $date['periodicity'] == 0) {
 					$date['starttime'] = Aitsu_Util_Date :: fromMySQL($date['starttime']);
 					$date['endtime'] = Aitsu_Util_Date :: fromMySQL($date['endtime']);
@@ -86,6 +88,26 @@ class Aitsu_Persistence_View_Rendezvous {
 
 		ksort($returnValue);
 
+		$methods = get_class_methods('Aitsu_Persistence_View_Rendezvous');
+		$o = self :: _instance();
+		if ($filters != null) {
+			foreach ($filters as $filter) {
+				if (in_array('_' . $filter[0] . 'Filter', $methods)) {
+					$o->_currentFilter = & $filter[1];
+					$returnValue = array_filter($returnValue, array (
+						$o,
+						'_' . $filter[0] . 'Filter'
+					));
+				}
+			}
+		}
+
 		return $returnValue;
 	}
+
+	private function _dateFilter($date) {
+
+		return !(in_array($date->starttime->get('Y-m-d'), $this->_currentFilter));
+	}
+	
 }

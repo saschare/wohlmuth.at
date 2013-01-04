@@ -128,10 +128,14 @@ class MappingController extends Zend_Controller_Action {
 
 	protected function _getConditions($conditions) {
 
+		if (get_class($conditions) == 'Zend_Config') {
+			return $conditions->conditions->toArray();
+		}
+
 		$return[] = 'host: ' . (!empty ($conditions->condition_host) ? $conditions->condition_host : '*');
 		$return[] = 'url: ' . (!empty ($conditions->condition_url) ? $conditions->condition_url : '*');
 		$return[] = 'device: ' . (!empty ($conditions->condition_device) ? $conditions->condition_device : '*');
-		
+
 		if (!empty ($conditions->condition_delegate)) {
 			$return[] = 'delegate: ' . $conditions->condition_delegate;
 		}
