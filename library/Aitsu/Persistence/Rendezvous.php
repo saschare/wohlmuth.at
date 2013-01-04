@@ -83,7 +83,7 @@ class Aitsu_Persistence_Rendezvous extends Aitsu_Persistence_Abstract {
 			$this->remove();
 			return;
 		}
-trigger_error(var_export($this->_data, true));
+
 		$this->starttime = empty ($this->starttime) ? null : $this->starttime;
 		$this->endtime = empty ($this->endtime) ? null : $this->endtime;
 		$this->until = empty ($this->until) ? null : $this->until;

@@ -16,7 +16,7 @@ class Aitsu_Util_Date {
 	 */
 	public function __construct($time = null) {
 
-		$this->_time = $time;
+		$this->_time = $time == null ? time() : $time;
 	}
 
 	/**

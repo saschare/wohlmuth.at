@@ -7,7 +7,7 @@
  */
 class Aitsu_Persistence_View_Rendezvous {
 
-	private $_currentFilter = null;
+	private $_currentFilter = array();
 
 	protected function __construct() {
 	}
