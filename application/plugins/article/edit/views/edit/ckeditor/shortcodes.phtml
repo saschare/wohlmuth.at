@@ -1,0 +1,22 @@
+CKEDITOR.replace(f.getId(), {
+	toolbar: [
+		['Source'],
+		['Cut','Copy','PasteText'],
+		['Undo','Redo','-','Replace','-','SelectAll','RemoveFormat'],
+		['Styles','Format'],
+		['Maximize', 'ShowBlocks'],
+		'/',
+		['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+		['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+		['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+		['Link','Unlink','Anchor'],
+		['HorizontalRule','SpecialChar'],
+                '/',
+                ['shortcodes']
+	],
+        extraPlugins: 'shortcodes',
+	toolbarCanCollapse: false,
+	skin: 'office2003',
+	height: win.getSize().height - 179,
+	resize_enabled: false
+})	
