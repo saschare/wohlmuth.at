@@ -4,6 +4,8 @@
 /**
  * @author Andreas Kummer, w3concepts AG
  * @copyright Copyright &copy; 2012, w3concepts AG
+ * 
+ * @todo Vgl. Kommentarblock vom 12.01.13
  */
 class Aitsu_Config_Ini {
 
@@ -12,6 +14,12 @@ class Aitsu_Config_Ini {
 
 	public static function getInstance($ini) {
 
+		/*
+		 * 12.01.13, A. Kummer: Der folgende Block muss überarbeitet werden. Liegen die
+		 * bezeichneten Servervariablen vor, wird die Einstellung durch die Umgebungsvariable
+		 * AITSU_ENV ignoriert. Das bedetuet, dass derselbe einfach an zwei Umgebungsvariablen
+		 * übergeben werden muss.
+		 */
 		if (!empty ($_SERVER['PHP_FCGI_CHILDREN']) || !empty ($_SERVER['FCGI_ROLE'])) {
 			$env = (getenv("REDIRECT_AITSU_ENV") == '' ? 'live' : getenv("REDIRECT_AITSU_ENV"));
 		} else {
