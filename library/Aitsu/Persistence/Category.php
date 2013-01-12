@@ -35,6 +35,10 @@ class Aitsu_Persistence_Category extends Aitsu_Persistence_Abstract {
 		}
 
 		$idlang = Aitsu_Registry :: get()->session->currentLanguage;
+                
+                if (empty ($idlang)) {
+			$idlang = Aitsu_Registry :: get()->env->idlang;
+		}
 
 		$this->_data = Aitsu_Db :: fetchRow('' .
 		'select ' .
