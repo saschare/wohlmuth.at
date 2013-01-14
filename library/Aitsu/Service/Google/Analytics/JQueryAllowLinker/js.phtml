@@ -1,0 +1,17 @@
+<script type="text/javascript">
+	$.expr[':'].external = function(obj) {
+		return obj.hostname != '' && (obj.hostname != location.hostname);
+	};
+	
+	$(document).ready(function() {
+		
+		$("a:external").on('click', function() {
+			_gaq.push(['_link', this.href]);
+			return false;
+		});
+
+		$("form:external").on('submit', function() {
+			_gaq.push(['_linkByPost', this]);
+		});
+	});
+</script>

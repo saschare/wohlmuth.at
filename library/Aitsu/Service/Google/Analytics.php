@@ -52,35 +52,13 @@ class Aitsu_Service_Google_Analytics {
 		return $return;
 	}
 
-	public function getJQueryBinding() {
-
-		if (!Aitsu_Config :: get('google.analytics.jquerybinding')) {
-			return '';
-		}
-
-		if (!isset ($this->_data['_setAllowLinker']) || !$this->_data['_setAllowLinker']) {
-			return '';
-		}
-
-		$return = "<script type=\"text/javascript\">\n";
-		$return .= "\t" . '$(document).ready(function() {' . "\n";
-		$return .= "\t\t" . '$("a[href*=\'' . $this->_data['_setDomainName'] . '\']").click(function() {' . "\n";
-		$return .= "\t\t\t_gaq.push(['_link', this.href]);\n";
-		$return .= "\t\t\treturn false;\n\t\t});\n";
-		$return .= "\t\t" . '$("form[action*=\'' . $this->_data['_setDomainName'] . '\']").attr("onSubmit","_gaq.push([\'_linkByPost\', this])");' . "\n";
-		$return .= "\t});\n</script>\n";
-
-		return $return;
-	}
-
 	public static function getScript() {
 
 		if (empty (Aitsu_Service_Google_Analytics :: getInstance()->_data['_setAccount'])) {
 			return '';
 		}
 
-		$return = Aitsu_Service_Google_Analytics :: getInstance()->getJQueryBinding();
-		$return .= '<script type="text/javascript">' . "\n";
+		$return = '<script type="text/javascript">' . "\n";
 		$return .= "\tvar _gaq = _gaq || [];\n";
 		$return .= Aitsu_Service_Google_Analytics :: getInstance()->getPush();
 		$return .= Aitsu_Service_Google_Analytics_Event :: getPush();
