@@ -1,0 +1,17 @@
+<?php if (count($this->articles) > 0): ?>
+    <?php foreach ($this->articles as $article) : ?>
+
+        <?php foreach ($article as $key => $value) : ?>
+            <?php echo $key; ?>: <?php echo $value; ?><br />
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+
+    <?php if (isset($this->currentPage)) : ?>
+        <p>
+            current Page: <?php echo $this->currentPage; ?><br />
+            pages: <?php echo $this->pages; ?>
+        </p>
+    <?php endif; ?>
+<?php else: ?>
+    <p>keine Artikel vorhanden</p>
+<?php endif; ?>
