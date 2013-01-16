@@ -32,7 +32,14 @@ class Skin_Module_List_Articles_Class extends Aitsu_Module_Abstract {
         $aggregation->whereInCategories(array($categories));
         $aggregation->orderBy($orderBy, $ascending);
 
-        $aggregationAll = $aggregation;
+        if (!empty($page)) {
+            $aggregationAll = $aggregation;
+
+            $articlesAll = $aggregationAll->fetch(0, 999);
+
+            $view->pages = ceil(count($articlesAll) / $limit);
+            $view->currentPage = $page;
+        }
 
         foreach ($this->_params->populateWith as $alias => $populateWith) {
 
@@ -46,14 +53,6 @@ class Skin_Module_List_Articles_Class extends Aitsu_Module_Abstract {
         }
 
         $view->articles = $aggregation->fetch($offset, $limit);
-
-        if (!empty($page)) {
-            $articlesAll = $aggregationAll->fetch(0, 999);
-
-            $view->pages = ceil(count($articlesAll) / $limit);
-            $view->currentPage = $page;
-        }
-
         $view->idart = Aitsu_Registry::get()->env->idart;
 
         return $view->render($template . '.phtml');
