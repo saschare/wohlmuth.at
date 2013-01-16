@@ -1,9 +1,6 @@
 <?php if (count($this->articles) > 0): ?>
     <?php foreach ($this->articles as $article) : ?>
-
-        <?php foreach ($article as $key => $value) : ?>
-            <?php echo $key; ?>: <?php echo $value; ?><br />
-        <?php endforeach; ?>
+        <?php print_r($article); ?>
     <?php endforeach; ?>
 
     <?php if (isset($this->currentPage)) : ?>
@@ -11,6 +8,16 @@
             current Page: <?php echo $this->currentPage; ?><br />
             pages: <?php echo $this->pages; ?>
         </p>
+
+        <ul class="pagination">
+            <?php for ($p = 1; $p <= $this->pages; $p++) : ?>
+                <li class="<?php echo $p == $this->currentPage ? 'active' : ''; ?>">
+                    <a href="{ref:idart:<?php echo $this->idart; ?>}?page=<?php echo $p; ?>">
+                        Page <?php echo $p; ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
+        </ul>
     <?php endif; ?>
 <?php else: ?>
     <p>keine Artikel vorhanden</p>
