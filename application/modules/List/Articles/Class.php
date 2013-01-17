@@ -4,7 +4,7 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  * 
- * @version 2.0
+ * @version 2.1
  */
 class Skin_Module_List_Articles_Class extends Aitsu_Module_Abstract {
 
@@ -16,6 +16,7 @@ class Skin_Module_List_Articles_Class extends Aitsu_Module_Abstract {
 
         $categories = isset($this->_params->categories) ? $this->_params->categories : Aitsu_Registry::get()->env->idcat;
         $useOfStartArticle = isset($this->_params->useOfStartArticle) ? $this->_params->useOfStartArticle : 2;
+        $sortCategoryFirst = isset($this->_params->sortCategoryFirst) ? $this->_params->sortCategoryFirst : false;
         $orderBy = isset($this->_params->orderBy) ? $this->_params->orderBy : 'artsort';
         $ascending = isset($this->_params->ascending) ? $this->_params->ascending : true;
         $template = isset($this->_params->template) ? $this->_params->template : 'index';
@@ -30,16 +31,14 @@ class Skin_Module_List_Articles_Class extends Aitsu_Module_Abstract {
         $aggregation = Aitsu_Aggregation_Article::factory();
         $aggregation->useOfStartArticle($useOfStartArticle);
         $aggregation->whereInCategories(array($categories));
+
+        if ($sortCategoryFirst) {
+            $aggregation->orderBy('idcat');
+        }
+
         $aggregation->orderBy($orderBy, $ascending);
 
-        if (!empty($page)) {
-            $aggregationAll = $aggregation;
-
-            $articlesAll = $aggregationAll->fetch(0, 999);
-
-            $view->pages = ceil(count($articlesAll) / $limit);
-            $view->currentPage = $page;
-        }
+        $aggregationAll = $aggregation;
 
         foreach ($this->_params->populateWith as $alias => $populateWith) {
 
@@ -53,7 +52,13 @@ class Skin_Module_List_Articles_Class extends Aitsu_Module_Abstract {
         }
 
         $view->articles = $aggregation->fetch($offset, $limit);
-        $view->idart = Aitsu_Registry::get()->env->idart;
+
+        if (!empty($page)) {
+            $articlesAll = $aggregationAll->fetch(0, 999);
+
+            $view->pages = ceil(count($articlesAll) / $limit);
+            $view->currentPage = $page;
+        }
 
         return $view->render($template . '.phtml');
     }
