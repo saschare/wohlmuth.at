@@ -6,7 +6,7 @@
  * 
  * @version 2.1
  */
-class Skin_Module_List_Articles_Class extends Aitsu_Module_Abstract {
+class Module_List_Articles_Class extends Aitsu_Module_Abstract {
 
     protected $_allowEdit = false;
 
