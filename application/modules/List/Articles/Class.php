@@ -4,7 +4,7 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  * 
- * @version 2.1
+ * @version 2.1.1
  */
 class Module_List_Articles_Class extends Aitsu_Module_Abstract {
 
@@ -33,7 +33,7 @@ class Module_List_Articles_Class extends Aitsu_Module_Abstract {
         $aggregation->whereInCategories(array($categories));
 
         if ($sortCategoryFirst) {
-            $aggregation->orderBy('idcat');
+            $aggregation->orderBy('catlang.idcat');
         }
 
         $aggregation->orderBy($orderBy, $ascending);
