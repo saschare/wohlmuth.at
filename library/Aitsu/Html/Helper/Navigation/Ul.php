@@ -26,7 +26,7 @@ class Aitsu_Html_Helper_Navigation_Ul {
 
 	protected function _getUl(& $nav, $level) {
 
-		if (!$this->_allOpen && !$nav->isparent && !$nav->iscurrent) {
+		if (!$this->_allOpen && !$nav->isparent && !$nav->iscurrent && $this->_startLevel != $level) {
 			return '';
 		}
 
