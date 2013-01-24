@@ -276,7 +276,7 @@ abstract class Moraso_Facebook_Base {
                 'fb_exchange_token' => $this->getAccessToken(),
                     )
             );
-        } catch (FacebookApiException $e) {
+        } catch (Moraso_Facebook_Api_Exception $e) {
             // most likely that user very recently revoked authorization.
             // In any event, we don't have an access token, so say so.
             return false;
@@ -627,7 +627,7 @@ abstract class Moraso_Facebook_Base {
         try {
             $user_info = $this->api('/me');
             return $user_info['id'];
-        } catch (FacebookApiException $e) {
+        } catch (Moraso_Facebook_Api_Exception $e) {
             return 0;
         }
     }
@@ -685,7 +685,7 @@ abstract class Moraso_Facebook_Base {
                 'client_secret' => $this->getAppSecret(),
                 'redirect_uri' => $redirect_uri,
                 'code' => $code));
-        } catch (FacebookApiException $e) {
+        } catch (Moraso_Facebook_Api_Exception $e) {
             // most likely that user very recently revoked authorization.
             // In any event, we don't have an access token, so say so.
             return false;
@@ -710,7 +710,7 @@ abstract class Moraso_Facebook_Base {
      * @param array $params Method call object
      *
      * @return mixed The decoded response object
-     * @throws FacebookApiException
+     * @throws Moraso_Facebook_Api_Exception
      */
     protected function _restserver($params) {
         // generic application level parameters
@@ -760,7 +760,7 @@ abstract class Moraso_Facebook_Base {
      * @param array $params The query/post data
      *
      * @return mixed The decoded response object
-     * @throws FacebookApiException
+     * @throws Moraso_Facebook_Api_Exception
      */
     protected function _graph($path, $method = 'GET', $params = array()) {
         if (is_array($method) && empty($params)) {
@@ -796,7 +796,7 @@ abstract class Moraso_Facebook_Base {
      * @param array $params The query/post data
      *
      * @return string The decoded response object
-     * @throws FacebookApiException
+     * @throws Moraso_Facebook_Api_Exception
      */
     protected function _oauthRequest($url, $params) {
         if (!isset($params['access_token'])) {
@@ -877,7 +877,7 @@ abstract class Moraso_Facebook_Base {
         }
 
         if ($result === false) {
-            $e = new FacebookApiException(array(
+            $e = new Moraso_Facebook_Api_Exception(array(
                         'error_code' => curl_errno($ch),
                         'error' => array(
                             'message' => curl_error($ch),
@@ -1152,7 +1152,7 @@ abstract class Moraso_Facebook_Base {
      *                      by a failed API call.
      */
     protected function throwAPIException($result) {
-        $e = new FacebookApiException($result);
+        $e = new Moraso_Facebook_Api_Exception($result);
         switch ($e->getType()) {
             // OAuth 2.0 Draft 00 style
             case 'OAuthException':
