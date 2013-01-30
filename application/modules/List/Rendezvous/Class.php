@@ -1,30 +1,28 @@
 <?php
 
-
 /**
- * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, w3concepts AG
+ * @author Andreas Kummer <a.kummer@wdrei.ch>
+ * @copyright (c) 2013, w3concepts AG 
  */
 class Module_List_Rendezvous_Class extends Aitsu_Module_Tree_Abstract {
 
-	protected $_cacheIfLoggedIn = true;
-	protected $_isVolatile = true;
+    protected $_cacheIfLoggedIn = true;
+    protected $_isVolatile = true;
 
-	protected function _main() {
+    protected function _main() {
 
-		$view = $this->_getView();
-		
-		$view->dates = Aitsu_Persistence_View_Rendezvous :: getDates(
-			Aitsu_Util_Date :: dayOfCurrentWeek(1), 
-			Aitsu_Util_Date :: dayOfCurrentWeek(1)->add(60 * 60 * 24 * 7), 
-			Aitsu_Registry :: get()->env->idcat
-		);
+        $view = $this->_getView();
 
-		return $view->render('index.phtml');
-	}
+        $view->dates = Aitsu_Persistence_View_Rendezvous :: getDates(
+                        Aitsu_Util_Date :: dayOfCurrentWeek(1), Aitsu_Util_Date :: dayOfCurrentWeek(1)->add(60 * 60 * 24 * 7), Aitsu_Registry :: get()->env->idcat
+        );
 
-	protected function _cachingPeriod() {
+        return $view->render('index.phtml');
+    }
 
-		return 60 * 60 * 24 * 365;
-	}
+    protected function _cachingPeriod() {
+
+        return 60 * 60 * 24 * 365;
+    }
+
 }
