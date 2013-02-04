@@ -10,13 +10,12 @@
  * @version 1.1
  * @since 2.4.5
  */
-
 define('REQUEST_START', microtime(true));
 
 $dirPath = dirname(__FILE__);
 
-define('APPLICATION_PATH', $dirPath. '/application');
-define('LIBRARY_PATH', $dirPath. '/library');
+define('APPLICATION_PATH', $dirPath . '/application');
+define('LIBRARY_PATH', $dirPath . '/library');
 define('CACHE_PATH', APPLICATION_PATH . '/data/pagecache');
 
 require_once (LIBRARY_PATH . '/Aitsu/Bootstrap.php');
