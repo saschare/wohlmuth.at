@@ -6,17 +6,29 @@
  */
 class Moraso_Persistence_View_Media extends Aitsu_Persistence_View_Media {
 
-    public static function ofSpecifiedArticle($idart, $orderBy = 'media.filename asc') {
+    public static function ofSpecifiedArticle($idart = null, $description = true, $orderBy = 'media.filename asc') {
+
+        if (empty($idart)) {
+            $idart = Aitsu_Registry :: get()->env->idart;
+        }
+
+        $selects = array(
+            'media.mediaid',
+            'media.idart',
+            'media.filename',
+            'media.size',
+            'media.extension',
+            'description.name',
+            'description.subline'
+        );
+
+        if ($description) {
+            $selects[] = 'description.description';
+        }
 
         return Aitsu_Db :: fetchAll('' .
                         'select ' .
-                        '   media.mediaid, ' .
-                        '   media.idart, ' .
-                        '   media.filename, ' .
-                        '   media.size, ' .
-                        '   media.extension, ' .
-                        '   description.name, ' .
-                        '   description.subline ' .
+                        '   ' . implode(',', $selects) . ' ' .
                         'from ' .
                         '   _media as media ' .
                         'left join ' .
@@ -39,43 +51,6 @@ class Moraso_Persistence_View_Media extends Aitsu_Persistence_View_Media {
                         'order by ' .
                         '   ' . $orderBy, array(
                     ':idart' => $idart,
-                    ':idlang' => Aitsu_Registry :: get()->env->idlang
-                ));
-    }
-
-    public static function ofCurrentArticleWithoutDescription($orderBy = 'media.filename asc') {
-
-        return Aitsu_Db :: fetchAll('' .
-                        'select ' .
-                        '	media.mediaid, ' .
-                        '	media.idart, ' .
-                        '	media.filename, ' .
-                        '	media.size, ' .
-                        '	media.extension, ' .
-                        '	description.name, ' .
-                        '	description.subline ' .
-                        'from ' .
-                        '   _media as media ' .
-                        'left join ' .
-                        '   _media_description as description on media.mediaid = description.mediaid and description.idlang = :idlang ' .
-                        'where ' .
-                        '   (media.idart = :idart or media.idart is null)' .
-                        'and ' .
-                        '   media.deleted is null ' .
-                        'and ' .
-                        '   media.mediaid in ( ' .
-                        '       select ' .
-                        '           max(media.mediaid) ' .
-                        '       from ' .
-                        '           _media media ' .
-                        '	where ' .
-                        '           (idart = :idart or idart is null) ' .
-                        '	group by ' .
-                        '           filename ' .
-                        '   ) ' .
-                        'order by ' .
-                        '   ' . $orderBy, array(
-                    ':idart' => Aitsu_Registry :: get()->env->idart,
                     ':idlang' => Aitsu_Registry :: get()->env->idlang
                 ));
     }
