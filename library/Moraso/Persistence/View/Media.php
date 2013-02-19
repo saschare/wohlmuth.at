@@ -2,7 +2,7 @@
 
 /**
  * @author Christian Kehres <c.kehres@webtischlerei.de>
- * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
+ * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
 class Moraso_Persistence_View_Media extends Aitsu_Persistence_View_Media {
 
