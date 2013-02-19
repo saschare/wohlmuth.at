@@ -8,7 +8,7 @@ class Moraso_Content_Config_Media extends Aitsu_Content_Config_Abstract {
 
     public function getTemplate() {
 
-        return 'media.phtml';
+        return 'media_moraso.phtml';
     }
 
     public static function set($index, $name, $label, $idart = null) {

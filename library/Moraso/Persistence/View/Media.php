@@ -16,8 +16,7 @@ class Moraso_Persistence_View_Media extends Aitsu_Persistence_View_Media {
                         '   media.size, ' .
                         '   media.extension, ' .
                         '   description.name, ' .
-                        '   description.subline, ' .
-                        '   description.description ' .
+                        '   description.subline ' .
                         'from ' .
                         '   _media as media ' .
                         'left join ' .
