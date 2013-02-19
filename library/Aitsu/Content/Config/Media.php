@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @author Christian Kehres <c.kehres@webtischlerei.de>
- * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
+ * @author Christian Kehres, webtischlerei.de
+ * @copyright Copyright &copy; 2010, webtischlerei.de
  */
 class Aitsu_Content_Config_Media extends Aitsu_Content_Config_Abstract {
 
     public function getTemplate() {
 
-        return 'media_moraso.phtml';
+        return 'media.phtml';
     }
 
     public static function set($index, $name, $label) {
@@ -19,7 +19,7 @@ class Aitsu_Content_Config_Media extends Aitsu_Content_Config_Abstract {
         $instance->facts['label'] = $label;
         $instance->facts['type'] = 'serialized';
 
-        $instance->params['media'] = Moraso_Persistence_View_Media :: ofCurrentArticleWithoutDescription();
+        $instance->params['media'] = Aitsu_Persistence_View_Media :: ofCurrentArticle();
 
         return $instance->currentValue();
     }

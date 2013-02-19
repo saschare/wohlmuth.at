@@ -2,9 +2,9 @@
 
 /**
  * @author Christian Kehres <c.kehres@webtischlerei.de>
- * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
+ * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
-class Moraso_Content_Config_Media extends Aitsu_Content_Config_Abstract {
+class Moraso_Content_Config_Media extends Aitsu_Content_Config_Media {
 
     public function getTemplate() {
 
