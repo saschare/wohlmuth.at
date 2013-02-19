@@ -46,7 +46,7 @@ class Moraso_Util_String {
 
         return $slug;
     }
-    
+
     /**
      * Creates a random string
      * 
@@ -66,14 +66,16 @@ class Moraso_Util_String {
      */
     public static function random($length = 16, $character = null) {
 
-        $character = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (empty($character)) {
+            $character = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        }
         $character_count = strlen($character);
-        
+
         $random = '';
         for ($i = 0; $i < $length; $i++) {
             $random .= $character[mt_rand(0, $character_count - 1)];
         }
-        
+
         return $random;
     }
 
