@@ -18,7 +18,7 @@ class Aitsu_Translate {
 
     protected static function _getInstance() {
 
-        static $instance;
+        static $instance = null;
 
         if (!isset($instance)) {
             $instance = new self();
@@ -88,11 +88,15 @@ class Aitsu_Translate {
 
         foreach ($files as $file) {
             $content = file_get_contents($file);
+            $matches = null;
             if (preg_match_all("@Aitsu_Translate\\s*\\:{2}\\s*_\\(\\s*(['\\\"])(.*?)(?:\\1\\s*\\))@", $content, $matches) > 0) {
                 foreach ($matches[2] as $key) {
                     $key = trim($key);
+                    /*
+                     * The part 'collate utf8_bin' forces MySQL to do case-sensitive comparison.
+                     */
                     if (Aitsu_Db :: fetchOne('' .
-                                    'select count(*) from _translate where tkey = ? and idlang = ? ', array(
+                                    'select count(*) from _translate where tkey collate utf8_bin = ? and idlang = ? ', array(
                                 $key,
                                 $idlang
                             )) == 0) {
