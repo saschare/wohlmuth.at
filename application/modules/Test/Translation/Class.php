@@ -1,16 +1,14 @@
 <?php
 
 /**
- * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, w3concepts AG
+ * @author Andreas Kummer <a.kummer@wdrei.ch>
+ * @copyright (c) 2013, Andreas Kummer
  */
-class Module_Test_Renderonly_Class extends Aitsu_Module_Abstract {
-
-    protected $_renderOnlyAllowed = true;
+class Module_Test_Translation_Class extends Aitsu_Module_Abstract {
 
     protected function _main() {
 
-        return $this->_getView()->render('index.phtml');
+        return Aitsu_Translate::translate('lastname');
     }
 
 }
