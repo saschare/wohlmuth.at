@@ -11,9 +11,9 @@ foreach ($this->field->media as $file) {
 	$file = array_map('addslashes', $file);
 	if (in_array($file['filename'], $selectedVals)) {
 		$index = array_search($file['filename'], $selectedVals);
-		$media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", $file) . "', 1]";
+		$media['0' . str_pad($index, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", str_replace("\r", '', str_replace("\n", '\n', $file))) . "', 1]";
 	} else {
-		$media['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", $file) . "', 0]";
+		$media['9' . str_pad($counter, 4, '0', STR_PAD_LEFT)] = "['" . implode("','", str_replace("\r", '', str_replace("\n", '\n', $file))) . "', 0]";
 	}
 }
 ksort($media);

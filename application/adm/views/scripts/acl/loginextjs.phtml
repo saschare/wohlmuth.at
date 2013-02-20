@@ -1,87 +1,86 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
+    <head>
 
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-		<title>Login</title>
+        <title>Login</title>
 
-		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.4.0/resources/css/ext-all-notheme.css'); ?>" />
-		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.4.0/resources/css/ux-all.css'); ?>" />
-		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.4.0/resources/css/xtheme-gray.css'); ?>" />
-		<link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/css/extjs-aitsu.css'); ?>" />
-                <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/css/extjs-aitsu-login.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.4.0/resources/css/ext-all-notheme.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/js/ext-3.4.0/resources/css/xtheme-gray.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/css/extjs-aitsu.css'); ?>" />
+        <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl('/css/extjs-aitsu-login.css'); ?>" />
 
-		<script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.4.0/adapter/ext/ext-base.js'); ?>"></script>
-		<script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.4.0/ext-all.js'); ?>"></script>   
-		<script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.4.0/ux-all.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.4.0/adapter/ext/ext-base.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.4.0/ext-all.js'); ?>"></script>   
+        <script type="text/javascript" src="<?php echo $this->baseUrl('/js/ext-3.4.0/ux-all.js'); ?>"></script>
 
-		<script type="text/javascript"> 
-Ext.onReady(function () {
+        <script type="text/javascript"> 
+            Ext.onReady(function () {
 
-   Ext.QuickTips.init();
+                Ext.QuickTips.init();
 
-   var login = new Ext.FormPanel({
-      //labelWidth: 80,
-      url: window.location.href,
-      frame: true,
-      title: 'Login',
-      defaultType: 'textfield',
-      defaults: {
-      	validateOnBlur: false
-      },
-      //monitorValid: true,
-      standardSubmit: true,
-      items: [{
-         fieldLabel: 'Username',
-         name: 'login',
-         allowBlank: false
-      }, {
-         fieldLabel: 'Password',
-         name: 'password',
-         inputType: 'password',
-         allowBlank: false
-      }],
-      buttons: [{
-         text: 'Login',
-         formBind: true,
-         handler: function () {
-            if (login.getForm().isValid()) {
-               login.getForm().submit({
-                  method: 'POST',
-                  waitTitle: 'Connecting',
-                  waitMsg: 'Sending data...'
-               });
-            }
-         }
-      }],
-      keys: [{
-         key: [10, 13],
-         fn: function () {
-            if (login.getForm().isValid()) {
-               login.getForm().submit({
-                  method: 'POST',
-                  waitTitle: 'Connecting',
-                  waitMsg: 'Sending data...'
-               });
-            }
-         }
-      }]
-   });
+                var login = new Ext.FormPanel({
+                    //labelWidth: 80,
+                    url: window.location.href,
+                    frame: true,
+                    title: 'Login',
+                    defaultType: 'textfield',
+                    defaults: {
+                        validateOnBlur: false
+                    },
+                    //monitorValid: true,
+                    standardSubmit: true,
+                    items: [{
+                            fieldLabel: 'Username',
+                            name: 'login',
+                            allowBlank: false
+                        }, {
+                            fieldLabel: 'Password',
+                            name: 'password',
+                            inputType: 'password',
+                            allowBlank: false
+                        }],
+                    buttons: [{
+                            text: 'Login',
+                            formBind: true,
+                            handler: function () {
+                                if (login.getForm().isValid()) {
+                                    login.getForm().submit({
+                                        method: 'POST',
+                                        waitTitle: 'Connecting',
+                                        waitMsg: 'Sending data...'
+                                    });
+                                }
+                            }
+                        }],
+                    keys: [{
+                            key: [10, 13],
+                            fn: function () {
+                                if (login.getForm().isValid()) {
+                                    login.getForm().submit({
+                                        method: 'POST',
+                                        waitTitle: 'Connecting',
+                                        waitMsg: 'Sending data...'
+                                    });
+                                }
+                            }
+                        }]
+                });
 
-   new Ext.Window({
-      layout: 'fit',
-      width: 300,
-      height: 150,
-      closable: false,
-      resizable: false,
-      plain: true,
-      border: false,
-      items: [login],
-      y: 130
-   }).show();
-});
-		</script> 
-	</head> 
-<body></body> 
+                new Ext.Window({
+                    layout: 'fit',
+                    width: 300,
+                    height: 150,
+                    closable: false,
+                    resizable: false,
+                    plain: true,
+                    border: false,
+                    items: [login],
+                    y: 130
+                }).show();
+            });
+        </script> 
+    </head> 
+    <body id="aitsu-login"></body> 
 </html>
