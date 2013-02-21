@@ -15,9 +15,17 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
             'float' => '',
             'style' => '',
             'template' => 'index',
-            'idart' => Aitsu_Registry :: get()->env->idart
+            'idart' => Aitsu_Registry :: get()->env->idart,
+            'configurable' => array(
+                'width' => false,
+                'height' => false,
+                'render' => false,
+                'float' => false,
+                'style' => false,
+                'template' => false
+            )
         );
-        
+
         foreach ($this->_params->default as $param => $value) {
             $defaults[$param] = $value;
         }
@@ -39,12 +47,12 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
             'template' => $template,
             'idart' => $idart,
             'configurable' => array(
-                'width' => $this->_params->width == 'config' ? true : false,
-                'height' => $this->_params->height == 'config' ? true : false,
-                'render' => $this->_params->render == 'config' ? true : false,
-                'float' => $this->_params->float == 'config' ? true : false,
-                'style' => $this->_params->style == 'config' ? true : false,
-                'template' => $this->_params->template == 'config' ? true : false
+                'width' => $this->_params->width == 'config' ? true : $defaults['configurable']['width'],
+                'height' => $this->_params->height == 'config' ? true : $defaults['configurable']['height'],
+                'render' => $this->_params->render == 'config' ? true : $defaults['configurable']['render'],
+                'float' => $this->_params->float == 'config' ? true : $defaults['configurable']['float'],
+                'style' => $this->_params->style == 'config' ? true : $defaults['configurable']['style'],
+                'template' => $this->_params->template == 'config' ? true : $defaults['configurable']['template']
             )
         );
     }
