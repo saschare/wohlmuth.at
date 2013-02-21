@@ -18,7 +18,6 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
             'idart' => Aitsu_Registry :: get()->env->idart
         );
         
-        // defaults ändern
         foreach ($this->_params->default as $param => $value) {
             $defaults[$param] = $value;
         }
