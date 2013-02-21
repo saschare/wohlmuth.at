@@ -1,198 +1,201 @@
 <?php
 
-
 /**
- * @author Andreas Kummer, w3concepts AG
- * @author Christian Kehres, webtischlerei
- * @copyright Copyright &copy; 2010, w3concepts AG
- * @copyright Copyright &copy; 2012, webtischlerei
+ * @author Andreas Kummer <a.kummer@wdrei.ch>
+ * @copyright (c) 2013, Andreas Kummer
+ * 
+ * @author Christian Kehres <c.kehres@webtischlerei.de>
+ * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
-
 class Aitsu_Translate {
 
-	protected $translationMap = array ();
-	protected $idlang = null;
+    protected $translationMap = array();
+    protected $idlang = null;
 
-	protected function __construct() {
+    protected function __construct() {
 
-		$this->idlang = Aitsu_Registry :: get()->env->idlang;
+        $this->idlang = Aitsu_Registry :: get()->env->idlang;
 
-		$this->_readTranslationData();
-	}
+        $this->_readTranslationData();
+    }
 
-	protected static function _getInstance() {
+    protected static function _getInstance() {
 
-		static $instance;
+        static $instance = null;
 
-		if (!isset ($instance)) {
-			$instance = new self();
-		}
+        if (!isset($instance)) {
+            $instance = new self();
+        }
 
-		return $instance;
-	}
+        return $instance;
+    }
 
-	public static function _($text) {
+    public static function _($text) {
 
-		$instance = self :: _getInstance();
+        $instance = self :: _getInstance();
 
-                if (!array_key_exists($text, $instance->translationMap)) {
-                        $instance->_createTranslationEntry($text);
-		}
-                
-		if (!array_key_exists($text, $instance->translationMap) || strlen($instance->translationMap[$text]) == 0) {
-			return $text;
-		}
+        if (!array_key_exists($text, $instance->translationMap)) {
+            $instance->_createTranslationEntry($text);
+        }
 
-		return $instance->translationMap[$text];
-	}
+        if (!isset($instance->translationMap[$text]) || strlen($instance->translationMap[$text]) == 0) {
+            return $text;
+        }
 
-	protected function _readTranslationData() {
+        return $instance->translationMap[$text];
+    }
 
-		$results = Aitsu_Db :: fetchAll('' .
-		'select tkey, tvalue from _translate ' .
-		'where idlang = ? ', array (
-			$this->idlang
-		));
-                
-		if (!$results) {
-			return;
-		}
+    protected function _readTranslationData() {
 
-		foreach ($results as $result) {
-			$this->translationMap[$result['tkey']] = $result['tvalue'];
-		}
-	}
+        $results = Aitsu_Db :: fetchAll('' .
+                        'select tkey, tvalue from _translate ' .
+                        'where idlang = ? ', array(
+                    $this->idlang
+                ));
 
-	public static function populate($idlang) {
+        if (!$results) {
+            return;
+        }
 
-		Aitsu_Db :: query('update _translate set obsolete = now() where obsolete is null and idlang = ? ', array (
-			$idlang
-		));
+        foreach ($results as $result) {
+            $this->translationMap[$result['tkey']] = $result['tvalue'];
+        }
+    }
 
-		self :: _populateFromClasses($idlang);
-	}
+    public static function populate($idlang) {
 
-	protected static function _populateFromClasses($idlang) {
+        Aitsu_Db :: query('update _translate set obsolete = now() where obsolete is null and idlang = ? ', array(
+            $idlang
+        ));
 
-		$files = self :: _scanDir(APPLICATION_LIBPATH, array (
-			'php',
-			'phtml'
-		));
+        self :: _populateFromClasses($idlang);
+    }
 
-		$dirs = array (
-			APPLICATION_PATH . '/plugins',
-			APPLICATION_PATH . '/skins',
-			APPLICATION_PATH . '/modules'
-		);
+    protected static function _populateFromClasses($idlang) {
 
-		foreach ($dirs as $dir) {
-			if (is_dir($dir)) {
-				$files = array_merge($files, self :: _scanDir($dir, array (
-					'php',
-					'phtml'
-				)));
-			}
-		}
+        $files = self :: _scanDir(APPLICATION_LIBPATH, array(
+                    'php',
+                    'phtml'
+                ));
 
-		foreach ($files as $file) {
-			$content = file_get_contents($file);
-			if (preg_match_all("@Aitsu_Translate\\s*\\:{2}\\s*_\\(\\s*(['\\\"])(.*?)(?:\\1\\s*\\))@", $content, $matches) > 0) {
-				foreach ($matches[2] as $key) {
-					$key = trim($key);
-					if (Aitsu_Db :: fetchOne('' .
-						'select count(*) from _translate where tkey = ? and idlang = ? ', array (
-							$key,
-							$idlang
-						)) == 0) {
-						Aitsu_Db :: query('' .
-						'insert into _translate ' .
-						'(idlang, tkey) ' .
-						'values ' .
-						'(?, ?) ', array (
-							$idlang,
-							$key
-						));
-					} else {
-						Aitsu_Db :: query('update _translate set obsolete = null where tkey = ? and idlang = ? ', array (
-							$key,
-							$idlang
-						));
-					}
-				}
-			}
-		}
-	}
+        $dirs = array(
+            APPLICATION_PATH . '/plugins',
+            APPLICATION_PATH . '/skins',
+            APPLICATION_PATH . '/modules'
+        );
 
-	protected static function _scanDir($dir, $extensions) {
+        foreach ($dirs as $dir) {
+            if (is_dir($dir)) {
+                $files = array_merge($files, self :: _scanDir($dir, array(
+                            'php',
+                            'phtml'
+                        )));
+            }
+        }
 
-		$return = array ();
-		$files = scandir($dir);
+        foreach ($files as $file) {
+            $content = file_get_contents($file);
+            $matches = null;
+            if (preg_match_all("@Aitsu_Translate\\s*\\:{2}\\s*_\\(\\s*(['\\\"])(.*?)(?:\\1\\s*\\))@", $content, $matches) > 0) {
+                foreach ($matches[2] as $key) {
+                    $key = trim($key);
+                    /*
+                     * The part 'collate utf8_bin' forces MySQL to do case-sensitive comparison.
+                     */
+                    if (Aitsu_Db :: fetchOne('' .
+                                    'select count(*) from _translate where tkey collate utf8_bin = ? and idlang = ? ', array(
+                                $key,
+                                $idlang
+                            )) == 0) {
+                        Aitsu_Db :: query('' .
+                                'insert into _translate ' .
+                                '(idlang, tkey) ' .
+                                'values ' .
+                                '(?, ?) ', array(
+                            $idlang,
+                            $key
+                        ));
+                    } else {
+                        Aitsu_Db :: query('update _translate set obsolete = null where tkey = ? and idlang = ? ', array(
+                            $key,
+                            $idlang
+                        ));
+                    }
+                }
+            }
+        }
+    }
 
-		foreach ($files as $file) {
-			$pathInfo = pathinfo($file);
-			$extension = isset ($pathInfo['extension']) ? $pathInfo['extension'] : '';
-			if ($file != '.' && $file != '..' && in_array($extension, $extensions)) {
-				$return[] = $dir . '/' . $file;
-			}
-			if ($file != '.' && $file != '..' && is_dir($dir . '/' . $file)) {
-				$return = array_merge($return, self :: _scanDir($dir . '/' . $file, $extensions));
-			}
-		}
+    protected static function _scanDir($dir, $extensions) {
 
-		return $return;
-	}
+        $return = array();
+        $files = scandir($dir);
 
-	public static function getTranslationData($idlang, $pattern = '*') {
+        foreach ($files as $file) {
+            $pathInfo = pathinfo($file);
+            $extension = isset($pathInfo['extension']) ? $pathInfo['extension'] : '';
+            if ($file != '.' && $file != '..' && in_array($extension, $extensions)) {
+                $return[] = $dir . '/' . $file;
+            }
+            if ($file != '.' && $file != '..' && is_dir($dir . '/' . $file)) {
+                $return = array_merge($return, self :: _scanDir($dir . '/' . $file, $extensions));
+            }
+        }
 
-		$pattern = str_replace('*', '%', $pattern);
+        return $return;
+    }
 
-		$return = Aitsu_Db :: fetchAll('' .
-		'select * from _translate ' .
-		'where ' .
-		'	idlang = ? ' .
-		'	and ( ' .
-		'		tkey like ? ' .
-		'		or tvalue like ? ' .
-		'		) ' .
-		'	and obsolete is null ' .
-		'order by tkey asc ', array (
-			$idlang,
-			$pattern,
-			$pattern
-		));
+    public static function getTranslationData($idlang, $pattern = '*') {
 
-		if (!$return) {
-			return array ();
-		}
+        $pattern = str_replace('*', '%', $pattern);
 
-		return $return;
-	}
+        $return = Aitsu_Db :: fetchAll('' .
+                        'select * from _translate ' .
+                        'where ' .
+                        '	idlang = ? ' .
+                        '	and ( ' .
+                        '		tkey like ? ' .
+                        '		or tvalue like ? ' .
+                        '		) ' .
+                        '	and obsolete is null ' .
+                        'order by tkey asc ', array(
+                    $idlang,
+                    $pattern,
+                    $pattern
+                ));
 
-	public static function translate($text) {
+        if (!$return) {
+            return array();
+        }
 
-		if (!is_a(Aitsu_Registry :: get()->Zend_Translate, 'Zend_Translate')) {
-			return $text;
-		}
+        return $return;
+    }
 
-		return Aitsu_Registry :: get()->Zend_Translate->translate($text);
-	}
-        
-        protected function _createTranslationEntry($tkey) {
+    public static function translate($text) {
 
-                $instance = self :: _getInstance();
-                
-                Aitsu_Db :: query('' .
-                        'insert into ' .
-                        '   _translate ' .
-                        '   (idlang, tkey) ' .
-                        'values ' .
-                        '   (?, ?) ', array (
-                                $instance->idlang,
-                                $tkey
-                        )
-                );
-                    
-                $instance->translationMap[$tkey] = '';
-	}
+        if (!is_a(Aitsu_Registry :: get()->Zend_Translate, 'Zend_Translate')) {
+            return $text;
+        }
+
+        return Aitsu_Registry :: get()->Zend_Translate->translate($text);
+    }
+
+    protected function _createTranslationEntry($tkey) {
+
+        $instance = self :: _getInstance();
+
+        Aitsu_Db :: query('' .
+                'insert into ' .
+                '   _translate ' .
+                '   (idlang, tkey) ' .
+                'values ' .
+                '   (?, ?) ', array(
+            $instance->idlang,
+            $tkey
+                )
+        );
+
+        $instance->translationMap[$tkey] = '';
+    }
 
 }
