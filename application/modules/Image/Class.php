@@ -8,13 +8,28 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
 
     protected function _getDefaults() {
 
-        $width = empty($this->_params->width) ? 200 : $this->_params->width;
-        $height = empty($this->_params->height) ? 200 : $this->_params->height;
-        $render = empty($this->_params->render) ? 0 : $this->_params->render;
-        $float = empty($this->_params->float) ? '' : $this->_params->float;
-        $style = empty($this->_params->style) ? '' : $this->_params->style;
-        $template = empty($this->_params->template) ? 'index' : $this->_params->template;
-        $idart = empty($this->_params->idart) ? Aitsu_Registry :: get()->env->idart : $this->_params->idart;
+        $defaults = array(
+            'width' => 200,
+            'height' => 200,
+            'render' => 0,
+            'float' => '',
+            'style' => '',
+            'template' => 'index',
+            'idart' => Aitsu_Registry :: get()->env->idart
+        );
+        
+        // defaults ändern
+        foreach ($this->_params->default as $param => $value) {
+            $defaults[$param] = $value;
+        }
+
+        $width = empty($this->_params->width) || $this->_params->width == 'config' ? $defaults['width'] : $this->_params->width;
+        $height = empty($this->_params->height) || $this->_params->height == 'config' ? $defaults['height'] : $this->_params->height;
+        $render = empty($this->_params->render) || $this->_params->render == 'config' ? $defaults['render'] : $this->_params->render;
+        $float = empty($this->_params->float) || $this->_params->float == 'config' ? $defaults['float'] : $this->_params->float;
+        $style = empty($this->_params->style) || $this->_params->style == 'config' ? $defaults['style'] : $this->_params->style;
+        $template = empty($this->_params->template) || $this->_params->template == 'config' ? $defaults['template'] : $this->_params->template;
+        $idart = empty($this->_params->idart) || $this->_params->idart == 'config' ? $defaults['idart'] : $this->_params->idart;
 
         return array(
             'width' => $width,
@@ -25,12 +40,12 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
             'template' => $template,
             'idart' => $idart,
             'configurable' => array(
-                'width' => $width === 'config' ? true : false,
-                'height' => $height === 'config' ? true : false,
-                'render' => $render === 'config' ? true : false,
-                'float' => $float === 'config' ? true : false,
-                'style' => $style === 'config' ? true : false,
-                'template' => $template === 'config' ? true : false
+                'width' => $this->_params->width == 'config' ? true : false,
+                'height' => $this->_params->height == 'config' ? true : false,
+                'render' => $this->_params->render == 'config' ? true : false,
+                'float' => $this->_params->float == 'config' ? true : false,
+                'style' => $this->_params->style == 'config' ? true : false,
+                'template' => $this->_params->template == 'config' ? true : false
             )
         );
     }
