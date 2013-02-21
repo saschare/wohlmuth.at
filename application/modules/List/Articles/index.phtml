@@ -12,7 +12,7 @@
         <ul class="pagination">
             <?php for ($p = 1; $p <= $this->pages; $p++) : ?>
                 <li class="<?php echo $p == $this->currentPage ? 'active' : ''; ?>">
-                    <a href="{ref:idart:<?php echo $this->idart; ?>}?page=<?php echo $p; ?>">
+                    <a href="{ref:idart-<?php echo $this->idart; ?>}?page=<?php echo $p; ?>">
                         Page <?php echo $p; ?>
                     </a>
                 </li>
