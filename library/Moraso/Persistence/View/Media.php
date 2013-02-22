@@ -26,7 +26,7 @@ class Moraso_Persistence_View_Media extends Aitsu_Persistence_View_Media {
             $selects[] = 'description.description';
         }
 
-        $images = Aitsu_Db :: fetchAll('' .
+        return Aitsu_Db :: fetchAll('' .
                         'select ' .
                         '   ' . implode(',', $selects) . ' ' .
                         'from ' .
@@ -53,13 +53,6 @@ class Moraso_Persistence_View_Media extends Aitsu_Persistence_View_Media {
                     ':idart' => $idart,
                     ':idlang' => Aitsu_Registry :: get()->env->idlang
                 ));
-
-        $return = array();
-        foreach ($images as $image) {
-            $return[] = (object) $image;
-        }
-
-        return $return;
     }
 
 }
