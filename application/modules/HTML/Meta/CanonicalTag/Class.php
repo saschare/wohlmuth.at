@@ -4,7 +4,7 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
-class Skin_Module_HTML_Meta_CanonicalTag_Class extends Aitsu_Module_Abstract {
+class Module_HTML_Meta_CanonicalTag_Class extends Aitsu_Module_Abstract {
 
     protected $_allowEdit = false;
 
