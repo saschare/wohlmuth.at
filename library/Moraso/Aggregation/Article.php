@@ -1,10 +1,108 @@
 <?php
 
 /**
- * @author Christian Kehres <c.kehres@webtischlerei.de>
- * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
+ * @author Andreas Kummer, w3concepts AG
+ * @copyright Copyright &copy; 2012, w3concepts AG
  */
-class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
+class Moraso_Aggregation_Article implements Iterator, Countable {
+
+    protected $_idlang;
+    protected $_types;
+    protected $_fetches = array();
+    protected $_properties = array();
+    protected $_media = array();
+    protected $_whereInCategories = null;
+    protected $_orderBy = null;
+    protected $_startArticle = 1;
+    protected $_filters = null;
+    protected $_tags = array();
+    protected $_havingClause = '';
+    protected $_tagJoin = '';
+    protected $_offset = 0;
+    protected $_limit = 200;
+    protected $_results = array();
+    protected $_position = 0;
+
+    protected function __construct() {
+
+        $this->_idlang = Aitsu_Registry :: get()->env->idlang;
+        $this->_whereInCategories = array(
+            Aitsu_Registry :: get()->env->idcat
+        );
+    }
+
+    public static function factory() {
+
+        $instance = new self();
+        return $instance;
+    }
+
+    public function populateWith($type, $alias, $datatype = 'textvalue') {
+
+        $firstPart = strtok($type, ':');
+        $secondPart = strtok("\n");
+
+        if ($firstPart == 'property') {
+            $this->_properties[$alias] = (object) array(
+                        'alias' => $secondPart,
+                        'type' => $datatype
+            );
+            return $this;
+        }
+
+        if ($firstPart == 'files') {
+            $this->_media[$alias] = (object) array(
+                        'filter' => str_replace('*', '%', $secondPart)
+            );
+            return $this;
+        }
+
+        $this->_fetches[$alias] = (object) array(
+                    'name' => $type
+        );
+
+        return $this;
+    }
+
+    public function whereInCategories($categories) {
+
+        $this->_whereInCategories = $categories;
+
+        return $this;
+    }
+
+    public function whereBeneathCategory($category) {
+
+        if (empty($category)) {
+            return $this;
+        }
+
+        $this->_whereInCategories = Aitsu_Db :: fetchCol('' .
+                        'select distinct child.idcat from ' .
+                        '_cat as parent, ' .
+                        '_cat as child ' .
+                        'where ' .
+                        '	child.lft between parent.lft and parent.rgt ' .
+                        '	and parent.idcat = :idcat ', array(
+                    ':idcat' => $category
+                ));
+
+        return $this;
+    }
+
+    public function orderBy($alias, $ascending = true) {
+
+        $this->_orderBy[$alias] = $ascending;
+
+        return $this;
+    }
+
+    public function useOfStartArticle($startArticle) {
+
+        $this->_startArticle = $startArticle;
+
+        return $this;
+    }
 
     public function fetch($offset = 0, $limit = 100) {
 
@@ -13,12 +111,53 @@ class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
         return $this;
     }
 
+    public function rewind() {
+
+        $this->_position = 0;
+
+        return $this;
+    }
+
+    public function current() {
+
+        return $this->_results[$this->_position];
+    }
+
+    public function key() {
+
+        return $this->_position;
+    }
+
+    public function next() {
+
+        $this->_position++;
+
+        return $this;
+    }
+
+    public function valid() {
+
+        return $this->_position < count($this->_results);
+    }
+
+    public function count() {
+
+        return count($this->_results);
+    }
+
     protected function _fetchResults($offset, $limit) {
 
         if (count($this->_results) > 0 && $this->_offset == $offset && $this->_limit = $limit) {
+            /*
+             * Data has already been fetched.
+             */
             return;
         }
 
+        /*
+         * select clause -> $select
+         * and joins -> $joins
+         */
         if ($this->_fetches != null || $this->_properties != null || $this->_media != null) {
             $join = array();
             $select = array();
@@ -47,14 +186,24 @@ class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
             $joins = '';
         }
 
+        /*
+         * where in category -> $_whereInCategories
+         */
         if ($this->_whereInCategories != null) {
             $whereInCategories = 'and catart.idcat in (' . implode(', ', $this->_whereInCategories) . ') ';
         } else {
             $whereInCategories = '';
         }
 
+        /*
+         * Use of start article -> $useOfStartArticle
+         * 1 = show all (startarticle and others)
+         * 2 = do not show start articles
+         * 3 = show only start articles
+         */
         switch ($this->_startArticle) {
             case 2 :
+                // $useOfStartArticle = ' and catlang.startidartlang != artlang.idartlang ';
                 $useOfStartArticle = ' and (catlang.startidartlang != artlang.idartlang or catlang.startidartlang is null) ';
                 break;
             case 3 :
@@ -64,12 +213,18 @@ class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
                 $useOfStartArticle = ' ';
         }
 
+        /*
+         * Filters -> $_where
+         */
         if ($this->_filters == null) {
             $where = '';
         } else {
             $where = ' and ' . implode(' and ', $this->_filters);
         }
 
+        /*
+         * order by clause -> $_orderBy
+         */
         $orderAlias['modified'] = 'artlang.lastmodified';
         $orderAlias['created'] = 'artlang.created';
         $orderAlias['artsort'] = 'artlang.artsort';
@@ -123,13 +278,13 @@ class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
                         "left join _google_geolocation coord on artcoord.idlocation = coord.id " .
                         "{$this->_tagJoin}" .
                         "where " .
-                        " artlang.online = 1 " .
-                        " and artlang.idlang = :idlang " .
-                        " {$useOfStartArticle} " .
-                        " {$whereInCategories} " .
-                        " {$where} " .
+                        "	artlang.online = 1 " .
+                        "	and artlang.idlang = :idlang " .
+                        "	{$useOfStartArticle} " .
+                        "	{$whereInCategories} " .
+                        "	{$where} " .
                         "group by " .
-                        " artlang.idartlang " .
+                        "	artlang.idartlang " .
                         "{$this->_havingClause}" .
                         "{$orderBy} " .
                         "limit {$offset}, {$limit} " .
@@ -148,7 +303,8 @@ class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
             if (isset($rows[$result['idartlang']])) {
                 foreach ($result as $key => $value) {
                     if (substr($key, 0, 2) == 'f_') {
-                        $fieldname = strtok($fieldname = substr($key, 2), '_');
+                        $fieldname = substr($key, 2);
+                        $fieldname = strtok($fieldname, '_');
                         $alias = strtok("\n");
                         $tmpResult[$alias][$result['f_filename_' . $alias]][$fieldname] = $value;
                     }
@@ -167,7 +323,8 @@ class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
                     if (substr($key, 0, 2) != 'f_') {
                         $tmpResult[$key] = $value;
                     } else {
-                        $fieldname = strtok(substr($key, 2), '_');
+                        $fieldname = substr($key, 2);
+                        $fieldname = strtok($fieldname, '_');
                         $alias = strtok("\n");
                         $tmpResult[$alias][$result['f_filename_' . $alias]][$result['f_mediaid_' . $alias]][$fieldname] = $value;
                     }
@@ -181,6 +338,54 @@ class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
         }
 
         return;
+    }
+
+    public function addFilter($filter, $alias = null) {
+
+        if ($alias == null) {
+            $this->_filters[] = $filter;
+        }
+
+        if (array_key_exists($alias, $this->_fetches)) {
+            $this->_filters[] = str_replace('?', "tbl{$alias}.value", $filter);
+        }
+
+        if (array_key_exists($alias, $this->_properties)) {
+            $this->_filters[] = str_replace('?', "tbl{$alias}.{$this->_properties[$alias]->type}", $filter);
+        }
+
+        return $this;
+    }
+
+    public function havingTags($tags) {
+
+        if ($tags == null || !is_array($tags)) {
+            return;
+        }
+
+        if (count($tags) == 0) {
+            return;
+        }
+
+        $this->_tags = $tags;
+
+        $this->_havingClause = ' having count(tag.tagid) = :tags ';
+        $this->_tagJoin = ' left join _tag_art tagart on artlang.idart = tagart.idart ' .
+                'left join _tag tag on tagart.tagid = tag.tagid ' .
+                'and tag.tag in (\'' . implode("','", $tags) . '\') ';
+
+        return $this;
+    }
+
+    public function remove($field, $value) {
+
+        foreach ($this->_results as $key => $val) {
+            if ($val->$field == $value) {
+                unset($this->_results[$key]);
+            }
+        }
+
+        $this->_results = array_values($this->_results);
     }
 
 }
