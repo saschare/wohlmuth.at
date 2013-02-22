@@ -7,24 +7,41 @@
 class Module_Image_Class extends Aitsu_Module_Abstract {
 
     protected function _getDefaults() {
-        
-        $widthConfig = Aitsu_Config::get('module.image.width.default');
-        
-        $defaults = array(
-            'width' => empty($widthConfig) ? 200 : $widthConfig,
-            'height' => empty(Aitsu_Config::get('module.image.height.default')) ? 200 : Aitsu_Config::get('module.image.height.default'),
-            'render' => empty(Aitsu_Config::get('module.image.render.default')) ? 0 : Aitsu_Config::get('module.image.render.default'),
-            'float' => empty(Aitsu_Config::get('module.image.float.default')) ? '' : Aitsu_Config::get('module.image.float.default'),
-            'style' => empty(Aitsu_Config::get('module.image.style.default')) ? '' : Aitsu_Config::get('module.image.style.default'),
-            'template' => empty(Aitsu_Config::get('module.image.template.default')) ? 'index' : Aitsu_Config::get('module.image.template.default'),
-            'idart' => empty(Aitsu_Config::get('module.image.idart.default')) ? Aitsu_Registry :: get()->env->idart : Aitsu_Config::get('module.image.idart.default'),
+
+        $aitsuConfig = array(
+            'width' => Aitsu_Config::get('module.image.width.default'),
+            'height' => Aitsu_Config::get('module.image.height.default'),
+            'render' => Aitsu_Config::get('module.image.render.default'),
+            'float' => Aitsu_Config::get('module.image.float.default'),
+            'style' => Aitsu_Config::get('module.image.style.default'),
+            'template' => Aitsu_Config::get('module.image.template.default'),
+            'idart' => Aitsu_Config::get('module.image.idart.default'),
             'configurable' => array(
-                'width' => empty(Aitsu_Config::get('module.image.width.configurable')) ? false : Aitsu_Config::get('module.image.width.configurable'),
-                'height' => empty(Aitsu_Config::get('module.image.height.configurable')) ? false : Aitsu_Config::get('module.image.height.configurable'),
-                'render' => empty(Aitsu_Config::get('module.image.render.configurable')) ? false : Aitsu_Config::get('module.image.render.configurable'),
-                'float' => empty(Aitsu_Config::get('module.image.float.configurable')) ? false : Aitsu_Config::get('module.image.float.configurable'),
-                'style' => empty(Aitsu_Config::get('module.image.style.configurable')) ? false : Aitsu_Config::get('module.image.style.configurable'),
-                'template' => empty(Aitsu_Config::get('module.image.template.configurable')) ? false : Aitsu_Config::get('module.image.template.configurable')
+                'width' => Aitsu_Config::get('module.image.width.configurable'),
+                'height' => Aitsu_Config::get('module.image.height.configurable'),
+                'render' => Aitsu_Config::get('module.image.render.configurable'),
+                'float' => Aitsu_Config::get('module.image.float.configurable'),
+                'style' => Aitsu_Config::get('module.image.style.configurable'),
+                'template' => Aitsu_Config::get('module.image.template.configurable'),
+                'idart' => Aitsu_Config::get('module.image.idart.configurable')
+            )
+        );
+
+        $defaults = array(
+            'width' => empty($aitsuConfig['width']) ? 200 : $aitsuConfig['width'],
+            'height' => empty($aitsuConfig['height']) ? 200 : $aitsuConfig['height'],
+            'render' => empty($aitsuConfig['render']) ? 0 : $aitsuConfig['render'],
+            'float' => empty($aitsuConfig['float']) ? '' : $aitsuConfig['float'],
+            'style' => empty($aitsuConfig['style']) ? '' : $aitsuConfig['style'],
+            'template' => empty($aitsuConfig['template']) ? 'index' : $aitsuConfig['template'],
+            'idart' => empty($aitsuConfig['idart']) ? Aitsu_Registry :: get()->env->idart : $aitsuConfig['idart'],
+            'configurable' => array(
+                'width' => empty($aitsuConfig['configurable']['width']) ? false : $aitsuConfig['configurable']['width'],
+                'height' => empty($aitsuConfig['configurable']['height']) ? false : $aitsuConfig['configurable']['height'],
+                'render' => empty($aitsuConfig['configurable']['render']) ? false : $aitsuConfig['configurable']['render'],
+                'float' => empty($aitsuConfig['configurable']['float']) ? false : $aitsuConfig['configurable']['float'],
+                'style' => empty($aitsuConfig['configurable']['style']) ? false : $aitsuConfig['configurable']['style'],
+                'template' => empty($aitsuConfig['configurable']['template']) ? false : $aitsuConfig['configurable']['template']
             )
         );
 
