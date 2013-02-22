@@ -28,7 +28,7 @@ class Module_List_Articles_Class extends Aitsu_Module_Abstract {
             $offset = ($page - 1) * $limit;
         }
 
-        $aggregation = Aitsu_Aggregation_Article::factory();
+        $aggregation = Moraso_Aggregation_Article::factory();
         $aggregation->useOfStartArticle($useOfStartArticle);
         $aggregation->whereInCategories(array($categories));
 
