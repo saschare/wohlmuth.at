@@ -56,7 +56,7 @@ class Moraso_Persistence_View_Media extends Aitsu_Persistence_View_Media {
 
         $return = array();
         foreach ($images as $image) {
-                $return[] = (object) $image;
+            $return[] = (object) $image;
         }
 
         return $return;
