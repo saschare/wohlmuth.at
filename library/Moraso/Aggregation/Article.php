@@ -6,6 +6,13 @@
  */
 class Moraso_Aggregation_Article extends Aitsu_Aggregation_Article {
 
+    public function fetch($offset = 0, $limit = 100) {
+
+        $this->_fetchResults($offset, $limit);
+
+        return $this;
+    }
+
     protected function _fetchResults($offset, $limit) {
 
         if (count($this->_results) > 0 && $this->_offset == $offset && $this->_limit = $limit) {
