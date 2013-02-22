@@ -17,6 +17,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
             'template' => Aitsu_Config::get('module.image.template.default'),
             'idart' => Aitsu_Config::get('module.image.idart.default'),
             'rel' => Aitsu_Config::get('module.image.rel.default'),
+            'all' => Aitsu_Config::get('module.image.all.default'),
             'configurable' => array(
                 'width' => Aitsu_Config::get('module.image.width.configurable'),
                 'height' => Aitsu_Config::get('module.image.height.configurable'),
@@ -25,7 +26,8 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
                 'style' => Aitsu_Config::get('module.image.style.configurable'),
                 'template' => Aitsu_Config::get('module.image.template.configurable'),
                 'idart' => Aitsu_Config::get('module.image.idart.configurable'),
-                'rel' => Aitsu_Config::get('module.image.rel.configurable')
+                'rel' => Aitsu_Config::get('module.image.rel.configurable'),
+                'all' => Aitsu_Config::get('module.image.all.configurable')
             )
         );
 
@@ -38,6 +40,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
             'template' => empty($aitsuConfig['template']) ? 'index' : $aitsuConfig['template'],
             'idart' => empty($aitsuConfig['idart']) ? Aitsu_Registry :: get()->env->idart : $aitsuConfig['idart'],
             'rel' => empty($aitsuConfig['rel']) ? '' : $aitsuConfig['rel'],
+            'all' => empty($aitsuConfig['all']) ? false : $aitsuConfig['all'],
             'configurable' => array(
                 'width' => empty($aitsuConfig['configurable']['width']) ? false : $aitsuConfig['configurable']['width'],
                 'height' => empty($aitsuConfig['configurable']['height']) ? false : $aitsuConfig['configurable']['height'],
@@ -45,7 +48,8 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
                 'float' => empty($aitsuConfig['configurable']['float']) ? false : $aitsuConfig['configurable']['float'],
                 'style' => empty($aitsuConfig['configurable']['style']) ? false : $aitsuConfig['configurable']['style'],
                 'template' => empty($aitsuConfig['configurable']['template']) ? false : $aitsuConfig['configurable']['template'],
-                'rel' => empty($aitsuConfig['configurable']['rel']) ? false : $aitsuConfig['configurable']['rel']
+                'rel' => empty($aitsuConfig['configurable']['rel']) ? false : $aitsuConfig['configurable']['rel'],
+                'all' => empty($aitsuConfig['configurable']['all']) ? false : $aitsuConfig['configurable']['all']
             )
         );
 
@@ -61,6 +65,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
         $template = empty($this->_params->template) || $this->_params->template == 'config' ? $defaults['template'] : $this->_params->template;
         $idart = empty($this->_params->idart) || $this->_params->idart == 'config' ? $defaults['idart'] : $this->_params->idart;
         $rel = empty($this->_params->rel) || $this->_params->rel == 'config' ? $defaults['rel'] : $this->_params->rel;
+        $all = empty($this->_params->all) || $this->_params->all == 'config' ? $defaults['all'] : $this->_params->all;
 
         return array(
             'width' => $width,
@@ -71,6 +76,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
             'template' => $template,
             'idart' => $idart,
             'rel' => $rel,
+            'all' => $all,
             'configurable' => array(
                 'width' => $this->_params->width == 'config' ? true : $defaults['configurable']['width'],
                 'height' => $this->_params->height == 'config' ? true : $defaults['configurable']['height'],
@@ -78,7 +84,8 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
                 'float' => $this->_params->float == 'config' ? true : $defaults['configurable']['float'],
                 'style' => $this->_params->style == 'config' ? true : $defaults['configurable']['style'],
                 'template' => $this->_params->template == 'config' ? true : $defaults['configurable']['template'],
-                'rel' => $this->_params->rel == 'config' ? true : $defaults['configurable']['rel']
+                'rel' => $this->_params->rel == 'config' ? true : $defaults['configurable']['rel'],
+                'all' => $this->_params->all == 'config' ? true : $defaults['configurable']['all']
             )
         );
     }
@@ -89,10 +96,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
 
         $idart = empty($this->_params->idart) ? $defaults['idart'] : $this->_params->idart;
         $template = empty($this->_params->template) ? $defaults['template'] : $this->_params->template;
-
-        $images = Moraso_Content_Config_Media :: set($this->_index, 'Image.Media', 'Media', $idart);
-        $selectedImages = Aitsu_Persistence_View_Media :: byFileName($idart, $images);
-
+        
         if ($defaults['configurable']['width']) {
             $width = Aitsu_Content_Config_Text::set($this->_index, 'width', Aitsu_Translate::_('Width'), Aitsu_Translate::_('Configuration'));
         }
@@ -133,11 +137,27 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
                 $template = $configTemplate;
             }
         }
-        
+
         if ($defaults['configurable']['rel']) {
             $rel = Aitsu_Content_Config_Text::set($this->_index, 'rel', Aitsu_Translate::_('rel'), Aitsu_Translate::_('Configuration'));
         }
+        
+        if ($defaults['configurable']['all']) {
+            $showAllSelect = array(
+                'show all Images' => true,
+                'select single Images' => false
+            );
+            
+            $all = Aitsu_Content_Config_Radio::set($this->_index, 'all', Aitsu_Translate::_('show all Images'), $showAllSelect, Aitsu_Translate::_('Configuration'));
+        }
 
+        if (empty($all) && empty($defaults['all'])) {
+            $images = Moraso_Content_Config_Media :: set($this->_index, 'Image.Media', 'Media', $idart);
+            $selectedImages = Aitsu_Persistence_View_Media::byFileName($idart, $images);
+        } else {
+            $selectedImages = Moraso_Persistence_View_Media::ofSpecifiedArticle($idart);
+        }
+        
         if (empty($template) || empty($selectedImages) || !in_array($template, $this->_getTemplates())) {
             return '';
         }
