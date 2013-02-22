@@ -40,7 +40,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
             'template' => empty($aitsuConfig['template']) ? 'index' : $aitsuConfig['template'],
             'idart' => empty($aitsuConfig['idart']) ? Aitsu_Registry :: get()->env->idart : $aitsuConfig['idart'],
             'rel' => empty($aitsuConfig['rel']) ? '' : $aitsuConfig['rel'],
-            'all' => empty($aitsuConfig['all']) ? false : $aitsuConfig['all'],
+            'all' => empty($aitsuConfig['all']) ? 0 : $aitsuConfig['all'],
             'configurable' => array(
                 'width' => empty($aitsuConfig['configurable']['width']) ? false : $aitsuConfig['configurable']['width'],
                 'height' => empty($aitsuConfig['configurable']['height']) ? false : $aitsuConfig['configurable']['height'],
