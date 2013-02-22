@@ -153,7 +153,7 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
 
         if (empty($all) && empty($defaults['all'])) {
             $images = Moraso_Content_Config_Media :: set($this->_index, 'Image.Media', 'Media', $idart);
-            $selectedImages = Aitsu_Persistence_View_Media::byFileName($idart, $images);
+            $selectedImages = Moraso_Persistence_View_Media::byFileName($idart, $images);
         } else {
             $selectedImages = Moraso_Persistence_View_Media::ofSpecifiedArticle($idart);
         }
