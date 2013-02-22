@@ -8,8 +8,10 @@ class Module_Image_Class extends Aitsu_Module_Abstract {
 
     protected function _getDefaults() {
         
+        $widthConfig = Aitsu_Config::get('module.image.width.default');
+        
         $defaults = array(
-            'width' => empty(Aitsu_Config::get('module.image.width.default')) ? 200 : Aitsu_Config::get('module.image.width.default'),
+            'width' => empty($widthConfig) ? 200 : $widthConfig,
             'height' => empty(Aitsu_Config::get('module.image.height.default')) ? 200 : Aitsu_Config::get('module.image.height.default'),
             'render' => empty(Aitsu_Config::get('module.image.render.default')) ? 0 : Aitsu_Config::get('module.image.render.default'),
             'float' => empty(Aitsu_Config::get('module.image.float.default')) ? '' : Aitsu_Config::get('module.image.float.default'),
