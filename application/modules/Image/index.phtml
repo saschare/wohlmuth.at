@@ -1,4 +1,4 @@
 <!-- Standard -->
 <?php foreach ($this->selectedImages as $image) : ?>
-    <img src="image/<?php echo $this->width; ?>/<?php echo $this->height; ?>/<?php echo $this->render; ?>/<?php echo $image->idart; ?>/<?php echo $image->filename; ?>" alt="<?php echo $image->subline; ?>" style="<?php if (!empty($this->float)) { echo 'float: ' . $this->float . ';'; } ?> <?php echo $this->style; ?>" />
+    <img src="image/<?php echo $this->width; ?>/<?php echo $this->height; ?>/<?php echo $this->render; ?>/<?php echo $image->idart; ?>/<?php echo $image->filename; ?>" alt="<?php echo $image->subline; ?>" <?php if (!empty($this->rel)) { echo 'rel="' . $this->float . '"'; } ?> style="<?php if (!empty($this->float)) { echo 'float: ' . $this->float . ';'; } ?> <?php echo $this->style; ?>" />
 <?php endforeach; ?>
