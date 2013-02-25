@@ -1,0 +1,3 @@
+[submodule "application/skins/foundation"]
+	path = application/skins/foundation
+	url = git@github.com:webtischlerei/moraso-skin-foundation.git
