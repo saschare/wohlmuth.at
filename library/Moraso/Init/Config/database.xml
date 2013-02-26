@@ -6,15 +6,6 @@
         <field name="identifier" type="varchar (255)" />
         <field name="value" type="varchar (255)" />
         
-        <dataset use="add">
-            <record>
-                <value attribute="client">default</value>
-                <value attribute="env">live</value>
-                <value attribute="identifier">skin</value>
-                <value attribute="value">default</value>
-            </record>
-        </dataset>
-        
         <index columns="client,env,identifier" type="unique" name="un_client_env_identifier" />
     </table>
 </database>
