@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd">
+    <table engine="InnoDB" name="moraso_config" since="1.5.0">
+        <field name="client" type="varchar (255)" />
+        <field name="env" type="varchar (255)" />
+        <field name="identifier" type="varchar (255)" />
+        <field name="value" type="varchar (255)" />
+        
+        <dataset use="add">
+            <record>
+                <value attribute="client">default</value>
+                <value attribute="env">live</value>
+                <value attribute="identifier">skin</value>
+                <value attribute="value">default</value>
+            </record>
+        </dataset>
+        
+        <index columns="client,env,identifier" type="unique" name="un_client_env_identifier" />
+    </table>
+</database>
