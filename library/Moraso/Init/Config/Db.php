@@ -7,13 +7,13 @@
 class Moraso_Init_Config_Db implements Aitsu_Event_Listener_Interface {
 
     public static function notify(Aitsu_Event_Abstract $event) {
-        
+
         if (!empty($_SERVER['PHP_FCGI_CHILDREN']) || !empty($_SERVER['FCGI_ROLE'])) {
             $env = (getenv("REDIRECT_AITSU_ENV") == '' ? 'live' : getenv("REDIRECT_AITSU_ENV"));
         } else {
             $env = (getenv("AITSU_ENV") == '' ? 'live' : getenv("AITSU_ENV"));
         }
-        
+
         $client = Aitsu_Mapping::getIni();
 
         $database_config = Aitsu_Db::fetchAll('' .
@@ -29,21 +29,40 @@ class Moraso_Init_Config_Db implements Aitsu_Event_Listener_Interface {
         ));
 
         if (empty($database_config)) {
-            return '';
+            return;
         }
 
-        $database_array = array();
-
+        $database_array = array(
+            'default' => array(),
+            'live' => array(
+                '_extends' => 'default'
+            ),
+            'prod' => array(
+                '_extends' => 'live'
+            ),
+            'staging' => array(
+                '_extends' => 'prod'
+            ),
+            'preprod' => array(
+                '_extends' => 'staging'
+            ),
+            'dev' => array(
+                '_extends' => 'preprod'
+            )
+        );
+        
         foreach ($database_config as $row) {
             $rowConfig[$row['env']] = Aitsu_Util::parseSimpleIni($row['identifier'] . ' = ' . $row['value']);
-
+            
             $database_array = array_merge_recursive((array) $database_array, (array) $rowConfig);
+            
+            unset($rowConfig);
         }
 
         $config = new Zend_Config_Json(json_encode($database_array), $env, array(
             'allowModifications' => true
         ));
-        
+
         Aitsu_Registry :: get()->config->merge($config);
     }
 
