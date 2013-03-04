@@ -25,7 +25,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         $modulePath = implode('/', $module_parts);
 
         echo 'Es handelt sich um das Modul ' . $modulePath . '!';
-        exit();
+        die();
 
         /**
          * @todo Nun schauen wir wo sich ein Template dazu befindet und setzen den Pfad dementsprechend
