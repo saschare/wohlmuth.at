@@ -30,7 +30,7 @@ class Module_HTML_Meta_ResourceBundle_Class extends Aitsu_Module_Abstract {
 			$resources[] = $resource;
 		}
 
-		$uri = Aitsu_MiniMe :: getUri($type, $resources);
+		$uri = Aitsu_Ee_MiniMe :: getUri($type, $resources);
 
 		$env = Aitsu_Config :: get('env') == null ? '' : Aitsu_Config :: get('env');
 

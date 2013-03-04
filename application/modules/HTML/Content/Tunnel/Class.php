@@ -21,11 +21,11 @@ class Module_HTML_Content_Tunnel_Class extends Aitsu_Module_Tree_Abstract {
 
 		$sourceCat = (preg_match('/_(\\d*)$/', $this->_index, $match) ? $match[1] : 0);
 
-		$idart = Aitsu_Config_ArticlesBySpecifiedCategoryAsSelect :: set($this->_index, 'moduloutput_idart', 'Idart', array (
+		$idart = Aitsu_Ee_Config_ArticlesBySpecifiedCategoryAsSelect :: set($this->_index, 'moduloutput_idart', 'Idart', array (
 			$sourceCat
 		), Aitsu_Registry :: get()->env->idlang);
 
-		$method = Aitsu_Config_Select :: set($this->_index, 'moduloutput_method', '', array (
+		$method = Aitsu_Ee_Config_Select :: set($this->_index, 'moduloutput_method', '', array (
 			'Spaltenblock 1' => 'Template:Spaltenblock1',
 			'Spaltenblock 2' => 'Template:Spaltenblock2'
 		), 'Container');

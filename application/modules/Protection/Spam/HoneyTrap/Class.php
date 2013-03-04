@@ -22,7 +22,7 @@ class Module_Protection_Spam_HoneyTrap_Class extends Aitsu_Module_Abstract {
 				$ht = Aitsu_Persistence_Honeytrap :: factory();
 				$ht->ip = $_SERVER["REMOTE_ADDR"];
 				$ht->save();
-				Aitsu_Cache_Page :: lifetime(0);
+				Aitsu_Ee_Cache_Page :: lifetime(0);
 			}
 		}
 

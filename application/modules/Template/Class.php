@@ -57,9 +57,7 @@ class Module_Template_Class extends Aitsu_Module_Abstract {
 			$template = Aitsu_Content_Config_Radio :: set($index, 'SubTemplate', '', $keyValuePairs, 'Template');
 
 			if (Aitsu_Registry :: isEdit()) {
-                                $edit = !$params->hoverEdit ? ' no-edit' : '';
-                                
-				$startTag = '<div id="Template-' . $index . '-' . $idartlang . '" class="aitsu_editable on-demand' . $edit . '"><div class="aitsu_hover">';
+				$startTag = '<div id="Template-' . $index . '-' . $idartlang . '" class="aitsu_editable on-demand"><div class="aitsu_hover">';
 				$startTag .= '<div class="show-on-demand" style="cursor:pointer; background-color:black; color:white; padding:10px; margin-bottom:5px; display:none;">Edit template area <strong>' . $index . '</strong></div>';
 				$endTag = '</div></div>';
 			}

@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * @author Christian Kehres, webtischlerei
  * @copyright Copyright &copy; 2011, webtischlerei
@@ -8,32 +9,34 @@
  */
 class Module_Search_Lucene_Class extends Aitsu_Module_Abstract {
 
-    protected $_allowEdit = false;
+	protected function _init() {
 
-    protected function _init() {
+		Aitsu_Content_Edit :: noEdit('Search.Lucene', true);
 
-        Aitsu_Registry::setExpireTime(0);
+		Aitsu_Registry :: setExpireTime(0);
 
-        $searchterm = $_REQUEST['searchterm'];
+		$searchterm = $_REQUEST['searchterm'];
 
-        $search_area = Aitsu_Config::get('search.lucene.area');
+		$view = $this->_getView();
 
-        $search_array = array();
-        foreach ($search_area as $idcat) {
-            $search_array[] = $idcat;
-        }
+		$view->searchterm = $searchterm;
 
-        $view = $this->_getView();
-        $view->searchterm = $searchterm;
+		$search_area = Aitsu_Config :: get('search.lucene.area');
 
-        try {
-            $view->results = Aitsu_Lucene_Index::find($searchterm, $search_array);
-        } catch (Exception $e) {
-            trigger_error($e->getMessage());
-            $view->results = array();
-        }
+		$search_array = array ();
+		foreach ($search_area as $idcat) {
+			$search_array[] = $idcat;
+		}
 
-        return $view->render('index.phtml');
-    }
+		try {
+			$view->results = Aitsu_Lucene_Index :: find($searchterm, $search_array);
+		} catch (Exception $e) {
+			$view->results = array ();
+		}
+
+		$output = $view->render('index.phtml');
+
+		return $output;
+	}
 
 }
