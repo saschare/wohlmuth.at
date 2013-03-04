@@ -1,0 +1,34 @@
+<?php $items = $this->order->items; if (count($items) == 0) return; ?>
+<form action="{ref:idart-<?php echo Aitsu_Registry :: get()->env->idart; ?>}" method="post" style="display:inline;">
+	<input type="hidden" name="updateorder[action]" value="update" />
+	<table>
+		<tr>
+			<th><?php echo Aitsu_Translate :: _('Quantity'); ?></th>
+			<th><?php echo Aitsu_Translate :: _('Description'); ?></th>
+			<th><?php echo Aitsu_Translate :: _('Price'); ?></th>
+		</tr>
+		<?php foreach ($items as $item) : ?>
+		<tr>
+			<td>
+				<input type="hidden" name="updateorder[item][<?php echo $item->itemid; ?>][amount]" value="<?php echo $item->amount; ?>" />
+				<input type="hidden" name="updateorder[item][<?php echo $item->itemid; ?>][price]" value="<?php echo $item->price; ?>" />
+				<input type="hidden" name="updateorder[item][<?php echo $item->itemid; ?>][additionalinfo]" value="<?php echo $item->additionalinfo; ?>" />
+
+				<input type="text" name="updateorder[item][<?php echo $item->itemid; ?>][amount]" value="<?php echo $item->amount; ?>" size="5" />
+			</td>
+			<td>
+				<div>
+					<?php echo $item->name; ?>
+				</div>
+				<div>
+					<?php echo $item->description; ?>
+				</div>
+			</td>
+			<td>
+				<?php echo number_format(round($item->amount * $item->price * 20)/20, 2); ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+	<input type="submit" name="update" value="update" />
+</form>

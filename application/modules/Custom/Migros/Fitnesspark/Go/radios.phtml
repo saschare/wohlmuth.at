@@ -1,0 +1,18 @@
+<?php $post = Module_Custom_Migros_Fitnesspark_Go_Class :: _getPost($this->number); ?>
+
+<?php $answerNo = -1; foreach ($this->question->answer as $answer) : $answerNo++; $id = uniqid(); ?>
+	<div class="surveyAnswer">
+		<?php if ($post == $answer['value']) : ?>
+			<div class="surveySelectButton">
+				<input type="radio" id="<?php echo $id; ?>" checked="checked" name="<?php echo $this->formNamePrefix; ?><?php echo $this->number; ?>" value="<?php echo $answer['value']; ?>" />
+			</div>
+		<?php else : ?>
+			<div class="surveySelectButton">
+				<input type="radio" id="<?php echo $id; ?>" name="<?php echo $this->formNamePrefix; ?><?php echo $this->number; ?>" value="<?php echo $answer['value']; ?>" />
+			</div>
+		<?php endif; ?>
+		<label for="<?php echo $id; ?>" class="surveySelectButtonLabel">
+			<?php echo $answer['answer']; ?>
+		</label>
+	</div>
+<?php endforeach; ?>
