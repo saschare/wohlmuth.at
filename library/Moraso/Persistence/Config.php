@@ -14,8 +14,6 @@ class Moraso_Persistence_Config extends Aitsu_Persistence_Abstract {
 
         $this->_id = $id;
         $this->_idlang = Moraso_Util::getIdlang();
-        $this->_env = Moraso_Util::getEnv();
-        $this->_ebv = Moraso_Util::getIdClient();
         
         $this->load();
     }
@@ -44,15 +42,7 @@ class Moraso_Persistence_Config extends Aitsu_Persistence_Abstract {
                         '   identifier, ' .
                         '   value ' .
                         'from ' .
-                        '   _moraso_config ' .
-                        'where ' .
-                        '   client =:client, ' .
-                        '   env =:env ' .
-                        'order by ' .
-                        '   identifier asc ', array(
-                    ':client' => $this->_idclient,
-                    ':env' => $this->_env
-        ));
+                        '   _moraso_config');
 
         if (!$config) {
             return;
