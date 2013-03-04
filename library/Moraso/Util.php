@@ -17,4 +17,26 @@ class Moraso_Util extends Aitsu_Util {
         return $idlang;
     }
 
+    public static function getEnv() {
+
+        if (!empty($_SERVER['PHP_FCGI_CHILDREN']) || !empty($_SERVER['FCGI_ROLE'])) {
+            $env = (getenv("REDIRECT_AITSU_ENV") == '' ? 'live' : getenv("REDIRECT_AITSU_ENV"));
+        } else {
+            $env = (getenv("AITSU_ENV") == '' ? 'live' : getenv("AITSU_ENV"));
+        }
+
+        return $env;
+    }
+
+    public static function getIdClient() {
+
+        $idclient = Aitsu_Registry :: get()->env->idclient;
+
+        if (empty($idclient)) {
+            $idclient = Aitsu_Registry :: get()->session->currentClient;
+        }
+
+        return $idclient;
+    }
+
 }
