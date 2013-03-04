@@ -72,7 +72,7 @@ class Moraso_Shortcode {
         }
 
         Aitsu_Profiler :: profile($method . ':' . $index, $profileDetails);
-
+        
         if (Aitsu_Registry :: isBoxModel() && !Aitsu_Content_Edit :: noEdit($method)) {
             $returnValue = '<shortcode method="' . $method . '" index="' . $index . '">' . $returnValue . '</shortcode>';
         } else
@@ -89,7 +89,7 @@ class Moraso_Shortcode {
                 $returnValue = '<span id="' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '" class="aitsu_editable" style="display:inline;"><span class="aitsu_hover">' . $returnValue . '</span></span>';
             }
         }
-
+        
         return $returnValue;
     }
 

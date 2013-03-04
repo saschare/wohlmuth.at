@@ -15,7 +15,7 @@ class Moraso_Transformation_Shortcode implements Aitsu_Event_Listener_Interface 
 
     public static function getInstance() {
 
-        static $instance;
+        static $instance = null;
 
         if (!isset($instance)) {
             $instance = new self();
@@ -35,37 +35,37 @@ class Moraso_Transformation_Shortcode implements Aitsu_Event_Listener_Interface 
 
     protected function _rewrite(& $content) {
 
+        $matches = array();
+
         if (preg_match_all('/_\\[(.*?)\\:(.*?)(:?\\:(\\d*))?\\]/', $content, $matches) > 0) {
-            /*
-             * Rewrite shortcodes configured on article level
-             * with the pattern _[myShortcodeMethod:identifier]
-             */
             $content = $this->_rewriteShortcodes($content, $matches);
         }
+        
+        unset($matches);
 
         if (preg_match_all('@<script\\s+type=\"application/x-aitsu\"\\s+src=\"([^:\"]+):?([^\"]*)\"[^/>]*(?:(?:/>)|(?:>(.*?)</script>))@s', $content, $matches) > 0) {
-            /*
-             * Rewrite shortcodes configured anywhere with the script tag
-             * and type specified as application/x-aitsu.
-             */
             $content = $this->_rewriteScriptCodes($content, $matches);
         }
+
+        unset($matches);
+        
+        if (preg_match_all('@<script\\s+type=\"application/x-moraso\"\\s+src=\"([^:\"]+):?([^\"]*)\"[^/>]*(?:(?:/>)|(?:>(.*?)</script>))@s', $content, $matches) > 0) {
+            $content = $this->_rewriteScriptCodes($content, $matches);
+        }
+        
+        unset($matches);
     }
 
     public function getContent($content) {
 
         $this->_rewrite($content);
 
-        /*
-         * Rewrite ShortCodes with the pattern _|[...]. These are used to show the syntax
-         * of ShortCodes without replacing them.
-         */
         return str_replace('_|[', '_[', $content);
     }
 
     protected function _switchTo($idartlang, $back = false) {
 
-        static $old;
+        static $old = array();
         static $regClone;
 
         if ($back) {
@@ -77,7 +77,7 @@ class Moraso_Transformation_Shortcode implements Aitsu_Event_Listener_Interface 
             return;
         }
 
-        $context = Aitsu_Core_Module_Context :: get($idartlang);
+        $context = Moraso_Module_Context :: get($idartlang);
         $regClone = clone Aitsu_Registry :: get();
         $old['idartlang'] = Aitsu_Registry :: get()->env->idartlang;
         $old['idart'] = Aitsu_Registry :: get()->env->idart;
@@ -93,11 +93,8 @@ class Moraso_Transformation_Shortcode implements Aitsu_Event_Listener_Interface 
 
     protected function _rewriteShortcodes($content, $matches) {
 
-        $client = Aitsu_Registry :: get()->config->sys->client;
+        $client = Aitsu_Config::get('sys.client');
 
-        /*
-         * Standard Shortcode class.
-         */
         $sc = Moraso_Shortcode :: getInstance();
 
         for ($i = 0; $i < count($matches[0]); $i++) {
@@ -129,14 +126,7 @@ class Moraso_Transformation_Shortcode implements Aitsu_Event_Listener_Interface 
 
     protected function _rewriteScriptCodes($content, $matches) {
 
-        $idartlang = Aitsu_Registry :: get()->env->idartlang;
-        $client = Aitsu_Registry :: get()->config->sys->client;
-        $idart = Aitsu_Registry :: get()->env->idart;
-        $idlang = Aitsu_Registry :: get()->env->idlang;
-
-        /*
-         * Standard Shortcode class.
-         */
+        $client = Aitsu_Config::get('sys.client');
 
         $sc = Moraso_Shortcode :: getInstance();
 

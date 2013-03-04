@@ -45,7 +45,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 		$params = str_replace('\n', "\n", $this->getRequest()->getParam('params'));
 
 		Aitsu_Content_Edit :: start($type . '-' . $container);
-		$module = Aitsu_Core_Module :: factory($idartlang, $container, null, $type);
+		$module = Moraso_Module :: factory($idartlang, $container, null, $type);
 		$module->getOutput(false, '0', $container, $params);
 		$help = $module->getHelp();
 		Aitsu_Content_Edit :: end();
@@ -137,7 +137,7 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 
 			Aitsu_Registry :: get()->env->substituteEmptyAreas = '1';
 
-			$output = Aitsu_Core_Module :: factory($idartlang, $container, null, $type)->getOutput(true, '1', $container, $params);
+			$output = Moraso_Module :: factory($idartlang, $container, null, $type)->getOutput(true, '1', $container, $params);
 
 			if (Aitsu_Content_Edit :: noEdit($type)) {
 				$data = $output;
