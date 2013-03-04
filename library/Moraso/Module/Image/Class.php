@@ -209,6 +209,10 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         $view->render = empty($render) ? $defaults['render'] : $render;        
         $view->attributes = array_merge((array) $defaults['attr'], (array) $attributes);
 
+        /**
+         * Diese 3 (float, style, rel) befinden sich in der $view->attributes
+         * Habe es nur aus Kompatibilitätsgründen drin gelassen!
+         */
         $view->float = empty($attributes->style->float) ? $defaults['float'] : $attributes->style->float; // depracted
         $view->style = empty($attributes->style->self) ? $defaults['style'] : $attributes->style->self; // depracted
         $view->rel = empty($attributes->rel) ? $defaults['rel'] : $attributes->rel; // depracted
