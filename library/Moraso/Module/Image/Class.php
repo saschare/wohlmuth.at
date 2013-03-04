@@ -59,6 +59,13 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
 
         if (isset($this->_params->default)) {
             foreach ($this->_params->default as $param => $value) {
+                /**
+                 * @todo 
+                 * default.float = left // geht
+                 * default.attr.style.float = left // geht nicht
+                 * 
+                 * Es geht nur die erste Ebene, das muss behoben werden
+                 */
                 $defaults[$param] = $value;
             }
         }
