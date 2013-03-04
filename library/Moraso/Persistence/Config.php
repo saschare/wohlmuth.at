@@ -16,6 +16,8 @@ class Moraso_Persistence_Config extends Aitsu_Persistence_Abstract {
         $this->_idlang = Moraso_Util::getIdlang();
         $this->_env = Moraso_Util::getEnv();
         $this->_ebv = Moraso_Util::GetIdClient();
+        
+        $this->load();
     }
 
     public static function factory($id = null) {
@@ -70,10 +72,6 @@ class Moraso_Persistence_Config extends Aitsu_Persistence_Abstract {
 
     public function __get($key) {
 
-        if ($this->_data === null) {
-            $this->load();
-        }
-
         $keyParts = explode(':', $key);
 
         $client = $keyParts[0];
@@ -88,10 +86,6 @@ class Moraso_Persistence_Config extends Aitsu_Persistence_Abstract {
     }
 
     public function __set($key, $value) {
-
-        if ($this->_data === null) {
-            $this->_data = array();
-        }
 
         $keyParts = explode(':', $key);
 
