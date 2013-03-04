@@ -1,14 +1,17 @@
 <!-- Standard -->
+<?php
+$attributes = array(
+    'rel' => $this->rel,
+    'style' => array(
+        'self' => $this->style,
+        'float' => $this->float
+    )
+);
+?>
+
 <?php foreach ($this->selectedImages as $image) : ?>
     <?php
-    $attributes = array(
-        'alt' => $image->subline,
-        'rel' => $this->rel,
-        'style' => array(
-            'self' => $this->style,
-            'float' => $this->float
-        )
-    );
+    $attributes['alt'] = $image->subline;
 
     echo Moraso_Html_Helper_Image::getHtml($image->idart, $image->filename, $this->width, $this->height, $this->render, $attributes);
     ?>
