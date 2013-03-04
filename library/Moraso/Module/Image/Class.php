@@ -7,7 +7,7 @@
 class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
 
     protected function _getDefaults() {
-        
+
         $aitsuConfig = array(
             'width' => Aitsu_Config::get('module.image.width.default'),
             'height' => Aitsu_Config::get('module.image.height.default'),
@@ -56,13 +56,13 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
                 'all' => empty($aitsuConfig['configurable']['all']) ? false : $aitsuConfig['configurable']['all']
             )
         );
-        
+
         if (isset($this->_params->default)) {
             foreach ($this->_params->default as $param => $value) {
                 $defaults[$param] = $value;
             }
         }
-                
+
         $width = empty($this->_params->width) || $this->_params->width == 'config' ? $defaults['width'] : $this->_params->width;
         $height = empty($this->_params->height) || $this->_params->height == 'config' ? $defaults['height'] : $this->_params->height;
         $render = empty($this->_params->render) || $this->_params->render == 'config' ? $defaults['render'] : $this->_params->render;
@@ -73,7 +73,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         $rel = empty($this->_params->rel) || $this->_params->rel == 'config' ? $defaults['rel'] : $this->_params->rel;
         $attr = empty($this->_params->attr) || $this->_params->attr == 'config' ? $defaults['attr'] : $this->_params->attr;
         $all = empty($this->_params->all) || $this->_params->all == 'config' ? $defaults['all'] : $this->_params->all;
-                
+
         return array(
             'width' => $width,
             'height' => $height,
@@ -102,7 +102,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
     protected function _main() {
 
         $defaults = $this->_getDefaults();
-        
+
         $idart = empty($this->_params->idart) ? $defaults['idart'] : $this->_params->idart;
         $template = empty($this->_params->template) ? $defaults['template'] : $this->_params->template;
 
@@ -176,30 +176,33 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
 
             $attributes = (object) array_merge((array) $attributes, (array) $attributes_as_object);
         }
-                        
-        if (!empty($defaults['rel'])) {
-            $attributes->rel = empty($attributes->rel) ? $defaults['rel'] : $attributes->rel;
+
+        /**
+         * verkürzte Schreibweise für rel, style und float zulassen
+         */
+        if (!empty($defaults['rel']) && empty($attributes->rel)) {
+            $attributes->rel = $defaults['rel'];
         }
 
-        if (!empty($defaults['style'])) {
-            $attributes->style = empty($attributes->style) ? $defaults['style'] : $attributes->style;
+        if (!empty($defaults['style']) && empty($attributes->style)) {
+            $attributes->style = $defaults['style'];
         }
 
-        if (!empty($defaults['float'])) {
-            $attributes->style->float = empty($attributes->style->float) ? $defaults['float'] : $attributes->style->float;
+        if (!empty($defaults['float']) && empty($attributes->style->float)) {
+            $attributes->style->float = $defaults['float'];
         }
-        
+
         if (empty($template) || empty($selectedImages) || !in_array($template, $this->_getTemplates())) {
             return '';
         }
-        
+
         $view = $this->_getView();
 
         $view->selectedImages = $selectedImages;
 
         $view->width = empty($width) ? $defaults['width'] : $width;
         $view->height = empty($height) ? $defaults['height'] : $height;
-        $view->render = empty($render) ? $defaults['render'] : $render;        
+        $view->render = empty($render) ? $defaults['render'] : $render;
         $view->attributes = array_merge((array) $defaults['attr'], (array) $attributes);
 
         /**
