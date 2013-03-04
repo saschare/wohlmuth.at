@@ -148,7 +148,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
             $selectedImages = Moraso_Persistence_View_Media::ofSpecifiedArticle($idart);
         }
 
-        $attributes = new stdClass();
+        $attributes = $defaults['attr'];
 
         if ($defaults['configurable']['rel']) {
             $attributes->rel = Aitsu_Content_Config_Text::set($this->_index, 'rel', Aitsu_Translate::_('rel'), Aitsu_Translate::_('Configuration'));
@@ -176,14 +176,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
 
             $attributes = (object) array_merge((array) $attributes, (array) $attributes_as_object);
         }
-                
-        
-        $attributes_object_as_array = (array) $attributes;
-        
-        if (count($attributes_object_as_array) == 0) {
-            $attributes = $defaults['attr'];
-        }
-        
+                        
         if (!empty($defaults['rel'])) {
             $attributes->rel = empty($attributes->rel) ? $defaults['rel'] : $attributes->rel;
         }
@@ -195,7 +188,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         if (!empty($defaults['float'])) {
             $attributes->style->float = empty($attributes->style->float) ? $defaults['float'] : $attributes->style->float;
         }
-
+        
         if (empty($template) || empty($selectedImages) || !in_array($template, $this->_getTemplates())) {
             return '';
         }
