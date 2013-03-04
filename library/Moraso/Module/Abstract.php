@@ -22,7 +22,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         $modulePaths = array(
             'skin' => APPLICATION_PATH . "/skins/" . Aitsu_Config::get('skin') . "/module/" . $modulePath . '/',
-            'moraso' => LIBRARY_PATH . '/Moraso/Module/' . $modulePath . '/',
+            'moraso' => realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/',
             'aitsu' => APPLICATION_PATH . '/modules/' . $modulePath . '/'
         );
         

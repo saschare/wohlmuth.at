@@ -4,14 +4,10 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
-class Moraso_Shortcode {
-
-    protected function __construct() {
-        
-    }
+class Moraso_Shortcode extends Aitsu_Shortcode {
 
     public static function getInstance() {
-        static $instance;
+        static $instance = null;
 
         if (!isset($instance)) {
             $instance = new self();
@@ -72,7 +68,7 @@ class Moraso_Shortcode {
         }
 
         Aitsu_Profiler :: profile($method . ':' . $index, $profileDetails);
-        
+
         if (Aitsu_Registry :: isBoxModel() && !Aitsu_Content_Edit :: noEdit($method)) {
             $returnValue = '<shortcode method="' . $method . '" index="' . $index . '">' . $returnValue . '</shortcode>';
         } else
@@ -89,7 +85,7 @@ class Moraso_Shortcode {
                 $returnValue = '<span id="' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '" class="aitsu_editable" style="display:inline;"><span class="aitsu_hover">' . $returnValue . '</span></span>';
             }
         }
-        
+
         return $returnValue;
     }
 

@@ -6,27 +6,6 @@
  */
 class Moraso_Module extends Aitsu_Core_Module {
 
-    protected function __construct($idart, $idlang, $container, $shortCode) {
-
-        if ($idlang == null) {
-            /*
-             * Idart is assumed to be idartlang.
-             */
-            $this->idartlang = $idart;
-        } else {
-            $this->idartlang = Aitsu_Db :: fetchOne('' .
-                            'select idartlang from _art_lang where idart = ? and idlang = ? ', array(
-                        $idart,
-                        $idlang
-            ));
-        }
-
-        $this->shortCode = $shortCode;
-        $this->container = $container;
-
-        $this->context = Moraso_Module_Context :: get($this->idartlang);
-    }
-
     public static function factory($idart, $container, $idlang = null, $shortCode = null) {
         $instance = new self($idart, $idlang, $container, $shortCode);
 
@@ -60,8 +39,6 @@ class Moraso_Module extends Aitsu_Core_Module {
             $$key = $value;
         }
 
-        $cCurrentContainer = $this->container;
-
         if ($this->shortCode != null) {
             $return = Moraso_Shortcode :: getInstance()->evalModule($this->shortCode, $params, 0, $index);
         }
@@ -84,14 +61,17 @@ class Moraso_Module extends Aitsu_Core_Module {
 
     public function getHelp() {
 
+        $modulePath = str_replace('.', '/', $this->shortCode);
+
         $files = array(
-            'Skin_Module' => APPLICATION_PATH . "/skins/" . Aitsu_Registry :: get()->config->skin . "/module/" . str_replace('.', '/', $this->shortCode) . "/Class.php",
-            'Local_Module' => realpath(APPLICATION_PATH . '/../library/Local/Module/' . str_replace('.', '/', $this->shortCode) . '/Class.php'),
-            'Comm_Module' => realpath(APPLICATION_PATH . '/../library/Comm/Module/' . str_replace('.', '/', $this->shortCode) . '/Class.php'),
-            'Module' => APPLICATION_PATH . '/modules/' . str_replace('.', '/', $this->shortCode) . '/Class.php'
+            'Skin_Module' => APPLICATION_PATH . "/skins/" . Aitsu_Config::get('skin') . "/module/" . $modulePath . '/Class.php',
+            'Moraso_Module' => realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/Class.php',
+            'Module' => APPLICATION_PATH . '/modules/' . $modulePath . '/Class.php'
         );
 
         $exists = false;
+
+        $profileDetails = new stdClass();
 
         foreach ($files as $prefix => $file) {
             if (file_exists($file)) {

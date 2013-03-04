@@ -77,7 +77,7 @@ class Moraso_Transformation_Shortcode implements Aitsu_Event_Listener_Interface 
             return;
         }
 
-        $context = Moraso_Module_Context :: get($idartlang);
+        $context = Aitsu_Core_Module_Context :: get($idartlang);
         $regClone = clone Aitsu_Registry :: get();
         $old['idartlang'] = Aitsu_Registry :: get()->env->idartlang;
         $old['idart'] = Aitsu_Registry :: get()->env->idart;
