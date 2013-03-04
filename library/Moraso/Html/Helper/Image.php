@@ -8,18 +8,20 @@ class Moraso_Html_Helper_Image {
 
     public static function getHtml($idart, $filename, $width, $height, $boxed, $attributes) {
 
-        $return = '<img src="/image/' . $width . '/' . $height . '/' . $boxed . '/' . $idart . '/' . $filename . '" ';
+        $attributes = (object) $attributes;
+        
+        $return = '<img src="/image/' . $width . '/' . $height . '/' . $boxed . '/' . $idart . '/' . $filename . '"';
 
-        if (is_array($attributes)) {
+        if (!empty($attributes)) {
             foreach ($attributes as $attr => $value) {
-                if ($attr == 'style') {
-                    $return .= 'style="';
+                if (is_object($value)) {
+                    $return .= ' ' . $attr . '="';
                     foreach ($value as $style => $styleValue) {
                         if (!empty($styleValue)) {
                             if ($style == 'self') {
                                 $return .= $styleValue;
                             } else {
-                                $return .= ' ' . $style . ': ' . $styleValue . ';';
+                                $return .= '' . $style . ': ' . $styleValue . ';';
                             }
                         }
                     }
