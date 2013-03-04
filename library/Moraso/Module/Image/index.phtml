@@ -1,7 +1,16 @@
 <!-- Standard -->
-
-foo bar
-
 <?php foreach ($this->selectedImages as $image) : ?>
-    <img src="image/<?php echo $this->width; ?>/<?php echo $this->height; ?>/<?php echo $this->render; ?>/<?php echo $image->idart; ?>/<?php echo $image->filename; ?>" alt="<?php echo $image->subline; ?>" <?php if (!empty($this->rel)) { echo 'rel="' . $this->float . '"'; } ?> style="<?php if (!empty($this->float)) { echo 'float: ' . $this->float . ';'; } ?> <?php echo $this->style; ?>" />
+    <?php
+    $attributes = array(
+        'alt' => $image->subline,
+        'rel' => $this->rel,
+        'style' => array(
+            'self' => $this->style,
+            'float' => $this->float
+        )
+    );
+
+    echo Moraso_Html_Helper_Image::getHtml($image->idart, $image->filename, $this->width, $this->height, $this->render, $attributes);
+    ?>
 <?php endforeach; ?>
+
