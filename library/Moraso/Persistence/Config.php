@@ -9,7 +9,7 @@ class Moraso_Persistence_Config {
     protected function __construct($id) {
         $this->_id = $id;
         
-        $this->load();
+        $this->_load();
     }
 
     public static function factory($id = null) {
@@ -23,7 +23,7 @@ class Moraso_Persistence_Config {
         return $instance[$id];
     }
 
-    public function load($reload = false) {
+    private function _load($reload = false) {
 
         if (!$reload && ($this->_id == null || $this->_data !== null)) {
             return $this;
