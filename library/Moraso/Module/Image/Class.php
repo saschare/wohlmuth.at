@@ -53,8 +53,10 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
             )
         );
 
-        foreach ($this->_params->default as $param => $value) {
-            $defaults[$param] = $value;
+        if (isset($this->_params->default)) {
+            foreach ($this->_params->default as $param => $value) {
+                $defaults[$param] = $value;
+            }
         }
 
         $width = empty($this->_params->width) || $this->_params->width == 'config' ? $defaults['width'] : $this->_params->width;
@@ -78,14 +80,14 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
             'rel' => $rel,
             'all' => $all,
             'configurable' => array(
-                'width' => $this->_params->width == 'config' ? true : $defaults['configurable']['width'],
-                'height' => $this->_params->height == 'config' ? true : $defaults['configurable']['height'],
-                'render' => $this->_params->render == 'config' ? true : $defaults['configurable']['render'],
-                'float' => $this->_params->float == 'config' ? true : $defaults['configurable']['float'],
-                'style' => $this->_params->style == 'config' ? true : $defaults['configurable']['style'],
-                'template' => $this->_params->template == 'config' ? true : $defaults['configurable']['template'],
-                'rel' => $this->_params->rel == 'config' ? true : $defaults['configurable']['rel'],
-                'all' => $this->_params->all == 'config' ? true : $defaults['configurable']['all']
+                'width' => isset($this->_params->width) && $this->_params->width == 'config' ? true : $defaults['configurable']['width'],
+                'height' => isset($this->_params->height) && $this->_params->height == 'config' ? true : $defaults['configurable']['height'],
+                'render' => isset($this->_params->render) && $this->_params->render == 'config' ? true : $defaults['configurable']['render'],
+                'float' => isset($this->_params->float) && $this->_params->float == 'config' ? true : $defaults['configurable']['float'],
+                'style' => isset($this->_params->style) && $this->_params->style == 'config' ? true : $defaults['configurable']['style'],
+                'template' => isset($this->_params->template) && $this->_params->template == 'config' ? true : $defaults['configurable']['template'],
+                'rel' => isset($this->_params->rel) && $this->_params->rel == 'config' ? true : $defaults['configurable']['rel'],
+                'all' => isset($this->_params->all) && $this->_params->all == 'config' ? true : $defaults['configurable']['all']
             )
         );
     }
