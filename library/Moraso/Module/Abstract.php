@@ -15,26 +15,23 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         $view = new Zend_View();
 
         $module_parts = explode('_', get_class($this));
+        
+        $module_sliced = array_slice($module_parts, $module_parts[0] != 'Module' ? 2 : 1, -1);
 
-        if ($module_parts[0] != 'Module') {
-            unset($module_parts[0]);
+        $modulePath = implode('/', $module_sliced);
+
+        $modulePaths = array(
+            'skin' => APPLICATION_PATH . "/skins/" . Aitsu_Config::get('skin') . "/module/" . $modulePath . '/',
+            'moraso' => LIBRARY_PATH . '/Moraso/Module/' . $modulePath . '/',
+            'aitsu' => APPLICATION_PATH . '/modules/' . $modulePath . '/'
+        );
+        
+        foreach ($modulePaths as $path) {
+            if (count(glob($path . '*.phtml')) > 0) {
+                $view->setScriptPath($path);
+                break;
+            }
         }
-
-        unset(end($module_parts));
-
-        $modulePath = implode('/', $module_parts);
-
-        echo 'Es handelt sich um das Modul ' . $modulePath . '!';
-        die();
-
-        /**
-         * @todo Nun schauen wir wo sich ein Template dazu befindet und setzen den Pfad dementsprechend
-         * 
-         * @todo erster Check: prüfen ob das Skin dieses Modul beinhaltet
-         * @todo zweiter Check: handelt es sich um ein moraso Modul
-         * @todo dritter Check: handelt es sich um ein aitsu Modul
-         * @todo vierter Check: nun frage ich andere Ordner in der Library ab, unzwar alle außer die Ordner die "default" vorhanden sind
-         */
 
         return $view;
     }
