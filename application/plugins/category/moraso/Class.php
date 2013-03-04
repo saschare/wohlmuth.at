@@ -34,7 +34,8 @@ class MorasoCategoryController extends Aitsu_Adm_Plugin_Controller {
         $cat = Aitsu_Persistence_Category :: factory($idcat)->load();
         $idlang = Aitsu_Registry :: get()->session->currentLanguage;
 
-        $this->view->usePublishing = Aitsu_Config::get('sys.usePublishing');
+        $this->view->usePublishing = Moraso_Config::get('sys.usePublishing');
+        $this->view->allowArticleDuplicate = Moraso_Config::get('sys.article.allow.duplicate');
         $this->view->idcat = $idcat;
         $this->view->categoryname = $cat->name;
         $this->view->isInFavories = Aitsu_Persistence_CatFavorite :: factory($idcat)->load()->isInFavorites();

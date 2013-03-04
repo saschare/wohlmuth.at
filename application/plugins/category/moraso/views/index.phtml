@@ -80,7 +80,7 @@ var categories = new Ext.grid.GridPanel({
                 },
     			{
                     getClass: function(v, meta, rec) {
-                    	 <?php if (!$this->hidePublishing) : ?>
+                    	 <?php if ($this->usePublishing) : ?>
                     	if (rec.get('published') == 1) {
                     		this.items[1].tooltip = 'Published';
                     		return 'page-published';
@@ -316,6 +316,7 @@ var categories = new Ext.grid.GridPanel({
 				}
 			});
                         
+                        <?php if ($this->allowArticleDuplicate) : ?>
                         menu.addItem({
 				text: '<?php echo $this->translate('Duplicate'); ?>',
 				iconCls: 'duplicate',
@@ -340,7 +341,8 @@ var categories = new Ext.grid.GridPanel({
 				            	});	
 				}
 			});
-			
+			<?php endif; ?>
+                        
 			menu.addItem({
 				text: '<?php echo $this->translate('Delete'); ?>',
 				iconCls: 'delete',
