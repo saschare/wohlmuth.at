@@ -2,13 +2,13 @@
 
 /**
  * @author Christian Kehres <c.kehres@webtischlerei.de>
- * @copyright (c) 2012, webtischlerei <http://www.webtischlerei.de>
+ * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
 class Moraso_Status {
 
     public static function version() {
 
-        $version = '$version/1.6.0/revision/3$';
+        $version = '$version/1.6.0/revision/4$';
 
         return str_replace(array(
             'version/',
