@@ -15,7 +15,7 @@ class Moraso_Persistence_Config extends Aitsu_Persistence_Abstract {
         $this->_id = $id;
         $this->_idlang = Moraso_Util::getIdlang();
         $this->_env = Moraso_Util::getEnv();
-        $this->_ebv = Moraso_Util::GetIdClient();
+        $this->_ebv = Moraso_Util::getIdClient();
         
         $this->load();
     }
