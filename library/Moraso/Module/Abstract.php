@@ -106,7 +106,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
             return $this->_view;
         }
 
-        $view = new Zend_View();
+        $view = empty($view) ? new Zend_View() : $view;
 
         $module_parts = explode('_', get_class($this));
 
