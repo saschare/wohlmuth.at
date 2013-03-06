@@ -24,7 +24,7 @@ class Moraso_Module_HTML_Meta_ResourceBundle_Class extends Moraso_Module_Abstrac
             $resources[] = $resource;
         }
 
-        $uri = Aitsu_MiniMe :: getUri($type, $resources);
+        $uri = Moraso_MiniMe :: getUri($type, $resources);
 
         $env = Aitsu_Config :: get('env') == null ? '' : Aitsu_Config :: get('env');
 
