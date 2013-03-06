@@ -92,8 +92,11 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
                 $heredity = Moraso_Util_Skin :: buildHeredity();
 
                 foreach ($heredity as $skin) {
-                    if (count(glob($skin . 'index.phtml')) > 0) {
-                        $view->setScriptPath($skin);
+
+                    $skinPath = APPLICATION_PATH . '/skins/' . $skin . '/';
+
+                    if (file_exists($skinPath . $template)) {
+                        $view->setScriptPath($skinPath);
                         break;
                     }
                 }
