@@ -90,13 +90,8 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
                 $view = new Zend_View();
 
                 $heredity = Moraso_Util_Skin :: buildHeredity();
-                
-                $skinPaths = array();
+
                 foreach ($heredity as $skin) {
-                    $skinPaths[] = APPLICATION_PATH . '/skins/' . $skin . '/';
-                }
-                
-                foreach ($skinPaths as $skin) {
                     if (count(glob($skin . 'index.phtml')) > 0) {
                         $view->setScriptPath($skin);
                         break;
