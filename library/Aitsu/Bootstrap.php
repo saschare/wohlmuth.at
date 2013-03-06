@@ -415,7 +415,7 @@ class Aitsu_Bootstrap {
 
 	protected function _RenderOutput() {
 
-		$this->pageContent = '<script type="application/x-aitsu" src="Template:Root">' .
+		$this->pageContent = '<script type="application/x-moraso" src="Template:Root">' .
 				'suppressWrapping = true' .
 				'</script>';
 	}

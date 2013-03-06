@@ -123,7 +123,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         $modulePaths['moraso'] = realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/';
         $modulePaths['aitsu'] = APPLICATION_PATH . '/modules/' . $modulePath . '/';
-
+        
         foreach ($modulePaths as $path) {
             if (count(glob($path . '*.phtml')) > 0) {
                 $view->setScriptPath($path);
