@@ -114,11 +114,15 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         $modulePath = implode('/', $module_sliced);
 
-        $modulePaths = array(
-            'skin' => APPLICATION_PATH . "/skins/" . Aitsu_Config::get('skin') . "/module/" . $modulePath . '/',
-            'moraso' => realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/',
-            'aitsu' => APPLICATION_PATH . '/modules/' . $modulePath . '/'
-        );
+        $heredity = Moraso_Util_Skin :: buildHeredity();
+
+        $modulePaths = array();
+        foreach ($heredity as $skin) {
+            $modulePaths['skin'] = APPLICATION_PATH . "/skins/" . $skin . "/module/" . $modulePath . '/';
+        }
+
+        $modulePaths['moraso'] = realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/';
+        $modulePaths['aitsu'] = APPLICATION_PATH . '/modules/' . $modulePath . '/';
 
         foreach ($modulePaths as $path) {
             if (count(glob($path . '*.phtml')) > 0) {

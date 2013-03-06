@@ -26,31 +26,58 @@ class Moraso_Shortcode extends Aitsu_Shortcode {
         $returnValue = '';
         Aitsu_Content_Edit :: isBlock(true);
 
-        $files = array(
-            'Skin_Module' => APPLICATION_PATH . "/skins/" . Aitsu_Registry :: get()->config->skin . "/module/" . str_replace('.', '/', $method) . "/Class.php",
-            'Moraso_Module' => realpath(APPLICATION_PATH . '/../library/Moraso/Module/' . str_replace('.', '/', $method) . '/Class.php'),
-            'Module' => APPLICATION_PATH . '/modules/' . str_replace('.', '/', $method) . '/Class.php'
-        );
+        $files = array();
+
+        $heredity = Moraso_Util_Skin :: buildHeredity();
+
+        foreach ($heredity as $skin) {
+            $files['Skin_Module'][] = APPLICATION_PATH . "/skins/" . $skin . "/module/" . str_replace('.', '/', $method) . "/Class.php";
+        }
+
+        $files['Moraso_Module'] = realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . str_replace('.', '/', $method) . '/Class.php';
+        $files['Module'] = APPLICATION_PATH . '/modules/' . str_replace('.', '/', $method) . '/Class.php';
 
         $exists = false;
 
         foreach ($files as $prefix => $file) {
-            if (file_exists($file)) {
-                $exists = true;
-                $profileDetails->source = $prefix . '_' . str_replace('.', '_', $method) . '_Class';
-                include_once $file;
-                $returnValue = call_user_func(array(
-                    $profileDetails->source,
-                    'init'
-                        ), array(
-                    'index' => $index,
-                    'params' => $params,
-                    'className' => $profileDetails->source
-                ));
-                break;
+            if (is_array($file)) {
+                foreach ($file as $path) {
+                    if (file_exists($path)) {
+                        $exists = true;
+                        $profileDetails->source = $prefix . '_' . str_replace('.', '_', $method) . '_Class';
+                        include_once $path;
+                        $returnValue = call_user_func(array(
+                            $profileDetails->source,
+                            'init'
+                                ), array(
+                            'index' => $index,
+                            'params' => $params,
+                            'className' => $profileDetails->source
+                        ));
+                        break;
+                    }
+                }
+                if ($exists) {
+                    break;
+                }
+            } else {
+                if (file_exists($file)) {
+                    $exists = true;
+                    $profileDetails->source = $prefix . '_' . str_replace('.', '_', $method) . '_Class';
+                    include_once $file;
+                    $returnValue = call_user_func(array(
+                        $profileDetails->source,
+                        'init'
+                            ), array(
+                        'index' => $index,
+                        'params' => $params,
+                        'className' => $profileDetails->source
+                    ));
+                    break;
+                }
             }
         }
-
+        
         if (!$exists) {
             Aitsu_Profiler :: profile($method . ':' . $index, (object) array(
                         'source' => 'not found'

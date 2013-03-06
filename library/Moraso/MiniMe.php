@@ -256,35 +256,11 @@ class Moraso_MiniMe implements Aitsu_Event_Listener_Interface {
         return uniqid() . '-' . implode('-', $addedResources) . '.minime.' . $type;
     }
 
-    private static function _buildHeredity(& $heredity, $skin = null) {
-
-        if (empty($skin)) {
-            $skin = Aitsu_Registry :: get()->config->skin;
-        }
-
-        $heredity[] = $skin;
-
-        $xml_file = APPLICATION_PATH . '/skins/' . $skin . '/skin.xml';
-
-        if (is_readable($xml_file)) {
-            $xml = simplexml_load_file($xml_file);
-
-            self::_buildHeredity($heredity, (string) $xml->parent->skin[0]);
-        }
-
-        return $heredity;
-    }
-
     protected function _mapResources() {
 
         $css = array();
 
-        /**
-         * erst die Parents, bis hin zum aktuellen Skin
-         */
-        $heredity = array();
-
-        self :: _buildHeredity($heredity);
+        $heredity = Moraso_Util_Skin :: buildHeredity();
 
         $heredity_reversed = array_reverse($heredity);
 
