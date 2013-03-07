@@ -6,8 +6,10 @@
  */
 class Moraso_Config_Db {
 
-    public static function setConfigFromDatabase($env, $client) {
+    public static function setConfigFromDatabase($client) {
 
+        $env = Moraso_Util::getEnv();
+        
         $database_config = Aitsu_Db::fetchAll('' .
                         'select ' .
                         '   env, ' .

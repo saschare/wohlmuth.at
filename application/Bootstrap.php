@@ -75,11 +75,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 		Aitsu_Registry :: get()->db = Zend_Db :: factory(Aitsu_Registry :: get()->config->database);
 	}
-        
-        protected function _ExecuteConfiguredPreInits() {
-
-		Aitsu_Event :: raise('backend.preInit', null);
-	}
 
 	protected function _initSession() {
 
@@ -118,8 +113,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 		));
 
 		Aitsu_Registry :: get()->session = new Zend_Session_Namespace('aitsu');
+                
+                Aitsu_Event :: raise('backend.preInit', null);
 	}
-
+        
 	protected function _initRegisterPlugins() {
 
 		if (isset (Aitsu_Registry :: get()->config->setup->password) && substr($_SERVER['REQUEST_URI'], -1 * strlen('/setup/' . Aitsu_Registry :: get()->config->setup->password)) == '/setup/' . Aitsu_Registry :: get()->config->setup->password) {

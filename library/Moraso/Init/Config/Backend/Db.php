@@ -7,10 +7,12 @@
 class Moraso_Init_Config_Backend_Db implements Aitsu_Event_Listener_Interface {
 
     public static function notify(Aitsu_Event_Abstract $event) {
-        $env = Moraso_Util::getEnv();
-        $client = Aitsu_Mapping::getIni();
-
-        Moraso_Config_Db::setConfigFromDatabase($env, $client);
+        
+        $idclient = Aitsu_Registry::get()->session->currentClient;
+        
+        $client = Aitsu_Persistence_Clients::factory($idclient)->load()->config;
+        
+        Moraso_Config_Db::setConfigFromDatabase($client);
     }
 
 }
