@@ -75,6 +75,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
 		Aitsu_Registry :: get()->db = Zend_Db :: factory(Aitsu_Registry :: get()->config->database);
 	}
+        
+        protected function _ExecuteConfiguredPreInits() {
+
+		Aitsu_Event :: raise('backend.preInit', null);
+	}
 
 	protected function _initSession() {
 
