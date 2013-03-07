@@ -49,6 +49,8 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
 
             $data = (array) $params->template;
 
+            trigger_error(print_r($data, true));
+
             foreach ($data as $key => $line) {
                 $keyValuePairs[$line->name] = $key;
                 $keys[] = $key;
@@ -70,6 +72,8 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
             if (empty($template) && isset($params->defaultTemplate)) {
                 $template = self :: _getDefaultTemplate($index, $params);
             }
+
+            trigger_error('gewähltes template: ' . $template);
         } else {
             $template = self :: _getDefaultTemplate($index, $params);
 
@@ -89,26 +93,26 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
             if (!empty($template)) {
                 $view = new Zend_View();
 
-                $heredity = Moraso_Util_Skin :: buildHeredity();
-
-                foreach ($heredity as $skin) {
-                    $skinPath = APPLICATION_PATH . '/skins/' . $skin . '/';
-
-                    if (file_exists($skinPath . $template)) {
-                        $view->setScriptPath($skinPath);
-                        break;
-                    }
-                }
-
                 if (isset($params->template->$template->param)) {
                     $view->param = $params->template->$template->param;
                 }
 
                 if (isset($params->template->$template->file)) {
-                    $output = $view->render($params->template->$template->file);
-                } else {
-                    $output = $view->render($template);
+                    $template = $params->template->$template->file;
                 }
+
+                $heredity = Moraso_Util_Skin :: buildHeredity();
+
+                foreach ($heredity as $skin) {
+                    $skinPath = APPLICATION_PATH . '/skins/' . $skin;
+
+                    if (file_exists($skinPath . '/' . $template)) {
+                        $view->setScriptPath($skinPath);
+                        break;
+                    }
+                }
+
+                $output = $view->render($template);
             }
         } catch (Exception $e) {
             $output = '<strong>' . $e->getMessage() . '</strong><pre>' . $e->getTraceAsString() . '</pre>';
