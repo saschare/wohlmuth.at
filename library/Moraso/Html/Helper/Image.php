@@ -10,7 +10,7 @@ class Moraso_Html_Helper_Image {
 
         $attributes = (object) $attributes;
         
-        $return = '<img src="/image/' . $width . '/' . $height . '/' . $boxed . '/' . $idart . '/' . $filename . '"';
+        $return = '<img src="' . self :: getPath($idart, $filename, $width, $height, $boxed) . '"';
 
         if (!empty($attributes)) {
             foreach ($attributes as $attr => $value) {
@@ -36,6 +36,11 @@ class Moraso_Html_Helper_Image {
         $return .= ' />';
 
         return $return;
+    }
+    
+    public static function getPath($idart, $filename, $width, $height, $boxed) {
+        
+        return '/image/' . $width . '/' . $height . '/' . $boxed . '/' . $idart . '/' . $filename;
     }
 
 }
