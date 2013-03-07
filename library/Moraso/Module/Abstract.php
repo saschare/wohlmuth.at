@@ -6,14 +6,30 @@
  */
 abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
-    public static function init($context, $instance = null) {
+    protected $_renderOnMobile = true;
+    protected $_renderOnTablet = true;
 
-        $output = '';
+    public static function init($context, $instance = null) {
 
         $instance = is_null($instance) ? self :: _getInstance($context['className']) : $instance;
 
         if ($instance->_notForHumans()) {
             return;
+        }
+
+        $isMobile = Aitsu_Registry::get()->env->mobile->detect->isMobile;
+        $isTablet = Aitsu_Registry::get()->env->mobile->detect->isTablet;
+        
+        if ($isMobile == 'is' && !$instance->_renderOnMobile) {
+            return false;
+        }
+
+        if ($isTablet == 'is' && !$instance->_renderOnTablet) {
+            return false;
+        }
+
+        if (($isMobile == 'is' && $isTablet == 'isNot') && (!$instance->_renderOnMobile && $instance->_renderOnTablet)) {
+            return false;
         }
 
         if (!$instance->_isBlock) {
@@ -36,17 +52,17 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
             Aitsu_Content_Edit :: noEdit($instance->_moduleName, true);
         }
 
-        $output = $instance->_init();
+        $output_raw = $instance->_init();
 
         if ($instance->_cachingPeriod() > 0) {
-            if ($instance->_get($context['className'], $output)) {
-                return $output;
+            if ($instance->_get($context['className'], $output_raw)) {
+                return $output_raw;
             }
         }
 
-        $output .= $instance->_main();
+        $output_raw .= $instance->_main();
 
-        $output = $instance->_transformOutput($output);
+        $output = $instance->_transformOutput($output_raw);
 
         if ($instance->_cachingPeriod() > 0) {
             $instance->_save($output, $instance->_cachingPeriod());
@@ -56,6 +72,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
             $maxLength = 60;
             $index = strlen($context['index']) > $maxLength ? substr($context['index'], 0, $maxLength) . '...' : $context['index'];
 
+            $match = array();
             if (trim($output) == '' && $instance->_allowEdit) {
                 if (preg_match('/^Module_(.*?)_Class$/', $context['className'], $match)) {
                     $moduleName = str_replace('_', '.', $match[1]);
@@ -123,7 +140,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         $modulePaths['moraso'] = realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/';
         $modulePaths['aitsu'] = APPLICATION_PATH . '/modules/' . $modulePath . '/';
-        
+
         foreach ($modulePaths as $path) {
             if (count(glob($path . '*.phtml')) > 0) {
                 $view->setScriptPath($path);
