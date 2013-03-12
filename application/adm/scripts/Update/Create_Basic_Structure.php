@@ -255,5 +255,10 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
         return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Config has been written')));
     }
+    
+    public function doFinished() {
+
+        return Aitsu_Adm_Script_Response :: factory(Aitsu_Translate::translate('Script finished!'));
+    }
 
 }
