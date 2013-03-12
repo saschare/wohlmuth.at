@@ -22,7 +22,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Initialization has been done')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Initialization has been done'));
     }
 
     public function _createCategory($catInfo, $createInIdCat = 0) {
@@ -80,7 +80,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Main Category has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Main Category has been created'));
     }
 
     public function doCreateMetaCategory() {
@@ -99,7 +99,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Meta Category has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Meta Category has been created'));
     }
 
     public function doCreateSystemCategory() {
@@ -118,7 +118,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('System Category has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('System Category has been created'));
     }
 
     public function doCreateImprintCategory() {
@@ -137,7 +137,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Imprint Category has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Imprint Category has been created'));
     }
 
     public function doCreateLoginCategory() {
@@ -156,7 +156,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Login Category has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Login Category has been created'));
     }
 
     public function doCreateErrorCategory() {
@@ -175,7 +175,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Error Category has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Error Category has been created'));
     }
 
     public function doCreateStartArticle() {
@@ -189,7 +189,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Start Article has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Start Article has been created'));
     }
 
     public function doCreateErrorArticle() {
@@ -203,7 +203,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Error Article has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Error Article has been created'));
     }
     
     public function doCreateLoginArticle() {
@@ -217,7 +217,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Login Article has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Login Article has been created'));
     }
     
     public function doCreateImprintArticle() {
@@ -231,7 +231,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
             );
         }
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Imprint Article has been created')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Imprint Article has been created'));
     }
     
     public function doWriteConfig() {
@@ -253,12 +253,12 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
         Aitsu_Db::commit();
 
-        return Aitsu_Adm_Script_Response :: factory((Aitsu_Translate::translate('Config has been written')));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Config has been written'));
     }
     
     public function doFinished() {
 
-        return Aitsu_Adm_Script_Response :: factory(Aitsu_Translate::translate('Script finished!'));
+        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Script finished!'));
     }
 
 }
