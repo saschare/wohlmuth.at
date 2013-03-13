@@ -205,6 +205,8 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
     public function doFinished() {
 
+        Aitsu_Registry::get()->session->createStructure = null;
+        
         return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Script finished!'));
     }
 
