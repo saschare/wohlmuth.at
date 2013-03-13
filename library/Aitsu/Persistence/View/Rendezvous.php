@@ -5,10 +5,10 @@
  * @copyright (c) 2013, w3concepts AG
  */
 class Aitsu_Persistence_View_Rendezvous {
-
     /*
      * Stack for the filter to enable the filter callback.
      */
+
     private $_currentFilter = array();
 
     /*
@@ -20,6 +20,7 @@ class Aitsu_Persistence_View_Rendezvous {
     /*
      * Protected constructor to prevent the class to instatiated by accident.
      */
+
     protected function __construct() {
         
     }
@@ -121,8 +122,9 @@ class Aitsu_Persistence_View_Rendezvous {
         return !(in_array($date->starttime->get('Y-m-d'), $this->_currentFilter));
     }
 
-    public function getPrimalDates() {
-        
-        return array_unique($this->_primalDates);
+    public static function getPrimalDates() {
+
+        return array_unique(_self :: _instance()->_primalDates);
     }
+
 }
