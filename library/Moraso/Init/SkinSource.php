@@ -81,8 +81,9 @@ class Moraso_Init_SkinSource implements Aitsu_Event_Listener_Interface {
         $location = $skin_path . '/' . $source;
 
         if (is_readable($location)) {
-            echo file_get_contents($location);
-            return '';
+            $content = file_get_contents($location);
+            
+            return $content;
         } else {
             $xml_file = $skin_path . '/skin.xml';
 
