@@ -2,7 +2,7 @@
 
 /**
  * @author Christian Kehres <c.kehres@webtischlerei.de>
- * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de
+ * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
 class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
