@@ -49,8 +49,6 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
 
             $data = (array) $params->template;
 
-            trigger_error(print_r($data, true));
-
             foreach ($data as $key => $line) {
                 $keyValuePairs[$line->name] = $key;
                 $keys[] = $key;
@@ -72,8 +70,6 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
             if (empty($template) && isset($params->defaultTemplate)) {
                 $template = self :: _getDefaultTemplate($index, $params);
             }
-
-            trigger_error('gewähltes template: ' . $template);
         } else {
             $template = self :: _getDefaultTemplate($index, $params);
 
