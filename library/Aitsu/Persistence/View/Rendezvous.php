@@ -123,14 +123,14 @@ class Aitsu_Persistence_View_Rendezvous {
 
     private function _dateFilter($date) {
 
-        $this->_primalDates = $date->starttime->get('Y-m-d');
+        $this->_primalDates[] = $date->starttime->get('Y-m-d');
 
         return !(in_array($date->starttime->get('Y-m-d'), $this->_currentFilter));
     }
 
     public static function getPrimalDates() {
 
-        return array_unique(_self :: _instance()->_primalDates);
+        return array_unique(self :: _instance()->_primalDates);
     }
 
 }
