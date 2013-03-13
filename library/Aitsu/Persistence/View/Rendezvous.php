@@ -100,6 +100,12 @@ class Aitsu_Persistence_View_Rendezvous {
 
         $methods = get_class_methods('Aitsu_Persistence_View_Rendezvous');
         $o = self :: _instance();
+        
+        /*
+         * Reset primalDates.
+         */
+        $o->_primalDates = array();
+        
         if ($filters != null) {
             foreach ($filters as $filter) {
                 if (in_array('_' . $filter[0] . 'Filter', $methods)) {
