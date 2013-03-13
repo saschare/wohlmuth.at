@@ -6,8 +6,20 @@
  */
 class Aitsu_Persistence_View_Rendezvous {
 
+    /*
+     * Stack for the filter to enable the filter callback.
+     */
     private $_currentFilter = array();
 
+    /*
+     * Holds the dates (with a precision of one day) of the dates that have
+     * been fetched before the filters have been applied.
+     */
+    private $_primalDates = array();
+
+    /*
+     * Protected constructor to prevent the class to instatiated by accident.
+     */
     protected function __construct() {
         
     }
@@ -104,7 +116,13 @@ class Aitsu_Persistence_View_Rendezvous {
 
     private function _dateFilter($date) {
 
+        $this->_primalDates = $date->starttime->get('Y-m-d');
+
         return !(in_array($date->starttime->get('Y-m-d'), $this->_currentFilter));
     }
 
+    public function getPrimalDates() {
+        
+        return array_unique($this->_primalDates);
+    }
 }
