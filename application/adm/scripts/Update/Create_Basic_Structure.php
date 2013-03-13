@@ -1,67 +1,14 @@
 <?php
 
 /**
- * @author Andreas Kummer, w3concepts AG
- * @copyright Copyright &copy; 2011, w3concepts AG
+ * @author Christian Kehres <c.kehres@webtischlerei.de>
+ * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de
  */
 class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
     public static function getName() {
 
         return Aitsu_Translate::translate('Create Basic Structure');
-    }
-
-    public function doInitCreation() {
-
-        try {
-            Aitsu_Registry::get()->session->createStructure->idlang = Aitsu_Registry::get()->session->currentLanguage;
-        } catch (Exception $e) {
-            trigger_error($e->getMessage());
-            return (object) array(
-                        'message' => Aitsu_Translate::translate('Initialization failed')
-            );
-        }
-
-        return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Initialization has been done'));
-    }
-
-    public function _createCategory($catInfo, $createInIdCat = 0) {
-        
-        Aitsu_Db::startTransaction();
-        
-        $idcat = Aitsu_Persistence_Category::factory($createInIdCat)->insert(Aitsu_Registry::get()->session->createStructure->idlang);
-        
-        $category = Aitsu_Persistence_Category::factory($idcat);
-        $category->load();
-
-        $catInfo['visible'] = 1;
-        
-        $category->setValues($catInfo);
-
-        $category->save();
-
-        Aitsu_Db::commit();
-
-        return $idcat;
-    }
-
-    public function _createArticle($title, $pagetitle, $idcat) {
-
-        Aitsu_Db::startTransaction();
-
-        $art = Aitsu_Persistence_Article::factory();
-        $art->title = $title;
-        $art->pagetitle = $pagetitle;
-        $art->online = 1;
-        $art->idclient = Aitsu_Registry::get()->session->currentClient;
-        $art->idcat = $idcat;
-        $art->save();
-
-        $art->setAsIndex();
-
-        Aitsu_Db::commit();
-
-        return $art->idart;
     }
 
     public function doCreateMainCategory() {
@@ -205,11 +152,11 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
         return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Error Article has been created'));
     }
-    
+
     public function doCreateLoginArticle() {
 
         try {
-            Aitsu_Registry::get()->session->createStructure->loginIdArt = $this->_createArticle('index', 'Login' , Aitsu_Registry::get()->session->createStructure->loginIdCat);
+            Aitsu_Registry::get()->session->createStructure->loginIdArt = $this->_createArticle('index', 'Login', Aitsu_Registry::get()->session->createStructure->loginIdCat);
         } catch (Exception $e) {
             trigger_error($e->getMessage());
             return (object) array(
@@ -219,7 +166,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
         return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Login Article has been created'));
     }
-    
+
     public function doCreateImprintArticle() {
 
         try {
@@ -233,7 +180,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
         return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Imprint Article has been created'));
     }
-    
+
     public function doWriteConfig() {
 
         Aitsu_Db::startTransaction();
@@ -255,10 +202,49 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
 
         return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Config has been written'));
     }
-    
+
     public function doFinished() {
 
         return Aitsu_Adm_Script_Response::factory(Aitsu_Translate::translate('Script finished!'));
+    }
+
+    public function _createCategory($catInfo, $createInIdCat = 0) {
+
+        Aitsu_Db::startTransaction();
+
+        $idcat = Aitsu_Persistence_Category::factory($createInIdCat)->insert(Aitsu_Registry::get()->session->currentLanguage);
+
+        $category = Aitsu_Persistence_Category::factory($idcat);
+        $category->load();
+
+        $catInfo['visible'] = 1;
+
+        $category->setValues($catInfo);
+
+        $category->save();
+
+        Aitsu_Db::commit();
+
+        return $idcat;
+    }
+
+    public function _createArticle($title, $pagetitle, $idcat) {
+
+        Aitsu_Db::startTransaction();
+
+        $art = Aitsu_Persistence_Article::factory();
+        $art->title = $title;
+        $art->pagetitle = $pagetitle;
+        $art->online = 1;
+        $art->idclient = Aitsu_Registry::get()->session->currentClient;
+        $art->idcat = $idcat;
+        $art->save();
+
+        $art->setAsIndex();
+
+        Aitsu_Db::commit();
+
+        return $art->idart;
     }
 
 }
