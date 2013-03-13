@@ -188,6 +188,7 @@ class Aitsu_Persistence_View_Category {
 		'	cat.parentid, ' .
 		'	catlang.name, ' .
 		'	catlang.urlname, ' .
+                '	catlang.claim, ' .
 		'	if (child.idcat is null, 0, if(child.idcat = cat.idcat, 0, 1)) as isparent, ' .
 		'	if (child.idcat = cat.idcat, 1, 0) as iscurrent, ' .
 		'	catlang.public as ispublic, ' .
