@@ -14,13 +14,13 @@ class Moraso_Html_Helper_Navigation {
     }
 
     private function _createUl($nav, $ulId, $ulClasses) {
-        
+
         $ul = '<ul';
 
         if (!empty($ulId)) {
             $ul.= ' id="' . $ulId . '"';
         }
-        
+
         if (!empty($ulClasses)) {
             $ul.= ' class="' . implode(' ', $ulClasses) . '"';
         }
@@ -40,14 +40,18 @@ class Moraso_Html_Helper_Navigation {
 
         $liClasses = array();
 
-        if ($row['isCurrent']) {
-            $liClasses[] = 'isCurrent';
-        }
+        if ($row['isCurrent'] || $row['isParent']) {
+            $liClasses[] = 'active';
 
-        if ($row['isParent']) {
-            $liClasses[] = 'isParent';
-        }
+            if ($row['isCurrent']) {
+                $liClasses[] = 'isCurrent';
+            }
 
+            if ($row['isParent']) {
+                $liClasses[] = 'isParent';
+            }
+        }
+        
         if ($row['hasChildren']) {
             $liClasses[] = 'hasChildren';
         }

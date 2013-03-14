@@ -9,6 +9,23 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
     protected $_renderOnMobile = true;
     protected $_renderOnTablet = true;
 
+    protected static function _getInstance($className) {
+
+        $instance = new $className ();
+
+        $className = str_replace('_', '.', $className);
+        $className = preg_replace('/^(?:Skin\\.Module|Moraso\\.Module|Module)\\./', "", $className);
+        $className = preg_replace('/\\.Class$/', "", $className);
+
+        if (isset($_GET['renderOnly']) && $className == substr($_GET['renderOnly'], 0, strlen($className)) && !$instance->_renderOnlyAllowed) {
+            throw new Aitsu_Security_Module_RenderOnly_Exception($className);
+        }
+
+        $instance->_moduleName = $className;
+
+        return $instance;
+    }
+
     public static function init($context, $instance = null) {
 
         $instance = is_null($instance) ? self :: _getInstance($context['className']) : $instance;
@@ -19,7 +36,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         $isMobile = Aitsu_Registry::get()->env->mobile->detect->isMobile;
         $isTablet = Aitsu_Registry::get()->env->mobile->detect->isTablet;
-        
+
         if ($isMobile == 'is' && !$instance->_renderOnMobile) {
             return false;
         }

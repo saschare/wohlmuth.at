@@ -12,7 +12,7 @@ class Moraso_Module_Navigation_Sub_Class extends Moraso_Module_Abstract {
     protected function _main() {
 
         $template = isset($this->_params->template) ? $this->_params->template : 'index';
-        $firstLevel = isset($this->_params->firstLevel) ? $this->_params->firstLevel : '0';
+        $firstLevel = isset($this->_params->firstLevel) ? $this->_params->firstLevel : '1';
 
         $bc = Aitsu_Persistence_View_Category :: breadCrumb();
 

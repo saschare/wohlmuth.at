@@ -77,7 +77,7 @@ class Moraso_Shortcode extends Aitsu_Shortcode {
                 }
             }
         }
-        
+
         if (!$exists) {
             Aitsu_Profiler :: profile($method . ':' . $index, (object) array(
                         'source' => 'not found'
@@ -98,13 +98,11 @@ class Moraso_Shortcode extends Aitsu_Shortcode {
 
         if (Aitsu_Registry :: isBoxModel() && !Aitsu_Content_Edit :: noEdit($method)) {
             $returnValue = '<shortcode method="' . $method . '" index="' . $index . '">' . $returnValue . '</shortcode>';
-        } else
-        if (Aitsu_Application_Status :: isStructured()) {
+        } elseif (Aitsu_Application_Status :: isStructured()) {
             $startmarker = '<!--fragment:start ' . $method . '-' . $index . '-->';
             $endmarker = '<!--fragment:end ' . $method . '-' . $index . '-->';
             $returnValue = $startmarker . $returnValue . $endmarker;
-        } else
-        if (Aitsu_Registry :: isEdit() && !Aitsu_Content_Edit :: noEdit($method)) {
+        } elseif (Aitsu_Registry :: isEdit() && !Aitsu_Content_Edit :: noEdit($method)) {
             $isBlock = Aitsu_Content_Edit :: isBlock();
             if ($isBlock === true) {
                 $returnValue = '<div id="' . $method . '-' . $index . '-' . Aitsu_Registry :: get()->env->idartlang . '" class="aitsu_editable"><div class="aitsu_hover">' . $returnValue . '</div></div>';
