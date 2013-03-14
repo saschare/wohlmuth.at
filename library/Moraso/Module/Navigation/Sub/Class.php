@@ -4,7 +4,7 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
-class Moraso_Module_Navigation_Sub_Class extends Moraso_Module_Tree_Abstract {
+class Moraso_Module_Navigation_Sub_Class extends Moraso_Module_Abstract {
 
     protected $type = 'navigation';
     protected $_allowEdit = false;
