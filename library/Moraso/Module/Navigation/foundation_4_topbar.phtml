@@ -1,0 +1,45 @@
+<nav class="top-bar">
+    <ul class="title-area">
+        <li class="name">
+            <a href="{ref:idcat-0}">Home</a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        <ul class="left">
+            <?php foreach ($this->nav as $level_1) : ?>
+                <?php
+                $classes = array();
+
+                if ($level_1['isParent'] || $level_1['isCurrent']) {
+                    $classes[] = 'active';
+                }
+
+                if ($level_1['hasChildren']) {
+                    $classes[] = 'has-dropdown';
+                }
+                ?>
+
+                <li <?php if (!empty($classes)) : ?>class="<?php echo implode(' ', $classes); ?>"<?php endif; ?>>
+                    <a href="{ref:idcat-<?php echo $level_1['idcat']; ?>}"><?php echo $level_1['name']; ?></a>
+
+                    <?php if ($level_1['hasChildren']) : ?>
+                        <ul class="dropdown">
+                            <li class="hide-for-medium-up">
+                                <label>
+                                    <a href="{ref:idcat-<?php echo $level_1['idcat']; ?>}"><?php echo $level_1['name']; ?></a>
+                                </label>
+                            </li>
+                            <?php foreach ($level_1['children'] as $level_2) : ?>
+                                <li <?php if ($level_2['isparent'] || $level_2['iscurrent']) : ?>class="active"<?php endif; ?>>
+                                    <a href="{ref:idcat-<?php echo $level_2['idcat']; ?>}"><?php echo $level_2['name']; ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+</nav>
