@@ -80,23 +80,25 @@ class Moraso_Init_SkinSource implements Aitsu_Event_Listener_Interface {
 
         $location = $skin_path . '/' . $source;
 
+        $content = '';
+        
         if (is_readable($location)) {
-            $content = file_get_contents($location);
-            
-            return $content;
+            $content = file_get_contents($location, false);
         } else {
             $xml_file = $skin_path . '/skin.xml';
 
             if (is_readable($xml_file)) {
                 $xml = simplexml_load_file($xml_file);
 
-                self::_getContentFromSkinFile($source, (string) $xml->parent->skin[0]);
+                $content = self::_getContentFromSkinFile($source, (string) $xml->parent->skin[0]);
             } else {
                 header("HTTP/1.1 404 Not Found");
                 header("Connection: Close");
                 exit();
             }
         }
+        
+        return $content;
     }
 
     private static function _cache($etag, $content = null, array $tags = null) {

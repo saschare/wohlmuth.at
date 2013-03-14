@@ -3,19 +3,19 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="de"> <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">´
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <script type="application/x-moraso" src="HTML.Meta.PageTitle">
             suffix = " | moraso CMS"
         </script>
-        
+
         <!-- BaseHref :: Start -->
         <script type="application/x-moraso" src="HTML.Meta.BaseHref"></script>
         <!-- BaseHref :: End -->
-        
+
         <!-- CanonicalTag :: Start -->
         <script type="application/x-moraso" src="HTML.Meta.CanonicalTag"></script>
         <!-- CanonicalTag :: End -->
-        
+
         <!-- Meta Tags :: Start -->
         <script type="application/x-moraso" src="HTML.Meta.Tags"></script>
         <!-- Meta Tags :: End -->
@@ -57,7 +57,49 @@
         </script>
         <!-- End Google Tag Manager -->
 
+        <!-- Header :: Start -->
+        <script type="application/x-moraso" src="Template:Header">
+            defaultTemplate = default
 
+            template.default.name = Standard
+            template.default.file = templates/header/default.phtml 
+        </script>
+        <!-- Header :: End -->
+
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="row">
+
+                    <!-- Thumbnails -->
+                    <div class="large-3 small-6 columns">
+                        <img src="http://placehold.it/250x250&amp;text=Thumbnail">
+                    </div>
+
+                    <div class="large-3 small-6 columns">
+                        <img src="http://placehold.it/250x250&amp;text=Thumbnail">
+                    </div>
+
+                    <div class="large-3 small-6 columns">
+                        <img src="http://placehold.it/250x250&amp;text=Thumbnail">
+                    </div>
+
+                    <div class="large-3 small-6 columns">
+                        <img src="http://placehold.it/250x250&amp;text=Thumbnail">
+                    </div>
+                    <!-- End Thumbnails -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer :: Start -->
+        <script type="application/x-moraso" src="Template:Footer">
+            defaultTemplate = default
+
+            template.default.name = Standard
+            template.default.file = templates/footer/default.phtml 
+        </script>
+        <!-- Footer :: End -->
 
         <!-- JS :: Start -->
         <script>

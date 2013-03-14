@@ -194,7 +194,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
         $config->setValue($client, $env, 'sys.startcat', Aitsu_Registry::get()->session->createStructure->mainIdCat);
         $config->setValue($client, $env, 'sys.loginpage', Aitsu_Registry::get()->session->createStructure->loginIdCat);
         $config->setValue($client, $env, 'navigation.main', Aitsu_Registry::get()->session->createStructure->mainIdCat);
-        $config->setValue($client, $env, 'navigation.meta', Aitsu_Registry::get()->session->createStructure->metanIdCat);
+        $config->setValue($client, $env, 'navigation.meta', Aitsu_Registry::get()->session->createStructure->metaIdCat);
 
         $config->save();
 
