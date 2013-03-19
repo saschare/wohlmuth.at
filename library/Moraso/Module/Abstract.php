@@ -159,7 +159,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         $modulePaths['aitsu'] = APPLICATION_PATH . '/modules/' . $modulePath . '/';
 
         $exists = false;
-                
+
         foreach ($modulePaths as $modulePath) {
             if (is_array($modulePath)) {
                 foreach ($modulePath as $path) {
@@ -169,14 +169,15 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
                         break;
                     }
                 }
-            }
-            
-            if ($exists) {
-                break;
+            } else {
+                if (count(preg_grep("/^Class.php$|.phtml$/", Aitsu_Util_Dir :: scan($modulePath))) > 0) {
+                    $view->setScriptPath($modulePath);
+                    $exists = true;
+                    break;
+                }
             }
 
-            if (count(preg_grep("/^Class.php$|.phtml$/", Aitsu_Util_Dir :: scan($modulePath))) > 0) {
-                $view->setScriptPath($modulePath);
+            if ($exists) {
                 break;
             }
         }
