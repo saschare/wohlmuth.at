@@ -163,14 +163,14 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         foreach ($modulePaths as $modulePath) {
             if (is_array($modulePath)) {
                 foreach ($modulePath as $path) {
-                    if (count(preg_grep("/^Class.php$|.phtml$/", Aitsu_Util_Dir :: scan($path))) > 0) {
+                    if (file_exists($path . 'index.phtml')) {
                         $view->setScriptPath($path);
                         $exists = true;
                         break;
                     }
                 }
             } else {
-                if (count(preg_grep("/^Class.php$|.phtml$/", Aitsu_Util_Dir :: scan($modulePath))) > 0) {
+                if (file_exists($modulePath . 'index.phtml')) {
                     $view->setScriptPath($modulePath);
                     $exists = true;
                     break;
