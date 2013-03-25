@@ -150,35 +150,27 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         $heredity = Moraso_Util_Skin :: buildHeredity();
 
-        $modulePaths = array();
+        $skinModules = array();
         foreach ($heredity as $skin) {
-            $modulePaths['skins'][] = APPLICATION_PATH . "/skins/" . $skin . "/module/" . $modulePath . '/';
+            $skinModules[] = APPLICATION_PATH . "/skins/" . $skin . "/module/" . $modulePath . '/';
         }
 
+        $skinModulesReversed = array_reverse($skinModules);
+
+        $modulePaths = array();
+        $modulePaths['skins'] = $skinModulesReversed;
         $modulePaths['moraso'] = realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/';
         $modulePaths['aitsu'] = APPLICATION_PATH . '/modules/' . $modulePath . '/';
 
-        $exists = false;
+        $modulePathsReversed = array_reverse($modulePaths);
 
-        foreach ($modulePaths as $modulePath) {
+        foreach ($modulePathsReversed as $modulePath) {
             if (is_array($modulePath)) {
                 foreach ($modulePath as $path) {
-                    if (file_exists($path . 'index.phtml')) {
-                        $view->setScriptPath($path);
-                        $exists = true;
-                        break;
-                    }
+                    $view->addScriptPath($path);
                 }
             } else {
-                if (file_exists($modulePath . 'index.phtml')) {
-                    $view->setScriptPath($modulePath);
-                    $exists = true;
-                    break;
-                }
-            }
-
-            if ($exists) {
-                break;
+                $view->addScriptPath($modulePath);
             }
         }
 
