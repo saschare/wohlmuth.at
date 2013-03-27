@@ -98,7 +98,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $translation = array();
         $translation['configuration'] = Aitsu_Translate::_('Configuration');
-        
+
         $defaults = $this->_getDefaults();
 
         /* categories */
@@ -113,9 +113,9 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         /* useOfStartArticle */
         if ($defaults['configurable']['useOfStartArticle']) {
             $useOfStartArticleSelect = array(
-                'Variante 1' => 1,
-                'Variante 2' => 2,
-                'Variante 3' => 3
+                'show all articles' => 1,
+                'do not show start articles' => 2,
+                'show only start articles' => 3
             );
 
             $useOfStartArticle = Aitsu_Content_Config_Select::set($this->_index, 'useOfStartArticle', Aitsu_Translate::_('useOfStartArticle'), $useOfStartArticleSelect, $translation['configuration']);
@@ -201,7 +201,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         if (empty($limit)) {
             $limit = $defaults['limit'];
         }
-        
+
         /* Page */
         if ($defaults['configurable']['page']) {
             $page = Aitsu_Content_Config_Text::set($this->_index, 'page', Aitsu_Translate::_('Page'), $translation['configuration']);
