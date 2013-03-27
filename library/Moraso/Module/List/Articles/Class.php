@@ -18,6 +18,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             'offset' => Aitsu_Config::get('module.list.articles.offset.default'),
             'limit' => Aitsu_Config::get('module.list.articles.limit.default'),
             'page' => Aitsu_Config::get('module.list.articles.page.default'),
+            'templateRenderingWhenNoArticles' => Aitsu_Config::get('module.list.articles.page.templateRenderingWhenNoArticles'),
             'configurable' => array(
                 'categories' => Aitsu_Config::get('module.list.articles.categories.configurable'),
                 'useOfStartArticle' => Aitsu_Config::get('module.list.articles.useOfStartArticle.configurable'),
@@ -27,7 +28,8 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
                 'template' => Aitsu_Config::get('module.list.articles.template.configurable'),
                 'offset' => Aitsu_Config::get('module.list.articles.offset.configurable'),
                 'limit' => Aitsu_Config::get('module.list.articles.limit.configurable'),
-                'page' => Aitsu_Config::get('module.list.articles.page.configurable')
+                'page' => Aitsu_Config::get('module.list.articles.page.configurable'),
+                'templateRenderingWhenNoArticles' => Aitsu_Config::get('module.list.articles.templateRenderingWhenNoArticles.configurable')
             )
         );
 
@@ -41,6 +43,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             'offset' => empty($aitsuConfig['offset']) ? 0 : $aitsuConfig['offset'],
             'limit' => empty($aitsuConfig['limit']) ? 10 : $aitsuConfig['limit'],
             'page' => empty($aitsuConfig['page']) ? 0 : $aitsuConfig['page'],
+            'templateRenderingWhenNoArticles' => empty($aitsuConfig['templateRenderingWhenNoArticles']) ? true : $aitsuConfig['templateRenderingWhenNoArticles'],
             'configurable' => array(
                 'categories' => empty($aitsuConfig['configurable']['categories']) ? false : $aitsuConfig['configurable']['categories'],
                 'useOfStartArticle' => empty($aitsuConfig['configurable']['useOfStartArticle']) ? false : $aitsuConfig['configurable']['useOfStartArticle'],
@@ -50,7 +53,8 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
                 'template' => empty($aitsuConfig['configurable']['template']) ? false : $aitsuConfig['configurable']['template'],
                 'offset' => empty($aitsuConfig['configurable']['offset']) ? false : $aitsuConfig['configurable']['offset'],
                 'limit' => empty($aitsuConfig['configurable']['limit']) ? false : $aitsuConfig['configurable']['limit'],
-                'page' => empty($aitsuConfig['configurable']['page']) ? false : $aitsuConfig['configurable']['page']
+                'page' => empty($aitsuConfig['configurable']['page']) ? false : $aitsuConfig['configurable']['page'],
+                'templateRenderingWhenNoArticles' => empty($aitsuConfig['configurable']['templateRenderingWhenNoArticles']) ? false : $aitsuConfig['configurable']['templateRenderingWhenNoArticles']
             )
         );
 
@@ -69,6 +73,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         $offset = empty($this->_params->offset) || $this->_params->offset == 'config' ? $defaults['offset'] : $this->_params->offset;
         $limit = empty($this->_params->limit) || $this->_params->limit == 'config' ? $defaults['limit'] : $this->_params->limit;
         $page = empty($this->_params->page) || $this->_params->page == 'config' ? $defaults['page'] : $this->_params->page;
+        $templateRenderingWhenNoArticles = empty($this->_params->templateRenderingWhenNoArticles) || $this->_params->templateRenderingWhenNoArticles == 'config' ? $defaults['templateRenderingWhenNoArticles'] : $this->_params->templateRenderingWhenNoArticles;
 
         return array(
             'categories' => $categories,
@@ -80,6 +85,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             'offset' => $offset,
             'limit' => $limit,
             'page' => $page,
+            'templateRenderingWhenNoArticles' => $templateRenderingWhenNoArticles,
             'configurable' => array(
                 'categories' => isset($this->_params->categories) && $this->_params->categories == 'config' ? true : $defaults['configurable']['categories'],
                 'useOfStartArticle' => isset($this->_params->useOfStartArticle) && $this->_params->useOfStartArticle == 'config' ? true : $defaults['configurable']['useOfStartArticle'],
@@ -89,7 +95,8 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
                 'template' => isset($this->_params->template) && $this->_params->template == 'config' ? true : $defaults['configurable']['template'],
                 'offset' => isset($this->_params->offset) && $this->_params->offset == 'config' ? true : $defaults['configurable']['offset'],
                 'limit' => isset($this->_params->limit) && $this->_params->limit == 'config' ? true : $defaults['configurable']['limit'],
-                'page' => isset($this->_params->page) && $this->_params->page == 'config' ? true : $defaults['configurable']['page']
+                'page' => isset($this->_params->page) && $this->_params->page == 'config' ? true : $defaults['configurable']['page'],
+                'templateRenderingWhenNoArticles' => isset($this->_params->templateRenderingWhenNoArticles) && $this->_params->templateRenderingWhenNoArticles == 'config' ? true : $defaults['configurable']['templateRenderingWhenNoArticles']
             )
         );
     }
@@ -211,6 +218,24 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $page = $defaults['page'];
         }
 
+        /* templateRenderingWhenNoArticles */
+        if ($defaults['configurable']['templateRenderingWhenNoArticles']) {
+            $templateRenderingWhenNoArticlesSelect = array(
+                'true' => 'true',
+                'false' => 'false'
+            );
+
+            $templateRenderingWhenNoArticles = Aitsu_Content_Config_Select::set($this->_index, 'templateRenderingWhenNoArticles', Aitsu_Translate::_('templateRenderingWhenNoArticles'), $templateRenderingWhenNoArticlesSelect, $translation['configuration']);
+        }
+
+        if ($templateRenderingWhenNoArticles === 'true') {
+            $templateRenderingWhenNoArticles = true;
+        } elseif ($templateRenderingWhenNoArticles === 'false') {
+            $templateRenderingWhenNoArticles = false;
+        } else {
+            $templateRenderingWhenNoArticles = $defaults['templateRenderingWhenNoArticles'];
+        }
+
         /* change Offset if not on first Page */
         if ($page > 1) {
             $offset = ($page - 1) * $limit;
@@ -243,7 +268,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $articles = $aggregation->fetch($offset, $limit);
 
-        if (empty($template) || empty($articles) || !in_array($template, $this->_getTemplates())) {
+        if ((empty($articles) && !$templateRenderingWhenNoArticles) || !in_array($template, $this->_getTemplates())) {
             return '';
         }
 
