@@ -264,12 +264,15 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             }
         }
 
-        $articlesAll = $aggregation->fetch(0, 99999);
+        $aggregationAll = clone $aggregation;
+
         $articles = $aggregation->fetch($offset, $limit);
 
         if ((empty($articles) && !$templateRenderingWhenNoArticles) || !in_array($template, $this->_getTemplates())) {
             return '';
         }
+
+        $articlesAll = $aggregationAll->fetch(0, 99999);
 
         $view = $this->_getView();
 
