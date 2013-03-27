@@ -215,7 +215,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         }
 
         if (empty($page)) {
-            $page = $defaults['page'];
+            $page = !isset($_GET['page']) ? $defaults['page'] : $_GET['page'];
         }
 
         /* templateRenderingWhenNoArticles */
