@@ -154,7 +154,9 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         if ($defaults['configurable']['orderBy']) {
             $orderBySelect = array(
                 'artsort' => 'artsort',
-                'created' => 'created'
+                'created' => 'created',
+                'modified' => 'modified',
+                'metadate' => 'metadate'
             );
 
             $orderBy = Aitsu_Content_Config_Select::set($this->_index, 'orderBy', Aitsu_Translate::_('orderBy'), $orderBySelect, $translation['configuration']);
