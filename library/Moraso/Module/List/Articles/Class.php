@@ -251,8 +251,6 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $aggregation->orderBy($orderBy, $ascending);
 
-        $aggregationAll = $aggregation;
-
         if (isset($this->_params->populateWith)) {
             foreach ($this->_params->populateWith as $alias => $populateWith) {
 
@@ -266,6 +264,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             }
         }
 
+        $articlesAll = $aggregation->fetch(0, 99999);
         $articles = $aggregation->fetch($offset, $limit);
 
         if ((empty($articles) && !$templateRenderingWhenNoArticles) || !in_array($template, $this->_getTemplates())) {
@@ -275,13 +274,8 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         $view = $this->_getView();
 
         $view->articles = $articles;
-
-        if (!empty($page)) {
-            $articlesAll = $aggregationAll->fetch(0, 999);
-
-            $view->pages = ceil(count($articlesAll) / $limit);
-            $view->currentPage = $page;
-        }
+        $view->pages = ceil(count($articlesAll) / $limit);
+        $view->currentPage = empty($page) ? 1 : $page;
 
         return $view->render($template . '.phtml');
     }
