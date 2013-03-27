@@ -276,6 +276,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         $view->articles = $articles;
         $view->pages = ceil(count($articlesAll) / $limit);
         $view->currentPage = empty($page) ? 1 : $page;
+        $view->idart = Aitsu_Registry::get()->env->idart;
 
         return $view->render($template . '.phtml');
     }
