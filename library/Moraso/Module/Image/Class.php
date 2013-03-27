@@ -111,7 +111,6 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         $defaults = $this->_getDefaults();
 
         $idart = empty($this->_params->idart) ? $defaults['idart'] : $this->_params->idart;
-        $template = empty($this->_params->template) ? $defaults['template'] : $this->_params->template;
 
         if ($defaults['configurable']['width']) {
             $width = Aitsu_Content_Config_Text::set($this->_index, 'width', Aitsu_Translate::_('Width'), Aitsu_Translate::_('Configuration'));
@@ -130,25 +129,33 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
 
             $render = Aitsu_Content_Config_Select::set($this->_index, 'render', Aitsu_Translate::_('Render'), $renderSelect, Aitsu_Translate::_('Configuration'));
         }
-
+        
         if ($defaults['configurable']['template']) {
-            $configTemplate = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), Aitsu_Translate::_('Configuration'));
-
-            if (!empty($configTemplate)) {
-                $template = $configTemplate;
-            }
+            $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), Aitsu_Translate::_('Configuration'));
+        }
+        
+        if (empty($template)) {
+            $template = $defaults['template'];
         }
 
         if ($defaults['configurable']['all']) {
             $showAllSelect = array(
-                'show all Images' => true,
-                'select single Images' => false
+                'show all Images' => 'true',
+                'select single Images' => 'false'
             );
 
             $all = Aitsu_Content_Config_Radio::set($this->_index, 'all', Aitsu_Translate::_('show all Images'), $showAllSelect, Aitsu_Translate::_('Configuration'));
         }
+        
+        if ($all === 'true') {
+            $all = true;
+        } elseif ($all === 'false') {
+            $all = false;
+        } else {
+            $all = $defaults['all'];
+        }
 
-        if (empty($all) && empty($defaults['all'])) {
+        if ($all) {
             $images = Moraso_Content_Config_Media :: set($this->_index, 'Image.Media', 'Media', $idart);
             $selectedImages = Moraso_Persistence_View_Media::byFileName($idart, $images);
         } else {
