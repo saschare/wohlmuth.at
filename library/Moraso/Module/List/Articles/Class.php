@@ -96,11 +96,14 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
     protected function _main() {
 
+        $translation = array();
+        $translation['configuration'] = Aitsu_Translate::_('Configuration');
+        
         $defaults = $this->_getDefaults();
 
         /* categories */
         if ($defaults['configurable']['categories']) {
-            $categories = Aitsu_Content_Config_Text::set($this->_index, 'categories', Aitsu_Translate::_('Categories'), Aitsu_Translate::_('Configuration'));
+            $categories = Aitsu_Content_Config_Text::set($this->_index, 'categories', Aitsu_Translate::_('Categories'), $translation['configuration']);
         }
 
         if (empty($categories)) {
@@ -115,7 +118,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
                 'Variante 3' => 3
             );
 
-            $useOfStartArticle = Aitsu_Content_Config_Select::set($this->_index, 'useOfStartArticle', Aitsu_Translate::_('useOfStartArticle'), $useOfStartArticleSelect, Aitsu_Translate::_('Configuration'));
+            $useOfStartArticle = Aitsu_Content_Config_Select::set($this->_index, 'useOfStartArticle', Aitsu_Translate::_('useOfStartArticle'), $useOfStartArticleSelect, $translation['configuration']);
         }
 
         if (empty($useOfStartArticle)) {
@@ -129,7 +132,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
                 'false' => 'false'
             );
 
-            $sortCategoryFirst = Aitsu_Content_Config_Select::set($this->_index, 'sortCategoryFirst', Aitsu_Translate::_('sortCategoryFirst'), $sortCategoryFirstSelect, Aitsu_Translate::_('Configuration'));
+            $sortCategoryFirst = Aitsu_Content_Config_Select::set($this->_index, 'sortCategoryFirst', Aitsu_Translate::_('sortCategoryFirst'), $sortCategoryFirstSelect, $translation['configuration']);
         }
 
         if ($sortCategoryFirst === 'true') {
@@ -147,7 +150,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
                 'created' => 'created'
             );
 
-            $orderBy = Aitsu_Content_Config_Select::set($this->_index, 'orderBy', Aitsu_Translate::_('orderBy'), $orderBySelect, Aitsu_Translate::_('Configuration'));
+            $orderBy = Aitsu_Content_Config_Select::set($this->_index, 'orderBy', Aitsu_Translate::_('orderBy'), $orderBySelect, $translation['configuration']);
         }
 
         if (empty($orderBy)) {
@@ -161,7 +164,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
                 'false' => 'false'
             );
 
-            $ascending = Aitsu_Content_Config_Select::set($this->_index, 'ascending', Aitsu_Translate::_('ascending'), $ascendingSelect, Aitsu_Translate::_('Configuration'));
+            $ascending = Aitsu_Content_Config_Select::set($this->_index, 'ascending', Aitsu_Translate::_('ascending'), $ascendingSelect, $translation['configuration']);
         }
 
         if ($ascending === 'true') {
@@ -174,7 +177,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         /* template */
         if ($defaults['configurable']['template']) {
-            $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), Aitsu_Translate::_('Configuration'));
+            $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), $translation['configuration']);
         }
 
         if (empty($template)) {
@@ -183,7 +186,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         /* Offset */
         if ($defaults['configurable']['offset']) {
-            $offset = Aitsu_Content_Config_Text::set($this->_index, 'offset', Aitsu_Translate::_('Offset'), Aitsu_Translate::_('Configuration'));
+            $offset = Aitsu_Content_Config_Text::set($this->_index, 'offset', Aitsu_Translate::_('Offset'), $translation['configuration']);
         }
 
         if (empty($offset)) {
@@ -192,7 +195,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         /* Limit */
         if ($defaults['configurable']['limit']) {
-            $limit = Aitsu_Content_Config_Text::set($this->_index, 'limit', Aitsu_Translate::_('Limit'), Aitsu_Translate::_('Configuration'));
+            $limit = Aitsu_Content_Config_Text::set($this->_index, 'limit', Aitsu_Translate::_('Limit'), $translation['configuration']);
         }
 
         if (empty($limit)) {
@@ -201,14 +204,15 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         
         /* Page */
         if ($defaults['configurable']['page']) {
-            $page = Aitsu_Content_Config_Text::set($this->_index, 'page', Aitsu_Translate::_('Page'), Aitsu_Translate::_('Configuration'));
+            $page = Aitsu_Content_Config_Text::set($this->_index, 'page', Aitsu_Translate::_('Page'), $translation['configuration']);
         }
 
         if (empty($page)) {
             $page = $defaults['page'];
         }
 
-        if (!empty($page)) {
+        /* change Offset if not on first Page */
+        if ($page > 1) {
             $offset = ($page - 1) * $limit;
         }
 
