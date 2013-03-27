@@ -110,9 +110,9 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         /* useOfStartArticle */
         if ($defaults['configurable']['useOfStartArticle']) {
             $useOfStartArticleSelect = array(
-                'Variante 1' => 0,
-                'Variante 2' => 1,
-                'Variante 3' => 2
+                'Variante 1' => 1,
+                'Variante 2' => 2,
+                'Variante 3' => 3
             );
 
             $useOfStartArticle = Aitsu_Content_Config_Select::set($this->_index, 'useOfStartArticle', Aitsu_Translate::_('useOfStartArticle'), $useOfStartArticleSelect, Aitsu_Translate::_('Configuration'));
