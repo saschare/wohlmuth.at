@@ -147,9 +147,9 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
             $all = Aitsu_Content_Config_Radio::set($this->_index, 'all', Aitsu_Translate::_('show all Images'), $showAllSelect, Aitsu_Translate::_('Configuration'));
         }
         
-        if ($all === 'true') {
+        if (isset($all) && $all === 'true') {
             $all = true;
-        } elseif ($all === 'false') {
+        } elseif (isset($all) && $all === 'false') {
             $all = false;
         } else {
             $all = $defaults['all'];
