@@ -155,7 +155,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
             $all = $defaults['all'];
         }
 
-        if ($all) {
+        if (!$all) {
             $images = Moraso_Content_Config_Media :: set($this->_index, 'Image.Media', 'Media', $idart);
             $selectedImages = Moraso_Persistence_View_Media::byFileName($idart, $images);
         } else {
