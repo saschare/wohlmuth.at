@@ -142,9 +142,9 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $sortCategoryFirst = Aitsu_Content_Config_Select::set($this->_index, 'sortCategoryFirst', Aitsu_Translate::_('sortCategoryFirst'), $sortCategoryFirstSelect, $translation['configuration']);
         }
 
-        if ($sortCategoryFirst === 'true') {
+        if (isset($sortCategoryFirst) && $sortCategoryFirst === 'true') {
             $sortCategoryFirst = true;
-        } elseif ($sortCategoryFirst === 'false') {
+        } elseif (isset($sortCategoryFirst) && $sortCategoryFirst === 'false') {
             $sortCategoryFirst = false;
         } else {
             $sortCategoryFirst = $defaults['sortCategoryFirst'];
@@ -176,9 +176,9 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $ascending = Aitsu_Content_Config_Select::set($this->_index, 'ascending', Aitsu_Translate::_('ascending'), $ascendingSelect, $translation['configuration']);
         }
 
-        if ($ascending === 'true') {
+        if (isset($ascending) && $ascending === 'true') {
             $ascending = true;
-        } elseif ($ascending === 'false') {
+        } elseif (isset($ascending) && $ascending === 'false') {
             $ascending = false;
         } else {
             $ascending = $defaults['ascending'];
@@ -230,9 +230,9 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $templateRenderingWhenNoArticles = Aitsu_Content_Config_Select::set($this->_index, 'templateRenderingWhenNoArticles', Aitsu_Translate::_('templateRenderingWhenNoArticles'), $templateRenderingWhenNoArticlesSelect, $translation['configuration']);
         }
 
-        if ($templateRenderingWhenNoArticles === 'true') {
+        if (isset($templateRenderingWhenNoArticles) && $templateRenderingWhenNoArticles === 'true') {
             $templateRenderingWhenNoArticles = true;
-        } elseif ($templateRenderingWhenNoArticles === 'false') {
+        } elseif (isset($templateRenderingWhenNoArticles) && $templateRenderingWhenNoArticles === 'false') {
             $templateRenderingWhenNoArticles = false;
         } else {
             $templateRenderingWhenNoArticles = $defaults['templateRenderingWhenNoArticles'];
