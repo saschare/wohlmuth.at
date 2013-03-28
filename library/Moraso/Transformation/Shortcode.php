@@ -37,6 +37,14 @@ class Moraso_Transformation_Shortcode implements Aitsu_Event_Listener_Interface 
 
         $matches = array();
 
+        if (preg_match_all('/(<p(>|\s+[^>]*>)\s\t_\\[(.*?)\\:(.*?)(:?\\:(\\d*))?\\]<\/p>)/', $content, $matches) > 0) {
+            unset($matches[0]);
+            unset($matches[2]);
+            $content = $this->_rewriteShortcodes($content, array_values($matches));
+        }
+        
+        unset($matches);
+        
         if (preg_match_all('/_\\[(.*?)\\:(.*?)(:?\\:(\\d*))?\\]/', $content, $matches) > 0) {
             $content = $this->_rewriteShortcodes($content, $matches);
         }
