@@ -8,7 +8,7 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
 
     protected static function _getDefaultTemplate($index, $params) {
 
-        $defaultTemplate = Aitsu_Article_Config :: factory()->module->template->$index->defaultTemplate;
+        $defaultTemplate = Moraso_Article_Config :: factory()->module->template->$index->defaultTemplate;
 
         if (!isset($defaultTemplate)) {
             return $params->defaultTemplate;
