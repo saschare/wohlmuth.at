@@ -8,12 +8,12 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
 
     protected static function _getDefaultTemplate($index, $params) {
 
-        if (!isset(Aitsu_Article_Config :: factory()->module->template->$index->defaultTemplate)) {
-            return $params->defaultTemplate;
-        }
-
         $defaultTemplate = Aitsu_Article_Config :: factory()->module->template->$index->defaultTemplate;
 
+        if (!isset($defaultTemplate)) {
+            return $params->defaultTemplate;
+        }
+        
         if (!isset($defaultTemplate->ifindex)) {
             return $defaultTemplate->default;
         }
@@ -99,7 +99,7 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
                     $template = $params->template->$template->file;
                 }
 
-                $heredity = Moraso_Util_Skin :: buildHeredity();
+                $heredity = Moraso_Skin_Heredity::build();
 
                 foreach ($heredity as $skin) {
                     $skinPath = APPLICATION_PATH . '/skins/' . $skin;
