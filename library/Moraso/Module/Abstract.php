@@ -151,7 +151,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         $view->addScriptPath(APPLICATION_PATH . '/modules/' . $modulePath . '/');
         $view->addScriptPath(realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/');
 
-        $heredity = Moraso_Util_Skin :: buildHeredity();
+        $heredity = Moraso_Skin_Heredity::build();
 
         foreach (array_reverse($heredity) as $skin) {
             $view->addScriptPath(APPLICATION_PATH . "/skins/" . $skin . "/module/" . $modulePath . '/');
