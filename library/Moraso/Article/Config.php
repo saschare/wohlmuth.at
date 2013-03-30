@@ -6,16 +6,18 @@
  */
 class Moraso_Article_Config extends Aitsu_Article_Config {
 
+    private $_data = null;
+
     protected function __construct($idart, $idlang) {
 
         $defaultConfig = Moraso_Db::fetchOneC('eternal', '' .
-                        'select ' .
-                        '   config ' .
-                        'from ' .
-                        '   _configset ' .
-                        'where ' .
-                        '   configsetid =:configsetid', array(
-                    ':configsetid' => 1
+                                'select ' .
+                                '   config ' .
+                                'from ' .
+                                '   _configset ' .
+                                'where ' .
+                                '   configsetid =:configsetid', array(
+                            ':configsetid' => 1
         ));
 
         $articleConfig = Moraso_Db::fetchOneC('eternal', '' .
@@ -66,6 +68,29 @@ class Moraso_Article_Config extends Aitsu_Article_Config {
         }
 
         $this->_data = Moraso_Util::parseSimpleIni($articleConfig ? $articleConfig : $defaultConfig, $articleConfig ? $defaultConfig : null);
+    }
+
+    public static function factory($idart = null) {
+
+        static $instance = array();
+
+        $idart = $idart == null ? Aitsu_Registry :: get()->env->idart : $idart;
+        $idlang = Aitsu_Registry :: get()->env->idlang;
+
+        if (!isset($instance[$idart . '_' . $idlang])) {
+            $instance[$idart . '_' . $idlang] = new self($idart, $idlang);
+        }
+
+        return $instance[$idart . '_' . $idlang];
+    }
+
+    public function __get($key) {
+
+        if (!isset($this->_data->$key)) {
+            return null;
+        }
+
+        return $this->_data->$key;
     }
 
 }
