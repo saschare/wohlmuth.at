@@ -48,5 +48,4 @@ class Moraso_Util extends Aitsu_Util {
 
         return $base->merge($text);
     }
-
 }

@@ -135,9 +135,9 @@ class Aitsu_Persistence_Article extends Aitsu_Persistence_Abstract {
 		$this->_data['idlang'] = $this->_idlang;
 
 		if (empty ($this->_data['urlname'])) {
-			$this->_data['urlname'] = Aitsu_Util :: getAlias($this->_data['title']);
+			$this->_data['urlname'] = Moraso_Util_String::slugify($this->_data['title']);
 		} else {
-			$this->_data['urlname'] = Aitsu_Util :: getAlias($this->_data['urlname']);
+			$this->_data['urlname'] = Moraso_Util_String::slugify($this->_data['urlname']);
 		}
 
 		if (!isset ($this->_data['created'])) {
