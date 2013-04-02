@@ -62,6 +62,8 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
         $hits = $index->find('uid:' . $data['uid'] . ' AND lang:' . $idlang . ' AND idart:' . $idart);
 
         if (isset($hits[0]) && !empty($hits[0])) {
+            $form->setValue('id', $hits[0]->id);
+
             $luceneDocument = $hits[0]->getDocument();
 
             $form->setValue('uid', $luceneDocument->uid);
@@ -80,36 +82,38 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
     public function deleteAction() {
 
         $uid = $this->getRequest()->getParam('uid');
+        $id = $this->getRequest()->getParam('id');
         $luceneIndex = $this->getRequest()->getParam('luceneIndex');
 
-        $explode = explode('-', $uid);
-
         $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
-        Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('UTF-8');
 
-        $hits = $index->find('uid:' . $uid . ' AND lang:' . $explode[1] . ' AND idart:' . $explode[0]);
+        $index->delete($id);
 
-        $index->delete($hits[0]->id);
+        if ($index->isDeleted($id)) {
+            Moraso_Db::query('' .
+                    'delete from ' .
+                    '   _lucene_index ' .
+                    'where ' .
+                    '   uid =:uid', array(
+                ':uid' => $uid
+            ));
 
-        Moraso_Db::query('' .
-                'delete from ' .
-                '   _lucene_index ' .
-                'where ' .
-                '   uid =:uid', array(
-            ':uid' => $uid
-        ));
+            $data = array(
+                'uid' => '',
+                'title' => '',
+                'pagetitle' => '',
+                'summary' => ''
+            );
 
-        $data = array(
-            'uid' => '',
-            'title' => '',
-            'pagetitle' => '',
-            'summary' => ''
-        );
-
-        $this->_helper->json((object) array(
-                    'success' => true,
-                    'data' => (object) $data
-        ));
+            $this->_helper->json((object) array(
+                        'success' => true,
+                        'data' => (object) $data
+            ));
+        } else {
+            $this->_helper->json((object) array(
+                        'success' => false
+            ));
+        }
     }
 
 }
