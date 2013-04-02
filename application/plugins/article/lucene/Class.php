@@ -57,7 +57,6 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
         $form->setValue('luceneIndex', $client_config->search->lucene->index);
 
         $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
-        Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('UTF-8');
 
         $hits = $index->find('uid:' . $data['uid'] . ' AND lang:' . $idlang . ' AND idart:' . $idart);
 
