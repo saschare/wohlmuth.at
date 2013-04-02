@@ -32,9 +32,7 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
 
         $form = Aitsu_Forms::factory('lucene', APPLICATION_PATH . '/plugins/article/lucene/forms/lucene.ini');
         $form->title = Aitsu_Translate::translate('Lucene');
-        $form->url = $this->view->url(array('plugin' => 'lucene', 'paction' => 'index'), 'aplugin');
-
-        $form->setValue('idart', $idart);
+        $form->url = $this->view->url(array('plugin' => 'lucene', 'paction' => 'delete'), 'aplugin');
 
         $data = Moraso_Db::fetchRow('' .
                         'select ' .
@@ -52,19 +50,20 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
 
         $form->setValues($data);
 
-        $client_config = new Zend_Config_Ini('application/configs/clients/default.ini', Moraso_Util::getEnv());
+        $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
 
-        $indexPath = APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/';
+        $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
 
-        $index = Zend_Search_Lucene::open($indexPath);
+        $form->setValue('luceneIndex', $client_config->search->lucene->index);
 
+        $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
         Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('UTF-8');
 
-        $hits = $index->find('uid:' . $data['uid'] . ' AND lang:' . $idlang);
+        $hits = $index->find('uid:' . $data['uid'] . ' AND lang:' . $idlang . ' AND idart:' . $idart);
 
         if (isset($hits[0]) && !empty($hits[0])) {
             $luceneDocument = $hits[0]->getDocument();
-                        
+
             $form->setValue('uid', $luceneDocument->uid);
             $form->setValue('title', $luceneDocument->title);
             $form->setValue('pagetitle', $luceneDocument->pagetitle);
@@ -76,6 +75,41 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
             header("Content-type: text/javascript");
             return;
         }
+    }
+
+    public function deleteAction() {
+
+        $uid = $this->getRequest()->getParam('uid');
+        $luceneIndex = $this->getRequest()->getParam('luceneIndex');
+
+        $explode = explode('-', $uid);
+
+        $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
+        Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('UTF-8');
+
+        $hits = $index->find('uid:' . $uid . ' AND lang:' . $explode[1] . ' AND idart:' . $explode[0]);
+
+        $index->delete($hits[0]->id);
+
+        Moraso_Db::query('' .
+                'delete from ' .
+                '   _lucene_index ' .
+                'where ' .
+                '   uid =:uid', array(
+            ':uid' => $uid
+        ));
+
+        $data = array(
+            'uid' => '',
+            'title' => '',
+            'pagetitle' => '',
+            'summary' => ''
+        );
+
+        $this->_helper->json((object) array(
+                    'success' => true,
+                    'data' => (object) $data
+        ));
     }
 
 }
