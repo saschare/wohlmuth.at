@@ -70,9 +70,6 @@ var luceneAnalyser = new Ext.grid.GridPanel({
 				this.getStore().load();
 			}
 		},
-            celldblclick: function(grid, rowIndex) {
-			editPage(this.getStore().getAt(rowIndex).get('idart'));
-		},
 		rowcontextmenu: function(grid, rowIndex, event) {
                 
                     var record = this.getStore().getAt(rowIndex);
