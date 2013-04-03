@@ -17,7 +17,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             'template' => 'index',
             'offset' => 0,
             'limit' => 10,
-            'page' => 0,
+            'page' => 1,
             'templateRenderingWhenNoArticles' => true,
             'configurable' => array(
                 'categories' => false,
@@ -313,8 +313,6 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         /* change Offset if not on first Page */
         if ($page > 1) {
             $offset = ($page - 1) * $limit;
-        } else {
-            $page = 1;
         }
 
         $aggregation = Moraso_Aggregation_Article::factory();
