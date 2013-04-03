@@ -27,14 +27,6 @@ var luceneAnalyserExpander = new Ext.ux.grid.RowExpander({
     )
 });
 
-var editPage = function(id) {
-	Ext.aitsu.load(['<?php echo $this->url(array('controller' => 'data', 'action' => 'edit'), 'default'); ?>'], function() {
-		Ext.getCmp('viewport').doLayout();
-		Ext.getCmp('page-edit-tab').activate(0);
-		Ext.getCmp('rop').getStore().load();
-	}, {id: id});
-}
-
 var deleteFromIndex = function(id, uid) {
 	Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'delete')); ?>'], function() {
 		Ext.getCmp('luceneAnalyser').getStore().load();
@@ -86,17 +78,9 @@ var luceneAnalyser = new Ext.grid.GridPanel({
                     var record = this.getStore().getAt(rowIndex);
                 
                     var menu = new Ext.menu.Menu();
-			
+			                    
                     menu.addItem({
-                        text: '<?php echo $this->translate('Go to article'); ?>',
-                        iconCls: 'edit',
-                        handler: function() {
-                            editPage(record.get('idart'));
-                        }
-                    });
-                    
-                    menu.addItem({
-                        text: '<?php echo $this->translate('delete Article from Lucene Index'); ?>',
+                        text: '<?php echo $this->translate('delete Article from Lucene-Index'); ?>',
                         iconCls: 'delete',
                         handler: function() {
                             deleteFromIndex(record.get('id'), record.get('uid'));
