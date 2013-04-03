@@ -8,55 +8,112 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
     protected function _getDefaults() {
 
-        $aitsuConfig = array(
-            'categories' => Aitsu_Config::get('module.list.articles.categories.default'),
-            'useOfStartArticle' => Aitsu_Config::get('module.list.articles.useOfStartArticle.default'),
-            'sortCategoryFirst' => Aitsu_Config::get('module.list.articles.sortCategoryFirst.default'),
-            'orderBy' => Aitsu_Config::get('module.list.articles.orderBy.default'),
-            'ascending' => Aitsu_Config::get('module.list.articles.ascending.default'),
-            'template' => Aitsu_Config::get('module.list.articles.template.default'),
-            'offset' => Aitsu_Config::get('module.list.articles.offset.default'),
-            'limit' => Aitsu_Config::get('module.list.articles.limit.default'),
-            'page' => Aitsu_Config::get('module.list.articles.page.default'),
-            'templateRenderingWhenNoArticles' => Aitsu_Config::get('module.list.articles.page.templateRenderingWhenNoArticles'),
+        $defaults = array(
+            'categories' => Aitsu_Registry::get()->env->idcat,
+            'useOfStartArticle' => 2,
+            'sortCategoryFirst' => false,
+            'orderBy' => 'artsort',
+            'ascending' => true,
+            'template' => 'index',
+            'offset' => 0,
+            'limit' => 10,
+            'page' => 0,
+            'templateRenderingWhenNoArticles' => true,
             'configurable' => array(
-                'categories' => Aitsu_Config::get('module.list.articles.categories.configurable'),
-                'useOfStartArticle' => Aitsu_Config::get('module.list.articles.useOfStartArticle.configurable'),
-                'sortCategoryFirst' => Aitsu_Config::get('module.list.articles.sortCategoryFirst.configurable'),
-                'orderBy' => Aitsu_Config::get('module.list.articles.orderBy.configurable'),
-                'ascending' => Aitsu_Config::get('module.list.articles.ascending.configurable'),
-                'template' => Aitsu_Config::get('module.list.articles.template.configurable'),
-                'offset' => Aitsu_Config::get('module.list.articles.offset.configurable'),
-                'limit' => Aitsu_Config::get('module.list.articles.limit.configurable'),
-                'page' => Aitsu_Config::get('module.list.articles.page.configurable'),
-                'templateRenderingWhenNoArticles' => Aitsu_Config::get('module.list.articles.templateRenderingWhenNoArticles.configurable')
+                'categories' => false,
+                'useOfStartArticle' => false,
+                'sortCategoryFirst' => false,
+                'orderBy' => false,
+                'ascending' => false,
+                'template' => false,
+                'offset' => false,
+                'limit' => false,
+                'page' => false,
+                'templateRenderingWhenNoArticles' => false
             )
         );
 
-        $defaults = array(
-            'categories' => empty($aitsuConfig['categories']) ? Aitsu_Registry::get()->env->idcat : $aitsuConfig['categories'],
-            'useOfStartArticle' => empty($aitsuConfig['useOfStartArticle']) ? 2 : $aitsuConfig['useOfStartArticle'],
-            'sortCategoryFirst' => empty($aitsuConfig['sortCategoryFirst']) ? false : $aitsuConfig['sortCategoryFirst'],
-            'orderBy' => empty($aitsuConfig['orderBy']) ? 'artsort' : $aitsuConfig['orderBy'],
-            'ascending' => empty($aitsuConfig['ascending']) ? true : $aitsuConfig['ascending'],
-            'template' => empty($aitsuConfig['template']) ? 'index' : $aitsuConfig['template'],
-            'offset' => empty($aitsuConfig['offset']) ? 0 : $aitsuConfig['offset'],
-            'limit' => empty($aitsuConfig['limit']) ? 10 : $aitsuConfig['limit'],
-            'page' => empty($aitsuConfig['page']) ? 0 : $aitsuConfig['page'],
-            'templateRenderingWhenNoArticles' => empty($aitsuConfig['templateRenderingWhenNoArticles']) ? true : $aitsuConfig['templateRenderingWhenNoArticles'],
-            'configurable' => array(
-                'categories' => empty($aitsuConfig['configurable']['categories']) ? false : $aitsuConfig['configurable']['categories'],
-                'useOfStartArticle' => empty($aitsuConfig['configurable']['useOfStartArticle']) ? false : $aitsuConfig['configurable']['useOfStartArticle'],
-                'sortCategoryFirst' => empty($aitsuConfig['configurable']['sortCategoryFirst']) ? false : $aitsuConfig['configurable']['sortCategoryFirst'],
-                'orderBy' => empty($aitsuConfig['configurable']['orderBy']) ? false : $aitsuConfig['configurable']['orderBy'],
-                'ascending' => empty($aitsuConfig['configurable']['ascending']) ? false : $aitsuConfig['configurable']['ascending'],
-                'template' => empty($aitsuConfig['configurable']['template']) ? false : $aitsuConfig['configurable']['template'],
-                'offset' => empty($aitsuConfig['configurable']['offset']) ? false : $aitsuConfig['configurable']['offset'],
-                'limit' => empty($aitsuConfig['configurable']['limit']) ? false : $aitsuConfig['configurable']['limit'],
-                'page' => empty($aitsuConfig['configurable']['page']) ? false : $aitsuConfig['configurable']['page'],
-                'templateRenderingWhenNoArticles' => empty($aitsuConfig['configurable']['templateRenderingWhenNoArticles']) ? false : $aitsuConfig['configurable']['templateRenderingWhenNoArticles']
-            )
-        );
+        $moduleConfig = Moraso_Config::get('module.list.articles');
+
+        if (isset($moduleConfig->categories->default)) {
+            $defaults['categories'] = $moduleConfig->categories->default;
+        }
+
+        if (isset($moduleConfig->useOfStartArticle->default)) {
+            $defaults['useOfStartArticle'] = (int) $moduleConfig->useOfStartArticle->default;
+        }
+
+        if (isset($moduleConfig->sortCategoryFirst->default)) {
+            $defaults['sortCategoryFirst'] = filter_var($moduleConfig->sortCategoryFirst->default, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->orderBy->default)) {
+            $defaults['orderBy'] = $moduleConfig->orderBy->default;
+        }
+
+        if (isset($moduleConfig->ascending->default)) {
+            $defaults['ascending'] = filter_var($moduleConfig->ascending->default, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->template->default)) {
+            $defaults['template'] = $moduleConfig->template->default;
+        }
+
+        if (isset($moduleConfig->offset->default)) {
+            $defaults['offset'] = (int) $moduleConfig->offset->default;
+        }
+
+        if (isset($moduleConfig->limit->default)) {
+            $defaults['limit'] = (int) $moduleConfig->limit->default;
+        }
+
+        if (isset($moduleConfig->page->default)) {
+            $defaults['page'] = (int) $moduleConfig->page->default;
+        }
+
+        if (isset($moduleConfig->templateRenderingWhenNoArticles->default)) {
+            $defaults['templateRenderingWhenNoArticles'] = filter_var($moduleConfig->templateRenderingWhenNoArticles->default, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->categories->configurable)) {
+            $defaults['configurable']['categories'] = filter_var($moduleConfig->categories->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->useOfStartArticle->configurable)) {
+            $defaults['configurable']['useOfStartArticle'] = filter_var($moduleConfig->useOfStartArticle->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->sortCategoryFirst->configurable)) {
+            $defaults['configurable']['sortCategoryFirst'] = filter_var($moduleConfig->sortCategoryFirst->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->orderBy->configurable)) {
+            $defaults['configurable']['orderBy'] = filter_var($moduleConfig->orderBy->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->ascending->configurable)) {
+            $defaults['configurable']['ascending'] = filter_var($moduleConfig->ascending->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->template->configurable)) {
+            $defaults['configurable']['template'] = filter_var($moduleConfig->template->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->offset->configurable)) {
+            $defaults['configurable']['offset'] = filter_var($moduleConfig->offset->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->limit->configurable)) {
+            $defaults['configurable']['limit'] = filter_var($moduleConfig->limit->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->page->configurable)) {
+            $defaults['configurable']['page'] = filter_var($moduleConfig->page->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if (isset($moduleConfig->templateRenderingWhenNoArticles->configurable)) {
+            $defaults['configurable']['templateRenderingWhenNoArticles'] = filter_var($moduleConfig->templateRenderingWhenNoArticles->configurable, FILTER_VALIDATE_BOOLEAN);
+        }
 
         if (isset($this->_params->default)) {
             foreach ($this->_params->default as $param => $value) {
@@ -64,41 +121,88 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             }
         }
 
-        $categories = empty($this->_params->categories) || $this->_params->categories == 'config' ? $defaults['categories'] : $this->_params->categories;
-        $useOfStartArticle = empty($this->_params->useOfStartArticle) || $this->_params->useOfStartArticle == 'config' ? $defaults['useOfStartArticle'] : $this->_params->useOfStartArticle;
-        $sortCategoryFirst = empty($this->_params->sortCategoryFirst) || $this->_params->sortCategoryFirst == 'config' ? $defaults['sortCategoryFirst'] : $this->_params->sortCategoryFirst;
-        $orderBy = empty($this->_params->orderBy) || $this->_params->orderBy == 'config' ? $defaults['orderBy'] : $this->_params->orderBy;
-        $ascending = empty($this->_params->ascending) || $this->_params->ascending == 'config' ? $defaults['ascending'] : $this->_params->ascending;
-        $template = empty($this->_params->template) || $this->_params->template == 'config' ? $defaults['template'] : $this->_params->template;
-        $offset = empty($this->_params->offset) || $this->_params->offset == 'config' ? $defaults['offset'] : $this->_params->offset;
-        $limit = empty($this->_params->limit) || $this->_params->limit == 'config' ? $defaults['limit'] : $this->_params->limit;
-        $page = empty($this->_params->page) || $this->_params->page == 'config' ? $defaults['page'] : $this->_params->page;
-        $templateRenderingWhenNoArticles = empty($this->_params->templateRenderingWhenNoArticles) || $this->_params->templateRenderingWhenNoArticles == 'config' ? $defaults['templateRenderingWhenNoArticles'] : $this->_params->templateRenderingWhenNoArticles;
+        if (isset($this->_params->categories)) {
+            if ($this->_params->categories == 'config') {
+                $defaults['configurable']['categories'] = true;
+            } else {
+                $defaults['categories'] = $this->_params->categories;
+            }
+        }
 
-        return array(
-            'categories' => $categories,
-            'useOfStartArticle' => $useOfStartArticle,
-            'sortCategoryFirst' => $sortCategoryFirst,
-            'orderBy' => $orderBy,
-            'ascending' => $ascending,
-            'template' => $template,
-            'offset' => $offset,
-            'limit' => $limit,
-            'page' => $page,
-            'templateRenderingWhenNoArticles' => $templateRenderingWhenNoArticles,
-            'configurable' => array(
-                'categories' => isset($this->_params->categories) && $this->_params->categories == 'config' ? true : $defaults['configurable']['categories'],
-                'useOfStartArticle' => isset($this->_params->useOfStartArticle) && $this->_params->useOfStartArticle == 'config' ? true : $defaults['configurable']['useOfStartArticle'],
-                'sortCategoryFirst' => isset($this->_params->sortCategoryFirst) && $this->_params->sortCategoryFirst == 'config' ? true : $defaults['configurable']['sortCategoryFirst'],
-                'orderBy' => isset($this->_params->orderBy) && $this->_params->orderBy == 'config' ? true : $defaults['configurable']['orderBy'],
-                'ascending' => isset($this->_params->ascending) && $this->_params->ascending == 'config' ? true : $defaults['configurable']['ascending'],
-                'template' => isset($this->_params->template) && $this->_params->template == 'config' ? true : $defaults['configurable']['template'],
-                'offset' => isset($this->_params->offset) && $this->_params->offset == 'config' ? true : $defaults['configurable']['offset'],
-                'limit' => isset($this->_params->limit) && $this->_params->limit == 'config' ? true : $defaults['configurable']['limit'],
-                'page' => isset($this->_params->page) && $this->_params->page == 'config' ? true : $defaults['configurable']['page'],
-                'templateRenderingWhenNoArticles' => isset($this->_params->templateRenderingWhenNoArticles) && $this->_params->templateRenderingWhenNoArticles == 'config' ? true : $defaults['configurable']['templateRenderingWhenNoArticles']
-            )
-        );
+        if (isset($this->_params->useOfStartArticle)) {
+            if ($this->_params->useOfStartArticle == 'config') {
+                $defaults['configurable']['useOfStartArticle'] = true;
+            } else {
+                $defaults['useOfStartArticle'] = (int) $this->_params->useOfStartArticle;
+            }
+        }
+
+        if (isset($this->_params->sortCategoryFirst)) {
+            if ($this->_params->sortCategoryFirst == 'config') {
+                $defaults['configurable']['sortCategoryFirst'] = true;
+            } else {
+                $defaults['sortCategoryFirst'] = filter_var($this->_params->sortCategoryFirst, FILTER_VALIDATE_BOOLEAN);
+            }
+        }
+
+        if (isset($this->_params->orderBy)) {
+            if ($this->_params->orderBy == 'config') {
+                $defaults['configurable']['orderBy'] = true;
+            } else {
+                $defaults['orderBy'] = $this->_params->orderBy;
+            }
+        }
+
+        if (isset($this->_params->ascending)) {
+            if ($this->_params->ascending == 'config') {
+                $defaults['configurable']['ascending'] = true;
+            } else {
+                $defaults['ascending'] = filter_var($this->_params->ascending, FILTER_VALIDATE_BOOLEAN);
+                ;
+            }
+        }
+
+        if (isset($this->_params->template)) {
+            if ($this->_params->template == 'config') {
+                $defaults['configurable']['template'] = true;
+            } else {
+                $defaults['template'] = $this->_params->template;
+            }
+        }
+
+        if (isset($this->_params->offset)) {
+            if ($this->_params->offset == 'config') {
+                $defaults['configurable']['offset'] = true;
+            } else {
+                $defaults['offset'] = (int) $this->_params->offset;
+            }
+        }
+
+        if (isset($this->_params->limit)) {
+            if ($this->_params->limit == 'config') {
+                $defaults['configurable']['limit'] = true;
+            } else {
+                $defaults['limit'] = (int) $this->_params->limit;
+            }
+        }
+
+        if (isset($this->_params->page)) {
+            if ($this->_params->page == 'config') {
+                $defaults['configurable']['page'] = true;
+            } else {
+                $defaults['page'] = (int) $this->_params->page;
+            }
+        }
+
+        if (isset($this->_params->templateRenderingWhenNoArticles)) {
+            if ($this->_params->templateRenderingWhenNoArticles == 'config') {
+                $defaults['configurable']['templateRenderingWhenNoArticles'] = true;
+            } else {
+                $defaults['templateRenderingWhenNoArticles'] = filter_var($this->_params->templateRenderingWhenNoArticles, FILTER_VALIDATE_BOOLEAN);
+            }
+        }
+
+        return $defaults;
     }
 
     protected function _main() {
@@ -113,9 +217,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $categories = Aitsu_Content_Config_Text::set($this->_index, 'categories', Aitsu_Translate::_('Categories'), $translation['configuration']);
         }
 
-        if (empty($categories)) {
-            $categories = $defaults['categories'];
-        }
+        $categories = isset($categories) ? $categories : $defaults['categories'];
 
         /* useOfStartArticle */
         if ($defaults['configurable']['useOfStartArticle']) {
@@ -128,27 +230,19 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $useOfStartArticle = Aitsu_Content_Config_Select::set($this->_index, 'useOfStartArticle', Aitsu_Translate::_('useOfStartArticle'), $useOfStartArticleSelect, $translation['configuration']);
         }
 
-        if (empty($useOfStartArticle)) {
-            $useOfStartArticle = $defaults['useOfStartArticle'];
-        }
+        $useOfStartArticle = isset($useOfStartArticle) ? (int) $useOfStartArticle : $defaults['useOfStartArticle'];
 
         /* sortCategoryFirst */
         if ($defaults['configurable']['sortCategoryFirst']) {
             $sortCategoryFirstSelect = array(
-                'true' => 'true',
-                'false' => 'false'
+                'true' => true,
+                'false' => false
             );
 
             $sortCategoryFirst = Aitsu_Content_Config_Select::set($this->_index, 'sortCategoryFirst', Aitsu_Translate::_('sortCategoryFirst'), $sortCategoryFirstSelect, $translation['configuration']);
         }
 
-        if (isset($sortCategoryFirst) && $sortCategoryFirst === 'true') {
-            $sortCategoryFirst = true;
-        } elseif (isset($sortCategoryFirst) && $sortCategoryFirst === 'false') {
-            $sortCategoryFirst = false;
-        } else {
-            $sortCategoryFirst = $defaults['sortCategoryFirst'];
-        }
+        $sortCategoryFirst = isset($sortCategoryFirst) ? filter_var($sortCategoryFirst, FILTER_VALIDATE_BOOLEAN) : $defaults['sortCategoryFirst'];
 
         /* orderBy */
         if ($defaults['configurable']['orderBy']) {
@@ -162,85 +256,65 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $orderBy = Aitsu_Content_Config_Select::set($this->_index, 'orderBy', Aitsu_Translate::_('orderBy'), $orderBySelect, $translation['configuration']);
         }
 
-        if (empty($orderBy)) {
-            $orderBy = $defaults['orderBy'];
-        }
+        $orderBy = isset($orderBy) ? $orderBy : $defaults['orderBy'];
 
         /* ascending */
         if ($defaults['configurable']['ascending']) {
             $ascendingSelect = array(
-                'true' => 'true',
-                'false' => 'false'
+                'true' => true,
+                'false' => false
             );
 
             $ascending = Aitsu_Content_Config_Select::set($this->_index, 'ascending', Aitsu_Translate::_('ascending'), $ascendingSelect, $translation['configuration']);
         }
 
-        if (isset($ascending) && $ascending === 'true') {
-            $ascending = true;
-        } elseif (isset($ascending) && $ascending === 'false') {
-            $ascending = false;
-        } else {
-            $ascending = $defaults['ascending'];
-        }
+        $ascending = isset($ascending) ? filter_var($ascending, FILTER_VALIDATE_BOOLEAN) : $defaults['ascending'];
 
         /* template */
         if ($defaults['configurable']['template']) {
             $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), $translation['configuration']);
         }
 
-        if (empty($template)) {
-            $template = $defaults['template'];
-        }
+        $template = isset($template) ? $template : $defaults['template'];
 
         /* Offset */
         if ($defaults['configurable']['offset']) {
             $offset = Aitsu_Content_Config_Text::set($this->_index, 'offset', Aitsu_Translate::_('Offset'), $translation['configuration']);
         }
 
-        if (empty($offset)) {
-            $offset = $defaults['offset'];
-        }
+        $offset = isset($offset) ? (int) $offset : $defaults['offset'];
 
         /* Limit */
         if ($defaults['configurable']['limit']) {
             $limit = Aitsu_Content_Config_Text::set($this->_index, 'limit', Aitsu_Translate::_('Limit'), $translation['configuration']);
         }
 
-        if (empty($limit)) {
-            $limit = $defaults['limit'];
-        }
+        $limit = isset($limit) ? (int) $limit : $defaults['limit'];
 
         /* Page */
         if ($defaults['configurable']['page']) {
             $page = Aitsu_Content_Config_Text::set($this->_index, 'page', Aitsu_Translate::_('Page'), $translation['configuration']);
         }
 
-        if (empty($page)) {
-            $page = !isset($_GET['page']) ? $defaults['page'] : $_GET['page'];
-        }
+        $page = isset($_GET['page']) ? (int) $_GET['page'] : isset($page) ? (int) $page : $defaults['page'];
 
         /* templateRenderingWhenNoArticles */
         if ($defaults['configurable']['templateRenderingWhenNoArticles']) {
             $templateRenderingWhenNoArticlesSelect = array(
-                'true' => 'true',
-                'false' => 'false'
+                'true' => true,
+                'false' => false
             );
 
             $templateRenderingWhenNoArticles = Aitsu_Content_Config_Select::set($this->_index, 'templateRenderingWhenNoArticles', Aitsu_Translate::_('templateRenderingWhenNoArticles'), $templateRenderingWhenNoArticlesSelect, $translation['configuration']);
         }
 
-        if (isset($templateRenderingWhenNoArticles) && $templateRenderingWhenNoArticles === 'true') {
-            $templateRenderingWhenNoArticles = true;
-        } elseif (isset($templateRenderingWhenNoArticles) && $templateRenderingWhenNoArticles === 'false') {
-            $templateRenderingWhenNoArticles = false;
-        } else {
-            $templateRenderingWhenNoArticles = $defaults['templateRenderingWhenNoArticles'];
-        }
+        $templateRenderingWhenNoArticles = isset($templateRenderingWhenNoArticles) ? filter_var($templateRenderingWhenNoArticles, FILTER_VALIDATE_BOOLEAN) : $defaults['templateRenderingWhenNoArticles'];
 
         /* change Offset if not on first Page */
         if ($page > 1) {
             $offset = ($page - 1) * $limit;
+        } else {
+            $page = 1;
         }
 
         $aggregation = Moraso_Aggregation_Article::factory();
@@ -270,7 +344,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $articles = $aggregation->fetch($offset, $limit);
 
-        if ((empty($articles) && !$templateRenderingWhenNoArticles) || !in_array($template, $this->_getTemplates())) {
+        if ((count($articles) === 0 && !$templateRenderingWhenNoArticles) || !in_array($template, $this->_getTemplates())) {
             return '';
         }
 
@@ -280,7 +354,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $view->articles = $articles;
         $view->pages = ceil(count($articlesAll) / $limit);
-        $view->currentPage = empty($page) ? 1 : $page;
+        $view->currentPage = $page;
         $view->idart = Aitsu_Registry::get()->env->idart;
 
         return $view->render($template . '.phtml');
