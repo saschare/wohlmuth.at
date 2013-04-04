@@ -21,12 +21,6 @@ var store = new Ext.data.JsonStore({
 		        }, {
 		            name: 'summary'
 		        }]
-		    });
-                    
-var luceneAnalyserExpander = new Ext.ux.grid.RowExpander({
-    tpl : new Ext.Template(
-        '<pre style="padding:10px;">{summary}</pre>'
-    )
 });
 
 var deleteFromIndex = function(id, uid) {
@@ -44,24 +38,14 @@ var luceneAnalyser = new Ext.grid.GridPanel({
         direction: 'DESC'
     },
     columns: [
-    	luceneAnalyserExpander, {
-            dataIndex: 'id',
-            header: '#',
-            menuDisabled: true,
-            sortable: true
-        }, {
+    	{
             dataIndex: 'idart',
             header: 'idart',
             menuDisabled: true,
             sortable: true
         }, {
             dataIndex: 'pagetitle_article',
-            header: '<?php echo Aitsu_Translate::translate('Pagetitle'); ?> (<?php echo Aitsu_Translate::translate('Article'); ?>)',
-            menuDisabled: true,
-            sortable: true
-        }, {
-            dataIndex: 'pagetitle_lucene',
-            header: '<?php echo Aitsu_Translate::translate('Pagetitle'); ?> (<?php echo Aitsu_Translate::translate('Lucene'); ?>)',
+            header: '<?php echo Aitsu_Translate::translate('Pagetitle'); ?>',
             menuDisabled: true,
             sortable: true
         }, {
@@ -125,8 +109,7 @@ var luceneAnalyser = new Ext.grid.GridPanel({
                     }
                 }
 	    ]
-	},
-	plugins: luceneAnalyserExpander
+	}
 });
 
 dashboard.add({
