@@ -143,8 +143,9 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         foreach ($articles as $article) {
             $article = (object) $article;
 
+            // index muss ich jedes mal neu aufrufen, sonst löscht der alle bis auf einen, komische Sache
             $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
-
+            
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
             if (isset($hits[0]) && !empty($hits[0]->id)) {
