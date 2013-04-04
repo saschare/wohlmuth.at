@@ -157,19 +157,14 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (!empty($hits[0])) {
+            if (isset($hits[0]) && !empty($hits[0]->id)) {
                 trigger_error('idart ' . $article->idart . ' was found in lucene index');
                 
                 if ($hits[0]->score == 1) {
                     $luceneDocument = $hits[0]->getDocument();
                     $pagetitle = $luceneDocument->pagetitle;
-
-                    trigger_error('idart ' . $article->idart . ' pagetitle: ' . $pagetitle);
                     
-                    if (empty($pagetitle)) {
-                        
-                        trigger_error('delete idart ' . $article->idart . ' from lucene index because lucene has saved no pagetitle');
-                        
+                    if (empty($pagetitle)) {                
                         $index->delete($hits[0]->id);
 
                         Moraso_Db::query('' .
@@ -177,13 +172,12 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                                 '   _lucene_index ' .
                                 'where ' .
                                 '   uid =:uid', array(
-                            ':uid' => $hits[0]->uid
+                            ':uid' => $article->uid
                         ));
                     }
                 }
-            } else {
+            } elseif ((isset($hits[0]) && empty($hits[0]->id)) || !isset($hits[0])) {
                 trigger_error('idart ' . $article->idart . ' was NOT found in lucene index');
-                trigger_error('delete idart ' . $article->idart . ' with uid ' . $article->uid . ' from database lucene index because lucene has saved no informations about this article');
                 
                 Moraso_Db::query('' .
                         'delete from ' .
