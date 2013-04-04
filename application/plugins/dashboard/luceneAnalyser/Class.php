@@ -57,14 +57,14 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
 
+        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
+
         foreach ($articles as $key => $article) {
             $article = (object) $article;
 
-            $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
-
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (!empty($hits[0])) {
+            if (isset($hits[0]) && !empty($hits[0]->id)) {
                 if ($hits[0]->score == 1) {
                     $articles[$key]['id'] = $hits[0]->id;
                     $articles[$key]['uid'] = $hits[0]->uid;
