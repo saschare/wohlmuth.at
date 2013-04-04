@@ -158,6 +158,8 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
             if (!empty($hits[0])) {
+                trigger_error('idart ' . $article->idart . ' was found in lucene index');
+                
                 if ($hits[0]->score == 1) {
                     $luceneDocument = $hits[0]->getDocument();
                     $pagetitle = $luceneDocument->pagetitle;
@@ -180,6 +182,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                     }
                 }
             } else {
+                trigger_error('idart ' . $article->idart . ' was NOT found in lucene index');
                 trigger_error('delete idart ' . $article->idart . ' with uid ' . $article->uid . ' from database lucene index because lucene has saved no informations about this article');
                 
                 Moraso_Db::query('' .
