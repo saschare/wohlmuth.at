@@ -162,6 +162,8 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                     $luceneDocument = $hits[0]->getDocument();
                     $pagetitle = $luceneDocument->pagetitle;
 
+                    trigger_error('idart ' . $article->idart . ' pagetitle: ' . $pagetitle);
+                    
                     if (empty($pagetitle)) {
                         
                         trigger_error('delete idart ' . $article->idart . ' from lucene index because lucene has saved no pagetitle');
