@@ -153,6 +153,8 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
             $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
             
+            trigger_error('idart' . $article->idart . ' with score ' . $hits[0]->score);
+            
             if ($hits[0]->score == 1) {
                 $id = $hits[0]->id;
                 $uid = $hits[0]->uid;
