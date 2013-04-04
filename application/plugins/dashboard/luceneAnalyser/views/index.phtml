@@ -45,6 +45,11 @@ var luceneAnalyser = new Ext.grid.GridPanel({
     },
     columns: [
     	luceneAnalyserExpander, {
+            dataIndex: 'id',
+            header: '#',
+            menuDisabled: true,
+            sortable: true
+        }, {
             dataIndex: 'idart',
             header: 'idart',
             menuDisabled: true,
