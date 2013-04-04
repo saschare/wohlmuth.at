@@ -40,7 +40,8 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                         '   lucene.lastindexed, ' .
                         '   lucene.idart, ' .
                         '   lucene.idlang, ' .
-                        '   artlang.pagetitle as pagetitle_article ' .
+                        '   artlang.pagetitle as pagetitle, ' .
+                        '   artlang.teasertitle as teasertitle ' .
                         'from ' .
                         '   _lucene_index as lucene ' .
                         'left join ' .
@@ -67,11 +68,6 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                 if ($hits[0]->score == 1) {
                     $articles[$key]['id'] = $hits[0]->id;
                     $articles[$key]['uid'] = $hits[0]->uid;
-
-                    $luceneDocument = $hits[0]->getDocument();
-
-                    $articles[$key]['pagetitle_lucene'] = $luceneDocument->pagetitle;
-                    $articles[$key]['summary'] = $luceneDocument->summary;
                 }
             }
 

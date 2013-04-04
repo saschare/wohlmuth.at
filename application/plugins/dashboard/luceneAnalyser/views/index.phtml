@@ -11,15 +11,13 @@ var store = new Ext.data.JsonStore({
 		        }, {
 		            name: 'idart'
 		        }, {
-		            name: 'pagetitle_lucene'
+		            name: 'pagetitle'
 		        }, {
-		            name: 'pagetitle_article'
+		            name: 'teasertitle'
 		        }, {
 		            name: 'lastindexed',
                             type: 'date',
                             dateFormat: 'Y-m-d H:i:s'
-		        }, {
-		            name: 'summary'
 		        }]
 });
 
@@ -38,8 +36,13 @@ var luceneAnalyser = new Ext.grid.GridPanel({
             menuDisabled: true,
             sortable: true
         }, {
-            dataIndex: 'pagetitle_article',
+            dataIndex: 'pagetitle',
             header: '<?php echo Aitsu_Translate::translate('Pagetitle'); ?>',
+            menuDisabled: true,
+            sortable: true
+        }, {
+            dataIndex: 'teasertitle',
+            header: '<?php echo Aitsu_Translate::translate('Teasertitle'); ?>',
             menuDisabled: true,
             sortable: true
         }, {
