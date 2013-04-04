@@ -180,6 +180,8 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                     }
                 }
             } else {
+                trigger_error('delete idart ' . $article->idart . ' with uid ' . $article->uid . ' from database lucene index because lucene has saved no informations about this article');
+                
                 Moraso_Db::query('' .
                         'delete from ' .
                         '   _lucene_index ' .
