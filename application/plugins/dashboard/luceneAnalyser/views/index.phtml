@@ -23,12 +23,6 @@ var store = new Ext.data.JsonStore({
 		        }]
 });
 
-var deleteFromIndex = function(id, uid) {
-	Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'delete')); ?>'], function() {
-		Ext.getCmp('luceneAnalyser').getStore().load();
-	}, {id: id, uid: uid});
-}
-
 var luceneAnalyser = new Ext.grid.GridPanel({
     id: 'luceneAnalyser',
     title: 'Lucene Analyser',
@@ -67,16 +61,19 @@ var luceneAnalyser = new Ext.grid.GridPanel({
 			}
 		},
 		rowcontextmenu: function(grid, rowIndex, event) {
-                
                     var record = this.getStore().getAt(rowIndex);
-                
                     var menu = new Ext.menu.Menu();
 			                    
                     menu.addItem({
                         text: '<?php echo $this->translate('delete Article from Lucene-Index'); ?>',
                         iconCls: 'delete',
                         handler: function() {
-                            deleteFromIndex(record.get('id'), record.get('uid'));
+                            Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'delete')); ?>'], function() {
+                                Ext.getCmp('luceneAnalyser').getStore().load();
+                            }, {
+                                id: record.get('id'),
+                                uid: record.get('uid')
+                            });
                         }
                     });
 						
@@ -89,7 +86,9 @@ var luceneAnalyser = new Ext.grid.GridPanel({
                     tooltip: '<?php echo Aitsu_Translate :: translate('Refresh'); ?>',
                     iconCls: 'tb-refresh',
                     handler: function(b, e) {
-                        Ext.getCmp('luceneAnalyser').getStore().reload();
+                        Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'index')); ?>'], function() {
+                            Ext.getCmp('luceneAnalyser').getStore().load();
+                        });
                     }
                 }, {
                     tooltip: '<?php echo Aitsu_Translate :: translate('Optimize'); ?>',
