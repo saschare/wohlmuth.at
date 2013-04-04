@@ -53,21 +53,23 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
 
-        $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
-
         foreach ($articles as $key => $article) {
             $article = (object) $article;
 
+            $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
+
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (isset($hits[0]) && $hits[0]->score == 1) {
-                $articles[$key]['id'] = $hits[0]->id;
-                $articles[$key]['uid'] = $hits[0]->uid;
+            if (!empty($hits[0])) {
+                if ($article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
+                    $articles[$key]['id'] = $hits[0]->id;
+                    $articles[$key]['uid'] = $hits[0]->uid;
 
-                $luceneDocument = $hits[0]->getDocument();
+                    $luceneDocument = $hits[0]->getDocument();
 
-                $articles[$key]['pagetitle'] = $luceneDocument->pagetitle;
-                $articles[$key]['summary'] = $luceneDocument->summary;
+                    $articles[$key]['pagetitle'] = $luceneDocument->pagetitle;
+                    $articles[$key]['summary'] = $luceneDocument->summary;
+                }
             }
 
             unset($hits);
@@ -145,14 +147,16 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
 
-        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
-
         foreach ($articles as $article) {
             $article = (object) $article;
 
+            $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
+
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (isset($hits[0])) {
+            trigger_error('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
+
+            if (!empty($hits[0])) {
                 if ($article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
                     $luceneDocument = $hits[0]->getDocument();
                     $pagetitle = $luceneDocument->pagetitle;
