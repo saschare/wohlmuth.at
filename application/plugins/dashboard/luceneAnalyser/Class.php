@@ -154,8 +154,6 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            trigger_error('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
-
             if (!empty($hits[0])) {
                 if ($article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
                     $luceneDocument = $hits[0]->getDocument();
