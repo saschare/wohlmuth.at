@@ -100,23 +100,20 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         $this->_helper->layout->disableLayout();
         header("Content-type: text/javascript");
 
-        $uid = $this->getRequest()->getParam('uid');
-        $id = $this->getRequest()->getParam('id');
-
         $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
 
         $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
 
         $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
 
-        $index->delete($id);
+        $index->delete($this->getRequest()->getParam('id'));
 
         Moraso_Db::query('' .
                 'delete from ' .
                 '   _lucene_index ' .
                 'where ' .
                 '   uid =:uid', array(
-            ':uid' => $uid
+            ':uid' => $this->getRequest()->getParam('uid')
         ));
 
         $this->_helper->json((object) array());
