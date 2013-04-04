@@ -53,17 +53,18 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
 
         $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
-        
+
         foreach ($articles as $key => $article) {
             $article = (object) $article;
 
             $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
-                        
-            if ($hits[0]->score == 1) {
+
+            if (isset($hits[0]) && $hits[0]->score == 1) {
                 $luceneDocument = $hits[0]->getDocument();
 
                 $articles[$key]['id'] = $hits[0]->id;
                 $articles[$key]['uid'] = $hits[0]->uid;
+                $articles[$key]['score'] = $hits[0]->score;
 
                 $articles[$key]['pagetitle'] = $luceneDocument->pagetitle;
                 $articles[$key]['summary'] = $luceneDocument->summary;
@@ -100,7 +101,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         $this->_helper->layout->disableLayout();
         header("Content-type: text/javascript");
-        
+
         $uid = $this->getRequest()->getParam('uid');
         $id = $this->getRequest()->getParam('id');
 
@@ -127,7 +128,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         $this->_helper->layout->disableLayout();
         header("Content-type: text/javascript");
-        
+
         $articles = Moraso_Db::fetchAll('' .
                         'select ' .
                         '   lastindexed, ' .
@@ -152,20 +153,18 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
             $article = (object) $article;
 
             $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
-            
-            trigger_error('idart' . $article->idart . ' with score ' . $hits[0]->score);
-            
-            if ($hits[0]->score == 1) {
+
+            if (isset($hits[0]) && $hits[0]->score == 1) {
                 $id = $hits[0]->id;
                 $uid = $hits[0]->uid;
-                
+
                 $luceneDocument = $hits[0]->getDocument();
                 $pagetitle = $luceneDocument->pagetitle;
-                                
+
                 if (empty($pagetitle)) {
-                    
+
                     trigger_error('delete lucene index extry id ' . $id);
-                    
+
                     $index->delete($id);
 
                     Moraso_Db::query('' .

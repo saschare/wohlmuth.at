@@ -9,6 +9,8 @@ var store = new Ext.data.JsonStore({
 		        }, {
 		            name: 'uid'
 		        }, {
+		            name: 'score'
+		        }, {
 		            name: 'idart'
 		        }, {
 		            name: 'pagetitle'
@@ -58,6 +60,11 @@ var luceneAnalyser = new Ext.grid.GridPanel({
             menuDisabled: true,
             sortable: true,
             renderer: Ext.util.Format.dateRenderer('d.m.Y H:i:s')
+        }, {
+            dataIndex: 'score',
+            header: '<?php echo Aitsu_Translate::translate('Score'); ?>',
+            menuDisabled: true,
+            sortable: true
         }
     ],
     viewConfig: {
