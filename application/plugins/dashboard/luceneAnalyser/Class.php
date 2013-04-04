@@ -79,10 +79,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         }
 
         $this->_helper->json((object) array(
-                    'articles' => $articles,
-                    'count' => $index->count(),
-                    'numDocs' => $index->numDocs(),
-                    'maxDoc' => $index->maxDoc()
+                    'articles' => $articles
         ));
     }
 
@@ -158,13 +155,11 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
             if (isset($hits[0]) && !empty($hits[0]->id)) {
-                trigger_error('idart ' . $article->idart . ' was found in lucene index');
-                
                 if ($hits[0]->score == 1) {
                     $luceneDocument = $hits[0]->getDocument();
                     $pagetitle = $luceneDocument->pagetitle;
-                    
-                    if (empty($pagetitle)) {                
+
+                    if (empty($pagetitle)) {
                         $index->delete($hits[0]->id);
 
                         Moraso_Db::query('' .
@@ -177,8 +172,6 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                     }
                 }
             } elseif ((isset($hits[0]) && empty($hits[0]->id)) || !isset($hits[0])) {
-                trigger_error('idart ' . $article->idart . ' was NOT found in lucene index');
-                
                 Moraso_Db::query('' .
                         'delete from ' .
                         '   _lucene_index ' .
