@@ -103,6 +103,14 @@ var luceneAnalyser = new Ext.grid.GridPanel({
                             Ext.getCmp('luceneAnalyser').getStore().load();
                         });
                     }
+                }, {
+                    tooltip: '<?php echo Aitsu_Translate :: translate('delete broken Entries from Lucene-Index'); ?>',
+                    iconCls: 'delete',
+                    handler: function(b, e) {
+                        Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'deleteBroken')); ?>'], function() {
+                            Ext.getCmp('luceneAnalyser').getStore().load();
+                        });
+                    }
                 }
 	    ]
 	},
