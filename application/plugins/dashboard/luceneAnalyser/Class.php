@@ -64,7 +64,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
             if (!empty($hits[0])) {
-                if ($article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
+                if ($hits[0]->score == 1) {
                     $articles[$key]['id'] = $hits[0]->id;
                     $articles[$key]['uid'] = $hits[0]->uid;
 
@@ -158,7 +158,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
             if (!empty($hits[0])) {
-                if ($article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
+                if ($hits[0]->score == 1) {
                     $luceneDocument = $hits[0]->getDocument();
                     $pagetitle = $luceneDocument->pagetitle;
 
