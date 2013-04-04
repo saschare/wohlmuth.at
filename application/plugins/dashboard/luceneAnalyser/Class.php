@@ -161,6 +161,9 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                 $pagetitle = $luceneDocument->pagetitle;
                                 
                 if (empty($pagetitle)) {
+                    
+                    trigger_error('delete lucene index extry id ' . $id);
+                    
                     $index->delete($id);
 
                     Moraso_Db::query('' .
