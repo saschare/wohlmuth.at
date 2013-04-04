@@ -36,16 +36,19 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         $articles = Moraso_Db::fetchAll('' .
                         'select ' .
-                        '   uid, ' .
-                        '   lastindexed, ' .
-                        '   idart, ' .
-                        '   idlang ' .
+                        '   lucene.uid, ' .
+                        '   lucene.lastindexed, ' .
+                        '   lucene.idart, ' .
+                        '   lucene.idlang, ' .
+                        '   artlang.pagetitle as pagetitle_article ' .
                         'from ' .
-                        '   _lucene_index ' .
+                        '   _lucene_index as lucene ' .
+                        'left join ' .
+                        '   _art_lang as artlang on artlang.idart = lucene.idart and artlang.idlang = lucene.idlang ' .
                         'where ' .
-                        '   idlang =:idlang ' .
+                        '   lucene.idlang =:idlang ' .
                         'order by ' .
-                        '   lastindexed DESC', array(
+                        '   lucene.lastindexed DESC', array(
                     ':idlang' => Aitsu_Registry::get()->session->currentLanguage
         ));
 
@@ -67,7 +70,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
                     $luceneDocument = $hits[0]->getDocument();
 
-                    $articles[$key]['pagetitle'] = $luceneDocument->pagetitle;
+                    $articles[$key]['pagetitle_lucene'] = $luceneDocument->pagetitle;
                     $articles[$key]['summary'] = $luceneDocument->summary;
                 }
             }
