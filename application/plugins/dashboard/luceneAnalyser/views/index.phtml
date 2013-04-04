@@ -86,16 +86,14 @@ var luceneAnalyser = new Ext.grid.GridPanel({
                     tooltip: '<?php echo Aitsu_Translate :: translate('Refresh'); ?>',
                     iconCls: 'tb-refresh',
                     handler: function(b, e) {
-                        Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'index')); ?>'], function() {
-                            Ext.getCmp('luceneAnalyser').getStore().load();
-                        });
+                        Ext.getCmp('luceneAnalyser').getStore().reload();
                     }
                 }, {
                     tooltip: '<?php echo Aitsu_Translate :: translate('Optimize'); ?>',
                     iconCls: 'tb-add',
                     handler: function(b, e) {
                         Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'optimize')); ?>'], function() {
-                            Ext.getCmp('luceneAnalyser').getStore().load();
+                            Ext.getCmp('luceneAnalyser').getStore().reload();
                         });
                     }
                 }, {
@@ -103,7 +101,7 @@ var luceneAnalyser = new Ext.grid.GridPanel({
                     iconCls: 'delete',
                     handler: function(b, e) {
                         Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'deleteBroken')); ?>'], function() {
-                            Ext.getCmp('luceneAnalyser').getStore().load();
+                            Ext.getCmp('luceneAnalyser').getStore().reload();
                         });
                     }
                 }
