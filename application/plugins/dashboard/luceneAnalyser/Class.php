@@ -163,6 +163,9 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                     $pagetitle = $luceneDocument->pagetitle;
 
                     if (empty($pagetitle)) {
+                        
+                        trigger_error('delete idart ' . $article->idart . ' from lucene index because lucene has saved no pagetitle');
+                        
                         $index->delete($hits[0]->id);
 
                         Moraso_Db::query('' .
