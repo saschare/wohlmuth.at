@@ -36,6 +36,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         $articles = Moraso_Db::fetchAll('' .
                         'select ' .
+                        '   uid, ' .
                         '   lastindexed, ' .
                         '   idart, ' .
                         '   idlang ' .
@@ -57,13 +58,13 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         foreach ($articles as $key => $article) {
             $article = (object) $article;
 
-            $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
+            $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (isset($hits[0]) && $article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
-                $luceneDocument = $hits[0]->getDocument();
-
+            if (isset($hits[0]) && $hits[0]->score == 1) {
                 $articles[$key]['id'] = $hits[0]->id;
                 $articles[$key]['uid'] = $hits[0]->uid;
+
+                $luceneDocument = $hits[0]->getDocument();
 
                 $articles[$key]['pagetitle'] = $luceneDocument->pagetitle;
                 $articles[$key]['summary'] = $luceneDocument->summary;
@@ -131,15 +132,12 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         $articles = Moraso_Db::fetchAll('' .
                         'select ' .
                         '   uid, ' .
-                        '   lastindexed, ' .
                         '   idart, ' .
                         '   idlang ' .
                         'from ' .
                         '   _lucene_index ' .
                         'where ' .
-                        '   idlang =:idlang ' .
-                        'order by ' .
-                        '   lastindexed DESC', array(
+                        '   idlang =:idlang', array(
                     ':idlang' => Aitsu_Registry::get()->session->currentLanguage
         ));
 
@@ -152,7 +150,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         foreach ($articles as $article) {
             $article = (object) $article;
 
-            $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
+            $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
             if (isset($hits[0])) {
                 if ($article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
