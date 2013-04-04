@@ -59,12 +59,11 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
             $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (isset($hits[0]) && $article->idart == $hits[0]->idart) {
+            if (isset($hits[0]) && $article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
                 $luceneDocument = $hits[0]->getDocument();
 
                 $articles[$key]['id'] = $hits[0]->id;
                 $articles[$key]['uid'] = $hits[0]->uid;
-                $articles[$key]['score'] = $hits[0]->score;
 
                 $articles[$key]['pagetitle'] = $luceneDocument->pagetitle;
                 $articles[$key]['summary'] = $luceneDocument->summary;
@@ -131,6 +130,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
         $articles = Moraso_Db::fetchAll('' .
                         'select ' .
+                        '   uid, ' .
                         '   lastindexed, ' .
                         '   idart, ' .
                         '   idlang ' .
@@ -154,21 +154,31 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
             $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (isset($hits[0]) && $article->idart == $hits[0]->idart) {
-                $luceneDocument = $hits[0]->getDocument();
-                $pagetitle = $luceneDocument->pagetitle;
+            if (isset($hits[0])) {
+                if ($article->idart == $hits[0]->idart && $article->idlang == $hits[0]->lang) {
+                    $luceneDocument = $hits[0]->getDocument();
+                    $pagetitle = $luceneDocument->pagetitle;
 
-                if (empty($pagetitle)) {
-                    $index->delete($hits[0]->id);
+                    if (empty($pagetitle)) {
+                        $index->delete($hits[0]->id);
 
-                    Moraso_Db::query('' .
-                            'delete from ' .
-                            '   _lucene_index ' .
-                            'where ' .
-                            '   uid =:uid', array(
-                        ':uid' => $hits[0]->uid
-                    ));
+                        Moraso_Db::query('' .
+                                'delete from ' .
+                                '   _lucene_index ' .
+                                'where ' .
+                                '   uid =:uid', array(
+                            ':uid' => $hits[0]->uid
+                        ));
+                    }
                 }
+            } else {
+                Moraso_Db::query('' .
+                        'delete from ' .
+                        '   _lucene_index ' .
+                        'where ' .
+                        '   uid =:uid', array(
+                    ':uid' => $article->uid
+                ));
             }
 
             unset($hits);
