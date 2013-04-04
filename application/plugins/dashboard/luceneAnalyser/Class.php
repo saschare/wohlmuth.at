@@ -59,7 +59,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
             $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (isset($hits[0]) && $hits[0]->score == 1) {
+            if (isset($hits[0]) && $article->idart == $hits[0]->idart) {
                 $luceneDocument = $hits[0]->getDocument();
 
                 $articles[$key]['id'] = $hits[0]->id;
@@ -154,25 +154,19 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
             $hits = $index->find('uid:' . $article->idart . '-' . $article->idlang . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-            if (isset($hits[0]) && $hits[0]->score == 1) {
-                $id = $hits[0]->id;
-                $uid = $hits[0]->uid;
-
+            if (isset($hits[0]) && $article->idart == $hits[0]->idart) {
                 $luceneDocument = $hits[0]->getDocument();
                 $pagetitle = $luceneDocument->pagetitle;
 
                 if (empty($pagetitle)) {
-
-                    trigger_error('delete lucene index extry id ' . $id);
-
-                    $index->delete($id);
+                    $index->delete($hits[0]->id);
 
                     Moraso_Db::query('' .
                             'delete from ' .
                             '   _lucene_index ' .
                             'where ' .
                             '   uid =:uid', array(
-                        ':uid' => $uid
+                        ':uid' => $hits[0]->uid
                     ));
                 }
             }
