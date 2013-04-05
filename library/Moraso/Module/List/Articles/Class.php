@@ -131,21 +131,20 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $sortListByGivenCategories = isset($sortListByGivenCategories) && strlen($sortListByGivenCategories) > 0 ? filter_var($sortListByGivenCategories, FILTER_VALIDATE_BOOLEAN) : $defaults['sortListByGivenCategories'];
 
-        
         if ($page > 1) {
             $offset = ($page - 1) * $limit;
         }
-        
+
         $aggregation = Moraso_Aggregation_Article::factory();
         $aggregation->useOfStartArticle($useOfStartArticle);
         $aggregation->whereInCategories(array($categories));
 
         if ($sortCategoryFirst) {
-            $aggregation->orderBy('catlang.idcat ASC');
-        }
-
-        if ($sortListByGivenCategories) {
-            $aggregation->orderBy('FIND_IN_SET(catlang.idcat, "' . $categories . '")');
+            if ($sortListByGivenCategories) {
+                $aggregation->orderBy('FIND_IN_SET(catlang.idcat, "' . $categories . '")');
+            } else {
+                $aggregation->orderBy('catlang.idcat ASC');
+            }
         }
 
         $aggregation->orderBy($orderBy, $ascending);
