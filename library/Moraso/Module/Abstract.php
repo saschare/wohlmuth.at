@@ -200,7 +200,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
             if (isset($this->_params->$key)) {
                 $default = $this->_params->$key;
 
-                if ($default == 'config') {
+                if ($default === 'config') {
                     $defaults['configurable'][$key] = true;
                 } else {
                     $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
