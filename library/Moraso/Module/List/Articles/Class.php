@@ -20,25 +20,23 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             'page' => 1,
             'templateRenderingWhenNoArticles' => true
         );
-        
-        return $this->_getModulConfigDefaults($defaults, 'list.articles');
+
+        return $defaults;
     }
 
     protected function _main() {
 
-        $defaults = $this->_getDefaults();
-        
+        $defaults = $this->_moduleConfigDefaults;
+
         $translation = array();
         $translation['configuration'] = Aitsu_Translate::_('Configuration');
 
-        /* categories */
         if ($defaults['configurable']['categories']) {
             $categories = Aitsu_Content_Config_Text::set($this->_index, 'categories', Aitsu_Translate::_('Categories'), $translation['configuration']);
         }
 
         $categories = isset($categories) ? $categories : $defaults['categories'];
 
-        /* useOfStartArticle */
         if ($defaults['configurable']['useOfStartArticle']) {
             $useOfStartArticleSelect = array(
                 'show all articles' => 1,
@@ -51,7 +49,6 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $useOfStartArticle = isset($useOfStartArticle) ? (int) $useOfStartArticle : $defaults['useOfStartArticle'];
 
-        /* sortCategoryFirst */
         if ($defaults['configurable']['sortCategoryFirst']) {
             $sortCategoryFirstSelect = array(
                 'true' => true,
@@ -63,7 +60,6 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $sortCategoryFirst = isset($sortCategoryFirst) && strlen($sortCategoryFirst) > 0 ? filter_var($sortCategoryFirst, FILTER_VALIDATE_BOOLEAN) : $defaults['sortCategoryFirst'];
 
-        /* orderBy */
         if ($defaults['configurable']['orderBy']) {
             $orderBySelect = array(
                 'artsort' => 'artsort',
@@ -77,7 +73,6 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $orderBy = isset($orderBy) ? $orderBy : $defaults['orderBy'];
 
-        /* ascending */
         if ($defaults['configurable']['ascending']) {
             $ascendingSelect = array(
                 'true' => true,
@@ -89,35 +84,30 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $ascending = isset($ascending) && strlen($ascending) > 0 ? filter_var($ascending, FILTER_VALIDATE_BOOLEAN) : $defaults['ascending'];
 
-        /* template */
         if ($defaults['configurable']['template']) {
             $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), $translation['configuration']);
         }
 
         $template = isset($template) ? $template : $defaults['template'];
 
-        /* Offset */
         if ($defaults['configurable']['offset']) {
             $offset = Aitsu_Content_Config_Text::set($this->_index, 'offset', Aitsu_Translate::_('Offset'), $translation['configuration']);
         }
 
         $offset = isset($offset) ? (int) $offset : $defaults['offset'];
 
-        /* Limit */
         if ($defaults['configurable']['limit']) {
             $limit = Aitsu_Content_Config_Text::set($this->_index, 'limit', Aitsu_Translate::_('Limit'), $translation['configuration']);
         }
 
         $limit = isset($limit) ? (int) $limit : $defaults['limit'];
 
-        /* Page */
         if ($defaults['configurable']['page']) {
             $page = Aitsu_Content_Config_Text::set($this->_index, 'page', Aitsu_Translate::_('Page'), $translation['configuration']);
         }
 
         $page = isset($_GET['page']) ? (int) $_GET['page'] : (isset($page) ? (int) $page : $defaults['page']);
 
-        /* templateRenderingWhenNoArticles */
         if ($defaults['configurable']['templateRenderingWhenNoArticles']) {
             $templateRenderingWhenNoArticlesSelect = array(
                 'true' => true,
@@ -129,7 +119,6 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $templateRenderingWhenNoArticles = isset($templateRenderingWhenNoArticles) && strlen($templateRenderingWhenNoArticles) > 0 ? filter_var($templateRenderingWhenNoArticles, FILTER_VALIDATE_BOOLEAN) : $defaults['templateRenderingWhenNoArticles'];
 
-        /* change Offset if not on first Page */
         if ($page > 1) {
             $offset = ($page - 1) * $limit;
         }

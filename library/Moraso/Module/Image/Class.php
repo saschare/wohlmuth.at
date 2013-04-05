@@ -22,14 +22,14 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         $defaults['style'] = '';
         $defaults['float'] = '';
         $defaults['rel'] = '';
-
-        return $this->_getModulConfigDefaults($defaults, 'image');
+        
+        return $defaults;
     }
 
     protected function _main() {
 
-        $defaults = $this->_getDefaults();
-
+        $defaults = $this->_moduleConfigDefaults;
+                
         $translation = array();
         $translation['configuration'] = Aitsu_Translate::_('Configuration');
         

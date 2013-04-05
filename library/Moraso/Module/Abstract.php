@@ -8,6 +8,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
     protected $_renderOnMobile = true;
     protected $_renderOnTablet = true;
+    protected $_moduleConfigDefaults = array();
 
     protected static function _getInstance($className) {
 
@@ -68,6 +69,8 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         if (!$instance->_allowEdit || (isset($instance->_params->edit) && !$instance->_params->edit)) {
             Aitsu_Content_Edit :: noEdit($instance->_moduleName, true);
         }
+        
+        $instance->_getModulConfigDefaults(str_replace('_', '.', strtolower($instance->_moduleName)));
 
         $output_raw = $instance->_init();
 
@@ -160,19 +163,28 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         return $view;
     }
     
-    protected function _getModulConfigDefaults($defaults, $module) {
+    protected function _getDefaults() {
 
-        $morasoModuleConfig = Moraso_Config::get('module.' . $module);
+        $defaults = array();
+        
+        return $defaults;
+    }
+    
+    protected function _getModulConfigDefaults($module) {
 
+        $moduleConfig = Moraso_Config::get('module.' . $module);
+
+        $defaults = $this->_getDefaults();
+                
         foreach ($defaults as $key => $value) {
             $type = gettype($value);
 
-            if (isset($morasoModuleConfig->$key->default)) {
-                $default = $morasoModuleConfig->$key->default;
+            if (isset($moduleConfig->$key->default)) {
+                $default = $moduleConfig->$key->default;
                 $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
             }
 
-            $defaults['configurable'][$key] = isset($morasoModuleConfig->$key->configurable) ? filter_var($morasoModuleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN) : false;
+            $defaults['configurable'][$key] = isset($moduleConfig->$key->configurable) ? filter_var($moduleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN) : false;
 
             if (isset($this->_params->default->$key)) {
                 $default = $this->_params->default->$key;
@@ -189,8 +201,8 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
                 }
             }
         }
-
-        return $defaults;
+        
+        $this->_moduleConfigDefaults = $defaults;
     }
 
 }
