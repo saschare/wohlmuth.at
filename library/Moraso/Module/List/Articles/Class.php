@@ -143,7 +143,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             if ($sortListByGivenCategories) {
                 $aggregation->orderBy('FIND_IN_SET(catlang.idcat, "' . $categories . '")');
             } else {
-                $aggregation->orderBy('catlang.idcat ASC');
+                $aggregation->orderBy('catlang.idcat');
             }
         }
 
