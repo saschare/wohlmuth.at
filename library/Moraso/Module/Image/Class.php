@@ -23,67 +23,30 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         $defaults['float'] = '';
         $defaults['rel'] = '';
 
-        $morasoModuleConfig = Moraso_Config::get('module.image');
-
-        foreach ($defaults as $key => $value) {
-            $type = gettype($value);
-
-            if (isset($morasoModuleConfig->$key->default)) {
-                $default = $morasoModuleConfig->$key->default;
-                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
-            }
-
-            $defaults['configurable'][$key] = isset($morasoModuleConfig->$key->configurable) ? filter_var($morasoModuleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN) : false;
-
-            if (isset($this->_params->default->$key)) {
-                $default = $this->_params->default->$key;
-                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
-            }
-
-            if (isset($this->_params->$key)) {
-                $default = $this->_params->$key;
-
-                if ($default == 'config') {
-                    $defaults['configurable'][$key] = true;
-                } else {
-                    $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
-                }
-            }
-        }
-
-        if (!empty($defaults['style'])) {
-            trigger_error('Du benutzt in dem Image Modul den Parameter "style" welcher als "depracted" markiert ist. Nutze bitte den Parameter "attr.style" in dieser Schreiweise "attr.style.border-width = 1px | attr.style.border-color = blue".');
-        }
-
-        if (!empty($defaults['float'])) {
-            trigger_error('Du benutzt in dem Image Modul den Parameter "float" welcher als "depracted" markiert ist. Nutze bitte den Parameter "attr.style.float = XY".');
-        }
-
-        if (!empty($defaults['rel'])) {
-            trigger_error('Du benutzt in dem Image Modul den Parameter "rel" welcher als "depracted" markiert ist. Nutze bitte den Parameter "attr.rel = XY".');
-        }
-
-        return $defaults;
+        return $this->_getModulConfigDefaults($defaults, 'image');
     }
 
     protected function _main() {
 
         $defaults = $this->_getDefaults();
 
+        $translation = array();
+        $translation['configuration'] = Aitsu_Translate::_('Configuration');
+        
         if ($defaults['configurable']['idart']) {
-            $idart = Aitsu_Content_Config_Text::set($this->_index, 'idart', Aitsu_Translate::_('Article (idart)'), Aitsu_Translate::_('Configuration'));
+            $idart = Aitsu_Content_Config_Text::set($this->_index, 'idart', Aitsu_Translate::_('Article (idart)'), $translation['configuration']);
         }
 
         $idart = !empty($idart) ? (int) $idart : $defaults['idart'];
 
         if ($defaults['configurable']['width']) {
-            $width = Aitsu_Content_Config_Text::set($this->_index, 'width', Aitsu_Translate::_('Width'), Aitsu_Translate::_('Configuration'));
+            $width = Aitsu_Content_Config_Text::set($this->_index, 'width', Aitsu_Translate::_('Width'), $translation['configuration']);
         }
 
         $width = !empty($width) ? (int) $width : $defaults['width'];
 
         if ($defaults['configurable']['height']) {
-            $height = Aitsu_Content_Config_Text::set($this->_index, 'height', Aitsu_Translate::_('Height'), Aitsu_Translate::_('Configuration'));
+            $height = Aitsu_Content_Config_Text::set($this->_index, 'height', Aitsu_Translate::_('Height'), $translation['configuration']);
         }
 
         $height = !empty($height) ? (int) $height : $defaults['height'];
@@ -95,13 +58,13 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
                 'fokussieren' => 2
             );
 
-            $render = Aitsu_Content_Config_Select::set($this->_index, 'render', Aitsu_Translate::_('Render'), $renderSelect, Aitsu_Translate::_('Configuration'));
+            $render = Aitsu_Content_Config_Select::set($this->_index, 'render', Aitsu_Translate::_('Render'), $renderSelect, $translation['configuration']);
         }
 
         $render = isset($render) && strlen($render) > 0 ? (int) $render : $defaults['render'];
 
         if ($defaults['configurable']['template']) {
-            $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), Aitsu_Translate::_('Configuration'));
+            $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), $translation['configuration']);
         }
 
         $template = !empty($template) ? $template : $defaults['template'];
@@ -112,7 +75,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
                 'select single Images' => false
             );
 
-            $all = Aitsu_Content_Config_Radio::set($this->_index, 'all', Aitsu_Translate::_('show all Images'), $showAllSelect, Aitsu_Translate::_('Configuration'));
+            $all = Aitsu_Content_Config_Radio::set($this->_index, 'all', Aitsu_Translate::_('show all Images'), $showAllSelect, $translation['configuration']);
         }
 
         $all = isset($all) && strlen($all) > 0 ? filter_var($all, FILTER_VALIDATE_BOOLEAN) : $defaults['all'];
@@ -131,7 +94,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         }
 
         if ($defaults['configurable']['attr']) {
-            $attr_config = Aitsu_Content_Config_Textarea::set($this->_index, 'attr', Aitsu_Translate::_('Attributes'), Aitsu_Translate::_('Configuration'));
+            $attr_config = Aitsu_Content_Config_Textarea::set($this->_index, 'attr', Aitsu_Translate::_('Attributes'), $translation['configuration']);
         }
 
         if (!empty($attr_config)) {
@@ -140,7 +103,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         }
         
         if ($defaults['configurable']['rel']) {
-            $rel = Aitsu_Content_Config_Text::set($this->_index, 'rel', Aitsu_Translate::_('rel'), Aitsu_Translate::_('Configuration'));
+            $rel = Aitsu_Content_Config_Text::set($this->_index, 'rel', Aitsu_Translate::_('rel'), $translation['configuration']);
         }
 
         $attr->rel = !empty($rel) ? $rel : (isset($defaults['attr']->rel) && !empty($defaults['attr']->rel)) ? $defaults['attr']->rel : $defaults['rel'];
@@ -150,7 +113,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         }
 
         if ($defaults['configurable']['style']) {
-            $attr->style->self = Aitsu_Content_Config_Text::set($this->_index, 'style', Aitsu_Translate::_('Style'), Aitsu_Translate::_('Configuration'));
+            $attr->style->self = Aitsu_Content_Config_Text::set($this->_index, 'style', Aitsu_Translate::_('Style'), $translation['configuration']);
         }
 
         if ($defaults['configurable']['float']) {
@@ -161,7 +124,7 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
                 Aitsu_Translate::_('none') => 'none'
             );
 
-            $float = Aitsu_Content_Config_Select::set($this->_index, 'float', Aitsu_Translate::_('Float'), $floatSelect, Aitsu_Translate::_('Configuration'));
+            $float = Aitsu_Content_Config_Select::set($this->_index, 'float', Aitsu_Translate::_('Float'), $floatSelect, $translation['configuration']);
         }
 
         if (!empty($float)) {

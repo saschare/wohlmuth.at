@@ -159,5 +159,38 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         return $view;
     }
+    
+    protected function _getModulConfigDefaults($defaults, $module) {
+
+        $morasoModuleConfig = Moraso_Config::get('module.' . $module);
+
+        foreach ($defaults as $key => $value) {
+            $type = gettype($value);
+
+            if (isset($morasoModuleConfig->$key->default)) {
+                $default = $morasoModuleConfig->$key->default;
+                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
+            }
+
+            $defaults['configurable'][$key] = isset($morasoModuleConfig->$key->configurable) ? filter_var($morasoModuleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN) : false;
+
+            if (isset($this->_params->default->$key)) {
+                $default = $this->_params->default->$key;
+                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
+            }
+
+            if (isset($this->_params->$key)) {
+                $default = $this->_params->$key;
+
+                if ($default == 'config') {
+                    $defaults['configurable'][$key] = true;
+                } else {
+                    $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
+                }
+            }
+        }
+
+        return $defaults;
+    }
 
 }

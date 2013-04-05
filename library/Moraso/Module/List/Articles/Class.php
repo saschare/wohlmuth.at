@@ -9,7 +9,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
     protected function _getDefaults() {
 
         $defaults = array(
-            'categories' => Aitsu_Registry::get()->env->idcat,
+            'categories' => '' . Aitsu_Registry::get()->env->idcat . '',
             'useOfStartArticle' => 2,
             'sortCategoryFirst' => false,
             'orderBy' => 'artsort',
@@ -21,43 +21,15 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             'templateRenderingWhenNoArticles' => true
         );
         
-        $morasoModuleConfig = Moraso_Config::get('module.list.articles');
-
-        foreach ($defaults as $key => $value) {
-            $type = gettype($value);
-
-            if (isset($morasoModuleConfig->$key->default)) {
-                $default = $morasoModuleConfig->$key->default;
-                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
-            }
-
-            $defaults['configurable'][$key] = isset($morasoModuleConfig->$key->configurable) ? filter_var($morasoModuleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN) : false;
-
-            if (isset($this->_params->default->$key)) {
-                $default = $this->_params->default->$key;
-                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
-            }
-
-            if (isset($this->_params->$key)) {
-                $default = $this->_params->$key;
-
-                if ($default == 'config') {
-                    $defaults['configurable'][$key] = true;
-                } else {
-                    $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
-                }
-            }
-        }
-
-        return $defaults;
+        return $this->_getModulConfigDefaults($defaults, 'list.articles');
     }
 
     protected function _main() {
 
+        $defaults = $this->_getDefaults();
+        
         $translation = array();
         $translation['configuration'] = Aitsu_Translate::_('Configuration');
-
-        $defaults = $this->_getDefaults();
 
         /* categories */
         if ($defaults['configurable']['categories']) {
@@ -89,7 +61,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $sortCategoryFirst = Aitsu_Content_Config_Select::set($this->_index, 'sortCategoryFirst', Aitsu_Translate::_('sortCategoryFirst'), $sortCategoryFirstSelect, $translation['configuration']);
         }
 
-        $sortCategoryFirst = isset($sortCategoryFirst) ? filter_var($sortCategoryFirst, FILTER_VALIDATE_BOOLEAN) : $defaults['sortCategoryFirst'];
+        $sortCategoryFirst = isset($sortCategoryFirst) && strlen($sortCategoryFirst) > 0 ? filter_var($sortCategoryFirst, FILTER_VALIDATE_BOOLEAN) : $defaults['sortCategoryFirst'];
 
         /* orderBy */
         if ($defaults['configurable']['orderBy']) {
@@ -115,7 +87,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $ascending = Aitsu_Content_Config_Select::set($this->_index, 'ascending', Aitsu_Translate::_('ascending'), $ascendingSelect, $translation['configuration']);
         }
 
-        $ascending = isset($ascending) ? filter_var($ascending, FILTER_VALIDATE_BOOLEAN) : $defaults['ascending'];
+        $ascending = isset($ascending) && strlen($ascending) > 0 ? filter_var($ascending, FILTER_VALIDATE_BOOLEAN) : $defaults['ascending'];
 
         /* template */
         if ($defaults['configurable']['template']) {
@@ -143,7 +115,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $page = Aitsu_Content_Config_Text::set($this->_index, 'page', Aitsu_Translate::_('Page'), $translation['configuration']);
         }
 
-        $page = isset($_GET['page']) ? (int) $_GET['page'] : isset($page) ? (int) $page : $defaults['page'];
+        $page = isset($_GET['page']) ? (int) $_GET['page'] : (isset($page) ? (int) $page : $defaults['page']);
 
         /* templateRenderingWhenNoArticles */
         if ($defaults['configurable']['templateRenderingWhenNoArticles']) {
@@ -155,7 +127,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $templateRenderingWhenNoArticles = Aitsu_Content_Config_Select::set($this->_index, 'templateRenderingWhenNoArticles', Aitsu_Translate::_('templateRenderingWhenNoArticles'), $templateRenderingWhenNoArticlesSelect, $translation['configuration']);
         }
 
-        $templateRenderingWhenNoArticles = isset($templateRenderingWhenNoArticles) ? filter_var($templateRenderingWhenNoArticles, FILTER_VALIDATE_BOOLEAN) : $defaults['templateRenderingWhenNoArticles'];
+        $templateRenderingWhenNoArticles = isset($templateRenderingWhenNoArticles) && strlen($templateRenderingWhenNoArticles) > 0 ? filter_var($templateRenderingWhenNoArticles, FILTER_VALIDATE_BOOLEAN) : $defaults['templateRenderingWhenNoArticles'];
 
         /* change Offset if not on first Page */
         if ($page > 1) {
