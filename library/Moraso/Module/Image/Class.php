@@ -52,15 +52,15 @@ class Moraso_Module_Image_Class extends Moraso_Module_Abstract {
         }
 
         if (!empty($defaults['style'])) {
-            trigger_error('Du benutzt in dem Image Modul den Parameter "style" welcher als "depracted" makiert ist. Nutze bitte den Parameter "attr.style".');
+            trigger_error('Du benutzt in dem Image Modul den Parameter "style" welcher als "depracted" markiert ist. Nutze bitte den Parameter "attr.style" in dieser Schreiweise "attr.style.border-width = 1px | attr.style.border-color = blue".');
         }
 
         if (!empty($defaults['float'])) {
-            trigger_error('Du benutzt in dem Image Modul den Parameter "float" welcher als "depracted" makiert ist. Nutze bitte den Parameter "attr.style.float".');
+            trigger_error('Du benutzt in dem Image Modul den Parameter "float" welcher als "depracted" markiert ist. Nutze bitte den Parameter "attr.style.float = XY".');
         }
 
         if (!empty($defaults['rel'])) {
-            trigger_error('Du benutzt in dem Image Modul den Parameter "rel" welcher als "depracted" makiert ist. Nutze bitte den Parameter "attr.rel".');
+            trigger_error('Du benutzt in dem Image Modul den Parameter "rel" welcher als "depracted" markiert ist. Nutze bitte den Parameter "attr.rel = XY".');
         }
 
         return $defaults;
