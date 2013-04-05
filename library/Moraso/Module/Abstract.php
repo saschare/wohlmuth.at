@@ -184,8 +184,14 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
                 $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
             }
 
-            $defaults['configurable'][$key] = isset($moduleConfig->$key->configurable) ? filter_var($moduleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN) : false;
-
+            if (isset($moduleConfig->$key->configurable)) {
+                $defaults['configurable'][$key] = filter_var($moduleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN);
+            } else {
+                if (!isset($defaults['configurable'][$key])) {
+                    $defaults['configurable'][$key] = false;
+                }
+            }
+            
             if (isset($this->_params->default->$key)) {
                 $default = $this->_params->default->$key;
                 $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
