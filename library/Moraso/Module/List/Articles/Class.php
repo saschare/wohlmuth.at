@@ -72,7 +72,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $orderBy = Aitsu_Content_Config_Select::set($this->_index, 'orderBy', Aitsu_Translate::_('orderBy'), $orderBySelect, $translation['configuration']);
         }
 
-        $orderBy = isset($orderBy) ? $orderBy : $defaults['orderBy'];
+        $orderBy = isset($orderBy) && strlen($orderBy) > 0 ? $orderBy : $defaults['orderBy'];
 
         if ($defaults['configurable']['ascending']) {
             $ascendingSelect = array(
