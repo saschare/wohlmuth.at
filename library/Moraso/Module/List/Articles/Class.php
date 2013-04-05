@@ -18,187 +18,34 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             'offset' => 0,
             'limit' => 10,
             'page' => 1,
-            'templateRenderingWhenNoArticles' => true,
-            'configurable' => array(
-                'categories' => false,
-                'useOfStartArticle' => false,
-                'sortCategoryFirst' => false,
-                'orderBy' => false,
-                'ascending' => false,
-                'template' => false,
-                'offset' => false,
-                'limit' => false,
-                'page' => false,
-                'templateRenderingWhenNoArticles' => false
-            )
+            'templateRenderingWhenNoArticles' => true
         );
+        
+        $morasoModuleConfig = Moraso_Config::get('module.list.articles');
 
-        $moduleConfig = Moraso_Config::get('module.list.articles');
+        foreach ($defaults as $key => $value) {
+            $type = gettype($value);
 
-        if (isset($moduleConfig->categories->default)) {
-            $defaults['categories'] = $moduleConfig->categories->default;
-        }
-
-        if (isset($moduleConfig->useOfStartArticle->default)) {
-            $defaults['useOfStartArticle'] = (int) $moduleConfig->useOfStartArticle->default;
-        }
-
-        if (isset($moduleConfig->sortCategoryFirst->default)) {
-            $defaults['sortCategoryFirst'] = filter_var($moduleConfig->sortCategoryFirst->default, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->orderBy->default)) {
-            $defaults['orderBy'] = $moduleConfig->orderBy->default;
-        }
-
-        if (isset($moduleConfig->ascending->default)) {
-            $defaults['ascending'] = filter_var($moduleConfig->ascending->default, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->template->default)) {
-            $defaults['template'] = $moduleConfig->template->default;
-        }
-
-        if (isset($moduleConfig->offset->default)) {
-            $defaults['offset'] = (int) $moduleConfig->offset->default;
-        }
-
-        if (isset($moduleConfig->limit->default)) {
-            $defaults['limit'] = (int) $moduleConfig->limit->default;
-        }
-
-        if (isset($moduleConfig->page->default)) {
-            $defaults['page'] = (int) $moduleConfig->page->default;
-        }
-
-        if (isset($moduleConfig->templateRenderingWhenNoArticles->default)) {
-            $defaults['templateRenderingWhenNoArticles'] = filter_var($moduleConfig->templateRenderingWhenNoArticles->default, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->categories->configurable)) {
-            $defaults['configurable']['categories'] = filter_var($moduleConfig->categories->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->useOfStartArticle->configurable)) {
-            $defaults['configurable']['useOfStartArticle'] = filter_var($moduleConfig->useOfStartArticle->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->sortCategoryFirst->configurable)) {
-            $defaults['configurable']['sortCategoryFirst'] = filter_var($moduleConfig->sortCategoryFirst->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->orderBy->configurable)) {
-            $defaults['configurable']['orderBy'] = filter_var($moduleConfig->orderBy->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->ascending->configurable)) {
-            $defaults['configurable']['ascending'] = filter_var($moduleConfig->ascending->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->template->configurable)) {
-            $defaults['configurable']['template'] = filter_var($moduleConfig->template->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->offset->configurable)) {
-            $defaults['configurable']['offset'] = filter_var($moduleConfig->offset->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->limit->configurable)) {
-            $defaults['configurable']['limit'] = filter_var($moduleConfig->limit->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->page->configurable)) {
-            $defaults['configurable']['page'] = filter_var($moduleConfig->page->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($moduleConfig->templateRenderingWhenNoArticles->configurable)) {
-            $defaults['configurable']['templateRenderingWhenNoArticles'] = filter_var($moduleConfig->templateRenderingWhenNoArticles->configurable, FILTER_VALIDATE_BOOLEAN);
-        }
-
-        if (isset($this->_params->default)) {
-            foreach ($this->_params->default as $param => $value) {
-                $defaults[$param] = $value;
+            if (isset($morasoModuleConfig->$key->default)) {
+                $default = $morasoModuleConfig->$key->default;
+                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
             }
-        }
 
-        if (isset($this->_params->categories)) {
-            if ($this->_params->categories == 'config') {
-                $defaults['configurable']['categories'] = true;
-            } else {
-                $defaults['categories'] = $this->_params->categories;
+            $defaults['configurable'][$key] = isset($morasoModuleConfig->$key->configurable) ? filter_var($morasoModuleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN) : false;
+
+            if (isset($this->_params->default->$key)) {
+                $default = $this->_params->default->$key;
+                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
             }
-        }
 
-        if (isset($this->_params->useOfStartArticle)) {
-            if ($this->_params->useOfStartArticle == 'config') {
-                $defaults['configurable']['useOfStartArticle'] = true;
-            } else {
-                $defaults['useOfStartArticle'] = (int) $this->_params->useOfStartArticle;
-            }
-        }
+            if (isset($this->_params->$key)) {
+                $default = $this->_params->$key;
 
-        if (isset($this->_params->sortCategoryFirst)) {
-            if ($this->_params->sortCategoryFirst == 'config') {
-                $defaults['configurable']['sortCategoryFirst'] = true;
-            } else {
-                $defaults['sortCategoryFirst'] = filter_var($this->_params->sortCategoryFirst, FILTER_VALIDATE_BOOLEAN);
-            }
-        }
-
-        if (isset($this->_params->orderBy)) {
-            if ($this->_params->orderBy == 'config') {
-                $defaults['configurable']['orderBy'] = true;
-            } else {
-                $defaults['orderBy'] = $this->_params->orderBy;
-            }
-        }
-
-        if (isset($this->_params->ascending)) {
-            if ($this->_params->ascending == 'config') {
-                $defaults['configurable']['ascending'] = true;
-            } else {
-                $defaults['ascending'] = filter_var($this->_params->ascending, FILTER_VALIDATE_BOOLEAN);
-                ;
-            }
-        }
-
-        if (isset($this->_params->template)) {
-            if ($this->_params->template == 'config') {
-                $defaults['configurable']['template'] = true;
-            } else {
-                $defaults['template'] = $this->_params->template;
-            }
-        }
-
-        if (isset($this->_params->offset)) {
-            if ($this->_params->offset == 'config') {
-                $defaults['configurable']['offset'] = true;
-            } else {
-                $defaults['offset'] = (int) $this->_params->offset;
-            }
-        }
-
-        if (isset($this->_params->limit)) {
-            if ($this->_params->limit == 'config') {
-                $defaults['configurable']['limit'] = true;
-            } else {
-                $defaults['limit'] = (int) $this->_params->limit;
-            }
-        }
-
-        if (isset($this->_params->page)) {
-            if ($this->_params->page == 'config') {
-                $defaults['configurable']['page'] = true;
-            } else {
-                $defaults['page'] = (int) $this->_params->page;
-            }
-        }
-
-        if (isset($this->_params->templateRenderingWhenNoArticles)) {
-            if ($this->_params->templateRenderingWhenNoArticles == 'config') {
-                $defaults['configurable']['templateRenderingWhenNoArticles'] = true;
-            } else {
-                $defaults['templateRenderingWhenNoArticles'] = filter_var($this->_params->templateRenderingWhenNoArticles, FILTER_VALIDATE_BOOLEAN);
+                if ($default == 'config') {
+                    $defaults['configurable'][$key] = true;
+                } else {
+                    $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
+                }
             }
         }
 
