@@ -36,7 +36,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $categories = Aitsu_Content_Config_Text::set($this->_index, 'categories', Aitsu_Translate::_('Categories'), $translation['configuration']);
         }
 
-        $categories = isset($categories) ? $categories : $defaults['categories'];
+        $categories = !empty($categories) ? $categories : $defaults['categories'];
 
         if ($defaults['configurable']['useOfStartArticle']) {
             $useOfStartArticleSelect = array(
@@ -48,7 +48,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $useOfStartArticle = Aitsu_Content_Config_Select::set($this->_index, 'useOfStartArticle', Aitsu_Translate::_('useOfStartArticle'), $useOfStartArticleSelect, $translation['configuration']);
         }
 
-        $useOfStartArticle = isset($useOfStartArticle) ? (int) $useOfStartArticle : $defaults['useOfStartArticle'];
+        $useOfStartArticle = !empty($useOfStartArticle) ? (int) $useOfStartArticle : $defaults['useOfStartArticle'];
 
         if ($defaults['configurable']['sortCategoryFirst']) {
             $sortCategoryFirstSelect = array(
@@ -72,7 +72,7 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $orderBy = Aitsu_Content_Config_Select::set($this->_index, 'orderBy', Aitsu_Translate::_('orderBy'), $orderBySelect, $translation['configuration']);
         }
 
-        $orderBy = isset($orderBy) && strlen($orderBy) > 0 ? $orderBy : $defaults['orderBy'];
+        $orderBy = !empty($orderBy) ? $orderBy : $defaults['orderBy'];
 
         if ($defaults['configurable']['ascending']) {
             $ascendingSelect = array(
@@ -89,25 +89,25 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), $translation['configuration']);
         }
 
-        $template = isset($template) ? $template : $defaults['template'];
+        $template = !empty($template) ? $template : $defaults['template'];
 
         if ($defaults['configurable']['offset']) {
             $offset = Aitsu_Content_Config_Text::set($this->_index, 'offset', Aitsu_Translate::_('Offset'), $translation['configuration']);
         }
 
-        $offset = isset($offset) ? (int) $offset : $defaults['offset'];
+        $offset = !empty($offset) ? (int) $offset : $defaults['offset'];
 
         if ($defaults['configurable']['limit']) {
             $limit = Aitsu_Content_Config_Text::set($this->_index, 'limit', Aitsu_Translate::_('Limit'), $translation['configuration']);
         }
 
-        $limit = isset($limit) ? (int) $limit : $defaults['limit'];
+        $limit = !empty($limit) ? (int) $limit : $defaults['limit'];
 
         if ($defaults['configurable']['page']) {
             $page = Aitsu_Content_Config_Text::set($this->_index, 'page', Aitsu_Translate::_('Page'), $translation['configuration']);
         }
 
-        $page = isset($_GET['page']) ? (int) $_GET['page'] : (isset($page) ? (int) $page : $defaults['page']);
+        $page = !empty($_GET['page']) ? (int) $_GET['page'] : (isset($page) ? (int) $page : $defaults['page']);
 
         if ($defaults['configurable']['templateRenderingWhenNoArticles']) {
             $templateRenderingWhenNoArticlesSelect = array(
