@@ -154,8 +154,10 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
                 $type = $populateWith->index;
 
-                if ($populateWith->type == 'property' || $populateWith->type == 'files') {
-                    $type = $populateWith->type . ':' . $type;
+                if (isset($populateWith->type)) {
+                    if ($populateWith->type == 'property' || $populateWith->type == 'files') {
+                        $type = $populateWith->type . ':' . $type;
+                    }
                 }
 
                 $aggregation->populateWith($type, $alias, $populateWith->datatype);
