@@ -12,13 +12,14 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
             'categories' => '' . Aitsu_Registry::get()->env->idcat . '',
             'useOfStartArticle' => 2,
             'sortCategoryFirst' => false,
-            'orderBy' => 'artsort',
+            'orderBy' => 'created',
             'ascending' => true,
             'template' => 'index',
             'offset' => 0,
             'limit' => 10,
             'page' => 1,
-            'templateRenderingWhenNoArticles' => true
+            'templateRenderingWhenNoArticles' => true,
+            'sortListByGivenCategories' => false
         );
 
         return $defaults;
@@ -119,16 +120,32 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
         $templateRenderingWhenNoArticles = isset($templateRenderingWhenNoArticles) && strlen($templateRenderingWhenNoArticles) > 0 ? filter_var($templateRenderingWhenNoArticles, FILTER_VALIDATE_BOOLEAN) : $defaults['templateRenderingWhenNoArticles'];
 
+        if ($defaults['configurable']['sortListByGivenCategories']) {
+            $sortListByGivenCategoriesSelect = array(
+                'true' => true,
+                'false' => false
+            );
+
+            $sortListByGivenCategories = Aitsu_Content_Config_Select::set($this->_index, 'sortListByGivenCategories', Aitsu_Translate::_('sortListByGivenCategories'), $sortListByGivenCategoriesSelect, $translation['configuration']);
+        }
+
+        $sortListByGivenCategories = isset($sortListByGivenCategories) && strlen($sortListByGivenCategories) > 0 ? filter_var($sortListByGivenCategories, FILTER_VALIDATE_BOOLEAN) : $defaults['sortListByGivenCategories'];
+
+        
         if ($page > 1) {
             $offset = ($page - 1) * $limit;
         }
-
+        
         $aggregation = Moraso_Aggregation_Article::factory();
         $aggregation->useOfStartArticle($useOfStartArticle);
         $aggregation->whereInCategories(array($categories));
 
         if ($sortCategoryFirst) {
-            $aggregation->orderBy('catlang.idcat');
+            $aggregation->orderBy('catlang.idcat ASC');
+        }
+
+        if ($sortListByGivenCategories) {
+            $aggregation->orderBy('FIND_IN_SET(catlang.idcat, "' . $categories . '")');
         }
 
         $aggregation->orderBy($orderBy, $ascending);
