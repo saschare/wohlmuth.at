@@ -160,7 +160,11 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
                     }
                 }
 
-                $aggregation->populateWith($type, $alias, $populateWith->datatype);
+                if (isset($populateWith->datatype) && !empty($populateWith->datatype)) {
+                    $aggregation->populateWith($type, $alias, $populateWith->datatype);
+                } else {
+                    $aggregation->populateWith($type, $alias);
+                }
             }
         }
 
