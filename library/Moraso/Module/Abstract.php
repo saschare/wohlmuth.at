@@ -187,7 +187,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
             if (isset($moduleConfig->$key->configurable)) {
                 $defaults['configurable'][$key] = filter_var($moduleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN);
 
-                if (isset($moduleConfig->$key->selects)) {
+                if (isset($moduleConfig->$key->selects) && $defaults['configurable'][$key]) {
                     $selects = $moduleConfig->$key->selects;
 
                     foreach ($selects as $i => $select) {
