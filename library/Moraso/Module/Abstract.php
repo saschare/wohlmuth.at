@@ -186,6 +186,20 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
             if (isset($moduleConfig->$key->configurable)) {
                 $defaults['configurable'][$key] = filter_var($moduleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN);
+
+                if (isset($moduleConfig->$key->selects)) {
+                    $selects = $moduleConfig->$key->selects;
+
+                    foreach ($selects as $i => $select) {
+                        if (!is_object($select)) {
+                            $defaults['selects'][$key]['values'][$i] = $select;
+                            $defaults['selects'][$key]['names'][$i] = $select;
+                        } else {
+                            $defaults['selects'][$key]['values'][$i] = $select->value;
+                            $defaults['selects'][$key]['names'][$i] = $select->name;
+                        }
+                    }
+                }
             }
 
             if (!isset($defaults['configurable'][$key])) {
