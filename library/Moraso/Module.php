@@ -63,28 +63,51 @@ class Moraso_Module extends Aitsu_Core_Module {
 
         $modulePath = str_replace('.', '/', $this->shortCode);
 
-        $files = array(
-            'Skin_Module' => APPLICATION_PATH . "/skins/" . Aitsu_Config::get('skin') . "/module/" . $modulePath . '/Class.php',
-            'Moraso_Module' => realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/Class.php',
-            'Module' => APPLICATION_PATH . '/modules/' . $modulePath . '/Class.php'
-        );
+        $heredity = Moraso_Skin_Heredity::build();
+
+        foreach ($heredity as $skin) {
+            $files['Skin_Module'][] = APPLICATION_PATH . "/skins/" . $skin . "/module/" . $modulePath . '/Class.php';
+        }
+
+        $files['Moraso_Module'] = realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/Class.php';
+        $files['Module'] = APPLICATION_PATH . '/modules/' . $modulePath . '/Class.php';
 
         $exists = false;
 
         $profileDetails = new stdClass();
 
         foreach ($files as $prefix => $file) {
-            if (file_exists($file)) {
-                $exists = true;
-                $profileDetails->source = $prefix . '_' . str_replace('.', '_', $this->shortCode) . '_Class';
-                include_once $file;
-                if (method_exists($profileDetails->source, 'help')) {
-                    return call_user_func(array(
-                        $profileDetails->source,
-                        'help'
-                    ));
+            if (is_array($file)) {
+                foreach ($file as $path) {
+                    if (file_exists($path)) {
+                        $exists = true;
+                        $profileDetails->source = $prefix . '_' . str_replace('.', '_', $this->shortCode) . '_Class';
+                        include_once $path;
+                        if (method_exists($profileDetails->source, 'help')) {
+                            return call_user_func(array(
+                                $profileDetails->source,
+                                'help'
+                            ));
+                        }
+                        break;
+                    }
                 }
-                break;
+                if ($exists) {
+                    break;
+                }
+            } else {
+                if (file_exists($file)) {
+                    $exists = true;
+                    $profileDetails->source = $prefix . '_' . str_replace('.', '_', $this->shortCode) . '_Class';
+                    include_once $file;
+                    if (method_exists($profileDetails->source, 'help')) {
+                        return call_user_func(array(
+                            $profileDetails->source,
+                            'help'
+                        ));
+                    }
+                    break;
+                }
             }
         }
 
