@@ -240,7 +240,7 @@ var media = new Ext.grid.GridPanel({
 				handler: function() {
 					 Ext.MessageBox.show({
 					 	title: '<?php echo $this->translate('Delete files'); ?>',
-					 	msg: '<?php echo $this->translate('Are you sure to delete the selected file(s)?'); ?>',
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected file?'); ?>',
 					 	buttons: {yes: '<?php echo $this->translate('Yes'); ?>', cancel: '<?php echo $this->translate('No'); ?>'},
 					 	fn: function(a) {
                                                     if (a == 'yes') {                                                
