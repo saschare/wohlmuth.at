@@ -64,7 +64,7 @@ class MetaArticleController extends Aitsu_Adm_Plugin_Controller {
 
 		$data = Aitsu_Persistence_ArticleMeta :: factory($id)->load();
 
-		$data->robots = explode(', ', $data->robots);
+		$data->robots = empty($data->robots) ? array() : explode(', ', $data->robots);
 		$data->idart = $id;
 		$data->schemaorgtype = empty($data->schemaorgtype) ? 1 : $data->schemaorgtype;
 		$form->setValues($data->toArray());

@@ -48,7 +48,9 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
                     ':idlang' => $idlang
         ));
 
-        $form->setValues($data);
+        if (!empty($data)) {
+            $form->setValues($data);
+        }
 
         $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
 
@@ -62,7 +64,7 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
 
         if (isset($hits[0]) && !empty($hits[0]) && $hits[0]->score == 1) {
             $form->setValue('id', $hits[0]->id);
-            
+
             $luceneDocument = $hits[0]->getDocument();
 
             $form->setValue('uid', $luceneDocument->uid);
