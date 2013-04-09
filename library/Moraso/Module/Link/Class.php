@@ -45,13 +45,11 @@ class Moraso_Module_Link_Class extends Moraso_Module_Abstract {
             $target = Aitsu_Content_Config_Select::set($this->_index, 'orderBy', Aitsu_Translate::_('Target'), $targetSelect, $translation['configuration']);
         }
 
-        $target = !empty($target) ? $target : $defaults['target'];
-
         $view = $this->_getView();
-
-        $view->name = Aitsu_Content_Config_Text :: set($this->_index, 'name', 'Name', 'Link');
-        $view->link = Aitsu_Content_Config_Link :: set($this->_index, 'link', 'Link', 'Link');
-        $view->target = $target;
+        
+        $view->target = !empty($target) ? $target : $defaults['target'];
+        $view->name = Aitsu_Content_Config_Text::set($this->_index, 'name', 'Name', 'Link');
+        $view->link = Aitsu_Content_Config_Link::set($this->_index, 'link', 'Link', 'Link');
 
         if (strpos($view->link, 'idcat') !== false || strpos($view->link, 'idart') !== false) {
             $view->link = '{ref:' . str_replace(' ', '-', $view->link) . '}';
