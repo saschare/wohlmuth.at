@@ -42,7 +42,7 @@ class Moraso_Skin_Heredity {
             $parentSkin = (string) $xml->parent->skin[0];
 
             if (!empty($parentSkin)) {
-                self::buildHeredity($heredity, $parentSkin);
+                self::_build($heredity, $parentSkin);
             }
         }
 
