@@ -13,7 +13,7 @@ class Moraso_Html_Helper_Navigation {
         return $self->_createUl($nav, $ulId, $ulClasses);
     }
 
-    private function _createUl($nav, $ulId, $ulClasses) {
+    private function _createUl($nav, $ulId = null, $ulClasses = null) {
 
         $ul = '<ul';
 
