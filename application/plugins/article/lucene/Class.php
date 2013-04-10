@@ -16,10 +16,12 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
 
     public static function register($idart) {
 
+        $luceneIndex = Moraso_Config::get('search.lucene.index');
+        
         return (object) array(
                     'name' => 'lucene',
                     'tabname' => Aitsu_Registry::get()->Zend_Translate->translate('Lucene'),
-                    'enabled' => self::getPosition($idart, 'lucene'),
+                    'enabled' => !empty($luceneIndex) && is_dir(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/') ? self::getPosition($idart, 'lucene') : false,
                     'position' => self::getPosition($idart, 'lucene'),
                     'id' => self::ID
         );
@@ -52,13 +54,11 @@ class LuceneArticleController extends Aitsu_Adm_Plugin_Controller {
             $form->setValues($data);
         }
 
-        $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
+        $luceneIndex = Moraso_Config::get('search.lucene.index');
 
-        $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
+        $form->setValue('luceneIndex', $luceneIndex);
 
-        $form->setValue('luceneIndex', $client_config->search->lucene->index);
-
-        $index = Zend_Search_Lucene::open(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
+        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
 
         $hits = $index->find('uid:' . $data['uid'] . ' AND lang:' . $idlang . ' AND idart:' . $idart);
 

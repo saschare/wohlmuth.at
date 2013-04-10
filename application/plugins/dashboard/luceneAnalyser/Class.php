@@ -16,14 +16,12 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
     public static function register() {
 
-        $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
-
-        $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
+        $luceneIndex = Moraso_Config::get('search.lucene.index');
 
         return (object) array(
                     'name' => 'luceneAnalyser',
                     'tabname' => Aitsu_Translate :: _('luceneAnalyser'),
-                    'enabled' => isset($client_config->search->lucene->index) ? true : false,
+                    'enabled' => !empty($luceneIndex) && is_dir(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/') ? true : false,
                     'id' => self :: ID
         );
     }
@@ -34,44 +32,44 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
 
     public function storeAction() {
 
-        $articles = Moraso_Db::fetchAll('' .
-                        'select ' .
-                        '   lucene.uid, ' .
-                        '   lucene.lastindexed, ' .
-                        '   lucene.idart, ' .
-                        '   lucene.idlang, ' .
-                        '   artlang.pagetitle as pagetitle, ' .
-                        '   artlang.teasertitle as teasertitle ' .
-                        'from ' .
-                        '   _lucene_index as lucene ' .
-                        'left join ' .
-                        '   _art_lang as artlang on artlang.idart = lucene.idart and artlang.idlang = lucene.idlang ' .
-                        'where ' .
-                        '   lucene.idlang =:idlang ' .
-                        'order by ' .
-                        '   lucene.lastindexed DESC', array(
-                    ':idlang' => Aitsu_Registry::get()->session->currentLanguage
-        ));
+        $luceneIndex = Moraso_Config::get('search.lucene.index');
+        
+        if (!empty($luceneIndex) && is_dir(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/')) {
+            $articles = Moraso_Db::fetchAll('' .
+                            'select ' .
+                            '   lucene.uid, ' .
+                            '   lucene.lastindexed, ' .
+                            '   lucene.idart, ' .
+                            '   lucene.idlang, ' .
+                            '   artlang.pagetitle as pagetitle, ' .
+                            '   artlang.teasertitle as teasertitle ' .
+                            'from ' .
+                            '   _lucene_index as lucene ' .
+                            'left join ' .
+                            '   _art_lang as artlang on artlang.idart = lucene.idart and artlang.idlang = lucene.idlang ' .
+                            'where ' .
+                            '   lucene.idlang =:idlang ' .
+                            'order by ' .
+                            '   lucene.lastindexed DESC', array(
+                        ':idlang' => Aitsu_Registry::get()->session->currentLanguage
+            ));
 
-        $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
+            $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
 
-        $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
+            foreach ($articles as $key => $article) {
+                $article = (object) $article;
 
-        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
+                $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
-        foreach ($articles as $key => $article) {
-            $article = (object) $article;
-
-            $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
-
-            if (isset($hits[0]) && !empty($hits[0]->id)) {
-                if ($hits[0]->score == 1) {
-                    $articles[$key]['id'] = $hits[0]->id;
-                    $articles[$key]['uid'] = $hits[0]->uid;
+                if (isset($hits[0]) && !empty($hits[0]->id)) {
+                    if ($hits[0]->score == 1) {
+                        $articles[$key]['id'] = $hits[0]->id;
+                        $articles[$key]['uid'] = $hits[0]->uid;
+                    }
                 }
-            }
 
-            unset($hits);
+                unset($hits);
+            }
         }
 
         $this->_helper->json((object) array(
@@ -84,11 +82,9 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         $this->_helper->layout->disableLayout();
         header("Content-type: text/javascript");
 
-        $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
+        $luceneIndex = Moraso_Config::get('search.lucene.index');
 
-        $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
-
-        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
+        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
 
         $index->optimize();
 
@@ -100,11 +96,9 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         $this->_helper->layout->disableLayout();
         header("Content-type: text/javascript");
 
-        $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
+        $luceneIndex = Moraso_Config::get('search.lucene.index');
 
-        $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
-
-        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
+        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
 
         $index->delete($this->getRequest()->getParam('id'));
 
@@ -136,16 +130,14 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
                     ':idlang' => Aitsu_Registry::get()->session->currentLanguage
         ));
 
-        $client_data = Aitsu_Persistence_Clients::factory(Aitsu_Registry::get()->session->currentClient);
-
-        $client_config = new Zend_Config_Ini('application/configs/clients/' . $client_data->config . '.ini', Moraso_Util::getEnv());
-
+        $luceneIndex = Moraso_Config::get('search.lucene.index');
+        
         foreach ($articles as $article) {
             $article = (object) $article;
 
             // index muss ich jedes mal neu aufrufen, sonst löscht der alle bis auf einen, komische Sache
-            $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $client_config->search->lucene->index . '/');
-            
+            $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
+
             $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
 
             if (isset($hits[0]) && !empty($hits[0]->id)) {

@@ -8,5 +8,74 @@
         <field name="value" type="varchar (255)" />
         
         <index columns="config,env,identifier" type="unique" name="un_config_env_identifier" />
+        
+        <dataset use="ifempty">
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.client</value>
+                <value attribute="value">1</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.language</value>
+                <value attribute="value">1</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">search.lucene.index</value>
+                <value attribute="value">indexClient1</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">search.lucene.refreshRate</value>
+                <value attribute="value">1 day</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">skin</value>
+                <value attribute="value">default</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">edit.ckeditor.shortcode.text.label</value>
+                <value attribute="value">Text</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">edit.ckeditor.shortcode.text.shortcode</value>
+                <value attribute="value">[Text:INDEX]</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">rewrite.controller</value>
+                <value attribute="value">Aitsu_Rewrite_Standard</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">rewrite.uselang</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">rewrite.omitfirst</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">rewrite.modrewrite</value>
+                <value attribute="value">true</value>
+            </record>
+        </dataset>
     </table>
 </database>

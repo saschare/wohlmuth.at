@@ -6,35 +6,33 @@
  */
 class Moraso_Persistence_Config {
 
-    protected function __construct($id) {
-        $this->_id = $id;
-        
+    protected $_data = null;
+
+    protected function __construct() {
+
         $this->_load();
     }
 
-    public static function factory($id = null) {
+    public static function factory() {
 
-        static $instance = array();
+        static $instance;
 
-        if ($id == null || !isset($instance[$id])) {
-            $instance[$id] = new self($id);
+        if (!isset($instance)) {
+            $instance = new self();
         }
 
-        return $instance[$id];
+        return $instance;
     }
 
     private function _load($reload = false) {
 
-        if (!$reload && ($this->_id == null || $this->_data !== null)) {
+        if (!$reload && ($this->_data !== null)) {
             return $this;
         }
 
         $config = Moraso_Db::fetchAll('' .
                         'select ' .
-                        '   config, ' .
-                        '   env, ' .
-                        '   identifier, ' .
-                        '   value ' .
+                        '   * ' .
                         'from ' .
                         '   _moraso_config');
 
@@ -44,28 +42,28 @@ class Moraso_Persistence_Config {
 
         foreach ($config as $row) {
 
-            $client = $row['config'];
+            $config = $row['config'];
             $env = $row['env'];
             $identifier = $row['identifier'];
 
-            $this->_data[$client][$env][$identifier] = $row['value'];
+            $this->_data[$config][$env][$identifier] = $row['value'];
         }
 
         return $this;
     }
 
-    public function setValue($client, $env, $identifier, $value) {
+    public function setValue($config, $env, $identifier, $value) {
 
-        $this->_data[$client][$env][$identifier] = $value;
+        $this->_data[$config][$env][$identifier] = $value;
     }
-    
-    public function unsetValue($client, $env, $identifier) {
 
-        if (isset($this->data[$client][$env][$identifier])) {
-            unset($this->data[$client][$env][$identifier]);
+    public function unsetValue($config, $env, $identifier) {
+
+        if (isset($this->data[$config][$env][$identifier])) {
+            unset($this->data[$config][$env][$identifier]);
         }
     }
-    
+
     public function save() {
 
         if (empty($this->_data)) {
