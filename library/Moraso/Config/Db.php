@@ -27,7 +27,10 @@ class Moraso_Config_Db {
         }
 
         $database_array = array(
-            'default' => array(),
+            'backend' => array(),
+            'default' => array(
+                '_extends' => 'backend'
+            ),
             'live' => array(
                 '_extends' => 'default'
             ),
@@ -46,6 +49,11 @@ class Moraso_Config_Db {
         );
 
         foreach ($database_config as $row) {
+            
+            if ($row['value'] == 'true' || $row['value'] == 'false') {
+                $row['value'] = filter_var($row['value'], FILTER_VALIDATE_BOOLEAN);
+            }
+            
             $rowConfig[$row['env']] = Aitsu_Util::parseSimpleIni($row['identifier'] . ' = ' . $row['value']);
 
             $database_array = array_merge_recursive((array) $database_array, (array) $rowConfig);

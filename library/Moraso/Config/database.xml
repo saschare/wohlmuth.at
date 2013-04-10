@@ -76,6 +76,162 @@
                 <value attribute="identifier">rewrite.modrewrite</value>
                 <value attribute="value">true</value>
             </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.usePublishing</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">dev</value>
+                <value attribute="identifier">sys.usePublishing</value>
+                <value attribute="value">false</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">cache.internal.enable</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">dev</value>
+                <value attribute="identifier">cache.internal.enable</value>
+                <value attribute="value">false</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">cache.page.enable</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">dev</value>
+                <value attribute="identifier">cache.page.enable</value>
+                <value attribute="value">false</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">cache.page.lifetime</value>
+                <value attribute="value">3600</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">dev</value>
+                <value attribute="identifier">cache.page.lifetime</value>
+                <value attribute="value">0</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">cache.browser.expireTime</value>
+                <value attribute="value">3600</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">dev</value>
+                <value attribute="identifier">cache.browser.expireTime</value>
+                <value attribute="value">0</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">cache.clear.key</value>
+                <value attribute="value">clearcache</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">cache.type</value>
+                <value attribute="value">file</value>
+            </record>
+             <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">analyze.rendering</value>
+                <value attribute="value">false</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">dev</value>
+                <value attribute="identifier">analyze.rendering</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">output.stripwhitespace</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">image.quality</value>
+                <value attribute="value">100</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">edit.ckeditor.type</value>
+                <value attribute="value">shortcodes</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">admin.allowanalyse</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">admin.allow.profiling</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">debug.deprecated</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">backend.pagetree.maxpages</value>
+                <value attribute="value">20</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.doLog</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.displayErrors</value>
+                <value attribute="value">false</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.useMediaManagement</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.disable.eval</value>
+                <value attribute="value">true</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.mainDir</value>
+                <value attribute="value">/</value>
+            </record>
         </dataset>
     </table>
 </database>
