@@ -13,7 +13,17 @@ var reader = new Ext.data.JsonReader({
             type: 'String'
         }, {
             name: 'env',
-            type: 'String'
+            type: 'String',
+            sortType: function(value) {
+                switch (value.toLowerCase()){
+                    case 'default': return 1;
+                    case 'live': return 2;
+                    case 'prod': return 3;
+                    case 'staging': return 4;
+                    case 'preprod': return 5;
+                    case 'dev': return 6;
+                }
+            }
         }, {
             name: 'identifier',
             type: 'String'
@@ -28,8 +38,7 @@ var store = new Ext.data.GroupingStore({
     reader: reader,
     url: '<?php echo $this->url(array('paction' => 'store')); ?>',
     groupField: 'env',
-    autoLoad: true,
-    remoteGroup: true
+    autoLoad: true
 });
                 
 var configurationGrid = new Ext.grid.GridPanel({
@@ -37,8 +46,8 @@ var configurationGrid = new Ext.grid.GridPanel({
     id: 'configurationGrid',
     store: store,
     columns: [
-        {dataIndex: 'config', width: 60, fixed: true, header: '<?php echo Aitsu_Translate::translate('Config'); ?>', sortable: true},
-    	{dataIndex: 'env', header: '<?php echo Aitsu_Translate::translate('Environment'); ?>', sortable: true},
+        {dataIndex: 'config', width: 100, fixed: true, header: '<?php echo Aitsu_Translate::translate('Config'); ?>', sortable: true},
+    	{dataIndex: 'env', width: 100, header: '<?php echo Aitsu_Translate::translate('Environment'); ?>', sortable: true},
     	{dataIndex: 'identifier', header: '<?php echo Aitsu_Translate::translate('Identifier'); ?>', sortable: true},
         {dataIndex: 'value', width: 60, header: '<?php echo Aitsu_Translate::translate('Value'); ?>', sortable: true}
     ],
@@ -50,17 +59,21 @@ var configurationGrid = new Ext.grid.GridPanel({
         forceFit: true,
         autoFill: true
     },
-	tbar: {
-		items: [
-			{
-	            tooltip: '<?php echo Aitsu_Translate::translate('Add new Configuration'); ?>',
-	            iconCls: 'tb-add',
-	            handler: function(b, e) {
-	            	Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'edit')); ?>']);
-	            }
-	        }
-	    ]
-	},
+    tbar: {
+        items: [{
+            tooltip: '<?php echo Aitsu_Translate::translate('Add new Configuration'); ?>',
+            iconCls: 'tb-add',
+            handler: function(b, e) {
+                Ext.aitsu.load(['<?php echo $this->url(array('paction' => 'edit')); ?>']);
+            }
+        }, {
+            tooltip: '<?php echo Aitsu_Translate :: translate('Refresh list'); ?>',
+            iconCls: 'tb-refresh',
+            handler: function(b, e) {
+                Ext.getCmp('configurationGrid').getStore().load();
+            }
+        }]
+    },
 	listeners: {
 		rowclick: function(grid, rowIndex, event) {
 			var rec = grid.getStore().getAt(rowIndex);

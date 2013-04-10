@@ -186,7 +186,7 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
         Aitsu_Db::startTransaction();
 
         $client = 'default';
-        $env = 'live';
+        $env = 'default';
 
         $config = Moraso_Persistence_Config::factory();
 
