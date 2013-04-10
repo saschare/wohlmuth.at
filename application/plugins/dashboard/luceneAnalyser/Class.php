@@ -33,43 +33,41 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
     public function storeAction() {
 
         $luceneIndex = Moraso_Config::get('search.lucene.index');
-        
-        if (!empty($luceneIndex) && is_dir(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/')) {
-            $articles = Moraso_Db::fetchAll('' .
-                            'select ' .
-                            '   lucene.uid, ' .
-                            '   lucene.lastindexed, ' .
-                            '   lucene.idart, ' .
-                            '   lucene.idlang, ' .
-                            '   artlang.pagetitle as pagetitle, ' .
-                            '   artlang.teasertitle as teasertitle ' .
-                            'from ' .
-                            '   _lucene_index as lucene ' .
-                            'left join ' .
-                            '   _art_lang as artlang on artlang.idart = lucene.idart and artlang.idlang = lucene.idlang ' .
-                            'where ' .
-                            '   lucene.idlang =:idlang ' .
-                            'order by ' .
-                            '   lucene.lastindexed DESC', array(
-                        ':idlang' => Aitsu_Registry::get()->session->currentLanguage
-            ));
 
-            $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
+        $articles = Moraso_Db::fetchAll('' .
+                        'select ' .
+                        '   lucene.uid, ' .
+                        '   lucene.lastindexed, ' .
+                        '   lucene.idart, ' .
+                        '   lucene.idlang, ' .
+                        '   artlang.pagetitle as pagetitle, ' .
+                        '   artlang.teasertitle as teasertitle ' .
+                        'from ' .
+                        '   _lucene_index as lucene ' .
+                        'left join ' .
+                        '   _art_lang as artlang on artlang.idart = lucene.idart and artlang.idlang = lucene.idlang ' .
+                        'where ' .
+                        '   lucene.idlang =:idlang ' .
+                        'order by ' .
+                        '   lucene.lastindexed DESC', array(
+                    ':idlang' => Aitsu_Registry::get()->session->currentLanguage
+        ));
 
-            foreach ($articles as $key => $article) {
-                $article = (object) $article;
+        $index = new Zend_Search_Lucene(APPLICATION_PATH . '/data/lucene/' . $luceneIndex . '/');
 
-                $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
+        foreach ($articles as $key => $article) {
+            $article = (object) $article;
 
-                if (isset($hits[0]) && !empty($hits[0]->id)) {
-                    if ($hits[0]->score == 1) {
-                        $articles[$key]['id'] = $hits[0]->id;
-                        $articles[$key]['uid'] = $hits[0]->uid;
-                    }
+            $hits = $index->find('uid:' . $article->uid . ' AND lang:' . $article->idlang . ' AND idart:' . $article->idart);
+
+            if (isset($hits[0]) && !empty($hits[0]->id)) {
+                if ($hits[0]->score == 1) {
+                    $articles[$key]['id'] = $hits[0]->id;
+                    $articles[$key]['uid'] = $hits[0]->uid;
                 }
-
-                unset($hits);
             }
+
+            unset($hits);
         }
 
         $this->_helper->json((object) array(
@@ -131,7 +129,7 @@ class luceneAnalyserDashboardController extends Aitsu_Adm_Plugin_Controller {
         ));
 
         $luceneIndex = Moraso_Config::get('search.lucene.index');
-        
+
         foreach ($articles as $article) {
             $article = (object) $article;
 
