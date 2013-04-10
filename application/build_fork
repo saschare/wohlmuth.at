@@ -15,7 +15,7 @@ $readme = file_get_contents($filename);
 $readme = preg_replace('@^moraso version\\:\\s*\\*[^\\*]*\\*@m', "moraso version: *$version-$revision*", $readme);
 file_put_contents($filename, $readme);
 
-passthru('git commit -a -m "Version ' . $version . ', Revision ' . $revision . '"');
+passthru('git commit -am "Version ' . $version . ', Revision ' . $revision . '"');
 passthru('git push origin dev');
 passthru('git checkout master');
 passthru('git merge dev');
