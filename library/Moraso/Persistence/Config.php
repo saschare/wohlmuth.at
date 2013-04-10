@@ -31,7 +31,7 @@ class Moraso_Persistence_Config {
 
         $config = Moraso_Db::fetchAll('' .
                         'select ' .
-                        '   client, ' .
+                        '   config, ' .
                         '   env, ' .
                         '   identifier, ' .
                         '   value ' .
@@ -44,7 +44,7 @@ class Moraso_Persistence_Config {
 
         foreach ($config as $row) {
 
-            $client = $row['client'];
+            $client = $row['config'];
             $env = $row['env'];
             $identifier = $row['identifier'];
 
@@ -77,11 +77,11 @@ class Moraso_Persistence_Config {
         try {
             Moraso_Db::query('delete from _moraso_config');
 
-            foreach ($this->_data as $client => $envRow) {
+            foreach ($this->_data as $config => $envRow) {
                 foreach ($envRow as $env => $identifierRow) {
                     foreach ($identifierRow as $identifier => $value) {
                         Moraso_Db::put('_moraso_config', 'null', array(
-                            'client' => $client,
+                            'config' => $config,
                             'env' => $env,
                             'identifier' => $identifier,
                             'value' => $value

@@ -6,7 +6,7 @@
  */
 class Moraso_Config_Db {
 
-    public static function setConfigFromDatabase($client) {
+    public static function setConfigFromDatabase($config_file) {
 
         $env = Moraso_Util::getEnv();
         
@@ -18,8 +18,8 @@ class Moraso_Config_Db {
                         'from ' .
                         '   _moraso_config ' .
                         'where ' .
-                        '   client =:client', array(
-                    ':client' => $client
+                        '   config =:config', array(
+                    ':config' => $config_file
         ));
 
         if (empty($database_config)) {
