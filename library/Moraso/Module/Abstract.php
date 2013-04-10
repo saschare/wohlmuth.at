@@ -8,6 +8,24 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
     protected $_renderOnMobile = true;
     protected $_renderOnTablet = true;
+    protected $_moduleConfigDefaults = array();
+
+    protected static function _getInstance($className) {
+
+        $instance = new $className ();
+
+        $className = str_replace('_', '.', $className);
+        $className = preg_replace('/^(?:Skin\\.Module|Moraso\\.Module|Module)\\./', "", $className);
+        $className = preg_replace('/\\.Class$/', "", $className);
+
+        if (isset($_GET['renderOnly']) && $className == substr($_GET['renderOnly'], 0, strlen($className)) && !$instance->_renderOnlyAllowed) {
+            throw new Aitsu_Security_Module_RenderOnly_Exception($className);
+        }
+
+        $instance->_moduleName = $className;
+
+        return $instance;
+    }
 
     public static function init($context, $instance = null) {
 
@@ -19,7 +37,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         $isMobile = Aitsu_Registry::get()->env->mobile->detect->isMobile;
         $isTablet = Aitsu_Registry::get()->env->mobile->detect->isTablet;
-        
+
         if ($isMobile == 'is' && !$instance->_renderOnMobile) {
             return false;
         }
@@ -51,6 +69,8 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         if (!$instance->_allowEdit || (isset($instance->_params->edit) && !$instance->_params->edit)) {
             Aitsu_Content_Edit :: noEdit($instance->_moduleName, true);
         }
+
+        $instance->_getModulConfigDefaults(str_replace('_', '.', strtolower($instance->_moduleName)));
 
         $output_raw = $instance->_init();
 
@@ -131,24 +151,92 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
         $modulePath = implode('/', $module_sliced);
 
-        $heredity = Moraso_Util_Skin :: buildHeredity();
+        $view->addScriptPath(APPLICATION_PATH . '/modules/' . $modulePath . '/');
+        $view->addScriptPath(realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/');
 
-        $modulePaths = array();
-        foreach ($heredity as $skin) {
-            $modulePaths['skin'] = APPLICATION_PATH . "/skins/" . $skin . "/module/" . $modulePath . '/';
-        }
+        $heredity = Moraso_Skin_Heredity::build();
 
-        $modulePaths['moraso'] = realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/';
-        $modulePaths['aitsu'] = APPLICATION_PATH . '/modules/' . $modulePath . '/';
-
-        foreach ($modulePaths as $path) {
-            if (count(glob($path . '*.phtml')) > 0) {
-                $view->setScriptPath($path);
-                break;
-            }
+        foreach (array_reverse($heredity) as $skin) {
+            $view->addScriptPath(APPLICATION_PATH . "/skins/" . $skin . "/module/" . $modulePath . '/');
         }
 
         return $view;
+    }
+
+    protected function _getDefaults() {
+
+        $defaults = array();
+
+        return $defaults;
+    }
+
+    protected function _getModulConfigDefaults($module) {
+
+        $moduleConfig = Moraso_Config::get('module.' . $module);
+
+        $defaults = $this->_getDefaults();
+
+        foreach ($defaults as $key => $value) {
+            $type = gettype($value);
+
+            if (isset($moduleConfig->$key->default)) {
+                $default = $moduleConfig->$key->default;
+                $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
+            }
+
+            if (isset($moduleConfig->$key->configurable)) {
+                $defaults['configurable'][$key] = filter_var($moduleConfig->$key->configurable, FILTER_VALIDATE_BOOLEAN);
+
+                if (isset($moduleConfig->$key->selects) && $defaults['configurable'][$key]) {
+                    $selects = $moduleConfig->$key->selects;
+
+                    foreach ($selects as $i => $select) {
+                        if (!is_object($select)) {
+                            $defaults['selects'][$key]['values'][$i] = $select;
+                            $defaults['selects'][$key]['names'][$i] = $select;
+                        } else {
+                            $defaults['selects'][$key]['values'][$i] = $select->value;
+                            $defaults['selects'][$key]['names'][$i] = $select->name;
+                        }
+                    }
+                }
+            }
+
+            if (!isset($defaults['configurable'][$key])) {
+                $defaults['configurable'][$key] = false;
+            }
+
+            if (isset($this->_params->$key)) {
+                $default = $this->_params->$key;
+
+                if ($default === 'config') {
+                    if (isset($this->_params->default->$key)) {
+                        $default = $this->_params->default->$key;
+                        $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
+                    }
+
+                    if (isset($this->_params->selects->$key)) {
+                        $selects = $this->_params->selects->$key;
+
+                        foreach ($selects as $i => $select) {
+                            if (!is_object($select)) {
+                                $defaults['selects'][$key]['values'][$i] = $select;
+                                $defaults['selects'][$key]['names'][$i] = $select;
+                            } else {
+                                $defaults['selects'][$key]['values'][$i] = $select->value;
+                                $defaults['selects'][$key]['names'][$i] = $select->name;
+                            }
+                        }
+                    }
+
+                    $defaults['configurable'][$key] = true;
+                } else {
+                    $defaults[$key] = $type == 'integer' ? (int) $default : ($type == 'boolean' ? filter_var($default, FILTER_VALIDATE_BOOLEAN) : $default);
+                }
+            }
+        }
+
+        $this->_moduleConfigDefaults = $defaults;
     }
 
 }

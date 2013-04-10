@@ -39,4 +39,32 @@ class Moraso_Util extends Aitsu_Util {
         return $idclient;
     }
 
+    public static function parseSimpleIni($text, $base = null) {
+
+        $base = new Zend_Config_Ini(!empty($base) ? $base : 'foo = bar', null, array(
+            'allowModifications' => true
+        ));
+        $text = new Zend_Config_Ini(!empty($text) ? $text : 'foo = bar');
+
+        $merged = $base->merge($text);
+
+        if ($merged->foo == 'bar') {
+            unset($merged->foo);
+        }
+
+        return $merged;
+    }
+
+    public static function object_to_array($data) {
+
+        if (is_array($data) || is_object($data)) {
+            $result = array();
+            foreach ($data as $key => $value) {
+                $result[$key] = self::object_to_array($value);
+            }
+            return $result;
+        }
+        return $data;
+    }
+
 }

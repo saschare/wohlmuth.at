@@ -39,7 +39,8 @@ var propsGrid = new Ext.grid.PropertyGrid({
 		created: new Date(<?php echo $this->cat['createdts'] * 1000; ?>),
 		lastmodified: new Date(<?php echo $this->cat['modifiedts'] * 1000; ?>),
 		urlname: '<?php echo $this->cat['urlname']; ?>',
-		configsetid: <?php echo empty($this->cat['configsetid']) ? 0 : $this->cat['configsetid']; ?>
+		configsetid: <?php echo empty($this->cat['configsetid']) ? 0 : $this->cat['configsetid']; ?>,
+                claim: '<?php echo $this->cat['claim']; ?>',
 	},
 	customEditors: {
 		configsetid: new Ext.grid.GridEditor(comboConfigSet)
@@ -58,7 +59,7 @@ var propsGrid = new Ext.grid.PropertyGrid({
 	},
 	listeners: {
 		beforeedit: function(e) {
-			if (/^name|configset|visible|public|urlname$/.test(e.record.id.toLowerCase())) {
+			if (/^name|configset|visible|public|urlname|claim/.test(e.record.id.toLowerCase())) {
 				return;
 			}
 			e.cancel = true;

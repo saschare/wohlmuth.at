@@ -240,9 +240,10 @@ var media = new Ext.grid.GridPanel({
 				handler: function() {
 					 Ext.MessageBox.show({
 					 	title: '<?php echo $this->translate('Delete files'); ?>',
-					 	msg: '<?php echo $this->translate('Are you sure to delete the selected file(s)?'); ?>',
-					 	buttons: Ext.MessageBox.OKCANCEL,
-					 	fn: function() {
+					 	msg: '<?php echo $this->translate('Are you sure to delete the selected file?'); ?>',
+					 	buttons: {yes: '<?php echo $this->translate('Yes'); ?>', cancel: '<?php echo $this->translate('No'); ?>'},
+					 	fn: function(a) {
+                                                    if (a == 'yes') {                                                
                                                             Ext.Ajax.request({
                                                                     url: '<?php echo $this->url(array('plugin' => 'media', 'paction' => 'delete'), 'aplugin'); ?>',
                                                                     success: function(response, opts) {
@@ -257,6 +258,7 @@ var media = new Ext.grid.GridPanel({
                                                                             idart: <?php echo $this->idart; ?>
                                                                     }
                                                             });
+                                                        }
                                                }
 					 });
 				}

@@ -20,41 +20,41 @@ class Moraso_Module extends Aitsu_Core_Module {
 
         ob_start();
 
-        $old['idartlang'] = Aitsu_Registry :: get()->env->idartlang;
-        $old['idart'] = Aitsu_Registry :: get()->env->idart;
-        $old['idlang'] = Aitsu_Registry :: get()->env->idlang;
-        $old['idcat'] = Aitsu_Registry :: get()->env->idcat;
-        $old['client'] = Aitsu_Registry :: get()->env->client;
-        $old['edit'] = Aitsu_Registry :: get()->env->edit;
+        $old['config'] = Aitsu_Registry::get()->config;
+        $old['idart'] = Aitsu_Registry::get()->env->idart;
+        $old['idartlang'] = Aitsu_Registry::get()->env->idartlang;
+        $old['idlang'] = Aitsu_Registry::get()->env->idlang;
+        $old['idcat'] = Aitsu_Registry::get()->env->idcat;
+        $old['client'] = Aitsu_Registry::get()->env->client;
+        $old['edit'] = Aitsu_Registry::get()->env->edit;
 
-        Aitsu_Registry :: get()->config = $this->context['config'];
-        Aitsu_Registry :: get()->env->idart = $this->context['idart'];
-        Aitsu_Registry :: get()->env->idartlang = $this->context['idartlang'];
-        Aitsu_Registry :: get()->env->idlang = $this->context['idlang'];
-        Aitsu_Registry :: get()->env->idcat = $this->context['idcat'];
-        Aitsu_Registry :: get()->env->client = $this->context['client'];
-        Aitsu_Registry :: get()->env->edit = $edit;
+        Aitsu_Registry::get()->config = $this->context['config'];
+        Aitsu_Registry::get()->env->idart = $this->context['idart'];
+        Aitsu_Registry::get()->env->idartlang = $this->context['idartlang'];
+        Aitsu_Registry::get()->env->idlang = $this->context['idlang'];
+        Aitsu_Registry::get()->env->idcat = $this->context['idcat'];
+        Aitsu_Registry::get()->env->client = $this->context['client'];
+        Aitsu_Registry::get()->env->edit = $edit;
 
         foreach ($this->context as $key => $value) {
             $$key = $value;
         }
 
         if ($this->shortCode != null) {
-            $return = Moraso_Shortcode :: getInstance()->evalModule($this->shortCode, $params, 0, $index);
+            $return = Moraso_Shortcode::getInstance()->evalModule($this->shortCode, $params, 0, $index);
         }
 
         if ($renderShortCodes) {
-            $return = Moraso_Transformation_Shortcode :: getInstance()->getContent($return);
+            $return = Moraso_Transformation_Shortcode::getInstance()->getContent($return);
         }
 
-        /*
-         * Restore registry.
-         */
-        Aitsu_Registry :: get()->env->idartlang = $old['idartlang'];
-        Aitsu_Registry :: get()->env->idart = $old['idart'];
-        Aitsu_Registry :: get()->env->idlang = $old['idlang'];
-        Aitsu_Registry :: get()->env->client = $old['client'];
-        Aitsu_Registry :: get()->env->edit = $old['edit'];
+        Aitsu_Registry::get()->config = $old['config'];
+        Aitsu_Registry::get()->env->idart = $old['idart'];
+        Aitsu_Registry::get()->env->idartlang = $old['idartlang'];
+        Aitsu_Registry::get()->env->idlang = $old['idlang'];
+        Aitsu_Registry::get()->env->idcat = $old['idcat'];
+        Aitsu_Registry::get()->env->client = $old['client'];
+        Aitsu_Registry::get()->env->edit = $old['edit'];
 
         return $return;
     }
@@ -63,28 +63,51 @@ class Moraso_Module extends Aitsu_Core_Module {
 
         $modulePath = str_replace('.', '/', $this->shortCode);
 
-        $files = array(
-            'Skin_Module' => APPLICATION_PATH . "/skins/" . Aitsu_Config::get('skin') . "/module/" . $modulePath . '/Class.php',
-            'Moraso_Module' => realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/Class.php',
-            'Module' => APPLICATION_PATH . '/modules/' . $modulePath . '/Class.php'
-        );
+        $heredity = Moraso_Skin_Heredity::build();
+
+        foreach ($heredity as $skin) {
+            $files['Skin_Module'][] = APPLICATION_PATH . "/skins/" . $skin . "/module/" . $modulePath . '/Class.php';
+        }
+
+        $files['Moraso_Module'] = realpath(APPLICATION_PATH . '/../library/') . '/Moraso/Module/' . $modulePath . '/Class.php';
+        $files['Module'] = APPLICATION_PATH . '/modules/' . $modulePath . '/Class.php';
 
         $exists = false;
 
         $profileDetails = new stdClass();
 
         foreach ($files as $prefix => $file) {
-            if (file_exists($file)) {
-                $exists = true;
-                $profileDetails->source = $prefix . '_' . str_replace('.', '_', $this->shortCode) . '_Class';
-                include_once $file;
-                if (method_exists($profileDetails->source, 'help')) {
-                    return call_user_func(array(
-                        $profileDetails->source,
-                        'help'
-                    ));
+            if (is_array($file)) {
+                foreach ($file as $path) {
+                    if (file_exists($path)) {
+                        $exists = true;
+                        $profileDetails->source = $prefix . '_' . str_replace('.', '_', $this->shortCode) . '_Class';
+                        include_once $path;
+                        if (method_exists($profileDetails->source, 'help')) {
+                            return call_user_func(array(
+                                $profileDetails->source,
+                                'help'
+                            ));
+                        }
+                        break;
+                    }
                 }
-                break;
+                if ($exists) {
+                    break;
+                }
+            } else {
+                if (file_exists($file)) {
+                    $exists = true;
+                    $profileDetails->source = $prefix . '_' . str_replace('.', '_', $this->shortCode) . '_Class';
+                    include_once $file;
+                    if (method_exists($profileDetails->source, 'help')) {
+                        return call_user_func(array(
+                            $profileDetails->source,
+                            'help'
+                        ));
+                    }
+                    break;
+                }
             }
         }
 

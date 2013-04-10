@@ -6,23 +6,132 @@
  */
 class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
 
-    protected $_allowEdit = false;
+    protected function _getDefaults() {
+
+        $defaults = array(
+            'categories' => '' . Aitsu_Registry::get()->env->idcat . '',
+            'useOfStartArticle' => 2,
+            'sortCategoryFirst' => false,
+            'orderBy' => 'created',
+            'ascending' => true,
+            'template' => 'index',
+            'offset' => 0,
+            'limit' => 10,
+            'page' => 1,
+            'templateRenderingWhenNoArticles' => true,
+            'sortListByGivenCategories' => false
+        );
+
+        return $defaults;
+    }
 
     protected function _main() {
 
-        $view = $this->_getView();
+        $defaults = $this->_moduleConfigDefaults;
 
-        $categories = isset($this->_params->categories) ? $this->_params->categories : Aitsu_Registry::get()->env->idcat;
-        $useOfStartArticle = isset($this->_params->useOfStartArticle) ? $this->_params->useOfStartArticle : 2;
-        $sortCategoryFirst = isset($this->_params->sortCategoryFirst) ? $this->_params->sortCategoryFirst : false;
-        $orderBy = isset($this->_params->orderBy) ? $this->_params->orderBy : 'artsort';
-        $ascending = isset($this->_params->ascending) ? $this->_params->ascending : true;
-        $template = isset($this->_params->template) ? $this->_params->template : 'index';
-        $offset = isset($this->_params->offset) ? $this->_params->offset : 0;
-        $limit = isset($this->_params->limit) ? $this->_params->limit : 10;
-        $page = isset($this->_params->page) ? $this->_params->page : 0;
+        $translation = array();
+        $translation['configuration'] = Aitsu_Translate::_('Configuration');
 
-        if (!empty($page)) {
+        if ($defaults['configurable']['categories']) {
+            $categories = Aitsu_Content_Config_Text::set($this->_index, 'categories', Aitsu_Translate::_('Categories'), $translation['configuration']);
+        }
+
+        $categories = !empty($categories) ? $categories : $defaults['categories'];
+
+        if ($defaults['configurable']['useOfStartArticle']) {
+            $useOfStartArticleSelect = array(
+                'show all articles' => 1,
+                'do not show start articles' => 2,
+                'show only start articles' => 3
+            );
+
+            $useOfStartArticle = Aitsu_Content_Config_Select::set($this->_index, 'useOfStartArticle', Aitsu_Translate::_('useOfStartArticle'), $useOfStartArticleSelect, $translation['configuration']);
+        }
+
+        $useOfStartArticle = !empty($useOfStartArticle) ? (int) $useOfStartArticle : $defaults['useOfStartArticle'];
+
+        if ($defaults['configurable']['sortCategoryFirst']) {
+            $sortCategoryFirstSelect = array(
+                'true' => true,
+                'false' => false
+            );
+
+            $sortCategoryFirst = Aitsu_Content_Config_Select::set($this->_index, 'sortCategoryFirst', Aitsu_Translate::_('sortCategoryFirst'), $sortCategoryFirstSelect, $translation['configuration']);
+        }
+
+        $sortCategoryFirst = isset($sortCategoryFirst) && strlen($sortCategoryFirst) > 0 ? filter_var($sortCategoryFirst, FILTER_VALIDATE_BOOLEAN) : $defaults['sortCategoryFirst'];
+
+        if ($defaults['configurable']['orderBy']) {
+            $orderBySelect = array(
+                'artsort' => 'artsort',
+                'created' => 'created',
+                'modified' => 'modified',
+                'metadate' => 'metadate'
+            );
+
+            $orderBy = Aitsu_Content_Config_Select::set($this->_index, 'orderBy', Aitsu_Translate::_('orderBy'), $orderBySelect, $translation['configuration']);
+        }
+
+        $orderBy = !empty($orderBy) ? $orderBy : $defaults['orderBy'];
+
+        if ($defaults['configurable']['ascending']) {
+            $ascendingSelect = array(
+                'true' => true,
+                'false' => false
+            );
+
+            $ascending = Aitsu_Content_Config_Select::set($this->_index, 'ascending', Aitsu_Translate::_('ascending'), $ascendingSelect, $translation['configuration']);
+        }
+
+        $ascending = isset($ascending) && strlen($ascending) > 0 ? filter_var($ascending, FILTER_VALIDATE_BOOLEAN) : $defaults['ascending'];
+
+        if ($defaults['configurable']['template']) {
+            $template = Aitsu_Content_Config_Select::set($this->_index, 'template', Aitsu_Translate::_('Template'), $this->_getTemplates(), $translation['configuration']);
+        }
+
+        $template = !empty($template) ? $template : $defaults['template'];
+
+        if ($defaults['configurable']['offset']) {
+            $offset = Aitsu_Content_Config_Text::set($this->_index, 'offset', Aitsu_Translate::_('Offset'), $translation['configuration']);
+        }
+
+        $offset = !empty($offset) ? (int) $offset : $defaults['offset'];
+
+        if ($defaults['configurable']['limit']) {
+            $limit = Aitsu_Content_Config_Text::set($this->_index, 'limit', Aitsu_Translate::_('Limit'), $translation['configuration']);
+        }
+
+        $limit = !empty($limit) ? (int) $limit : $defaults['limit'];
+
+        if ($defaults['configurable']['page']) {
+            $page = Aitsu_Content_Config_Text::set($this->_index, 'page', Aitsu_Translate::_('Page'), $translation['configuration']);
+        }
+
+        $page = !empty($_GET['page']) ? (int) $_GET['page'] : (isset($page) ? (int) $page : $defaults['page']);
+
+        if ($defaults['configurable']['templateRenderingWhenNoArticles']) {
+            $templateRenderingWhenNoArticlesSelect = array(
+                'true' => true,
+                'false' => false
+            );
+
+            $templateRenderingWhenNoArticles = Aitsu_Content_Config_Select::set($this->_index, 'templateRenderingWhenNoArticles', Aitsu_Translate::_('templateRenderingWhenNoArticles'), $templateRenderingWhenNoArticlesSelect, $translation['configuration']);
+        }
+
+        $templateRenderingWhenNoArticles = isset($templateRenderingWhenNoArticles) && strlen($templateRenderingWhenNoArticles) > 0 ? filter_var($templateRenderingWhenNoArticles, FILTER_VALIDATE_BOOLEAN) : $defaults['templateRenderingWhenNoArticles'];
+
+        if ($defaults['configurable']['sortListByGivenCategories']) {
+            $sortListByGivenCategoriesSelect = array(
+                'true' => true,
+                'false' => false
+            );
+
+            $sortListByGivenCategories = Aitsu_Content_Config_Select::set($this->_index, 'sortListByGivenCategories', Aitsu_Translate::_('sortListByGivenCategories'), $sortListByGivenCategoriesSelect, $translation['configuration']);
+        }
+
+        $sortListByGivenCategories = isset($sortListByGivenCategories) && strlen($sortListByGivenCategories) > 0 ? filter_var($sortListByGivenCategories, FILTER_VALIDATE_BOOLEAN) : $defaults['sortListByGivenCategories'];
+
+        if ($page > 1) {
             $offset = ($page - 1) * $limit;
         }
 
@@ -31,34 +140,50 @@ class Moraso_Module_List_Articles_Class extends Moraso_Module_Abstract {
         $aggregation->whereInCategories(array($categories));
 
         if ($sortCategoryFirst) {
-            $aggregation->orderBy('catlang.idcat');
+            if ($sortListByGivenCategories) {
+                $aggregation->orderBy('FIND_IN_SET(catlang.idcat, "' . $categories . '")');
+            } else {
+                $aggregation->orderBy('catlang.idcat');
+            }
         }
 
         $aggregation->orderBy($orderBy, $ascending);
-
-        $aggregationAll = $aggregation;
 
         if (isset($this->_params->populateWith)) {
             foreach ($this->_params->populateWith as $alias => $populateWith) {
 
                 $type = $populateWith->index;
 
-                if ($populateWith->type == 'property' || $populateWith->type == 'files') {
-                    $type = $populateWith->type . ':' . $type;
+                if (isset($populateWith->type)) {
+                    if ($populateWith->type == 'property' || $populateWith->type == 'files') {
+                        $type = $populateWith->type . ':' . $type;
+                    }
                 }
 
-                $aggregation->populateWith($type, $alias, $populateWith->datatype);
+                if (isset($populateWith->datatype) && !empty($populateWith->datatype)) {
+                    $aggregation->populateWith($type, $alias, $populateWith->datatype);
+                } else {
+                    $aggregation->populateWith($type, $alias);
+                }
             }
         }
 
-        $view->articles = $aggregation->fetch($offset, $limit);
+        $aggregationAll = clone $aggregation;
 
-        if (!empty($page)) {
-            $articlesAll = $aggregationAll->fetch(0, 999);
+        $articles = $aggregation->fetch($offset, $limit);
 
-            $view->pages = ceil(count($articlesAll) / $limit);
-            $view->currentPage = $page;
+        if ((count($articles) === 0 && !$templateRenderingWhenNoArticles) || !in_array($template, $this->_getTemplates())) {
+            return '';
         }
+
+        $articlesAll = $aggregationAll->fetch(0, 99999);
+
+        $view = $this->_getView();
+
+        $view->articles = $articles;
+        $view->pages = ceil(count($articlesAll) / $limit);
+        $view->currentPage = $page;
+        $view->idart = Aitsu_Registry::get()->env->idart;
 
         return $view->render($template . '.phtml');
     }
