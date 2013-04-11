@@ -17,7 +17,7 @@ class Moraso_Module {
         if ($idlang == null) {
             $this->idartlang = $idart;
         } else {
-            $this->idartlang = Moraso_Db::fetchOne('' .
+            $this->idartlang = Moraso_Db::fetchOneC('eternal', '' .
                             'select ' .
                             '   idartlang ' .
                             'from ' .
