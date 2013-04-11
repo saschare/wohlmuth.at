@@ -6,7 +6,6 @@
  */
 class Moraso_Module {
 
-    protected $idartlang;
     protected $container;
     protected $context;
     protected $output = null;
@@ -14,32 +13,18 @@ class Moraso_Module {
 
     protected function __construct($idart, $idlang, $container, $shortCode) {
 
-        if ($idlang == null) {
-            $this->idartlang = $idart;
-        } else {
-            $this->idartlang = Moraso_Db::fetchOneC('eternal', '' .
-                            'select ' .
-                            '   idartlang ' .
-                            'from ' .
-                            '   _art_lang ' .
-                            'where ' .
-                            '   idart =:idart ' .
-                            'and ' .
-                            '   idlang =:idlang ', array(
-                        ':idart' => $idart,
-                        ':idlang' => $idlang
-            ));
-        }
-
         $this->shortCode = $shortCode;
         $this->container = $container;
-        $this->context = Moraso_Module_Context::get($this->idartlang);
+        $this->context = Moraso_Module_Context::get($idart, $idlang);
     }
 
     public static function factory($idart, $container, $idlang = null, $shortCode = null) {
-        $instance = new self($idart, $idlang, $container, $shortCode);
 
-        return $instance;
+        if (empty($idlang)) {
+            $idlang = Aitsu_Registry::get()->session->currentClient;
+        }
+
+        return new self($idart, $idlang, $container, $shortCode);
     }
 
     public function getOutput($renderShortCodes = false, $edit = '0', $index = null, $params = null) {

@@ -11,31 +11,28 @@ class Moraso_Module_Context {
 
     protected function __construct($idart, $idlang) {
 
-        if ($idlang == null) {
-            $this->idartlang = $idart;
-        } else {
-            $this->idartlang = Moraso_Db::fetchOneC('eternal', '' .
-                            'select ' .
-                            '   idartlang ' .
-                            'from ' .
-                            '   _art_lang ' .
-                            'where ' .
-                            '   idart =:idart ' .
-                            'and ' .
-                            '   idlang =:idlang', array(
-                        ':idart' => $idart,
-                        ':idlang' => $idlang
-            ));
-        }
+        $this->idartlang = Moraso_Db::fetchOneC('eternal', '' .
+                        'select ' .
+                        '   idartlang ' .
+                        'from ' .
+                        '   _art_lang ' .
+                        'where ' .
+                        '   idart =:idart ' .
+                        'and ' .
+                        '   idlang =:idlang', array(
+                    ':idart' => $idart,
+                    ':idlang' => $idlang
+                        )
+        );
 
         $this->_restoreContext();
     }
 
-    protected static function getInstance($idart, $idlang = null) {
+    protected static function getInstance($idart, $idlang) {
 
         static $instance = array();
 
-        $token = $idart . '-' . ($idlang == null ? '0' : $idlang);
+        $token = $idart . '-' . $idlang;
 
         if (!isset($instance[$token])) {
             $instance[$token] = new self($idart, $idlang);
@@ -44,7 +41,7 @@ class Moraso_Module_Context {
         return $instance[$token];
     }
 
-    public static function get($idart, $idlang = null) {
+    public static function get($idart, $idlang) {
 
         return self::getInstance($idart, $idlang)->context;
     }
@@ -81,12 +78,7 @@ class Moraso_Module_Context {
         }
 
         $this->context['edit'] = false;
-
-        try {
-            $this->context['config'] = Moraso_Config_Db::setConfigFromDatabase($article['config'], true);
-        } catch (Exception $e) {
-            $config = null;
-        }
+        $this->context['config'] = Moraso_Config_Db::setConfigFromDatabase($article['config'], true);
     }
 
 }
