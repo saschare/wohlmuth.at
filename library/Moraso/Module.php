@@ -17,10 +17,17 @@ class Moraso_Module {
         if ($idlang == null) {
             $this->idartlang = $idart;
         } else {
-            $this->idartlang = Aitsu_Db :: fetchOne('' .
-                            'select idartlang from _art_lang where idart = ? and idlang = ? ', array(
-                        $idart,
-                        $idlang
+            $this->idartlang = Moraso_Db::fetchOne('' .
+                            'select ' .
+                            '   idartlang ' .
+                            'from ' .
+                            '   _art_lang ' .
+                            'where ' .
+                            '   idart =:idart ' .
+                            'and ' .
+                            '   idlang =:idlang ', array(
+                        ':idart' => $idart,
+                        ':idlang' => $idlang
             ));
         }
 

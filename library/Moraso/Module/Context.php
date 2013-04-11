@@ -53,20 +53,25 @@ class Moraso_Module_Context {
 
         $article = Moraso_Db::fetchRow('' .
                         'select ' .
-                        '	artlang.idart, ' .
-                        '	artlang.idlang, ' .
-                        '	artlang.idlang as lang, ' .
-                        '	artlang.idartlang, ' .
-                        '	client.idclient, ' .
-                        '	client.idclient as client, ' .
-                        '	client.config as config, ' .
-                        '	catart.idcat ' .
-                        'from _art_lang as artlang ' .
-                        'left join _cat_art as catart on artlang.idart = catart.idart ' .
-                        'left join _lang as lang on artlang.idlang = lang.idlang ' .
-                        'left join _clients as client on lang.idclient = client.idclient ' .
-                        'where idartlang = ? ', array(
-                    $this->idartlang
+                        '   artlang.idart, ' .
+                        '   artlang.idlang, ' .
+                        '   artlang.idlang as lang, ' .
+                        '   artlang.idartlang, ' .
+                        '   client.idclient, ' .
+                        '   client.idclient as client, ' .
+                        '   client.config as config, ' .
+                        '   catart.idcat ' .
+                        'from ' .
+                        '   _art_lang as artlang ' .
+                        'left join ' .
+                        '   _cat_art as catart on artlang.idart = catart.idart ' .
+                        'left join ' .
+                        '   _lang as lang on artlang.idlang = lang.idlang ' .
+                        'left join ' .
+                        '   _clients as client on lang.idclient = client.idclient ' .
+                        'where ' .
+                        '   idartlang =:idartlang ', array(
+                    ':idartlang' => $this->idartlang
         ));
 
         if ($article) {
@@ -78,11 +83,7 @@ class Moraso_Module_Context {
         $this->context['edit'] = false;
 
         try {
-            $config = Aitsu_Config_Ini::getInstance('clients/' . $article['config']);
-            
-            $dbConfig = Moraso_Config_Db::setConfigFromDatabase($article['config'], true);
-            
-            $this->context['config'] = $config->merge($dbConfig);
+            $this->context['config'] = Moraso_Config_Db::setConfigFromDatabase($article['config'], true);
         } catch (Exception $e) {
             $config = null;
         }
