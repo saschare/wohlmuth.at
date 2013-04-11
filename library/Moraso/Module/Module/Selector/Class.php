@@ -22,7 +22,7 @@ class Moraso_Module_Module_Selector_Class extends Moraso_Module_Abstract {
                 $keyValuePairs[$key] = $line->name;
                 $keys[] = $key;
             }
-            
+
             $modules = Aitsu_Content_Config_Module::set($this->_index, 'Module_Selector', 'Module_Selector', $keyValuePairs, 'Modules');
 
             foreach ($modules as $module) {
@@ -41,6 +41,11 @@ class Moraso_Module_Module_Selector_Class extends Moraso_Module_Abstract {
                 $startTag = '<shortcode method="' . $this->_moduleName . '" index="' . $this->_index . '">';
                 $startTag .= 'isEdit: ' . var_export(Aitsu_Registry::isEdit(), true);
                 $endTag = '</shortcode>';
+            }
+
+            if ((Aitsu_Registry :: isEdit() || Aitsu_Registry :: get()->env->editAction == '1') && count($keys) > 1) {
+                $parameters = str_replace("\n", '\n', str_replace("\r\n", "\n", $this->_context['params']));
+                $code = '<code class="aitsu_params" style="display:none;">' . $parameters . '</code>';
             }
 
             if (Aitsu_Registry::isEdit() || (Aitsu_Registry::isBoxModel() && count($keys) > 1)) {
