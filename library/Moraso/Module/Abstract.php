@@ -29,7 +29,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
 
     public static function init($context, $instance = null) {
 
-        $instance = is_null($instance) ? self :: _getInstance($context['className']) : $instance;
+        $instance = is_null($instance) ? self::_getInstance($context['className']) : $instance;
 
         if ($instance->_notForHumans()) {
             return;
@@ -51,7 +51,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         }
 
         if (!$instance->_isBlock) {
-            Aitsu_Content_Edit :: isBlock(false);
+            Aitsu_Content_Edit::isBlock(false);
         }
 
         $instance->_context = $context;
@@ -63,11 +63,11 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
         $instance->_index = empty($instance->_context['index']) ? 'noindex' : $instance->_context['index'];
 
         if (!empty($instance->_context['params'])) {
-            $instance->_params = Aitsu_Util :: parseSimpleIni($instance->_context['params']);
+            $instance->_params = Aitsu_Util::parseSimpleIni($instance->_context['params']);
         }
 
         if (!$instance->_allowEdit || (isset($instance->_params->edit) && !$instance->_params->edit)) {
-            Aitsu_Content_Edit :: noEdit($instance->_moduleName, true);
+            Aitsu_Content_Edit::noEdit($instance->_moduleName, true);
         }
 
         $instance->_getModulConfigDefaults(str_replace('_', '.', strtolower($instance->_moduleName)));
@@ -88,7 +88,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
             $instance->_save($output, $instance->_cachingPeriod());
         }
 
-        if (Aitsu_Application_Status :: isEdit()) {
+        if (Aitsu_Application_Status::isEdit()) {
             $maxLength = 60;
             $index = strlen($context['index']) > $maxLength ? substr($context['index'], 0, $maxLength) . '...' : $context['index'];
 
@@ -96,13 +96,12 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
             if (trim($output) == '' && $instance->_allowEdit) {
                 if (preg_match('/^Module_(.*?)_Class$/', $context['className'], $match)) {
                     $moduleName = str_replace('_', '.', $match[1]);
-                } elseif (preg_match('/^Skin_Module_(.*?)_Class$/', $context['className'], $match)) {
-                    $moduleName = str_replace('_', '.', $match[1]);
-                } elseif (preg_match('/^Moraso_Module_(.*?)_Class$/', $context['className'], $match)) {
-                    $moduleName = str_replace('_', '.', $match[1]);
+                } elseif (preg_match('/^(Skin|Moraso)_Module_(.*?)_Class$/', $context['className'], $match)) {
+                    $moduleName = str_replace('_', '.', $match[2]);
                 } else {
                     $moduleName = 'UNKNOWN';
                 }
+                
                 if ($instance->_isBlock) {
                     return '' .
                             '<code class="aitsu_params" style="display:none;">' . $context['params'] . '</code>' .
@@ -114,7 +113,7 @@ abstract class Moraso_Module_Abstract extends Aitsu_Module_Abstract {
                 } else {
                     return '' .
                             '<span style="border:1px dashed #CCC; padding:2px 2px 2px 2px;">' .
-                            '	' . $moduleName . ' :: ' . $index .
+                            '	' . $moduleName . '::' . $index .
                             '</span>';
                 }
             }

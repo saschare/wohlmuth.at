@@ -59,7 +59,7 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
 
             if (Aitsu_Registry::isEdit()) {
                 $edit = (isset($params->hoverEdit) && $params->hoverEdit) || !isset($params->hoverEdit) ? ' no-edit' : ' ';
-                
+
                 $startTag = '<div id="Template-' . $index . '-' . $idartlang . '" class="aitsu_editable on-demand' . $edit . '"><div class="aitsu_hover">';
                 $startTag .= '<div class="show-on-demand" style="cursor:pointer; background-color:black; color:white; padding:10px; margin-bottom:5px; display:none;">Edit template area <strong>' . $index . '</strong></div>';
                 $endTag = '</div></div>';
@@ -103,15 +103,10 @@ class Moraso_Module_Template_Class extends Moraso_Module_Abstract {
 
                 $heredity = Moraso_Skin_Heredity::build();
 
-                foreach ($heredity as $skin) {
-                    $skinPath = APPLICATION_PATH . '/skins/' . $skin;
-
-                    if (file_exists($skinPath . '/' . $template)) {
-                        $view->setScriptPath($skinPath);
-                        break;
-                    }
+                foreach (array_reverse($heredity) as $skin) {
+                    $view->addScriptPath(APPLICATION_PATH . '/skins/' . $skin . '/');
                 }
-
+                
                 $output = $view->render($template);
             }
         } catch (Exception $e) {

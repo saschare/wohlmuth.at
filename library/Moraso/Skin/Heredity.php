@@ -8,7 +8,7 @@ class Moraso_Skin_Heredity {
 
     public static function build() {
 
-        $cachedSkinHeredity = Aitsu_Core_Cache::getInstance('skinHeredity_Client' . Aitsu_Config::get('sys.client'));
+        $cachedSkinHeredity = Aitsu_Core_Cache::getInstance('skinHeredity_Client' . Moraso_Config::get('sys.client'));
 
         if ($cachedSkinHeredity->isValid()) {
             return unserialize($cachedSkinHeredity->load());
@@ -29,7 +29,7 @@ class Moraso_Skin_Heredity {
         }
 
         if (empty($skin)) {
-            $skin = Aitsu_Registry :: get()->config->skin;
+            $skin = Moraso_Config::get('skin');
         }
 
         $heredity[] = $skin;

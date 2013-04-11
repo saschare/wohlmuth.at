@@ -137,6 +137,8 @@ class EditArticleController extends Aitsu_Adm_Plugin_Controller {
 
 			Aitsu_Registry :: get()->env->substituteEmptyAreas = '1';
 
+                        Moraso_Config::get('sys.client');
+                                
 			$output = Moraso_Module :: factory($idartlang, $container, null, $type)->getOutput(true, '1', $container, $params);
 
 			if (Aitsu_Content_Edit :: noEdit($type)) {
