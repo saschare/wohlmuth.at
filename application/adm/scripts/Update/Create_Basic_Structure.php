@@ -200,8 +200,8 @@ class Adm_Script_Create_Basic_Structure extends Aitsu_Adm_Script_Abstract {
         $config->setValue($client, $env, 'search.lucene.area.1', Aitsu_Registry::get()->session->createStructure->mainIdCat);
         $config->setValue($client, $env, 'search.lucene.area.2', Aitsu_Registry::get()->session->createStructure->metaIdCat);
 
-        $config->setValue($client, $env, 'sys.webpath', 'http://' . str_replace('local.', 'www.', $_SERVER['HTTP_HOST']));
-        $config->setValue($client, Moraso_Util::getEnv(), 'sys.webpath', 'http://' . $_SERVER['HTTP_HOST']);
+        $config->setValue($client, $env, 'sys.webpath', 'http://' . str_replace('local.', 'www.', $_SERVER['HTTP_HOST']) . '/');
+        $config->setValue($client, Moraso_Util::getEnv(), 'sys.webpath', 'http://' . $_SERVER['HTTP_HOST']) . '/';
         
         $config->save();
 

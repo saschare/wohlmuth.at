@@ -254,13 +254,13 @@
                 <value attribute="config">default</value>
                 <value attribute="env">default</value>
                 <value attribute="identifier">sys.webpath</value>
-                <value attribute="value">http://www.your-domain.de</value>
+                <value attribute="value">http://www.your-domain.de/</value>
             </record> 
             <record>
                 <value attribute="config">default</value>
                 <value attribute="env">dev</value>
                 <value attribute="identifier">sys.webpath</value>
-                <value attribute="value">http://local.your-domain.de</value>
+                <value attribute="value">http://local.your-domain.de/</value>
             </record> 
             <record>
                 <value attribute="config">default</value>
