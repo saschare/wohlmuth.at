@@ -45,10 +45,10 @@ class Moraso_Module_Module_Selector_Class extends Moraso_Module_Abstract {
                 $parameters = str_replace("\n", '\n', str_replace("\r\n", "\n", $this->_context['params']));
                 $code = '<code class="aitsu_params" style="display:none;">' . $parameters . '</code>';
             }
-        }
 
-        if (Aitsu_Registry::isEdit() || (Aitsu_Registry::isBoxModel() && count($keys) > 1)) {
-            return $startTag . $code . $output . $endTag;
+            if (Aitsu_Registry::isEdit() || (Aitsu_Registry::isBoxModel() && count($keys) > 1)) {
+                return $startTag . $code . $output . $endTag;
+            }
         }
 
         return $output;
