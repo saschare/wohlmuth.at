@@ -6,7 +6,7 @@
  */
 class Moraso_Config_Db {
 
-    public static function setConfigFromDatabase($config_file) {
+    public static function setConfigFromDatabase($config_file, $return = false) {
 
         $env = Moraso_Util::getEnv();
         
@@ -65,6 +65,10 @@ class Moraso_Config_Db {
             'allowModifications' => true
         ));
 
+        if ($return) {
+            return $config;
+        }
+        
         Aitsu_Registry :: get()->config->merge($config);
     }
 

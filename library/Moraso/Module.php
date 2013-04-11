@@ -4,7 +4,30 @@
  * @author Christian Kehres <c.kehres@webtischlerei.de>
  * @copyright (c) 2013, webtischlerei <http://www.webtischlerei.de>
  */
-class Moraso_Module extends Aitsu_Core_Module {
+class Moraso_Module {
+
+    protected $idartlang;
+    protected $container;
+    protected $context;
+    protected $output = null;
+    protected $shortCode = null;
+
+    protected function __construct($idart, $idlang, $container, $shortCode) {
+
+        if ($idlang == null) {
+            $this->idartlang = $idart;
+        } else {
+            $this->idartlang = Aitsu_Db :: fetchOne('' .
+                            'select idartlang from _art_lang where idart = ? and idlang = ? ', array(
+                        $idart,
+                        $idlang
+            ));
+        }
+
+        $this->shortCode = $shortCode;
+        $this->container = $container;
+        $this->context = Moraso_Module_Context::get($this->idartlang);
+    }
 
     public static function factory($idart, $container, $idlang = null, $shortCode = null) {
         $instance = new self($idart, $idlang, $container, $shortCode);
