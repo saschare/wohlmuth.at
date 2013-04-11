@@ -109,7 +109,7 @@ INSERT INTO `ait_acl_privileges` VALUES (18,96);
 INSERT INTO `ait_acl_privileges` VALUES (18,97);
 INSERT INTO `ait_acl_privileges` VALUES (18,98);
 INSERT INTO `ait_acl_privileges` VALUES (18,99);
-INSERT INTO `ait_acl_privileges` VALUES (18,101);
+INSERT INTO `ait_acl_privileges` VALUES (18,100);
 CREATE TABLE `ait_acl_resource` (  `resourceid` int(10) unsigned NOT NULL AUTO_INCREMENT,  `name` varchar(255) NOT NULL COMMENT 'Name of the resource.',  `resourcetype` enum('cat','art','other') NOT NULL COMMENT 'Type. Either cat, art or other.',  `specifictype` varchar(255) NOT NULL COMMENT 'Holds the type identifier, if other is set on type.',  `identifier` int(10) unsigned NOT NULL COMMENT 'ID of the resource. I.e. idart or idcat.',  `removeable` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'Indicates whether or not the entity might be deleted.',  PRIMARY KEY (`resourceid`),  KEY `id` (`identifier`),  KEY `identifier` (`identifier`),  KEY `specifictype` (`specifictype`)) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Since 2.2.1.0';
 INSERT INTO `ait_acl_resource` VALUES (1,'Root','cat','',0,0);
 CREATE TABLE `ait_acl_resources` (  `roleid` int(10) unsigned NOT NULL,  `resourceid` int(10) unsigned NOT NULL,  PRIMARY KEY (`roleid`,`resourceid`),  KEY `fk_roleid_roleid` (`roleid`),  KEY `fk_resourceid_resourceid` (`resourceid`),  CONSTRAINT `ait_acl_resources_ibfk_2` FOREIGN KEY (`resourceid`) REFERENCES `ait_acl_resource` (`resourceid`) ON DELETE CASCADE,  CONSTRAINT `ait_acl_resources_ibfk_1` FOREIGN KEY (`roleid`) REFERENCES `ait_acl_role` (`roleid`) ON DELETE CASCADE) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Since 2.2.1.0';

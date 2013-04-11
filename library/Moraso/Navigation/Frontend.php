@@ -72,11 +72,11 @@ class Moraso_Navigation_Frontend {
         ));
 
         foreach ($categories as $key => $category) {
-            $isAccessible = false;
+            $isAccessible = true;
 
-            if ($category['isPublic']) {
-                $isAccessible = true;
-            } else {
+            if (!$category['isPublic']) {
+                $isAccessible = false;
+
                 if ($user != null) {
                     $isAccessible = $user->isAllowed(array(
                         'language' => $idlang,

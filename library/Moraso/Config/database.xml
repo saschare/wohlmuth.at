@@ -232,6 +232,60 @@
                 <value attribute="identifier">sys.mainDir</value>
                 <value attribute="value">/</value>
             </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.errorpage</value>
+                <value attribute="value">0</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.startcat</value>
+                <value attribute="value">1</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.loginpage</value>
+                <value attribute="value">0</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">sys.webpath</value>
+                <value attribute="value">http://www.your-domain.de/</value>
+            </record> 
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">dev</value>
+                <value attribute="identifier">sys.webpath</value>
+                <value attribute="value">http://local.your-domain.de/</value>
+            </record> 
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">navigation.main</value>
+                <value attribute="value">1</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">navigation.meta</value>
+                <value attribute="value">2</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">search.lucene.area.1</value>
+                <value attribute="value">1</value>
+            </record>
+            <record>
+                <value attribute="config">default</value>
+                <value attribute="env">default</value>
+                <value attribute="identifier">search.lucene.area.2</value>
+                <value attribute="value">2</value>
+            </record>
         </dataset>
     </table>
 </database>

@@ -64,7 +64,12 @@ var configurationGrid = new Ext.grid.GridPanel({
         {dataIndex: 'config', width: 100, fixed: true, header: '<?php echo Aitsu_Translate::translate('Config'); ?>', sortable: true},
     	{dataIndex: 'env', width: 100, header: '<?php echo Aitsu_Translate::translate('Environment'); ?>', sortable: true},
     	{dataIndex: 'identifier', header: '<?php echo Aitsu_Translate::translate('Identifier'); ?>', sortable: true},
-        {dataIndex: 'value', width: 60, header: '<?php echo Aitsu_Translate::translate('Value'); ?>', sortable: true}
+        {
+            dataIndex: 'value',
+            width: 60,
+            header: '<?php echo Aitsu_Translate::translate('Value'); ?>',
+            sortable: true
+        }
     ],
     view: new Ext.grid.GroupingView({
         forceFit:true,
