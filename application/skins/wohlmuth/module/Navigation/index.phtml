@@ -1,0 +1,14 @@
+<div class="animations" style="margin: 60px 0 0 0;">
+<div class="scroll">
+<ul class="">
+<?php $i=1; foreach ($this->nav as $nav) : ?>
+<li class="arrow" style="background: url(/skin/images/icons/<?php echo $nav['name']; ?>.png) no-repeat 20px center;">
+	<a href="#<?php echo $nav['name']; ?>">
+	<!-- <img src="/skin/images/icons/<?php echo strtolower($fullnavigation1->name); ?>.png" width="40" height="40" alt="<?php echo $fullnavigation1->name; ?>"> -->
+	<h3 style="padding: 10px 0 0 90px;"><?php echo $nav['name']; ?></h3>
+	</a> 
+</li>
+<?php $i++; endforeach; ?>
+</ul>
+</div>
+</div>

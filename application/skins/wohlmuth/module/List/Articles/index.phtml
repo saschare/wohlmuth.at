@@ -1,0 +1,17 @@
+<!-- News-Kachel -->
+<?php foreach ($this->articles as $article) : ?>
+    <?php $idcat = Aitsu_Util::getIdCatByIdArt($article->idart); ?>
+    <div class="hintergrund" style="width: 100%;">
+        <a href="{ref:idcat-<?php echo $idcat; ?>}" target="_self">
+            <div style="padding: 15px;">
+                <h2 style="text-align:left; color: #fff; font-size: 40px; line-height: 1.0em; margin: 0 0 50px 0;"><?php echo $article->pagetitle; ?></h2>
+                <span style="color: white; width: 30%; font-size: 14px;">
+                    <!-- <?php $text = substr($article->content, 0, strpos($article->content, '...', 0) + 300); ?> -->
+                    <?php $text = $article->content; ?>
+                    <?php echo strip_tags($text, '<p><br><br />'); ?>
+                </span><br/><br/>
+                <span class="more" >MEHR ></span>
+            </div>
+        </a>
+    </div>
+<?php endforeach; ?>

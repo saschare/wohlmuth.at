@@ -1,0 +1,27 @@
+<!-- weingut -->
+<?php foreach ($this->articles as $article) : ?>
+<div  style='float: left; width: 320px; height: auto; background: white; overflow-y: auto;'>
+	<div style="margin: 35px 0 0 20px; height: 60px;">
+    	<h1><?php echo $article->pagetitle; ?></h1>
+        <h2><?php echo $article->teasertitle; ?></h2>
+	</div>
+		<?php $images = unserialize($article->bild); ?>
+		<?php if (!empty($images)) : ?>
+		<div style="margin: 0;">
+		<?php foreach ($images as $image) : ?>
+			<div style=""><img src="/image/320/280/2/<?php echo $article->idart; ?>/<?php echo $image; ?>" title="<?php echo $article->pagetitle; ?>"></div>
+		<?php endforeach; ?>
+		</div>
+		<?php endif; ?>
+		<?php if (!empty($article->content)) : ?>
+		<div style="margin: 45px 15px 0 20px;">
+		<?php if (!empty($article->intro)) : ?>
+  	    	<div style="margin: 0 50px 20px 0;">
+  	    	<h2><?php echo $article->intro; ?></h2>
+  	    	</div>
+			<?php endif; ?> 	
+			<?php echo $article->content; ?>    
+		</div>
+		<?php endif; ?>  
+</div>
+<?php endforeach; ?>

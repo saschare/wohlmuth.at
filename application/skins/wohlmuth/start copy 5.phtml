@@ -1,0 +1,187 @@
+<!DOCTYPE html><!--HTML5 doctype-->
+<html>
+    <head>
+        <script type="application/x-moraso" src="HTML.Meta.PageTitle">
+	        suffix = " | Wohlmuth Weingut"
+	    </script>  
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <style>
+             
+    .carousel_paging {
+	    border-radius: 10px;
+	    border: 3px solid white;
+	    background: #ccc;
+	    width: 10px;
+	    height: 10px;
+	    float: left;
+    }
+
+    .carousel_paging_selected {
+	    border-radius: 10px;
+	    border: 3px solid white;
+	    background: #000;
+	    width: 10px;
+	    height: 10px;
+	    float: left;
+    }
+
+    .spacer {
+	    width: 10px;
+	    float: left;
+    }
+
+    .carousel_content {
+	    -webkit-transform: translate3d(0, 0, 0);
+    }
+        </style>
+        
+        <link rel='stylesheet' type='text/css' href='/skin/wcss/jq.ui.slate.css' />
+        <link rel='stylesheet' type='text/css' href='/skin/wcss/icons.css'>
+        <script type="text/javascript" charset="utf-8" src="http://localhost:58888/_appMobi/appmobi.js"></script> 
+        <script type="text/javascript" charset="utf-8" src="http://localhost:58888/_appMobi/xhr.js"></script>  
+        <script type="text/javascript" charset="utf-8" src="/skin/libs/jq.ui.min.js"></script> 
+        <script type="text/javascript" charset="utf-8" src="/skin/libs/jq.web.min.js"></script> 
+        <script type="text/javascript" charset="utf-8" src="/skin/libs/xpromo.js"></script> 
+
+
+
+        <script type="text/javascript">
+        /* This function runs once the page is loaded, but appMobi is not yet active */
+        var preroll=false;
+        $.ui.autoLaunch=false;
+        var init = function(){
+          $.ui.showBackbutton=false;
+          $.ui.showTitle=false;
+        };
+        document.addEventListener("DOMContentLoaded",init,false);  
+
+
+        /* This code is used to run as soon as appMobi activates */
+        var onDeviceReady=function(){
+            AppMobi.device.setRotateOrientation("portrait");
+            AppMobi.device.setAutoRotate(false);
+            //hide splash screen
+            AppMobi.device.hideSplashScreen();	
+            
+            if(preroll){
+                AppMobiPromotion.getInterstitial();
+            }
+            $.ui.launch();
+        };
+        document.addEventListener("appMobi.device.ready",onDeviceReady,false);    
+        </script>
+
+</head>
+
+<body>
+	<div id="jQUi">
+		<div id="splashscreen" class='ui-loader'>
+        	<span class='ui-icon ui-icon-loading spin'></span><h1 >Starting app</h1>
+        </div>
+        
+        <div id="header">
+        </div>
+                  
+        <div id="content">
+<div id='main' title='main' selected=true class='panel' data-footer='footerui0'>       	
+	<div id="header" style="height: 95px; background: #000 url(/skin/images/wohlmuth-logo.png) no-repeat 20px 50px;">
+	</div>
+    <ul>    
+		<script type="application/x-moraso" src="Navigation:Main"> 
+			idcat = 1
+			template = main
+		</script>
+	</ul>
+</div>
+			
+
+<div id="Weingut" class="panel" scrolling="no"  data-footer="footerui1">
+	<script>
+    	function init_carousel_Weingut() {
+        	$('#carousel_Weingut').carousel({
+            	pagingDiv: 'carousel_dots_Weingut',
+            	pagingCssName: 'carousel_paging',
+            	pagingCssNameSelected: 'carousel_paging_selected'
+            });
+        }
+        document.addEventListener('DOMContentLoaded', init_carousel_Weingut, false);
+    </script>
+
+    <div id='carousel_Weingut' style='overflow: hidden; height: 100%; width: 318px; float: left;'>
+        <div id="carousel_dots" style="margin: 0; padding-top: 5px; position: relative;  height: 20px; z-index: 10; background: white; width: 100%"></div>
+
+	<!-- create a div for each page in the carousel -->
+		<script type="application/x-moraso" src="List.Articles:Weingut">
+			categories = 7
+			useOfStartArticle = 1
+			template = weingut
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+			populateWith.bild.type = property
+			populateWith.bild.index = ModuleConfig_bild:Image_Media
+		</script>
+    </div>
+</div>
+
+
+<div id='Sortiment' class='panel' scrolling='yes'>
+   <ul>
+      <li><a href='#main'>Link1</a></li>
+	  <li><a href='#main'>Link2</a></li>
+	  <li><a href='#main'>Link3</a></li>
+	  <li><a href='#main'>Link4</a></li>
+	  <li><a href='#main'>Link5</a></li>
+	  <li><a href='#main'>Link6</a></li>
+	  <li><a href='#main'>Link7</a></li>
+    </ul>
+</div>
+
+
+<div id='Rezepte' class='panel' scrolling='yes'>
+   <ul>
+      <li><a href='#main'>Link 1</a></li>
+	  <li><a href='#main'>Link2</a></li>
+	        <li><a href='#main'>Link 1</a></li>
+	  <li><a href='#main'>Link2</a></li>      <li><a href='#main'>Link 1</a></li>
+	  <li><a href='#main'>Link2</a></li>      <li><a href='#main'>Link 1</a></li>
+	  <li><a href='#main'>Link2</a></li>      <li><a href='#main'>Link 1</a></li>
+	  <li><a href='#main'>Link2</a></li>      <li><a href='#main'>Link 1</a></li>
+	  <li><a href='#main'>Link2</a></li>
+    </ul>
+</div>
+
+
+
+<div id='News' title='' class='panel' scrolling='yes'>
+   <ul>
+      <li><a href='#main'>Link 1</a></li>
+	  <li><a href='#main'>Link2</a></li>
+    </ul>
+</div>
+
+<footer id='footerui0' style='background-image: none; background-color: white; height: 40px; border: 0; text-align: center; box-shadow: none;'>
+	<div style="bottom: 0px; right:0; position: fixed;">
+		<div style="float: right; padding: 0 10px 0 0;">
+			<a href="javascript:history.go(0);"><img src="/skin/images/icons/english.png" border="0" width="30px"></a>
+		</div>  
+	    <div style="float: right; padding: 0 10px 0 0;">
+    	 	<a href="" data-transition="fade"><img src="/skin/images/icons/facebook.png" border="0" width="30px"></a>
+		</div>
+   	    <div style="float: right; padding: 0 10px 0 0;">
+       		<a href="" data-transition="fade"><img src="/skin/images/icons/twitter.png" border="0" width="30px"></a>
+		</div>
+	</div>
+</footer>
+
+<footer id="footerui1" style="text-align: center;">
+	<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+</footer>
+
+</div>
+
+
+</body>
+</html>

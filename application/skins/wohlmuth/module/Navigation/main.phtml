@@ -1,0 +1,10 @@
+<!-- main -->
+<ul class="woh" data-role="listview" data-inset="true" style="margin-top: 20px; padding-top: 0;" >
+<?php $i=1; foreach ($this->nav as $nav) : ?>
+	<li style="font-family: 'KieviBoo'; padding: 0 0 0 20px; height: 45px; margin: 5px 0; background: #fff; border-bottom: 1px solid #000;">
+	<a href="#<?php echo $nav['name']; ?>" data-transition="slide"> <img src="/skin/images/icons/<?php echo $nav['name']; ?>.png"/> 
+	<?php echo $nav['name']; ?>
+	</a>
+	</li>
+<?php $i++; endforeach; ?>
+</ul>	

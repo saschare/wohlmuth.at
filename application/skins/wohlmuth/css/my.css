@@ -1,0 +1,413 @@
+@font-face {
+    font-family: 'chaparral';
+    src: url('/skin/fonts/chaparralpro-regular-webfont.eot');
+    src: url('/skin/fonts/chaparralpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/skin/fonts/chaparralpro-regular-webfont.woff') format('woff'),
+         url('/skin/fonts/chaparralpro-regular-webfont.ttf') format('truetype'),
+         url('/skin/fonts/chaparralpro-regular-webfont.svg#chaparral') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'KieviBoo';
+    src: url('/skin/fonts/KieviBoo.eot');
+    src: url('/skin/fonts/KieviBoo.eot?#iefix') format('embedded-opentype'),
+         url('/skin/fonts/KieviBoo.woff') format('woff'),
+         url('/skin/fonts/KieviBoo.ttf') format('truetype'),
+         url('/skin/fonts/KieviBoo.svg#KieviBoo') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'KieviBol';
+    src: url('/skin/fonts/KieviBolSC.eot');
+    src: url('/skin/fonts/KieviBolSC.eot?#iefix') format('embedded-opentype'),
+         url('/skin/fonts/KieviBolSC.woff') format('woff'),
+         url('/skin/fonts/KieviBolSC.ttf') format('truetype'),
+         url('/skin/fonts/KieviBolSC.svg#KieviBolSC') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+body, html { padding: 0; margin: 0; background: #fff;} 
+
+body{
+				font-family: 'chaparral';
+							}
+
+.text-align-center {
+  text-align: center;
+}
+.text-align-right {
+  text-align: right;
+}
+
+/** CSS for non-standard jQuery Mobile styles or Codiqa components **/
+.split-wrapper {
+  width: 100%;
+  min-height: 200px;
+  clear: both;
+}
+@media all and (min-width: 650px) {
+  .content-secondary {
+    text-align: left;
+    float: left;
+    width: 45%;
+    background: none;
+    padding: 1.5em 6% 3em 0;
+    margin: 0;
+  }
+  .content-secondary {
+    background: none;
+    border-top: none;
+  }
+  .content-primary {
+    width: 45%;
+    float: right;
+    margin-right: 1%;
+    padding-right: 1%;
+  }
+  .content-primary ul:first-child {
+    margin-top: 0;
+  }
+  .content-secondary ul.ui-listview, .content-secondary ul.ui-listview-inset {
+    margin: 0;
+  }
+  .content-secondary ul.ui-listview .ui-li-divider, .content-secondary ul.ui-listview .ui-li {
+    border-radius: 0px;
+  }
+  .content-secondary ul.ui-listview .ui-li {
+    border-left: 0;
+    border-right: 0;
+  }
+  .content-secondary h2 {
+    position: absolute;
+    left: -9999px;
+  }
+  .content-secondary .ui-li-divider {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+  .content-secondary {
+    margin: 0;
+    padding: 0;
+  }
+  
+}
+@media all and (min-width: 750px){
+  .content-secondary {
+    width: 34%;
+  }
+  .content-primary {
+    width: 60%;
+    padding-right: 1%;
+  }	
+}
+
+@media all and (min-width: 1200px){
+  .content-secondary {
+    width: 30%;
+    padding-right:6%;
+    margin: 0px 0 20px 5%;
+  }
+  .content-secondary ul {
+    margin: 0;
+  }
+  .content-secondary {
+    margin: 0;
+    padding: 0;
+  }
+  .content-primary {
+    width: 50%;
+    margin-right: 5%;
+    padding-right: 3%;
+  }
+  .content-primary {
+    width: 60%;
+  }
+}
+
+h1 { font-family: 'KieviBol'; font-size: 23px; font-weight: normal; text-transform: capitalize; padding: 0 0 0 0; margin: 0;  } 
+h2 { font-family: 'KieviBoo'; font-size: 15px; font-weight: normal; text-transform: capitalize; padding: 0; margin: 0; color: rgb(169,201,55);}
+.Burgenland h2  { color: rgb(174,26,21); }
+
+.sortiment h2 { color: #861b6f}
+.weingut h2 { color: rgb(169,201,55); margin: 7px 0 0 0;}
+
+.content {
+	width         : 320px;
+	height		  : 430px;
+	float         : left;
+	position      : relative;
+	z-index       : 1;
+	overflow      : hidden;
+	padding    : 0;
+	margin     : 0;
+	color: 	#000000;
+	}
+	
+	
+#nav {
+	float:left;
+}
+
+#prev, #next {
+	float:left;
+	font-weight:bold;
+	font-size:14px;
+	padding:5px 0;
+	width:80px;
+}
+
+#next {
+	float:right;
+	text-align:right;
+}
+
+#indicator, #indicator > li {
+	display:block; float:left;
+	list-style:none;
+	padding:0; margin:0;
+}
+
+#indicator {
+	width:110px;
+	padding: 5px 0 0 0;
+	margin: 0 auto;;
+}
+
+#indicator > li {
+	text-indent:-9999em;
+	width:8px; height:8px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	-o-border-radius:4px;
+	border-radius:4px;
+	background:#ddd;
+	overflow:hidden;
+	margin-right:4px;
+}
+
+#indicator > li.active {
+	background: #a9c937;
+}
+
+#indicator > li:last-child {
+	margin:0;
+}
+
+
+
+/* Swiper Styles */
+.swiper-container {
+	margin:0 auto;
+	position:relative;
+	overflow:hidden;
+	-webkit-backface-visibility:hidden;
+	-moz-backface-visibility:hidden;
+	-ms-backface-visibility:hidden;
+	-o-backface-visibility:hidden;
+	backface-visibility:hidden;
+	/* Fix of Webkit flickering */
+	z-index:1;
+	height: 640px;
+}
+.swiper-wrapper {
+	position:relative;
+	width:100%;
+	-webkit-transition-property:-webkit-transform;
+	-webkit-transition-duration:0s;
+	-webkit-transform:translate3d(0px,0,0);
+	-webkit-transition-timing-function:ease;
+	
+	-moz-transition-property:-moz-transform;
+	-moz-transition-duration:0s;
+	-moz-transform:translate3d(0px,0,0);
+	-moz-transition-timing-function:ease;
+	
+	-o-transition-property:-o-transform;
+	-o-transition-duration:0s;
+	-o-transform:translate3d(0px,0,0);
+	-o-transition-timing-function:ease;
+	
+	-ms-transition-property:-ms-transform;
+	-ms-transition-duration:0s;
+	-ms-transform:translate3d(0px,0,0);
+	-ms-transition-timing-function:ease;
+	
+	transition-property:transform;
+	transition-duration:0s;
+	transform:translate3d(0px,0,0);
+	transition-timing-function:ease;
+	
+}
+.swiper-slide {
+	float:left;
+	-webkit-transform:translate3d(0,0,0);
+	-o-transform:translate3d(0,0,0);
+	-moz-transform:translate3d(0,0,0);
+	-ms-transform:translate3d(0,0,0);
+	transform:translate3d(0,0,0);
+}
+
+/* IE10 Windows Phone 8 Fixes */
+.swiper-wp8-horizontal {
+	-ms-touch-action: pan-y;
+}
+.swiper-wp8-vertical {
+	-ms-touch-action: pan-x;
+}
+
+/* Specify Swiper's Size: */
+.swiper-container, .swiper-slide {
+	width: 320px;
+	height: 460px;
+	background-color: orange;
+
+}
+
+.swiper-v, .swiper-v .swiper-slide, .swiper-free, .swiper-free .swiper-slide, .swiper-dynamic, .swiper-dynamic .swiper-slide {
+	width: 320px;
+	height: auto;
+	background-color: red;
+}
+
+.pagination1 {
+	text-align: center;
+}
+
+/* Pagination */
+.pagination1 .swiper-pagination-switch, 
+.pagination2 .swiper-pagination-switch {
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 6px;
+	background: #999;
+	margin: 0 2px;
+}
+.pagination1 .swiper-active-switch, 
+.pagination2 .swiper-active-switch {
+	background: #fff;
+}
+
+
+/* Basic Page Styling ********************************/
+#wrapper {
+	overflow: hidden;
+	width: 250px;
+	margin: 10px auto;
+	border: 1px dotted #eee;
+	background: #000;
+	}
+#ins {
+	font-size: 0.75em;
+	margin: 10px 0 6px;
+	line-height: 1.25;
+	text-align: center;
+	}
+#fake {overflow: hidden;}
+
+.content-box {
+	float: left;
+	width: 250px;
+	height: 400px;
+	display: block;
+	}
+
+.hasJS #wrapper {
+	height: 400px;
+	position: relative;
+	}
+.hasJS #fake {
+	width: 2000px;
+	height: 400px;
+	}
+.hasJS .content-box {cursor: pointer;}
+/* Panel Style ***************************************/
+.content-box {
+	color: #d1d1d1;
+	background: #000;
+	}
+.content-box .inner {margin: 16px;}
+.content-box .inner h1 {
+	font-weight: 700;
+	font-size: 0.83em;
+	margin: 0 0 6px;
+	line-height: 1.5;
+	}
+.content-box .inner p {
+	font-size: 0.69em;
+	line-height: 1.25;
+	margin: 0 0 6px;
+	}
+.content-box .inner ul {
+	list-style: disc;
+	margin: 0 0 0 14px;
+	}
+.content-box .inner ol {
+	list-style: decimal;
+	margin: 0 0 0 18px;
+	}
+.content-box .inner ul li,
+.content-box .inner ol li {
+	font-size: 0.69em;
+	line-height: 1.25;
+	margin: 0 0 3px;
+	}
+/* No IE sorry */
+::-moz-selection {
+	background: #000;
+	color: #d1d1d1;
+	}
+::selection {
+	background: #000;
+	color: #d1d1d1;
+	}
+/* Panel Indicators **********************************/
+/* Positioned down the right but can be anywhere */
+#panelIndicator {
+	overflow: hidden;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	z-index: 10;
+	}
+#panelIndicator li {
+	color: #d1d1d1;
+	font-size: 0.83em;
+	margin: 0 5px;
+	float: left;
+	display: inline;
+	line-height: 1.3;
+	}
+#panelIndicator .active {
+	font-weight: 700;
+	font-size: 1em;
+	margin-top: -1px;
+	}
+
+
+
+/* SROLLBAR */
+.swiper-scrollbar {
+border-radius: 10px;
+position: relative;
+-ms-touch-action: none;
+background: rgba(0,0,0,0.1)
+}
+.swiper-scrollbar-drag {
+height: 100%;
+width: 100%;
+position: relative;
+background: rgba(0,0,0,0.5);
+border-radius: 10px;
+cursor:move
+}
