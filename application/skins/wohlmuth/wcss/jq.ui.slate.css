@@ -229,6 +229,7 @@ background:#333;
 	right:0px;
 	height:40px; 
 	padding:0px 1px;
+	width:320px;
 }
 
 #navbar a {
@@ -419,13 +420,15 @@ ul > li > a {
 	text-decoration:none;
 	padding-left:0px;
 	padding-right:-80px;
+	padding-top: 4px;
+	background: url(/skin/images/icons/arrow-right.png) no-repeat 215px 16px;
 } /* A touchable, interactive list item. */
 
-ul > li > a:after {
+/*ul > li > a:after {
 	content:">";
 	position:absolute;
 	right:20px;
-}
+}*/
 
  ul > li > a[selected], ul > li > a:active { color:#fff !important; } /* A selected and active states for interactive list items. */
 
