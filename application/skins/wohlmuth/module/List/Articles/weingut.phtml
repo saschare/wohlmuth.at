@@ -1,7 +1,7 @@
 <!-- weingut -->
 <?php foreach ($this->articles as $article) : ?>
 <div class="<?php echo $article->summary; ?>" style='float: left; width: 320px; height: auto; background: white; overflow-y: auto;'>
-	<div style="margin: 35px 0 0 20px; height: 60px; width: 280px; background: url(/skin/images/icons/weingut_icon_<?php echo $article->summary; ?>.png) no-repeat right top; ">
+	<div style="margin: 35px 0 0 20px; height: 100px; width: 280px; background: url(/skin/images/icons/weingut_icon_<?php echo $article->summary; ?>.png) no-repeat right top; ">
     	<h1><?php echo $article->pagetitle; ?></h1>
         <h2><?php echo $article->teasertitle; ?></h2>
 	</div>
@@ -9,7 +9,7 @@
 		<?php if (!empty($images)) : ?>
 		<div style="margin: 0;">
 		<?php foreach ($images as $image) : ?>
-			<div style=""><img src="/image/320/280/2/<?php echo $article->idart; ?>/<?php echo $image; ?>" title="<?php echo $article->pagetitle; ?>"></div>
+			<div style=""><img src="/image/320/285/2/<?php echo $article->idart; ?>/<?php echo $image; ?>" title="<?php echo $article->pagetitle; ?>"></div>
 		<?php endforeach; ?>
 		</div>
 		<?php endif; ?>
@@ -17,7 +17,7 @@
 		<div style="margin: 45px 15px 0 20px;">
 		<?php if (!empty($article->intro)) : ?>
   	    	<div style="margin: 0 50px 20px 0;">
-  	    	<h2><?php echo $article->intro; ?></h2>
+  	    	<h2 class="<?php $article->summary; ?>"><?php echo $article->intro; ?></h2>
   	    	</div>
 			<?php endif; ?> 	
 			<?php echo $article->content; ?>    

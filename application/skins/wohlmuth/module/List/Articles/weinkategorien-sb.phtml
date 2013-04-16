@@ -1,16 +1,19 @@
-<!-- weinkategorien -->
+<!-- weinkategorien-sb -->
 <?php foreach ($this->articles as $article) : ?>
+<?php $idcat = Aitsu_Util::getIdCatByIdArt($article->idart); ?>
 <div class="<?php echo $article->summary; ?>" style='float: left; width: 320px; height: auto; background: white; overflow-y: auto;'>
 	<div style="margin: 35px 0 0 20px; height: 105px; width: 280px; background: url(/skin/images/icons/<?php echo $article->summary; ?>.png) no-repeat right top; ">
     	<h1><?php echo $article->pagetitle; ?></h1>
         <h2><?php echo $article->teasertitle; ?></h2>
 	</div>
 
-		<script type="application/x-moraso" src="List.Articles:Weinkategorien">
-			categories = 11,12,13,14
-			useOfStartArticle = 3
-			template = weinsorten
-		</script>
+	<script type="application/x-moraso" src="List.Articles:sekte-braende-1">
+		useOfStartArticle = 2
+		template = weineincat-sb
+		populateWith.intro.index = Teaser
+		populateWith.content.index = Content
+		categories = <?php echo $idcat; ?>
+	</script>	
 
 </div>
 <?php endforeach; ?>

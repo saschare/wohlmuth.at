@@ -1,0 +1,18 @@
+<!-- infokategorien-kontakt -->
+<?php foreach ($this->articles as $article) : ?>
+<div id="info<?php echo $article->idart; ?>" style='float: left; width: 320px; height: auto; background: white; overflow-y: auto;'>
+	<div class="info" style="margin: 35px 0 0 20px; height: 105px; width: 280px; background: url(/skin/images/icons/icon-<?php echo $article->summary; ?>.png) no-repeat right top; ">
+    	<h1><?php echo $article->pagetitle; ?></h1>
+        <h2><?php echo $article->teasertitle; ?></h2>
+	</div>
+
+	<script type="application/x-moraso" src="List.Articles:infokategorien-1">
+		useOfStartArticle = 2
+		template = infos
+		populateWith.intro.index = Teaser
+		populateWith.content.index = Content
+		categories = 18
+	</script>	
+
+</div>
+<?php endforeach; ?>

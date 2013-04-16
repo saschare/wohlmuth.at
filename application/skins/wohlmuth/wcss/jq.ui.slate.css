@@ -46,7 +46,7 @@ width:100%;
 
 #jQUi {
 	position:absolute;
-	width:100%;
+	width:320px;
 	top:0px;
 	bottom:0px;
 }
@@ -57,14 +57,14 @@ width:100%;
 	width:100%;
 	left:0px;
 	min-height:100%;
-	background:rgba(29,29,28,1) !important;
+	background:rgba(0,0,0,1) !important;
 	color:white !important;
 	font-size:30px;
 	text-align:center;
 	z-index:9999;
 	display:block;
 	margin-left: auto !important; margin-right: auto !important;
-	padding-top:80px !important;
+	padding-top:0 !important;
 }
 
 
@@ -210,7 +210,8 @@ background:#333;
 	background:#fff;
 	overflow:auto;
 	-webkit-overflow-scrolling:touch;
-} /* This class is applied to the divs that contain the various "views" or pages of the app. */ 
+} /* This class is applied to the divs that contain the various "views" or 
+s of the app. */ 
 .panel > * {
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
@@ -230,11 +231,12 @@ background:#333;
 	height:40px; 
 	padding:0px 1px;
 	width:320px;
+	background-color: #fff;
 }
 
 #navbar a {
 	position:relative;
-	width:50px; 
+	width:320px; 
 	height:40px;
 	overflow:hidden;
 	display:inline-block;
@@ -387,9 +389,9 @@ background:#333;
 /* End side menu css */
 
 .splashscreen {
-	background:rgba(29,29,28,1) !important;
-	padding-left:40px;
-	padding-top:30px !important;
+	background:rgba(0,0,0,1) !important;
+	padding-left:0;
+	padding-top:0 !important;
 	min-height:100%;
 }
 

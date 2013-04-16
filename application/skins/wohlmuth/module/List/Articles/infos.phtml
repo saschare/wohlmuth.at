@@ -1,7 +1,7 @@
-<!-- weine -->
+<!-- infos -->
 <?php foreach ($this->articles as $article) : ?>
-<div id='wein<?php echo $article->idart; ?>' class='panel' scrolling='yes' data-footer='footerui2'>
-<div class="<?php echo $article->summary; ?>" style="margin: 35px 0 0 20px; height: 60px; width: 280px; background: url(/skin/images/icons/weingut_icon_<?php echo $article->summary; ?>.png) no-repeat right top; ">
+<div id='info<?php echo $article->idart; ?>' class='panel' scrolling='yes' data-footer='footerui2'>
+<div class="info" style="margin: 35px 0 0 20px; height: 60px; width: 280px; background: url(/skin/images/icons/weingut_icon_<?php echo $article->summary; ?>.png) no-repeat right top; ">
     	<h1><?php echo $article->pagetitle; ?></h1>
         <h2><?php echo $article->teasertitle; ?></h2>
 	</div>

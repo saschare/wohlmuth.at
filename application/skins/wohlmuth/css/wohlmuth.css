@@ -37,11 +37,15 @@
 body, html 	{ padding: 0; margin: 0; color:#000; background: #fff;} 
 body		{ font-family: 'chaparral'; font-family: 10px; }
 
-h1 					{ color: #000; font-family: 'KieviBoo'; font-size: 26px; font-weight: normal; text-transform: capitalize; padding: 0; margin: 0;}
-h2, .steiermark h2,  h2.steiermark p	{ color: rgb(169,201,55); font-family: 'KieviBoo'; font-size: 16px; margin: 0; padding: 0; font-weight: normal; text-transform: capitalize;}
-.burgenland h2, h2.burgenland p	{ color: rgb(174,21,26); font-family: 'KieviBoo'; font-size: 16px; margin: 0; padding: 0; font-weight: normal; text-transform: capitalize;}
-.sortiment h2		{ color: rgb(134,27,111); font-family: 'KieviBoo'; font-size: 16px; margin: 0; padding: 0; font-weight: normal; text-transform: capitalize;}
+h1 											{ color: #000; font-family: 'KieviBoo'; font-size: 26px; font-weight: normal; text-transform: capitalize; padding: 0; margin: 0;}
+h2, .steiermark h2,  h2.steiermark p		{ color: rgb(169,201,55); font-family: 'KieviBoo'; font-size: 16px; margin: 0; padding: 0; font-weight: normal; text-transform: capitalize;}
+.burgenland h2, h2.burgenland p				{ color: rgb(174,21,26); font-family: 'KieviBoo'; font-size: 16px; margin: 0; padding: 0; font-weight: normal; text-transform: capitalize;}
+.sortiment h2								{ color: rgb(134,27,111); font-family: 'KieviBoo'; font-size: 16px; margin: 0; padding: 0; font-weight: normal; text-transform: capitalize;}
+.sekte-braende h2, h2.sekte-braende p		{ color: rgb(134,27,111); font-family: 'KieviBoo'; font-size: 16px; margin: 0; padding: 0; font-weight: normal; text-transform: capitalize;}
 
+.rezepte h2, h2.rezepte p		{ color: rgb(246,165,0);}
+.news h2, h2.news p				{ color: rgb(134,120,88);}
+.info h2, h2.info p				{ color: rgb(126,188,193);}
 
 
 ul li {font-family: 'KieviBoo';}

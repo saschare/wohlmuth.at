@@ -11,11 +11,12 @@
 	<link rel="apple-touch-icon" sizes="114x114" href="/skin/app-icons/launch_icon_114.png" />
 
     <style>
+
              
     .carousel_paging {
 	    border-radius: 7px;
 	    border: 0;
-	    background: #ccc;
+	    background: #eee;
 	    width: 7px;
 	    height: 7px;
 	    float: left;
@@ -26,7 +27,7 @@
     .carousel_paging_selected {
 	    border-radius: 7px;
 	    border: 0;
-	    background: #fff;
+	    background: #d7d7d7;
 	    width: 7px;
 	    height: 7px;
 	    float: left;
@@ -34,7 +35,7 @@
     }
 
     .spacer {
-	    width: 10px;
+	    width: 0px;
 	    float: left;
     }
 
@@ -74,6 +75,7 @@
         var onDeviceReady=function(){
             AppMobi.device.setRotateOrientation("portrait");
             AppMobi.device.setAutoRotate(false);
+            setTimeout("AppMobi.device.hideSplashScreen();", 3000);
             //hide splash screen
             //AppMobi.device.hideSplashScreen();	
             
@@ -89,8 +91,8 @@
 
 <body>
 	<div id="jQUi">
-		<div id="splashscreen" class='ui-loader'>
-        	<span class='ui-icon ui-icon-loading spin'></span><h1 >Starting app</h1>
+		<div id="splashscreen" class='ui-loader' style="background: url(/skin/images/splash.png) no-repeat center center">
+			<span class='ui-icon ui-icon-loading spin'></span><h1 ></h1>
         </div>
         
         <div id="header">
@@ -119,6 +121,8 @@
         }
         document.addEventListener('DOMContentLoaded', init_carousel_Weingut, false);
     </script>
+    	<div id="carousel_dots_Weingut" style="margin: 0; top: 5px; left: 5px; position: absolute; height: 10px; z-index: 100; background: none; width: 320px; text-align: right"></div>
+
 
     <div id='carousel_Weingut' style='overflow: hidden; height: 100%; width: 100%; float: left;'>
 	<!-- create a div for each page in the carousel -->
@@ -126,6 +130,7 @@
 			categories = 7
 			useOfStartArticle = 1
 			template = weingut
+			limit = 99
 			populateWith.intro.index = Teaser
 			populateWith.content.index = Content
 			populateWith.bild.type = property
@@ -162,10 +167,22 @@
 
 <div id='sort_burgenland' class='panel' scrolling='yes' data-footer='footerui2'>
    <ul>
-   		<script type="application/x-moraso" src="List.Articles:Sortiment_Steiermark">
+   		<script type="application/x-moraso" src="List.Articles:Sortiment_Burgenland">
 			categories = 10
 			useOfStartArticle = 3
 			template = weinkategorien-bl
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+   </ul>
+</div>
+
+<div id='sort_sekte-braende' class='panel' scrolling='yes' data-footer='footerui2'>
+   <ul>
+   		<script type="application/x-moraso" src="List.Articles:Sortiment_sekte-braende">
+			categories = 21
+			useOfStartArticle = 3
+			template = weinkategorien-sb
 			populateWith.intro.index = Teaser
 			populateWith.content.index = Content
 		</script>
@@ -195,57 +212,121 @@
 </script>
 
 
-<div id='Rezepte' class='panel' scrolling='yes' data-footer='footerui2'>
-   <ul>
-      <li><a href='#main'>Link 1</a></li>
-	  <li><a href='#main'>Link2</a></li>
-	        <li><a href='#main'>Link 1</a></li>
-	  <li><a href='#main'>Link2</a></li>      <li><a href='#main'>Link 1</a></li>
-	  <li><a href='#main'>Link2</a></li>      <li><a href='#main'>Link 1</a></li>
-	  <li><a href='#main'>Link2</a></li>      <li><a href='#main'>Link 1</a></li>
-	  <li><a href='#main'>Link2</a></li>      <li><a href='#main'>Link 1</a></li>
-	  <li><a href='#main'>Link2</a></li>
-    </ul>
+
+<div id="Rezepte" class="panel" scrolling="no"  data-footer='footerui2'>
+	<!-- create a div for each page in the carousel -->
+		<script type="application/x-moraso" src="List.Articles:Sortiment_Rezepte">
+			categories = 15
+			useOfStartArticle = 3
+			template = rezept_kategorien
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+    </div>
 </div>
 
 
+<script type="application/x-moraso" src="List.Articles:Rezepte">
+	categories = 15
+	useOfStartArticle = 2
+	template = rezepte
+	limit = 999
+	populateWith.intro.index = Teaser
+	populateWith.content.index = Content
+	populateWith.bild.type = property
+	populateWith.bild.index = ModuleConfig_bilder:Image_Media
+</script>
 
-<div id='News' title='' class='panel' scrolling='yes' data-footer='footerui2'>
-   <ul>
-      <li><a href='#main'>Link 1</a></li>
-	  <li><a href='#main'>Link2</a></li>
-    </ul>
+
+<div id="News" class="panel" scrolling="no"  data-footer='footerui2'>
+	<!-- create a div for each page in the carousel -->
+	<script type="application/x-moraso" src="List.Articles:Sortiment_News">
+		categories = 16
+		useOfStartArticle = 3
+		template = news_kategorien
+		populateWith.intro.index = Teaser
+		populateWith.content.index = Content
+	</script>
 </div>
 
-<div id='Info' title='' class='panel' scrolling='yes' data-footer='footerui2'>
-   <ul>
-      <li><a href='#main'>Link 1</a></li>
-	  <li><a href='#main'>Link2</a></li>
-    </ul>
+
+<script type="application/x-moraso" src="List.Articles:News">
+	categories = 16
+	useOfStartArticle = 3
+	template = news
+	limit = 999
+	populateWith.intro.index = Teaser
+	populateWith.content.index = Content
+	populateWith.bild.type = property
+	populateWith.bild.index = ModuleConfig_bilder:Image_Media
+</script>
+
+
+<div id='Info' class='panel' scrolling='yes' data-footer='footerui2'>
+    <ul>    
+		<script type="application/x-moraso" src="List.Articles:Info_Cat">
+			categories = 17
+			useOfStartArticle = 3
+			template = info_cat
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+	</ul>
 </div>
+
+
+<script type="application/x-moraso" src="List.Articles:Info_Kontakt">
+	categories = 18,19,20
+	useOfStartArticle = 3
+	template = infos
+	populateWith.intro.index = Teaser
+	populateWith.content.index = Content
+</script>
+
+
+<div id='info_partner' class='panel' scrolling='yes' data-footer='footerui2'>
+   <ul>
+   		<script type="application/x-moraso" src="List.Articles:Sortiment_Steiermark">
+			categories = 20
+			useOfStartArticle = 3
+			template = infokategorien
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+   </ul>
+</div>
+
 
 <footer id='footerui0' style='background-image: none; background-color: white; height: 40px; border: 0; text-align: center; box-shadow: none;'>
-	<div style="bottom: 0px; right:0; position: fixed;">
-		<div style="float: right; padding: 0 5px 0 0;">
-			<a href="javascript:history.go(0);"><img src="/skin/images/icons/english.png" border="0" width="30px"></a>
+	<div style="bottom: 10px; right:0; position: fixed;">
+		<div style="float: right; padding: 0 20px 0 0;">
+			<img src="/skin/images/icons/english.png" border="0" width="30px">
 		</div>  
-	    <div style="float: right; padding: 0 5px 0 0;">
-    	 	<a href="" data-transition="fade"><img src="/skin/images/icons/facebook.png" border="0" width="30x"></a>
+	    <div style="float: right; padding: 0 20px 0 0;">
+    	 	<img src="/skin/images/icons/facebook.png" border="0" width="30x">
 		</div>
-   	    <div style="float: right; padding: 0 5px 0 0;">
-       		<a href="" data-transition="fade"><img src="/skin/images/icons/twitter.png" border="0" width="30px"></a>
+   	    <div style="float: right; padding: 0 20px 0 0;">
+       		<img src="/skin/images/icons/twitter.png" border="0" width="30px">
 		</div>
 	</div>
 </footer>
 
-<footer id="footerui1" style="text-align: center; height: 39px; width: 100%;">
+<footer id="footerui1" style="text-align: center; height: 39px; width: 100%; background-color: white;">
 	<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
-	<div id="carousel_dots_Weingut" style="margin: -20px 0px 0px; padding-top: 5px; position: relative; height: 15px; z-index: 100; background: none repeat scroll 0% 0% black; width: 100%;"></div>
 </footer>	
-	
+
 <footer id="footerui2" style="text-align: center; height: 20px; width: 100%;">
 	<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
 </footer>
+
+<footer id="footerui3" style="text-align: center; height: 39px; width: 100%; background-color: white;">
+	<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+</footer>	
+
+<footer id="footerui4" style="text-align: center; height: 39px; width: 100%; background-color: white;">
+	<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+</footer>	
+
 
 </div>
 
