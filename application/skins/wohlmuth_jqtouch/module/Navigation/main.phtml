@@ -3,7 +3,7 @@
 <?php $i=1; foreach ($this->nav as $nav) : ?>
 <?php $name = strtolower($nav['name']); ?>
 	<li class="woh" style=" margin-left: 75px; height: 45px; margin: 5px 0; background: url(/skin/images/icons/<?php echo $name; ?>.png) no-repeat 20px top; height: 45px;border-bottom: 1px solid #000;">
-	<a style="padding-top: 10px; margin-left: 80px; font-family: 'KieviBol'; font-size: 17px; text-transform: capitalize;" href="#<?php echo $name; ?>" ><?php echo $name; ?></a>
+	<a style="padding-top: 10px; margin-left: 80px; font-family: 'KieviBol'; font-size: 17px; text-transform: capitalize;" href="#<?php echo $nav['name']; ?>" ><?php echo $nav['name']; ?></a>
 	</li>	
 <?php $i++; endforeach; ?>
 </ul>	
