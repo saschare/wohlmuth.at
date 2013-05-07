@@ -1,0 +1,10 @@
+<!-- infosortiment -->
+<ul data-role="listview" data-inset="true" style="margin-top: 20px; padding-top: 0;" >
+<?php $i=1; foreach ($this->articles as $article) : ?>
+<li style=" margin-left: 75px; height: 45px; margin: 5px 0; background: url(/skin/images/icons/icon-<?php echo $article->summary; ?>.png) no-repeat 20px center; height: 45px;border-bottom: 1px solid #000;">
+<a style="margin-left: 80px; font-family: 'KieviBol'; font-size: 17px; line-height: 17px; text-transform: capitalize;" href="#info<?php echo $article->idart; ?>" data-transition="slide"><?php echo $article->pagetitle; ?><br />
+        <h2><?php echo $article->teasertitle; ?></h2></a>
+</li>
+<?php $i++; endforeach; ?>
+</ul>	
+

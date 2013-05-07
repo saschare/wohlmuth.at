@@ -1,0 +1,11 @@
+<!-- rezeptincat -->
+<?php $i=1; foreach ($this->articles as $article) : ?>
+<?php $idcat = Aitsu_Util::getIdCatByIdArt($article->idart); ?>
+<ul  data-role="listview" data-inset="true" style="margin-top: 20px; padding-top: 0;" >
+<li class="<?php echo $article->summary; ?>" style=" margin-left: 75px; height: 45px; margin: 5px 0; height: 45px;border-bottom: 1px solid #000; background: #fff;">
+<a style="margin-left: 20px; font-family: 'KieviBol'; font-size: 17px; line-height: 17px; text-transform: capitalize;" href="#rezept<?php echo $article->idart; ?>" data-transition="slide"><?php echo $article->pagetitle; ?><br />
+<h2><?php echo $article->teasertitle; ?></h2></a>
+</li>
+</ul>	
+<?php $i++; endforeach; ?>
+

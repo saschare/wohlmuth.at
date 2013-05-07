@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Wohlmuth</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/skin/themes/css/jqtouch.css" title="jQTouch">
+        <link rel="stylesheet" href="/skin/css/wohlmuth.css" title="jQTouch">
+		<link rel="stylesheet" href="/skin/css/carousel.css">
+
+        <script src="/skin/src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/skin/src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/skin/js/twis.js"></script>
+
+        <script type="text/javascript" charset="utf-8">
+        
+         var jQT = new $.jQTouch({
+                icon: '/skin/images/jqtouch.png',
+                icon4: '/skin/images/jqtouch4.png',
+                addGlossToIcon: true,
+                startupScreen: '/skin/images/jqt_startup.png',
+                statusBar: 'black',
+                themeSelectionSelector: '#jqt #themes ul',
+                fixedViewport: true,
+                fullScreen: true,
+                preloadImages: []
+            });
+
+            var myScroll;
+
+            function loaded() {
+	            myScroll = new TWIS('#wrapper');
+
+	            /*
+		            // Test scrollY and scrollToPage
+		            setTimeout(function () {
+		            myScroll.scrollToPage(3, 500);
+		            }, 1000);
+
+		            setTimeout(function () {
+		            myScroll.scrollY(-1000, 1500);
+		            }, 2000);
+		       */
+
+		       // Free some mem
+		       window.removeEventListener('load', loaded, false);
+		       }
+
+		       document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		       window.addEventListener('load', loaded, false);
+
+        
+        
+            // Some sample Javascript functions:
+            $(function(){
+                            
+                $('a[target="_blank"]').bind('click', function() {
+                    if (confirm('This link opens in a new window.')) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+
+                // Page animation callback events
+                $('#pageevents').
+                    bind('pageAnimationStart', function(e, info){ 
+                        $(this).find('.info').append('Started animating ' + info.direction + '&hellip;  And the link ' +
+                            'had this custom data: ' + $(this).data('referrer').data('custom') + '<br>');
+                    }).
+                    bind('pageAnimationEnd', function(e, info){
+                        $(this).find('.info').append('Finished animating ' + info.direction + '.<br><br>');
+
+                    });
+                
+                // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
+                $('#callback').bind('pageAnimationEnd', function(e, info){
+                    // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
+                    if (!$(this).data('loaded')) {
+                        // Append a placeholder in case the remote HTML takes its sweet time making it back
+                        // Then, overwrite the "Loading" placeholder text with the remote HTML
+                        $(this).append($('<div>Loading</div>').load('ajax.html .info', function() {        
+                            // Set the 'loaded' var to true so we know not to reload
+                            // the HTML next time the #callback div animation ends
+                            $(this).parent().data('loaded', true);  
+                        }));
+                    }
+                });
+                // Orientation callback event
+                $('#jqt').bind('turn', function(e, data){
+                    $('#orient').html('Orientation: ' + data.orientation);
+                });
+                
+            });
+        </script>
+</head>
+<body>
+	<div id="jqt">
+    	<div id='home' title='home' >       	
+	    	<div style="height: 95px; background: #000 url(/skin/images/wohlmuth-logo.png) no-repeat 20px 50px;"></div>
+		    	<script type="application/x-moraso" src="Navigation:Main"> 
+			    	idcat = 1
+			        template = main
+			    </script>
+			    <footer style='background-image: none; background-color: white; height: 40px; border: 0; text-align: center; box-shadow: none;'>
+				    <div style="bottom: 10px; right:0; position: fixed;">
+					    <div style="float: right; padding: 0 20px 0 0;">
+						    <a href="#Weingut"><img src="/skin/images/icons/english.png" border="0" width="30px"></a>
+						</div>  
+						<div style="float: right; padding: 0 20px 0 0;">
+							<img src="/skin/images/icons/facebook.png" border="0" width="30x">
+						</div>
+						<div style="float: right; padding: 0 20px 0 0;">
+							<img src="/skin/images/icons/twitter.png" border="0" width="30px">
+						</div>
+					</div>
+				</footer>
+			</div>
+
+			<div id="Weingut">
+ 	      		<div id="wrapper">
+	          		<div id="slider">
+	            		<!-- create a div for each page in the carousel -->
+	            		<script type="application/x-moraso" src="List.Articles:Weingut">
+		            		categories = 7
+		            		useOfStartArticle = 1
+		            		template = weingut
+		            		limit = 999
+		            		populateWith.intro.index = Teaser
+		            		populateWith.content.index = Content
+		            		populateWith.bild.type = property
+		            		populateWith.bild.index = ModuleConfig_bilder:Image_Media	
+		            	</script>
+		            	
+		            </div> 
+		        </div>
+		    <div class="homeslide">
+			    <div style="z-index: 1;"><a href="#home" class="slideup"><img src="/skin/images/icons/home.png" border="0"></a></div>
+			</div>
+		   	</div>
+            
+		   	<div id='Sortiment'>
+		   	<ul>    
+			   	<script type="application/x-moraso" src="List.Articles:Sortiment_Cat">
+				   	categories = 8
+				   	useOfStartArticle = 3
+				   	limit = 999
+				   	template = sortiment_cat
+				   	populateWith.intro.index = Teaser
+				   	populateWith.content.index = Content
+				</script>
+			</ul>
+			<div class="homeslide">
+			    <div style="z-index: 1;"><a href="#home" class="slideup"><img src="/skin/images/icons/home.png" border="0"></a></div>
+			</div>
+			</div>
+			
+			<div id='sort_suedsteiermark'>
+				<ul>
+					<script type="application/x-moraso" src="List.Articles:Sortiment_Steiermark">
+						categories = 9
+						useOfStartArticle = 3
+						limit = 999
+						template = weinkategorien
+						populateWith.intro.index = Teaser
+						populateWith.content.index = Content
+					</script>
+				</ul>
+				<div class="homeslide">
+			    	<div style="z-index: 1;"><a href="#home" class="slideup"><img src="/skin/images/icons/home.png" border="0"></a></div>
+			    </div>
+			</div>
+
+			<div id='sort_burgenland'>
+				<ul>
+					<script type="application/x-moraso" src="List.Articles:Sortiment_Burgenland">
+						categories = 10
+						useOfStartArticle = 3
+						limit = 999
+						template = weinkategorien-bl
+						populateWith.intro.index = Teaser
+						populateWith.content.index = Content
+					</script>
+				</ul>
+				<div class="homeslide">
+			    <div style="z-index: 1;"><a href="#home" class="slideup"><img src="/skin/images/icons/home.png" border="0"></a></div>
+			    </div>
+			</div>
+
+			<div id='sort_sekte-braende'>
+				<ul>
+					<script type="application/x-moraso" src="List.Articles:Sortiment_sekte-braende">
+						categories = 21
+						useOfStartArticle = 3
+						limit = 999
+						template = weinkategorien-sb
+						populateWith.intro.index = Teaser
+						populateWith.content.index = Content
+					</script>
+				</ul>
+				<div class="homeslide">
+			    	<div style="z-index: 1;"><a href="#home" class="slideup"><img src="/skin/images/icons/home.png" border="0"></a></div>
+			    </div>
+			</div>
+			
+			<script type="application/x-moraso" src="List.Articles:WeineKategorien">
+				categories = 10,11,12,13,14,21
+				useOfStartArticle = 3
+				limit = 999
+				template = weinecat
+				populateWith.intro.index = Teaser
+				populateWith.content.index = Content
+			</script>
+
+			<!-- Weine -->
+			<script type="application/x-moraso" src="List.Articles:Weine">
+				categories = 10,11,12,13,14,21
+				useOfStartArticle = 2
+				template = weine
+				limit = 999
+				populateWith.intro.index = Teaser
+				populateWith.content.index = Content
+				populateWith.bild.type = property
+				populateWith.bild.index = ModuleConfig_bilder:Image_Media
+			</script>
+
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<!-- weinsorten -->
+<ul data-role="listview" data-inset="true" style="margin-top: 10px; padding-top: 0;" >
+<?php $i=1; foreach ($this->articles as $article) : ?>
+<?php $idcat = Aitsu_Util::getIdCatByIdArt($article->idart); ?>
+<li class="woh" style=" margin-left: 75px; margin: 0; background: none; height: 50px; border-bottom: 1px solid #000;">
+<a style="margin-left: 10px; font-family: 'KieviBol'; font-size: 17px; line-height: 17px; text-transform: capitalize;" href="#weine<?php echo $idcat; ?>" ><?php echo $article->pagetitle; ?><br />
+<h2><?php echo $article->teasertitle; ?></h2></a>
+</li>
+<?php $i++; endforeach; ?>
+</ul>

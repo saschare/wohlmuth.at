@@ -1,0 +1,9 @@
+<!-- sortiment-cat -->
+<ul data-role="listview" data-inset="true" style="margin-top: 10px; padding-top: 0;" >
+<?php $i=1; foreach ($this->articles as $article) : ?>
+<li class="woh" style=" margin-left: 75px; margin: 0; background: url(/skin/images/icons/sort_<?php echo $article->summary; ?>.png) no-repeat 20px center; height: 50px; border-bottom: 1px solid #000;">
+<a style="margin-left: 80px; font-family: 'KieviBol'; font-size: 17px; line-height: 17px; text-transform: capitalize;" href="#sort_<?php echo $article->summary; ?>" ><?php echo $article->pagetitle; ?><br />
+<h2><?php echo $article->teasertitle; ?></h2></a>
+</li>
+<?php $i++; endforeach; ?>
+</ul>

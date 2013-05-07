@@ -1,0 +1,240 @@
+/* Unchanged */
+body {
+    color   : #fff;
+}
+
+#jqt .menu, #jqt .page, #jqt .diaporama {
+    background              : #000;
+    padding                 : 0 0 6px;
+}
+#jqt .menu {
+    background-image        : url(../images/mobi/herbe_quise_repete.jpg), url(../images/mobi/bouquet_fond.png);
+    background-position     : bottom left, bottom right;
+    background-repeat       : repeat-x, repeat-y;
+    background-attachement  : fixed, fixed;
+}
+#jqt .page {
+    background-image        : url(../images/mobi/bouquet_fond.png), url(../images/mobi/herbe_quise_repete.jpg);
+    background-position     : bottom right, bottom left;
+    background-repeat       : repeat-y, repeat-x;
+    background-attachement  : fixed, fixed;
+}
+
+
+a {
+    color       : #96B5B5;
+    text-decoration : none;
+}
+a:hover {
+    color       : #fd7902;
+}
+a img {
+    border      : 0;
+}
+
+div.toolbar {
+    height      : 45px;
+    line-height : 45px;
+}
+div.toolbar > h1 {
+    font-size       : 1.5em;
+    left            : 50%;
+    margin          : 0 0 0 -90px;
+    overflow        : hidden;
+    position        : absolute;
+    vertical-align  : middle;
+    display         : inline-block;
+}
+
+#jqt .copyright, #jqt .fiche {
+    margin          : 0;
+    padding         : 10px 6px 6px;
+}
+#jqt .copyright {
+    background              : rgba(06, 53, 53, 0.8);
+    color                   : #fff;
+    font-size               : 12px;
+    margin                  : 4px 6px 0;
+    padding                 : 6px;
+    -moz-border-radius      : 8px;
+    -webkit-border-radius   : 8px;
+    border-radius           : 8px;
+}
+
+
+
+
+#jqt div.menu ul, div.page ul {
+    opacity     : 0.9;
+}
+#jqt div.menu h2, h2 {
+    color       : #9f9f9f;
+}
+.longdesc p {
+    color       : #fff;
+    padding     : 4px 0;
+    font-size   : 11pt;
+    font-weight : normal;
+}
+
+#jqt div.toolbar {
+    background  : #265356 url(../images/mobi/fond-toolbar.png) repeat-x;
+}
+
+#jqt div.menu h2 {
+    background      : #000;
+    border-radius   : 8px;
+    opacity         : 0.7;
+    padding         : 5px 10px 3px;
+    margin          : 2px 0;
+}
+
+
+#jqt ul {
+    font-size   : 16px;
+    font-weight : bold;
+}
+
+#jqt ul li, #jqt ul.rounded li {
+    background      : #063535 url(../images/mobi/fond-menu.gif) top left repeat-x;
+    border          : 0;
+    color           : #AAAAAA;
+    margin          : 0 0 1px 0;
+    overflow        : hidden;
+    padding         : 10px;
+    list-style-type : none;
+}
+#jqt ul li.arrow, #jqt ul.rounded li.arrow {
+    background-image    : url(../images/mobi/chevron.png), url(../images/mobi/fond-menu.gif);
+    background-position : center right, top left;
+    background-repeat   : no-repeat, repeat-x;
+}
+#jqt ul.longdesc li {
+    background  : #194b4f;
+}
+#jqt ul li a {
+    color           : #fff;
+    display         : block;
+    white-space     : normal;
+    overflow        : hidden;
+    padding         : 10px 0 10px 10px;
+    margin          : -10px 24px -10px -10px;
+}
+#jqt ul li a.active {
+    color           : #fd7902;
+}
+
+
+
+#jqt ul.rounded {
+    -webkit-border-radius   : 8px;
+    -webkit-box-shadow      : rgba(0,0,0,.3) 1px 1px 3px;
+}
+#jqt ul.rounded li:first-child, #jqt ul.rounded li:first-child a {
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+
+}
+#jqt ul.rounded li:last-child, #jqt ul.rounded li:last-child a {
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+
+}
+
+#jqt div.rounded {
+    background              : #063535;
+    padding                 : 6px;
+    -webkit-border-radius   : 8px;
+    -webkit-box-shadow      : rgba(0,0,0,.3) 1px 1px 3px;
+    opacity: 0.9;
+}
+
+#jqt .button, #jqt .back, #jqt .cancel, #jqt .add {
+    color                   : #FFF;
+    font-size               : 12px;
+    font-weight             : bold;
+    height                  : 30px;
+    line-height             : 30px;
+    margin-top              : 8px;
+    padding                 : 0px;
+    position                : absolute;
+    width                   : auto;
+    border-width            : 0 5px 0 5px;
+    -webkit-border-image    : url(../images/mobi/button.png) 0 5 0 5;
+}
+#jqt .button, #jqt .cancel, #jqt .add {
+    right                   : 10px;
+}
+#jqt .back {
+    left                    : 6px;
+    border-width            : 0 8px 0 14px;
+    -webkit-border-image    : url(../images/mobi/back_button.png) 0 8 0 14;
+}
+
+
+/* Google Maps */
+.static-map {
+    border          : 1px solid black;
+    color           : #FFF;
+    display         : block;
+    position        : relative;
+    text-decoration : none;
+}
+.static-map-overlay {
+    background  : rgba(0,0,0,0.5);
+    position    : absolute;
+    text-align  : center;
+    top         : 0;
+    width       : 100%;
+}
+
+.google-maps .map-control {
+    color       : #000;
+    padding     : 5px;
+}
+.google-maps .map-control-ui {
+    padding     : 5px;
+    background  : #FFF;
+    border      : 2px solid black;
+    cursor      : pointer;
+    text-align  : center;
+}
+
+
+
+#about {
+    opacity: 1;
+    padding: 10px 10px 40px;
+    text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
+    font-size: 13px;
+    text-align: center;
+    background-color: #242525;
+    background-image: url(../images/mobi/bouquet_fond.png), url(../images/mobi/herbe_quise_repete.jpg);
+    background-position: bottom right, bottom left;
+    background-repeat:   repeat-y, repeat-x;
+    background-attachement: fixed, fixed;
+}
+#about p {
+    margin-bottom: 8px;
+}
+#about a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+.iphone_only {
+    display: none;
+}
+.invisibleButton {
+    display: block;
+    border-width: 0 0px;
+    padding: 0px;
+    text-align: center;
+    font-size: 0px;
+    font-weight: bold;
+    text-decoration: inherit;
+    color: inherit;
+    -webkit-border-image: url(../images/mobi/invisibleButton.png) 0 0 0 0;
+}

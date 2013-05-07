@@ -1,0 +1,17 @@
+<!-- sortiment_cat -->
+<?php foreach ($this->articles as $article) : ?>
+<div class="sortiment" style='float: left; width: 320px; height: auto; background: white; overflow-y: auto;'>
+	<div style="margin: 25px 0 0 20px; height: 85px; width: 280px; background: url(/skin/images/icons/sortiment_cat.png) no-repeat right top; ">
+    	<h1><?php echo $article->pagetitle; ?></h1>
+        <h2><?php echo $article->teasertitle; ?></h2>
+	</div>
+
+		<script type="application/x-moraso" src="List.Articles:Sortiment">
+			categories = 9,10,21
+			useOfStartArticle = 3
+			template = sortiment
+			limit = 99
+		</script>
+
+</div>
+<?php endforeach; ?>

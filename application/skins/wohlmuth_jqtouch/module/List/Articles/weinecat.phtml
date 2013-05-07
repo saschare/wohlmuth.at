@@ -1,0 +1,17 @@
+<!-- weinecat -->
+<?php foreach ($this->articles as $article) : ?>
+<?php $idcat = Aitsu_Util::getIdCatByIdArt($article->idart); ?>
+
+<div id='weine<?php echo $idcat; ?>' class='panel' scrolling='yes' data-footer='footerui2'>
+	<script type="application/x-moraso" src="List.Articles:Test">
+		useOfStartArticle = 2
+		template = weineincat
+		limit = 99
+		populateWith.intro.index = Teaser
+		populateWith.content.index = Content
+		categories = <?php echo $idcat; ?>
+
+	</script>			
+</div>
+<?php $i++; endforeach; ?>
+

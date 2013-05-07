@@ -1,0 +1,27 @@
+<!-- infos -->
+<?php foreach ($this->articles as $article) : ?>
+<div id='info<?php echo $article->idart; ?>' class='panel' scrolling='yes' data-footer='footerui2'>
+<div class="info" style="margin: 35px 0 0 20px; height: 60px; width: 280px; background: url(/skin/images/icons/weingut_icon_<?php echo $article->summary; ?>.png) no-repeat right top; ">
+    	<h1><?php echo $article->pagetitle; ?></h1>
+        <h2><?php echo $article->teasertitle; ?></h2>
+	</div>
+		<?php $images = unserialize($article->bild); ?>
+		<?php if (!empty($images)) : ?>
+		<div style="margin: 0;">
+		<?php foreach ($images as $image) : ?>
+			<div style="margin: 0 auto; text-align: center"><img src="/image/320/280/3/<?php echo $article->idart; ?>/<?php echo $image; ?>" title="<?php echo $article->pagetitle; ?>"></div>
+		<?php endforeach; ?>
+		</div>
+		<?php endif; ?>
+		<?php if (!empty($article->content)) : ?>
+		<div style="margin: 45px 15px 0 20px;">
+		<?php if (!empty($article->intro)) : ?>
+  	    	<div  style="margin: 0 50px 20px 0;">
+  	    	<h2 class="<?php echo $article->summary; ?>"><?php echo $article->intro; ?></h2>
+  	    	</div>
+			<?php endif; ?> 	
+			<?php echo $article->content; ?>    
+		</div>
+		<?php endif; ?>  
+</div>
+<?php endforeach; ?>

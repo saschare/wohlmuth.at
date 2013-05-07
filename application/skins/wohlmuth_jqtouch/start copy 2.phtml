@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+        </title>
+        <link rel="stylesheet" href="/skin/css/jquery.mobile-1.2.0.css" />
+        <link rel="stylesheet" href="/skin/css/my.css" />
+        <style>
+            /* App custom styles */
+        </style>
+        <script src="/skin/js/jquery.min.js"></script>
+        <script src="/skin/js/jquery.mobile.js"></script>
+        <script src="/skin/css/my.js"></script>
+        <script src="phonegap.js"></script>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    </head>
+<body style="font-family: OpenSans">
+<!-- Home -->
+<div data-role="page" id="main" data-theme="c">
+
+	<div data-theme="a" data-role="header" style="height: 90px;">
+	    <img src="/skin/images/icons/header_start.png" border="0" width="320px">
+    </div>
+    <div data-role="content">
+    <ul class="ui-listview" >
+    	<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="false" data-shadow="false" data-corners="false" data-transition="slide" ><div class="ui-btn-inner ui-li">
+        <div class="ui-btn-text"><a class="ui-link-inherit" href="#Weingut" data-transition="slide">
+		<img class="ui-li-thumb" src="/skin/images/icons/weingut.png" width="40" height="40" alt="Weingut">
+		<h3 class="ui-li-heading">Weingut</h3>
+		</a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+            
+             		<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-theme="" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li">
+               		  <div class="ui-btn-text"><a class="ui-link-inherit" href="app3.html" data-transition="slide">
+				<img class="ui-li-thumb" src="/skin/images/icons/sortiment.png" width="40" height="40" alt="Sortiment">
+				<h3 class="ui-li-heading">Sortiment</h3>
+			</a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+            
+             		<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li">
+               		  <div class="ui-btn-text"><a class="ui-link-inherit" href="index.html" data-transition="slide">
+				<img class="ui-li-thumb" src="/skin/images/icons/rezepte.png" width="40" height="40" alt="Rezepte">
+				<h3 class="ui-li-heading">Rezepte</h3>
+			</a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+            
+             		<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li">
+               		  <div class="ui-btn-text"><a class="ui-link-inherit" href="index.html" data-transition="slide">
+				<img class="ui-li-thumb" src="/skin/images/icons/partner.png" width="40" height="40" alt="partner">
+				<h3 class="ui-li-heading">News</h3>
+			</a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+            
+             		<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-c" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false"><div class="ui-btn-inner ui-li">
+               		  <div class="ui-btn-text"><a class="ui-link-inherit" href="index.html">
+				<img class="ui-li-thumb" src="/skin/images/icons/kontakt.png" width="40" height="40" alt="kontakt">
+				<h3 class="ui-li-heading">Info</h3>
+			</a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>
+	</ul>
+	</div>
+            
+	<div date-theme="a" data-role="footer" data-position="fixed" >
+    	<div style="bottom: 20px; right:0; position: fixed;">
+        	<div style="float: right; padding: 0 30px 0 0;">
+            	<a href="" data-transition="fade"><img src="/skin/images/icons/english.png" border="0" width="30px"></a>
+            </div>  
+            <div style="float: right; padding: 0 30px 0 0;">
+            	<a href="" data-transition="fade"><img src="/skin/images/icons/facebook.png" border="0" width="30px"></a>
+            </div>
+            <div style="float: right; padding: 0 30px 0 0;">
+	            <a href="" data-transition="fade"><img src="/skin/images/icons/twitter.png" border="0" width="30px"></a>
+	        </div>
+	    </div>
+	</div>
+</div>
+        
+<!-- Weingut -->
+<div data-role="page" id="Weingut">
+	<div data-theme="a" data-role="header" style="height: 90px;"></div>
+    <div data-role="content">
+    	<script type="application/x-moraso" src="List.Articles:Weingut">
+			categories = 7
+			useOfStartArticle = 1
+			template = weingut
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+			populateWith.bild.type = property
+			populateWith.bild.index = ModuleConfig_bild:Image_Media
+		</script>
+    </div>
+    <div date-theme="a" data-role="footer" data-position="fixed" >
+    	<div style="bottom: 20px; right:0; position: fixed;">
+        	<div style="float: right; padding: 0 30px 0 0;">
+            	<a href="" data-transition="fade"><img src="/skin/images/icons/english.png" border="0" width="30px"></a>
+            </div>  
+            <div style="float: right; padding: 0 30px 0 0;">
+            	<a href="" data-transition="fade"><img src="/skin/images/icons/facebook.png" border="0" width="30px"></a>
+            </div>
+            <div style="float: right; padding: 0 30px 0 0;">
+	            <a href="" data-transition="fade"><img src="/skin/images/icons/twitter.png" border="0" width="30px"></a>
+	        </div>
+	    </div>
+	</div>
+</div>        
+        
+        
+    
+	
+<script type="text/javascript" charset="utf-8" src="/skin/css/iscroll.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/skin/css/custom.js"></script>
+</body>
+</html>

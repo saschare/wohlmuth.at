@@ -1,0 +1,436 @@
+<!DOCTYPE html><!--HTML5 doctype-->
+<html>
+<head>
+	<title>Wohlmuth</title>   
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <link rel="apple-touch-icon" href="/skin/app-icons/launch_icon_50.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="/skin/app-icons/launch_icon_72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="/skin/app-icons/launch_icon_114.png" />
+
+    <style>
+
+             
+    .carousel_paging {
+	    border-radius: 7px;
+	    border: 0;
+	    background: #eee;
+	    width: 7px;
+	    height: 7px;
+	    float: left;
+	    margin-right: 3px;
+
+    }
+
+    .carousel_paging_selected {
+	    border-radius: 7px;
+	    border: 0;
+	    background: #d7d7d7;
+	    width: 7px;
+	    height: 7px;
+	    float: left;
+	    margin-right: 3px;
+    }
+
+    .spacer {
+	    width: 0px;
+	    float: left;
+    }
+
+    .carousel_content {
+	    -webkit-transform: translate3d(0, 0, 0);
+    }
+    </style>
+    
+    
+
+        
+	<!-- CSS :: Start -->
+    <link rel="stylesheet" href="/skin/css/jquery.mobile.structure-1.0.1.css" />
+    <link rel="stylesheet" href="/skin/css/jquery.mobile-1.0.1.css" />
+	<link rel="stylesheet" href="/skin/css/custom.css" />
+    <link rel="stylesheet" href="/skin/css/wohlmuth.css">
+    <!-- CSS :: End -->
+	
+    <!-- JS :: Start -->
+    <style type="text/css" media="screen">@import "/skin/themes/css/jqtouch.css";</style>
+    <script src="/skin/src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/skin/src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+    
+    <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: '/skin/images/app-icons/jqtouch.png',
+                icon4: '/skin/images/app-icons/jqtouch4.png',
+                addGlossToIcon: false,
+                startupScreen: '/skin/images/splash-screen.png',
+                statusBar: 'black-translucent',
+                themeSelectionSelector: '#jqt #themes ul',
+                preloadImages: []
+            });
+
+            // Some sample Javascript functions:
+            $(function(){
+
+                // Show a swipe event on swipe test
+                $('#swipeme').swipe(function(evt, data) {
+                    var details = !data ? '': '<strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!';
+                    $(this).html('You swiped ' + details );
+                    $(this).parent().after('<li>swiped!</li>')
+                });
+
+                $('#tapme').tap(function(){
+                    $(this).parent().after('<li>tapped!</li>')
+                });
+
+                $('a[target="_blank"]').bind('click', function() {
+                    if (confirm('This link opens in a new window.')) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+
+                // Page animation callback events
+                $('#pageevents').
+                    bind('pageAnimationStart', function(e, info){ 
+                        $(this).find('.info').append('Started animating ' + info.direction + '&hellip;  And the link ' +
+                            'had this custom data: ' + $(this).data('referrer').data('custom') + '<br>');
+                    }).
+                    bind('pageAnimationEnd', function(e, info){
+                        $(this).find('.info').append('Finished animating ' + info.direction + '.<br><br>');
+
+                    });
+                
+                // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
+                $('#callback').bind('pageAnimationEnd', function(e, info){
+                    // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
+                    if (!$(this).data('loaded')) {
+                        // Append a placeholder in case the remote HTML takes its sweet time making it back
+                        // Then, overwrite the "Loading" placeholder text with the remote HTML
+                        $(this).append($('<div>Loading</div>').load('ajax.html .info', function() {        
+                            // Set the 'loaded' var to true so we know not to reload
+                            // the HTML next time the #callback div animation ends
+                            $(this).parent().data('loaded', true);  
+                        }));
+                    }
+                });
+                // Orientation callback event
+                $('#jqt').bind('turn', function(e, data){
+                    $('#orient').html('Orientation: ' + data.orientation);
+                });
+                
+            });
+        </script>
+
+        <style type="text/css" media="screen">
+            #jqt.fullscreen #home .info {
+                display: none;
+            }
+            div#jqt #about {
+                padding: 100px 10px 40px;
+                text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0;
+                color: #999;
+                font-size: 13px;
+                text-align: center;
+                background: #161618;
+            }
+            div#jqt #about p {
+                margin-bottom: 8px;
+            }
+            div#jqt #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+        </style>
+
+      
+        
+</head>
+
+<body>
+	<div id="jqt">
+		<!--<div id="splashscreen" class='ui-loader' style="background: url(/skin/images/splash.png) no-repeat center center">
+			<span class='ui-icon ui-icon-loading spin'></span><h1 ></h1>
+        </div>-->
+        
+
+                  
+<div id='main' title='main'>       	
+	<div style="height: 95px; background: #000 url(/skin/images/wohlmuth-logo.png) no-repeat 20px 50px;"></div>
+    <ul>    
+		<script type="application/x-moraso" src="Navigation:Main"> 
+			idcat = 1
+			template = main
+		</script>
+	</ul>
+	
+	<div class="scroll">
+		<ul class="rounded">
+        	<li class="arrow"><a href="#Weingut">Weingut</a></li>
+            <li class="arrow"><a href="ajax.html">GET Example</a></li>
+            <li class="arrow"><a href="ajax_long.html">Long GET Example</a></li>
+            <li class="arrow"><a href="#Sortiment">Sortiment</a></li>
+        </ul>
+    </div>
+
+<footer id='footerui0' style='background-image: none; background-color: white; height: 40px; border: 0; text-align: center; box-shadow: none;'>
+	<div style="bottom: 10px; right:0; position: fixed;">
+		<div style="float: right; padding: 0 20px 0 0;">
+			<img src="/skin/images/icons/english.png" border="0" width="30px">
+		</div>  
+	    <div style="float: right; padding: 0 20px 0 0;">
+    	 	<img src="/skin/images/icons/facebook.png" border="0" width="30x">
+		</div>
+   	    <div style="float: right; padding: 0 20px 0 0;">
+       		<img src="/skin/images/icons/twitter.png" border="0" width="30px">
+		</div>
+	</div>
+</footer>
+
+
+
+</div>
+			
+
+<div id="Weingut" class="panel" scrolling="no"  data-footer='footerui1'>
+	<script>
+    	function init_carousel_Weingut() {
+        	$('#carousel_Weingut').carousel({
+            	pagingDiv: 'carousel_dots_Weingut',
+            	pagingCssName: 'carousel_paging',
+            	pagingCssNameSelected: 'carousel_paging_selected'
+            });
+        }
+        document.addEventListener('DOMContentLoaded', init_carousel_Weingut, false);
+    </script>
+    	<div id="carousel_dots_Weingut" style="margin: 0; top: 5px; left: 5px; position: absolute; height: 10px; z-index: 100; background: none; width: 320px; text-align: right"></div>
+
+
+    <div id='carousel_Weingut' style='overflow: hidden; height: 100%; width: 100%; float: left;'>
+	<!-- create a div for each page in the carousel -->
+		<script type="application/x-moraso" src="List.Articles:Weingut">
+			categories = 7
+			useOfStartArticle = 1
+			template = weingut
+			limit = 999
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+			populateWith.bild.type = property
+			populateWith.bild.index = ModuleConfig_bilder:Image_Media
+		</script>
+    </div>
+    
+    
+</div>
+
+
+<div id='Sortiment' class='panel' scrolling='yes' data-footer='footerui2'>
+    <ul>    
+		<script type="application/x-moraso" src="List.Articles:Sortiment_Cat">
+			categories = 8
+			useOfStartArticle = 3
+			limit = 999
+			template = sortiment_cat
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+	</ul>
+	<footer style="text-align: center; height: 39px; width: 100%; background-color: white;">
+		<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+	</footer>
+</div>
+
+
+<div id='sort_suedsteiermark' class='panel' scrolling='yes' data-footer='footerui2'>
+	<ul>
+   		<script type="application/x-moraso" src="List.Articles:Sortiment_Steiermark">
+			categories = 9
+			useOfStartArticle = 3
+			limit = 999
+			template = weinkategorien
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+	</ul>
+	<footer style="text-align: center; height: 39px; width: 100%; background-color: white;">
+		<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+	</footer>
+</div>
+
+<div id='sort_burgenland' class='panel' scrolling='yes' data-footer='footerui2'>
+   <ul>
+   		<script type="application/x-moraso" src="List.Articles:Sortiment_Burgenland">
+			categories = 10
+			useOfStartArticle = 3
+			limit = 999
+			template = weinkategorien-bl
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+   </ul>
+	<footer style="text-align: center; height: 39px; width: 100%; background-color: white;">
+		<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+	</footer>
+</div>
+
+<div id='sort_sekte-braende' class='panel' scrolling='yes' data-footer='footerui2'>
+   <ul>
+   		<script type="application/x-moraso" src="List.Articles:Sortiment_sekte-braende">
+			categories = 21
+			useOfStartArticle = 3
+			limit = 999
+			template = weinkategorien-sb
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+   </ul>
+</div>
+
+
+<script type="application/x-moraso" src="List.Articles:WeineKategorien">
+	categories = 10,11,12,13,14,21
+	useOfStartArticle = 3
+	limit = 999
+	template = weinecat
+	populateWith.intro.index = Teaser
+	populateWith.content.index = Content
+</script>
+
+
+<!-- Weine -->
+<script type="application/x-moraso" src="List.Articles:Weine">
+	categories = 10,11,12,13,14,21
+	useOfStartArticle = 2
+	template = weine
+	limit = 999
+	populateWith.intro.index = Teaser
+	populateWith.content.index = Content
+	populateWith.bild.type = property
+	populateWith.bild.index = ModuleConfig_bilder:Image_Media
+</script>
+
+
+
+<div id="Rezepte" class="panel" scrolling="no"  data-footer='footerui2'>
+	<!-- create a div for each page in the carousel -->
+		<script type="application/x-moraso" src="List.Articles:Sortiment_Rezepte">
+			categories = 15
+			useOfStartArticle = 3
+			limit = 999
+			template = rezept_kategorien
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+    </div>
+</div>
+
+
+<script type="application/x-moraso" src="List.Articles:Rezepte">
+	categories = 15
+	useOfStartArticle = 2
+	template = rezepte
+	limit = 999
+	populateWith.intro.index = Teaser
+	populateWith.content.index = Content
+	populateWith.bild.type = property
+	populateWith.bild.index = ModuleConfig_bilder:Image_Media
+</script>
+
+
+<div id="News" class="panel" scrolling="no"  data-footer='footerui2'>
+	<!-- create a div for each page in the carousel -->
+	<script type="application/x-moraso" src="List.Articles:Sortiment_News">
+		categories = 16
+		useOfStartArticle = 3
+		limit = 999
+		template = news_kategorien
+		populateWith.intro.index = Teaser
+		populateWith.content.index = Content
+	</script>
+</div>
+
+
+<script type="application/x-moraso" src="List.Articles:News">
+	categories = 16
+	useOfStartArticle = 2
+	template = news
+	limit = 999
+	populateWith.intro.index = Teaser
+	populateWith.content.index = Content
+	populateWith.bild.type = property
+	populateWith.bild.index = ModuleConfig_bilder:Image_Media
+</script>
+
+
+<div id='Info' class='panel' scrolling='yes' data-footer='footerui2'>
+    <ul>    
+		<script type="application/x-moraso" src="List.Articles:Info_Cat">
+			categories = 17
+			useOfStartArticle = 3
+			template = info_cat
+			limit = 999
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+	</ul>
+	<footer style="text-align: center; height: 39px; width: 100%; background-color: white;">
+		<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+	</footer>
+</div>
+
+
+<script type="application/x-moraso" src="List.Articles:Info_Kontakt">
+	categories = 18,19,20
+	useOfStartArticle = 3
+	template = infos
+	limit = 999
+	populateWith.intro.index = Teaser
+	populateWith.content.index = Content
+</script>
+
+
+<div id='info_partner' class='panel' scrolling='yes' data-footer='footerui2'>
+   <ul>
+   		<script type="application/x-moraso" src="List.Articles:Sortiment_Steiermark">
+			categories = 20
+			useOfStartArticle = 3
+			template = infokategorien
+			limit = 999
+			populateWith.intro.index = Teaser
+			populateWith.content.index = Content
+		</script>
+   </ul>
+   
+   	<footer id="footerui1" style="text-align: center; height: 39px; width: 100%; background-color: white;">
+		<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+	</footer>
+
+</div>
+
+
+
+
+	
+
+<footer id="footerui2" style="text-align: center; height: 20px; width: 100%;">
+	<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+</footer>
+
+<footer id="footerui3" style="text-align: center; height: 39px; width: 100%; background-color: white;">
+	<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+</footer>	
+
+<footer id="footerui4" style="text-align: center; height: 39px; width: 100%; background-color: white;">
+	<div style="z-index: 1;"><a href="#main" data-transition="up"><img src="/skin/images/icons/home.png" border="0"></a></div>
+</footer>	
+
+
+
+
+</body>
+</html>
